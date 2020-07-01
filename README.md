@@ -1,2 +1,2 @@
-# aiof-frontend
-All in one finance front end UI
+# AIOF Portal
+All in one finance portal
