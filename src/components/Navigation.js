@@ -1,11 +1,11 @@
 import '../../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 import React, { Component } from 'react';
+import { Route } from "react-router-dom";
+import { Nav, Navbar, NavDropdown } from 'react-bootstrap';
+import { IndexLinkContainer } from 'react-router-bootstrap';
 import Login from './Login';
 import Home from './Home';
-import { Nav, Navbar, NavDropdown } from 'react-bootstrap';
-import { Route } from "react-router-dom";
-import { IndexLinkContainer } from 'react-router-bootstrap'
 
 class Navigation extends Component {
     render() {
@@ -29,8 +29,8 @@ class Navigation extends Component {
                             Signed in as: <a href="#login">Mark Otto</a>
                         </Navbar.Text>
                     </Navbar.Collapse>
-
                 </Navbar>
+
                 <Route exact path='/home' component={Home} />
                 <Route path='/login' component={Login} />
             </>
