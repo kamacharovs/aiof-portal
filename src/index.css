@@ -6,6 +6,7 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   background: #282c34 !important;
+  color: #ffffff;
   min-height: 100vh;
   display: flex;
   font-weight: 400;
@@ -14,10 +15,6 @@ body {
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
-}
-
-* {
-  box-sizing: border-box;
 }
 
 h1, h2, h3, h4, h5, h6, label, span {
