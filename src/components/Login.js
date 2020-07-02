@@ -52,7 +52,7 @@ class Login extends Component {
     // but you don't need to target those (any css-selector will work)
 
     return (
-      <Form>
+      <Form className="Login">
         <Form.Group controlId="formBasicEmail">
           <Form.Label>Email address</Form.Label>
           <Form.Control type="email" placeholder="Enter email" />
