@@ -52,7 +52,7 @@ class Login extends Component
     // but you don't need to target those (any css-selector will work)
 
     return (
-      <div className="Login">
+      <div id="portal-login" className="Login">
         <form onSubmit={this.handleSubmit}>
           {
             this.state.error &&

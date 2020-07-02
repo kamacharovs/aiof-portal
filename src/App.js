@@ -1,12 +1,11 @@
 import React from 'react';
 import './App.css';
+import Login from './components/Login';
 
-function App() {
+export default function  App() {
   return (
-    <div className="App">
-      
+    <div id="root" className="App">
+      <Login></Login>
     </div>
   );
 }
-
-export default App;
