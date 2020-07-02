@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
+import { Form, Button } from 'react-bootstrap';
 import './Login.css';
 
-class Login extends Component
-{
+class Login extends Component {
   constructor() {
     super();
     this.state = {
@@ -53,22 +53,26 @@ class Login extends Component
 
     return (
       <div id="portal-login" className="Login">
-        <form onSubmit={this.handleSubmit}>
-          {
-            this.state.error &&
-            <h3 data-test="error" onClick={this.dismissError}>
-              <button onClick={this.dismissError}>✖</button>
-              {this.state.error}
-            </h3>
-          }
-          <label>User Name</label>
-          <input type="text" data-test="username" value={this.state.username} onChange={this.handleUserChange} />
+        <Form>
+          <Form.Group controlId="formBasicEmail">
+            <Form.Label>Email address</Form.Label>
+            <Form.Control type="email" placeholder="Enter email" />
+            <Form.Text className="text-muted">
+              We'll never share your email with anyone else.
+    </Form.Text>
+          </Form.Group>
 
-          <label>Password</label>
-          <input type="password" data-test="password" value={this.state.password} onChange={this.handlePassChange} />
-
-          <input type="submit" value="Log In" data-test="submit" />
-        </form>
+          <Form.Group controlId="formBasicPassword">
+            <Form.Label>Password</Form.Label>
+            <Form.Control type="password" placeholder="Password" />
+          </Form.Group>
+          <Form.Group controlId="formBasicCheckbox">
+            <Form.Check type="checkbox" label="Remember me" />
+          </Form.Group>
+          <Button variant="primary" type="submit">
+            Submit
+  </Button>
+        </Form>
       </div>
     );
   }
