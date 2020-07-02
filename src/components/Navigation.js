@@ -3,7 +3,7 @@ import './App.css';
 import React, { Component } from 'react';
 import { Route } from "react-router-dom";
 import { Nav, Navbar, NavDropdown } from 'react-bootstrap';
-import { IndexLinkContainer } from 'react-router-bootstrap';
+import { LinkContainer } from 'react-router-bootstrap';
 import Login from './Login';
 import Home from './Home';
 
@@ -12,11 +12,11 @@ class Navigation extends Component {
         return (
             <>
                 <Navbar bg="dark" variant="dark" expand="lg">
-                    <IndexLinkContainer to="/home"><Navbar.Brand href="#">Home</Navbar.Brand></IndexLinkContainer >
+                    <LinkContainer to="/home"><Navbar.Brand>Home</Navbar.Brand></LinkContainer >
                     <Navbar.Toggle aria-controls="basic-navbar-nav" />
                     <Navbar.Collapse id="basic-navbar-nav">
                         <Nav className="mr-auto">
-                            <IndexLinkContainer to="/login"><Nav.Link href="#">Login</Nav.Link></IndexLinkContainer >
+                            <LinkContainer to="/login"><Nav.Link>Login</Nav.Link></LinkContainer >
                             <NavDropdown title="Dropdown" id="basic-nav-dropdown">
                                 <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
                                 <NavDropdown.Item href="#action/3.2">Another action</NavDropdown.Item>

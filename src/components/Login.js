@@ -52,7 +52,7 @@ class Login extends Component {
     // but you don't need to target those (any css-selector will work)
 
     return (
-      <div className="Login">
+      <div class="login d-flex justify-content-center">
         <Form>
           <Form.Group controlId="formBasicEmail">
             <Form.Label>Email address</Form.Label>
@@ -72,8 +72,7 @@ class Login extends Component {
           <Button variant="primary" type="submit">
             Submit
         </Button>
-        </Form>
-      </div>
+        </Form></div>
     );
   }
 }
