@@ -7,7 +7,7 @@ export default class SignUp extends Component {
     render() {
         return (
             <>
-                <div class="login d-flex justify-content-center">
+                <div class="sign-up d-flex justify-content-center">
                     <h3>Sign Up</h3>
                     <Form>
                         <Form.Group controlId="formFirstName">
