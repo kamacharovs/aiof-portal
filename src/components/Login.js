@@ -54,19 +54,20 @@ class Login extends Component {
     return (
       <div class="login d-flex justify-content-center">
         <Form>
-          <Form.Group controlId="formBasicEmail">
-            <Form.Label>Email address</Form.Label>
-            <Form.Control type="email" placeholder="Enter email" />
+          <Form.Group controlId="loginEmail">
+            <Form.Label>Username</Form.Label>
+            <Form.Control type="text" placeholder="Username" />
             <Form.Text className="text-muted">
-              We'll never share your email with anyone else.
+              The username you have registered
           </Form.Text>
           </Form.Group>
 
-          <Form.Group controlId="formBasicPassword">
+          <Form.Group controlId="loginPassword">
             <Form.Label>Password</Form.Label>
             <Form.Control type="password" placeholder="Password" />
           </Form.Group>
-          <Form.Group controlId="formBasicCheckbox">
+
+          <Form.Group controlId="loginRememberMe">
             <Form.Check type="checkbox" label="Remember me" />
           </Form.Group>
           <Button variant="primary" type="submit">
