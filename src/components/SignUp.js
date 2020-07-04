@@ -35,6 +35,14 @@ export default class SignUp extends Component {
                         </Form.Text>
                         </Form.Group>
 
+                        <Form.Group controlId="signUpUsername">
+                            <Form.Label>Username</Form.Label>
+                            <Form.Control type="text" placeholder="Username" />
+                            <Form.Text className="text-muted">
+                                Unique username
+                        </Form.Text>
+                        </Form.Group>
+
                         <Form.Group controlId="formBasicPassword">
                             <Form.Label>Password</Form.Label>
                             <Form.Control type="password" placeholder="Password" />
