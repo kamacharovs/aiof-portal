@@ -70,6 +70,7 @@ class Login extends Component {
           <Form.Group controlId="loginRememberMe">
             <Form.Check type="checkbox" label="Remember me" />
           </Form.Group>
+          
           <Button variant="primary" type="submit">
             Submit
         </Button>
