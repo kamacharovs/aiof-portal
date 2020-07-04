@@ -11,7 +11,7 @@ export default class SignUp extends Component {
             <>
                 <div class="sign-up d-flex justify-content-center">
                     <Form>
-                        <Form.Group controlId="formFirstName">
+                        <Form.Group controlId="signUpFirstName">
                             <Form.Label>First name</Form.Label>
                             <Form.Control type="text" placeholder="First name" />
                             <Form.Text className="text-muted">
@@ -19,7 +19,7 @@ export default class SignUp extends Component {
                         </Form.Text>
                         </Form.Group>
 
-                        <Form.Group controlId="formLastName">
+                        <Form.Group controlId="signUpLastName">
                             <Form.Label>Last name</Form.Label>
                             <Form.Control type="text" placeholder="Last name" />
                             <Form.Text className="text-muted">
@@ -27,7 +27,7 @@ export default class SignUp extends Component {
                         </Form.Text>
                         </Form.Group>
 
-                        <Form.Group controlId="formBasicEmail">
+                        <Form.Group controlId="signUpEmail">
                             <Form.Label>Email address</Form.Label>
                             <Form.Control type="email" placeholder="Email" />
                             <Form.Text className="text-muted">
@@ -43,7 +43,7 @@ export default class SignUp extends Component {
                         </Form.Text>
                         </Form.Group>
 
-                        <Form.Group controlId="formBasicPassword">
+                        <Form.Group controlId="signUpPassword">
                             <Form.Label>Password</Form.Label>
                             <Form.Control type="password" placeholder="Password" />
                         </Form.Group>
