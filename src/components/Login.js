@@ -56,7 +56,7 @@ class Login extends Component {
         <Form>
           <Form.Group controlId="loginEmail">
             <Form.Label>Username</Form.Label>
-            <Form.Control type="text" placeholder="Username" />
+            <Form.Control type="text" />
             <Form.Text className="text-muted">
               The username you have registered
           </Form.Text>
@@ -64,13 +64,13 @@ class Login extends Component {
 
           <Form.Group controlId="loginPassword">
             <Form.Label>Password</Form.Label>
-            <Form.Control type="password" placeholder="Password" />
+            <Form.Control type="password" />
           </Form.Group>
 
           <Form.Group controlId="loginRememberMe">
             <Form.Check type="checkbox" label="Remember me" />
           </Form.Group>
-          
+
           <Button variant="primary" type="submit">
             Submit
         </Button>

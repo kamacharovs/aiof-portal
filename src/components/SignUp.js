@@ -13,7 +13,7 @@ export default class SignUp extends Component {
                     <Form>
                         <Form.Group controlId="signUpFirstName">
                             <Form.Label>First name</Form.Label>
-                            <Form.Control type="text" placeholder="First name" />
+                            <Form.Control type="text" />
                             <Form.Text className="text-muted">
                                 Legal first name
                         </Form.Text>
@@ -21,7 +21,7 @@ export default class SignUp extends Component {
 
                         <Form.Group controlId="signUpLastName">
                             <Form.Label>Last name</Form.Label>
-                            <Form.Control type="text" placeholder="Last name" />
+                            <Form.Control type="text" />
                             <Form.Text className="text-muted">
                                 Legal last name
                         </Form.Text>
@@ -29,7 +29,7 @@ export default class SignUp extends Component {
 
                         <Form.Group controlId="signUpEmail">
                             <Form.Label>Email address</Form.Label>
-                            <Form.Control type="email" placeholder="Email" />
+                            <Form.Control type="email" />
                             <Form.Text className="text-muted">
                                 We'll never share your email with anyone else.
                         </Form.Text>
@@ -37,7 +37,7 @@ export default class SignUp extends Component {
 
                         <Form.Group controlId="signUpUsername">
                             <Form.Label>Username</Form.Label>
-                            <Form.Control type="text" placeholder="Username" />
+                            <Form.Control type="text" />
                             <Form.Text className="text-muted">
                                 Unique username
                         </Form.Text>
@@ -45,7 +45,7 @@ export default class SignUp extends Component {
 
                         <Form.Group controlId="signUpPassword">
                             <Form.Label>Password</Form.Label>
-                            <Form.Control type="password" placeholder="Password" />
+                            <Form.Control type="password" />
                         </Form.Group>
 
                         <Button variant="primary" type="submit">
