@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Form, Button } from 'react-bootstrap';
 import './Login.css';
 
-class Login extends Component {
+export default class Login extends Component {
   constructor() {
     super();
     this.state = {
@@ -21,8 +21,8 @@ class Login extends Component {
     this.setState({ error: '' });
   }
 
-  handleSubmit(evt) {
-    evt.preventDefault();
+  handleSubmit(e) {
+    e.preventDefault();
 
     if (!this.state.username) {
       return this.setState({ error: 'Username is required' });
@@ -31,19 +31,19 @@ class Login extends Component {
     if (!this.state.password) {
       return this.setState({ error: 'Password is required' });
     }
-
+    
     return this.setState({ error: '' });
   }
 
-  handleUserChange(evt) {
+  handleUserChange(e) {
     this.setState({
-      username: evt.target.value,
+      username: e.target.value,
     });
   };
 
-  handlePassChange(evt) {
+  handlePassChange(e) {
     this.setState({
-      password: evt.target.value,
+      password: e.target.value,
     });
   }
 
@@ -56,7 +56,9 @@ class Login extends Component {
         <Form>
           <Form.Group controlId="loginEmail">
             <Form.Label>Username</Form.Label>
-            <Form.Control type="text" />
+            <Form.Control type="text"
+              value = {this.state.username}
+              onChange = {e => this.handleUserChange(e)} />
             <Form.Text className="text-muted">
               The username you have registered
           </Form.Text>
@@ -64,20 +66,21 @@ class Login extends Component {
 
           <Form.Group controlId="loginPassword">
             <Form.Label>Password</Form.Label>
-            <Form.Control type="password" />
+            <Form.Control type="password"
+              value = {this.state.password}
+              onChange = {e => this.handlePassChange(e)} />
           </Form.Group>
 
           <Form.Group controlId="loginRememberMe">
             <Form.Check type="checkbox" label="Remember me" />
           </Form.Group>
 
-          <Button variant="primary" type="submit">
+          <Button variant="primary" type="submit"
+              onClick = {e => this.handleSubmit(e)} >
             Submit
-        </Button>
+          </Button>
         </Form>
         </div>
     );
   }
 }
-
-export default Login;
