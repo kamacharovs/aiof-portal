@@ -6,6 +6,40 @@ import { Form, Button } from 'react-bootstrap';
 import { Route } from "react-router-dom";
 
 export default class SignUp extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            firstName: '',
+            lastName: '',
+            emailAddress: '',
+            userName: '',
+            password: '',
+        };
+    }
+
+    // Make API call when the Component loads
+    registerUser() {
+        fetch("http://dummy.restapiexample.com/api/v1/employees")
+            .then(res => res.json())
+            .then(
+                (result) => {
+                    this.setState({
+                        isLoaded: true,
+                        items: result.data
+                    });
+                },
+                // Note: it's important to handle errors here
+                // instead of a catch() block so that we don't swallow
+                // exceptions from actual bugs in components.
+                (error) => {
+                    this.setState({
+                        isLoaded: true,
+                        error
+                    });
+                }
+            )
+    }
+
     render() {
         return (
             <>
