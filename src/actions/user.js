@@ -9,6 +9,7 @@ function requestUser(username) {
 }
 
 function receiveUser(username, json) {
+    console.log(json)
   return {
     type: GET_USER_SUCCESS,
     username,
@@ -22,7 +23,11 @@ export function getUser(username) {
 
     dispatch(requestUser(username))
 
-    return fetch(`"http://localhost:5000/aiof/user/username/${username}"`)
+    return fetch("http://localhost:5000/aiof/user/username/" + username, {
+        headers : { 
+          'Accept': 'application/json'
+         }
+        })
       .then(
         response => response.json()
       )
