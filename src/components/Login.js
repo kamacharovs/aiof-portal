@@ -15,7 +15,7 @@ class Login extends Component {
 
     this.handlePassChange = this.handlePassChange.bind(this);
     this.handleUserChange = this.handleUserChange.bind(this);
-    this.handleSubmitAsync = this.handleSubmitAsync.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
     this.dismissError = this.dismissError.bind(this);
   }
 
@@ -23,7 +23,7 @@ class Login extends Component {
     this.setState({ error: '' });
   }
 
-  async handleSubmitAsync(e) {
+  handleSubmit(e) {
     e.preventDefault();
 
     if (!this.state.username) {
@@ -33,7 +33,8 @@ class Login extends Component {
     if (!this.state.password) {
       return this.setState({ error: 'Password is required' });
     }
-    
+
+    console.log("here 1")
     getUser(this.state.username)
     this.props.history.push("/");
   }
@@ -51,9 +52,6 @@ class Login extends Component {
   }
 
   render() {
-    // NOTE: I use data-attributes for easier E2E testing
-    // but you don't need to target those (any css-selector will work)
-
     return (
       <>
         <div className="login d-flex justify-content-center">
@@ -80,7 +78,7 @@ class Login extends Component {
             </Form.Group>
 
             <Button variant="primary" type="submit"
-              onClick={e => this.handleSubmitAsync(e)} >
+              onClick={e => this.handleSubmit(e)} >
               Submit
           </Button>
           </Form>
