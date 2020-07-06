@@ -23,26 +23,6 @@ class Login extends Component {
     this.setState({ error: '' });
   }
 
-  async getUserAsync() {
-    await fetch("http://localhost:5000/aiof/user/username/" + this.state.username)
-      .then(res => res.json())
-      .then(
-        (result) => {
-          this.setState({
-            user: result
-          });
-        },
-        // Note: it's important to handle errors here
-        // instead of a catch() block so that we don't swallow
-        // exceptions from actual bugs in components.
-        (error) => {
-          this.setState({
-            error
-          });
-        }
-      )
-  }
-
   async handleSubmitAsync(e) {
     e.preventDefault();
 
@@ -53,9 +33,8 @@ class Login extends Component {
     if (!this.state.password) {
       return this.setState({ error: 'Password is required' });
     }
-
-    await this.getUserAsync()
     
+    getUser(this.state.username)
     this.props.history.push("/");
   }
 
