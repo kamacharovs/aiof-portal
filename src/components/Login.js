@@ -54,7 +54,7 @@ export default class Login extends Component {
 
     await this.getUserAsync()
     
-    return this.setState({ error: '' });
+    this.props.history.push("/");
   }
 
   handleUserChange(e) {
@@ -74,35 +74,37 @@ export default class Login extends Component {
     // but you don't need to target those (any css-selector will work)
 
     return (
-      <div className="login d-flex justify-content-center">
-        <Form>
-          <Form.Group controlId="loginEmail">
-            <Form.Label>Username</Form.Label>
-            <Form.Control type="text"
-              value = {this.state.username}
-              onChange = {e => this.handleUserChange(e)} />
-            <Form.Text className="text-muted">
-              The username you have registered
+      <>
+        <div className="login d-flex justify-content-center">
+          <Form>
+            <Form.Group controlId="loginEmail">
+              <Form.Label>Username</Form.Label>
+              <Form.Control type="text"
+                value={this.state.username}
+                onChange={e => this.handleUserChange(e)} />
+              <Form.Text className="text-muted">
+                The username you have registered
           </Form.Text>
-          </Form.Group>
+            </Form.Group>
 
-          <Form.Group controlId="loginPassword">
-            <Form.Label>Password</Form.Label>
-            <Form.Control type="password"
-              value = {this.state.password}
-              onChange = {e => this.handlePassChange(e)} />
-          </Form.Group>
+            <Form.Group controlId="loginPassword">
+              <Form.Label>Password</Form.Label>
+              <Form.Control type="password"
+                value={this.state.password}
+                onChange={e => this.handlePassChange(e)} />
+            </Form.Group>
 
-          <Form.Group controlId="loginRememberMe">
-            <Form.Check type="checkbox" label="Remember me" />
-          </Form.Group>
+            <Form.Group controlId="loginRememberMe">
+              <Form.Check type="checkbox" label="Remember me" />
+            </Form.Group>
 
-          <Button variant="primary" type="submit"
-              onClick = {e => this.handleSubmitAsync(e)} >
-            Submit
+            <Button variant="primary" type="submit"
+              onClick={e => this.handleSubmitAsync(e)} >
+              Submit
           </Button>
-        </Form>
+          </Form>
         </div>
+      </>
     );
   }
 }

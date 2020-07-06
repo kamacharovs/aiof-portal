@@ -76,7 +76,6 @@ export default class SignUp extends Component {
                     });
                 }
             )
-        alert(this.state.user)
     }
 
     render() {

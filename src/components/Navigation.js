@@ -35,7 +35,7 @@ export default class Navigation extends Component {
                             </NavDropdown>
                         </Nav>
                         <Navbar.Text>
-                            Signed in as: <a href="/login">{this.state.user.username}</a>
+                            {this.state.user?.username ? "Signed in as: <i>" + this.state.user.username + "</i>" : null}
                         </Navbar.Text>
                     </Navbar.Collapse>
                 </Navbar>
