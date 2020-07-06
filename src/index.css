@@ -5,8 +5,8 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background: #282c34 !important;
-  color: #ffffff !important;
+  background: #ffffff !important;
+  color: #111111 !important;
   min-height: 100vh;
   display: flex;
   font-weight: 400;
