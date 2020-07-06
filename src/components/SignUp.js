@@ -55,21 +55,19 @@ export default class SignUp extends Component {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify(
-                {
-                    firstName: this.state.firstName,
-                    lastName: this.state.lastName,
-                    email: this.state.email,
-                    username: this.state.username
-                })
+            body: JSON.stringify({
+                firstName: this.state.firstName,
+                lastName: this.state.lastName,
+                email: this.state.email,
+                username: this.state.username
+            })
         })
             .then(res => res.json())
-            .then(
-                (result) => {
-                    this.setState({
-                        user: result
-                    });
-                },
+            .then((result) => {
+                this.setState({
+                    user: result
+                });
+            },
                 // Note: it's important to handle errors here
                 // instead of a catch() block so that we don't swallow
                 // exceptions from actual bugs in components.

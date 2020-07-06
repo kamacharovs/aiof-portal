@@ -52,7 +52,7 @@ export default class Login extends Component {
     // but you don't need to target those (any css-selector will work)
 
     return (
-      <div class="login d-flex justify-content-center">
+      <div className="login d-flex justify-content-center">
         <Form>
           <Form.Group controlId="loginEmail">
             <Form.Label>Username</Form.Label>
