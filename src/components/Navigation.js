@@ -13,12 +13,12 @@ class Navigation extends Component {
         return (
             <>
                 <Navbar bg="dark" variant="dark" expand="lg">
-                    <LinkContainer to="/home"><Navbar.Brand>Home</Navbar.Brand></LinkContainer >
                     <Navbar.Toggle aria-controls="basic-navbar-nav" />
                     <Navbar.Collapse id="basic-navbar-nav">
-                        <Nav className="mr-auto">
-                            <LinkContainer to="/login"><Nav.Link>Login</Nav.Link></LinkContainer >
-                            <LinkContainer to="/signup"><Nav.Link>Sign up</Nav.Link></LinkContainer >
+                        <Nav className="mr-auto"> 
+                            <LinkContainer to="/home"><Nav.Link href="/home">Home</Nav.Link></LinkContainer >
+                            <LinkContainer to="/login"><Nav.Link href="/login">Login</Nav.Link></LinkContainer >
+                            <LinkContainer to="/signup"><Nav.Link href="/signup">Sign up</Nav.Link></LinkContainer >
                             <NavDropdown title="Dropdown" id="basic-nav-dropdown">
                                 <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
                                 <NavDropdown.Item href="#action/3.2">Another action</NavDropdown.Item>
