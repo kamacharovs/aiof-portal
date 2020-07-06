@@ -19,43 +19,55 @@ export default class SignUp extends Component {
 
     handleFirstNameChange(e) {
         this.setState({
-          firstName: e.target.value,
+            firstName: e.target.value,
         });
     };
-    
+
     handleLastNameChange(e) {
         this.setState({
-          lastName: e.target.value,
+            lastName: e.target.value,
         });
     }
 
     handleEmailChange(e) {
         this.setState({
-          email: e.target.value,
+            email: e.target.value,
         });
     }
 
     handleUsernameChange(e) {
         this.setState({
-          username: e.target.value,
+            username: e.target.value,
         });
     }
 
     handlePasswordChange(e) {
         this.setState({
-          password: e.target.value,
+            password: e.target.value,
         });
     }
 
     // Make API call when the Component loads
-    registerUser() {
-        fetch("http://dummy.restapiexample.com/api/v1/employees")
+    async registerUserAsync() {
+        await fetch('http://localhost:5000/aiof/user/add', {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(
+                {
+                    firstName: this.state.firstName,
+                    lastName: this.state.lastName,
+                    email: this.state.email,
+                    username: this.state.username
+                })
+        })
             .then(res => res.json())
             .then(
                 (result) => {
                     this.setState({
-                        isLoaded: true,
-                        items: result.data
+                        user: result
                     });
                 },
                 // Note: it's important to handle errors here
@@ -63,12 +75,11 @@ export default class SignUp extends Component {
                 // exceptions from actual bugs in components.
                 (error) => {
                     this.setState({
-                        isLoaded: true,
                         error
                     });
                 }
             )
-            alert("success")
+        alert(this.state.user)
     }
 
     render() {
@@ -79,8 +90,8 @@ export default class SignUp extends Component {
                         <Form.Group controlId="signUpFirstName">
                             <Form.Label>First name</Form.Label>
                             <Form.Control type="text"
-                                value = {this.state.firstName}
-                                onChange = {e => this.handleFirstNameChange(e)} />
+                                value={this.state.firstName}
+                                onChange={e => this.handleFirstNameChange(e)} />
                             <Form.Text className="text-muted">
                                 Legal first name
                         </Form.Text>
@@ -89,8 +100,8 @@ export default class SignUp extends Component {
                         <Form.Group controlId="signUpLastName">
                             <Form.Label>Last name</Form.Label>
                             <Form.Control type="text"
-                                value = {this.state.lastName}
-                                onChange = {e => this.handleLastNameChange(e)} />
+                                value={this.state.lastName}
+                                onChange={e => this.handleLastNameChange(e)} />
                             <Form.Text className="text-muted">
                                 Legal last name
                         </Form.Text>
@@ -99,8 +110,8 @@ export default class SignUp extends Component {
                         <Form.Group controlId="signUpEmail">
                             <Form.Label>Email address</Form.Label>
                             <Form.Control type="email"
-                                value = {this.state.email}
-                                onChange = {e => this.handleEmailChange(e)} />
+                                value={this.state.email}
+                                onChange={e => this.handleEmailChange(e)} />
                             <Form.Text className="text-muted">
                                 We'll never share your email with anyone else.
                         </Form.Text>
@@ -109,8 +120,8 @@ export default class SignUp extends Component {
                         <Form.Group controlId="signUpUsername">
                             <Form.Label>Username</Form.Label>
                             <Form.Control type="text"
-                                value = {this.state.username}
-                                onChange = {e => this.handleUsernameChange(e)} />
+                                value={this.state.username}
+                                onChange={e => this.handleUsernameChange(e)} />
                             <Form.Text className="text-muted">
                                 Unique username
                         </Form.Text>
@@ -119,12 +130,12 @@ export default class SignUp extends Component {
                         <Form.Group controlId="signUpPassword">
                             <Form.Label>Password</Form.Label>
                             <Form.Control type="password"
-                                value = {this.state.password}
-                                onChange = {e => this.handlePasswordChange(e)} />
+                                value={this.state.password}
+                                onChange={e => this.handlePasswordChange(e)} />
                         </Form.Group>
 
                         <Button variant="primary" type="submit"
-                            onClick = {e => this.registerUser(e)} >
+                            onClick={e => this.registerUserAsync(e)} >
                             Submit
                         </Button>
                         <p className="forgot-password text-right">
