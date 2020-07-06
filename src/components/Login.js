@@ -1,3 +1,4 @@
+import 'babel-polyfill'
 import React, { Component } from 'react';
 import { getUser } from "../actions/user";
 import { connect } from 'react-redux';
@@ -88,7 +89,22 @@ class Login extends Component {
   }
 }
 
+const mapStateToProps = state => {
+  return {
+    username: state.username,
+    user: state.user
+  };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    getUser: username => {
+      dispatch(getUser(username));
+    },
+  };
+};
+
 export default connect(
-  null,
-  { getUser }
+  mapStateToProps,
+  mapDispatchToProps
 )(Login);
