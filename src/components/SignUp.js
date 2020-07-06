@@ -52,7 +52,6 @@ export default class SignUp extends Component {
         await fetch('http://localhost:5000/aiof/user/add', {
             method: 'POST',
             headers: {
-                'Accept': 'application/json',
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
@@ -83,7 +82,7 @@ export default class SignUp extends Component {
     render() {
         return (
             <>
-                <div class="sign-up d-flex justify-content-center">
+                <div className="sign-up d-flex justify-content-center">
                     <Form>
                         <Form.Group controlId="signUpFirstName">
                             <Form.Label>First name</Form.Label>
@@ -133,7 +132,7 @@ export default class SignUp extends Component {
                         </Form.Group>
 
                         <Button variant="primary" type="submit"
-                            onClick={e => this.registerUserAsync(e)} >
+                            onClick={this.registerUserAsync()} >
                             Submit
                         </Button>
                         <p className="forgot-password text-right">
