@@ -4,11 +4,8 @@ import './index.css';
 import App from './components/App';
 import { BrowserRouter } from "react-router-dom";
 import * as serviceWorker from './serviceWorker';
-import { createStore } from 'redux'
 import { Provider } from 'react-redux'
-import aiofApp from './reducers/aiof';
-
-const store = createStore(aiofApp)
+import store from './store';
 
 ReactDOM.render(
     <Provider store={store}>

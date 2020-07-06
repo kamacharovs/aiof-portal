@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
+import { getUser } from "../actions/user";
+import { connect } from 'react-redux';
 import { Form, Button } from 'react-bootstrap';
 import './Login.css';
 
-export default class Login extends Component {
-  constructor() {
-    super();
+class Login extends Component {
+  constructor(props) {
+    super(props);
     this.state = {
       username: '',
       password: '',
@@ -108,3 +110,8 @@ export default class Login extends Component {
     );
   }
 }
+
+export default connect(
+  null,
+  { getUser }
+)(Login);
