@@ -8,7 +8,14 @@ import Login from './Login';
 import Home from './Home';
 import SignUp from './SignUp';
 
-class Navigation extends Component {
+export default class Navigation extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            user: '',
+        };
+    }
+
     render() {
         return (
             <>
@@ -28,7 +35,7 @@ class Navigation extends Component {
                             </NavDropdown>
                         </Nav>
                         <Navbar.Text>
-                            Signed in as: <a href="#login">Mark Otto</a>
+                            Signed in as: <a href="/login">{this.state.user.username}</a>
                         </Navbar.Text>
                     </Navbar.Collapse>
                 </Navbar>
@@ -40,5 +47,3 @@ class Navigation extends Component {
         );
     }
 }
-
-export default Navigation;

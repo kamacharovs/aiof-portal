@@ -13,7 +13,7 @@ export default class Login extends Component {
 
     this.handlePassChange = this.handlePassChange.bind(this);
     this.handleUserChange = this.handleUserChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleSubmitAsync = this.handleSubmitAsync.bind(this);
     this.dismissError = this.dismissError.bind(this);
   }
 
@@ -21,7 +21,27 @@ export default class Login extends Component {
     this.setState({ error: '' });
   }
 
-  handleSubmit(e) {
+  async getUserAsync() {
+    await fetch("http://localhost:5000/aiof/user/username/" + this.state.username)
+      .then(res => res.json())
+      .then(
+        (result) => {
+          this.setState({
+            user: result
+          });
+        },
+        // Note: it's important to handle errors here
+        // instead of a catch() block so that we don't swallow
+        // exceptions from actual bugs in components.
+        (error) => {
+          this.setState({
+            error
+          });
+        }
+      )
+  }
+
+  async handleSubmitAsync(e) {
     e.preventDefault();
 
     if (!this.state.username) {
@@ -31,6 +51,8 @@ export default class Login extends Component {
     if (!this.state.password) {
       return this.setState({ error: 'Password is required' });
     }
+
+    await this.getUserAsync()
     
     return this.setState({ error: '' });
   }
@@ -76,7 +98,7 @@ export default class Login extends Component {
           </Form.Group>
 
           <Button variant="primary" type="submit"
-              onClick = {e => this.handleSubmit(e)} >
+              onClick = {e => this.handleSubmitAsync(e)} >
             Submit
           </Button>
         </Form>
