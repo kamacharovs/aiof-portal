@@ -5,18 +5,27 @@ const initialState = { user: {}, status:"" };
 export default function(state = initialState, action) {
   switch (action.type) {
     case GET_USER:
-        state = Object.assign({}, state, {status: "waiting"});
-        break;
+        return {
+            ...state,
+            status: "waiting",
+          };
     case GET_USER_SUCCESS:
-        state = Object.assign({}, state, {user: action.payload, status: "received"});
-        break;
+        return {
+            ...state,
+            user: {
+              ...state.user
+            },
+            username: {
+                ...state.username
+            }
+          };
     case GET_USER_FAILED:
-        state = Object.assign({}, state, {status: "failed", error: action.payload});
-        break;
+        return {
+            ...state,
+            status: "failed",
+            error: action.payload
+        }
     default:
-        state = Object.assign({})
-        break;
+        return state;
   }
-  
-  return state;
 }

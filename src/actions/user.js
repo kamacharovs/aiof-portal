@@ -1,4 +1,4 @@
-import { GET_USER, GET_USER_SUCCESS, GET_USER_FAILED } from './actionTypes';
+import { GET_USER, GET_USER_SUCCESS } from './actionTypes';
 import fetch from 'cross-fetch'
 
 function requestUser(username) {
@@ -9,7 +9,6 @@ function requestUser(username) {
 }
 
 function receiveUser(username, json) {
-    console.log(json)
   return {
     type: GET_USER_SUCCESS,
     username,
