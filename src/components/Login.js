@@ -36,7 +36,7 @@ class Login extends Component {
     }
 
     console.log("here 1")
-    getUser(this.state.username)
+    this.props.getUser(this.state.username)
     this.props.history.push("/");
   }
 
