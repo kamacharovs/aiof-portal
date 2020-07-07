@@ -35,7 +35,6 @@ class Login extends Component {
       return this.setState({ error: 'Password is required' });
     }
 
-    console.log("here 1")
     this.props.getUser(this.state.username)
     this.props.history.push("/");
   }
@@ -89,14 +88,7 @@ class Login extends Component {
   }
 }
 
-const mapStateToProps = state => {
-  return {
-    username: state.username,
-    user: state.user
-  };
-};
-
-const mapDispatchToProps = dispatch => {
+function mapDispatchToProps(dispatch) {
   return {
     getUser: username => {
       dispatch(getUser(username));
@@ -105,6 +97,6 @@ const mapDispatchToProps = dispatch => {
 };
 
 export default connect(
-  mapStateToProps,
+  null,
   mapDispatchToProps
 )(Login);
