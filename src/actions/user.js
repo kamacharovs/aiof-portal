@@ -1,4 +1,4 @@
-import { GET_USER, GET_USER_SUCCESS } from './actionTypes';
+import { GET_USER, GET_USER_SUCCESS, CREATE_USER, CREATE_USER_SUCCESS } from './actionTypes';
 import fetch from 'cross-fetch'
 
 function requestUser(username) {
@@ -34,6 +34,52 @@ export function getUser(username) {
             )
             .then(json => {
                 dispatch(receiveUser(username, json))
+            })
+    }
+}
+
+
+function requestCreateUser(firstName, lastName, email, username) {
+    return {
+        type: CREATE_USER,
+        firstName,
+        lastName,
+        email,
+        username,
+        isCreated: false
+    }
+}
+
+function receiveCreatedUser(username, json) {
+    return {
+        type: CREATE_USER_SUCCESS,
+        username,
+        user: json,
+        receivedAt: Date.now(),
+        isCreated: true
+    }
+}
+
+export function createUser(firstName, lastName, email, username) {
+    return function (dispatch) {
+        dispatch(requestCreateUser(firstName, lastName, email, username))
+
+        fetch('http://localhost:5000/aiof/user/add', {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                firstName,
+                lastName,
+                email,
+                username
+            })
+        })
+            .then(response => response.json())
+            .then(json => {
+                dispatch(receiveCreatedUser(username, json))
             })
     }
 }
