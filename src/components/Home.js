@@ -14,9 +14,6 @@ class Home extends Component {
     return (
       <div>
         <h1>This is home</h1>
-        <p>
-          Username: {this.props.username}
-        </p>
       </div>
     );
   }

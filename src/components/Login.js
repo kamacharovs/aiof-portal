@@ -36,7 +36,6 @@ class Login extends Component {
     }
 
     this.props.getUser(this.state.username)
-    this.props.history.push("/");
   }
 
   handleUserChange(e) {
@@ -90,8 +89,9 @@ class Login extends Component {
 
 function mapStateToProps(state) {
   return {
-      username: state.username,
-      user: state.user
+    username: state.user.username,
+    user: state.user.user,
+    isLoggedIn: state.user.isLoggedIn
   };
 };
 
