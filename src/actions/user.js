@@ -67,7 +67,6 @@ export function createUser(firstName, lastName, email, username) {
         fetch('http://localhost:5000/aiof/user/add', {
             method: 'POST',
             headers: {
-                'Accept': 'application/json',
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({

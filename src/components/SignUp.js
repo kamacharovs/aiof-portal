@@ -1,11 +1,13 @@
 import React, { Component } from "react";
-import './SignUp.css';
-import { LinkContainer } from 'react-router-bootstrap';
-import Login from './Login';
+import { connect } from 'react-redux';
 import { Form, Button } from 'react-bootstrap';
 import { Route } from "react-router-dom";
+import { LinkContainer } from 'react-router-bootstrap';
+import './SignUp.css';
+import Login from './Login';
+import { createUser } from "../actions/user";
 
-export default class SignUp extends Component {
+class SignUp extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -47,36 +49,23 @@ export default class SignUp extends Component {
         });
     }
 
-    // Make API call when the Component loads
-    async registerUserAsync() {
-        await fetch('http://localhost:5000/aiof/user/add', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                firstName: this.state.firstName,
-                lastName: this.state.lastName,
-                email: this.state.email,
-                username: this.state.username
-            })
-        })
-            .then(res => res.json())
-            .then((result) => {
-                this.setState({
-                    user: result
-                });
-            },
-                // Note: it's important to handle errors here
-                // instead of a catch() block so that we don't swallow
-                // exceptions from actual bugs in components.
-                (error) => {
-                    this.setState({
-                        error
-                    });
-                }
-            )
-    }
+    handleSubmit(e) {
+        e.preventDefault();
+    
+        if (!this.state.username) {
+          return this.setState({ error: 'Username is required' });
+        }
+    
+        if (!this.state.password) {
+          return this.setState({ error: 'Password is required' });
+        }
+    
+        this.props.createUser(this.state.firstName,
+            this.state.lastName,
+            this.state.email,
+            this.state.username
+        )
+      }
 
     render() {
         return (
@@ -131,7 +120,7 @@ export default class SignUp extends Component {
                         </Form.Group>
 
                         <Button variant="primary" type="submit"
-                            onClick={this.registerUserAsync()} >
+                            onClick={e => this.handleSubmit(e)} >
                             Submit
                         </Button>
                         <p className="forgot-password text-right">
@@ -145,3 +134,24 @@ export default class SignUp extends Component {
         );
     }
 }
+
+function mapStateToProps(state) {
+    return {
+      username: state.user.username,
+      user: state.user.user,
+      isCreated: state.user.isCreated
+    };
+  };
+  
+  function mapDispatchToProps(dispatch) {
+    return {
+      createUser: (firstName, lastName, email, username) => {
+        dispatch(createUser(firstName, lastName, email, username));
+      },
+    };
+  };
+  
+  export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+  )(SignUp);
