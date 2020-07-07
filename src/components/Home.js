@@ -2,7 +2,7 @@ import React, { Component }  from 'react';
 import { connect } from 'react-redux';
 
 class Home extends Component {
-  constructor(props){
+  constructor(props) {
     super(props);
     this.state = {
       username: "",
@@ -15,7 +15,7 @@ class Home extends Component {
       <div>
         <h1>This is home</h1>
         <p>
-          Username: {this.props.isLoggedIn}
+          Username: {this.props.username}
         </p>
       </div>
     );
@@ -24,9 +24,9 @@ class Home extends Component {
 
 function mapStateToProps(state) {
   return {
-      username: state.username,
-      user: state.user,
-      isLoggedIn: state.isLoggedIn
+      username: state.user.username,
+      user: state.user.user,
+      isLoggedIn: state.user.isLoggedIn
   };
 };
 

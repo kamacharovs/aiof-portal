@@ -10,18 +10,11 @@ export default function(state = initialState, action) {
             status: "waiting",
           };
     case GET_USER_SUCCESS:
-        console.log("checking action: " + action.payload)
         return {
             ...state,
-            username: {
-                ...state.username
-            },
-            user: {
-                ...state.user
-            },
-            isLoggedIn: {
-                ...state.isLoggedIn
-            }
+            username: action.username,
+            user: action.user,
+            isLoggedIn: action.isLoggedIn
           };
     case GET_USER_FAILED:
         return {
