@@ -10,6 +10,14 @@ import Home from './Home';
 import SignUp from './SignUp';
 
 class Navigation extends Component {
+    constructor(props){
+        super(props);
+        this.state = {
+          username: "",
+          user : {}
+        }
+      }
+      
     render() {
         return (
             <>

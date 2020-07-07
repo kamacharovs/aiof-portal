@@ -88,6 +88,13 @@ class Login extends Component {
   }
 }
 
+function mapStateToProps(state) {
+  return {
+      username: state.username,
+      user: state.user
+  };
+};
+
 function mapDispatchToProps(dispatch) {
   return {
     getUser: username => {
@@ -97,6 +104,6 @@ function mapDispatchToProps(dispatch) {
 };
 
 export default connect(
-  null,
+  mapStateToProps,
   mapDispatchToProps
 )(Login);

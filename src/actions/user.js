@@ -4,7 +4,8 @@ import fetch from 'cross-fetch'
 function requestUser(username) {
   return {
     type: GET_USER,
-    username
+    username,
+    isLoggedIn: false
   }
 }
 
@@ -13,7 +14,8 @@ function receiveUser(username, json) {
     type: GET_USER_SUCCESS,
     username,
     user: json,
-    receivedAt: Date.now()
+    receivedAt: Date.now(),
+    isLoggedIn: true
   }
 }
 
