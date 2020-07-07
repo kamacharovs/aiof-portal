@@ -22,7 +22,7 @@ function receiveUser(username, json) {
 export function getUser(username) {
     return function (dispatch) {
 
-    /*dispatch(requestUser(username))
+    dispatch(requestUser(username))
 
     return fetch("http://localhost:5000/aiof/user/username/" + username, {
         headers : { 
@@ -35,10 +35,5 @@ export function getUser(username) {
       .then(json =>
         dispatch(receiveUser(username, json))
       )
-  }*/
-  dispatch(receiveUser(username, {
-      firstName: "Georgi",
-      lastName: "Kamacharov"
-  }))
-}
+  }
 }

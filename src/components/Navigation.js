@@ -17,7 +17,7 @@ class Navigation extends Component {
           user : {}
         }
       }
-      
+
     render() {
         return (
             <>
@@ -52,8 +52,9 @@ class Navigation extends Component {
 
 function mapStateToProps(state) {
     return {
-        username: state.username,
-        user: state.user
+        username: state.user.username,
+        user: state.user.user,
+        isLoggedIn: state.user.isLoggedIn
     };
 };
 
