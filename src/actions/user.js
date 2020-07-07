@@ -32,8 +32,8 @@ export function getUser(username) {
             .then(
                 response => response.json()
             )
-            .then(json =>
+            .then(json => {
                 dispatch(receiveUser(username, json))
-            )
+            })
     }
 }
