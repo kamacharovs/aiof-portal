@@ -21,7 +21,6 @@ function receiveUser(username, json) {
 
 export function getUser(username) {
     return function (dispatch) {
-
         dispatch(requestUser(username))
 
         return fetch("http://localhost:5000/aiof/user/username/" + username, {
@@ -64,9 +63,10 @@ export function createUser(firstName, lastName, email, username) {
     return function (dispatch) {
         dispatch(requestCreateUser(firstName, lastName, email, username))
 
-        fetch('http://localhost:5000/aiof/user/add', {
+        return fetch('http://localhost:5000/aiof/user/add', {
             method: 'POST',
             headers: {
+                'Accept': 'application/json',
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
