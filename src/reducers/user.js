@@ -1,4 +1,10 @@
-import { GET_USER, GET_USER_SUCCESS, GET_USER_FAILED, CREATE_USER, CREATE_USER_SUCCESS, CREATE_USER_FAILED } from '../actions/actionTypes';
+import { 
+    GET_USER, 
+    GET_USER_SUCCESS, 
+    GET_USER_FAILED, 
+    CREATE_USER, 
+    CREATE_USER_SUCCESS, 
+    CREATE_USER_FAILED } from '../actions/actionTypes';
 
 const initialState = { username: "", user: {}, status: "" };
 

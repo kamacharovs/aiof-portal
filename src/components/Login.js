@@ -35,7 +35,9 @@ class Login extends Component {
       return this.setState({ error: 'Password is required' });
     }
 
-    this.props.getUser(this.state.username)
+    this.props.getUser(
+      this.state.username, 
+      this.state.password)
   }
 
   handleUserChange(e) {
@@ -97,8 +99,8 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    getUser: username => {
-      dispatch(getUser(username));
+    getUser: (username, password) => {
+      dispatch(getUser(username, password));
     },
   };
 };

@@ -13,27 +13,31 @@ function receiveUser(username, json) {
     return {
         type: GET_USER_SUCCESS,
         username,
-        user: json,
+        tokenResponse: json,
         receivedAt: Date.now(),
         isLoggedIn: true
     }
 }
 
-export function getUser(username) {
+export function getUser(username, password) {
     return function (dispatch) {
         dispatch(requestUser(username))
 
-        return fetch("http://localhost:5000/aiof/user/username/" + username, {
+        return fetch('http://localhost:5000/auth/token', {
+            method: 'POST',
             headers: {
-                'Accept': 'application/json'
-            }
-        })
-            .then(
-                response => response.json()
-            )
-            .then(json => {
-                dispatch(receiveUser(username, json))
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                "username": username,
+                "password": password
             })
+        })
+        .then(response => response.json())
+        .then(json => {
+            dispatch(receiveUser(username, json))
+        })
     }
 }
 
