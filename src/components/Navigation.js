@@ -27,8 +27,14 @@ class Navigation extends Component {
                             </NavDropdown>
                         </Nav>
                         <Nav className="ml-auto">
-                            <LinkContainer to="/login"><Nav.Link href="/login" >Login</Nav.Link></LinkContainer >
-                            <LinkContainer to="/signup"><Nav.Link href="/signup">Sign up</Nav.Link></LinkContainer >
+                            {this.props?.isLoggedIn === true ?
+                                null
+                                :
+                                <>
+                                    <LinkContainer to="/login"><Nav.Link href="/login" >Login</Nav.Link></LinkContainer >
+                                    <LinkContainer to="/signup"><Nav.Link href="/signup">Sign up</Nav.Link></LinkContainer >
+                                </>
+                            }
                             <Navbar.Text>
                                 {this.props?.username ? "Signed in as: " + this.props?.username : null}
                             </Navbar.Text>
