@@ -18,8 +18,6 @@ class Navigation extends Component {
                     <Navbar.Collapse id="basic-navbar-nav">
                         <Nav className="mr-auto">
                             <LinkContainer to="/home"><Nav.Link href="/home">Home</Nav.Link></LinkContainer >
-                            <LinkContainer to="/login"><Nav.Link href="/login">Login</Nav.Link></LinkContainer >
-                            <LinkContainer to="/signup"><Nav.Link href="/signup">Sign up</Nav.Link></LinkContainer >
                             <NavDropdown title="Dropdown" id="basic-nav-dropdown">
                                 <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
                                 <NavDropdown.Item href="#action/3.2">Another action</NavDropdown.Item>
@@ -28,9 +26,13 @@ class Navigation extends Component {
                                 <NavDropdown.Item href="#action/3.4">Separated link</NavDropdown.Item>
                             </NavDropdown>
                         </Nav>
-                        <Navbar.Text>
-                            {this.props?.username ? "Signed in as: " + this.props?.username : null}
-                        </Navbar.Text>
+                        <Nav className="ml-auto">
+                            <LinkContainer to="/login"><Nav.Link href="/login" >Login</Nav.Link></LinkContainer >
+                            <LinkContainer to="/signup"><Nav.Link href="/signup">Sign up</Nav.Link></LinkContainer >
+                            <Navbar.Text>
+                                {this.props?.username ? "Signed in as: " + this.props?.username : null}
+                            </Navbar.Text>
+                        </Nav>
                     </Navbar.Collapse>
                 </Navbar>
 
