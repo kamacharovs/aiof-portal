@@ -14,6 +14,7 @@ class SignUp extends Component {
             firstName: '',
             lastName: '',
             email: '',
+            confirmEmail: '',
             username: '',
             password: '',
         };
@@ -34,6 +35,12 @@ class SignUp extends Component {
     handleEmailChange(e) {
         this.setState({
             email: e.target.value,
+        });
+    }
+
+    handleConfirmEmailChange(e) {
+        this.setState({
+            confirmEmail: e.target.value,
         });
     }
 
@@ -79,7 +86,7 @@ class SignUp extends Component {
                                 onChange={e => this.handleFirstNameChange(e)} />
                             <Form.Text className="text-muted">
                                 Legal first name
-                        </Form.Text>
+                            </Form.Text>
                         </Form.Group>
 
                         <Form.Group controlId="signUpLastName">
@@ -89,7 +96,7 @@ class SignUp extends Component {
                                 onChange={e => this.handleLastNameChange(e)} />
                             <Form.Text className="text-muted">
                                 Legal last name
-                        </Form.Text>
+                            </Form.Text>
                         </Form.Group>
 
                         <Form.Group controlId="signUpEmail">
@@ -98,8 +105,17 @@ class SignUp extends Component {
                                 value={this.state.email}
                                 onChange={e => this.handleEmailChange(e)} />
                             <Form.Text className="text-muted">
-                                We'll never share your email with anyone else.
-                        </Form.Text>
+                                Email address
+                            </Form.Text>
+                        </Form.Group>
+                        <Form.Group controlId="signUpConfirmEmail">
+                            <Form.Label>Confirm Email address</Form.Label>
+                            <Form.Control type="email"
+                                value={this.state.confirmEmail}
+                                onChange={e => this.handleConfirmEmailChange(e)} />
+                            <Form.Text className="text-muted">
+                                Confirm Email address
+                            </Form.Text>
                         </Form.Group>
 
                         <Form.Group controlId="signUpUsername">
@@ -109,7 +125,7 @@ class SignUp extends Component {
                                 onChange={e => this.handleUsernameChange(e)} />
                             <Form.Text className="text-muted">
                                 Unique username
-                        </Form.Text>
+                            </Form.Text>
                         </Form.Group>
 
                         <Form.Group controlId="signUpPassword">
