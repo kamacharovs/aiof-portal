@@ -14,7 +14,6 @@ class SignUp extends Component {
             firstName: '',
             lastName: '',
             email: '',
-            confirmEmail: '',
             username: '',
             password: '',
         };
@@ -35,12 +34,6 @@ class SignUp extends Component {
     handleEmailChange(e) {
         this.setState({
             email: e.target.value,
-        });
-    }
-
-    handleConfirmEmailChange(e) {
-        this.setState({
-            confirmEmail: e.target.value,
         });
     }
 
@@ -106,15 +99,6 @@ class SignUp extends Component {
                                 onChange={e => this.handleEmailChange(e)} />
                             <Form.Text className="text-muted">
                                 Email address
-                            </Form.Text>
-                        </Form.Group>
-                        <Form.Group controlId="signUpConfirmEmail">
-                            <Form.Label>Confirm Email address</Form.Label>
-                            <Form.Control type="email"
-                                value={this.state.confirmEmail}
-                                onChange={e => this.handleConfirmEmailChange(e)} />
-                            <Form.Text className="text-muted">
-                                Confirm Email address
                             </Form.Text>
                         </Form.Group>
 
