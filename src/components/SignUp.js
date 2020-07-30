@@ -119,11 +119,12 @@ class SignUp extends Component {
                                 onChange={e => this.handlePasswordChange(e)} />
                         </Form.Group>
 
-                        <Button variant="primary" type="submit"
+                        <Button variant="outline-secondary" size="lg" block type="submit"
                             onClick={e => this.handleSubmit(e)} >
-                            Submit
+                            Sign up
                         </Button>
-                        <p className="forgot-password text-right">
+                        <br></br>
+                        <p className="forgot-password text-left">
                             Already registered <LinkContainer to="/login"><a href="/login">sign in?</a></LinkContainer>
                         </p>
                     </Form>

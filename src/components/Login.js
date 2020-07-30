@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import { getUser } from "../actions/user";
 import { connect } from 'react-redux';
 import { Form, Button } from 'react-bootstrap';
+import './App.css';
 import './Login.css';
 
 class Login extends Component {
@@ -38,6 +39,8 @@ class Login extends Component {
     this.props.getUser(
       this.state.username, 
       this.state.password)
+
+    this.props.history.push("/home");
   }
 
   handleUserChange(e) {
@@ -78,9 +81,9 @@ class Login extends Component {
               <Form.Check type="checkbox" label="Remember me" />
             </Form.Group>
 
-            <Button variant="primary" type="submit"
+            <Button variant="outline-secondary" size="lg" block type="submit"
               onClick={e => this.handleSubmit(e)} >
-              Submit
+              Log in
           </Button>
           </Form>
         </div>

@@ -8,6 +8,7 @@ import { LinkContainer } from 'react-router-bootstrap';
 import Login from './Login';
 import Home from './Home';
 import SignUp from './SignUp';
+import Portal from './Portal';
 
 class Navigation extends Component {
     render() {
@@ -18,6 +19,7 @@ class Navigation extends Component {
                     <Navbar.Collapse id="basic-navbar-nav">
                         <Nav className="mr-auto">
                             <LinkContainer to="/home"><Nav.Link href="/home">Home</Nav.Link></LinkContainer >
+                            <LinkContainer to="/portal"><Nav.Link href="/portal">Portal</Nav.Link></LinkContainer >
                             <NavDropdown title="Dropdown" id="basic-nav-dropdown">
                                 <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
                                 <NavDropdown.Item href="#action/3.2">Another action</NavDropdown.Item>
@@ -28,21 +30,21 @@ class Navigation extends Component {
                         </Nav>
                         <Nav className="ml-auto">
                             {this.props?.isLoggedIn === true ?
-                                null
+                                <Navbar.Text>
+                                    Signed in as: <b>{ this.props?.username }</b>
+                                </Navbar.Text>
                                 :
                                 <>
                                     <LinkContainer to="/login"><Nav.Link href="/login" >Login</Nav.Link></LinkContainer >
                                     <LinkContainer to="/signup"><Nav.Link href="/signup">Sign up</Nav.Link></LinkContainer >
                                 </>
                             }
-                            <Navbar.Text>
-                                {this.props?.username ? "Signed in as: " + this.props?.username : null}
-                            </Navbar.Text>
                         </Nav>
                     </Navbar.Collapse>
                 </Navbar>
 
                 <Route path='/home' component={Home} />
+                <Route path='/portal' component={Portal} />
                 <Route path='/login' component={Login} />
                 <Route path='/signup' component={SignUp} />
             </>
