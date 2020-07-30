@@ -37,10 +37,12 @@ class Login extends Component {
     }
 
     this.props.getUser(
-      this.state.username, 
+      this.state.username,
       this.state.password)
-
-    this.props.history.push("/home");
+    
+    if (this.state.error === '') {
+      this.props.history.push("/home");
+    }
   }
 
   handleUserChange(e) {
@@ -101,9 +103,9 @@ function mapStateToProps(state) {
 };
 
 function mapDispatchToProps(dispatch) {
-  return {
-    getUser: (username, password) => {
-      dispatch(getUser(username, password));
+  return { 
+     getUser: (username, password) => {
+        dispatch(getUser(username, password));
     },
   };
 };

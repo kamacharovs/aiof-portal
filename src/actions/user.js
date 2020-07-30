@@ -19,11 +19,13 @@ function receiveUser(username, json) {
     }
 }
 
+//TODO: add receiveUserError function to dispatch
+
 export function getUser(username, password) {
-    return function (dispatch) {
+    return async function (dispatch) {
         dispatch(requestUser(username))
 
-        return fetch('http://localhost:5000/auth/token', {
+        var res = await fetch('http://localhost:5000/auth/token', {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',
@@ -34,10 +36,15 @@ export function getUser(username, password) {
                 "password": password
             })
         })
-        .then(response => response.json())
-        .then(json => {
-            dispatch(receiveUser(username, json))
-        })
+
+        var resJson = await res.json()
+
+        if (res.ok) {
+            dispatch(receiveUser(username, resJson))
+        }
+        else {
+            throw new Error(resJson) //TODO: change to receiverUserError function
+        }
     }
 }
 
@@ -63,11 +70,11 @@ function receiveCreatedUser(username, json) {
     }
 }
 
-export function createUser(firstName, lastName, email, username) {
+export function createUser(firstName, lastName, email, username, password) {
     return function (dispatch) {
-        dispatch(requestCreateUser(firstName, lastName, email, username))
+        dispatch(requestCreateUser(firstName, lastName, email, username, password))
 
-        return fetch('http://localhost:5000/aiof/user/add', {
+        return fetch('http://localhost:5000/user', {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',
@@ -77,12 +84,14 @@ export function createUser(firstName, lastName, email, username) {
                 firstName,
                 lastName,
                 email,
-                username
+                username,
+                password
             })
         })
-            .then(response => response.json())
-            .then(json => {
-                dispatch(receiveCreatedUser(username, json))
-            })
+        .then(response => {
+            if(response.ok) {
+                dispatch(receiveCreatedUser(username, response.json()))
+            }
+        })
     }
 }

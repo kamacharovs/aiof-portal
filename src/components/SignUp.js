@@ -60,10 +60,12 @@ class SignUp extends Component {
           return this.setState({ error: 'Password is required' });
         }
     
-        this.props.createUser(this.state.firstName,
+        this.props.createUser(
+            this.state.firstName,
             this.state.lastName,
             this.state.email,
-            this.state.username
+            this.state.username,
+            this.state.password
         )
       }
 
@@ -146,8 +148,8 @@ function mapStateToProps(state) {
   
   function mapDispatchToProps(dispatch) {
     return {
-      createUser: (firstName, lastName, email, username) => {
-        dispatch(createUser(firstName, lastName, email, username));
+      createUser: (firstName, lastName, email, username, password) => {
+        dispatch(createUser(firstName, lastName, email, username, password));
       },
     };
   };
