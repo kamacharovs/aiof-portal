@@ -5,3 +5,7 @@
 .form-group {
     width: 400px;
 }
+
+.form-label {
+    font-weight: normal;
+}

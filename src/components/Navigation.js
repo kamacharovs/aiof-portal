@@ -14,7 +14,7 @@ class Navigation extends Component {
     render() {
         return (
             <>
-                <Navbar bg="light" variant="light" expand="lg">
+                <Navbar bg="light" variant="light" expand="lg" sticky="top">
                     <Navbar.Toggle aria-controls="basic-navbar-nav" />
                     <Navbar.Collapse id="basic-navbar-nav">
                         <Nav className="mr-auto">
