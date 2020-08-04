@@ -79,9 +79,6 @@ class SignUp extends Component {
                             <Form.Control type="text"
                                 value={this.state.firstName}
                                 onChange={e => this.handleFirstNameChange(e)} />
-                            <Form.Text className="text-muted">
-                                Legal first name
-                            </Form.Text>
                         </Form.Group>
 
                         <Form.Group controlId="signUpLastName">
@@ -89,9 +86,6 @@ class SignUp extends Component {
                             <Form.Control type="text"
                                 value={this.state.lastName}
                                 onChange={e => this.handleLastNameChange(e)} />
-                            <Form.Text className="text-muted">
-                                Legal last name
-                            </Form.Text>
                         </Form.Group>
 
                         <Form.Group controlId="signUpEmail">
@@ -99,9 +93,6 @@ class SignUp extends Component {
                             <Form.Control type="email"
                                 value={this.state.email}
                                 onChange={e => this.handleEmailChange(e)} />
-                            <Form.Text className="text-muted">
-                                Email address
-                            </Form.Text>
                         </Form.Group>
 
                         <Form.Group controlId="signUpUsername">
@@ -109,9 +100,6 @@ class SignUp extends Component {
                             <Form.Control type="text"
                                 value={this.state.username}
                                 onChange={e => this.handleUsernameChange(e)} />
-                            <Form.Text className="text-muted">
-                                Unique username
-                            </Form.Text>
                         </Form.Group>
 
                         <Form.Group controlId="signUpPassword">

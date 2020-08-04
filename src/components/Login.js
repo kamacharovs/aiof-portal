@@ -67,9 +67,6 @@ class Login extends Component {
               <Form.Control type="text"
                 value={this.state.username}
                 onChange={e => this.handleUserChange(e)} />
-              <Form.Text className="text-muted">
-                The username you have registered
-          </Form.Text>
             </Form.Group>
 
             <Form.Group controlId="loginPassword">
