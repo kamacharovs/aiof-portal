@@ -6,9 +6,7 @@ import { Route } from "react-router-dom";
 import { Nav, Navbar, NavDropdown } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
 import Login from './Login';
-import Home from './Home';
 import SignUp from './SignUp';
-import Portal from './Portal';
 
 class Navigation extends Component {
     render() {
@@ -31,7 +29,7 @@ class Navigation extends Component {
                         <Nav className="ml-auto">
                             {this.props?.isLoggedIn === true ?
                                 <Navbar.Text>
-                                    Signed in as: <b>{ this.props?.username }</b>
+                                    Signed in as: <b>{this.props?.username}</b>
                                 </Navbar.Text>
                                 :
                                 <>
@@ -43,8 +41,8 @@ class Navigation extends Component {
                     </Navbar.Collapse>
                 </Navbar>
 
-                <Route path='/home' component={Home} />
-                <Route path='/portal' component={Portal} />
+                <Route path='/home' render={() => (this.props?.isLoggedIn ? (this.props.history.push("/home")) : (<Login />))} />
+                <Route path='/portal' render={() => (this.props?.isLoggedIn ? (this.props.history.push("/portal")) : (<Login />))} />
                 <Route path='/login' component={Login} />
                 <Route path='/signup' component={SignUp} />
             </>
