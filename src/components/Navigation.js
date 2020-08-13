@@ -41,8 +41,8 @@ class Navigation extends Component {
                     </Navbar.Collapse>
                 </Navbar>
 
-                <Route path='/home' render={() => (this.props?.isLoggedIn ? (this.props.history.push("/home")) : (<Login />))} />
-                <Route path='/portal' render={() => (this.props?.isLoggedIn ? (this.props.history.push("/portal")) : (<Login />))} />
+                <Route path='/home' render={() => (this.props?.isLoggedIn ? (this.props?.history.push("/home")) : (<Login />))} />
+                <Route path='/portal' render={() => (this.props?.isLoggedIn ? (this.props?.history.push("/portal")) : (<Login />))} />
                 <Route path='/login' component={Login} />
                 <Route path='/signup' component={SignUp} />
             </>
