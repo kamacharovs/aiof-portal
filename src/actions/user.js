@@ -32,8 +32,8 @@ export function getUser(username, password) {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-                "username": username,
-                "password": password
+                username,
+                password
             })
         })
 
@@ -71,10 +71,10 @@ function receiveCreatedUser(username, json) {
 }
 
 export function createUser(firstName, lastName, email, username, password) {
-    return function (dispatch) {
+    return async function (dispatch) {
         dispatch(requestCreateUser(firstName, lastName, email, username, password))
 
-        return fetch('http://localhost:5000/user', {
+        return await fetch('http://localhost:5000/user', {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',
