@@ -2,13 +2,28 @@ import '../../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Route } from "react-router-dom";
+import { Route, Redirect } from "react-router-dom";
 import { Nav, Navbar, NavDropdown } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
+import Home from './Home';
+import Portal from './Portal';
 import Login from './Login';
 import SignUp from './SignUp';
 
+function PrivateRoute({ component: Component, authed, ...rest }) {
+    return (
+        <Route
+            {...rest}
+            render={(props) => authed === true
+                ? <Component {...props} />
+                : <Redirect to={{ pathname: '/login', state: { from: props.location } }} />}
+        />
+    )
+}
+
 class Navigation extends Component {
+
+
     render() {
         return (
             <>
@@ -41,8 +56,8 @@ class Navigation extends Component {
                     </Navbar.Collapse>
                 </Navbar>
 
-                <Route path='/home' render={() => (this.props?.isLoggedIn ? (this.props?.history.push("/home")) : (<Login />))} />
-                <Route path='/portal' render={() => (this.props?.isLoggedIn ? (this.props?.history.push("/portal")) : (<Login />))} />
+                <Route path='/home' component={Home} />
+                <PrivateRoute authed={this.props?.isLoggedIn} path='/portal' component={Portal} />
                 <Route path='/login' component={Login} />
                 <Route path='/signup' component={SignUp} />
             </>
