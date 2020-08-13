@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Container, Row, Col } from 'react-bootstrap';
 import { getUser } from "../actions/user";
 import { connect } from 'react-redux';
 import './Portal.css';
@@ -13,9 +14,19 @@ class Portal extends Component {
 
     render() {
         return (
-            <div>
-                <h2>This is the portal page. what happens here</h2>
-            </div>
+            <Container fluid>
+                <Row>
+                    <Col>
+                        This is where the Assets will be
+                    </Col>
+                    <Col>
+                        This is where the Liabilities will be
+                    </Col>
+                    <Col>
+                        This is where the Goals will be
+                    </Col>
+                </Row>
+            </Container>
         );
     }
 }
