@@ -4,7 +4,7 @@ import _superagent from 'superagent';
 const superagent = superagentPromise(_superagent, global.Promise);
 
 const API_ROOT = 'https://conduit.productionready.io/api';
-const API_AUTH_ROOT = 'http://localhost:5000/';
+const API_AUTH_ROOT = 'http://localhost:5000';
 
 const encode = encodeURIComponent;
 const responseBody = res => res.body;
@@ -35,9 +35,9 @@ const Auth = {
   current: () =>
     requests.get('/user'),
   login: (username, password) =>
-    requestsAuth.post('auth/token', { username, password }),
-  register: (username, email, password) =>
-    requests.post('/users', { user: { username, email, password } }),
+    requestsAuth.post('/auth/token', { username, password }),
+  register: (firstName, lastName, email, username, password) =>
+    requestsAuth.post('/user', { firstName, lastName, email, username, password }),
   save: user =>
     requests.put('/user', { user })
 };
