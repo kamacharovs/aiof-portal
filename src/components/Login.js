@@ -12,12 +12,12 @@ import {
 const mapStateToProps = state => ({ ...state.auth });
 
 const mapDispatchToProps = dispatch => ({
-  onChangeEmail: value =>
-    dispatch({ type: UPDATE_FIELD_AUTH, key: 'email', value }),
+  onChangeUsername: value =>
+    dispatch({ type: UPDATE_FIELD_AUTH, key: 'username', value }),
   onChangePassword: value =>
     dispatch({ type: UPDATE_FIELD_AUTH, key: 'password', value }),
-  onSubmit: (email, password) =>
-    dispatch({ type: LOGIN, payload: agent.Auth.login(email, password) }),
+  onSubmit: (username, password) =>
+    dispatch({ type: LOGIN, payload: agent.Auth.login(username, password) }),
   onUnload: () =>
     dispatch({ type: LOGIN_PAGE_UNLOADED })
 });
@@ -25,11 +25,11 @@ const mapDispatchToProps = dispatch => ({
 class Login extends React.Component {
   constructor() {
     super();
-    this.changeEmail = ev => this.props.onChangeEmail(ev.target.value);
+    this.changeUsername = ev => this.props.onChangeUsername(ev.target.value);
     this.changePassword = ev => this.props.onChangePassword(ev.target.value);
-    this.submitForm = (email, password) => ev => {
+    this.submitForm = (username, password) => ev => {
       ev.preventDefault();
-      this.props.onSubmit(email, password);
+      this.props.onSubmit(username, password);
     };
   }
 
@@ -38,7 +38,7 @@ class Login extends React.Component {
   }
 
   render() {
-    const email = this.props.email;
+    const username = this.props.username;
     const password = this.props.password;
     return (
       <div className="auth-page">
@@ -55,15 +55,15 @@ class Login extends React.Component {
 
               <ListErrors errors={this.props.errors} />
 
-              <form onSubmit={this.submitForm(email, password)}>
+              <form onSubmit={this.submitForm(username, password)}>
                 <fieldset>
 
                   <fieldset className="form-group">
                     <input
                       className="form-control form-control-lg"
-                      placeholder="Email"
-                      value={email}
-                      onChange={this.changeEmail} />
+                      placeholder="Username"
+                      value={username}
+                      onChange={this.changeUsername} />
                   </fieldset>
 
                   <fieldset className="form-group">
