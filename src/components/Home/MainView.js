@@ -24,6 +24,26 @@ const YourFeedTab = props => {
   return null;
 };
 
+const YourFinanceTab = props => {
+  if (props.token) {
+    const clickHandler = ev => {
+      ev.preventDefault();
+      props.onTabClick('finance', agent.User.byUsername(props.currentUser.username), agent.User.byUsername(props.currentUser.username));
+    }
+
+    return (
+      <li className="nav-item">
+        <a  href=""
+            className={ props.tab === 'finance' ? 'nav-link active' : 'nav-link' }
+            onClick={clickHandler}>
+          Your Finance Feed
+        </a>
+      </li>
+    );
+  }
+  return null;
+}
+
 const GlobalFeedTab = props => {
   const clickHandler = ev => {
     ev.preventDefault();
@@ -75,6 +95,9 @@ const MainView = props => {
             token={props.token}
             tab={props.tab}
             onTabClick={props.onTabClick} />
+
+          <YourFinanceTab
+            token={props.token} />
 
           <GlobalFeedTab tab={props.tab} onTabClick={props.onTabClick} />
 

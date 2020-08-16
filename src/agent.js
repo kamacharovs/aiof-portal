@@ -4,6 +4,7 @@ import _superagent from 'superagent';
 const superagent = superagentPromise(_superagent, global.Promise);
 
 const API_ROOT = 'https://conduit.productionready.io/api';
+const API_ROOT_2 = 'http://localhost:5001';
 const API_AUTH_ROOT = 'http://localhost:5000';
 
 const encode = encodeURIComponent;
@@ -13,6 +14,11 @@ let token = null;
 const tokenPlugin = req => {
   if (token) {
     req.set('authorization', `Token ${token}`);
+  }
+}
+const tokenPlugin2 = req => {
+  if (token) {
+    req.set('Authorization', `Bearer ${token}`);
   }
 }
 
@@ -26,6 +32,10 @@ const requests = {
   post: (url, body) =>
     superagent.post(`${API_ROOT}${url}`, body).use(tokenPlugin).then(responseBody)
 };
+const requests2 = {
+  get: url =>
+    superagent.get(`${API_ROOT_2}${url}`).use(tokenPlugin2).then(responseBody),
+}
 const requestsAuth = {
   post: (url, body) =>
     superagent.post(`${API_AUTH_ROOT}${url}`, body).use(tokenPlugin).then(responseBody)
@@ -41,6 +51,11 @@ const Auth = {
   save: user =>
     requests.put('/user', { user })
 };
+
+const User = {
+  byUsername: username =>
+    requests2.get(`/user?username=${username}`),
+}
 
 const Tags = {
   getAll: () => requests.get('/tags')
@@ -94,6 +109,7 @@ const Profile = {
 export default {
   Articles,
   Auth,
+  User,
   Comments,
   Profile,
   Tags,
