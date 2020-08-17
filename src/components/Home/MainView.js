@@ -1,8 +1,8 @@
-import ArticleList from '../ArticleList';
+import FinanceList from '../FinanceList';
 import React from 'react';
 import agent from '../../agent';
 import { connect } from 'react-redux';
-import { CHANGE_TAB } from '../../constants/actionTypes';
+import { CHANGE_TAB, USER_FINANCE } from '../../constants/actionTypes';
 
 const YourFeedTab = props => {
   if (props.token) {
@@ -28,7 +28,7 @@ const YourFinanceTab = props => {
   if (props.token) {
     const clickHandler = ev => {
       ev.preventDefault();
-      props.onTabClick('finance', agent.User.byUsername(props.currentUser.username), agent.User.byUsername(props.currentUser.username));
+      props.onTabClick('finance', agent.User.byUsername, agent.User.byUsername(props.currentUser.username));
     }
 
     return (
@@ -76,13 +76,13 @@ const TagFilterTab = props => {
 };
 
 const mapStateToProps = state => ({
-  ...state.articleList,
-  tags: state.home.tags,
-  token: state.common.token
+  ...state.finance,
+  token: state.common.token,
+  currentUser: state.common.currentUser
 });
 
 const mapDispatchToProps = dispatch => ({
-  onTabClick: (tab, pager, payload) => dispatch({ type: CHANGE_TAB, tab, pager, payload })
+  onTabClick: (tab, pager, payload) => dispatch({ type: USER_FINANCE, tab, pager, payload })
 });
 
 const MainView = props => {
@@ -91,27 +91,22 @@ const MainView = props => {
       <div className="feed-toggle">
         <ul className="nav nav-pills outline-active">
 
-          <YourFeedTab
+          <YourFinanceTab
             token={props.token}
             tab={props.tab}
+            currentUser={props.currentUser}
             onTabClick={props.onTabClick} />
-
-          <YourFinanceTab
-            token={props.token} />
-
-          <GlobalFeedTab tab={props.tab} onTabClick={props.onTabClick} />
-
-          <TagFilterTab tag={props.tag} />
 
         </ul>
       </div>
 
-      <ArticleList
-        pager={props.pager}
-        articles={props.articles}
-        loading={props.loading}
-        articlesCount={props.articlesCount}
-        currentPage={props.currentPage} />
+      <FinanceList
+            token={props.token}
+            pager={props.pager}
+            loading={props.loading}
+            assets={props.assets}
+            goals={props.goals}
+            liabilities={props.liabilities} />
     </div>
   );
 };
