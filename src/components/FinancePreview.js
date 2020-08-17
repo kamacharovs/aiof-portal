@@ -12,11 +12,16 @@ const AssetPreview = props => {
   return (
     <Card style={{ width: '18rem' }}>
       <Card.Body>
-        <Card.Title>Asset: {asset.name}</Card.Title>
+        <Card.Title>{asset.name}</Card.Title>
         <Card.Text>
-          Asset of type `{asset.typeName}` and value `{asset.value}`
-        </Card.Text>
+          Type: <b>{asset.typeName}</b> <br/>
+          Value: <b>${asset.value}</b>
+        </Card.Text>  
       </Card.Body>
+      <Card.Footer className="text-muted">
+        <Card.Link href="#">Edit</Card.Link>
+        <Card.Link href="#">Delete</Card.Link>
+      </Card.Footer>
     </Card>
   );
 }

@@ -1,4 +1,5 @@
 import React from 'react';
+import { Container, Row, Col } from 'react-bootstrap';
 import AssetPreview from './FinancePreview';
 
 const FinanceList = props => {
@@ -32,16 +33,26 @@ const FinanceList = props => {
     }
 
     return (
-      <div>
-        {
-          props.assets.map(asset => {
-            return (
-              <AssetPreview asset={asset} />
-            );
-          })
-        }
-        <br/>
-      </div>
+      <Container fluid>
+        <Row>
+          <Col>
+            <h2>Assets</h2>
+            {
+              props.assets.map(asset => {
+                return (
+                  <AssetPreview asset={asset} />
+                );
+              })
+            }
+          </Col>
+          <Col>
+            <h2>Liabilities</h2>
+          </Col>
+          <Col>
+            <h2>Goals</h2>
+          </Col>
+        </Row>
+      </Container>
     );
   }
 
