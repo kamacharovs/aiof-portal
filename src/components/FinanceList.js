@@ -3,7 +3,6 @@ import { Container, Row, Col } from 'react-bootstrap';
 import AssetPreview from './FinancePreview';
 
 const FinanceList = props => {
-  if (props.token) {
     if (!props.assets
       || !props.goals
       || !props.liabilities) {
@@ -54,9 +53,6 @@ const FinanceList = props => {
         </Row>
       </Container>
     );
-  }
-
-  return null;
 };
 
 export default FinanceList;
