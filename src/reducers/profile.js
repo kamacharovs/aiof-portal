@@ -9,7 +9,14 @@ export default (state = {}, action) => {
   switch (action.type) {
     case PROFILE_PAGE_LOADED:
       return {
-        ...action.payload[0].profile
+        ...state,
+        firstName: action.payload[0].firstName,
+        lastName: action.payload[0].lastName,
+        email: action.payload[0].email,
+        username: action.payload[0].username,
+        assets: action.payload[0].assets,
+        liabilities: action.payload[0].liabilities,
+        goals: action.payload[0].goals
       };
     case PROFILE_PAGE_UNLOADED:
       return {};

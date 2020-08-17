@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { CHANGE_TAB, USER_FINANCE } from '../../constants/actionTypes';
 
 const YourFeedTab = props => {
-  if (props.token) {
+  if (props.token !== 'undefined') {
     const clickHandler = ev => {
       ev.preventDefault();
       props.onTabClick('feed', agent.Articles.feed, agent.Articles.feed());
@@ -25,7 +25,7 @@ const YourFeedTab = props => {
 };
 
 const YourFinanceTab = props => {
-  if (props.token) {
+  if (props.token !== 'undefined') {
     const clickHandler = ev => {
       ev.preventDefault();
       props.onTabClick('finance', agent.User.byUsername, agent.User.byUsername(props.currentUser.username));
@@ -82,7 +82,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  onTabClick: (tab, pager, payload) => dispatch({ type: USER_FINANCE, tab, pager, payload })
+  onFinanceTabClick: (tab, pager, payload) => dispatch({ type: USER_FINANCE, tab, pager, payload }),
 });
 
 const MainView = props => {
@@ -95,18 +95,18 @@ const MainView = props => {
             token={props.token}
             tab={props.tab}
             currentUser={props.currentUser}
-            onTabClick={props.onTabClick} />
+            onTabClick={props.onFinanceTabClick} />
 
         </ul>
       </div>
 
       <FinanceList
-            token={props.token}
-            pager={props.pager}
-            loading={props.loading}
-            assets={props.assets}
-            goals={props.goals}
-            liabilities={props.liabilities} />
+        token={props.token}
+        pager={props.pager}
+        loading={props.loading}
+        assets={props.assets}
+        goals={props.goals}
+        liabilities={props.liabilities} />
     </div>
   );
 };

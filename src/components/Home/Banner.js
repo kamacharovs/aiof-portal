@@ -1,7 +1,7 @@
 import React from 'react';
 
 const Banner = ({ appName, token }) => {
-  if (token) {
+  if (token !== 'undefined') {
     return null;
   }
   return (

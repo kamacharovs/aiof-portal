@@ -58,6 +58,12 @@ export default (state = {}, action) => {
       };
     case HOME_PAGE_UNLOADED:
       return {};
+    case CHANGE_TAB:
+      return {
+        ...state,
+        pager: action.pager,
+        tab: action.tab
+      };
     case PROFILE_PAGE_LOADED:
     case PROFILE_FAVORITES_PAGE_LOADED:
       return {
@@ -65,8 +71,7 @@ export default (state = {}, action) => {
         pager: action.pager,
         assets: action.payload[0].assets,
         liabilities: action.payload[0].liabilities,
-        goals: action.payload[0].goals,
-        currentPage: 0
+        goals: action.payload[0].goals
       };
     case PROFILE_PAGE_UNLOADED:
     case PROFILE_FAVORITES_PAGE_UNLOADED:

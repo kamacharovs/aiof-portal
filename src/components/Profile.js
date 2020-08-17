@@ -1,11 +1,9 @@
-import ArticleList from './ArticleList';
+import FinanceList from './FinanceList';
 import React from 'react';
 import { Link } from 'react-router-dom';
 import agent from '../agent';
 import { connect } from 'react-redux';
 import {
-  FOLLOW_USER,
-  UNFOLLOW_USER,
   PROFILE_PAGE_LOADED,
   PROFILE_PAGE_UNLOADED
 } from '../constants/actionTypes';
@@ -23,62 +21,21 @@ const EditProfileSettings = props => {
   return null;
 };
 
-const FollowUserButton = props => {
-  if (props.isUser) {
-    return null;
-  }
-
-  let classes = 'btn btn-sm action-btn';
-  if (props.user.following) {
-    classes += ' btn-secondary';
-  } else {
-    classes += ' btn-outline-secondary';
-  }
-
-  const handleClick = ev => {
-    ev.preventDefault();
-    if (props.user.following) {
-      props.unfollow(props.user.username)
-    } else {
-      props.follow(props.user.username)
-    }
-  };
-
-  return (
-    <button
-      className={classes}
-      onClick={handleClick}>
-      <i className="ion-plus-round"></i>
-      &nbsp;
-      {props.user.following ? 'Unfollow' : 'Follow'} {props.user.username}
-    </button>
-  );
-};
-
 const mapStateToProps = state => ({
-  ...state.articleList,
+  ...state.financeList,
   currentUser: state.common.currentUser,
   profile: state.profile
 });
 
 const mapDispatchToProps = dispatch => ({
-  onFollow: username => dispatch({
-    type: FOLLOW_USER,
-    payload: agent.Profile.follow(username)
-  }),
   onLoad: payload => dispatch({ type: PROFILE_PAGE_LOADED, payload }),
-  onUnfollow: username => dispatch({
-    type: UNFOLLOW_USER,
-    payload: agent.Profile.unfollow(username)
-  }),
   onUnload: () => dispatch({ type: PROFILE_PAGE_UNLOADED })
 });
 
 class Profile extends React.Component {
   componentWillMount() {
     this.props.onLoad(Promise.all([
-      agent.Profile.get(this.props.match.params.username),
-      agent.Articles.byAuthor(this.props.match.params.username)
+      agent.User.byUsername(this.props.currentUser.username)
     ]));
   }
 
@@ -92,15 +49,15 @@ class Profile extends React.Component {
         <li className="nav-item">
           <Link
             className="nav-link active"
-            to={`/@${this.props.profile.username}`}>
-            My Articles
+            to={`/@${this.props.username}`}>
+            My Finances
           </Link>
         </li>
 
         <li className="nav-item">
           <Link
             className="nav-link"
-            to={`/@${this.props.profile.username}/favorites`}>
+            to={`/@${this.props.username}/favorites`}>
             Favorited Articles
           </Link>
         </li>
@@ -114,8 +71,7 @@ class Profile extends React.Component {
       return null;
     }
 
-    const isUser = this.props.currentUser &&
-      this.props.profile.username === this.props.currentUser.username;
+    const isUser = profile;
 
     return (
       <div className="profile-page">
@@ -125,17 +81,10 @@ class Profile extends React.Component {
             <div className="row">
               <div className="col-xs-12 col-md-10 offset-md-1">
 
-                <img src={profile.image} className="user-img" alt={profile.username} />
-                <h4>{profile.username}</h4>
-                <p>{profile.bio}</p>
+                <h4>{profile.lastName}, {profile.firstName}</h4>
+                <p>{profile.email}</p>
 
                 <EditProfileSettings isUser={isUser} />
-                <FollowUserButton
-                  isUser={isUser}
-                  user={profile}
-                  follow={this.props.onFollow}
-                  unfollow={this.props.onUnfollow}
-                  />
 
               </div>
             </div>
@@ -147,15 +96,10 @@ class Profile extends React.Component {
 
             <div className="col-xs-12 col-md-10 offset-md-1">
 
-              <div className="articles-toggle">
-                {this.renderTabs()}
-              </div>
-
-              <ArticleList
-                pager={this.props.pager}
-                articles={this.props.articles}
-                articlesCount={this.props.articlesCount}
-                state={this.props.currentPage} />
+              <FinanceList
+                assets={profile.assets}
+                goals={profile.goals}
+                liabilities={profile.liabilities} />
             </div>
 
           </div>
