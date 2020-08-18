@@ -47,7 +47,7 @@ class Login extends React.Component {
       <div className="auth-page">
         <div className="container page">
           <div className="row">
-            <div className="col-md-6 offset-md-3 col-xs-12 text-xs-center" style={{ border: "1px solid black", padding: "1rem"}}>
+            <div className="col-md-6 offset-md-3 col-xs-12 text-xs-center" style={{ border: "1px solid black", padding: "1rem" }}>
 
               <ListErrors errors={this.props.errors} />
 
@@ -57,37 +57,35 @@ class Login extends React.Component {
                   Need an account?
                 </Link>
               </p>
+
               <Form onSubmit={this.submitForm(username, password)}>
                 <Form.Text className="text-muted">
-                  <br />
                   One account for everything finance
-                  <br />
-                  <br />
                 </Form.Text>
 
-                <div className="text-xs-left">
-                <Form.Group controlId="loginUsername">
-                  <Form.Label>Username</Form.Label>
-                  <Form.Control type="text"
-                    value={username}
-                    onChange={this.changeUsername} />
-                </Form.Group>
+                <div className="text-xs-left" style={{ paddingLeft: "3rem", paddingRight: "3rem", paddingTop: "2rem", paddingBottom: "2rem" }}>
+                  <Form.Group controlId="loginUsername">
+                    <Form.Label>Username</Form.Label>
+                    <Form.Control type="text"
+                      value={username}
+                      onChange={this.changeUsername} />
+                  </Form.Group>
 
-                <Form.Group controlId="loginPassword">
-                  <Form.Label>Password</Form.Label>
-                  <Form.Control type="password"
-                    value={password}
-                    onChange={this.changePassword} />
-                </Form.Group>
+                  <Form.Group controlId="loginPassword">
+                    <Form.Label>Password</Form.Label>
+                    <Form.Control type="password"
+                      value={password}
+                      onChange={this.changePassword} />
+                  </Form.Group>
 
-                <Form.Group controlId="loginRememberMe">
-                  <Form.Check type="checkbox" label="Remember me" />
-                </Form.Group>
+                  <Form.Group controlId="loginRememberMe">
+                    <Form.Check type="checkbox" label="Remember me" />
+                  </Form.Group>
 
-                <Button variant="primary" size="lg" type="submit" block
-                  disabled={this.props.inProgress}>
-                  <i className="ion-android-unlock"></i>&nbsp;&nbsp;Sign in
-                </Button>
+                  <Button variant="primary" size="lg" type="submit" block
+                    disabled={this.props.inProgress}>
+                    <i className="ion-android-unlock"></i>&nbsp;&nbsp;Sign in
+                  </Button>
                 </div>
               </Form>
 
