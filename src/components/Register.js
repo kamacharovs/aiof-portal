@@ -1,3 +1,5 @@
+import Form from 'react-bootstrap/Form';
+import Button from 'react-bootstrap/Button';
 import { Link } from 'react-router-dom';
 import ListErrors from './ListErrors';
 import React from 'react';
@@ -59,76 +61,66 @@ class Register extends React.Component {
       <div className="auth-page">
         <div className="container page">
           <div className="row">
+            <div className="col-md-6 offset-md-3 col-xs-12 text-xs-center" style={{ border: "1px solid black", padding: "1rem" }}>
+          
+              <ListErrors errors={this.props.errors} />
 
-            <div className="col-md-6 offset-md-3 col-xs-12">
-              <h1 className="text-xs-center">Sign Up</h1>
-              <p className="text-xs-center">
+              <h1>Sign Up</h1>
+              <p>
                 <Link to="/login">
                   Have an account?
                 </Link>
               </p>
 
-              <ListErrors errors={this.props.errors} />
+              <Form onSubmit={this.submitForm(firstName, lastName, email, username, password)}>
+                <Form.Text className="text-muted">
+                  One account for everything finance
+                </Form.Text>
 
-              <form onSubmit={this.submitForm(firstName, lastName, email, username, password)}>
-                <fieldset>
-
-                <fieldset className="form-group">
-                    <input
-                      className="form-control form-control-lg"
-                      type="text"
-                      placeholder="First name"
-                      value={this.props.firstName}
+                <div className="text-xs-left" style={{ paddingLeft: "3rem", paddingRight: "3rem", paddingTop: "2rem", paddingBottom: "2rem" }}>
+                  <Form.Group>
+                    <Form.Label>First Name</Form.Label>
+                    <Form.Control type="text"
+                      value={firstName}
                       onChange={this.changeFirstName} />
-                  </fieldset>
+                  </Form.Group>
 
-                  <fieldset className="form-group">
-                    <input
-                      className="form-control form-control-lg"
-                      type="text"
-                      placeholder="Last name"
-                      value={this.props.lastName}
+                  <Form.Group>
+                    <Form.Label>Last Name</Form.Label>
+                    <Form.Control type="text"
+                      value={lastName}
                       onChange={this.changeLastName} />
-                  </fieldset>
+                  </Form.Group>
 
-                  <fieldset className="form-group">
-                    <input
-                      className="form-control form-control-lg"
-                      type="email"
-                      placeholder="Email"
-                      value={this.props.email}
+                  <Form.Group>
+                    <Form.Label>Email</Form.Label>
+                    <Form.Control type="text"
+                      value={email}
                       onChange={this.changeEmail} />
-                  </fieldset>
+                  </Form.Group>
 
-                  <fieldset className="form-group">
-                    <input
-                      className="form-control form-control-lg"
-                      type="text"
-                      placeholder="Username"
-                      value={this.props.username}
+                  <Form.Group>
+                    <Form.Label>Username</Form.Label>
+                    <Form.Control type="text"
+                      value={username}
                       onChange={this.changeUsername} />
-                  </fieldset>
+                  </Form.Group>
 
-                  <fieldset className="form-group">
-                    <input
-                      className="form-control form-control-lg"
-                      type="password"
-                      placeholder="Password"
-                      value={this.props.password}
+                  <Form.Group>
+                    <Form.Label>Password</Form.Label>
+                    <Form.Control type="password"
+                      value={password}
                       onChange={this.changePassword} />
-                  </fieldset>
+                  </Form.Group>
 
-                  <button
-                    className="btn btn-lg btn-primary pull-xs-right"
-                    type="submit"
+                  <Button variant="primary" size="lg" type="submit" block
                     disabled={this.props.inProgress}>
-                    Sign up
-                  </button>
+                    <i className="ion-android-unlock"></i>&nbsp;&nbsp;Sign up
+                  </Button>
+                </div>
+              </Form>
 
-                </fieldset>
-              </form>
             </div>
-
           </div>
         </div>
       </div>

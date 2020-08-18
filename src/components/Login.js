@@ -1,4 +1,3 @@
-import Card from 'react-bootstrap/Card';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import { Link } from 'react-router-dom';
@@ -64,21 +63,21 @@ class Login extends React.Component {
                 </Form.Text>
 
                 <div className="text-xs-left" style={{ paddingLeft: "3rem", paddingRight: "3rem", paddingTop: "2rem", paddingBottom: "2rem" }}>
-                  <Form.Group controlId="loginUsername">
+                  <Form.Group>
                     <Form.Label>Username</Form.Label>
                     <Form.Control type="text"
                       value={username}
                       onChange={this.changeUsername} />
                   </Form.Group>
 
-                  <Form.Group controlId="loginPassword">
+                  <Form.Group>
                     <Form.Label>Password</Form.Label>
                     <Form.Control type="password"
                       value={password}
                       onChange={this.changePassword} />
                   </Form.Group>
 
-                  <Form.Group controlId="loginRememberMe">
+                  <Form.Group>
                     <Form.Check type="checkbox" label="Remember me" />
                   </Form.Group>
 
