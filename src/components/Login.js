@@ -86,6 +86,11 @@ class Login extends React.Component {
                     disabled={this.props.inProgress}>
                     <i className="ion-android-unlock"></i>&nbsp;&nbsp;Sign in
                   </Button>
+
+                  <Form.Text className="text-muted text-xs-center">
+                    <br/>
+                    <i>By clicking Sign In, you agree to our <a href="#">Terms</a> and have read and acknowledge our <a href="#">US Privacy Statement</a>.</i>
+                  </Form.Text>
                 </div>
               </Form>
 
