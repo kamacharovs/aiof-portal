@@ -1,5 +1,7 @@
-import FinanceList from '../FinanceList';
 import React from 'react';
+import { Container, Row, Col } from 'react-bootstrap';
+import Accounts from './Accounts';
+import FinanceList from '../FinanceList';
 import agent from '../../agent';
 import { connect } from 'react-redux';
 import { CHANGE_TAB, USER_FINANCE } from '../../constants/actionTypes';
@@ -87,18 +89,22 @@ const mapDispatchToProps = dispatch => ({
 
 const MainView = props => {
   return (
-    <div className="col-md-9">
-      <div className="feed-toggle">
-        <ul className="nav nav-pills outline-active">
+    <Container>
+      <Row>
+        <Col sm="4">
+          <Accounts />
+        </Col>
+        
 
+        {/*
           <YourFinanceTab
             token={props.token}
             tab={props.tab}
             currentUser={props.currentUser}
             onTabClick={props.onFinanceTabClick} />
+        */}
 
-        </ul>
-      </div>
+      </Row>
 
       <FinanceList
         token={props.token}
@@ -107,7 +113,7 @@ const MainView = props => {
         assets={props.assets}
         goals={props.goals}
         liabilities={props.liabilities} />
-    </div>
+    </Container>
   );
 };
 
