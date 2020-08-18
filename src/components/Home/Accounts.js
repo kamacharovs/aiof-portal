@@ -1,5 +1,6 @@
 import React from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
+import { FaCog } from "react-icons/fa";
 import { connect } from 'react-redux';
 import { USER_FINANCE } from '../../constants/actionTypes';
 
@@ -90,7 +91,7 @@ class Accounts extends React.Component {
       <Container>
         <Row>
         <Col sm="6" className="text-sm-left">Accounts</Col>
-        <Col sm="6" className="text-sm-right"><a href="#"><ion-icon name="cog-outline" size="large"></ion-icon></a></Col>
+        <Col sm="6" className="text-sm-right"><a href="#"><FaCog size={30} style={{ fill: "gray" }} /></a></Col>
         </Row>
         <hr/>
         <Cash />
