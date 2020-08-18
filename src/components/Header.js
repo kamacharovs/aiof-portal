@@ -7,6 +7,23 @@ const variant = "dark"
 const pullright = "true"
 const navbarStyle = {"borderRadius": "0"}
 
+const HomeView = props => {
+  if (props.currentUser) {
+    return (
+      <Link to="/" className="navbar-brand">
+        {props.appName}
+      </Link>
+    );
+  }
+  else {
+    return (
+      <Link to="/login" className="navbar-brand">
+        {props.appName}
+      </Link>
+    );
+  }
+}
+
 const LoggedOutView = props => {
   if (!props.currentUser) {
     return (
@@ -53,9 +70,7 @@ class Header extends React.Component {
 
           <div className="container">
 
-            <Link to="/" className="navbar-brand">
-              {this.props.appName.toLowerCase()}
-            </Link>
+            <HomeView currentUser={this.props.currentUser} appName={this.props.appName.toLowerCase()} />
 
             <LoggedOutView currentUser={this.props.currentUser} />
 
