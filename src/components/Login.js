@@ -1,3 +1,6 @@
+import Card from 'react-bootstrap/Card';
+import Form from 'react-bootstrap/Form';
+import Button from 'react-bootstrap/Button';
 import { Link } from 'react-router-dom';
 import ListErrors from './ListErrors';
 import React from 'react';
@@ -44,48 +47,51 @@ class Login extends React.Component {
       <div className="auth-page">
         <div className="container page">
           <div className="row">
+            <div className="col-md-6 offset-md-3 col-xs-12 text-xs-center" style={{ border: "1px solid black", padding: "1rem"}}>
 
-            <div className="col-md-6 offset-md-3 col-xs-12">
-              <h1 className="text-xs-center">Sign In</h1>
-              <p className="text-xs-center">
+              <ListErrors errors={this.props.errors} />
+
+              <h1>Sign In</h1>
+              <p>
                 <Link to="/register">
                   Need an account?
                 </Link>
               </p>
+              <Form onSubmit={this.submitForm(username, password)}>
+                <Form.Text className="text-muted">
+                  <br />
+                  One account for everything finance
+                  <br />
+                  <br />
+                </Form.Text>
 
-              <ListErrors errors={this.props.errors} />
+                <div className="text-xs-left">
+                <Form.Group controlId="loginUsername">
+                  <Form.Label>Username</Form.Label>
+                  <Form.Control type="text"
+                    value={username}
+                    onChange={this.changeUsername} />
+                </Form.Group>
 
-              <form onSubmit={this.submitForm(username, password)}>
-                <fieldset>
+                <Form.Group controlId="loginPassword">
+                  <Form.Label>Password</Form.Label>
+                  <Form.Control type="password"
+                    value={password}
+                    onChange={this.changePassword} />
+                </Form.Group>
 
-                  <fieldset className="form-group">
-                    <input
-                      className="form-control form-control-lg"
-                      placeholder="Username"
-                      value={username}
-                      onChange={this.changeUsername} />
-                  </fieldset>
+                <Form.Group controlId="loginRememberMe">
+                  <Form.Check type="checkbox" label="Remember me" />
+                </Form.Group>
 
-                  <fieldset className="form-group">
-                    <input
-                      className="form-control form-control-lg"
-                      type="password"
-                      placeholder="Password"
-                      value={password}
-                      onChange={this.changePassword} />
-                  </fieldset>
+                <Button variant="primary" size="lg" type="submit" block
+                  disabled={this.props.inProgress}>
+                  <i className="ion-android-unlock"></i>&nbsp;&nbsp;Sign in
+                </Button>
+                </div>
+              </Form>
 
-                  <button
-                    className="btn btn-lg btn-primary pull-xs-right"
-                    type="submit"
-                    disabled={this.props.inProgress}>
-                    Sign in
-                  </button>
-
-                </fieldset>
-              </form>
             </div>
-
           </div>
         </div>
       </div>
