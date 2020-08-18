@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 const bg = "dark"
 const variant = "dark"
 const pullright = "true"
-const navbarStyle = {"border-radius": "0"}
+const navbarStyle = {"borderRadius": "0"}
 
 const LoggedOutView = props => {
   if (!props.currentUser) {
