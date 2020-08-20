@@ -22,7 +22,7 @@ const EditProfileSettings = props => {
 };
 
 const mapStateToProps = state => ({
-  ...state.financeList,
+  ...state.profile,
   currentUser: state.common.currentUser,
   profile: state.profile
 });
@@ -35,7 +35,7 @@ const mapDispatchToProps = dispatch => ({
 class Profile extends React.Component {
   componentWillMount() {
     this.props.onLoad(Promise.all([
-      agent.User.byUsername(this.props.currentUser.username)
+      agent.UserProfile.get(this.props.currentUser.username)
     ]));
   }
 
