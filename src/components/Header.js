@@ -52,7 +52,7 @@ const LoggedInView = props => {
             <NavDropdown.Divider />
             <NavDropdown.Item href="#action/3.4">Separated link</NavDropdown.Item>
           </NavDropdown>
-          <Link to={`/@${props.currentUser.username}`} className="nav-link"> {props.currentUser.username}</Link>
+          <Link to={`/@${props.currentUser.username}`} className="nav-link"> {props.currentUser.lastName}, {props.currentUser.firstName}</Link>
         </Nav>
       </Nav>
     );
