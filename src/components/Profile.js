@@ -1,5 +1,5 @@
 import React from 'react';
-import { Container, Row, Col } from 'react-bootstrap';
+import { Container, Row, Col, Tabs, Tab } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import agent from '../agent';
@@ -47,6 +47,13 @@ const mapDispatchToProps = dispatch => ({
 });
 
 class Profile extends React.Component {
+  constructor(props, context) {
+    super(props, context);
+    this.state = {
+      key: 'profile',
+    };
+  }
+
   componentWillMount() {
     this.props.onLoad(Promise.all([
       agent.UserProfile.get(this.props.currentUser.username)
@@ -82,58 +89,47 @@ class Profile extends React.Component {
             </div>
           </div>
         </div>
-
-        <Container>
-          <Row>
-            <Col md="3">
-              Settings
-              <br />
-              <hr />
-              <Link to={`/@${currentUser.username}/profile`} className="nav-link active"
-                style={LinkStyle}>
-                Profile
-              </Link>
-              <Link to={`/@${currentUser.username}/notifications`} className="nav-link"
-                style={LinkStyle}>
-                Notifications
-              </Link>
-              <Link to={`/@${currentUser.username}/finances`} className="nav-link"
-                style={LinkStyle}>
-                Finances
-              </Link>
-            </Col>
-            <Col>
-
-            <Container>
+        <div>
+          <Tabs
+            id="controlled-tab-example"
+            activeKey={this.state.key}
+            onSelect={key => this.setState({ key })}>
+            <Tab eventKey="home" title="Home">
+              Home content
+				    </Tab>
+            <Tab eventKey="profile" title="Profile">
+              <Container>
                 <Row>
-                    <h1>Profile</h1>
-                    <br />
-                    <p className="text-muted">
-                        Tell us about yourself so we can improve the financial advice we provide
-                    </p>
-                    <br />
+                  <p className="text-muted">
+                    Tell us about yourself so we can improve the financial advice we provide
+                </p>
+                  <hr />
+                  <Row>
                     <h2>About Me</h2>
-                </Row>
-                <Row>
+                  </Row>
+                  <Row>
                     Gender:
-                </Row>
-                <hr />
-                <Row>
+                 </Row>
+                  <hr />
+                  <Row>
                     Marital Status:
                 </Row>
-                <hr />
-                <Row>
+                  <hr />
+                  <Row>
                     Education Level:
                 </Row>
-                <hr />
-                <Row>
+                  <hr />
+                  <Row>
                     Gross Salary:
                 </Row>
-            </Container>
-
-            </Col>
-          </Row>
-        </Container>
+                </Row>
+              </Container>
+            </Tab>
+            <Tab eventKey="contact" title="Contact" disabled>
+              Contact content
+				</Tab>
+          </Tabs>
+        </div>
 
       </div>
     );
