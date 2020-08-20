@@ -1,6 +1,6 @@
 import React from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
-import AssetPreview from './FinancePreview';
+import { AssetPreview, LiabilityPreview, GoalPreview } from './FinancePreview';
 
 const FinanceList = props => {
     if (!props.assets
@@ -46,9 +46,23 @@ const FinanceList = props => {
           </Col>
           <Col>
             <h5>Liabilities</h5>
+            {
+              props.liabilities.map(liability => {
+                return (
+                  <LiabilityPreview liability={liability} />
+                );
+              })
+            }
           </Col>
           <Col>
             <h5>Goals</h5>
+            {
+              props.goals.map(goal => {
+                return (
+                  <GoalPreview goal={goal} />
+                );
+              })
+            }
           </Col>
         </Row>
       </Container>
