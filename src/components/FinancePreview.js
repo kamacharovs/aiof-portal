@@ -10,7 +10,7 @@ const AssetPreview = props => {
   const asset = props.asset;
 
   return (
-    <Card style={{ width: '18rem' }}>
+    <Card style={{ width: '12rem' }}>
       <Card.Body>
         <Card.Title>{asset.name}</Card.Title>
         <Card.Text>

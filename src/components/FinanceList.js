@@ -35,7 +35,7 @@ const FinanceList = props => {
       <Container fluid>
         <Row>
           <Col>
-            <h2>Assets</h2>
+            <h5>Assets</h5>
             {
               props.assets.map(asset => {
                 return (
@@ -45,10 +45,10 @@ const FinanceList = props => {
             }
           </Col>
           <Col>
-            <h2>Liabilities</h2>
+            <h5>Liabilities</h5>
           </Col>
           <Col>
-            <h2>Goals</h2>
+            <h5>Goals</h5>
           </Col>
         </Row>
       </Container>
