@@ -2,12 +2,12 @@ import React from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import agent from '../../agent';
-import FinanceList from '../FinanceList';
+import agent from '../agent';
+import FinanceList from './FinanceList';
 import {
   PROFILE_PAGE_LOADED,
   PROFILE_PAGE_UNLOADED
-} from '../../constants/actionTypes';
+} from '../constants/actionTypes';
 
 const LinkStyle = {
   fontSize: "16px"
@@ -104,9 +104,35 @@ class Profile extends React.Component {
             </Col>
             <Col>
 
+            <Container>
+                <Row>
+                    <h1>Profile</h1>
+                    <br />
+                    <p className="text-muted">
+                        Tell us about yourself so we can improve the financial advice we provide
+                    </p>
+                    <br />
+                    <h2>About Me</h2>
+                </Row>
+                <Row>
+                    Gender:
+                </Row>
+                <hr />
+                <Row>
+                    Marital Status:
+                </Row>
+                <hr />
+                <Row>
+                    Education Level:
+                </Row>
+                <hr />
+                <Row>
+                    Gross Salary:
+                </Row>
+            </Container>
+
             </Col>
           </Row>
-
         </Container>
 
       </div>

@@ -1,4 +1,4 @@
-import { Profile, mapStateToProps } from './Profile/index';
+import { Profile, mapStateToProps } from './Profile';
 import React from 'react';
 import { Link } from 'react-router-dom';
 import agent from '../agent';
