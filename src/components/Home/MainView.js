@@ -4,7 +4,7 @@ import Accounts from './Accounts';
 import FinanceList from '../FinanceList';
 import agent from '../../agent';
 import { connect } from 'react-redux';
-import { CHANGE_TAB, USER_FINANCE } from '../../constants/actionTypes';
+import { USER_FINANCE } from '../../constants/actionTypes';
 
 const YourFeedTab = props => {
   if (props.token !== 'undefined') {

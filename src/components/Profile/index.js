@@ -1,12 +1,17 @@
-import FinanceList from './FinanceList';
 import React from 'react';
+import { Container, Row, Col } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
-import agent from '../agent';
 import { connect } from 'react-redux';
+import agent from '../../agent';
+import FinanceList from '../FinanceList';
 import {
   PROFILE_PAGE_LOADED,
   PROFILE_PAGE_UNLOADED
-} from '../constants/actionTypes';
+} from '../../constants/actionTypes';
+
+const LinkStyle = {
+  fontSize: "16px"
+}
 
 const EditProfileSettings = props => {
   if (props.isUser) {
@@ -19,6 +24,15 @@ const EditProfileSettings = props => {
     );
   }
   return null;
+};
+
+const ProfileFinanceList = profile => {
+  return (
+    <FinanceList
+      assets={profile.assets}
+      goals={profile.goals}
+      liabilities={profile.liabilities} />
+  );
 };
 
 const mapStateToProps = state => ({
@@ -43,35 +57,13 @@ class Profile extends React.Component {
     this.props.onUnload();
   }
 
-  renderTabs() {
-    return (
-      <ul className="nav nav-pills outline-active">
-        <li className="nav-item">
-          <Link
-            className="nav-link active"
-            to={`/@${this.props.username}`}>
-            My Finances
-          </Link>
-        </li>
-
-        <li className="nav-item">
-          <Link
-            className="nav-link"
-            to={`/@${this.props.username}/favorites`}>
-            Favorited Articles
-          </Link>
-        </li>
-      </ul>
-    );
-  }
-
   render() {
     const profile = this.props.profile;
+    const currentUser = this.props.currentUser;
+
     if (!profile) {
       return null;
     }
-
-    const isUser = profile;
 
     return (
       <div className="profile-page">
@@ -84,26 +76,38 @@ class Profile extends React.Component {
                 <h4>{profile.lastName}, {profile.firstName}</h4>
                 <p>{profile.email}</p>
 
-                <EditProfileSettings isUser={isUser} />
+                <EditProfileSettings isUser={profile} />
 
               </div>
             </div>
           </div>
         </div>
 
-        <div className="container">
-          <div className="row">
+        <Container>
+          <Row>
+            <Col md="3">
+              Settings
+              <br />
+              <hr />
+              <Link to={`/@${currentUser.username}/profile`} className="nav-link active"
+                style={LinkStyle}>
+                Profile
+              </Link>
+              <Link to={`/@${currentUser.username}/notifications`} className="nav-link"
+                style={LinkStyle}>
+                Notifications
+              </Link>
+              <Link to={`/@${currentUser.username}/finances`} className="nav-link"
+                style={LinkStyle}>
+                Finances
+              </Link>
+            </Col>
+            <Col>
 
-            <div className="col-xs-12 col-md-10 offset-md-1">
+            </Col>
+          </Row>
 
-              <FinanceList
-                assets={profile.assets}
-                goals={profile.goals}
-                liabilities={profile.liabilities} />
-            </div>
-
-          </div>
-        </div>
+        </Container>
 
       </div>
     );
