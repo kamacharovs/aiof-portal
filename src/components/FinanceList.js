@@ -39,7 +39,7 @@ const FinanceList = props => {
             {
               props.assets.map(asset => {
                 return (
-                  <AssetPreview asset={asset} />
+                  <AssetPreview key={asset.name} asset={asset} />
                 );
               })
             }
@@ -49,7 +49,7 @@ const FinanceList = props => {
             {
               props.liabilities.map(liability => {
                 return (
-                  <LiabilityPreview liability={liability} />
+                  <LiabilityPreview key={liability.name} liability={liability} />
                 );
               })
             }
@@ -59,7 +59,7 @@ const FinanceList = props => {
             {
               props.goals.map(goal => {
                 return (
-                  <GoalPreview goal={goal} />
+                  <GoalPreview key={goal.name} goal={goal} />
                 );
               })
             }

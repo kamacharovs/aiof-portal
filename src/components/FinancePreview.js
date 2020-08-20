@@ -5,7 +5,7 @@ export const AssetPreview = props => {
   const asset = props.asset;
 
   return (
-    <Card key={asset.name} style={{ width: '16rem' }}>
+    <Card style={{ width: '16rem' }}>
       <Card.Body>
         <Card.Title>{asset.name}</Card.Title>
         <Card.Text>
@@ -25,7 +25,7 @@ export const LiabilityPreview = props => {
   const liability = props.liability;
 
   return (
-    <Card key={liability.name} style={{ width: '16rem' }}>
+    <Card style={{ width: '16rem' }}>
       <Card.Body>
         <Card.Title>{liability.name}</Card.Title>
         <Card.Text>
@@ -45,7 +45,7 @@ export const GoalPreview = props => {
   const goal = props.goal;
 
   return (
-    <Card key={goal.name} style={{ width: '16rem' }}>
+    <Card style={{ width: '16rem' }}>
       <Card.Body>
         <Card.Title>{goal.name}</Card.Title>
         <Card.Text>
