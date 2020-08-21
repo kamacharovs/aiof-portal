@@ -87,7 +87,8 @@ class Accounts extends React.Component {
   }
 
   render() {
-    if (!this.props.token) {
+    if (!this.props.token
+      || this.props.token === 'undefined') {
       return null;
     }
     
