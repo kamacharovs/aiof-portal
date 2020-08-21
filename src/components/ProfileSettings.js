@@ -1,7 +1,8 @@
 import React from 'react';
-import { Form, Button } from 'react-bootstrap';
+import { Form, Button, Row, Col } from 'react-bootstrap';
 import agent from '../agent';
 import { connect } from 'react-redux';
+import Select from 'react-select';
 import ListErrors from './ListErrors';
 import {
   SETTINGS_SAVED,
@@ -9,13 +10,20 @@ import {
   LOGOUT
 } from '../constants/actionTypes';
 
+const genderOptions = [
+  { value: 'male', label: 'Male' },
+  { value: 'female', label: 'Female' },
+];
+
 class ProfileSettingsForm extends React.Component {
   constructor() {
     super();
 
     this.state = {
-      email: '',
-      occupation: '',
+      email: null,
+      occupation: null,
+      occupationIndustry: null,
+      gender: null,
     };
 
     this.updateState = field => ev => {
@@ -28,7 +36,7 @@ class ProfileSettingsForm extends React.Component {
       ev.preventDefault();
 
       const settings = Object.assign({}, this.state);
-      
+
       this.props.onSubmitForm(this.props.currentUser.username, settings);
     };
   }
@@ -38,6 +46,8 @@ class ProfileSettingsForm extends React.Component {
       Object.assign(this.state, {
         email: this.props.currentUser.email,
         occupation: this.props.profile.occupation,
+        occupationIndustry: this.props.profile.occupationIndustry,
+        gender: this.props.profile.gender,
       });
     }
   }
@@ -47,6 +57,8 @@ class ProfileSettingsForm extends React.Component {
       this.setState(Object.assign({}, this.state, {
         email: nextProps.currentUser.email,
         occupation: nextProps.profile.occupation,
+        occupationIndustry: nextProps.profile.occupationIndustry,
+        gender: nextProps.profile.gender,
       }));
     }
   }
@@ -54,6 +66,22 @@ class ProfileSettingsForm extends React.Component {
   render() {
     return (
       <Form onSubmit={this.submitForm}>
+        <Row>
+          <Col sm="6">
+            <Form.Group>
+              <Form.Label>Gender</Form.Label>
+              <Select
+                value={this.state.gender}
+                onChange={this.updateState('gender')}
+                options={genderOptions}
+              />
+            </Form.Group>
+          </Col>
+          <Col sm="6">
+
+          </Col>
+        </Row>
+
         <Form.Group>
           <Form.Label>Email</Form.Label>
           <Form.Control type="email"
@@ -61,12 +89,25 @@ class ProfileSettingsForm extends React.Component {
             onChange={this.updateState('email')} />
         </Form.Group>
 
-        <Form.Group>
-          <Form.Label>Occupation</Form.Label>
-          <Form.Control type="text"
-            value={this.state.occupation}
-            onChange={this.updateState('occupation')} />
-        </Form.Group>
+        <Row>
+          <Col sm="6">
+            <Form.Group>
+              <Form.Label>Occupation</Form.Label>
+              <Form.Control type="text"
+                value={this.state.occupation}
+                onChange={this.updateState('occupation')} />
+            </Form.Group>
+          </Col>
+          <Col sm="6">
+            <Form.Group>
+              <Form.Label>Occupation industry</Form.Label>
+              <Form.Control type="text"
+                value={this.state.occupationIndustry}
+                onChange={this.updateState('occupationIndustry')} />
+            </Form.Group>
+          </Col>
+        </Row>
+
 
         <Button variant="outline-primary" size="sm" type="submit"
           disabled={this.props.inProgress}>
@@ -86,7 +127,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   onClickLogout: () => dispatch({ type: LOGOUT }),
   onSubmitForm: (username, settings) =>
-    dispatch({ type: SETTINGS_SAVED, payload: agent.UserProfile.upsert(username, settings)}),
+    dispatch({ type: SETTINGS_SAVED, payload: agent.UserProfile.upsert(username, settings) }),
   onUnload: () => dispatch({ type: SETTINGS_PAGE_UNLOADED })
 });
 
@@ -95,7 +136,7 @@ class ProfileSettings extends React.Component {
     if (!this.props.currentUser) {
       return null;
     }
-    
+
     return (
       <div className="settings-page">
         <div className="container page">
