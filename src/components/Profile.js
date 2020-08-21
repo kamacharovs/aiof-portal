@@ -1,5 +1,6 @@
 import React from 'react';
-import { Container, Row, Col, Tabs, Tab } from 'react-bootstrap';
+import { Container, Row, Col } from 'react-bootstrap';
+import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import agent from '../agent';
@@ -9,9 +10,17 @@ import {
   PROFILE_PAGE_UNLOADED
 } from '../constants/actionTypes';
 
-const LinkStyle = {
-  fontSize: "16px"
-}
+import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
+import 'react-tabs/style/react-tabs.css';
+
+const VerticalTabs = styled(Tabs)`
+  display: flex;
+`;
+
+const VerticalTabList = styled(TabList)`
+  display: flex;
+  flex-direction: column;
+`;
 
 const EditProfileSettings = props => {
   if (props.isUser) {
@@ -90,44 +99,21 @@ class Profile extends React.Component {
           </div>
         </div>
         <div>
-          <Tabs
-            id="controlled-tab-example"
-            activeKey={this.state.key}
-            onSelect={key => this.setState({ key })}>
-            <Tab eventKey="home" title="Home">
-              Home content
-				    </Tab>
-            <Tab eventKey="profile" title="Profile">
-              <Container>
-                <Row>
-                  <p className="text-muted">
-                    Tell us about yourself so we can improve the financial advice we provide
+          <Tabs>
+            <TabList>
+              <Tab>Title 1</Tab>
+              <Tab>Profile</Tab>
+            </TabList>
+
+            <TabPanel>
+              <h2>Any content 1</h2>
+            </TabPanel>
+            <TabPanel>
+              <p className="text-muted">
+                Tell us about yourself so we can improve the financial advice we provide
                 </p>
-                  <hr />
-                  <Row>
-                    <h2>About Me</h2>
-                  </Row>
-                  <Row>
-                    Gender:
-                 </Row>
-                  <hr />
-                  <Row>
-                    Marital Status:
-                </Row>
-                  <hr />
-                  <Row>
-                    Education Level:
-                </Row>
-                  <hr />
-                  <Row>
-                    Gross Salary:
-                </Row>
-                </Row>
-              </Container>
-            </Tab>
-            <Tab eventKey="contact" title="Contact" disabled>
-              Contact content
-				</Tab>
+              <hr />
+            </TabPanel>
           </Tabs>
         </div>
 
