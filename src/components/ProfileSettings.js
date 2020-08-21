@@ -68,7 +68,7 @@ class ProfileSettingsForm extends React.Component {
             onChange={this.updateState('occupation')} />
         </Form.Group>
 
-        <Button variant="primary" size="sm" type="submit"
+        <Button variant="outline-primary" size="sm" type="submit"
           disabled={this.props.inProgress}>
           Update Settings
         </Button>
@@ -92,6 +92,10 @@ const mapDispatchToProps = dispatch => ({
 
 class ProfileSettings extends React.Component {
   render() {
+    if (!this.props.currentUser) {
+      return null;
+    }
+    
     return (
       <div className="settings-page">
         <div className="container page">
@@ -109,11 +113,10 @@ class ProfileSettings extends React.Component {
 
               <hr />
 
-              <button
-                className="btn btn-outline-danger"
+              <Button variant="outline-danger" size="sm"
                 onClick={this.props.onClickLogout}>
-                Or click here to logout.
-              </button>
+                Or click here to logout
+              </Button>
 
             </div>
           </div>

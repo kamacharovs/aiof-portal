@@ -49,9 +49,11 @@ const mapDispatchToProps = dispatch => ({
 
 class Profile extends React.Component {
   componentDidMount() {
-    this.props.onLoad(Promise.all([
-      agent.UserProfile.get(this.props.currentUser.username)
-    ]));
+    if (this.props.currentUser) {
+      this.props.onLoad(Promise.all([
+        agent.UserProfile.get(this.props.currentUser.username)
+      ]));
+    }
   }
 
   componentWillUnmount() {
@@ -62,7 +64,7 @@ class Profile extends React.Component {
     const profile = this.props.profile;
     const innerProfile = profile.profile;
 
-    if (!profile) {
+    if (!this.props.currentUser) {
       return null;
     }
 
