@@ -61,13 +61,9 @@ const User = {
 const UserProfile = {
   get: username =>
     User.byUsername(username),
-  upsert: (username, occupation) =>
-    requests2.put(`/user/profile?username=${username}`, { occupation }),
+  upsert: (username, payload) =>
+    requests2.put(`/user/profile?username=${username}`, { payload }),
 }
-
-const Tags = {
-  getAll: () => requests.get('/tags')
-};
 
 const limit = (count, p) => `limit=${count}&offset=${p ? p * count : 0}`;
 const omitSlug = article => Object.assign({}, article, { slug: undefined })
@@ -121,6 +117,5 @@ export default {
   UserProfile,
   Comments,
   Profile,
-  Tags,
   setToken: _token => { token = _token; }
 };

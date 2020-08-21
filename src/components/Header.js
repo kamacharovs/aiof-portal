@@ -44,7 +44,6 @@ const LoggedInView = props => {
       <Nav pullright={pullright}>
         <Nav className="mr-auto">
           <Link to="/editor" className="nav-link"><i className="ion-compose"></i>&nbsp;New Post</Link>
-          <Link to="/settings" className="nav-link"><i className="ion-gear-a"></i>&nbsp;Settings</Link>
           <NavDropdown title="Dropdown" id="basic-nav-dropdown">
             <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
             <NavDropdown.Item href="#action/3.2">Another action</NavDropdown.Item>

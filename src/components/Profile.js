@@ -14,10 +14,11 @@ import '../style/tabs.css';
 import { CustomHr, Hr50, MutedH2 } from '../style/common';
 
 const EditProfileSettings = props => {
-  if (props.isUser) {
+  if (props.isUser
+    && props.username) {
     return (
       <Link
-        to="/settings"
+        to={`/@${props.username}/settings`}
         className="btn btn-sm btn-outline-secondary action-btn">
         <i className="ion-gear-a"></i> Edit Profile Settings
       </Link>
@@ -90,7 +91,7 @@ class Profile extends React.Component {
                 <h4>{profile.lastName}, {profile.firstName}</h4>
                 <p>{profile.email}</p>
 
-                <EditProfileSettings isUser={profile} />
+                <EditProfileSettings username={profile.username} isUser={profile} />
 
               </Col>
             </Row>
