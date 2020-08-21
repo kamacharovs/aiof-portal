@@ -32,7 +32,7 @@ const FinanceList = props => {
     }
 
     return (
-      <Container fluid>
+      <Container>
         <Row>
           <Col>
             <h5>Assets</h5>

@@ -1,5 +1,6 @@
 import React from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
+import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
@@ -10,16 +11,20 @@ import {
   PROFILE_PAGE_UNLOADED
 } from '../constants/actionTypes';
 
-import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import 'react-tabs/style/react-tabs.css';
 
 const VerticalTabs = styled(Tabs)`
-  display: flex;
+  display: flex !important;
 `;
 
 const VerticalTabList = styled(TabList)`
-  display: flex;
-  flex-direction: column;
+  display: flex !important;
+  flex-direction: column !important;
+  font-size: 16px !important
+`;
+
+const VerticalTabPanel = styled(TabPanel)`
+  padding: 15px !important
 `;
 
 const EditProfileSettings = props => {
@@ -69,7 +74,6 @@ class Profile extends React.Component {
 
   render() {
     const profile = this.props.profile;
-    const currentUser = this.props.currentUser;
 
     if (!profile) {
       return null;
@@ -101,14 +105,14 @@ class Profile extends React.Component {
           </Container>
         </div>
         <div className="container page">
-          <Tabs>
-            <TabList>
+          <VerticalTabs>
+            <VerticalTabList>
               <Tab>Profile</Tab>
               <Tab>Finances</Tab>
               <Tab>Notifications</Tab>
-            </TabList>
+            </VerticalTabList>
 
-            <TabPanel>
+            <VerticalTabPanel>
               <h1>Profile</h1>
               <p className="text-muted">
                 Tell us about yourself so we can improve the financial advice we provide
@@ -126,14 +130,14 @@ class Profile extends React.Component {
               </Row>
               
               <hr />       
-            </TabPanel>
-            <TabPanel>
+            </VerticalTabPanel>
+            <VerticalTabPanel>
               <ProfileFinanceList profile={profile} />
-            </TabPanel>
-            <TabPanel>
+            </VerticalTabPanel>
+            <VerticalTabPanel>
               <h2>Any content 1</h2>
-            </TabPanel>
-          </Tabs>
+            </VerticalTabPanel>
+          </VerticalTabs>
         </div>
 
       </div>
