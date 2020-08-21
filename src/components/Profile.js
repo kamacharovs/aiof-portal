@@ -11,21 +11,9 @@ import {
   PROFILE_PAGE_UNLOADED
 } from '../constants/actionTypes';
 
-import 'react-tabs/style/react-tabs.css';
+import '../style/tabs.css';
 
-const VerticalTabs = styled(Tabs)`
-  display: flex !important;
-`;
 
-const VerticalTabList = styled(TabList)`
-  display: flex !important;
-  flex-direction: column !important;
-  font-size: 16px !important
-`;
-
-const VerticalTabPanel = styled(TabPanel)`
-  padding: 15px !important
-`;
 
 const EditProfileSettings = props => {
   if (props.isUser) {
@@ -105,14 +93,14 @@ class Profile extends React.Component {
           </Container>
         </div>
         <div className="container page">
-          <VerticalTabs>
-            <VerticalTabList>
+          <Tabs>
+            <TabList>
               <Tab>Profile</Tab>
               <Tab>Finances</Tab>
               <Tab>Notifications</Tab>
-            </VerticalTabList>
+            </TabList>
 
-            <VerticalTabPanel>
+            <TabPanel>
               <h1>Profile</h1>
               <p className="text-muted">
                 Tell us about yourself so we can improve the financial advice we provide
@@ -130,14 +118,14 @@ class Profile extends React.Component {
               </Row>
               
               <hr />       
-            </VerticalTabPanel>
-            <VerticalTabPanel>
+            </TabPanel>
+            <TabPanel>
               <ProfileFinanceList profile={profile} />
-            </VerticalTabPanel>
-            <VerticalTabPanel>
+            </TabPanel>
+            <TabPanel>
               <h2>Any content 1</h2>
-            </VerticalTabPanel>
-          </VerticalTabs>
+            </TabPanel>
+          </Tabs>
         </div>
 
       </div>
