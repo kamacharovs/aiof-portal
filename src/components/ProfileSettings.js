@@ -14,7 +14,8 @@ class ProfileSettingsForm extends React.Component {
     super();
 
     this.state = {
-      email: ''
+      email: '',
+      occupation: '',
     };
 
     this.updateState = field => ev => {
@@ -27,23 +28,25 @@ class ProfileSettingsForm extends React.Component {
       ev.preventDefault();
 
       const settings = Object.assign({}, this.state);
-
+      
       this.props.onSubmitForm(this.props.currentUser.username, settings);
     };
   }
 
-  componentWillMount() {
-    if (this.props.currentUser) {
+  componentDidMount() {
+    if (this.props.currentUser && this.props.profile) {
       Object.assign(this.state, {
-        email: this.props.currentUser.email
+        email: this.props.currentUser.email,
+        occupation: this.props.profile.occupation,
       });
     }
   }
 
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.currentUser) {
+  componentDidUpdate(nextProps) {
+    if (nextProps.currentUser && nextProps.profile) {
       this.setState(Object.assign({}, this.state, {
-        email: nextProps.currentUser.email
+        email: nextProps.currentUser.email,
+        occupation: nextProps.profile.occupation,
       }));
     }
   }
@@ -59,10 +62,13 @@ class ProfileSettingsForm extends React.Component {
         </Form.Group>
 
         <Form.Group>
-          <Form.Check type="checkbox" label="Remember me" />
+          <Form.Label>Occupation</Form.Label>
+          <Form.Control type="text"
+            value={this.state.occupation}
+            onChange={this.updateState('occupation')} />
         </Form.Group>
 
-        <Button variant="primary" size="lg" type="submit"
+        <Button variant="primary" size="sm" type="submit"
           disabled={this.props.inProgress}>
           Update Settings
         </Button>
@@ -73,13 +79,14 @@ class ProfileSettingsForm extends React.Component {
 
 const mapStateToProps = state => ({
   ...state.settings,
-  currentUser: state.common.currentUser
+  currentUser: state.common.currentUser,
+  profile: state.profile.profile
 });
 
 const mapDispatchToProps = dispatch => ({
   onClickLogout: () => dispatch({ type: LOGOUT }),
   onSubmitForm: (username, settings) =>
-    dispatch({ type: SETTINGS_SAVED, payload: agent.UserProfile.upsert(username, settings) }),
+    dispatch({ type: SETTINGS_SAVED, payload: agent.UserProfile.upsert(username, settings)}),
   onUnload: () => dispatch({ type: SETTINGS_PAGE_UNLOADED })
 });
 
@@ -97,6 +104,7 @@ class ProfileSettings extends React.Component {
 
               <ProfileSettingsForm
                 currentUser={this.props.currentUser}
+                profile={this.props.profile}
                 onSubmitForm={this.props.onSubmitForm} />
 
               <hr />

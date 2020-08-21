@@ -61,8 +61,8 @@ const User = {
 const UserProfile = {
   get: username =>
     User.byUsername(username),
-  upsert: (username, payload) =>
-    requests2.put(`/user/profile?username=${username}`, { payload }),
+  upsert: (username, settings) =>
+    requests2.put(`/user/profile?username=${username}`, { occupation: settings.occupation }),
 }
 
 const limit = (count, p) => `limit=${count}&offset=${p ? p * count : 0}`;
