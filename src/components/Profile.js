@@ -57,7 +57,7 @@ const mapDispatchToProps = dispatch => ({
 
 class Profile extends React.Component {
 
-  componentWillMount() {
+  componentDidMount() {
     this.props.onLoad(Promise.all([
       agent.UserProfile.get(this.props.currentUser.username)
     ]));

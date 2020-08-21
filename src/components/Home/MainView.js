@@ -1,7 +1,6 @@
 import React from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
 import Accounts from './Accounts';
-import FinanceList from '../FinanceList';
 import agent from '../../agent';
 import { connect } from 'react-redux';
 import { USER_FINANCE } from '../../constants/actionTypes';
@@ -63,20 +62,6 @@ const GlobalFeedTab = props => {
   );
 };
 
-const TagFilterTab = props => {
-  if (!props.tag) {
-    return null;
-  }
-
-  return (
-    <li className="nav-item">
-      <a href="" className="nav-link active">
-        <i className="ion-pound"></i> {props.tag}
-      </a>
-    </li>
-  );
-};
-
 const mapStateToProps = state => ({
   ...state.finance,
   token: state.common.token,
@@ -92,7 +77,8 @@ const MainView = props => {
     <Container>
       <Row>
         <Col sm="4">
-          <Accounts />
+          <Accounts
+            token={props.token} />
         </Col>
         
 
@@ -105,11 +91,6 @@ const MainView = props => {
         */}
 
       </Row>
-
-      <FinanceList
-        assets={props.assets}
-        goals={props.goals}
-        liabilities={props.liabilities} />
     </Container>
   );
 };
