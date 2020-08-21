@@ -1,15 +1,11 @@
 import Banner from './Banner';
 import MainView from './MainView';
 import React from 'react';
-import agent from '../../agent';
 import { connect } from 'react-redux';
 import {
   HOME_PAGE_LOADED,
-  HOME_PAGE_UNLOADED,
-  APPLY_TAG_FILTER
+  HOME_PAGE_UNLOADED
 } from '../../constants/actionTypes';
-
-const Promise = global.Promise;
 
 const mapStateToProps = state => ({
   ...state.home,
@@ -26,7 +22,6 @@ const mapDispatchToProps = dispatch => ({
 
 class Home extends React.Component {
   componentDidMount() {
-    {/*this.props.onLoad(tab, articlesPromise, Promise.all([agent.Tags.getAll(), articlesPromise()]));*/}
   }
 
   componentWillUnmount() {
