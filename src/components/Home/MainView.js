@@ -107,9 +107,6 @@ const MainView = props => {
       </Row>
 
       <FinanceList
-        token={props.token}
-        pager={props.pager}
-        loading={props.loading}
         assets={props.assets}
         goals={props.goals}
         liabilities={props.liabilities} />

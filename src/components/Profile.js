@@ -35,12 +35,12 @@ const EditProfileSettings = props => {
   return null;
 };
 
-const ProfileFinanceList = profile => {
+const ProfileFinanceList = props => {
   return (
     <FinanceList
-      assets={profile.assets}
-      goals={profile.goals}
-      liabilities={profile.liabilities} />
+      assets={props.profile.assets}
+      goals={props.profile.goals}
+      liabilities={props.profile.liabilities} />
   );
 };
 
@@ -56,12 +56,6 @@ const mapDispatchToProps = dispatch => ({
 });
 
 class Profile extends React.Component {
-  constructor(props, context) {
-    super(props, context);
-    this.state = {
-      key: 'profile',
-    };
-  }
 
   componentWillMount() {
     this.props.onLoad(Promise.all([
@@ -81,38 +75,63 @@ class Profile extends React.Component {
       return null;
     }
 
+    var profileMaritalStatus = "";
+
+    if (profile.profile
+      && profile.profile.maritalStatus)
+    {
+      profileMaritalStatus = profile.profile.maritalStatus;
+    }
+
     return (
       <div className="profile-page">
 
         <div className="user-info">
-          <div className="container">
-            <div className="row">
-              <div className="col-xs-12 col-md-10 offset-md-1">
+          <Container>
+            <Row>
+              <Col xs="12">
 
                 <h4>{profile.lastName}, {profile.firstName}</h4>
                 <p>{profile.email}</p>
 
                 <EditProfileSettings isUser={profile} />
 
-              </div>
-            </div>
-          </div>
+              </Col>
+            </Row>
+          </Container>
         </div>
-        <div>
+        <div className="container page">
           <Tabs>
             <TabList>
-              <Tab>Title 1</Tab>
               <Tab>Profile</Tab>
+              <Tab>Finances</Tab>
+              <Tab>Notifications</Tab>
             </TabList>
 
             <TabPanel>
-              <h2>Any content 1</h2>
-            </TabPanel>
-            <TabPanel>
+              <h1>Profile</h1>
               <p className="text-muted">
                 Tell us about yourself so we can improve the financial advice we provide
-                </p>
-              <hr />
+              </p>
+              <br/>
+              <h2>About Me</h2>
+              <br/>
+              <Row>
+                <Col sm="6">
+                  Marital Status: 
+                </Col>
+                <Col sm="6">
+                  <b>{profileMaritalStatus}</b>
+                </Col>
+              </Row>
+              
+              <hr />       
+            </TabPanel>
+            <TabPanel>
+              <ProfileFinanceList profile={profile} />
+            </TabPanel>
+            <TabPanel>
+              <h2>Any content 1</h2>
             </TabPanel>
           </Tabs>
         </div>
