@@ -1,8 +1,7 @@
 import {
   PROFILE_PAGE_LOADED,
   PROFILE_PAGE_UNLOADED,
-  FOLLOW_USER,
-  UNFOLLOW_USER
+  UPDATE_FIELD_PROFILE
 } from '../constants/actionTypes';
 
 export default (state = {}, action) => {
@@ -21,11 +20,8 @@ export default (state = {}, action) => {
       };
     case PROFILE_PAGE_UNLOADED:
       return {};
-    case FOLLOW_USER:
-    case UNFOLLOW_USER:
-      return {
-        ...action.payload.profile
-      };
+    case UPDATE_FIELD_PROFILE:
+        return { ...state, [action.key]: action.value };
     default:
       return state;
   }
