@@ -1,7 +1,6 @@
 import React from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
-import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import agent from '../agent';
@@ -12,6 +11,7 @@ import {
 } from '../constants/actionTypes';
 
 import '../style/tabs.css';
+import { CustomHr, MutedH2 } from '../style/common';
 
 
 
@@ -95,6 +95,8 @@ class Profile extends React.Component {
         <div className="container page">
           <Tabs>
             <TabList>
+              <MutedH2>Settings</MutedH2>
+              <CustomHr/>
               <Tab>Profile</Tab>
               <Tab>Finances</Tab>
               <Tab>Notifications</Tab>
