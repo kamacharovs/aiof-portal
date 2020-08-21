@@ -11,6 +11,17 @@ import {
   LOGIN_PAGE_UNLOADED
 } from '../constants/actionTypes';
 
+const mainStyle = {
+  border: "1px solid black",
+  padding: "1rem"
+}
+const loginStyle = {
+  paddingLeft: "3rem",
+  paddingRight: "3rem",
+  paddingTop: "2rem",
+  paddingBottom: "2rem"
+}
+
 const mapStateToProps = state => ({ ...state.auth });
 
 const mapDispatchToProps = dispatch => ({
@@ -46,7 +57,7 @@ class Login extends React.Component {
       <div className="auth-page">
         <div className="container page">
           <div className="row">
-            <div className="col-md-6 offset-md-3 col-xs-12 text-xs-center" style={{ border: "1px solid black", padding: "1rem" }}>
+            <div className="col-md-6 offset-md-3 col-xs-12 text-xs-center" style={mainStyle}>
 
               <ListErrors errors={this.props.errors} />
 
@@ -62,7 +73,7 @@ class Login extends React.Component {
                   One account for everything finance
                 </Form.Text>
 
-                <div className="text-xs-left" style={{ paddingLeft: "3rem", paddingRight: "3rem", paddingTop: "2rem", paddingBottom: "2rem" }}>
+                <div className="text-xs-left" style={loginStyle}>
                   <Form.Group>
                     <Form.Label>Username</Form.Label>
                     <Form.Control type="text"

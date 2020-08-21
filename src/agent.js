@@ -35,6 +35,8 @@ const requests = {
 const requests2 = {
   get: url =>
     superagent.get(`${API_ROOT_2}${url}`).use(tokenPlugin2).then(responseBody),
+  put: (url, body) =>
+    superagent.put(`${API_ROOT_2}${url}`, body).use(tokenPlugin2).then(responseBody),
 }
 const requestsAuth = {
   post: (url, body) =>
@@ -55,6 +57,12 @@ const Auth = {
 const User = {
   byUsername: username =>
     requests2.get(`/user?username=${username}`),
+}
+const UserProfile = {
+  get: username =>
+    User.byUsername(username),
+  upsert: (username, occupation) =>
+    requests2.put(`/user/profile?username=${username}`, { occupation }),
 }
 
 const Tags = {
@@ -110,6 +118,7 @@ export default {
   Articles,
   Auth,
   User,
+  UserProfile,
   Comments,
   Profile,
   Tags,

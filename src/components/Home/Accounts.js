@@ -14,19 +14,6 @@ const mapDispatchToProps = dispatch => ({
   onFinanceTabClick: (tab, pager, payload) => dispatch({ type: USER_FINANCE, tab, pager, payload }),
 });
 
-const ulStyle = {
-  margin: "0",
-  padding: "0",
-  border: "0",
-  fontWeight: "inherit",
-  fontStyle: "inherit",
-  fontSize: "100%",
-  verticalAlign: "baseline",
-};
-const accordionStyle = {
-  outline: "none"
-}
-
 const Cash = props => {
   return (
     <Container>
@@ -82,11 +69,12 @@ const Investments = props => {
 }
 
 class Accounts extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-
   render() {
+    if (!this.props.token
+      || this.props.token === 'undefined') {
+      return null;
+    }
+    
     return (
       <Container>
         <Row>
