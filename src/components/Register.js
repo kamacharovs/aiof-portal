@@ -1,9 +1,9 @@
-import Form from 'react-bootstrap/Form';
-import Button from 'react-bootstrap/Button';
+import React from 'react';
+import { Form, Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import ListErrors from './ListErrors';
-import React from 'react';
 import agent from '../agent';
+import { FaUnlock } from "react-icons/fa";
 import { connect } from 'react-redux';
 import {
   UPDATE_FIELD_AUTH,
@@ -115,7 +115,7 @@ class Register extends React.Component {
 
                   <Button variant="primary" size="lg" type="submit" block
                     disabled={this.props.inProgress}>
-                    <i className="ion-android-unlock"></i>&nbsp;&nbsp;Sign up
+                    <FaUnlock size={20} />&nbsp;&nbsp;Sign up
                   </Button>
                 </div>
               </Form>
