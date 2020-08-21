@@ -62,18 +62,25 @@ class Profile extends React.Component {
 
   render() {
     const profile = this.props.profile;
+    const innerProfile = profile.profile;
 
     if (!profile) {
       return null;
     }
 
-    var profileMaritalStatus = "";
-
-    if (profile.profile
-      && profile.profile.maritalStatus)
-    {
-      profileMaritalStatus = profile.profile.maritalStatus;
-    }
+    var profilegender = innerProfile ? innerProfile.gender : null;
+    var profiledateOfBirth = innerProfile ? innerProfile.profiledateOfBirth : null;
+    var profileage = innerProfile ? innerProfile.age : null;
+    var profileoccupation = innerProfile ? innerProfile.occupation : null;
+    var profileoccupationIndustry = innerProfile ? innerProfile.occupationIndustry : null;
+    var profilegrossSalary = innerProfile ? innerProfile.grossSalary : null;
+    var profilemaritalStatus = innerProfile ? innerProfile.maritalStatus : null;
+    var profileeducationLevel = innerProfile ? innerProfile.educationLevel : null;
+    var profileresidentialStatus = innerProfile ? innerProfile.residentialStatus : null;
+    var profilehouseholdIncome = innerProfile ? innerProfile.householdIncome : null;
+    var profilehouseholdAdults = innerProfile ? innerProfile.householdAdults : null;
+    var profilehouseholdChildren = innerProfile ? innerProfile.householdChildren : null;
+    var profileretirementContributionsPreTax = innerProfile ? innerProfile.retirementContributionsPreTax : null;
 
     return (
       <div className="profile-page">
@@ -109,13 +116,54 @@ class Profile extends React.Component {
               </p>
               <br/>
               <h2>About Me</h2>
-              <br/>
               <Row>
                 <Col sm="6">
-                  Marital Status: 
+                  Gender: <br/>
+                  Date of birth: <br/>
+                  Age: <br/>
+                  Marital status: 
                 </Col>
                 <Col sm="6">
-                  <b>{profileMaritalStatus}</b>
+                  <b>{profilegender}</b><br/>
+                  <b>{profiledateOfBirth}</b><br/>
+                  <b>{profileage}</b><br/>
+                  <b>{profilemaritalStatus}</b>
+                </Col>
+              </Row>
+              <Row>
+                <Col sm="6">
+                  Occupation: <br/>
+                  Occupation industry: <br/>
+                  Gross salary: <br/>
+                  Education level: 
+                </Col>
+                <Col sm="6">
+                  <b>{profileoccupation}</b><br/>
+                  <b>{profileoccupationIndustry}</b><br/>
+                  <b>{profilegrossSalary}</b><br/>
+                  <b>{profileeducationLevel}</b>
+                </Col>
+              </Row>
+              <Row>
+                <Col sm="6">
+                  Residential status: <br/>
+                  Household income: <br/>
+                  Household adults: <br/>
+                  Household children: 
+                </Col>
+                <Col sm="6">
+                  <b>{profileresidentialStatus}</b><br/>
+                  <b>{profilehouseholdIncome}</b><br/>
+                  <b>{profilehouseholdAdults}</b><br/>
+                  <b>{profilehouseholdChildren}</b>
+                </Col>
+              </Row>
+              <Row>
+                <Col sm="6">
+                  Retirement contributions pre-tax:
+                </Col>
+                <Col sm="6">
+                  <b>{profileretirementContributionsPreTax}</b>
                 </Col>
               </Row>
               
