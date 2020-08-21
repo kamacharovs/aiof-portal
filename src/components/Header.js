@@ -1,6 +1,10 @@
 import React from 'react';
 import { Nav, Navbar } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import {
+  LOGOUT
+} from '../constants/actionTypes';
 
 const bg = "dark"
 const variant = "dark"
@@ -44,6 +48,7 @@ const LoggedInView = props => {
       <Nav pullright={pullright}>
         <Nav className="mr-auto">
           <Link to="/editor" className="nav-link"><i className="ion-compose"></i>&nbsp;New Post</Link>
+          <Link to="/login" className="nav-link" onClick={props.onClickLogout}>Log out</Link>
           <Link to={`/@${props.currentUser.username}`} className="nav-link"> {props.currentUser.lastName}, {props.currentUser.firstName}</Link>
         </Nav>
       </Nav>
@@ -52,6 +57,10 @@ const LoggedInView = props => {
 
   return null;
 };
+
+const mapDispatchToProps = dispatch => ({
+  onClickLogout: () => dispatch({ type: LOGOUT }),
+});
 
 class Header extends React.Component {
   render() {
@@ -66,7 +75,7 @@ class Header extends React.Component {
 
             <LoggedOutView currentUser={this.props.currentUser} />
 
-            <LoggedInView currentUser={this.props.currentUser} />
+            <LoggedInView currentUser={this.props.currentUser} onClickLogout={this.props.onClickLogout} />
 
           </div>
 
@@ -76,4 +85,4 @@ class Header extends React.Component {
   }
 }
 
-export default Header;
+export default connect(null, mapDispatchToProps)(Header);
