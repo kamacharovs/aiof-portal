@@ -10,6 +10,7 @@ const encode = encodeURIComponent;
 const responseBody = res => res.body;
 
 let token = null;
+let refreshToken = null;
 const tokenPlugin = req => {
   if (token) {
     req.set('Authorization', `Bearer ${token}`);
@@ -105,5 +106,6 @@ export default {
   UserProfile,
   Comments,
   Profile,
-  setToken: _token => { token = _token; }
+  setToken: _token => { token = _token; },
+  setRefreshToken: _refreshToken => { refreshToken = _refreshToken; }
 };

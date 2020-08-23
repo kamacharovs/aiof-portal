@@ -49,12 +49,16 @@ const promiseMiddleware = store => next => action => {
 const localStorageMiddleware = store => next => action => {
   if (action.type === REGISTER || action.type === LOGIN) {
     if (!action.error) {
-      window.localStorage.setItem('jwt', action.payload.acess_token); //TODO: update /auth to return user too
+      window.localStorage.setItem('jwt', action.payload.acess_token); //TODO: move refresh token or token to HttpOnly Cookie
+      window.localStorage.setItem('refreshToken', action.payload.refresh_token);
       agent.setToken(action.payload.acess_token);
+      agent.setRefreshToken(action.payload.refresh_token);
     }
   } else if (action.type === LOGOUT) {
     window.localStorage.setItem('jwt', '');
+    window.localStorage.setItem('refreshToken', '');
     agent.setToken(null);
+    agent.setRefreshToken(null);
   }
 
   next(action);
