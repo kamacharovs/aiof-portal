@@ -6,6 +6,7 @@ import {
   SETTINGS_SAVED,
   LOGIN,
   REGISTER,
+  REFRESH,
   DELETE_ARTICLE,
   ARTICLE_PAGE_UNLOADED,
   EDITOR_PAGE_UNLOADED,
@@ -60,6 +61,12 @@ export default (state = defaultState, action) => {
         redirectTo: action.error ? null : '/',
         token: action.error ? null : action.payload.access_token,
         refreshToken: action.error ? null : action.payload.refresh_token,
+        currentUser: action.error ? null : action.payload.user
+      };
+    case REFRESH:
+      return {
+        ...state,
+        token: action.error ? null : action.payload.access_token,
         currentUser: action.error ? null : action.payload.user
       };
     case DELETE_ARTICLE:

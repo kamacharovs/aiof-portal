@@ -39,6 +39,8 @@ const Auth = {
     requestsAuth.post('/auth/token', { username, password }),
   register: (firstName, lastName, email, username, password) =>
     requestsAuth.post('/user', { firstName, lastName, email, username, password }),
+  refresh: refreshToken =>
+    requestsAuth.post('/auth/token', { refresh_token: refreshToken }),
   save: user =>
     requests.put('/user', { user })
 };
