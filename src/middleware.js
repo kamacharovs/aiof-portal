@@ -30,7 +30,7 @@ const promiseMiddleware = store => next => action => {
         if (!skipTracking && currentState.viewChangeCounter !== currentView) {
           return
         }
-        console.log('ERROR', error);
+        console.log('ERROR', error);  //TODO : add logic if the error is unauthorized and the refresh_token is not null then call agent.Auth.refresh
         action.error = true;
         action.payload = error.response.body;
         if (!action.skipTracking) {
