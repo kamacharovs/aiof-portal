@@ -11,8 +11,8 @@ import {
 } from '../constants/actionTypes';
 
 const genderOptions = [
-  { value: 'Male', label: 'Male' },
-  { value: 'Female', label: 'Female' },
+  { value: 'male', label: 'Male' },
+  { value: 'female', label: 'Female' },
 ];
 
 const maritalStatusOptions = [
@@ -22,21 +22,23 @@ const maritalStatusOptions = [
   { value: 'No longer married', label: 'No longer married' },
 ]
 
-const householdChildrenOptions = [
-  { value: '1', label: '1 Child' },
-  { value: '2', label: '2 Children' },
-  { value: '3', label: '3 Children' },
-  { value: '4', label: '4 Children' },
-  { value: '5', label: '5 Children' },
-  { value: '6', label: '6+ Children' },
-]
 const householdAdultsOptions = [
+  { value: '0', label: '0 Adults' },
   { value: '1', label: '1 Adult' },
   { value: '2', label: '2 Adults' },
   { value: '3', label: '3 Adults' },
   { value: '4', label: '4 Adults' },
   { value: '5', label: '5 Adults' },
   { value: '6', label: '6+ Adults' },
+]
+const householdChildrenOptions = [
+  { value: '0', label: '0 Children' },
+  { value: '1', label: '1 Child' },
+  { value: '2', label: '2 Children' },
+  { value: '3', label: '3 Children' },
+  { value: '4', label: '4 Children' },
+  { value: '5', label: '5 Children' },
+  { value: '6', label: '6+ Children' },
 ]
 
 class ProfileSettingsForm extends React.Component {
@@ -53,6 +55,7 @@ class ProfileSettingsForm extends React.Component {
       householdIncome: null,
       householdAdults: '',
       householdChildren: '',
+      retirementContributionsPreTax: null,
     };
 
     this.updateState = field => ev => {
@@ -66,10 +69,36 @@ class ProfileSettingsForm extends React.Component {
       this.setState(newState);
     };
 
+    this.handleGenderChange = gender => {
+      this.setState(
+        { gender }
+      );
+    };
+    this.handleMaritalStatusChange = maritalStatus => {
+      this.setState(
+        { maritalStatus }
+      );
+    };
+    this.handleHouseholdAdultsChange = householdAdults => {
+      this.setState(
+        { householdAdults }
+      );
+    };
+    this.handleHouseholdChildrenChange = householdChildren => {
+      this.setState(
+        { householdChildren }
+      );
+    }
+
     this.submitForm = ev => {
       ev.preventDefault();
 
       const settings = Object.assign({}, this.state);
+
+      settings.gender = settings.gender ? settings.gender.value : null;
+      settings.maritalStatus = settings.maritalStatus ? settings.maritalStatus.value : null;
+      settings.householdAdults = settings.householdAdults ? parseInt(settings.householdAdults.value) : null;
+      settings.householdChildren = settings.householdChildren ? parseInt(settings.householdChildren.value) : null;
 
       this.props.onSubmitForm(this.props.currentUser.username, settings);
     };
@@ -87,6 +116,7 @@ class ProfileSettingsForm extends React.Component {
         householdIncome: this.props.profile.householdIncome,
         householdAdults: this.props.profile.householdAdults,
         householdChildren: this.props.profile.householdChildren,
+        retirementContributionsPreTax: this.props.profile.retirementContributionsPreTax,
       });
     }
   }
@@ -103,6 +133,7 @@ class ProfileSettingsForm extends React.Component {
         householdIncome: nextProps.profile.householdIncome,
         householdAdults: nextProps.profile.householdAdults,
         householdChildren: nextProps.profile.householdChildren,
+        retirementContributionsPreTax: nextProps.profile.retirementContributionsPreTax,
       }));
     }
   }
@@ -116,7 +147,7 @@ class ProfileSettingsForm extends React.Component {
               <Form.Label>Gender</Form.Label>
               <Select
                 value={this.state.gender}
-                onChange={this.updateSelectState('gender')}
+                onChange={this.handleGenderChange}
                 options={genderOptions}
               />
             </Form.Group>
@@ -153,7 +184,7 @@ class ProfileSettingsForm extends React.Component {
               <Form.Label>Marital status</Form.Label>
               <Select
                 value={this.state.maritalStatus}
-                onChange={this.updateSelectState('maritalStatus')}
+                onChange={this.handleMaritalStatusChange}
                 options={maritalStatusOptions}
               />
             </Form.Group>
@@ -187,7 +218,7 @@ class ProfileSettingsForm extends React.Component {
               <Form.Label>Household Adults</Form.Label>
               <Select
                 value={this.state.householdAdults}
-                onChange={this.updateSelectState('householdAdults')}
+                onChange={this.handleHouseholdAdultsChange}
                 options={householdAdultsOptions}
               />
             </Form.Group>
@@ -197,13 +228,28 @@ class ProfileSettingsForm extends React.Component {
               <Form.Label>Household Children</Form.Label>
               <Select
                 value={this.state.householdChildren}
-                onChange={this.updateSelectState('householdChildren')}
+                onChange={this.handleHouseholdChildrenChange}
                 options={householdChildrenOptions}
               />
             </Form.Group>
           </Col>
         </Row>
         <hr/>
+
+        <Row>
+          <Col sm="6">
+          <Form.Group>
+              <Form.Label>Retirement contribution</Form.Label>
+              $<Form.Control type="text"
+                value={this.state.retirementContributionsPreTax}
+                onChange={this.updateState('retirementContributionsPreTax')}
+                placeholder="i.e. 500" />
+              <Form.Text className="text-muted">
+                Please provide your pre-tax retirement contribution
+              </Form.Text>
+            </Form.Group>
+          </Col>
+        </Row>
 
         <Button variant="outline-primary" size="sm" type="submit"
           disabled={this.props.inProgress}>
