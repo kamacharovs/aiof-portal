@@ -199,7 +199,7 @@ class Profile extends React.Component {
                 Household income
                 </Col>
                 <Col xs="6">
-                  <b>{householdIncome}</b>
+                  <b>${householdIncome}</b>
                 </Col>
               </Row>
               <Row>

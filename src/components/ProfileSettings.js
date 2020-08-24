@@ -97,8 +97,10 @@ class ProfileSettingsForm extends React.Component {
 
       settings.gender = settings.gender ? settings.gender.value : null;
       settings.maritalStatus = settings.maritalStatus ? settings.maritalStatus.value : null;
+      settings.householdIncome = settings.householdIncome ? Number(settings.householdIncome) : null;
       settings.householdAdults = settings.householdAdults ? parseInt(settings.householdAdults.value) : null;
       settings.householdChildren = settings.householdChildren ? parseInt(settings.householdChildren.value) : null;
+      settings.retirementContributionsPreTax = settings.retirementContributionsPreTax ? Number(settings.retirementContributionsPreTax) : null;
 
       this.props.onSubmitForm(this.props.currentUser.username, settings);
     };
@@ -204,7 +206,7 @@ class ProfileSettingsForm extends React.Component {
           <Col sm="4">
             <Form.Group>
               <Form.Label>Household income</Form.Label>
-              $<Form.Control type="text"
+              <Form.Control type="text"
                 value={this.state.householdIncome}
                 onChange={this.updateState('householdIncome')}
                 placeholder="i.e. 50000" />
@@ -240,7 +242,7 @@ class ProfileSettingsForm extends React.Component {
           <Col sm="6">
           <Form.Group>
               <Form.Label>Retirement contribution</Form.Label>
-              $<Form.Control type="text"
+              <Form.Control type="text"
                 value={this.state.retirementContributionsPreTax}
                 onChange={this.updateState('retirementContributionsPreTax')}
                 placeholder="i.e. 500" />
