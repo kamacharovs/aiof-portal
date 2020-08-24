@@ -11,24 +11,58 @@ import {
 } from '../constants/actionTypes';
 
 const genderOptions = [
-  { value: 'male', label: 'Male' },
-  { value: 'female', label: 'Female' },
+  { value: 'Male', label: 'Male' },
+  { value: 'Female', label: 'Female' },
 ];
+
+const maritalStatusOptions = [
+  { value: 'Single', label: 'Single' },
+  { value: 'Married', label: 'Married' },
+  { value: 'Living together', label: 'Living together' },
+  { value: 'No longer married', label: 'No longer married' },
+]
+
+const householdChildrenOptions = [
+  { value: '1', label: '1 Child' },
+  { value: '2', label: '2 Children' },
+  { value: '3', label: '3 Children' },
+  { value: '4', label: '4 Children' },
+  { value: '5', label: '5 Children' },
+  { value: '6', label: '6+ Children' },
+]
+const householdAdultsOptions = [
+  { value: '1', label: '1 Adult' },
+  { value: '2', label: '2 Adults' },
+  { value: '3', label: '3 Adults' },
+  { value: '4', label: '4 Adults' },
+  { value: '5', label: '5 Adults' },
+  { value: '6', label: '6+ Adults' },
+]
 
 class ProfileSettingsForm extends React.Component {
   constructor() {
     super();
 
     this.state = {
-      email: null,
+      gender: '',
+      maritalStatus: '',
       occupation: null,
       occupationIndustry: null,
-      gender: null,
+      grossSalary: null,
+      educationLevel: '',
+      householdIncome: null,
+      householdAdults: '',
+      householdChildren: '',
     };
 
     this.updateState = field => ev => {
       const state = this.state;
       const newState = Object.assign({}, state, { [field]: ev.target.value });
+      this.setState(newState);
+    };
+    this.updateSelectState = field => ev => {
+      const state = this.state;
+      const newState = Object.assign({}, state, { [field]: ev.value });
       this.setState(newState);
     };
 
@@ -44,10 +78,15 @@ class ProfileSettingsForm extends React.Component {
   componentDidMount() {
     if (this.props.currentUser && this.props.profile) {
       Object.assign(this.state, {
-        email: this.props.currentUser.email,
+        gender: this.props.profile.gender,
+        maritalStatus: this.props.profile.maritalStatus,
         occupation: this.props.profile.occupation,
         occupationIndustry: this.props.profile.occupationIndustry,
-        gender: this.props.profile.gender,
+        grossSalary: this.props.profile.grossSalary,
+        educationLevel: this.props.profile.educationLevel,
+        householdIncome: this.props.profile.householdIncome,
+        householdAdults: this.props.profile.householdAdults,
+        householdChildren: this.props.profile.householdChildren,
       });
     }
   }
@@ -55,10 +94,15 @@ class ProfileSettingsForm extends React.Component {
   componentDidUpdate(nextProps) {
     if (nextProps.currentUser && nextProps.profile) {
       this.setState(Object.assign({}, this.state, {
-        email: nextProps.currentUser.email,
+        gender: nextProps.profile.gender,
+        maritalStatus: nextProps.profile.maritalStatus,
         occupation: nextProps.profile.occupation,
         occupationIndustry: nextProps.profile.occupationIndustry,
-        gender: nextProps.profile.gender,
+        grossSalary: nextProps.profile.grossSalary,
+        educationLevel: nextProps.profile.educationLevel,
+        householdIncome: nextProps.profile.householdIncome,
+        householdAdults: nextProps.profile.householdAdults,
+        householdChildren: nextProps.profile.householdChildren,
       }));
     }
   }
@@ -72,7 +116,7 @@ class ProfileSettingsForm extends React.Component {
               <Form.Label>Gender</Form.Label>
               <Select
                 value={this.state.gender}
-                onChange={this.updateState('gender')}
+                onChange={this.updateSelectState('gender')}
                 options={genderOptions}
               />
             </Form.Group>
@@ -81,13 +125,7 @@ class ProfileSettingsForm extends React.Component {
 
           </Col>
         </Row>
-
-        <Form.Group>
-          <Form.Label>Email</Form.Label>
-          <Form.Control type="email"
-            value={this.state.email}
-            onChange={this.updateState('email')} />
-        </Form.Group>
+        <hr/>
 
         <Row>
           <Col sm="6">
@@ -107,7 +145,65 @@ class ProfileSettingsForm extends React.Component {
             </Form.Group>
           </Col>
         </Row>
+        <hr/>
 
+        <Row>
+          <Col sm="6">
+            <Form.Group>
+              <Form.Label>Marital status</Form.Label>
+              <Select
+                value={this.state.maritalStatus}
+                onChange={this.updateSelectState('maritalStatus')}
+                options={maritalStatusOptions}
+              />
+            </Form.Group>
+          </Col>
+          <Col sm="6">
+            <Form.Group>
+              <Form.Label>Education level</Form.Label>
+              <Form.Control type="text"
+                value={this.state.educationlevel}
+                onChange={this.updateState('educationlevel')} />
+            </Form.Group>
+          </Col>
+        </Row>
+        <hr/>
+
+        <Row>
+          <Col sm="4">
+            <Form.Group>
+              <Form.Label>Household income</Form.Label>
+              $<Form.Control type="text"
+                value={this.state.householdIncome}
+                onChange={this.updateState('householdIncome')}
+                placeholder="i.e. 50000" />
+              <Form.Text className="text-muted">
+                Please provide your total household income
+              </Form.Text>
+            </Form.Group>
+          </Col>
+          <Col sm="4">
+            <Form.Group>
+              <Form.Label>Household Adults</Form.Label>
+              <Select
+                value={this.state.householdAdults}
+                onChange={this.updateSelectState('householdAdults')}
+                options={householdAdultsOptions}
+              />
+            </Form.Group>
+          </Col>
+          <Col sm="4">
+            <Form.Group>
+              <Form.Label>Household Children</Form.Label>
+              <Select
+                value={this.state.householdChildren}
+                onChange={this.updateSelectState('householdChildren')}
+                options={householdChildrenOptions}
+              />
+            </Form.Group>
+          </Col>
+        </Row>
+        <hr/>
 
         <Button variant="outline-primary" size="sm" type="submit"
           disabled={this.props.inProgress}>
@@ -140,8 +236,8 @@ class ProfileSettings extends React.Component {
     return (
       <div className="settings-page">
         <div className="container page">
-          <div className="row">
-            <div className="col-md-6 offset-md-3 col-xs-12">
+          <Row>
+            <Col sm="12">
 
               <h1 className="text-xs-center">Your Settings</h1>
 
@@ -159,8 +255,8 @@ class ProfileSettings extends React.Component {
                 Or click here to logout
               </Button>
 
-            </div>
-          </div>
+            </Col>
+          </Row>
         </div>
       </div>
     );
