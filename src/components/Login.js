@@ -10,7 +10,6 @@ import {
   LOGIN,
   LOGIN_PAGE_UNLOADED
 } from '../constants/actionTypes';
-import { ErrorTextMuted } from '../style/common';
 
 const mainStyle = {
   border: "1px solid black",
@@ -52,8 +51,8 @@ class Login extends React.Component {
   }
 
   render() {
-    const username = this.props.username;
-    const password = this.props.password;
+    const username = this.props.username || "";
+    const password = this.props.password || "";
     const isEnabled = username && password ? username.length > 0 && password.length > 0 : false;
 
     return (
@@ -102,7 +101,7 @@ class Login extends React.Component {
                     <FaUnlock size={20} />&nbsp;&nbsp;Sign in
                   </Button>
 
-                  <Form.Text className="text-muted text-xs-center">
+                  <Form.Text muted={true} className="text-xs-center">
                     <br/>
                     <i>By clicking Sign In, you agree to our <a href="#">Terms</a> and have read and acknowledge our <a href="#">US Privacy Statement</a>.</i>
                   </Form.Text>
