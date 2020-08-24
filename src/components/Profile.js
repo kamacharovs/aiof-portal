@@ -173,7 +173,7 @@ class Profile extends React.Component {
                 Gross salary
                 </Col>
                 <Col xs="6">
-                  <b>{grossSalary}</b>
+                  <b>${grossSalary}</b>
                 </Col>
               </Row>
               <Row>
@@ -225,7 +225,7 @@ class Profile extends React.Component {
                   Retirement contributions pre-tax
                 </Col>
                 <Col sm="6">
-                  <b>{retirementContributionsPreTax}</b>
+                  <b>${retirementContributionsPreTax}</b>
                 </Col>
               </Row>
               <Hr50 />  
