@@ -10,6 +10,7 @@ import {
   LOGIN,
   LOGIN_PAGE_UNLOADED
 } from '../constants/actionTypes';
+import { ErrorTextMuted } from '../style/common';
 
 const mainStyle = {
   border: "1px solid black",
@@ -53,6 +54,8 @@ class Login extends React.Component {
   render() {
     const username = this.props.username;
     const password = this.props.password;
+    const isEnabled = username && password ? username.length > 0 && password.length > 0 : false;
+
     return (
       <div className="auth-page">
         <div className="container page">
@@ -77,6 +80,7 @@ class Login extends React.Component {
                   <Form.Group>
                     <Form.Label>Username</Form.Label>
                     <Form.Control type="text"
+                      required
                       value={username}
                       onChange={this.changeUsername} />
                   </Form.Group>
@@ -84,6 +88,7 @@ class Login extends React.Component {
                   <Form.Group>
                     <Form.Label>Password</Form.Label>
                     <Form.Control type="password"
+                      required
                       value={password}
                       onChange={this.changePassword} />
                   </Form.Group>
@@ -93,7 +98,7 @@ class Login extends React.Component {
                   </Form.Group>
 
                   <Button variant="primary" size="lg" type="submit" block
-                    disabled={this.props.inProgress}>
+                    disabled={!isEnabled}>
                     <FaUnlock size={20} />&nbsp;&nbsp;Sign in
                   </Button>
 
