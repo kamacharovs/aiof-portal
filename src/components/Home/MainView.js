@@ -20,7 +20,6 @@ const MainView = props => {
           <Accounts
             token={props.token} />
         </Col>
-
       </Row>
     </Container>
   );
