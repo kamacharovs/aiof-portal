@@ -3,20 +3,15 @@ import _superagent from 'superagent';
 
 const superagent = superagentPromise(_superagent, global.Promise);
 
-const API_ROOT = 'https://conduit.productionready.io/api';
-const API_ROOT_2 = 'http://localhost:5001';
+const API_ROOT = 'http://localhost:5001';
 const API_AUTH_ROOT = 'http://localhost:5000';
 
 const encode = encodeURIComponent;
 const responseBody = res => res.body;
 
 let token = null;
+let refreshToken = null;
 const tokenPlugin = req => {
-  if (token) {
-    req.set('authorization', `Token ${token}`);
-  }
-}
-const tokenPlugin2 = req => {
   if (token) {
     req.set('Authorization', `Bearer ${token}`);
   }
@@ -31,16 +26,10 @@ const requests = {
     superagent.put(`${API_ROOT}${url}`, body).use(tokenPlugin).then(responseBody),
   post: (url, body) =>
     superagent.post(`${API_ROOT}${url}`, body).use(tokenPlugin).then(responseBody)
-};
-const requests2 = {
-  get: url =>
-    superagent.get(`${API_ROOT_2}${url}`).use(tokenPlugin2).then(responseBody),
-  put: (url, body) =>
-    superagent.put(`${API_ROOT_2}${url}`, body).use(tokenPlugin2).then(responseBody),
 }
 const requestsAuth = {
   post: (url, body) =>
-    superagent.post(`${API_AUTH_ROOT}${url}`, body).use(tokenPlugin).then(responseBody)
+    superagent.post(`${API_AUTH_ROOT}${url}`, body).then(responseBody)
 }
 
 const Auth = {
@@ -50,24 +39,22 @@ const Auth = {
     requestsAuth.post('/auth/token', { username, password }),
   register: (firstName, lastName, email, username, password) =>
     requestsAuth.post('/user', { firstName, lastName, email, username, password }),
+  refresh: refreshToken =>
+    requestsAuth.post('/auth/token', { refresh_token: refreshToken }),
   save: user =>
     requests.put('/user', { user })
 };
 
 const User = {
   byUsername: username =>
-    requests2.get(`/user?username=${username}`),
+    requests.get(`/user?username=${username}`),
 }
 const UserProfile = {
   get: username =>
     User.byUsername(username),
-  upsert: (username, occupation) =>
-    requests2.put(`/user/profile?username=${username}`, { occupation }),
+  upsert: (username, settings) =>
+    requests.put(`/user/profile?username=${username}`, settings),
 }
-
-const Tags = {
-  getAll: () => requests.get('/tags')
-};
 
 const limit = (count, p) => `limit=${count}&offset=${p ? p * count : 0}`;
 const omitSlug = article => Object.assign({}, article, { slug: undefined })
@@ -121,6 +108,6 @@ export default {
   UserProfile,
   Comments,
   Profile,
-  Tags,
-  setToken: _token => { token = _token; }
+  setToken: _token => { token = _token; },
+  setRefreshToken: _refreshToken => { refreshToken = _refreshToken; }
 };

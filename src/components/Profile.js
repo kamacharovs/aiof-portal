@@ -14,10 +14,11 @@ import '../style/tabs.css';
 import { CustomHr, Hr50, MutedH2 } from '../style/common';
 
 const EditProfileSettings = props => {
-  if (props.isUser) {
+  if (props.isUser
+    && props.username) {
     return (
       <Link
-        to="/settings"
+        to={`/@${props.username}/settings`}
         className="btn btn-sm btn-outline-secondary action-btn">
         <i className="ion-gear-a"></i> Edit Profile Settings
       </Link>
@@ -48,9 +49,11 @@ const mapDispatchToProps = dispatch => ({
 
 class Profile extends React.Component {
   componentDidMount() {
-    this.props.onLoad(Promise.all([
-      agent.UserProfile.get(this.props.currentUser.username)
-    ]));
+    if (this.props.currentUser) {
+      this.props.onLoad(Promise.all([
+        agent.UserProfile.get(this.props.currentUser.username)
+      ]));
+    }
   }
 
   componentWillUnmount() {
@@ -61,7 +64,7 @@ class Profile extends React.Component {
     const profile = this.props.profile;
     const innerProfile = profile.profile;
 
-    if (!profile) {
+    if (!this.props.currentUser) {
       return null;
     }
 
@@ -90,7 +93,7 @@ class Profile extends React.Component {
                 <h4>{profile.lastName}, {profile.firstName}</h4>
                 <p>{profile.email}</p>
 
-                <EditProfileSettings isUser={profile} />
+                <EditProfileSettings username={profile.username} isUser={profile} />
 
               </Col>
             </Row>
@@ -170,7 +173,7 @@ class Profile extends React.Component {
                 Gross salary
                 </Col>
                 <Col xs="6">
-                  <b>{grossSalary}</b>
+                  <b>${grossSalary}</b>
                 </Col>
               </Row>
               <Row>
@@ -196,7 +199,7 @@ class Profile extends React.Component {
                 Household income
                 </Col>
                 <Col xs="6">
-                  <b>{householdIncome}</b>
+                  <b>${householdIncome}</b>
                 </Col>
               </Row>
               <Row>
@@ -222,7 +225,7 @@ class Profile extends React.Component {
                   Retirement contributions pre-tax
                 </Col>
                 <Col sm="6">
-                  <b>{retirementContributionsPreTax}</b>
+                  <b>${retirementContributionsPreTax}</b>
                 </Col>
               </Row>
               <Hr50 />  

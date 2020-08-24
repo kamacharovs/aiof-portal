@@ -1,10 +1,10 @@
-import Form from 'react-bootstrap/Form';
-import Button from 'react-bootstrap/Button';
+import React from 'react';
+import { Form, Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import ListErrors from './ListErrors';
-import React from 'react';
 import agent from '../agent';
 import { connect } from 'react-redux';
+import { FaUnlock } from "react-icons/fa";
 import {
   UPDATE_FIELD_AUTH,
   LOGIN,
@@ -94,7 +94,7 @@ class Login extends React.Component {
 
                   <Button variant="primary" size="lg" type="submit" block
                     disabled={this.props.inProgress}>
-                    <i className="ion-android-unlock"></i>&nbsp;&nbsp;Sign in
+                    <FaUnlock size={20} />&nbsp;&nbsp;Sign in
                   </Button>
 
                   <Form.Text className="text-muted text-xs-center">

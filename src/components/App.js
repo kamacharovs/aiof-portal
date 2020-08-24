@@ -9,8 +9,8 @@ import Editor from '../components/Editor';
 import Home from '../components/Home';
 import Login from '../components/Login';
 import Profile from '../components/Profile';
+import ProfileSettings from '../components/ProfileSettings';
 import Register from '../components/Register';
-import Settings from '../components/Settings';
 import { store } from '../store';
 import { push } from 'react-router-redux';
 
@@ -44,7 +44,7 @@ class App extends React.Component {
       agent.setToken(token);
     }
 
-    this.props.onLoad(token ? agent.Auth.current() : null, token);
+    this.props.onLoad(token); //? agent.Auth.current() : null, token);
   }
 
   render() {
@@ -61,7 +61,7 @@ class App extends React.Component {
             <Route path="/editor/:slug" component={Editor} />
             <Route path="/editor" component={Editor} />
             <Route path="/article/:id" component={Article} />
-            <Route path="/settings" component={Settings} />
+            <Route path="/@:username/settings" component={ProfileSettings} />
             <Route path="/@:username" component={Profile} />
             </Switch>
         </div>

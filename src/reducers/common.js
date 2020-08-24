@@ -6,6 +6,7 @@ import {
   SETTINGS_SAVED,
   LOGIN,
   REGISTER,
+  REFRESH,
   DELETE_ARTICLE,
   ARTICLE_PAGE_UNLOADED,
   EDITOR_PAGE_UNLOADED,
@@ -35,21 +36,36 @@ export default (state = defaultState, action) => {
     case REDIRECT:
       return { ...state, redirectTo: null };
     case LOGOUT:
-      return { ...state, redirectTo: '/', token: null, currentUser: null };
+      return { ...state, redirectTo: '/login', token: null, currentUser: null };
     case ARTICLE_SUBMITTED:
       const redirectUrl = `/article/${action.payload.article.slug}`;
       return { ...state, redirectTo: redirectUrl };
     case SETTINGS_SAVED:
       return {
         ...state,
-        redirectTo: action.error ? null : '/',
-        currentUser: action.error ? null : action.payload.user
+        redirectTo: action.error ? null : `/@${action.payload.username}`,
+        currentUser: action.error ? null : 
+          { 
+            firstName: action.payload.firstName,
+            lastName: action.payload.lastName,
+            email: action.payload.email,
+            username: action.payload.username,
+            created: action.payload.created
+          },
+        profile: action.error ? null : action.payload.profile
       };
     case LOGIN:
     case REGISTER:
       return {
         ...state,
         redirectTo: action.error ? null : '/',
+        token: action.error ? null : action.payload.access_token,
+        refreshToken: action.error ? null : action.payload.refresh_token,
+        currentUser: action.error ? null : action.payload.user
+      };
+    case REFRESH:
+      return {
+        ...state,
         token: action.error ? null : action.payload.access_token,
         currentUser: action.error ? null : action.payload.user
       };
