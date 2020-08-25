@@ -17,3 +17,4 @@ All documentation
 #### Additional details
 
 - [React tabs - Support for vertical tabs?](https://github.com/reactjs/react-tabs/issues/274)
+- [How to use chart.js to create charts in React](https://www.educative.io/edpresso/how-to-use-chartjs-to-create-charts-in-react)
