@@ -1,5 +1,5 @@
 import agent from './agent';
-import { useCookies } from 'react-cookie';
+import Cookies from 'js-cookie';
 import {
   ASYNC_START,
   ASYNC_END,
@@ -54,24 +54,16 @@ const promiseMiddleware = store => next => action => {
 const localStorageMiddleware = store => next => action => {
   if (action.type === REGISTER || action.type === LOGIN) {
     if (!action.error) {
-      window.localStorage.setItem('jwt', action.payload.acess_token); //TODO: move refresh token or token to HttpOnly Cookie
-      window.localStorage.setItem('refreshToken', action.payload.refresh_token);
+      Cookies.set(ACCESS_TOKEN, action.payload.acess_token, { path: '/', httpOnly: true });
+      Cookies.set(REFRESH_TOKEN, action.payload.refresh_token, { path: '/', httpOnly: true });
       agent.setToken(action.payload.acess_token);
-      agent.setRefreshToken(action.payload.refresh_token);
-
-      const setCookie = useCookies([ACCESS_TOKEN, REFRESH_TOKEN]);
-      setCookie(ACCESS_TOKEN, action.payload.acess_token, { path: '/' });
-      setCookie(REFRESH_TOKEN, action.payload.refresh_token, { path: '/' });
+      agent.setRefreshToken(action.payload.refresh_token); 
     }
   } else if (action.type === LOGOUT) {
-    window.localStorage.setItem('jwt', '');
-    window.localStorage.setItem('refreshToken', '');
+    Cookies.remove(ACCESS_TOKEN)
+    Cookies.remove(REFRESH_TOKEN)
     agent.setToken(null);
     agent.setRefreshToken(null);
-
-    const removeCookie = useCookies([ACCESS_TOKEN, REFRESH_TOKEN]);
-    removeCookie(ACCESS_TOKEN)
-    removeCookie(REFRESH_TOKEN)
   }
 
   next(action);
