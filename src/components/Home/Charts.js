@@ -17,28 +17,28 @@ const state = {
     ]
 }
 
-const Charts = props => {
+const Charts = props =>  {
     if (!props.token) {
         return null;
     }
     return (
-        <div>
-            <Line
-                data={state}
-                options={{
-                    title: {
-                        display: true,
-                        text: 'Average Rainfall per month',
-                        fontSize: 20
-                    },
-                    legend: {
-                        display: true,
-                        position: 'right'
-                    }
-                }}
-            />
-        </div>
-
+            <div>
+                <Line
+                    data={state}
+                    options={{
+                        title: {
+                            display: true,
+                            text: 'Average Rainfall per month',
+                            fontSize: 20
+                        },
+                        legend: {
+                            display: true,
+                            position: 'right'
+                        }
+                    }}
+                />
+            </div>
+        
     );
 }
 
