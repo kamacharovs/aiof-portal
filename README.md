@@ -14,6 +14,7 @@ All documentation
 - [React select](https://www.npmjs.com/package/react-select)
 - [styled-components](https://styled-components.com/)
 - [JS cookie](https://www.npmjs.com/package/js-cookie)
+- [React charts](https://www.npmjs.com/package/react-chartjs-2)
 
 #### Additional details
 
