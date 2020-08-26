@@ -10,7 +10,7 @@ import { HeaderLink } from '../style/common';
 const bg = "dark"
 const variant = "dark"
 const pullright = "true"
-const navbarStyle = {"borderRadius": "0"}
+const navbarStyle = {"borderRadius": "0", "marginBottom": "2rem"}
 
 const HomeView = props => {
   if (props.currentUser) {
