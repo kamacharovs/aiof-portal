@@ -36,6 +36,149 @@ const ProfileFinanceList = props => {
   );
 };
 
+const ProfileMain = props => {
+  const profile = props.profile;
+  const innerProfile = profile.profile;
+
+  const gender = innerProfile ? innerProfile.gender : null;
+  const dateOfBirth = innerProfile ? innerProfile.profiledateOfBirth : null;
+  const age = innerProfile ? innerProfile.age : null;
+  const maritalStatus = innerProfile ? innerProfile.maritalStatus : null;
+  const occupation = innerProfile ? innerProfile.occupation : null;
+  const occupationIndustry = innerProfile ? innerProfile.occupationIndustry : null;
+  const grossSalary = innerProfile ? innerProfile.grossSalary : null;
+  const educationLevel = innerProfile ? innerProfile.educationLevel : null;
+  const residentialStatus = innerProfile ? innerProfile.residentialStatus : null;
+  const householdIncome = innerProfile ? innerProfile.householdIncome : null;
+  const householdAdults = innerProfile ? innerProfile.householdAdults : null;
+  const householdChildren = innerProfile ? innerProfile.householdChildren : null;
+  const retirementContributionsPreTax = innerProfile ? innerProfile.retirementContributionsPreTax : null;
+
+  return (
+    <Container>
+      <h1>Profile</h1>
+      <p className="text-muted">
+        Tell us about yourself so we can improve the financial advice we provide
+      </p>
+      <br />
+      <h2>About Me</h2>
+      <Hr50 />
+
+      <Row>
+        <Col xs="6">
+          Gender
+                </Col>
+        <Col xs="6">
+          <b>{gender}</b>
+        </Col>
+      </Row>
+      <Row>
+        <Col xs="6">
+          Date of birth
+                </Col>
+        <Col xs="6">
+          <b>{dateOfBirth}</b>
+        </Col>
+      </Row>
+      <Row>
+        <Col xs="6">
+          Age
+                </Col>
+        <Col xs="6">
+          <b>{age}</b>
+        </Col>
+      </Row>
+      <Row>
+        <Col xs="6">
+          Marital status
+                </Col>
+        <Col xs="6">
+          <b>{maritalStatus}</b>
+        </Col>
+      </Row>
+      <Hr50 />
+
+      <Row>
+        <Col xs="6">
+          Occupation
+                </Col>
+        <Col xs="6">
+          <b>{occupation}</b>
+        </Col>
+      </Row>
+      <Row>
+        <Col xs="6">
+          Occupation industry
+                </Col>
+        <Col xs="6">
+          <b>{occupationIndustry}</b>
+        </Col>
+      </Row>
+      <Row>
+        <Col xs="6">
+          Gross salary
+                </Col>
+        <Col xs="6">
+          <b>${grossSalary}</b>
+        </Col>
+      </Row>
+      <Row>
+        <Col xs="6">
+          Education level
+                </Col>
+        <Col xs="6">
+          <b>{educationLevel}</b>
+        </Col>
+      </Row>
+      <Hr50 />
+
+      <Row>
+        <Col xs="6">
+          Residential status
+                </Col>
+        <Col xs="6">
+          <b>{residentialStatus}</b>
+        </Col>
+      </Row>
+      <Row>
+        <Col xs="6">
+          Household income
+                </Col>
+        <Col xs="6">
+          <b>${householdIncome}</b>
+        </Col>
+      </Row>
+      <Row>
+        <Col xs="6">
+          Household adults
+                </Col>
+        <Col xs="6">
+          <b>{householdAdults}</b>
+        </Col>
+      </Row>
+      <Row>
+        <Col xs="6">
+          Household children
+                </Col>
+        <Col xs="6">
+          <b>{householdChildren}</b>
+        </Col>
+      </Row>
+      <Hr50 />
+
+      <Row>
+        <Col sm="6">
+          Retirement contributions pre-tax
+                </Col>
+        <Col sm="6">
+          <b>${retirementContributionsPreTax}</b>
+        </Col>
+      </Row>
+      <Hr50 />
+    </Container>
+  );
+};
+
 const mapStateToProps = state => ({
   ...state.profile,
   currentUser: state.common.currentUser,
@@ -68,20 +211,6 @@ class Profile extends React.Component {
       return null;
     }
 
-    const gender = innerProfile ? innerProfile.gender : null;
-    const dateOfBirth = innerProfile ? innerProfile.profiledateOfBirth : null;
-    const age = innerProfile ? innerProfile.age : null;
-    const maritalStatus = innerProfile ? innerProfile.maritalStatus : null;
-    const occupation = innerProfile ? innerProfile.occupation : null;
-    const occupationIndustry = innerProfile ? innerProfile.occupationIndustry : null;
-    const grossSalary = innerProfile ? innerProfile.grossSalary : null;
-    const educationLevel = innerProfile ? innerProfile.educationLevel : null;
-    const residentialStatus = innerProfile ? innerProfile.residentialStatus : null;
-    const householdIncome = innerProfile ? innerProfile.householdIncome : null;
-    const householdAdults = innerProfile ? innerProfile.householdAdults : null;
-    const householdChildren = innerProfile ? innerProfile.householdChildren : null;
-    const retirementContributionsPreTax = innerProfile ? innerProfile.retirementContributionsPreTax : null;
-
     return (
       <div className="profile-page">
 
@@ -108,129 +237,8 @@ class Profile extends React.Component {
               <Tab>Finances</Tab>
               <Tab>Notifications</Tab>
             </TabList>
-
             <TabPanel>
-              <Container>
-                <h1>Profile</h1>
-                <p className="text-muted">
-                  Tell us about yourself so we can improve the financial advice we provide
-              </p>
-                <br />
-                <h2>About Me</h2>
-                <Hr50 />
-
-                <Row>
-                  <Col xs="6">
-                    Gender
-                </Col>
-                  <Col xs="6">
-                    <b>{gender}</b>
-                  </Col>
-                </Row>
-                <Row>
-                  <Col xs="6">
-                    Date of birth
-                </Col>
-                  <Col xs="6">
-                    <b>{dateOfBirth}</b>
-                  </Col>
-                </Row>
-                <Row>
-                  <Col xs="6">
-                    Age
-                </Col>
-                  <Col xs="6">
-                    <b>{age}</b>
-                  </Col>
-                </Row>
-                <Row>
-                  <Col xs="6">
-                    Marital status
-                </Col>
-                  <Col xs="6">
-                    <b>{maritalStatus}</b>
-                  </Col>
-                </Row>
-                <Hr50 />
-
-                <Row>
-                  <Col xs="6">
-                    Occupation
-                </Col>
-                  <Col xs="6">
-                    <b>{occupation}</b>
-                  </Col>
-                </Row>
-                <Row>
-                  <Col xs="6">
-                    Occupation industry
-                </Col>
-                  <Col xs="6">
-                    <b>{occupationIndustry}</b>
-                  </Col>
-                </Row>
-                <Row>
-                  <Col xs="6">
-                    Gross salary
-                </Col>
-                  <Col xs="6">
-                    <b>${grossSalary}</b>
-                  </Col>
-                </Row>
-                <Row>
-                  <Col xs="6">
-                    Education level
-                </Col>
-                  <Col xs="6">
-                    <b>{educationLevel}</b>
-                  </Col>
-                </Row>
-                <Hr50 />
-
-                <Row>
-                  <Col xs="6">
-                    Residential status
-                </Col>
-                  <Col xs="6">
-                    <b>{residentialStatus}</b>
-                  </Col>
-                </Row>
-                <Row>
-                  <Col xs="6">
-                    Household income
-                </Col>
-                  <Col xs="6">
-                    <b>${householdIncome}</b>
-                  </Col>
-                </Row>
-                <Row>
-                  <Col xs="6">
-                    Household adults
-                </Col>
-                  <Col xs="6">
-                    <b>{householdAdults}</b>
-                  </Col>
-                </Row>
-                <Row>
-                  <Col xs="6">
-                    Household children
-                </Col>
-                  <Col xs="6">
-                    <b>{householdChildren}</b>
-                  </Col>
-                </Row>
-                <Hr50 />
-
-                <Row>
-                  <Col sm="6">
-                    Retirement contributions pre-tax
-                </Col>
-                  <Col sm="6">
-                    <b>${retirementContributionsPreTax}</b>
-                  </Col>
-                </Row>
-                <Hr50 />
-              </Container>
+              <ProfileMain profile={profile} />
             </TabPanel>
             <TabPanel>
               <ProfileFinanceList profile={profile} />
