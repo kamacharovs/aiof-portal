@@ -1,5 +1,5 @@
 import React from 'react';
-import { Form, Button } from 'react-bootstrap';
+import { Form, Button, Container, Row } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import ListErrors from './ListErrors';
 import agent from '../agent';
@@ -10,7 +10,7 @@ import {
   REGISTER,
   REGISTER_PAGE_UNLOADED
 } from '../constants/actionTypes';
-import { CoolLink } from '../style/common';
+import { CoolLink, RoundBorderBox, RoundBorderBoxText } from '../style/common';
 
 const mapStateToProps = state => ({ ...state.auth });
 
@@ -67,92 +67,90 @@ class Register extends React.Component {
     const isEnabled = isFirstNameValid && isLastNameValid && isEmailValid && isUsernameValid && isPasswordValid;
 
     return (
-      <div className="auth-page">
-        <div className="container page">
-          <div className="row">
-            <div className="col-md-6 offset-md-3 col-xs-12 text-xs-center" style={{ border: "1px solid black", padding: "1rem" }}>
-          
-              <ListErrors errors={this.props.errors} />
+      <Container>
+        <Row>
+          <RoundBorderBox className="col-md-6 offset-md-3 col-xs-12 text-center">
 
-              <h1>Sign Up</h1>
-              <p>
-                <CoolLink to="/login">
-                  Have an account?
+            <ListErrors errors={this.props.errors} />
+
+            <h1>Sign Up</h1>
+            <p>
+              <CoolLink to="/login">
+                Have an account?
                 </CoolLink>
-              </p>
+            </p>
 
-              <Form onSubmit={this.submitForm(firstName, lastName, email, username, password)}>
-                <Form.Text className="text-muted">
-                  One account for everything finance
+            <Form onSubmit={this.submitForm(firstName, lastName, email, username, password)}>
+              <Form.Text className="text-muted">
+                One account for everything finance
                 </Form.Text>
 
-                <div className="text-xs-left" style={{ paddingLeft: "3rem", paddingRight: "3rem", paddingTop: "2rem", paddingBottom: "2rem" }}>
-                  <Form.Group>
-                    <Form.Label>First Name</Form.Label>
-                    <Form.Control type="text"
-                      required
-                      value={firstName}
-                      onChange={this.changeFirstName} />
-                    <Form.Text muted={true}>
-                      { isFirstNameValid && !focused ? null : "First name is required and must be between 1 and 200 characters" }
-                    </Form.Text>
-                  </Form.Group>
+              <RoundBorderBoxText className="text-left">
+                <Form.Group>
+                  <Form.Label>First Name</Form.Label>
+                  <Form.Control type="text"
+                    required
+                    value={firstName}
+                    onChange={this.changeFirstName} />
+                  <Form.Text muted={true}>
+                    {isFirstNameValid && !focused ? null : "First name is required and must be between 1 and 200 characters"}
+                  </Form.Text>
+                </Form.Group>
 
-                  <Form.Group>
-                    <Form.Label>Last Name</Form.Label>
-                    <Form.Control type="text"
-                      required
-                      value={lastName}
-                      onChange={this.changeLastName} />
-                    <Form.Text muted={true}>
-                      { isLastNameValid ? null : "Last name is required and must be between 1 and 200 characters" }
-                    </Form.Text>
-                  </Form.Group>
+                <Form.Group>
+                  <Form.Label>Last Name</Form.Label>
+                  <Form.Control type="text"
+                    required
+                    value={lastName}
+                    onChange={this.changeLastName} />
+                  <Form.Text muted={true}>
+                    {isLastNameValid ? null : "Last name is required and must be between 1 and 200 characters"}
+                  </Form.Text>
+                </Form.Group>
 
-                  <Form.Group>
-                    <Form.Label>Email</Form.Label>
-                    <Form.Control type="text"
-                      required
-                      value={email}
-                      onChange={this.changeEmail} />
-                    <Form.Text muted={true}>
-                      { isEmailValid ? null : "Email is required and must be between 1 and 200 characters" }
-                    </Form.Text>
-                  </Form.Group>
+                <Form.Group>
+                  <Form.Label>Email</Form.Label>
+                  <Form.Control type="text"
+                    required
+                    value={email}
+                    onChange={this.changeEmail} />
+                  <Form.Text muted={true}>
+                    {isEmailValid ? null : "Email is required and must be between 1 and 200 characters"}
+                  </Form.Text>
+                </Form.Group>
 
-                  <Form.Group>
-                    <Form.Label>Username</Form.Label>
-                    <Form.Control type="text"
-                      required
-                      value={username}
-                      onChange={this.changeUsername} />
-                    <Form.Text muted={true}>   
-                      { isUsernameValid ? null : "Username is required and must be unique and between 1 and 200 characters" }
-                    </Form.Text>
-                  </Form.Group>
+                <Form.Group>
+                  <Form.Label>Username</Form.Label>
+                  <Form.Control type="text"
+                    required
+                    value={username}
+                    onChange={this.changeUsername} />
+                  <Form.Text muted={true}>
+                    {isUsernameValid ? null : "Username is required and must be unique and between 1 and 200 characters"}
+                  </Form.Text>
+                </Form.Group>
 
-                  <Form.Group>
-                    <Form.Label>Password</Form.Label>
-                    <Form.Control type="password"
-                      required
-                      value={password}
-                      onChange={this.changePassword} />
-                    <Form.Text muted={true}>
-                      { isPasswordValid ? null : "Password is required and must be between 8 to 50 characters, have a number and at least 1 uppercase character" }
-                    </Form.Text>
-                  </Form.Group>
+                <Form.Group>
+                  <Form.Label>Password</Form.Label>
+                  <Form.Control type="password"
+                    required
+                    value={password}
+                    onChange={this.changePassword} />
+                  <Form.Text muted={true}>
+                    {isPasswordValid ? null : "Password is required and must be between 8 to 50 characters, have a number and at least 1 uppercase character"}
+                  </Form.Text>
+                </Form.Group>
 
-                  <Button variant="primary" size="lg" type="submit" block
-                    disabled={!isEnabled}>
-                    <FaUnlock size={20} />&nbsp;&nbsp;Sign up
+                <Button variant="primary" size="lg" type="submit" block
+                  disabled={!isEnabled}>
+                  <FaUnlock size={20} />&nbsp;&nbsp;Sign up
                   </Button>
-                </div>
-              </Form>
+              </RoundBorderBoxText>
+            </Form>
 
-            </div>
-          </div>
-        </div>
-      </div>
+          </RoundBorderBox>
+        </Row>
+      </Container>
     );
   }
 }

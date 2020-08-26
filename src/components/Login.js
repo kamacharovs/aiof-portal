@@ -9,18 +9,7 @@ import {
   LOGIN,
   LOGIN_PAGE_UNLOADED
 } from '../constants/actionTypes';
-import { CoolLink } from '../style/common';
-
-const mainStyle = {
-  border: "1px solid black",
-  padding: "1rem"
-}
-const loginStyle = {
-  paddingLeft: "3rem",
-  paddingRight: "3rem",
-  paddingTop: "2rem",
-  paddingBottom: "2rem"
-}
+import { CoolLink, RoundBorderBox, RoundBorderBoxText } from '../style/common';
 
 const mapStateToProps = state => ({ ...state.auth });
 
@@ -56,62 +45,60 @@ class Login extends React.Component {
     const isEnabled = username && password ? username.length > 0 && password.length > 0 : false;
 
     return (
-      <div className="auth-page">
-        <Container>
-          <Row>
-            <div className="col-md-6 offset-md-3 col-xs-12 text-center" style={mainStyle}>
+      <Container>
+        <Row>
+          <RoundBorderBox className="col-md-6 offset-md-3 col-xs-12 text-center">
 
-              <ListErrors errors={this.props.errors} />
+            <ListErrors errors={this.props.errors} />
 
-              <h1>Sign In</h1>
-              <p>
-                <CoolLink to="/register">
-                  Need an account?
+            <h1>Sign In</h1>
+            <p>
+              <CoolLink to="/register">
+                Need an account?
                 </CoolLink>
-              </p>
+            </p>
 
-              <Form onSubmit={this.submitForm(username, password)}>
-                <Form.Text className="text-muted">
-                  One account for everything finance
+            <Form onSubmit={this.submitForm(username, password)}>
+              <Form.Text className="text-muted">
+                One account for everything finance
                 </Form.Text>
 
-                <div className="text-left" style={loginStyle}>
-                  <Form.Group>
-                    <Form.Label>Username</Form.Label>
-                    <Form.Control type="text"
-                      required
-                      value={username}
-                      onChange={this.changeUsername} />
-                  </Form.Group>
+              <RoundBorderBoxText className="text-left">
+                <Form.Group>
+                  <Form.Label>Username</Form.Label>
+                  <Form.Control type="text"
+                    required
+                    value={username}
+                    onChange={this.changeUsername} />
+                </Form.Group>
 
-                  <Form.Group>
-                    <Form.Label>Password</Form.Label>
-                    <Form.Control type="password"
-                      required
-                      value={password}
-                      onChange={this.changePassword} />
-                  </Form.Group>
+                <Form.Group>
+                  <Form.Label>Password</Form.Label>
+                  <Form.Control type="password"
+                    required
+                    value={password}
+                    onChange={this.changePassword} />
+                </Form.Group>
 
-                  <Form.Group>
-                    <Form.Check type="checkbox" label="Remember me" />
-                  </Form.Group>
+                <Form.Group>
+                  <Form.Check type="checkbox" label="Remember me" />
+                </Form.Group>
 
-                  <Button variant="primary" size="lg" type="submit" block
-                    disabled={!isEnabled}>
-                    <FaUnlock size={20} />&nbsp;&nbsp;Sign in
+                <Button variant="primary" size="lg" type="submit" block
+                  disabled={!isEnabled}>
+                  <FaUnlock size={20} />&nbsp;&nbsp;Sign in
                   </Button>
 
-                  <Form.Text muted={true} className="text-center">
-                    <br/>
-                    <i>By clicking Sign In, you agree to our <a href="#">Terms</a> and have read and acknowledge our <a href="#">US Privacy Statement</a>.</i>
-                  </Form.Text>
-                </div>
-              </Form>
+                <Form.Text muted={true} className="text-center">
+                  <br />
+                  <i>By clicking Sign In, you agree to our <a href="#">Terms</a> and have read and acknowledge our <a href="#">US Privacy Statement</a>.</i>
+                </Form.Text>
+              </RoundBorderBoxText>
+            </Form>
 
-            </div>
-          </Row>
-        </Container>
-      </div>
+          </RoundBorderBox>
+        </Row>
+      </Container>
     );
   }
 }

@@ -2,7 +2,6 @@ import Banner from './Banner';
 import MainView from './MainView';
 import React from 'react';
 import { connect } from 'react-redux';
-import { Container, Row, Col } from 'react-bootstrap';
 import {
   HOME_PAGE_LOADED,
   HOME_PAGE_UNLOADED

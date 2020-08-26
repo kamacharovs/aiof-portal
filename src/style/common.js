@@ -74,3 +74,17 @@ export const HeaderLink = styled(Link)`
     text-decoration: none;
   }
 `;
+
+export const RoundBorderBox = styled.div`
+  background: #fff;
+  border-radius: 6px;
+  border: 1px solid #e8e8e8;
+  box-shadow: 0 8px 14px 0 rgba(0,0,0,.06);
+  min-width: 264px;
+`;
+export const RoundBorderBoxText = styled.div`
+  padding-left: 3rem;
+  padding-right: 3rem;
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+`;
