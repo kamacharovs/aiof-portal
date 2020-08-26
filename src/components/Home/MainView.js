@@ -22,7 +22,8 @@ const MainView = props => {
             token={props.token} />
         </Col>
         <Col sm="8">
-          <Charts />
+          <Charts
+            token={props.token} />
         </Col>
       </Row>
     </Container>
