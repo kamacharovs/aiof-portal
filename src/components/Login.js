@@ -1,6 +1,5 @@
 import React from 'react';
-import { Form, Button } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
+import { Form, Button, Container, Row } from 'react-bootstrap';
 import ListErrors from './ListErrors';
 import agent from '../agent';
 import { connect } from 'react-redux';
@@ -58,9 +57,9 @@ class Login extends React.Component {
 
     return (
       <div className="auth-page">
-        <div className="container page">
-          <div className="row">
-            <div className="col-md-6 offset-md-3 col-xs-12 text-xs-center" style={mainStyle}>
+        <Container>
+          <Row>
+            <div className="col-md-6 offset-md-3 col-xs-12 text-center" style={mainStyle}>
 
               <ListErrors errors={this.props.errors} />
 
@@ -76,7 +75,7 @@ class Login extends React.Component {
                   One account for everything finance
                 </Form.Text>
 
-                <div className="text-xs-left" style={loginStyle}>
+                <div className="text-left" style={loginStyle}>
                   <Form.Group>
                     <Form.Label>Username</Form.Label>
                     <Form.Control type="text"
@@ -102,7 +101,7 @@ class Login extends React.Component {
                     <FaUnlock size={20} />&nbsp;&nbsp;Sign in
                   </Button>
 
-                  <Form.Text muted={true} className="text-xs-center">
+                  <Form.Text muted={true} className="text-center">
                     <br/>
                     <i>By clicking Sign In, you agree to our <a href="#">Terms</a> and have read and acknowledge our <a href="#">US Privacy Statement</a>.</i>
                   </Form.Text>
@@ -110,8 +109,8 @@ class Login extends React.Component {
               </Form>
 
             </div>
-          </div>
-        </div>
+          </Row>
+        </Container>
       </div>
     );
   }
