@@ -13,6 +13,8 @@ import ProfileSettings from '../components/ProfileSettings';
 import Register from '../components/Register';
 import { store } from '../store';
 import { push } from 'react-router-redux';
+import Cookies from 'js-cookie';
+import { ACCESS_TOKEN, USER } from '../constants/common';
 
 const mapStateToProps = state => {
   return {
@@ -39,12 +41,10 @@ class App extends React.Component {
   }
 
   componentWillMount() {
-    const token = window.localStorage.getItem('jwt');
-    if (token) {
-      agent.setToken(token);
-    }
-
-    this.props.onLoad(token); //? agent.Auth.current() : null, token);
+    const token = Cookies.get(ACCESS_TOKEN);
+    const user = Cookies.getJSON(USER);
+    agent.setToken(token);
+    this.props.onLoad(user, token);
   }
 
   render() {

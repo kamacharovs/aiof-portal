@@ -28,21 +28,19 @@ const requests = {
     superagent.post(`${API_ROOT}${url}`, body).use(tokenPlugin).then(responseBody)
 }
 const requestsAuth = {
+  get: url =>
+    superagent.get(`${API_AUTH_ROOT}${url}`).use(tokenPlugin).then(responseBody),
   post: (url, body) =>
     superagent.post(`${API_AUTH_ROOT}${url}`, body).then(responseBody)
 }
 
 const Auth = {
-  current: () =>
-    requests.get('/user'),
   login: (username, password) =>
     requestsAuth.post('/auth/token', { username, password }),
   register: (firstName, lastName, email, username, password) =>
     requestsAuth.post('/user', { firstName, lastName, email, username, password }),
   refresh: refreshToken =>
     requestsAuth.post('/auth/token', { refresh_token: refreshToken }),
-  save: user =>
-    requests.put('/user', { user })
 };
 
 const User = {
