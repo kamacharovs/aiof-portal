@@ -7,6 +7,10 @@ import {
   LOGOUT,
   REGISTER
 } from './constants/actionTypes';
+import {
+  ACCESS_TOKEN,
+  REFRESH_TOKEN
+} from './constants/common';
 
 const promiseMiddleware = store => next => action => {
   if (isPromise(action.payload)) {
@@ -55,9 +59,9 @@ const localStorageMiddleware = store => next => action => {
       agent.setToken(action.payload.acess_token);
       agent.setRefreshToken(action.payload.refresh_token);
 
-      const setCookie = useCookies(['acess_token', 'refresh_token']);
-      setCookie('acess_token', action.payload.acess_token, { path: '/' });
-      setCookie('refresh_token', action.payload.refresh_token, { path: '/' });
+      const setCookie = useCookies([ACCESS_TOKEN, REFRESH_TOKEN]);
+      setCookie(ACCESS_TOKEN, action.payload.acess_token, { path: '/' });
+      setCookie(REFRESH_TOKEN, action.payload.refresh_token, { path: '/' });
     }
   } else if (action.type === LOGOUT) {
     window.localStorage.setItem('jwt', '');
@@ -65,9 +69,9 @@ const localStorageMiddleware = store => next => action => {
     agent.setToken(null);
     agent.setRefreshToken(null);
 
-    const removeCookie = useCookies(['acess_token', 'refresh_token']);
-    removeCookie('acess_token')
-    removeCookie('refresh_token')
+    const removeCookie = useCookies([ACCESS_TOKEN, REFRESH_TOKEN]);
+    removeCookie(ACCESS_TOKEN)
+    removeCookie(REFRESH_TOKEN)
   }
 
   next(action);
