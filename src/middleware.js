@@ -55,7 +55,9 @@ const promiseMiddleware = store => next => action => {
 const localStorageMiddleware = store => next => action => {
   if (action.type === REGISTER || action.type === LOGIN) {
     if (!action.error) {
-      Cookies.set(ACCESS_TOKEN, action.payload.access_token, { path: '/' });
+      const expires = new Date(new Date().getTime() + action.payload.expires * 1000);
+
+      Cookies.set(ACCESS_TOKEN, action.payload.access_token, { path: '/', expires: expires });
       Cookies.set(REFRESH_TOKEN, action.payload.refresh_token, { path: '/' });
       Cookies.set(USER, action.payload.user.username, { path: '/' });
 
