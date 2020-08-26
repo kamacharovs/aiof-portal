@@ -25,12 +25,16 @@ export class AssetLiabilityChart extends React.Component {
         }
 
         const title = 'Assets vs. Liabilities';
-        const assetsSum = this.props.assets
-            .map(a => a.value)
-            .reduce((sum, current) => sum + current, 0);
-        const liabilitiesSum = this.props.liabilities
-            .map(a => a.value)
-            .reduce((sum, current) => sum + current, 0);
+        const assetsSum = this.props.totalAssets 
+            ? this.props.totalAssets
+            : this.props.assets
+                .map(a => a.value)
+                .reduce((sum, current) => sum + current, 0);
+        const liabilitiesSum = this.props.totalLiabilities 
+            ? this.props.totalLiabilities
+            : this.props.liabilities
+                .map(a => a.value)
+                .reduce((sum, current) => sum + current, 0);
 
         const state = {
             labels: ['Assets', 'Liabilities'],

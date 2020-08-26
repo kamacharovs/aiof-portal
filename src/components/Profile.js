@@ -103,133 +103,134 @@ class Profile extends React.Component {
           <Tabs>
             <TabList>
               <MutedH2>Settings</MutedH2>
-              <CustomHr/>
+              <CustomHr />
               <Tab>Profile</Tab>
               <Tab>Finances</Tab>
               <Tab>Notifications</Tab>
             </TabList>
 
             <TabPanel>
-              <h1>Profile</h1>
-              <p className="text-muted">
-                Tell us about yourself so we can improve the financial advice we provide
+              <Container>
+                <h1>Profile</h1>
+                <p className="text-muted">
+                  Tell us about yourself so we can improve the financial advice we provide
               </p>
-              <br/>
-              <h2>About Me</h2>
-              <Hr50/>
+                <br />
+                <h2>About Me</h2>
+                <Hr50 />
 
-              <Row>
-                <Col xs="6">
-                  Gender
+                <Row>
+                  <Col xs="6">
+                    Gender
                 </Col>
-                <Col xs="6">
-                  <b>{gender}</b>
+                  <Col xs="6">
+                    <b>{gender}</b>
+                  </Col>
+                </Row>
+                <Row>
+                  <Col xs="6">
+                    Date of birth
                 </Col>
-              </Row>
-              <Row>
-                <Col xs="6">
-                  Date of birth
+                  <Col xs="6">
+                    <b>{dateOfBirth}</b>
+                  </Col>
+                </Row>
+                <Row>
+                  <Col xs="6">
+                    Age
                 </Col>
-                <Col xs="6">
-                  <b>{dateOfBirth}</b>
+                  <Col xs="6">
+                    <b>{age}</b>
+                  </Col>
+                </Row>
+                <Row>
+                  <Col xs="6">
+                    Marital status
                 </Col>
-              </Row>
-              <Row>
-                <Col xs="6">
-                  Age
-                </Col>
-                <Col xs="6">
-                  <b>{age}</b>
-                </Col>
-              </Row>
-              <Row>
-                <Col xs="6">
-                Marital status
-                </Col>
-                <Col xs="6">
-                  <b>{maritalStatus}</b>
-                </Col>
-              </Row>
-              <Hr50/>
+                  <Col xs="6">
+                    <b>{maritalStatus}</b>
+                  </Col>
+                </Row>
+                <Hr50 />
 
-              <Row>
-                <Col xs="6">
-                Occupation
+                <Row>
+                  <Col xs="6">
+                    Occupation
                 </Col>
-                <Col xs="6">
-                  <b>{occupation}</b>
+                  <Col xs="6">
+                    <b>{occupation}</b>
+                  </Col>
+                </Row>
+                <Row>
+                  <Col xs="6">
+                    Occupation industry
                 </Col>
-              </Row>
-              <Row>
-                <Col xs="6">
-                Occupation industry
+                  <Col xs="6">
+                    <b>{occupationIndustry}</b>
+                  </Col>
+                </Row>
+                <Row>
+                  <Col xs="6">
+                    Gross salary
                 </Col>
-                <Col xs="6">
-                  <b>{occupationIndustry}</b>
+                  <Col xs="6">
+                    <b>${grossSalary}</b>
+                  </Col>
+                </Row>
+                <Row>
+                  <Col xs="6">
+                    Education level
                 </Col>
-              </Row>
-              <Row>
-                <Col xs="6">
-                Gross salary
-                </Col>
-                <Col xs="6">
-                  <b>${grossSalary}</b>
-                </Col>
-              </Row>
-              <Row>
-                <Col xs="6">
-                Education level
-                </Col>
-                <Col xs="6">
-                  <b>{educationLevel}</b>
-                </Col>
-              </Row>
-              <Hr50/>
+                  <Col xs="6">
+                    <b>{educationLevel}</b>
+                  </Col>
+                </Row>
+                <Hr50 />
 
-              <Row>
-                <Col xs="6">
-                Residential status
+                <Row>
+                  <Col xs="6">
+                    Residential status
                 </Col>
-                <Col xs="6">
-                  <b>{residentialStatus}</b>
+                  <Col xs="6">
+                    <b>{residentialStatus}</b>
+                  </Col>
+                </Row>
+                <Row>
+                  <Col xs="6">
+                    Household income
                 </Col>
-              </Row>
-              <Row>
-                <Col xs="6">
-                Household income
+                  <Col xs="6">
+                    <b>${householdIncome}</b>
+                  </Col>
+                </Row>
+                <Row>
+                  <Col xs="6">
+                    Household adults
                 </Col>
-                <Col xs="6">
-                  <b>${householdIncome}</b>
+                  <Col xs="6">
+                    <b>{householdAdults}</b>
+                  </Col>
+                </Row>
+                <Row>
+                  <Col xs="6">
+                    Household children
                 </Col>
-              </Row>
-              <Row>
-                <Col xs="6">
-                Household adults
-                </Col>
-                <Col xs="6">
-                  <b>{householdAdults}</b>
-                </Col>
-              </Row>
-              <Row>
-                <Col xs="6">
-                Household children
-                </Col>
-                <Col xs="6">
-                  <b>{householdChildren}</b>
-                </Col>
-              </Row>
-              <Hr50/>
+                  <Col xs="6">
+                    <b>{householdChildren}</b>
+                  </Col>
+                </Row>
+                <Hr50 />
 
-              <Row>
-                <Col sm="6">
-                  Retirement contributions pre-tax
+                <Row>
+                  <Col sm="6">
+                    Retirement contributions pre-tax
                 </Col>
-                <Col sm="6">
-                  <b>${retirementContributionsPreTax}</b>
-                </Col>
-              </Row>
-              <Hr50 />  
-
+                  <Col sm="6">
+                    <b>${retirementContributionsPreTax}</b>
+                  </Col>
+                </Row>
+                <Hr50 />
+              </Container>
             </TabPanel>
             <TabPanel>
               <ProfileFinanceList profile={profile} />
