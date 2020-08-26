@@ -55,9 +55,9 @@ const promiseMiddleware = store => next => action => {
 const localStorageMiddleware = store => next => action => {
   if (action.type === REGISTER || action.type === LOGIN) {
     if (!action.error) {
-      Cookies.set(ACCESS_TOKEN, action.payload.acess_token, { path: '/', httpOnly: true });
-      Cookies.set(REFRESH_TOKEN, action.payload.refresh_token, { path: '/', httpOnly: true });
-      Cookies.set(USER, action.payload.user.username, { path: '/', httpOnly: true });
+      Cookies.set(ACCESS_TOKEN, action.payload.access_token, { path: '/' });
+      Cookies.set(REFRESH_TOKEN, action.payload.refresh_token, { path: '/' });
+      Cookies.set(USER, action.payload.user.username, { path: '/' });
 
       agent.setToken(action.payload.acess_token);
       agent.setRefreshToken(action.payload.refresh_token); 

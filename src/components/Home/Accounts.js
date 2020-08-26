@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { USER_FINANCE } from '../../constants/actionTypes';
 
 const mapStateToProps = state => ({
-  ...state.finance,
+  ...state.home,
   token: state.common.token,
   currentUser: state.common.currentUser
 });
