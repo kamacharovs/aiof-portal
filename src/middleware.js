@@ -9,7 +9,8 @@ import {
 } from './constants/actionTypes';
 import {
   ACCESS_TOKEN,
-  REFRESH_TOKEN
+  REFRESH_TOKEN,
+  USER,
 } from './constants/common';
 
 const promiseMiddleware = store => next => action => {
@@ -56,12 +57,16 @@ const localStorageMiddleware = store => next => action => {
     if (!action.error) {
       Cookies.set(ACCESS_TOKEN, action.payload.acess_token, { path: '/', httpOnly: true });
       Cookies.set(REFRESH_TOKEN, action.payload.refresh_token, { path: '/', httpOnly: true });
+      Cookies.set(USER, action.payload.user.username, { path: '/', httpOnly: true });
+
       agent.setToken(action.payload.acess_token);
       agent.setRefreshToken(action.payload.refresh_token); 
     }
   } else if (action.type === LOGOUT) {
-    Cookies.remove(ACCESS_TOKEN)
-    Cookies.remove(REFRESH_TOKEN)
+    Cookies.remove(ACCESS_TOKEN);
+    Cookies.remove(REFRESH_TOKEN);
+    Cookies.remove(USER);
+
     agent.setToken(null);
     agent.setRefreshToken(null);
   }
