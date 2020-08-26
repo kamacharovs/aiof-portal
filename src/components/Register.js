@@ -10,6 +10,7 @@ import {
   REGISTER,
   REGISTER_PAGE_UNLOADED
 } from '../constants/actionTypes';
+import { CoolLink } from '../style/common';
 
 const mapStateToProps = state => ({ ...state.auth });
 
@@ -75,9 +76,9 @@ class Register extends React.Component {
 
               <h1>Sign Up</h1>
               <p>
-                <Link to="/login">
+                <CoolLink to="/login">
                   Have an account?
-                </Link>
+                </CoolLink>
               </p>
 
               <Form onSubmit={this.submitForm(firstName, lastName, email, username, password)}>

@@ -10,6 +10,7 @@ import {
   LOGIN,
   LOGIN_PAGE_UNLOADED
 } from '../constants/actionTypes';
+import { CoolLink } from '../style/common';
 
 const mainStyle = {
   border: "1px solid black",
@@ -65,9 +66,9 @@ class Login extends React.Component {
 
               <h1>Sign In</h1>
               <p>
-                <Link to="/register">
+                <CoolLink to="/register">
                   Need an account?
-                </Link>
+                </CoolLink>
               </p>
 
               <Form onSubmit={this.submitForm(username, password)}>
