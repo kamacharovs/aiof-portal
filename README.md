@@ -13,6 +13,7 @@ All documentation
 - [React tabs](https://www.npmjs.com/package/react-tabs)
 - [React select](https://www.npmjs.com/package/react-select)
 - [styled-components](https://styled-components.com/)
+- [React cookie](https://www.npmjs.com/package/react-cookie)
 
 #### Additional details
 
