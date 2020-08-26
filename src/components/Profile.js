@@ -13,6 +13,17 @@ import {
 import '../style/tabs.css';
 import { CustomHr, Hr50, MutedH2 } from '../style/common';
 
+const UserInfo = {
+  textAlign: "center",
+  background: "#f3f3f3",
+  display: "block",
+  paddingTop: "5rem",
+  paddingBottom: "2.5rem",
+  fontWeight: "700",
+  lineHeight: "1.5",
+  color: "#212529",
+}
+
 const EditProfileSettings = props => {
   if (props.isUser
     && props.username) {
@@ -205,16 +216,14 @@ class Profile extends React.Component {
 
   render() {
     const profile = this.props.profile;
-    const innerProfile = profile.profile;
 
     if (!this.props.currentUser) {
       return null;
     }
 
     return (
-      <div className="profile-page">
-
-        <div className="user-info">
+      <div>
+        <div style={UserInfo}>
           <Container>
             <Row>
               <Col xs="12">
@@ -248,7 +257,6 @@ class Profile extends React.Component {
             </TabPanel>
           </Tabs>
         </div>
-
       </div>
     );
   }

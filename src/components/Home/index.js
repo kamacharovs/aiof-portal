@@ -2,6 +2,7 @@ import Banner from './Banner';
 import MainView from './MainView';
 import React from 'react';
 import { connect } from 'react-redux';
+import { Container, Row, Col } from 'react-bootstrap';
 import {
   HOME_PAGE_LOADED,
   HOME_PAGE_UNLOADED
@@ -30,16 +31,10 @@ class Home extends React.Component {
 
   render() {
     return (
-      <div className="home-page">
-
+      <div>
         <Banner token={this.props.token} appName={this.props.appName} />
-
-        <div className="container page">
-          <div className="row">
-            <MainView />
-          </div>
-        </div>
-
+        
+        <MainView />
       </div>
     );
   }
