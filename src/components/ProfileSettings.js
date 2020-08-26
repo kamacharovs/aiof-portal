@@ -144,7 +144,7 @@ class ProfileSettingsForm extends React.Component {
     return (
       <Form onSubmit={this.submitForm}>
         <Row>
-          <Col sm="6">
+          <Col sm="2">
             <Form.Group>
               <Form.Label>Gender</Form.Label>
               <Select
@@ -154,14 +154,14 @@ class ProfileSettingsForm extends React.Component {
               />
             </Form.Group>
           </Col>
-          <Col sm="6">
+          <Col sm="4">
 
           </Col>
         </Row>
         <hr/>
 
         <Row>
-          <Col sm="6">
+          <Col sm="4">
             <Form.Group>
               <Form.Label>Occupation</Form.Label>
               <Form.Control type="text"
@@ -169,7 +169,7 @@ class ProfileSettingsForm extends React.Component {
                 onChange={this.updateState('occupation')} />
             </Form.Group>
           </Col>
-          <Col sm="6">
+          <Col sm="4">
             <Form.Group>
               <Form.Label>Occupation industry</Form.Label>
               <Form.Control type="text"
@@ -181,7 +181,7 @@ class ProfileSettingsForm extends React.Component {
         <hr/>
 
         <Row>
-          <Col sm="6">
+          <Col sm="4">
             <Form.Group>
               <Form.Label>Marital status</Form.Label>
               <Select
@@ -191,7 +191,7 @@ class ProfileSettingsForm extends React.Component {
               />
             </Form.Group>
           </Col>
-          <Col sm="6">
+          <Col sm="4">
             <Form.Group>
               <Form.Label>Education level</Form.Label>
               <Form.Control type="text"
@@ -239,7 +239,7 @@ class ProfileSettingsForm extends React.Component {
         <hr/>
 
         <Row>
-          <Col sm="6">
+          <Col sm="4">
           <Form.Group>
               <Form.Label>Retirement contribution</Form.Label>
               <Form.Control type="text"

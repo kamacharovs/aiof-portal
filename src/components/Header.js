@@ -1,10 +1,11 @@
 import React from 'react';
-import { Nav, Navbar } from 'react-bootstrap';
+import { Nav, Navbar, Container } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import {
   LOGOUT
 } from '../constants/actionTypes';
+import { HeaderLink } from '../style/common';
 
 const bg = "dark"
 const variant = "dark"
@@ -14,16 +15,16 @@ const navbarStyle = {"borderRadius": "0"}
 const HomeView = props => {
   if (props.currentUser) {
     return (
-      <Link to="/" className="navbar-brand">
+      <HeaderLink to="/">
         {props.appName}
-      </Link>
+      </HeaderLink>
     );
   }
   else {
     return (
-      <Link to="/login" className="navbar-brand">
+      <HeaderLink to="/login">
         {props.appName}
-      </Link>
+      </HeaderLink>
     );
   }
 }
@@ -66,10 +67,9 @@ class Header extends React.Component {
   render() {
     return (
       <Navbar bg={bg} variant={variant} expand="sm" sticky="top" style={navbarStyle} >
-        <Navbar.Toggle aria-controls="basic-navbar-nav" />
-        <Navbar.Collapse id="basic-navbar-nav">
-
-          <div className="container">
+        <Navbar.Toggle/>
+        <Navbar.Collapse>
+          <Container>
 
             <HomeView currentUser={this.props.currentUser} appName={this.props.appName.toLowerCase()} />
 
@@ -77,8 +77,7 @@ class Header extends React.Component {
 
             <LoggedInView currentUser={this.props.currentUser} onClickLogout={this.props.onClickLogout} />
 
-          </div>
-
+          </Container>
         </Navbar.Collapse>
       </Navbar>
     );

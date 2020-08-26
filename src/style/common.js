@@ -53,3 +53,24 @@ export const CoolLink = styled(Link)`
     text-decoration: none;
   }
 `;
+
+export const HeaderLink = styled(Link)`
+  font-family: titillium web,sans-serif;
+  font-size: 1.5rem !important;
+  padding-top: 0 !important;
+  margin-right: 2rem !important;
+  color: #5cb85c !important;
+  padding-bottom: 0rem;
+  line-height: inherit;
+  white-space: nowrap;
+  float: left;
+
+  &:hover {
+    text-decoration: none;
+    color: inherit;
+  }
+
+  &:focus, &:visited, &:link, &:active {
+    text-decoration: none;
+  }
+`;
