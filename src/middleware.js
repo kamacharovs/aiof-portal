@@ -1,4 +1,5 @@
 import agent from './agent';
+import { useCookies } from 'react-cookie';
 import {
   ASYNC_START,
   ASYNC_END,
@@ -53,12 +54,20 @@ const localStorageMiddleware = store => next => action => {
       window.localStorage.setItem('refreshToken', action.payload.refresh_token);
       agent.setToken(action.payload.acess_token);
       agent.setRefreshToken(action.payload.refresh_token);
+
+      const setCookie = useCookies(['acess_token', 'refresh_token']);
+      setCookie('acess_token', action.payload.acess_token, { path: '/' });
+      setCookie('refresh_token', action.payload.refresh_token, { path: '/' });
     }
   } else if (action.type === LOGOUT) {
     window.localStorage.setItem('jwt', '');
     window.localStorage.setItem('refreshToken', '');
     agent.setToken(null);
     agent.setRefreshToken(null);
+
+    const removeCookie = useCookies(['acess_token', 'refresh_token']);
+    removeCookie('acess_token')
+    removeCookie('refresh_token')
   }
 
   next(action);
