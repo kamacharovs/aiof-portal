@@ -59,7 +59,7 @@ const localStorageMiddleware = store => next => action => {
 
       Cookies.set(ACCESS_TOKEN, action.payload.access_token, { path: '/', expires: expires });
       Cookies.set(REFRESH_TOKEN, action.payload.refresh_token, { path: '/' });
-      Cookies.set(USER, action.payload.user.username, { path: '/' });
+      Cookies.set(USER, action.payload.user, { path: '/' });
 
       agent.setToken(action.payload.acess_token);
       agent.setRefreshToken(action.payload.refresh_token); 

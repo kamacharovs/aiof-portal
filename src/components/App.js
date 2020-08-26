@@ -42,12 +42,9 @@ class App extends React.Component {
 
   componentWillMount() {
     const token = Cookies.get(ACCESS_TOKEN);
-    if (token) {
-      agent.setToken(token);
-      this.props.onLoad(agent.User.byUsername(Cookies.get(USER)), token);
-    }
-
-    this.props.onLoad(token); //? agent.Auth.current() : null, token);
+    const user = Cookies.getJSON(USER);
+    agent.setToken(token);
+    this.props.onLoad(user, token);
   }
 
   render() {
