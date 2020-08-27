@@ -2,8 +2,6 @@ import styled from 'styled-components';
 import { Form, Container } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 
-const DefaultFont = "Montserrat";
-
 export const ContainerAiof = styled(Container)`
   padding: 2rem;
 `;

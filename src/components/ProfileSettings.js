@@ -98,8 +98,8 @@ class ProfileSettingsForm extends React.Component {
       settings.gender = settings.gender ? settings.gender.value : null;
       settings.maritalStatus = settings.maritalStatus ? settings.maritalStatus.value : null;
       settings.householdIncome = settings.householdIncome ? Number(settings.householdIncome) : null;
-      settings.householdAdults = settings.householdAdults ? parseInt(settings.householdAdults.value) : null;
-      settings.householdChildren = settings.householdChildren ? parseInt(settings.householdChildren.value) : null;
+      settings.householdAdults = settings.householdAdults ? parseInt(settings.householdAdults.value, 10) : null;
+      settings.householdChildren = settings.householdChildren ? parseInt(settings.householdChildren.value, 10) : null;
       settings.retirementContributionsPreTax = settings.retirementContributionsPreTax ? Number(settings.retirementContributionsPreTax) : null;
 
       this.props.onSubmitForm(this.props.currentUser.username, settings);
