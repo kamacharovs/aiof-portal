@@ -1,5 +1,6 @@
 import React from 'react';
 import { Form, Button, Row } from 'react-bootstrap';
+import { Helmet } from 'react-helmet';
 import ListErrors from './ListErrors';
 import agent from '../agent';
 import { FaUnlock } from "react-icons/fa";
@@ -11,7 +12,7 @@ import {
 } from '../constants/actionTypes';
 import { ContainerAiof, CoolLink, RoundBorderBox, RoundBorderBoxText, TinyFormLabel } from '../style/common';
 
-const mapStateToProps = state => ({ ...state.auth });
+const mapStateToProps = state => ({ ...state.auth, appName: state.common.appName });
 
 const mapDispatchToProps = dispatch => ({
   onChangeFirstName: value =>
@@ -66,90 +67,95 @@ class Register extends React.Component {
     const isEnabled = isFirstNameValid && isLastNameValid && isEmailValid && isUsernameValid && isPasswordValid;
 
     return (
-      <ContainerAiof>
-        <Row>
-          <RoundBorderBox className="col-md-6 offset-md-3 col-xs-12 text-center">
+      <div>
+        <Helmet>
+          <title>{this.props.appName} | Register</title>
+        </Helmet>
+        <ContainerAiof>
+          <Row>
+            <RoundBorderBox className="col-md-6 offset-md-3 col-xs-12 text-center">
 
-            <ListErrors errors={this.props.errors} />
+              <ListErrors errors={this.props.errors} />
 
-            <h1>Sign Up</h1>
-            <p>
-              <CoolLink to="/login">
-                Have an account?
+              <h1>Sign Up</h1>
+              <p>
+                <CoolLink to="/login">
+                  Have an account?
               </CoolLink>
-            </p>
+              </p>
 
-            <Form onSubmit={this.submitForm(firstName, lastName, email, username, password)}>
-              <Form.Text className="text-muted">
-                One account for everything finance
+              <Form onSubmit={this.submitForm(firstName, lastName, email, username, password)}>
+                <Form.Text className="text-muted">
+                  One account for everything finance
                 </Form.Text>
 
-              <RoundBorderBoxText className="text-left">
-                <Form.Group>
-                  <TinyFormLabel>First Name</TinyFormLabel>
-                  <Form.Control type="text"
-                    required
-                    value={firstName}
-                    onChange={this.changeFirstName} />
-                  <Form.Text muted={true}>
-                    {isFirstNameValid && !focused ? null : "First name is required and must be between 1 and 200 characters"}
-                  </Form.Text>
-                </Form.Group>
+                <RoundBorderBoxText className="text-left">
+                  <Form.Group>
+                    <TinyFormLabel>First Name</TinyFormLabel>
+                    <Form.Control type="text"
+                      required
+                      value={firstName}
+                      onChange={this.changeFirstName} />
+                    <Form.Text muted={true}>
+                      {isFirstNameValid && !focused ? null : "First name is required and must be between 1 and 200 characters"}
+                    </Form.Text>
+                  </Form.Group>
 
-                <Form.Group>
-                  <TinyFormLabel>Last Name</TinyFormLabel>
-                  <Form.Control type="text"
-                    required
-                    value={lastName}
-                    onChange={this.changeLastName} />
-                  <Form.Text muted={true}>
-                    {isLastNameValid ? null : "Last name is required and must be between 1 and 200 characters"}
-                  </Form.Text>
-                </Form.Group>
+                  <Form.Group>
+                    <TinyFormLabel>Last Name</TinyFormLabel>
+                    <Form.Control type="text"
+                      required
+                      value={lastName}
+                      onChange={this.changeLastName} />
+                    <Form.Text muted={true}>
+                      {isLastNameValid ? null : "Last name is required and must be between 1 and 200 characters"}
+                    </Form.Text>
+                  </Form.Group>
 
-                <Form.Group>
-                  <TinyFormLabel>Email</TinyFormLabel>
-                  <Form.Control type="text"
-                    required
-                    value={email}
-                    onChange={this.changeEmail} />
-                  <Form.Text muted={true}>
-                    {isEmailValid ? null : "Email is required and must be between 1 and 200 characters"}
-                  </Form.Text>
-                </Form.Group>
+                  <Form.Group>
+                    <TinyFormLabel>Email</TinyFormLabel>
+                    <Form.Control type="text"
+                      required
+                      value={email}
+                      onChange={this.changeEmail} />
+                    <Form.Text muted={true}>
+                      {isEmailValid ? null : "Email is required and must be between 1 and 200 characters"}
+                    </Form.Text>
+                  </Form.Group>
 
-                <Form.Group>
-                  <TinyFormLabel>Username</TinyFormLabel>
-                  <Form.Control type="text"
-                    required
-                    value={username}
-                    onChange={this.changeUsername} />
-                  <Form.Text muted={true}>
-                    {isUsernameValid ? null : "Username is required and must be unique and between 1 and 200 characters"}
-                  </Form.Text>
-                </Form.Group>
+                  <Form.Group>
+                    <TinyFormLabel>Username</TinyFormLabel>
+                    <Form.Control type="text"
+                      required
+                      value={username}
+                      onChange={this.changeUsername} />
+                    <Form.Text muted={true}>
+                      {isUsernameValid ? null : "Username is required and must be unique and between 1 and 200 characters"}
+                    </Form.Text>
+                  </Form.Group>
 
-                <Form.Group>
-                  <TinyFormLabel>Password</TinyFormLabel>
-                  <Form.Control type="password"
-                    required
-                    value={password}
-                    onChange={this.changePassword} />
-                  <Form.Text muted={true}>
-                    {isPasswordValid ? null : "Password is required and must be between 8 to 50 characters, have a number and at least 1 uppercase character"}
-                  </Form.Text>
-                </Form.Group>
+                  <Form.Group>
+                    <TinyFormLabel>Password</TinyFormLabel>
+                    <Form.Control type="password"
+                      required
+                      value={password}
+                      onChange={this.changePassword} />
+                    <Form.Text muted={true}>
+                      {isPasswordValid ? null : "Password is required and must be between 8 to 50 characters, have a number and at least 1 uppercase character"}
+                    </Form.Text>
+                  </Form.Group>
 
-                <Button variant="primary" size="lg" type="submit" block
-                  disabled={!isEnabled}>
-                  <FaUnlock size={20} />&nbsp;&nbsp;Sign up
+                  <Button variant="primary" size="lg" type="submit" block
+                    disabled={!isEnabled}>
+                    <FaUnlock size={20} />&nbsp;&nbsp;Sign up
                   </Button>
-              </RoundBorderBoxText>
-            </Form>
+                </RoundBorderBoxText>
+              </Form>
 
-          </RoundBorderBox>
-        </Row>
-      </ContainerAiof>
+            </RoundBorderBox>
+          </Row>
+        </ContainerAiof>
+      </div>
     );
   }
 }
