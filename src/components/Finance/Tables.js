@@ -1,5 +1,6 @@
 import React from 'react';
 import { Table } from 'react-bootstrap';
+import { numberWithCommas } from './Common';
 
 export const AssetTable = props => {
     if (props.assets) {
@@ -20,7 +21,7 @@ export const AssetTable = props => {
                                 <tr>
                                     <td>{asset.name}</td>
                                     <td>{asset.typeName}</td>
-                                    <td>{asset.value}</td>
+                                    <td>${numberWithCommas(asset.value)}</td>
                                 </tr>
                             );
                         })

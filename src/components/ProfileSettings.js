@@ -9,6 +9,7 @@ import {
   SETTINGS_PAGE_UNLOADED,
   LOGOUT
 } from '../constants/actionTypes';
+import { TinyFormLabel } from '../style/common';
 
 const genderOptions = [
   { value: 'male', label: 'Male' },
@@ -144,9 +145,9 @@ class ProfileSettingsForm extends React.Component {
     return (
       <Form onSubmit={this.submitForm}>
         <Row>
-          <Col sm="2">
+          <Col sm="4">
             <Form.Group>
-              <Form.Label>Gender</Form.Label>
+              <TinyFormLabel>Gender</TinyFormLabel>
               <Select
                 value={this.state.gender}
                 onChange={this.handleGenderChange}
@@ -154,16 +155,12 @@ class ProfileSettingsForm extends React.Component {
               />
             </Form.Group>
           </Col>
-          <Col sm="4">
-
-          </Col>
         </Row>
         <hr/>
-
         <Row>
           <Col sm="4">
             <Form.Group>
-              <Form.Label>Occupation</Form.Label>
+              <TinyFormLabel>Occupation</TinyFormLabel>
               <Form.Control type="text"
                 value={this.state.occupation}
                 onChange={this.updateState('occupation')} />
@@ -171,7 +168,7 @@ class ProfileSettingsForm extends React.Component {
           </Col>
           <Col sm="4">
             <Form.Group>
-              <Form.Label>Occupation industry</Form.Label>
+              <TinyFormLabel>Occupation industry</TinyFormLabel>
               <Form.Control type="text"
                 value={this.state.occupationIndustry}
                 onChange={this.updateState('occupationIndustry')} />
@@ -183,7 +180,7 @@ class ProfileSettingsForm extends React.Component {
         <Row>
           <Col sm="4">
             <Form.Group>
-              <Form.Label>Marital status</Form.Label>
+              <TinyFormLabel>Marital status</TinyFormLabel>
               <Select
                 value={this.state.maritalStatus}
                 onChange={this.handleMaritalStatusChange}
@@ -193,7 +190,7 @@ class ProfileSettingsForm extends React.Component {
           </Col>
           <Col sm="4">
             <Form.Group>
-              <Form.Label>Education level</Form.Label>
+              <TinyFormLabel>Education level</TinyFormLabel>
               <Form.Control type="text"
                 value={this.state.educationlevel}
                 onChange={this.updateState('educationlevel')} />
@@ -205,7 +202,7 @@ class ProfileSettingsForm extends React.Component {
         <Row>
           <Col sm="4">
             <Form.Group>
-              <Form.Label>Household income</Form.Label>
+              <TinyFormLabel>Household income</TinyFormLabel>
               <Form.Control type="text"
                 value={this.state.householdIncome}
                 onChange={this.updateState('householdIncome')}
@@ -217,7 +214,7 @@ class ProfileSettingsForm extends React.Component {
           </Col>
           <Col sm="4">
             <Form.Group>
-              <Form.Label>Household Adults</Form.Label>
+              <TinyFormLabel>Household Adults</TinyFormLabel>
               <Select
                 value={this.state.householdAdults}
                 onChange={this.handleHouseholdAdultsChange}
@@ -227,7 +224,7 @@ class ProfileSettingsForm extends React.Component {
           </Col>
           <Col sm="4">
             <Form.Group>
-              <Form.Label>Household Children</Form.Label>
+              <TinyFormLabel>Household Children</TinyFormLabel>
               <Select
                 value={this.state.householdChildren}
                 onChange={this.handleHouseholdChildrenChange}
@@ -241,7 +238,7 @@ class ProfileSettingsForm extends React.Component {
         <Row>
           <Col sm="4">
           <Form.Group>
-              <Form.Label>Retirement contribution</Form.Label>
+              <TinyFormLabel>Retirement contribution</TinyFormLabel>
               <Form.Control type="text"
                 value={this.state.retirementContributionsPreTax}
                 onChange={this.updateState('retirementContributionsPreTax')}
