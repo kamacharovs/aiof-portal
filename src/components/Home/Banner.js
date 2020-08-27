@@ -1,18 +1,17 @@
 import React from 'react';
+import { AiofBanner } from '../../style/common';
 
 const Banner = props => {
   if (props.token) {
     return null;
   }
   return (
-    <div className="banner">
-      <div className="container">
-        <h1 className="logo-font">
+    <AiofBanner>
+        <h1>
           {props.appName.toLowerCase()}
         </h1>
         <p>All in one finance place</p>
-      </div>
-    </div>
+    </AiofBanner>
   );
 };
 

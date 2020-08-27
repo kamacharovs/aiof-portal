@@ -2,6 +2,8 @@ import styled from 'styled-components';
 import { Form, Container } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 
+export const DefaultColor = "#5cb85c";
+
 export const ContainerAiof = styled(Container)`
   padding: 2rem;
 `;
@@ -69,7 +71,7 @@ export const HeaderLink = styled(Link)`
   font-size: 1.5rem !important;
   padding-top: 0 !important;
   margin-right: 2rem !important;
-  color: #5cb85c !important;
+  color: ${DefaultColor} !important;
   padding-bottom: 0rem;
   line-height: inherit;
   white-space: nowrap;
@@ -101,4 +103,16 @@ export const RoundBorderBoxText = styled.div`
 
 export const TinyPadding = styled.div`
   padding: 0.25rem;
+`;
+
+export const AiofBanner = styled.div`
+  background-color: ${DefaultColor};
+  padding: 3rem;
+  margin-bottom: 1rem;
+  text-align: center;
+  font-weight: 900;
+
+  &.h1 {
+
+  }
 `;
