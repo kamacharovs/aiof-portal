@@ -39,8 +39,9 @@ const FinanceList = props => {
           assets={props.assets}
           liabilities={props.liabilities} />
       </Row>
+      <hr/>
       <Row>
-        <Col>
+        <Col sm="6">
           <h5>Assets</h5>
           {
             props.assets.map(asset => {
@@ -50,7 +51,7 @@ const FinanceList = props => {
             })
           }
         </Col>
-        <Col>
+        <Col sm="6">
           <h5>Liabilities</h5>
           {
             props.liabilities.map(liability => {
@@ -60,7 +61,10 @@ const FinanceList = props => {
             })
           }
         </Col>
-        <Col>
+      </Row>
+      <hr/>
+      <Row>
+        <Col sm="6">
           <h5>Goals</h5>
           {
             props.goals.map(goal => {
@@ -71,6 +75,7 @@ const FinanceList = props => {
           }
         </Col>
       </Row>
+      <hr/>
     </Container>
   );
 };
