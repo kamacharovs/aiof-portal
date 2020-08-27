@@ -10,7 +10,7 @@ import {
   REGISTER,
   REGISTER_PAGE_UNLOADED
 } from '../constants/actionTypes';
-import { CoolLink, RoundBorderBox, RoundBorderBoxText } from '../style/common';
+import { ContainerAiof, CoolLink, RoundBorderBox, RoundBorderBoxText } from '../style/common';
 
 const mapStateToProps = state => ({ ...state.auth });
 
@@ -67,7 +67,7 @@ class Register extends React.Component {
     const isEnabled = isFirstNameValid && isLastNameValid && isEmailValid && isUsernameValid && isPasswordValid;
 
     return (
-      <Container>
+      <ContainerAiof>
         <Row>
           <RoundBorderBox className="col-md-6 offset-md-3 col-xs-12 text-center">
 
@@ -150,7 +150,7 @@ class Register extends React.Component {
 
           </RoundBorderBox>
         </Row>
-      </Container>
+      </ContainerAiof>
     );
   }
 }

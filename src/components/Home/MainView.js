@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Container, Row, Col } from 'react-bootstrap';
 import Accounts from './Accounts';
+import { ContainerAiof } from '../../style/common';
 
 const mapStateToProps = state => ({
   ...state.finance,
@@ -14,14 +15,14 @@ const mapDispatchToProps = dispatch => ({
 
 const MainView = props => {
   return (
-    <Container>
+    <ContainerAiof>
       <Row>
         <Col sm="4">
           <Accounts
             token={props.token} />
         </Col>
       </Row>
-    </Container>
+    </ContainerAiof>
   );
 };
 

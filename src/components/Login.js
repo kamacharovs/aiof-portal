@@ -9,7 +9,7 @@ import {
   LOGIN,
   LOGIN_PAGE_UNLOADED
 } from '../constants/actionTypes';
-import { CoolLink, RoundBorderBox, RoundBorderBoxText } from '../style/common';
+import { ContainerAiof, CoolLink, RoundBorderBox, RoundBorderBoxText } from '../style/common';
 
 const mapStateToProps = state => ({ ...state.auth });
 
@@ -45,7 +45,7 @@ class Login extends React.Component {
     const isEnabled = username && password ? username.length > 0 && password.length > 0 : false;
 
     return (
-      <Container>
+      <ContainerAiof>
         <Row>
           <RoundBorderBox className="col-md-6 offset-md-3 col-xs-12 text-center">
 
@@ -55,7 +55,7 @@ class Login extends React.Component {
             <p>
               <CoolLink to="/register">
                 Need an account?
-                </CoolLink>
+              </CoolLink>
             </p>
 
             <Form onSubmit={this.submitForm(username, password)}>
@@ -98,7 +98,7 @@ class Login extends React.Component {
 
           </RoundBorderBox>
         </Row>
-      </Container>
+      </ContainerAiof>
     );
   }
 }

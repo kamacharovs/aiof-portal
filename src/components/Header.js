@@ -10,7 +10,7 @@ import { HeaderLink } from '../style/common';
 const bg = "dark"
 const variant = "dark"
 const pullright = "true"
-const navbarStyle = {"borderRadius": "0", "marginBottom": "2rem"}
+const navbarStyle = {"borderRadius": "0"}
 
 const HomeView = props => {
   if (props.currentUser) {
@@ -48,7 +48,7 @@ const LoggedInView = props => {
     return (
       <Nav pullright={pullright}>
         <Nav className="mr-auto">
-          <Link to="/editor" className="nav-link"><i className="ion-compose"></i>&nbsp;New Post</Link>
+          <Link to="/editor" className="nav-link">New Post</Link>
           <Link to="/login" className="nav-link" onClick={props.onClickLogout}>Log out</Link>
           <Link to={`/@${props.currentUser.username}`} className="nav-link"> {props.currentUser.lastName}, {props.currentUser.firstName}</Link>
         </Nav>

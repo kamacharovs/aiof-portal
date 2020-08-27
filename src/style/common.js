@@ -1,6 +1,10 @@
 import styled from 'styled-components';
-import { Form } from 'react-bootstrap';
+import { Form, Container } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
+
+export const ContainerAiof = styled(Container)`
+  padding: 2rem;
+`;
 
 export const CustomHr = styled.hr`
   width: 90%;

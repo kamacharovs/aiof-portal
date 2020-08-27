@@ -11,7 +11,7 @@ import {
 } from '../constants/actionTypes';
 
 import '../style/tabs.css';
-import { CustomHr, Hr50, MutedH2 } from '../style/common';
+import { ContainerAiof, CustomHr, Hr50, MutedH2 } from '../style/common';
 
 const UserInfo = {
   textAlign: "center",
@@ -237,7 +237,7 @@ class Profile extends React.Component {
             </Row>
           </Container>
         </div>
-        <div className="container page">
+        <ContainerAiof>
           <Tabs>
             <TabList>
               <MutedH2>Settings</MutedH2>
@@ -256,7 +256,7 @@ class Profile extends React.Component {
               <h2>Any content 1</h2>
             </TabPanel>
           </Tabs>
-        </div>
+        </ContainerAiof>
       </div>
     );
   }
