@@ -35,7 +35,6 @@ const LoggedOutView = props => {
       <Nav pullright={pullright}>
         <Nav className="mr-auto">
           <Link to="/login" className="nav-link">Sign in</Link>
-          <Link to="/register" className="nav-link">Sign up</Link>
         </Nav>
       </Nav>
     );
