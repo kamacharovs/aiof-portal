@@ -15,6 +15,7 @@ All documentation
 - [styled-components](https://styled-components.com/)
 - [JS cookie](https://www.npmjs.com/package/js-cookie)
 - [React charts](https://www.npmjs.com/package/react-chartjs-2)
+- [React helmet](https://github.com/nfl/react-helmet)
 
 #### Additional details
 

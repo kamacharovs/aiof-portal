@@ -2,6 +2,7 @@ import React from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
 import { AssetPreview, LiabilityPreview, GoalPreview } from './FinancePreview';
 import { AssetLiabilityChart } from './Finance/Charts';
+import { AssetTable, LiabilitiesTable, GoalsTable } from './Finance/Tables';
 
 const FinanceList = props => {
   if (!props.assets
@@ -9,29 +10,6 @@ const FinanceList = props => {
     || !props.liabilities) {
     return null;
   }
-
-  if (props.assets.length === 0) {
-    return (
-      <div className="article-preview">
-        No assets... yet.
-      </div>
-    );
-  }
-  if (props.goals.length === 0) {
-    return (
-      <div className="article-preview">
-        No goals... yet.
-      </div>
-    );
-  }
-  if (props.liabilities.length === 0) {
-    return (
-      <div className="article-preview">
-        No liabilities... yet.
-      </div>
-    );
-  }
-
   return (
     <Container>
       <Row>
@@ -39,8 +17,9 @@ const FinanceList = props => {
           assets={props.assets}
           liabilities={props.liabilities} />
       </Row>
+      <hr/>
       <Row>
-        <Col>
+        <Col sm="6">
           <h5>Assets</h5>
           {
             props.assets.map(asset => {
@@ -50,7 +29,7 @@ const FinanceList = props => {
             })
           }
         </Col>
-        <Col>
+        <Col sm="6">
           <h5>Liabilities</h5>
           {
             props.liabilities.map(liability => {
@@ -60,7 +39,10 @@ const FinanceList = props => {
             })
           }
         </Col>
-        <Col>
+      </Row>
+      <hr/>
+      <Row>
+        <Col sm="6">
           <h5>Goals</h5>
           {
             props.goals.map(goal => {
@@ -70,6 +52,16 @@ const FinanceList = props => {
             })
           }
         </Col>
+      </Row>
+      <hr/>
+      <Row>
+        <AssetTable assets={props.assets} />
+      </Row>
+      <Row>
+        <LiabilitiesTable liabilities={props.liabilities} />
+      </Row>
+      <Row>
+        <GoalsTable goals={props.goals} />
       </Row>
     </Container>
   );
