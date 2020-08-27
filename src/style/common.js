@@ -2,6 +2,8 @@ import styled from 'styled-components';
 import { Form, Container } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 
+const DefaultFont = "Montserrat";
+
 export const ContainerAiof = styled(Container)`
   padding: 2rem;
 `;
@@ -23,10 +25,16 @@ export const MutedH2 = styled.h2`
    font-size: 14px;
 `;
 
+
 export const ErrorTextMuted = styled(Form.Text)`
   color: red !important;
   muted: true;
 `;
+export const TinyFormLabel = styled(Form.Label)`
+ font-size: 12px;
+ font-weight: 700;
+`;
+
 
 export const CoolLink = styled(Link)`
   margin-bottom: 10px;

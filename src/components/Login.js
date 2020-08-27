@@ -1,5 +1,5 @@
 import React from 'react';
-import { Form, Button, Container, Row } from 'react-bootstrap';
+import { Form, Button, Row } from 'react-bootstrap';
 import ListErrors from './ListErrors';
 import agent from '../agent';
 import { connect } from 'react-redux';
@@ -9,7 +9,7 @@ import {
   LOGIN,
   LOGIN_PAGE_UNLOADED
 } from '../constants/actionTypes';
-import { ContainerAiof, CoolLink, RoundBorderBox, RoundBorderBoxText } from '../style/common';
+import { ContainerAiof, CoolLink, RoundBorderBox, RoundBorderBoxText, TinyFormLabel } from '../style/common';
 
 const mapStateToProps = state => ({ ...state.auth });
 
@@ -65,7 +65,7 @@ class Login extends React.Component {
 
               <RoundBorderBoxText className="text-left">
                 <Form.Group>
-                  <Form.Label>Username</Form.Label>
+                  <TinyFormLabel>Username</TinyFormLabel>
                   <Form.Control type="text"
                     required
                     value={username}
@@ -73,7 +73,7 @@ class Login extends React.Component {
                 </Form.Group>
 
                 <Form.Group>
-                  <Form.Label>Password</Form.Label>
+                  <TinyFormLabel>Password</TinyFormLabel>
                   <Form.Control type="password"
                     required
                     value={password}

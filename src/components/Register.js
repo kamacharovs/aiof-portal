@@ -10,7 +10,7 @@ import {
   REGISTER,
   REGISTER_PAGE_UNLOADED
 } from '../constants/actionTypes';
-import { ContainerAiof, CoolLink, RoundBorderBox, RoundBorderBoxText } from '../style/common';
+import { ContainerAiof, CoolLink, RoundBorderBox, RoundBorderBoxText, TinyFormLabel } from '../style/common';
 
 const mapStateToProps = state => ({ ...state.auth });
 
@@ -77,7 +77,7 @@ class Register extends React.Component {
             <p>
               <CoolLink to="/login">
                 Have an account?
-                </CoolLink>
+              </CoolLink>
             </p>
 
             <Form onSubmit={this.submitForm(firstName, lastName, email, username, password)}>
@@ -87,7 +87,7 @@ class Register extends React.Component {
 
               <RoundBorderBoxText className="text-left">
                 <Form.Group>
-                  <Form.Label>First Name</Form.Label>
+                  <TinyFormLabel>First Name</TinyFormLabel>
                   <Form.Control type="text"
                     required
                     value={firstName}
@@ -98,7 +98,7 @@ class Register extends React.Component {
                 </Form.Group>
 
                 <Form.Group>
-                  <Form.Label>Last Name</Form.Label>
+                  <TinyFormLabel>Last Name</TinyFormLabel>
                   <Form.Control type="text"
                     required
                     value={lastName}
@@ -109,7 +109,7 @@ class Register extends React.Component {
                 </Form.Group>
 
                 <Form.Group>
-                  <Form.Label>Email</Form.Label>
+                  <TinyFormLabel>Email</TinyFormLabel>
                   <Form.Control type="text"
                     required
                     value={email}
@@ -120,7 +120,7 @@ class Register extends React.Component {
                 </Form.Group>
 
                 <Form.Group>
-                  <Form.Label>Username</Form.Label>
+                  <TinyFormLabel>Username</TinyFormLabel>
                   <Form.Control type="text"
                     required
                     value={username}
@@ -131,7 +131,7 @@ class Register extends React.Component {
                 </Form.Group>
 
                 <Form.Group>
-                  <Form.Label>Password</Form.Label>
+                  <TinyFormLabel>Password</TinyFormLabel>
                   <Form.Control type="password"
                     required
                     value={password}
