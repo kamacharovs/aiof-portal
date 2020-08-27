@@ -92,3 +92,7 @@ export const RoundBorderBoxText = styled.div`
   padding-top: 2rem;
   padding-bottom: 2rem;
 `;
+
+export const TinyPadding = styled.div`
+  padding: 0.25rem;
+`;
