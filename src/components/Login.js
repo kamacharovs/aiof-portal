@@ -35,6 +35,10 @@ class Login extends React.Component {
     };
   }
 
+  componentDidMount() {
+    document.title = 'Your page title here';
+  }
+
   componentWillUnmount() {
     this.props.onUnload();
   }

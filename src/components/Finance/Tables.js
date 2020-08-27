@@ -4,7 +4,8 @@ import { Table } from 'react-bootstrap';
 export const AssetTable = props => {
     if (props.assets) {
         return (
-            <Table responsive="sm">
+            <Table responsive="sm"
+            borderless={true}>
                 <thead>
                     <tr>
                         <th>name</th>
