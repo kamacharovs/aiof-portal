@@ -1,8 +1,9 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import { Container, Row, Col } from 'react-bootstrap';
 import { FaCog } from "react-icons/fa";
-import { connect } from 'react-redux';
 import { USER_FINANCE } from '../../constants/actionTypes';
+import { CoolLink } from '../../style/common';
 
 const mapStateToProps = state => ({
   ...state.home,
@@ -22,13 +23,23 @@ const Cash = props => {
         <Col><h6>$0.00</h6></Col>
       </Row>
       <Row>
-        <Col>Account 1</Col>
-      </Row>
-      <Row>
-        <Col>Account 2</Col>
-      </Row>
-      <Row>
-        <Col>Account 3</Col>
+        <Col sm="10">
+          <nav className="navbar" style={{ padding: "0" }}>
+            <ul className="navbar-nav">
+              <li className="nav-item">
+                <CoolLink to="/">Link 1</CoolLink>
+              </li>
+              <li className="nav-item">
+                <CoolLink to="/">Link 2</CoolLink>
+              </li>
+              <li className="nav-item">
+                <CoolLink to="/">Link 3</CoolLink>
+              </li>
+            </ul>
+          </nav>
+        </Col>
+        <Col sm="2">
+        </Col>
       </Row>
     </Container>
   );
@@ -42,10 +53,23 @@ const CreditCards = props => {
         <Col><h6>$0.00</h6></Col>
       </Row>
       <Row>
-        <Col>Account 1</Col>
-      </Row>
-      <Row>
-        <Col>Account 2</Col>
+        <Col sm="10">
+          <nav className="navbar" style={{ padding: "0" }}>
+            <ul className="navbar-nav">
+              <li className="nav-item">
+                <CoolLink to="/">Link 1</CoolLink>
+              </li>
+              <li className="nav-item">
+                <CoolLink to="/">Link 2</CoolLink>
+              </li>
+              <li className="nav-item">
+                <CoolLink to="/">Link 3</CoolLink>
+              </li>
+            </ul>
+          </nav>
+        </Col>
+        <Col sm="2">
+        </Col>
       </Row>
     </Container>
   );
@@ -59,10 +83,23 @@ const Investments = props => {
         <Col><h6>$0.00</h6></Col>
       </Row>
       <Row>
-        <Col>Account 1</Col>
-      </Row>
-      <Row>
-        <Col>Account 2</Col>
+        <Col sm="10">
+          <nav className="navbar" style={{ padding: "0" }}>
+            <ul className="navbar-nav">
+              <li className="nav-item">
+                <CoolLink to="/">Link 1</CoolLink>
+              </li>
+              <li className="nav-item">
+                <CoolLink to="/">Link 2</CoolLink>
+              </li>
+              <li className="nav-item">
+                <CoolLink to="/">Link 3</CoolLink>
+              </li>
+            </ul>
+          </nav>
+        </Col>
+        <Col sm="2">
+        </Col>
       </Row>
     </Container>
   );
@@ -74,18 +111,18 @@ class Accounts extends React.Component {
       || this.props.token === 'undefined') {
       return null;
     }
-    
+
     return (
       <Container>
         <Row>
-        <Col sm="6" className="text-sm-left">Accounts</Col>
-        <Col sm="6" className="text-sm-right"><a href="#"><FaCog size={30} style={{ fill: "gray" }} /></a></Col>
+          <Col sm="6" className="text-sm-left">Accounts</Col>
+          <Col sm="6" className="text-sm-right"><a href="#"><FaCog size={30} style={{ fill: "gray" }} /></a></Col>
         </Row>
-        <hr/>
+        <hr />
         <Cash />
-        <hr/>
+        <hr />
         <CreditCards />
-        <hr/>
+        <hr />
         <Investments />
       </Container>
     );

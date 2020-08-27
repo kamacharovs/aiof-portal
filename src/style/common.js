@@ -46,7 +46,7 @@ export const CoolLink = styled(Link)`
     content: '';
     display: block;
     width: 0;
-    height: 2px;
+    height: 1px;
     background: #000;
     transition: width .3s;
   };
@@ -58,11 +58,15 @@ export const CoolLink = styled(Link)`
 
   &:hover::after {
     width: 100%;
-    //transition: width .3s;
+    transition: width .3s;
   }
 
   &:focus, &:visited, &:link, &:active {
     text-decoration: none;
+  }
+
+  &.outer {
+    display: block;
   }
 `;
 
