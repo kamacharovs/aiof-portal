@@ -1,7 +1,6 @@
 import React from 'react';
 import { Form, Button, Row } from 'react-bootstrap';
 import { Helmet } from 'react-helmet';
-import ListErrors from './ListErrors';
 import agent from '../agent';
 import { connect } from 'react-redux';
 import { FaUnlock } from "react-icons/fa";
@@ -10,12 +9,21 @@ import {
   LOGIN,
   LOGIN_PAGE_UNLOADED
 } from '../constants/actionTypes';
-import { ContainerAiof, CoolLink, RoundBorderBox, RoundBorderBoxText, TinyFormLabel } from '../style/common';
+import { 
+  ContainerAiof, 
+  CoolLink, 
+  RoundBorderBox, 
+  RoundBorderBoxText, 
+  TinyFormLabel, 
+  ErrorTextMuted } from '../style/common';
 
-const mapStateToProps = state => ({ ...state.auth, appName: state.common.appName });
+const mapStateToProps = state => ({ 
+  ...state.auth, 
+  appName: state.common.appName,
+});
 
 const mapDispatchToProps = dispatch => ({
-  onChangeUsername: value =>
+  onChangeUsername: value => 
     dispatch({ type: UPDATE_FIELD_AUTH, key: 'username', value }),
   onChangePassword: value =>
     dispatch({ type: UPDATE_FIELD_AUTH, key: 'password', value }),
@@ -54,8 +62,6 @@ class Login extends React.Component {
           <Row>
             <RoundBorderBox className="col-md-6 offset-md-3 col-xs-12 text-center">
 
-              <ListErrors errors={this.props.errors} />
-
               <h1>Sign In</h1>
               <p>
                 <CoolLink to="/register">
@@ -67,7 +73,9 @@ class Login extends React.Component {
                 <Form.Text className="text-muted">
                   One account for everything finance
                 </Form.Text>
-
+                <ErrorTextMuted>
+                  {this.props.error ? "Invalid username or password. Please try again" : null}
+                </ErrorTextMuted>
                 <RoundBorderBoxText className="text-left">
                   <Form.Group>
                     <TinyFormLabel>Username</TinyFormLabel>
