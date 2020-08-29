@@ -55,7 +55,7 @@ class Login extends React.Component {
     const isEnabled = username && password ? username.length > 0 && password.length > 0 : false;
 
     return (
-      <div>
+      <React.Fragment>
         <Helmet>
           <title>{this.props.appName} | Login</title>
         </Helmet>
@@ -113,7 +113,7 @@ class Login extends React.Component {
             </RoundBorderBox>
           </Row>
         </ContainerAiof>
-      </div>
+      </React.Fragment>
     );
   }
 }

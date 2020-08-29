@@ -37,11 +37,11 @@ class Home extends React.Component {
 
   render() {
     return (
-      <div>
+      <React.Fragment>
         <Banner token={this.props.token} appName={this.props.appName} />
         
         <MainView />
-      </div>
+      </React.Fragment>
     );
   }
 }
