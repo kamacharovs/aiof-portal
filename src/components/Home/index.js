@@ -1,7 +1,8 @@
-import Banner from './Banner';
-import MainView from './MainView';
 import React from 'react';
 import { connect } from 'react-redux';
+import agent from '../../agent';
+import Banner from './Banner';
+import MainView from './MainView';
 import {
   HOME_PAGE_LOADED,
   HOME_PAGE_UNLOADED
@@ -10,7 +11,8 @@ import {
 const mapStateToProps = state => ({
   ...state.home,
   appName: state.common.appName,
-  token: state.common.token
+  token: state.common.token,
+  currentUser: state.common.currentUser,
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -22,6 +24,11 @@ const mapDispatchToProps = dispatch => ({
 
 class Home extends React.Component {
   componentDidMount() {
+    if (this.props.currentUser) {
+      this.props.onLoad(Promise.all([
+        agent.UserProfile.get(this.props.currentUser.username)
+      ]));
+    }
   }
 
   componentWillUnmount() {

@@ -15,7 +15,8 @@ import {
   RoundBorderBox, 
   RoundBorderBoxText, 
   TinyFormLabel, 
-  ErrorTextMuted } from '../style/common';
+  ErrorTextMuted 
+} from '../style/common';
 
 const mapStateToProps = state => ({ 
   ...state.auth, 

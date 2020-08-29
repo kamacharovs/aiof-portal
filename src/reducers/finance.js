@@ -1,17 +1,17 @@
 import {
-  HOME_PAGE_LOADED,
-  HOME_PAGE_UNLOADED,
+  FINANCE_PAGE_LOADED,
+  FINANCE_PAGE_UNLOADED,
   USER_FINANCE
 } from '../constants/actionTypes';
 
 export default (state = {}, action) => {
   switch (action.type) {
-    case HOME_PAGE_LOADED:
+    case FINANCE_PAGE_LOADED:
       return {
         ...state,
         pager: action.pager
       };
-    case HOME_PAGE_UNLOADED:
+    case FINANCE_PAGE_UNLOADED:
       return {};
     case USER_FINANCE:
       return {
