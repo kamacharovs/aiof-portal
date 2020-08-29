@@ -37,7 +37,7 @@ export const LiabilitiesTable = props => {
     if (props.liabilities) {
         return (
             <Table responsive="sm"
-            borderless={true}>
+                borderless={true}>
                 <thead>
                     <tr>
                         <th>name</th>

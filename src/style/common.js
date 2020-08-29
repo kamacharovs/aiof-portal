@@ -99,6 +99,16 @@ export const RoundBorderBox = styled.div`
   min-width: 264px;
   margin-bottom: 0.5rem;
 `;
+export const RoundGrayBorderBox = styled.div`
+  background: #ebebeb;
+  border-radius: 6px;
+  border: 1px solid #e8e8e8;
+  box-shadow: 0 8px 14px 0 rgba(0,0,0,.06);
+  min-width: 264px;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  margin-bottom: 0.5rem;
+`;
 export const RoundBorderBoxText = styled.div`
   padding-left: 3rem;
   padding-right: 3rem;
