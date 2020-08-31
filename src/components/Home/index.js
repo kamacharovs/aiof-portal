@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import agent from '../../agent';
+import Helmet from 'react-helmet';
 import Banner from './Banner';
 import MainView from './MainView';
 import {
@@ -32,6 +32,10 @@ class Home extends React.Component {
   render() {
     return (
       <React.Fragment>
+        <Helmet>
+          <title>{this.props.appName} | Home</title>
+        </Helmet>
+
         <Banner token={this.props.token} appName={this.props.appName} />
         
         <MainView />

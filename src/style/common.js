@@ -93,6 +93,7 @@ export const HeaderLink = styled(Link)`
 
 export const RoundBorderBox = styled.div`
   background: #fff;
+  display: block,
   border-radius: 6px;
   border: 1px solid #e8e8e8;
   box-shadow: 0 8px 14px 0 rgba(0,0,0,.06);
