@@ -1,7 +1,7 @@
 import React from 'react';
 import { Row, Col } from 'react-bootstrap';
 import { HrPreview, H1AssetPreview, H1LiabilityPreview, RoundBorderBox, TinyPadding } from '../../style/common';
-import { numberWithCommas } from './Common';
+import { numberWithCommas, formatDate } from './Common';
 
 
 export const AssetsPreview = props => {
@@ -14,7 +14,7 @@ export const AssetsPreview = props => {
           <TinyPadding>
             <H1AssetPreview className="text-left">Assets</H1AssetPreview>
             {
-              props.assets.map(asset => {
+              assets.map(asset => {
                 return (
                   <AssetPreview key={asset.name} asset={asset} />
                 );
@@ -30,25 +30,29 @@ export const AssetsPreview = props => {
 export const AssetPreview = props => {
   const asset = props.asset;
 
-  return (
-    <TinyPadding>
-      <Row>
-        <Col>
-          <b>Name</b>: {asset.name}
-          <HrPreview />
-        </Col>
-        <Col>
-          <b>Type</b>: {asset.typeName}
-          <HrPreview />
-        </Col>
-        <Col>
-          <b>Value</b>: ${numberWithCommas(asset.value)}
-          <HrPreview />
-        </Col>
-      </Row>
-    </TinyPadding>
-  );
+  if (asset) {
+    return (
+      <TinyPadding>
+        <Row>
+          <Col>
+            <b>Name</b>: {asset.name}
+            <HrPreview />
+          </Col>
+          <Col>
+            <b>Type</b>: {asset.typeName}
+            <HrPreview />
+          </Col>
+          <Col>
+            <b>Value</b>: ${numberWithCommas(asset.value)}
+            <HrPreview />
+          </Col>
+        </Row>
+      </TinyPadding>
+    );
+  }
+  return null;
 }
+
 
 export const LiabilitiesPreview = props => {
   const liabilities = props.liabilities;
@@ -60,7 +64,7 @@ export const LiabilitiesPreview = props => {
           <TinyPadding>
             <H1LiabilityPreview className="text-left">Liabilities</H1LiabilityPreview>
             {
-              props.liabilities.map(liability => {
+              liabilities.map(liability => {
                 return (
                   <LiabilityPreview key={liability.name} liability={liability} />
                 );
@@ -76,7 +80,8 @@ export const LiabilitiesPreview = props => {
 export const LiabilityPreview = props => {
   const liability = props.liability;
 
-  return (
+  if (liability) {
+    return (
       <TinyPadding>
         <Row>
           <Col>
@@ -93,27 +98,78 @@ export const LiabilityPreview = props => {
           </Col>
         </Row>
       </TinyPadding>
-  );
+    );
+  }
+  return null;
 }
 
+
+export const GoalsPreview = props => {
+  const goals = props.goals;
+
+  if (goals) {
+    return (
+      <React.Fragment>
+        <RoundBorderBox>
+          <TinyPadding>
+            <H1AssetPreview className="text-left">Goals</H1AssetPreview>
+            {
+              goals.map(goal => {
+                return (
+                  <GoalPreview key={goal.name} goal={goal} />
+                );
+              })
+            }
+          </TinyPadding>
+        </RoundBorderBox>
+      </React.Fragment>
+    )
+  }
+  return null;
+}
 export const GoalPreview = props => {
   const goal = props.goal;
 
-  return (
-    <RoundBorderBox>
+  if (goal) {
+    return (
       <TinyPadding>
-        <p>
-          <b>{goal.name}</b><br />
-        </p>
-        <p className="text-muted">
-          <i>type: </i>{goal.typeName} <br />
-          <i>amount: </i>${goal.amount} <br />
-          <i>current amount: </i>${goal.currentAmount} <br />
-          <i>contribution: </i>${goal.contribution} <br />
-          <i>contribution frequency: </i>{goal.contributionFrequencyName} <br />
-          <i>planned date: </i>{goal.plannedDate}
-        </p>
+        <Row>
+          <Col>
+            <b>Name</b>: {goal.name}
+            <HrPreview />
+          </Col>
+          <Col>
+            <b>Type</b>: {goal.typeName}
+            <HrPreview />
+          </Col>
+          <Col>
+            <b>Amount</b>: ${numberWithCommas(goal.amount)}
+            <HrPreview />
+          </Col>
+          <Col>
+            <b>Current Amount</b>: ${numberWithCommas(goal.currentAmount)}
+            <HrPreview />
+          </Col>
+        </Row>
+
+        <Row>
+          <Col>
+            <b>Contribution</b>: ${numberWithCommas(goal.contribution)}
+            <HrPreview />
+          </Col>
+          <Col>
+            <b>Frequency</b>: {goal.contributionFrequencyName}
+            <HrPreview />
+          </Col>
+          <Col>
+            <b>Planned Date</b>: {formatDate(goal.plannedDate)}
+            <HrPreview />
+          </Col>
+          <Col>
+          </Col>
+        </Row>
       </TinyPadding>
-    </RoundBorderBox>
-  );
+    );
+  }
+  return null;
 }
