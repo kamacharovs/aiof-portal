@@ -46,10 +46,12 @@ class FinanceMainView extends React.Component {
         <ContainerAiof>
           <Overview />
 
-          <AssetLiabilityChart assets={assets} liabilities={liabilities} />
-          
+          <h3>Your finances</h3>
           <AssetsPreview assets={assets} />
           <LiabilitiesPreview liabilities={liabilities} />
+
+          <AssetLiabilityChart assets={assets} liabilities={liabilities} />
+
           <GoalsPreview goals={goals} />
 
           <Subscriptions subscriptions={subscriptions} />
