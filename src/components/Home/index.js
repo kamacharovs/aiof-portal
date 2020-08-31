@@ -11,24 +11,18 @@ import {
 const mapStateToProps = state => ({
   ...state.home,
   appName: state.common.appName,
-  token: state.common.token,
-  currentUser: state.common.currentUser,
+  token: state.common.token
 });
 
 const mapDispatchToProps = dispatch => ({
-  onLoad: (tab, pager, payload) =>
-    dispatch({ type: HOME_PAGE_LOADED, tab, pager, payload }),
+  onLoad: payload =>
+    dispatch({ type: HOME_PAGE_LOADED, payload }),
   onUnload: () =>
     dispatch({  type: HOME_PAGE_UNLOADED })
 });
 
 class Home extends React.Component {
   componentDidMount() {
-    if (this.props.currentUser) {
-      this.props.onLoad(Promise.all([
-        agent.UserProfile.get(this.props.currentUser.username)
-      ]));
-    }
   }
 
   componentWillUnmount() {

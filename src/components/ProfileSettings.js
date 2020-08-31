@@ -110,16 +110,16 @@ class ProfileSettingsForm extends React.Component {
   componentDidMount() {
     if (this.props.currentUser && this.props.profile) {
       Object.assign(this.state, {
-        gender: this.props.profile.gender,
-        maritalStatus: this.props.profile.maritalStatus,
-        occupation: this.props.profile.occupation,
-        occupationIndustry: this.props.profile.occupationIndustry,
-        grossSalary: this.props.profile.grossSalary,
-        educationLevel: this.props.profile.educationLevel,
-        householdIncome: this.props.profile.householdIncome,
-        householdAdults: this.props.profile.householdAdults,
-        householdChildren: this.props.profile.householdChildren,
-        retirementContributionsPreTax: this.props.profile.retirementContributionsPreTax,
+        gender: this.props.profile.gender || '',
+        maritalStatus: this.props.profile.maritalStatus || '',
+        occupation: this.props.profile.occupation || '',
+        occupationIndustry: this.props.profile.occupationIndustry || '',
+        grossSalary: this.props.profile.grossSalary || '',
+        educationLevel: this.props.profile.educationLevel || '',
+        householdIncome: this.props.profile.householdIncome || '',
+        householdAdults: this.props.profile.householdAdults || '',
+        householdChildren: this.props.profile.householdChildren || '',
+        retirementContributionsPreTax: this.props.profile.retirementContributionsPreTax || '',
       });
     }
   }
