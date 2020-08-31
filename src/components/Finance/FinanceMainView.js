@@ -6,8 +6,8 @@ import { Overview } from './Overview';
 import { AssetLiabilityChart } from './Charts';
 import { AssetsPreview, LiabilitiesPreview, GoalsPreview } from './Previews';
 import { Subscriptions } from './Subscriptions';
-import { FINANCE_PAGE_LOADED } from '../../constants/actionTypes';
 import { ContainerAiof } from '../../style/common';
+import { FINANCE_PAGE_LOADED } from '../../constants/actionTypes';
 
 const mapStateToProps = state => ({
   ...state.finance,
