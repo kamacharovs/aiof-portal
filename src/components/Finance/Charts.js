@@ -56,7 +56,7 @@ export class AssetLiabilityChart extends React.Component {
 
         return (
             <Doughnut
-                data={state}
+                data={state || []}
                 options={{
                     title: {
                         display: true,

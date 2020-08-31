@@ -2,7 +2,6 @@ import React from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
 import { AssetPreview, LiabilityPreview, GoalPreview } from './FinancePreview';
 import { AssetLiabilityChart } from './Finance/Charts';
-import { AssetTable, LiabilitiesTable, GoalsTable } from './Finance/Tables';
 
 const FinanceList = props => {
   if (!props.assets
@@ -52,16 +51,6 @@ const FinanceList = props => {
             })
           }
         </Col>
-      </Row>
-      <hr/>
-      <Row>
-        <AssetTable assets={props.assets} />
-      </Row>
-      <Row>
-        <LiabilitiesTable liabilities={props.liabilities} />
-      </Row>
-      <Row>
-        <GoalsTable goals={props.goals} />
       </Row>
     </Container>
   );

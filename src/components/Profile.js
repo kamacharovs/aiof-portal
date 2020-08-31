@@ -68,7 +68,7 @@ const ProfileMain = props => {
   const retirementContributionsPreTax = innerProfile ? innerProfile.retirementContributionsPreTax : null;
 
   return (
-    <Container>
+    <Container fluid>
       <h1>Profile</h1>
       <p className="text-muted">
         Tell us about yourself so we can improve the financial advice we provide

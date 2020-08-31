@@ -109,6 +109,7 @@ export const RoundGrayBorderBox = styled.div`
   padding-left: 1rem;
   padding-right: 1rem;
   margin-bottom: 0.5rem;
+  display: block;
 `;
 export const RoundBorderBoxText = styled.div`
   padding-left: 3rem;

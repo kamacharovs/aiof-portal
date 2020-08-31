@@ -25,10 +25,10 @@ class Subscriptions extends React.Component {
                                             <hr />
                                             <Row>
                                                 <Col>
-                                                Name
+                                                    Name
                                                 </Col>
                                                 <Col>
-                                                {subscription.name}
+                                                    {subscription.name}
                                                 </Col>
                                             </Row>
                                             <Row>

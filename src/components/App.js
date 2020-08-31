@@ -54,7 +54,7 @@ class App extends React.Component {
   render() {
     if (this.props.appLoaded) {
       return (
-        <div>
+        <React.Fragment>
           <Helmet>
             <title>{this.props.appName}</title>
             <meta charSet="utf-8" />
@@ -74,15 +74,15 @@ class App extends React.Component {
             <Route exact path="/@:username/settings" component={ProfileSettings} />
             <Route exact path="/@:username" component={Profile} />
           </Switch>
-        </div>
+        </React.Fragment>
       );
     }
     return (
-      <div>
+      <React.Fragment>
         <Header
           appName={this.props.appName}
           currentUser={this.props.currentUser} />
-      </div>
+      </React.Fragment>
     );
   }
 }
