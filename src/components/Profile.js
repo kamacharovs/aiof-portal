@@ -10,7 +10,7 @@ import {
   PROFILE_PAGE_LOADED,
   PROFILE_PAGE_UNLOADED
 } from '../constants/actionTypes';
-import Subscriptions from './Finance/Subscriptions';
+import { Subscriptions } from './Finance/Subscriptions';
 
 import '../style/tabs.css';
 import { ContainerAiof, CustomHr, Hr50, MutedH2 } from '../style/common';

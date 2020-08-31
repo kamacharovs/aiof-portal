@@ -30,6 +30,12 @@ export const MutedH2 = styled.h2`
    text-transform: uppercase;
    font-size: 14px;
 `;
+export const H1Preview = styled.h1`
+   margin: 0 0 8px !important;
+   text-transform: uppercase;
+   font-size: 1rem;
+   font-weight: 900;
+`;
 export const H1AssetPreview = styled.h1`
    margin: 0 0 8px !important;
    text-transform: uppercase;

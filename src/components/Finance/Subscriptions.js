@@ -1,50 +1,52 @@
 import React from 'react';
-import { Container, Row, Col } from 'react-bootstrap';
-import { RoundGrayBorderBox } from '../../style/common';
+import { Row, Col } from 'react-bootstrap';
+import { RoundBorderBox, TinyPadding, H1Preview, HrPreview } from '../../style/common';
+import { numberWithCommas } from './Common';
 
-class Subscriptions extends React.Component {
-    render() {
-        if (this.props.subscriptions) {
-            return (
-                <React.Fragment>
-                    <Container>
-                            {
-                                this.props.subscriptions.map(subscription => {
-                                    return (
-                                        <Row>
-                                        <RoundGrayBorderBox>
-                                            <Row>
-                                                <Col>
-                                                    <h5>{subscription.name}</h5>
-                                                </Col>
-                                                <Col>
-                                                    <p className="text-muted">$99</p>
-                                                </Col>
-                                                
-                                            </Row>
-                                            <hr />
-                                            <Row>
-                                                <Col>
-                                                    Name
-                                                </Col>
-                                                <Col>
-                                                    {subscription.name}
-                                                </Col>
-                                            </Row>
-                                            <Row>
-
-                                            </Row>
-                                        </RoundGrayBorderBox>
-                                        </Row>
-                                    );
-                                })
-                            }
-                    </Container>
-                </React.Fragment>
-            )
-        }
-        return <h2>Subscriptions</h2>;
+export const Subscriptions = props => {
+    const subscriptions = props.subscriptions;
+  
+    if (subscriptions) {
+      return (
+        <React.Fragment>
+          <RoundBorderBox>
+            <TinyPadding>
+              <H1Preview className="text-left">Subscriptions</H1Preview>
+              {
+                subscriptions.map(subscription => {
+                  return (
+                    <SubscriptionPreview key={subscription.name} subscription={subscription} />
+                  );
+                })
+              }
+            </TinyPadding>
+          </RoundBorderBox>
+        </React.Fragment>
+      )
+    }
+    return null;
+  }
+  export const SubscriptionPreview = props => {
+    const subscription = props.subscription;
+  
+    if (subscription) {
+      return (
+        <TinyPadding>
+          <Row>
+            <Col>
+              <b>Name</b>: {subscription.name}
+              <HrPreview />
+            </Col>
+            <Col>
+              <b>Frequency</b>: {subscription.paymentFrequencyName}
+              <HrPreview />
+            </Col>
+            <Col>
+              <b>Amount</b>: ${numberWithCommas(subscription.amount)}
+              <HrPreview />
+            </Col>
+          </Row>
+        </TinyPadding>
+      );
     }
 }
-
-export default Subscriptions;
