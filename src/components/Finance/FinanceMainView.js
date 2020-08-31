@@ -1,12 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
-import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import agent from '../../agent';
 import { AssetLiabilityChart } from './Charts';
 import Subscriptions from './Subscriptions';
-import { FINANCE_PAGE_LOADED, FINANCE_PAGE_UNLOADED } from '../../constants/actionTypes';
-import { ContainerAiof, CoolLink, MutedH2, CustomHr } from '../../style/common';
+import { FINANCE_PAGE_LOADED } from '../../constants/actionTypes';
+import { ContainerAiof } from '../../style/common';
 
 const mapStateToProps = state => ({
   ...state.finance,
@@ -42,20 +41,9 @@ class FinanceMainView extends React.Component {
           <title>{this.props.appName} | Finance</title>
         </Helmet>
         <ContainerAiof>
-          <Tabs>
-            <TabList>
-              <MutedH2>Finance</MutedH2>
-              <CustomHr />
-              <Tab>Assets vs. Liabilities</Tab>
-              <Tab>Subscriptions</Tab>
-            </TabList>
-            <TabPanel>
-              <AssetLiabilityChart assets={assets} liabilities={liabilities} />
-            </TabPanel>
-            <TabPanel>
-              <Subscriptions subscriptions={subscriptions} />
-            </TabPanel>
-          </Tabs>
+          <AssetLiabilityChart assets={assets} liabilities={liabilities} />
+            
+          <Subscriptions subscriptions={subscriptions} />
         </ContainerAiof>
       </React.Fragment>
     );
