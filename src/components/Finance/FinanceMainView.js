@@ -1,10 +1,12 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Container, Row, Col } from 'react-bootstrap';
 import { Helmet } from 'react-helmet';
+import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import agent from '../../agent';
+import { AssetLiabilityChart } from './Charts';
+import Subscriptions from './Subscriptions';
 import { FINANCE_PAGE_LOADED, FINANCE_PAGE_UNLOADED } from '../../constants/actionTypes';
-import { ContainerAiof, CoolLink, MutedH2 } from '../../style/common';
+import { ContainerAiof, CoolLink, MutedH2, CustomHr } from '../../style/common';
 
 const mapStateToProps = state => ({
   ...state.finance,
@@ -30,6 +32,8 @@ class FinanceMainView extends React.Component {
   }
 
   render() {
+    const assets = this.props.finance.assets;
+    const liabilities = this.props.finance.liabilities;
     const subscriptions = this.props.finance.subscriptions;
 
     return (
@@ -37,31 +41,22 @@ class FinanceMainView extends React.Component {
         <Helmet>
           <title>{this.props.appName} | Finance</title>
         </Helmet>
-        <Container>
-          <Row>
-            <Col sm="2">
+        <ContainerAiof>
+          <Tabs>
+            <TabList>
               <MutedH2>Finance</MutedH2>
-              <hr />
-            </Col>
-          </Row>
-          <Row>
-            <Col sm="2">
-              <nav className="navbar" style={{ padding: "0" }}>
-                <ul className="navbar-nav">
-                  <li className="nav-item">
-                    <CoolLink to={`/@${this.props.currentUser.username}/finance/subscriptions`}>Subscriptions</CoolLink>
-                  </li>
-                  <li className="nav-item">
-                    <CoolLink to="/">Link 2</CoolLink>
-                  </li>
-                  <li className="nav-item">
-                    <CoolLink to="/">Link 3</CoolLink>
-                  </li>
-                </ul>
-              </nav>
-            </Col>
-          </Row>
-        </Container>
+              <CustomHr />
+              <Tab>Assets vs. Liabilities</Tab>
+              <Tab>Subscriptions</Tab>
+            </TabList>
+            <TabPanel>
+              <AssetLiabilityChart assets={assets} liabilities={liabilities} />
+            </TabPanel>
+            <TabPanel>
+              <Subscriptions subscriptions={subscriptions} />
+            </TabPanel>
+          </Tabs>
+        </ContainerAiof>
       </React.Fragment>
     );
   }
