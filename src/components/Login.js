@@ -105,7 +105,7 @@ class Login extends React.Component {
 
                   <Form.Text muted={true} className="text-center">
                     <br />
-                    <i>By clicking Sign In, you agree to our <a href="#">Terms</a> and have read and acknowledge our <a href="#">US Privacy Statement</a>.</i>
+                    <i>By clicking Sign In, you agree to our <a href="/">Terms</a> and have read and acknowledge our <a href="/">US Privacy Statement</a>.</i>
                   </Form.Text>
                 </RoundBorderBoxText>
               </Form>

@@ -116,7 +116,7 @@ class Accounts extends React.Component {
       <Container>
         <Row>
           <Col className="text-left">Accounts</Col>
-          <Col className="text-right"><a href="#"><FaCog size={30} style={{ fill: "gray" }} /></a></Col>
+          <Col className="text-right"><a href="/"><FaCog size={30} style={{ fill: "gray" }} /></a></Col>
         </Row>
         <hr />
         <Cash />
