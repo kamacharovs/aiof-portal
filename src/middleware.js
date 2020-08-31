@@ -69,7 +69,6 @@ const localStorageMiddleware = store => next => action => {
     Cookies.remove(USER);
 
     agent.setToken(null);
-    agent.setRefreshToken(null);
   }
 
   next(action);
