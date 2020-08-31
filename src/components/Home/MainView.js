@@ -5,7 +5,7 @@ import Accounts from './Accounts';
 import { ContainerAiof } from '../../style/common';
 
 const mapStateToProps = state => ({
-  ...state.finance,
+  ...state.home,
   token: state.common.token,
   currentUser: state.common.currentUser
 });

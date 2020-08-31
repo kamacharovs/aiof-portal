@@ -9,7 +9,6 @@ export default (state = {}, action) => {
     case FINANCE_PAGE_LOADED:
       return {
         ...state,
-        pager: action.pager
       };
     case FINANCE_PAGE_UNLOADED:
       return {};
