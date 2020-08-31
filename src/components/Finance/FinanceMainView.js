@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
 import agent from '../../agent';
 import { AssetLiabilityChart } from './Charts';
-import { AssetsPreview } from './Previews';
+import { AssetsPreview, LiabilitiesPreview } from './Previews';
 import Subscriptions from './Subscriptions';
 import { FINANCE_PAGE_LOADED } from '../../constants/actionTypes';
 import { ContainerAiof } from '../../style/common';
@@ -45,9 +45,10 @@ class FinanceMainView extends React.Component {
         <ContainerAiof>
           <AssetLiabilityChart assets={assets} liabilities={liabilities} />
             
-          <Subscriptions subscriptions={subscriptions} />
-
           <AssetsPreview assets={assets} />
+          <LiabilitiesPreview liabilities={liabilities} />
+
+          <Subscriptions subscriptions={subscriptions} />
         </ContainerAiof>
       </React.Fragment>
     );

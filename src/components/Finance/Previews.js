@@ -1,6 +1,6 @@
 import React from 'react';
 import { Row, Col } from 'react-bootstrap';
-import { HrPreview, MutedH2, RoundBorderBox, TinyPadding } from '../../style/common';
+import { HrPreview, H1AssetPreview, H1LiabilityPreview, RoundBorderBox, TinyPadding } from '../../style/common';
 import { numberWithCommas } from './Common';
 
 
@@ -12,7 +12,7 @@ export const AssetsPreview = props => {
       <React.Fragment>
         <RoundBorderBox>
           <TinyPadding>
-            <MutedH2 className="text-left">Assets</MutedH2>
+            <H1AssetPreview className="text-left">Assets</H1AssetPreview>
             {
               props.assets.map(asset => {
                 return (
@@ -50,21 +50,49 @@ export const AssetPreview = props => {
   );
 }
 
+export const LiabilitiesPreview = props => {
+  const liabilities = props.liabilities;
+
+  if (liabilities) {
+    return (
+      <React.Fragment>
+        <RoundBorderBox>
+          <TinyPadding>
+            <H1LiabilityPreview className="text-left">Liabilities</H1LiabilityPreview>
+            {
+              props.liabilities.map(liability => {
+                return (
+                  <LiabilityPreview key={liability.name} liability={liability} />
+                );
+              })
+            }
+          </TinyPadding>
+        </RoundBorderBox>
+      </React.Fragment>
+    )
+  }
+  return null;
+}
 export const LiabilityPreview = props => {
   const liability = props.liability;
 
   return (
-    <RoundBorderBox>
       <TinyPadding>
-        <p>
-          <b>{liability.name}</b><br />
-        </p>
-        <p className="text-muted">
-          <i>type: </i>{liability.typeName} <br />
-          <i>value: </i>${liability.value}
-        </p>
+        <Row>
+          <Col>
+            <b>Name</b>: {liability.name}
+            <HrPreview />
+          </Col>
+          <Col>
+            <b>Type</b>: {liability.typeName}
+            <HrPreview />
+          </Col>
+          <Col>
+            <b>Value</b>: ${numberWithCommas(liability.value)}
+            <HrPreview />
+          </Col>
+        </Row>
       </TinyPadding>
-    </RoundBorderBox>
   );
 }
 

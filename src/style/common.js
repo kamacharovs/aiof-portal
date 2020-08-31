@@ -3,6 +3,7 @@ import { Form, Container } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 
 export const DefaultColor = "#5cb85c";
+export const DefaultRedColor = "#b21f00";
 
 export const ContainerAiof = styled(Container)`
   padding: 2rem;
@@ -28,6 +29,20 @@ export const MutedH2 = styled.h2`
    margin: 0 0 8px !important;
    text-transform: uppercase;
    font-size: 14px;
+`;
+export const H1AssetPreview = styled.h1`
+   margin: 0 0 8px !important;
+   text-transform: uppercase;
+   font-size: 1rem;
+   font-weight: 900;
+   color: ${DefaultColor}
+`;
+export const H1LiabilityPreview = styled.h1`
+   margin: 0 0 8px !important;
+   text-transform: uppercase;
+   font-size: 1rem;
+   font-weight: 900;
+   color: ${DefaultRedColor}
 `;
 
 
