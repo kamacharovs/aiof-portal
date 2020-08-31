@@ -11,11 +11,16 @@ export const ContainerAiof = styled(Container)`
 export const CustomHr = styled.hr`
   width: 90%;
 `;
-
 export const Hr50 = styled.hr`
   width: 50% !important;
   opacity: 0.5 !important;
   margin-left: 0px !important;
+`;
+export const HrPreview = styled.hr`
+  border-top: 1px solid;
+  margin-top: 0.25rem;
+  color: #ebebeb;
+  opacity: 90%;
 `;
 
 export const MutedH2 = styled.h2`
@@ -94,16 +99,17 @@ export const HeaderLink = styled(Link)`
 export const RoundBorderBox = styled.div`
   background: #fff;
   display: block,
-  border-radius: 6px;
   border: 1px solid #e8e8e8;
+  border-radius: 6px !important;
   box-shadow: 0 8px 14px 0 rgba(0,0,0,.06);
   min-width: 264px;
   margin-bottom: 0.5rem;
+  display: block;
 `;
 export const RoundGrayBorderBox = styled.div`
   background: #ebebeb;
-  border-radius: 6px;
   border: 1px solid #e8e8e8;
+  border-radius: 6px;
   box-shadow: 0 8px 14px 0 rgba(0,0,0,.06);
   min-width: 264px;
   padding-left: 1rem;
