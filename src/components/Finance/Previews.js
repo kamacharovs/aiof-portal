@@ -132,41 +132,41 @@ export const GoalPreview = props => {
 
   if (goal) {
     return (
-      <TinyPadding>
+      <TinyPadding style={{marginBottom: "2rem"}}>
         <Row>
           <Col>
             <b>Name</b>: {goal.name}
             <HrPreview />
           </Col>
           <Col>
-            <b>Type</b>: {goal.typeName}
-            <HrPreview />
-          </Col>
-          <Col>
             <b>Amount</b>: ${numberWithCommas(goal.amount)}
-            <HrPreview />
-          </Col>
-          <Col>
-            <b>Current Amount</b>: ${numberWithCommas(goal.currentAmount)}
             <HrPreview />
           </Col>
         </Row>
 
         <Row>
-          <Col>
-            <b>Contribution</b>: ${numberWithCommas(goal.contribution)}
-            <HrPreview />
-          </Col>
-          <Col>
-            <b>Frequency</b>: {goal.contributionFrequencyName}
-            <HrPreview />
-          </Col>
-          <Col>
-            <b>Planned Date</b>: {formatDate(goal.plannedDate)}
-            <HrPreview />
-          </Col>
-          <Col>
-          </Col>
+          <Col><b>Type</b>: </Col>
+          <Col>{goal.typeName}</Col>
+        </Row>
+
+        <Row>
+          <Col><b>Current Amount</b>: </Col>
+          <Col>${numberWithCommas(goal.currentAmount)}</Col>
+        </Row>
+
+        <Row>
+          <Col><b>Contribution</b>: </Col>
+          <Col>${numberWithCommas(goal.contribution)}</Col>
+        </Row>
+
+        <Row>
+          <Col><b>Frequency</b>: </Col>
+          <Col>{goal.contributionFrequencyName}</Col>
+        </Row>
+
+        <Row>
+          <Col><b>Planned Date</b>: </Col>
+          <Col>{formatDate(goal.plannedDate)}</Col>
         </Row>
       </TinyPadding>
     );
