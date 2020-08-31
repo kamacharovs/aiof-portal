@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
 import agent from '../../agent';
+import { Overview } from './Overview';
 import { AssetLiabilityChart } from './Charts';
 import { AssetsPreview, LiabilitiesPreview, GoalsPreview } from './Previews';
 import Subscriptions from './Subscriptions';
@@ -43,8 +44,10 @@ class FinanceMainView extends React.Component {
           <title>{this.props.appName} | Finance</title>
         </Helmet>
         <ContainerAiof>
+          <Overview />
+
           <AssetLiabilityChart assets={assets} liabilities={liabilities} />
-            
+          
           <AssetsPreview assets={assets} />
           <LiabilitiesPreview liabilities={liabilities} />
           <GoalsPreview goals={goals} />
