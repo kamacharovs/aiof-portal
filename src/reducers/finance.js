@@ -1,7 +1,6 @@
 import {
   FINANCE_PAGE_LOADED,
   FINANCE_PAGE_UNLOADED,
-  USER_FINANCE
 } from '../constants/actionTypes';
 
 export default (state = {}, action) => {
@@ -9,17 +8,18 @@ export default (state = {}, action) => {
     case FINANCE_PAGE_LOADED:
       return {
         ...state,
+        firstName: action.payload[0].firstName,
+        lastName: action.payload[0].lastName,
+        email: action.payload[0].email,
+        username: action.payload[0].username,
+        profile: action.payload[0].profile,
+        assets: action.payload[0].assets,
+        liabilities: action.payload[0].liabilities,
+        goals: action.payload[0].goals,
+        subscriptions: action.payload[0].subscriptions,
       };
     case FINANCE_PAGE_UNLOADED:
       return {};
-    case USER_FINANCE:
-      return {
-        ...state,
-        pager: action.pager,
-        assets: action.payload.assets,
-        goals: action.payload.goals,
-        liabilities: action.payload.liabilities
-      };
     default:
       return state;
   }

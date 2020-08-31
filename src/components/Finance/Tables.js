@@ -68,7 +68,7 @@ export const GoalsTable = props => {
     if (props.goals) {
         return (
             <Table responsive="sm"
-            borderless={true}>
+                borderless={true}>
                 <thead>
                     <tr>
                         <th>name</th>

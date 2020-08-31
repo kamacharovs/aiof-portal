@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Row, Col } from 'react-bootstrap';
+import { Container, Row, Col } from 'react-bootstrap';
 import { Helmet } from 'react-helmet';
 import agent from '../../agent';
 import { FINANCE_PAGE_LOADED, FINANCE_PAGE_UNLOADED } from '../../constants/actionTypes';
@@ -9,12 +9,12 @@ import { ContainerAiof, CoolLink, MutedH2 } from '../../style/common';
 const mapStateToProps = state => ({
   ...state.finance,
   appName: state.common.appName,
-  currentUser: { username: "gkama" } //state.common.currentUser,
+  currentUser: state.common.currentUser,
+  finance: state.finance,
 });
 
 const mapDispatchToProps = dispatch => ({
   onLoad: payload => dispatch({ type: FINANCE_PAGE_LOADED, payload }),
-  onUnload: () => dispatch({ type: FINANCE_PAGE_UNLOADED }),
 });
 
 class FinanceMainView extends React.Component {
@@ -27,16 +27,17 @@ class FinanceMainView extends React.Component {
   }
 
   componentWillUnmount() {
-    this.props.onUnload();
   }
 
   render() {
+    const subscriptions = this.props.finance.subscriptions;
+
     return (
       <React.Fragment>
         <Helmet>
           <title>{this.props.appName} | Finance</title>
         </Helmet>
-        <ContainerAiof>
+        <Container>
           <Row>
             <Col sm="2">
               <MutedH2>Finance</MutedH2>
@@ -60,7 +61,7 @@ class FinanceMainView extends React.Component {
               </nav>
             </Col>
           </Row>
-        </ContainerAiof>
+        </Container>
       </React.Fragment>
     );
   }

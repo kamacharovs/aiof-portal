@@ -196,7 +196,7 @@ const mapStateToProps = state => ({
   ...state.profile,
   appName: state.common.appName,
   currentUser: state.common.currentUser,
-  profile: state.profile
+  profile: state.profile,
 });
 
 const mapDispatchToProps = dispatch => ({

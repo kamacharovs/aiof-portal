@@ -1,6 +1,6 @@
 import React from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
-import { RoundGrayBorderBox, MutedH2, CoolLink } from '../../style/common';
+import { RoundGrayBorderBox } from '../../style/common';
 
 class Subscriptions extends React.Component {
     render() {
