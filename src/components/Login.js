@@ -1,7 +1,6 @@
 import React from 'react';
 import { Form, Button, Row } from 'react-bootstrap';
 import { Helmet } from 'react-helmet';
-import ListErrors from './ListErrors';
 import agent from '../agent';
 import { connect } from 'react-redux';
 import { FaUnlock } from "react-icons/fa";
@@ -10,9 +9,19 @@ import {
   LOGIN,
   LOGIN_PAGE_UNLOADED
 } from '../constants/actionTypes';
-import { ContainerAiof, CoolLink, RoundBorderBox, RoundBorderBoxText, TinyFormLabel } from '../style/common';
+import { 
+  ContainerAiof, 
+  CoolLink, 
+  RoundBorderBox, 
+  RoundBorderBoxText, 
+  TinyFormLabel, 
+  ErrorTextMuted 
+} from '../style/common';
 
-const mapStateToProps = state => ({ ...state.auth, appName: state.common.appName });
+const mapStateToProps = state => ({ 
+  ...state.auth, 
+  appName: state.common.appName,
+});
 
 const mapDispatchToProps = dispatch => ({
   onChangeUsername: value =>
@@ -46,15 +55,13 @@ class Login extends React.Component {
     const isEnabled = username && password ? username.length > 0 && password.length > 0 : false;
 
     return (
-      <div>
+      <React.Fragment>
         <Helmet>
           <title>{this.props.appName} | Login</title>
         </Helmet>
         <ContainerAiof>
           <Row>
             <RoundBorderBox className="col-md-6 offset-md-3 col-xs-12 text-center">
-
-              <ListErrors errors={this.props.errors} />
 
               <h1>Sign In</h1>
               <p>
@@ -67,7 +74,9 @@ class Login extends React.Component {
                 <Form.Text className="text-muted">
                   One account for everything finance
                 </Form.Text>
-
+                <ErrorTextMuted>
+                  {this.props.error ? "Invalid username or password. Please try again" : null}
+                </ErrorTextMuted>
                 <RoundBorderBoxText className="text-left">
                   <Form.Group>
                     <TinyFormLabel>Username</TinyFormLabel>
@@ -96,7 +105,7 @@ class Login extends React.Component {
 
                   <Form.Text muted={true} className="text-center">
                     <br />
-                    <i>By clicking Sign In, you agree to our <a href="#">Terms</a> and have read and acknowledge our <a href="#">US Privacy Statement</a>.</i>
+                    <i>By clicking Sign In, you agree to our <a href="/">Terms</a> and have read and acknowledge our <a href="/">US Privacy Statement</a>.</i>
                   </Form.Text>
                 </RoundBorderBoxText>
               </Form>
@@ -104,7 +113,7 @@ class Login extends React.Component {
             </RoundBorderBox>
           </Row>
         </ContainerAiof>
-      </div>
+      </React.Fragment>
     );
   }
 }

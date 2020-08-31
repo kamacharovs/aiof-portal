@@ -1,7 +1,8 @@
-import Banner from './Banner';
-import MainView from './MainView';
 import React from 'react';
 import { connect } from 'react-redux';
+import Helmet from 'react-helmet';
+import Banner from './Banner';
+import MainView from './MainView';
 import {
   HOME_PAGE_LOADED,
   HOME_PAGE_UNLOADED
@@ -14,8 +15,8 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  onLoad: (tab, pager, payload) =>
-    dispatch({ type: HOME_PAGE_LOADED, tab, pager, payload }),
+  onLoad: payload =>
+    dispatch({ type: HOME_PAGE_LOADED, payload }),
   onUnload: () =>
     dispatch({  type: HOME_PAGE_UNLOADED })
 });
@@ -30,11 +31,15 @@ class Home extends React.Component {
 
   render() {
     return (
-      <div>
+      <React.Fragment>
+        <Helmet>
+          <title>{this.props.appName} | Home</title>
+        </Helmet>
+
         <Banner token={this.props.token} appName={this.props.appName} />
         
         <MainView />
-      </div>
+      </React.Fragment>
     );
   }
 }

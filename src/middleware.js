@@ -62,7 +62,6 @@ const localStorageMiddleware = store => next => action => {
       Cookies.set(USER, action.payload.user, { path: '/' });
 
       agent.setToken(action.payload.acess_token);
-      agent.setRefreshToken(action.payload.refresh_token); 
     }
   } else if (action.type === LOGOUT) {
     Cookies.remove(ACCESS_TOKEN);

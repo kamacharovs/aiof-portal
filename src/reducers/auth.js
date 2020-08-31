@@ -14,7 +14,7 @@ export default (state = {}, action) => {
       return {
         ...state,
         inProgress: false,
-        errors: action.error ? action.payload.errors : null //TODO: update when API calls error out on LOGIN/REGISTER
+        error: action.error ? action.payload : null 
       };
     case LOGIN_PAGE_UNLOADED:
     case REGISTER_PAGE_UNLOADED:
@@ -25,7 +25,10 @@ export default (state = {}, action) => {
       }
       break;
     case UPDATE_FIELD_AUTH:
-      return { ...state, [action.key]: action.value };
+      return { 
+        ...state, 
+        [action.key]: action.value,
+      };
     default:
       return state;
   }

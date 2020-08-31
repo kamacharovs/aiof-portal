@@ -1,6 +1,7 @@
 import React from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
+import { Helmet } from 'react-helmet';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import agent from '../agent';
@@ -9,6 +10,7 @@ import {
   PROFILE_PAGE_LOADED,
   PROFILE_PAGE_UNLOADED
 } from '../constants/actionTypes';
+import { Subscriptions } from './Finance/Subscriptions';
 
 import '../style/tabs.css';
 import { ContainerAiof, CustomHr, Hr50, MutedH2 } from '../style/common';
@@ -66,7 +68,7 @@ const ProfileMain = props => {
   const retirementContributionsPreTax = innerProfile ? innerProfile.retirementContributionsPreTax : null;
 
   return (
-    <Container>
+    <Container fluid>
       <h1>Profile</h1>
       <p className="text-muted">
         Tell us about yourself so we can improve the financial advice we provide
@@ -130,7 +132,7 @@ const ProfileMain = props => {
           Gross salary
                 </Col>
         <Col xs="6">
-          <b>${grossSalary}</b>
+          <b>{grossSalary}</b>
         </Col>
       </Row>
       <Row>
@@ -156,7 +158,7 @@ const ProfileMain = props => {
           Household income
                 </Col>
         <Col xs="6">
-          <b>${householdIncome}</b>
+          <b>{householdIncome}</b>
         </Col>
       </Row>
       <Row>
@@ -182,7 +184,7 @@ const ProfileMain = props => {
           Retirement contributions pre-tax
                 </Col>
         <Col sm="6">
-          <b>${retirementContributionsPreTax}</b>
+          <b>{retirementContributionsPreTax}</b>
         </Col>
       </Row>
       <Hr50 />
@@ -192,8 +194,9 @@ const ProfileMain = props => {
 
 const mapStateToProps = state => ({
   ...state.profile,
+  appName: state.common.appName,
   currentUser: state.common.currentUser,
-  profile: state.profile
+  profile: state.profile,
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -222,7 +225,10 @@ class Profile extends React.Component {
     }
 
     return (
-      <div>
+      <React.Fragment>
+        <Helmet>
+          <title>{this.props.appName} | Profile</title>
+        </Helmet>
         <div style={UserInfo}>
           <Container>
             <Row>
@@ -245,6 +251,7 @@ class Profile extends React.Component {
               <Tab>Profile</Tab>
               <Tab>Finances</Tab>
               <Tab>Notifications</Tab>
+              <Tab>Subscriptions</Tab>
             </TabList>
             <TabPanel>
               <ProfileMain profile={profile} />
@@ -255,9 +262,12 @@ class Profile extends React.Component {
             <TabPanel>
               <h2>Any content 1</h2>
             </TabPanel>
+            <TabPanel>
+              <Subscriptions subscriptions={profile.subscriptions} />
+            </TabPanel>
           </Tabs>
         </ContainerAiof>
-      </div>
+      </React.Fragment>
     );
   }
 }

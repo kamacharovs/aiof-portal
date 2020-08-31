@@ -3,6 +3,7 @@ import { Form, Container } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 
 export const DefaultColor = "#5cb85c";
+export const DefaultRedColor = "#b21f00";
 
 export const ContainerAiof = styled(Container)`
   padding: 2rem;
@@ -11,11 +12,16 @@ export const ContainerAiof = styled(Container)`
 export const CustomHr = styled.hr`
   width: 90%;
 `;
-
 export const Hr50 = styled.hr`
   width: 50% !important;
   opacity: 0.5 !important;
   margin-left: 0px !important;
+`;
+export const HrPreview = styled.hr`
+  border-top: 1px solid;
+  margin-top: 0.25rem;
+  color: #ebebeb;
+  opacity: 90%;
 `;
 
 export const MutedH2 = styled.h2`
@@ -23,6 +29,26 @@ export const MutedH2 = styled.h2`
    margin: 0 0 8px !important;
    text-transform: uppercase;
    font-size: 14px;
+`;
+export const H1Preview = styled.h1`
+   margin: 0 0 8px !important;
+   text-transform: uppercase;
+   font-size: 1rem;
+   font-weight: 900;
+`;
+export const H1AssetPreview = styled.h1`
+   margin: 0 0 8px !important;
+   text-transform: uppercase;
+   font-size: 1rem;
+   font-weight: 900;
+   color: ${DefaultColor}
+`;
+export const H1LiabilityPreview = styled.h1`
+   margin: 0 0 8px !important;
+   text-transform: uppercase;
+   font-size: 1rem;
+   font-weight: 900;
+   color: ${DefaultRedColor}
 `;
 
 
@@ -93,10 +119,22 @@ export const HeaderLink = styled(Link)`
 
 export const RoundBorderBox = styled.div`
   background: #fff;
-  border-radius: 6px;
+  display: block;
   border: 1px solid #e8e8e8;
+  border-radius: 6px !important;
   box-shadow: 0 8px 14px 0 rgba(0,0,0,.06);
   min-width: 264px;
+  margin-bottom: 0.5rem;
+`;
+export const RoundGrayBorderBox = styled.div`
+  background: #ebebeb;
+  display: block;
+  border: 1px solid #e8e8e8;
+  border-radius: 6px;
+  box-shadow: 0 8px 14px 0 rgba(0,0,0,.06);
+  min-width: 264px;
+  padding-left: 1rem;
+  padding-right: 1rem;
   margin-bottom: 0.5rem;
 `;
 export const RoundBorderBoxText = styled.div`

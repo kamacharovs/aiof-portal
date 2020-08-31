@@ -16,7 +16,8 @@ export default (state = {}, action) => {
         profile: action.payload[0].profile,
         assets: action.payload[0].assets,
         liabilities: action.payload[0].liabilities,
-        goals: action.payload[0].goals
+        goals: action.payload[0].goals,
+        subscriptions: action.payload[0].subscriptions,
       };
     case PROFILE_PAGE_UNLOADED:
       return {};

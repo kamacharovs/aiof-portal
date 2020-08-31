@@ -67,7 +67,7 @@ class Register extends React.Component {
     const isEnabled = isFirstNameValid && isLastNameValid && isEmailValid && isUsernameValid && isPasswordValid;
 
     return (
-      <div>
+      <React.Fragment>
         <Helmet>
           <title>{this.props.appName} | Register</title>
         </Helmet>
@@ -155,7 +155,7 @@ class Register extends React.Component {
             </RoundBorderBox>
           </Row>
         </ContainerAiof>
-      </div>
+      </React.Fragment>
     );
   }
 }

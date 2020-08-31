@@ -19,8 +19,8 @@ const Cash = props => {
   return (
     <Container>
       <Row>
-        <Col><h6>Cash</h6></Col>
-        <Col><h6>$0.00</h6></Col>
+        <Col className="text-left"><h6>Cash</h6></Col>
+        <Col className="text-right"><h6>$0.00</h6></Col>
       </Row>
       <Row>
         <Col sm="10">
@@ -49,8 +49,8 @@ const CreditCards = props => {
   return (
     <Container>
       <Row>
-        <Col><h6>Credit Cards</h6></Col>
-        <Col><h6>$0.00</h6></Col>
+        <Col className="text-left"><h6>Credit Cards</h6></Col>
+        <Col className="text-right"><h6>$0.00</h6></Col>
       </Row>
       <Row>
         <Col sm="10">
@@ -79,8 +79,8 @@ const Investments = props => {
   return (
     <Container>
       <Row>
-        <Col><h6>Investments</h6></Col>
-        <Col><h6>$0.00</h6></Col>
+        <Col className="text-left"><h6>Investments</h6></Col>
+        <Col className="text-right"><h6>$0.00</h6></Col>
       </Row>
       <Row>
         <Col sm="10">
@@ -115,8 +115,8 @@ class Accounts extends React.Component {
     return (
       <Container>
         <Row>
-          <Col sm="6" className="text-sm-left">Accounts</Col>
-          <Col sm="6" className="text-sm-right"><a href="#"><FaCog size={30} style={{ fill: "gray" }} /></a></Col>
+          <Col className="text-left">Accounts</Col>
+          <Col className="text-right"><a href="/"><FaCog size={30} style={{ fill: "gray" }} /></a></Col>
         </Row>
         <hr />
         <Cash />

@@ -49,7 +49,8 @@ const LoggedInView = props => {
         <Nav className="mr-auto">
           <Link to="/editor" className="nav-link">New Post</Link>
           <Link to="/login" className="nav-link" onClick={props.onClickLogout}>Log out</Link>
-          <Link to={`/@${props.currentUser.username}`} className="nav-link"> {props.currentUser.lastName}, {props.currentUser.firstName}</Link>
+          <Link to={`/@${props.currentUser.username}/finance`} className="nav-link">Finance</Link>
+          <Link to={`/@${props.currentUser.username}`} className="nav-link">{props.currentUser.lastName}, {props.currentUser.firstName}</Link>
         </Nav>
       </Nav>
     );
