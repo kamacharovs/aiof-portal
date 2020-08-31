@@ -31,20 +31,24 @@ export const Subscriptions = props => {
   
     if (subscription) {
       return (
-        <TinyPadding>
+        <TinyPadding style={{marginBottom: "2rem"}}>
           <Row>
             <Col>
               <b>Name</b>: {subscription.name}
               <HrPreview />
             </Col>
             <Col>
-              <b>Frequency</b>: {subscription.paymentFrequencyName}
-              <HrPreview />
-            </Col>
-            <Col>
               <b>Amount</b>: ${numberWithCommas(subscription.amount)}
               <HrPreview />
             </Col>
+          </Row>
+          <Row>
+            <Col><b>Frequency</b>:</Col>
+            <Col>{subscription.paymentFrequencyName}</Col>
+          </Row>
+          <Row>
+            <Col><b>Description</b>:</Col>
+            <Col>{subscription.description}</Col>
           </Row>
         </TinyPadding>
       );
