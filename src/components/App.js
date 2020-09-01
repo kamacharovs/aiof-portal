@@ -11,7 +11,6 @@ import Login from '../components/Login';
 import Profile from '../components/Profile';
 import ProfileSettings from '../components/ProfileSettings';
 import FinanceMainView from '../components/Finance/FinanceMainView';
-import AssetEditor from '../components/Finance/AssetEditor';
 import Register from '../components/Register';
 import { store } from '../store';
 import { push } from 'react-router-redux';
@@ -72,7 +71,6 @@ class App extends React.Component {
             <Route path="/editor" component={Editor} />
             <Route path="/article/:id" component={Article} />
             <Route exact path="/@:username/finance" component={FinanceMainView} />
-            <Route exact path="/@:username/finance/asset" component={AssetEditor} />
             <Route exact path="/@:username/settings" component={ProfileSettings} />
             <Route exact path="/@:username" component={Profile} />
           </Switch>

@@ -1,8 +1,12 @@
 import React from 'react';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
-import { HrPreview, H1AssetPreview, H1LiabilityPreview, RoundBorderBox, TinyPadding, CoolLink } from '../../style/common';
+import Card from 'react-bootstrap/Card';
+import Accordion from 'react-bootstrap/Accordion';
+import Button from 'react-bootstrap/Button';
+import { HrPreview, H1AssetPreview, H1LiabilityPreview, RoundBorderBox, TinyPadding } from '../../style/common';
 import { numberWithCommas, formatDate } from './Common';
+import AssetEditor from './AssetEditor';
 
 
 export const AssetsPreview = props => {
@@ -22,7 +26,20 @@ export const AssetsPreview = props => {
               })
             }
           </TinyPadding>
-          <CoolLink to={`/@${props.username}/finance/asset`}>Add Asset</CoolLink>
+          <Accordion>
+            <Card>
+              <Card.Header>
+                <Accordion.Toggle as={Button} variant="link" eventKey="0">
+                  Add asset
+                </Accordion.Toggle>
+              </Card.Header>
+              <Accordion.Collapse eventKey="0">
+                <Card.Body>
+                  <AssetEditor />
+                </Card.Body>
+              </Accordion.Collapse>
+            </Card>
+          </Accordion>
         </RoundBorderBox>
       </React.Fragment>
     )
@@ -134,7 +151,7 @@ export const GoalPreview = props => {
 
   if (goal) {
     return (
-      <TinyPadding style={{marginBottom: "2rem"}}>
+      <TinyPadding style={{ marginBottom: "2rem" }}>
         <Row>
           <Col>
             <b>Name</b>: {goal.name}
