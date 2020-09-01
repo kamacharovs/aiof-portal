@@ -35,7 +35,7 @@ export const AssetsPreview = props => {
               </Card.Header>
               <Accordion.Collapse eventKey="0">
                 <Card.Body>
-                  <AssetEditor />
+                  <AssetEditor onFinancesUpdate={props.onFinancesUpdate}/>
                 </Card.Body>
               </Accordion.Collapse>
             </Card>

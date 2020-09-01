@@ -21,14 +21,22 @@ const mapDispatchToProps = dispatch => ({
 });
 
 class FinanceMainView extends React.Component {
-  //const [assets] = useState([]);
+  constructor() {
+    super();
 
-  componentDidMount() {
+    this.getFinances = this.getFinances.bind(this);
+  }
+
+  getFinances() {
     if (this.props.currentUser) {
       this.props.onLoad(Promise.all([
         agent.UserProfile.get(this.props.currentUser.username)
       ]));
     }
+  }
+
+  componentDidMount() {
+    this.getFinances();
   }
 
   componentWillUnmount() {
@@ -49,7 +57,7 @@ class FinanceMainView extends React.Component {
           <Overview />
 
           <h3>Your finances</h3>
-          <AssetsPreview assets={assets} username={this.props.currentUser.username} />
+          <AssetsPreview assets={assets} onFinancesUpdate={this.getFinances} />
           <LiabilitiesPreview liabilities={liabilities} />
 
           <AssetLiabilityChart assets={assets} liabilities={liabilities} />
