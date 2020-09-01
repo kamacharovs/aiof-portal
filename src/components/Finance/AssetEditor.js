@@ -15,7 +15,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
     onAddForm: asset =>
-        dispatch({ type: ASSET_ADD, payload: agent.Asset.add(asset) }),
+        dispatch({ type: ASSET_ADD, payload: asset }),
 });
 
 class AssetEditor extends React.Component {
@@ -46,8 +46,10 @@ class AssetEditor extends React.Component {
             asset.value = asset.value ? Number(asset.value) : null;
             asset.userId = asset.userId ? asset.userId : userId;
 
-            this.props.onAddForm(asset);
-            this.props.onFinancesUpdate();
+            const promise = agent.Asset.add(asset);
+
+            this.props.onAddForm(promise);
+            promise.then(this.props.onFinancesUpdate());
         };
     }
 

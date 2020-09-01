@@ -29,9 +29,7 @@ class FinanceMainView extends React.Component {
 
   getFinances() {
     if (this.props.currentUser) {
-      this.props.onLoad(Promise.all([
-        agent.UserProfile.get(this.props.currentUser.username)
-      ]));
+      this.props.onLoad(agent.UserProfile.get(this.props.currentUser.username));
     }
   }
 
