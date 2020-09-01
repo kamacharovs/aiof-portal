@@ -18,12 +18,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
     onAddForm: (username, asset) =>
-        dispatch({ type: ASSET_ADD, payload: 
-            { 
-                username: username, 
-                asset: agent.Asset.add(asset) 
-            } 
-        }),
+        dispatch({ type: ASSET_ADD, payload: agent.Asset.add(asset), username }),
 });
 
 class AssetEditor extends React.Component {

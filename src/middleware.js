@@ -52,7 +52,7 @@ const promiseMiddleware = store => next => action => {
   next(action);
 };
 
-const localStorageMiddleware = store => next => action => {
+const cookieMiddleware = store => next => action => {
   if (action.type === REGISTER || action.type === LOGIN) {
     if (!action.error) {
       const expires = new Date(new Date().getTime() + action.payload.expires * 1000);
@@ -79,4 +79,4 @@ function isPromise(v) {
 }
 
 
-export { promiseMiddleware, localStorageMiddleware }
+export { promiseMiddleware, cookieMiddleware }

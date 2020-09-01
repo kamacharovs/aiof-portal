@@ -24,8 +24,8 @@ export default (state = {}, action) => {
     case ASSET_ADD:
       return {
         ...state,
-        redirectTo: action.error ? null : `/@${action.payload.username}/finance`,
-        asset: action.payload.asset,
+        redirectTo: action.error ? null : `/@${action.username}/finance`,
+        asset:  action.error ? null : action.payload.asset,
       }
     default:
       return state;
