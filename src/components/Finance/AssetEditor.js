@@ -29,6 +29,7 @@ class AssetEditor extends React.Component {
             name: '',
             typeName: '',
             value: '',
+            userId: '',
         };
 
         this.updateState = field => ev => {
@@ -46,6 +47,7 @@ class AssetEditor extends React.Component {
             asset.name = asset.name ? asset.name : null;
             asset.typeName = asset.typeName ? asset.typeName : null;
             asset.value = asset.value ? Number(asset.value) : null;
+            asset.userId = asset.userId ? asset.userId : this.props.currentUser.id;
 
             this.props.onAddForm(username, asset);
         };
@@ -58,16 +60,6 @@ class AssetEditor extends React.Component {
                 typeName: this.props.state.typeName || '',
                 value: this.props.state.value || '',
             });
-        }
-    }
-
-    componentDidUpdate(nextProps) {
-        if (nextProps.currentUser && nextProps.profile) {
-            this.setState(Object.assign({}, this.state, {
-                name: nextProps.state.name,
-                typeName: nextProps.state.typeName,
-                value: nextProps.state.value,
-            }));
         }
     }
 
@@ -118,7 +110,7 @@ class AssetEditor extends React.Component {
 
                             <Button variant="outline-primary" size="sm" type="submit"
                                 disabled={this.props.inProgress}>
-                                Add Asset
+                                Add
                             </Button>
                         </Form>
                     </TinyPadding>

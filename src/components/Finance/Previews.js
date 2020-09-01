@@ -21,7 +21,7 @@ export const AssetsPreview = props => {
             {
               assets.map(asset => {
                 return (
-                  <AssetPreview key={asset.name} asset={asset} />
+                  <AssetPreview key={asset.publicKey} asset={asset} />
                 );
               })
             }
