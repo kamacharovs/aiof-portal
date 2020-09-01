@@ -6,19 +6,18 @@ import Col from 'react-bootstrap/Col';
 import agent from '../../agent';
 import { connect } from 'react-redux';
 import { ContainerAiof, RoundBorderBox, TinyPadding, TinyFormLabel } from '../../style/common';
-import {
-    ASSET_ADD
-} from '../../constants/actionTypes';
+import { ASSET_ADD, FINANCE_PAGE_LOADED } from '../../constants/actionTypes';
 
 const mapStateToProps = state => ({
     ...state.finance,
     currentUser: state.common.currentUser,
-    finance: state.finance,
 });
 
 const mapDispatchToProps = dispatch => ({
     onAddForm: asset =>
         dispatch({ type: ASSET_ADD, payload: agent.Asset.add(asset) }),
+    onRefresh: payload => 
+        dispatch({ type: FINANCE_PAGE_LOADED, payload }),
 });
 
 class AssetEditor extends React.Component {
@@ -50,6 +49,9 @@ class AssetEditor extends React.Component {
             asset.userId = asset.userId ? asset.userId : userId;
 
             this.props.onAddForm(asset);
+            this.props.onRefresh(Promise.all([
+                agent.UserProfile.get(this.props.currentUser.username)
+            ]));
         };
     }
 
