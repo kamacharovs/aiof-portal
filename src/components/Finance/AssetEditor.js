@@ -49,6 +49,7 @@ class AssetEditor extends React.Component {
             const promise = agent.Asset.add(asset);
 
             this.props.onAddForm(promise);
+            
             promise.then(this.props.onFinancesUpdate());
         };
     }
@@ -66,7 +67,7 @@ class AssetEditor extends React.Component {
     render() {
         return (
             <ContainerAiof>
-                <RoundBorderBox className="col-md-6 offset-md-3 col-xs-12 text-center">
+                <RoundBorderBox className="text-center">
                     <TinyPadding>
                         <Form onSubmit={this.submitAddForm}>
                             <Row>
