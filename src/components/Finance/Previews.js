@@ -22,7 +22,7 @@ export const AssetsPreview = props => {
               })
             }
           </TinyPadding>
-          <CoolLink to={`/@${props.username}/finance/asset`}>Edit Assets</CoolLink>
+          <CoolLink to={`/@${props.username}/finance/asset`}>Add Asset</CoolLink>
         </RoundBorderBox>
       </React.Fragment>
     )

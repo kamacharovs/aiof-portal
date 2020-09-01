@@ -1,6 +1,6 @@
 import React from 'react';
 import Container from 'react-bootstrap/Container';
-import Row from 'react-bootstrap/Button';
+import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import { Helmet } from 'react-helmet';

@@ -98,7 +98,7 @@ class AssetEditor extends React.Component {
                                             onChange={this.updateState('typeName')}
                                             placeholder="i.e. car" />
                                         <Form.Text className="text-muted">
-                                            Please provide your asset's type name (car, house, etc.)
+                                            Please provide your asset's type (car, house, etc.)
                                         </Form.Text>
                                     </Form.Group>
                                 </Col>
@@ -119,7 +119,7 @@ class AssetEditor extends React.Component {
                             <Button variant="outline-primary" size="sm" type="submit"
                                 disabled={this.props.inProgress}>
                                 Add Asset
-                        </Button>
+                            </Button>
                         </Form>
                     </TinyPadding>
                 </RoundBorderBox>
