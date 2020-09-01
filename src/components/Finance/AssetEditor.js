@@ -5,7 +5,7 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import agent from '../../agent';
 import { connect } from 'react-redux';
-import { TinyFormLabel } from '../../style/common';
+import { ContainerAiof, RoundBorderBox, TinyPadding, TinyFormLabel } from '../../style/common';
 import {
     ASSET_ADD
 } from '../../constants/actionTypes';
@@ -73,51 +73,57 @@ class AssetEditor extends React.Component {
 
     render() {
         return (
-            <Form onSubmit={this.submitAddForm}>
-                <Row>
-                    <Col>
-                        <Form.Group>
-                            <TinyFormLabel>Asset name</TinyFormLabel>
-                            <Form.Control type="text"
-                                value={this.state.name}
-                                onChange={this.updateState('name')}
-                                placeholder="Name" />
-                            <Form.Text className="text-muted">
-                                Please provide your asset's name
-                        </Form.Text>
-                        </Form.Group>
-                    </Col>
-                    <Col>
-                        <Form.Group>
-                            <TinyFormLabel>Asset type</TinyFormLabel>
-                            <Form.Control type="text"
-                                value={this.state.typeName}
-                                onChange={this.updateState('typeName')}
-                                placeholder="i.e. car" />
-                            <Form.Text className="text-muted">
-                                Please provide your asset's type name (car, house, etc.)
-                        </Form.Text>
-                        </Form.Group>
-                    </Col>
-                    <Col>
-                        <Form.Group>
-                            <TinyFormLabel>Asset value</TinyFormLabel>
-                            <Form.Control type="text"
-                                value={this.state.value}
-                                onChange={this.updateState('value')}
-                                placeholder="i.e. $5000" />
-                            <Form.Text className="text-muted">
-                                Please provide your asset's value
-                        </Form.Text>
-                        </Form.Group>
-                    </Col>
-                </Row>
+            <ContainerAiof>
+                <RoundBorderBox className="col-md-6 offset-md-3 col-xs-12 text-center">
+                    <TinyPadding>
+                        <Form onSubmit={this.submitAddForm}>
+                            <Row>
+                                <Col>
+                                    <Form.Group>
+                                        <TinyFormLabel>Asset name</TinyFormLabel>
+                                        <Form.Control type="text"
+                                            value={this.state.name}
+                                            onChange={this.updateState('name')}
+                                            placeholder="Name" />
+                                        <Form.Text className="text-muted">
+                                            Please provide your asset's name
+                                        </Form.Text>
+                                    </Form.Group>
+                                </Col>
+                                <Col>
+                                    <Form.Group>
+                                        <TinyFormLabel>Asset type</TinyFormLabel>
+                                        <Form.Control type="text"
+                                            value={this.state.typeName}
+                                            onChange={this.updateState('typeName')}
+                                            placeholder="i.e. car" />
+                                        <Form.Text className="text-muted">
+                                            Please provide your asset's type name (car, house, etc.)
+                                        </Form.Text>
+                                    </Form.Group>
+                                </Col>
+                                <Col>
+                                    <Form.Group>
+                                        <TinyFormLabel>Asset value</TinyFormLabel>
+                                        <Form.Control type="text"
+                                            value={this.state.value}
+                                            onChange={this.updateState('value')}
+                                            placeholder="i.e. $5000" />
+                                        <Form.Text className="text-muted">
+                                            Please provide your asset's value
+                                        </Form.Text>
+                                    </Form.Group>
+                                </Col>
+                            </Row>
 
-                <Button variant="outline-primary" size="sm" type="submit"
-                    disabled={this.props.inProgress}>
-                    Add Asset
-            </Button>
-            </Form>
+                            <Button variant="outline-primary" size="sm" type="submit"
+                                disabled={this.props.inProgress}>
+                                Add Asset
+                        </Button>
+                        </Form>
+                    </TinyPadding>
+                </RoundBorderBox>
+            </ContainerAiof>
         )
     }
 }
