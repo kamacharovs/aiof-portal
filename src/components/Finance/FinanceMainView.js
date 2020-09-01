@@ -47,7 +47,7 @@ class FinanceMainView extends React.Component {
           <Overview />
 
           <h3>Your finances</h3>
-          <AssetsPreview assets={assets} />
+          <AssetsPreview assets={assets} username={this.props.currentUser.username} />
           <LiabilitiesPreview liabilities={liabilities} />
 
           <AssetLiabilityChart assets={assets} liabilities={liabilities} />

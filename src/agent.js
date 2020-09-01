@@ -55,7 +55,7 @@ const UserProfile = {
 
 const Asset = {
   add: asset =>
-    requests.post(`/asset`, asset),
+    requests.post('/asset', asset),
   update: (publicKey, asset) =>
     requests.put(`/asset/${publicKey}`, asset),
   delete: publicKey =>

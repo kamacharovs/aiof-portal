@@ -1,7 +1,7 @@
 import React from 'react';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
-import { HrPreview, H1AssetPreview, H1LiabilityPreview, RoundBorderBox, TinyPadding } from '../../style/common';
+import { HrPreview, H1AssetPreview, H1LiabilityPreview, RoundBorderBox, TinyPadding, CoolLink } from '../../style/common';
 import { numberWithCommas, formatDate } from './Common';
 
 
@@ -22,6 +22,7 @@ export const AssetsPreview = props => {
               })
             }
           </TinyPadding>
+          <CoolLink to={`/@${props.username}/finance/asset`}>Edit Assets</CoolLink>
         </RoundBorderBox>
       </React.Fragment>
     )
