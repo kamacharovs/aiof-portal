@@ -1,5 +1,5 @@
 import React from 'react';
-import Row from 'react-bootstrap/Button';
+import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import { HrPreview, H1AssetPreview, H1LiabilityPreview, RoundBorderBox, TinyPadding } from '../../style/common';
 import { numberWithCommas, formatDate } from './Common';

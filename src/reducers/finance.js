@@ -1,6 +1,7 @@
 import {
   FINANCE_PAGE_LOADED,
   FINANCE_PAGE_UNLOADED,
+  ASSET_ADD,
 } from '../constants/actionTypes';
 
 export default (state = {}, action) => {
@@ -20,6 +21,11 @@ export default (state = {}, action) => {
       };
     case FINANCE_PAGE_UNLOADED:
       return {};
+    case ASSET_ADD:
+      return {
+        ...state,
+        asset: action.payload,
+      }
     default:
       return state;
   }

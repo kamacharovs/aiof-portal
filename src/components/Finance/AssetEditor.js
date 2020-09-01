@@ -3,19 +3,24 @@ import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
+import { agent } from 'superagent';
+import {
+    ASSET_ADD
+} from `../constants/actionTypes`;
 
 const mapStateToProps = state => ({
-    ...state.settings,
+    ...state.finance,
     currentUser: state.common.currentUser,
     profile: state.profile.profile
-  });
-  
-  const mapDispatchToProps = dispatch => ({
-    onClickLogout: () => dispatch({ type: LOGOUT }),
+});
+
+const mapDispatchToProps = dispatch => ({
+    onAddForm: asset =>
+        dispatch({ type: ASSET_ADD, payload: agent.Asset.add(asset) }),
     onSubmitForm: (username, settings) =>
-      dispatch({ type: SETTINGS_SAVED, payload: agent.UserProfile.upsert(username, settings) }),
+        dispatch({ type: SETTINGS_SAVED, payload: agent.UserProfile.upsert(username, settings) }),
     onUnload: () => dispatch({ type: SETTINGS_PAGE_UNLOADED })
-  });
+});
 
 class AssetEditor extends React.Component {
     constructor() {
@@ -33,7 +38,7 @@ class AssetEditor extends React.Component {
             this.setState(newState);
         };
 
-        this.submitForm = ev => {
+        this.submitAddForm = ev => {
             ev.preventDefault();
 
             const asset = Object.assign({}, this.state);
@@ -42,7 +47,7 @@ class AssetEditor extends React.Component {
             asset.typeName = asset.typeName ? asset.typeName : null;
             asset.value = asset.value ? Number(asset.value) : null;
 
-            //this.props.onSubmitForm(this.props.currentUser.username, settings);
+            this.props.onAddForm(asset);
         };
     }
 
@@ -67,7 +72,51 @@ class AssetEditor extends React.Component {
     }
 
     render() {
-        return null;
+        <Form onSubmit={this.submitAddForm}>
+            <Row>
+                <Col>
+                    <Form.Group>
+                        <TinyFormLabel>Asset name</TinyFormLabel>
+                        <Form.Control type="text"
+                            value={this.state.name}
+                            onChange={this.updateState('name')}
+                            placeholder="Name" />
+                        <Form.Text className="text-muted">
+                            Please provide your asset's name
+                        </Form.Text>
+                    </Form.Group>
+                </Col>
+                <Col>
+                    <Form.Group>
+                        <TinyFormLabel>Asset type</TinyFormLabel>
+                        <Form.Control type="text"
+                            value={this.state.typeName}
+                            onChange={this.updateState('typeName')}
+                            placeholder="i.e. car" />
+                        <Form.Text className="text-muted">
+                            Please provide your asset's type name (car, house, etc.)
+                        </Form.Text>
+                    </Form.Group>
+                </Col>
+                <Col>
+                    <Form.Group>
+                        <TinyFormLabel>Asset value</TinyFormLabel>
+                        <Form.Control type="text"
+                            value={this.state.value}
+                            onChange={this.updateState('value')}
+                            placeholder="i.e. $5000" />
+                        <Form.Text className="text-muted">
+                            Please provide your asset's value
+                        </Form.Text>
+                    </Form.Group>
+                </Col>
+            </Row>
+
+            <Button variant="outline-primary" size="sm" type="submit"
+                disabled={this.props.inProgress}>
+                Add Asset
+            </Button>
+        </Form>
     }
 }
 
