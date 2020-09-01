@@ -2,7 +2,6 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Container, Row, Col } from 'react-bootstrap';
 import { FaCog } from "react-icons/fa";
-import { USER_FINANCE } from '../../constants/actionTypes';
 import { CoolLink } from '../../style/common';
 
 const mapStateToProps = state => ({
@@ -12,7 +11,6 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  onFinanceTabClick: (tab, pager, payload) => dispatch({ type: USER_FINANCE, tab, pager, payload }),
 });
 
 const Cash = props => {

@@ -1,5 +1,6 @@
 import React from 'react';
-import { Row, Col } from 'react-bootstrap';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
 import { RoundBorderBox, TinyPadding, H1Preview, HrPreview } from '../../style/common';
 import { numberWithCommas } from './Common';
 

@@ -1,0 +1,40 @@
+version: "3.7"
+
+services:
+  aiofauth: 
+    image: gkama/aiof-auth
+    container_name: aiof-auth
+    ports: 
+      - 5000:5000
+    environment: 
+      ASPNETCORE_ENVIRONMENT: Development
+
+  aiofapi:
+    image: gkama/aiof-api
+    container_name: aiof-api
+    depends_on:
+      - postgres
+      - aiofmetadata
+    ports:
+      - 5001:5001
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+      DB_HOST: postgres
+      DB_NAME: aiof
+      DB_USER: postgres
+      DB_PASSWORD: root
+
+  aiofmetadata:
+    image: gkama/aiof-metadata
+    container_name: aiof-metadata
+    ports:
+      - 5002:5002
+
+  postgres:
+    image: postgres
+    container_name: postgres
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: root

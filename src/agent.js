@@ -53,6 +53,17 @@ const UserProfile = {
     requests.put(`/user/profile?username=${username}`, settings),
 }
 
+const Asset = {
+  add: asset =>
+    requests.post('/asset', asset),
+  update: (publicKey, asset) =>
+    requests.put(`/asset/${publicKey}`, asset),
+  delete: publicKey =>
+    requests.del(`/asset/${publicKey}`),
+}
+
+
+
 const limit = (count, p) => `limit=${count}&offset=${p ? p * count : 0}`;
 const omitSlug = article => Object.assign({}, article, { slug: undefined })
 const Articles = {
@@ -103,6 +114,7 @@ export default {
   Auth,
   User,
   UserProfile,
+  Asset,
   Comments,
   Profile,
   setToken: _token => { token = _token; },

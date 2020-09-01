@@ -4,6 +4,7 @@ export const Overview = props => {
     return (
         <React.Fragment>
             <h3>Overview</h3>
+            <hr/>
 
             Assets add value to your company and increase your company's equity, while liabilities decrease your company's value and equity.
             The more your assets outweigh your liabilities, the stronger the financial health of your business.

@@ -6,8 +6,8 @@ import { Overview } from './Overview';
 import { AssetLiabilityChart } from './Charts';
 import { AssetsPreview, LiabilitiesPreview, GoalsPreview } from './Previews';
 import { Subscriptions } from './Subscriptions';
-import { FINANCE_PAGE_LOADED } from '../../constants/actionTypes';
 import { ContainerAiof } from '../../style/common';
+import { FINANCE_PAGE_LOADED } from '../../constants/actionTypes';
 
 const mapStateToProps = state => ({
   ...state.finance,
@@ -21,12 +21,20 @@ const mapDispatchToProps = dispatch => ({
 });
 
 class FinanceMainView extends React.Component {
-  componentDidMount() {
+  constructor() {
+    super();
+
+    this.getFinances = this.getFinances.bind(this);
+  }
+
+  getFinances() {
     if (this.props.currentUser) {
-      this.props.onLoad(Promise.all([
-        agent.UserProfile.get(this.props.currentUser.username)
-      ]));
+      this.props.onLoad(agent.UserProfile.get(this.props.currentUser.username));
     }
+  }
+
+  componentDidMount() {
+    this.getFinances();
   }
 
   componentWillUnmount() {
@@ -46,10 +54,12 @@ class FinanceMainView extends React.Component {
         <ContainerAiof>
           <Overview />
 
-          <AssetLiabilityChart assets={assets} liabilities={liabilities} />
-          
-          <AssetsPreview assets={assets} />
+          <h3>Your finances</h3>
+          <AssetsPreview assets={assets} onFinancesUpdate={this.getFinances} />
           <LiabilitiesPreview liabilities={liabilities} />
+
+          <AssetLiabilityChart assets={assets} liabilities={liabilities} />
+
           <GoalsPreview goals={goals} />
 
           <Subscriptions subscriptions={subscriptions} />

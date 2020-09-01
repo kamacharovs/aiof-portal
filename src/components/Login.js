@@ -1,5 +1,7 @@
 import React from 'react';
-import { Form, Button, Row } from 'react-bootstrap';
+import Form from 'react-bootstrap/Form';
+import Button from 'react-bootstrap/Button';
+import Row from 'react-bootstrap/Row';
 import { Helmet } from 'react-helmet';
 import agent from '../agent';
 import { connect } from 'react-redux';

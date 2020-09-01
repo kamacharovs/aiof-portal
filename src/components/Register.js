@@ -1,7 +1,8 @@
 import React from 'react';
-import { Form, Button, Row } from 'react-bootstrap';
+import Form from 'react-bootstrap/Form';
+import Button from 'react-bootstrap/Button';
+import Row from 'react-bootstrap/Row';
 import { Helmet } from 'react-helmet';
-import ListErrors from './ListErrors';
 import agent from '../agent';
 import { FaUnlock } from "react-icons/fa";
 import { connect } from 'react-redux';
@@ -74,8 +75,6 @@ class Register extends React.Component {
         <ContainerAiof>
           <Row>
             <RoundBorderBox className="col-md-6 offset-md-3 col-xs-12 text-center">
-
-              <ListErrors errors={this.props.errors} />
 
               <h1>Sign Up</h1>
               <p>

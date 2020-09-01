@@ -33,7 +33,9 @@ export default (state = defaultState, action) => {
         token: action.token || null,
         appLoaded: true,
         currentUser: action.payload ? 
-          { 
+          {
+            id: action.payload.id,
+            publicKey: action.payload.publicKey,
             firstName: action.payload.firstName,
             lastName: action.payload.lastName,
             email: action.payload.email,
