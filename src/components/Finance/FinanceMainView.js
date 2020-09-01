@@ -21,6 +21,8 @@ const mapDispatchToProps = dispatch => ({
 });
 
 class FinanceMainView extends React.Component {
+  //const [assets] = useState([]);
+
   componentDidMount() {
     if (this.props.currentUser) {
       this.props.onLoad(Promise.all([

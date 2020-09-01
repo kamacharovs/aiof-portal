@@ -13,12 +13,12 @@ import {
 const mapStateToProps = state => ({
     ...state.finance,
     currentUser: state.common.currentUser,
-    profile: state.profile.profile
+    finance: state.finance,
 });
 
 const mapDispatchToProps = dispatch => ({
-    onAddForm: (username, asset) =>
-        dispatch({ type: ASSET_ADD, payload: agent.Asset.add(asset), username }),
+    onAddForm: asset =>
+        dispatch({ type: ASSET_ADD, payload: agent.Asset.add(asset) }),
 });
 
 class AssetEditor extends React.Component {
@@ -42,14 +42,14 @@ class AssetEditor extends React.Component {
             ev.preventDefault();
 
             const asset = Object.assign({}, this.state);
-            const username = this.props.currentUser.username;
+            const userId = this.props.currentUser.id;
 
             asset.name = asset.name ? asset.name : null;
             asset.typeName = asset.typeName ? asset.typeName : null;
             asset.value = asset.value ? Number(asset.value) : null;
-            asset.userId = asset.userId ? asset.userId : this.props.currentUser.id;
+            asset.userId = asset.userId ? asset.userId : userId;
 
-            this.props.onAddForm(username, asset);
+            this.props.onAddForm(asset);
         };
     }
 
