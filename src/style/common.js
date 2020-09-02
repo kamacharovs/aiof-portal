@@ -148,14 +148,28 @@ export const TinyPadding = styled.div`
   padding: 0.25rem;
 `;
 
+export const AiofBannerImage = styled.div`
+  background-color: ${DefaultColor};
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 128px;
+  z-index: 1;
+  text-align: left;
+`;
 export const AiofBanner = styled.div`
   background-color: ${DefaultColor};
   padding: 3rem;
+  padding-top: 10rem;
   margin-bottom: 1rem;
-  text-align: center;
   font-weight: 900;
 
-  &.h1 {
-
-  }
+  position: relative;
+  top: 0;
+  left: 0;
+  transform: skewy(3deg);
+  right: 0;
+  height: 300px;
+  z-index: 2;
 `;
