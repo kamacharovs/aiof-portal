@@ -1,9 +1,11 @@
 import styled from 'styled-components';
 import { Form, Container } from 'react-bootstrap';
+import Navbar from 'react-bootstrap/Navbar';
 import { Link } from 'react-router-dom';
 
 export const DefaultColor = "#5cb85c";
 export const DefaultRedColor = "#b21f00";
+export const DefaultAlternateColor = "#137a8f";
 
 export const ContainerAiof = styled(Container)`
   padding: 2rem;
@@ -49,6 +51,11 @@ export const H1LiabilityPreview = styled.h1`
    font-size: 1rem;
    font-weight: 900;
    color: ${DefaultRedColor}
+`;
+
+export const TransparentNavbar = styled(Navbar)`
+  background: none;
+  font-size: 12px;
 `;
 
 

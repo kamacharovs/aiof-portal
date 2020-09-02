@@ -1,5 +1,7 @@
 import React from 'react';
-import { Nav, Navbar, Container } from 'react-bootstrap';
+import Nav from 'react-bootstrap/Nav';
+import Navbar from 'react-bootstrap/Navbar';
+import Container from 'react-bootstrap/Container';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import {
@@ -55,7 +57,6 @@ const LoggedInView = props => {
       </Nav>
     );
   }
-
   return null;
 };
 

@@ -1,5 +1,6 @@
 import agent from '../agent';
 import Header from './Header';
+import Footer from './Footer';
 import React from 'react';
 import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
@@ -74,12 +75,18 @@ class App extends React.Component {
             <Route exact path="/@:username/settings" component={ProfileSettings} />
             <Route exact path="/@:username" component={Profile} />
           </Switch>
+          <Footer
+            appName={this.props.appName}
+            currentUser={this.props.currentUser} />
         </React.Fragment>
       );
     }
     return (
       <React.Fragment>
         <Header
+          appName={this.props.appName}
+          currentUser={this.props.currentUser} />
+        <Footer
           appName={this.props.appName}
           currentUser={this.props.currentUser} />
       </React.Fragment>
