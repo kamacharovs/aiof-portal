@@ -14,6 +14,7 @@ const StyledCalculatorCardHeader = styled(Card.Header)`
 `;
 const StyledCalculatorCardText = styled(Card.Text)`
   color: ${DefaultAlternateColor};
+  font-weight: 550;
 `;
 
 export const CalculatorCard = props => {
