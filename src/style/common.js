@@ -67,6 +67,15 @@ export const TinyFormLabel = styled(Form.Label)`
  font-size: 12px;
  font-weight: 700;
 `;
+export const InlineFormLabel = styled(Form.Label)`
+  top: 18px;
+  left: 6px;
+  position: relative;
+  background-color: white;
+  padding: 0px 5px 0px 5px;
+  font-size: 0.9em;
+  font-weight: 500;
+`;
 
 
 export const CoolLink = styled(Link)`
