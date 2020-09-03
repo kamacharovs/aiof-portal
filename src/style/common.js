@@ -1,5 +1,6 @@
 import styled from 'styled-components';
-import { Form, Container } from 'react-bootstrap';
+import Form from 'react-bootstrap/Form';
+import Container from 'react-bootstrap/Container';
 import Navbar from 'react-bootstrap/Navbar';
 import { Link } from 'react-router-dom';
 
