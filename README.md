@@ -2,6 +2,8 @@
 
 Aiof portal
 
+[![Build Status](https://gkamacharov.visualstudio.com/gkama-cicd/_apis/build/status/kamacharovs.aiof-portal?branchName=master)](https://gkamacharov.visualstudio.com/gkama-cicd/_build/latest?definitionId=21&branchName=master)
+
 ## Documentation
 
 All documentation
