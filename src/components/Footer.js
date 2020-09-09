@@ -1,6 +1,6 @@
 import React from 'react';
 import Container from 'react-bootstrap/Container';
-import { TransparentNavbar, CoolLink } from '../style/common';
+import { FooterNavbar, CoolLink } from '../style/common';
 
 const HomeView = props => {
     return (
@@ -36,7 +36,7 @@ const LoggedInView = props => {
 class Footer extends React.Component {
     render() {
         return (
-            <TransparentNavbar expand="sm" fixed="bottom" >
+            <FooterNavbar bg="light" variant="light" expand="sm" fixed="bottom" >
                 <Container>
 
                     <HomeView appName={this.props.appName.toLowerCase()} />
@@ -46,7 +46,7 @@ class Footer extends React.Component {
                     <LoggedInView currentUser={this.props.currentUser} />
 
                 </Container>
-            </TransparentNavbar>
+            </FooterNavbar>
         );
     }
 }

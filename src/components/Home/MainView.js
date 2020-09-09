@@ -24,7 +24,7 @@ const MainView = props => {
             token={props.token} />
         </Col>
         <Col>
-        <CalculatorCard text={"mortgage and then some how far can it extend"} />
+          <CalculatorCard text={"mortgage and then some how far can it extend"} />
         </Col>
       </Row>
     </ContainerAiof>

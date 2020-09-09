@@ -54,8 +54,8 @@ export const H1LiabilityPreview = styled.h1`
    color: ${DefaultRedColor}
 `;
 
-export const TransparentNavbar = styled(Navbar)`
-  background: none;
+export const FooterNavbar = styled(Navbar)`
+  background: white;
   font-size: 12px;
 `;
 
