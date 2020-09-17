@@ -27,7 +27,7 @@ export const Subscriptions = props => {
     }
     return null;
   }
-  export const SubscriptionPreview = props => {
+export const SubscriptionPreview = props => {
     const subscription = props.subscription;
   
     if (subscription) {
