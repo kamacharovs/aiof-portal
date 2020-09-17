@@ -160,6 +160,17 @@ export const RoundBorderBoxText = styled.div`
   padding-top: 2rem;
   padding-bottom: 2rem;
 `;
+export const AiofBox = styled.div`
+  background: #fff;
+  display: block;
+  border: 1px solid #e8e8e8;
+  border-radius: 6px !important;
+  box-shadow: 0 8px 14px 0 rgba(0,0,0,.06);
+  min-width: 264px;
+  margin-bottom: 0.5rem;
+  padding: 1rem;
+`;
+
 
 export const TinyPadding = styled.div`
   padding: 0.25rem;

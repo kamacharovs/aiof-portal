@@ -4,7 +4,6 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Accounts from './Accounts';
 import { ContainerAiof } from '../../style/common';
-import { CalculatorCard } from '../Common/Calculator';
 
 const mapStateToProps = state => ({
   ...state.home,
@@ -22,9 +21,6 @@ const MainView = props => {
         <Col sm="4">
           <Accounts
             token={props.token} />
-        </Col>
-        <Col>
-          <CalculatorCard text={"mortgage and then some how far can it extend"} />
         </Col>
       </Row>
     </ContainerAiof>
