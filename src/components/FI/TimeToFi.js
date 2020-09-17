@@ -3,13 +3,21 @@ import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
 import agent from '../../agent';
 import { makeStyles } from '@material-ui/core/styles';
+import Container from '@material-ui/core/Container';
 import TextField from '@material-ui/core/TextField';
+import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
+import AttachMoneyIcon from '@material-ui/icons/AttachMoney';
+import ArrowUpwardIcon from '@material-ui/icons/ArrowUpward';
+import Table from 'react-bootstrap/Table';
+import { numberWithCommas } from '../Finance/Common';
+import { AiofBox } from '../../style/common';
 import { FI_TIME_TO_FI } from '../../constants/actionTypes';
 
 const mapStateToProps = state => ({
-  ...state.auth,
+  ...state.fi,
   appName: state.common.appName,
+  time: state.fi.time,
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -22,21 +30,28 @@ class TimeToFi extends React.Component {
     super();
 
     this.state = {
-      startingAmount: '',
-      monthlyInvestment: '',
-      desiredYearsExpensesForFi: '',
-      desiredAnnualSpending: '',
+      startingAmount: 800000,
+      monthlyInvestment: 5000,
+      desiredYearsExpensesForFi: 25,
+      desiredAnnualSpending: 100000,
     };
 
     this.classes = makeStyles((theme) => ({
       root: {
-        '& > *': {
-          margin: theme.spacing(1),
-          width: '25ch',
-        },
+        display: 'flex',
+        flexWrap: 'wrap',
+      },
+      margin: {
+        margin: theme.spacing(1),
+      },
+      withoutLabel: {
+        marginTop: theme.spacing(3),
+      },
+      textField: {
+        width: '25ch',
       },
     }));
-    
+
     this.updateState = field => ev => {
       const state = this.state;
       const newState = Object.assign({}, state, { [field]: ev.target.value });
@@ -63,18 +78,118 @@ class TimeToFi extends React.Component {
         <Helmet>
           <title>{this.props.appName} | Time to FI</title>
         </Helmet>
-        <form className={this.classes.root} noValidate autoComplete="off" onSubmit={this.submitForm}>
-          <TextField id="standard-basic" label="Standard" />
-          <TextField id="filled-basic" label="Filled" variant="filled" />
-          <TextField id="outlined-basic" label="Outlined" variant="outlined" />
+        <Container maxWidth="sm">
+          <AiofBox>
+            <form className={this.classes.root} noValidate autoComplete="off" onSubmit={this.submitForm}>
+              <Grid container spacing={3}>
+                <Grid item xs={6}>
+                  <div className={this.classes.margin}>
+                    <Grid container spacing={1} alignItems="flex-end">
+                      <Grid item>
+                        <AttachMoneyIcon />
+                      </Grid>
+                      <Grid item>
+                        <TextField id="input-with-icon-grid" label="Starting amount"
+                          value={this.state.startingAmount}
+                          onChange={this.updateState('startingAmount')} />
+                      </Grid>
+                    </Grid>
+                  </div>
+                </Grid>
 
-          <Button type="submit" variant="contained" color="primary" className={this.classes.button} >
-            Calculate
-          </Button>
-        </form>
+                <Grid item xs={6}>
+                  <div className={this.classes.margin}>
+                    <Grid container spacing={1} alignItems="flex-end">
+                      <Grid item>
+                        <AttachMoneyIcon />
+                      </Grid>
+                      <Grid item>
+                        <TextField id="input-with-icon-grid" label="Monthly investment"
+                          value={this.state.monthlyInvestment}
+                          onChange={this.updateState('monthlyInvestment')} />
+                      </Grid>
+                    </Grid>
+                  </div>
+                </Grid>
+
+                <Grid item xs={6}>
+                  <div className={this.classes.margin}>
+                    <Grid container spacing={1} alignItems="flex-end">
+                      <Grid item>
+                        <ArrowUpwardIcon />
+                      </Grid>
+                      <Grid item>
+                        <TextField id="input-with-icon-grid" label="Years expenses"
+                          value={this.state.desiredYearsExpensesForFi}
+                          onChange={this.updateState('desiredYearsExpensesForFi')} />
+                      </Grid>
+                    </Grid>
+                  </div>
+                </Grid>
+
+                <Grid item xs={6}>
+                  <div className={this.classes.margin}>
+                    <Grid container spacing={1} alignItems="flex-end">
+                      <Grid item>
+                        <AttachMoneyIcon />
+                      </Grid>
+                      <Grid item>
+                        <TextField id="input-with-icon-grid" label="Annual spending"
+                          value={this.state.desiredAnnualSpending}
+                          onChange={this.updateState('desiredAnnualSpending')} />
+                      </Grid>
+                    </Grid>
+                  </div>
+                </Grid>
+
+                <Grid item xs={12}>
+                  <Button type="submit" variant="contained" color="primary" className={this.classes.button} >
+                    Calculate
+                </Button>
+                </Grid>
+              </Grid>
+            </form>
+          </AiofBox>
+
+          <TimeToFiResults time={this.state.time} />
+
+        </Container>
       </React.Fragment>
     );
   }
+}
+
+const TimeToFiResults = props => {
+  if (props.time) {
+    return (
+      <AiofBox>
+        <h3>Results</h3>
+        <hr />
+        <Table responsive="sm"
+          borderless={true}>
+          <thead>
+            <tr>
+              <th>interest</th>
+              <th>years</th>
+            </tr>
+          </thead>
+          <tbody>
+            {
+              props.time.years.map(year => {
+                return (
+                  <tr>
+                    <td>${numberWithCommas(year.interest)}</td>
+                    <td>${numberWithCommas(year.years)}</td>
+                  </tr>
+                );
+              })
+            }
+          </tbody>
+        </Table>
+      </AiofBox>
+    );
+  }
+  return null
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(TimeToFi);

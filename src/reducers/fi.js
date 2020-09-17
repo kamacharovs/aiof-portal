@@ -4,11 +4,12 @@ import {
 
 export default (state = {}, action) => {
     switch (action.type) {
-      case FI_TIME_TO_FI:
-        return {
-            ...state
-        }
-      default:
-        return state;
+        case FI_TIME_TO_FI:
+            return {
+                ...state,
+                time: action.payload
+            }
+        default:
+            return state;
     }
 }

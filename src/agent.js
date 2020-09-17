@@ -70,8 +70,8 @@ const Asset = {
 }
 
 const Fi = {
-  time: (startingAmount, monthlyInvestment, desiredYearsExpensesForFi, desiredAnnualSpending) =>
-    requestsMetadata.post('/fi/time/to/fi', { startingAmount, monthlyInvestment, desiredYearsExpensesForFi, desiredAnnualSpending }),
+  time: payload =>
+    requestsMetadata.post('/fi/time/to/fi', payload),
 }
 
 
