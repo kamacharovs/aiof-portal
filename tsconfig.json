@@ -1,5 +1,6 @@
 {
     "compilerOptions": {
+        "isolatedModules": true,
         "module": "CommonJS",
         "noImplicitAny": true,
         "removeComments": true,

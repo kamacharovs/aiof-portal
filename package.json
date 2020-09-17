@@ -4,7 +4,8 @@
   "private": true,
   "devDependencies": {
     "cross-env": "^5.1.4",
-    "react-scripts": "1.1.1"
+    "react-scripts": "1.1.1",
+    "typescript": "^4.0.2"
   },
   "dependencies": {
     "@material-ui/core": "^4.11.0",
