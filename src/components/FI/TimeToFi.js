@@ -21,8 +21,8 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  onSubmit: payload =>
-    dispatch({ type: FI_TIME_TO_FI, payload }),
+  onSubmit: timeToFi =>
+    dispatch({ type: FI_TIME_TO_FI, payload: agent.Fi.time(timeToFi) }),
 });
 
 class TimeToFi extends React.Component {
@@ -68,7 +68,7 @@ class TimeToFi extends React.Component {
       timeToFi.desiredYearsExpensesForFi = timeToFi.desiredYearsExpensesForFi ? Number(timeToFi.desiredYearsExpensesForFi) : null;
       timeToFi.desiredAnnualSpending = timeToFi.desiredAnnualSpending ? Number(timeToFi.desiredAnnualSpending) : null;
 
-      this.props.onSubmit(agent.Fi.time(timeToFi));
+      this.props.onSubmit(timeToFi);
     };
   }
 
@@ -151,7 +151,7 @@ class TimeToFi extends React.Component {
             </form>
           </AiofBox>
 
-          <TimeToFiResults time={this.state.time} />
+          <TimeToFiResults time={this.props.time} />
 
         </Container>
       </React.Fragment>
@@ -164,6 +164,51 @@ const TimeToFiResults = props => {
     return (
       <AiofBox>
         <h3>Results</h3>
+        <hr />
+        <Grid container spacing={1}>
+          <Grid item xs={6}>
+            <b>Starting amount</b>:
+          </Grid>
+          <Grid item xs={6}>
+            <i style={{ color: "green" }}>${numberWithCommas(props.time.startingAmount)}</i>
+          </Grid>
+
+          <Grid item xs={6}>
+            <b>Monthly investment</b>:
+          </Grid>
+          <Grid item xs={6}>
+            <i style={{ color: "green" }}>${numberWithCommas(props.time.monthlyInvestment)}</i>
+          </Grid>
+
+          <Grid item xs={6}>
+            <b>Desired years expenses for FI</b>:
+          </Grid>
+          <Grid item xs={6}>
+            <i style={{ color: "green" }}>{props.time.desiredYearsExpensesForFi}</i>
+          </Grid>
+
+          <Grid item xs={6}>
+            <b>Desired annual spending</b>:
+          </Grid>
+          <Grid item xs={6}>
+            <i style={{ color: "green" }}>${numberWithCommas(props.time.desiredAnnualSpending)}</i>
+          </Grid>
+
+          <Grid item xs={6}>
+            <b>Desired retirement savings for FI</b>:
+          </Grid>
+          <Grid item xs={6}>
+            <i style={{ color: "green" }}>${numberWithCommas(props.time.desiredRetirementSavingsForFi)}</i>
+          </Grid>
+
+          <Grid item xs={6}>
+            <b>Current deficit</b>:
+          </Grid>
+          <Grid item xs={6}>
+            <i style={{ color: "red" }}>${numberWithCommas(props.time.currentDeficit)}</i>
+          </Grid>
+
+        </Grid>
         <hr />
         <Table responsive="sm"
           borderless={true}>
@@ -178,8 +223,8 @@ const TimeToFiResults = props => {
               props.time.years.map(year => {
                 return (
                   <tr>
-                    <td>${numberWithCommas(year.interest)}</td>
-                    <td>${numberWithCommas(year.years)}</td>
+                    <td>{year.interest}%</td>
+                    <td>{year.years}</td>
                   </tr>
                 );
               })
