@@ -5,6 +5,7 @@ const superagent = superagentPromise(_superagent, global.Promise);
 
 const API_ROOT = 'http://localhost:5001';
 const API_AUTH_ROOT = 'http://localhost:5000';
+const API_METADATA_ROOT = 'http://127.0.0.1:5000/metadata';
 
 const encode = encodeURIComponent;
 const responseBody = res => res.body;
@@ -31,6 +32,12 @@ const requestsAuth = {
     superagent.get(`${API_AUTH_ROOT}${url}`).use(tokenPlugin).then(responseBody),
   post: (url, body) =>
     superagent.post(`${API_AUTH_ROOT}${url}`, body).then(responseBody)
+}
+const requestsMetadata = {
+  get: url =>
+    superagent.get(`${API_METADATA_ROOT}${url}`).use(tokenPlugin).then(responseBody),
+  post: (url, body) =>
+    superagent.post(`${API_METADATA_ROOT}${url}`, body).use(tokenPlugin).then(responseBody)
 }
 
 const Auth = {
@@ -60,6 +67,11 @@ const Asset = {
     requests.put(`/asset/${publicKey}`, asset),
   delete: publicKey =>
     requests.del(`/asset/${publicKey}`),
+}
+
+const Fi = {
+  time: (startingAmount, monthlyInvestment, desiredYearsExpensesForFi, desiredAnnualSpending) =>
+    requestsMetadata.post('/fi/time/to/fi', { startingAmount, monthlyInvestment, desiredYearsExpensesForFi, desiredAnnualSpending }),
 }
 
 
@@ -115,6 +127,7 @@ export default {
   User,
   UserProfile,
   Asset,
+  Fi,
   Comments,
   Profile,
   setToken: _token => { token = _token; },
