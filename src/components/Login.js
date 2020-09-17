@@ -16,7 +16,7 @@ import {
   CoolLink, 
   RoundBorderBox, 
   RoundBorderBoxText, 
-  TinyFormLabel, 
+  InlineFormLabel, 
   ErrorTextMuted 
 } from '../style/common';
 
@@ -81,7 +81,7 @@ class Login extends React.Component {
                 </ErrorTextMuted>
                 <RoundBorderBoxText className="text-left">
                   <Form.Group>
-                    <TinyFormLabel>Username</TinyFormLabel>
+                    <InlineFormLabel>Username</InlineFormLabel>
                     <Form.Control type="text"
                       required
                       value={username}
@@ -89,7 +89,7 @@ class Login extends React.Component {
                   </Form.Group>
 
                   <Form.Group>
-                    <TinyFormLabel>Password</TinyFormLabel>
+                    <InlineFormLabel>Password</InlineFormLabel>
                     <Form.Control type="password"
                       required
                       value={password}

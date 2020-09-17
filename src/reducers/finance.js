@@ -14,7 +14,6 @@ export default (state = {}, action) => {
         liabilities: action.payload.liabilities,
         goals: action.payload.goals,
         subscriptions: action.payload.subscriptions,
-        
       };
     case FINANCE_PAGE_UNLOADED:
       return {};

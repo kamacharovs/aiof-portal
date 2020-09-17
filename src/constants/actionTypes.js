@@ -41,3 +41,5 @@ export const FINANCE_PAGE_LOADED = 'FINANCE_PAGE_LOADED';
 export const FINANCE_PAGE_UNLOADED = 'FINANCE_PAGE_UNLOADED';
 
 export const ASSET_ADD = 'ASSET_ADD';
+
+export const FI_TIME_TO_FI = 'FI_TIME_TO_FI';

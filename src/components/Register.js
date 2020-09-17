@@ -11,7 +11,13 @@ import {
   REGISTER,
   REGISTER_PAGE_UNLOADED
 } from '../constants/actionTypes';
-import { ContainerAiof, CoolLink, RoundBorderBox, RoundBorderBoxText, TinyFormLabel } from '../style/common';
+import { 
+  ContainerAiof, 
+  CoolLink, 
+  RoundBorderBox, 
+  RoundBorderBoxText, 
+  InlineFormLabel 
+} from '../style/common';
 
 const mapStateToProps = state => ({ ...state.auth, appName: state.common.appName });
 
@@ -90,7 +96,7 @@ class Register extends React.Component {
 
                 <RoundBorderBoxText className="text-left">
                   <Form.Group>
-                    <TinyFormLabel>First Name</TinyFormLabel>
+                    <InlineFormLabel>First Name</InlineFormLabel>
                     <Form.Control type="text"
                       required
                       value={firstName}
@@ -101,7 +107,7 @@ class Register extends React.Component {
                   </Form.Group>
 
                   <Form.Group>
-                    <TinyFormLabel>Last Name</TinyFormLabel>
+                    <InlineFormLabel>Last Name</InlineFormLabel>
                     <Form.Control type="text"
                       required
                       value={lastName}
@@ -112,7 +118,7 @@ class Register extends React.Component {
                   </Form.Group>
 
                   <Form.Group>
-                    <TinyFormLabel>Email</TinyFormLabel>
+                    <InlineFormLabel>Email</InlineFormLabel>
                     <Form.Control type="text"
                       required
                       value={email}
@@ -123,7 +129,7 @@ class Register extends React.Component {
                   </Form.Group>
 
                   <Form.Group>
-                    <TinyFormLabel>Username</TinyFormLabel>
+                    <InlineFormLabel>Username</InlineFormLabel>
                     <Form.Control type="text"
                       required
                       value={username}
@@ -134,7 +140,7 @@ class Register extends React.Component {
                   </Form.Group>
 
                   <Form.Group>
-                    <TinyFormLabel>Password</TinyFormLabel>
+                    <InlineFormLabel>Password</InlineFormLabel>
                     <Form.Control type="password"
                       required
                       value={password}

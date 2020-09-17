@@ -1,5 +1,6 @@
 import agent from '../agent';
 import Header from './Header';
+import Footer from './Footer';
 import React from 'react';
 import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
@@ -12,6 +13,7 @@ import Profile from '../components/Profile';
 import ProfileSettings from '../components/ProfileSettings';
 import FinanceMainView from '../components/Finance/FinanceMainView';
 import Register from '../components/Register';
+import TimeToFi from '../components/FI/TimeToFi';
 import { store } from '../store';
 import { push } from 'react-router-redux';
 import Cookies from 'js-cookie';
@@ -73,13 +75,20 @@ class App extends React.Component {
             <Route exact path="/@:username/finance" component={FinanceMainView} />
             <Route exact path="/@:username/settings" component={ProfileSettings} />
             <Route exact path="/@:username" component={Profile} />
+            <Route exact path="/fi/time" component={TimeToFi} />
           </Switch>
+          <Footer
+            appName={this.props.appName}
+            currentUser={this.props.currentUser} />
         </React.Fragment>
       );
     }
     return (
       <React.Fragment>
         <Header
+          appName={this.props.appName}
+          currentUser={this.props.currentUser} />
+        <Footer
           appName={this.props.appName}
           currentUser={this.props.currentUser} />
       </React.Fragment>
