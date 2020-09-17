@@ -402,15 +402,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/jquery@npm:^3.5.1":
-  version: 3.5.1
-  resolution: "@types/jquery@npm:3.5.1"
-  dependencies:
-    "@types/sizzle": "*"
-  checksum: 43f7885e75a7c5fdecb99ff7893a844d53b88ba5d6fb8c8d9bf65d0bfc42ee1ec75844cc9b73bcefd5d955376cb37dcbc9950e3d18e8922a8ef30e3ef8dab78e
-  languageName: node
-  linkType: hard
-
 "@types/keyv@npm:^3.1.1":
   version: 3.1.1
   resolution: "@types/keyv@npm:3.1.1"
@@ -441,15 +432,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/react-dom@npm:^16.9.8":
-  version: 16.9.8
-  resolution: "@types/react-dom@npm:16.9.8"
-  dependencies:
-    "@types/react": "*"
-  checksum: 53a223c0266178bca9161301d18ee6199e8f75f88caed5c4601c5aaedaf4c68f03bd72f6aafa979254beb20759f0b68a542ce04295d704eb67ae179769c50813
-  languageName: node
-  linkType: hard
-
 "@types/react-transition-group@npm:^4.2.0, @types/react-transition-group@npm:^4.4.0":
   version: 4.4.0
   resolution: "@types/react-transition-group@npm:4.4.0"
@@ -469,29 +451,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/react@npm:^16.9.49":
-  version: 16.9.49
-  resolution: "@types/react@npm:16.9.49"
-  dependencies:
-    "@types/prop-types": "*"
-    csstype: ^3.0.2
-  checksum: cf5dabe1e9c893a19a338002ac4bf5a86c9bc3cd88eb07aece54e6d2e5af35debe2a8c72d211ad9133391543ce115219cd7c7f2a6f649b81caf4548e1cc99061
-  languageName: node
-  linkType: hard
-
 "@types/responselike@npm:^1.0.0":
   version: 1.0.0
   resolution: "@types/responselike@npm:1.0.0"
   dependencies:
     "@types/node": "*"
   checksum: e6e6613c800aeda63e2331e753e8d21df1a2c9aa7a4bc71ed792a848e4811fc96e609759089355314a2318c76eff1f161499cd242044838ab1e6f56e463ebb9c
-  languageName: node
-  linkType: hard
-
-"@types/sizzle@npm:*":
-  version: 2.3.2
-  resolution: "@types/sizzle@npm:2.3.2"
-  checksum: 447a1c3f39f0e47ffdbccd1df58d63e8b67dc001f44f26f43ac8243db7834a3d956cebc8abe9272ecbdccfc8f4ec0ae74b811ccdad5b6cddaf8f0968513d618a
   languageName: node
   linkType: hard
 
@@ -592,9 +557,6 @@ __metadata:
   resolution: "aiof@workspace:."
   dependencies:
     "@material-ui/core": ^4.11.0
-    "@types/jquery": ^3.5.1
-    "@types/react": ^16.9.49
-    "@types/react-dom": ^16.9.8
     bootstrap: ^4.5.2
     chart.js: ^2.9.3
     cross-env: ^5.1.4
@@ -621,7 +583,6 @@ __metadata:
     styled-components: ^5.1.1
     superagent: ^3.8.2
     superagent-promise: ^1.1.0
-    typescript: ^4.0.2
   languageName: unknown
   linkType: soft
 
@@ -11418,26 +11379,6 @@ resolve@1.1.7:
   version: 0.0.6
   resolution: "typedarray@npm:0.0.6"
   checksum: c9ef0176aaf32593514c31e5c6edc1db970847aff6e1f0a0570a6ac0cc996335792f394c2fcec59cc76691d22a01888ea073a2f3c6930cfcf7c519addf4e2ad7
-  languageName: node
-  linkType: hard
-
-typescript@^4.0.2:
-  version: 4.0.2
-  resolution: "typescript@npm:4.0.2"
-  bin:
-    tsc: bin/tsc
-    tsserver: bin/tsserver
-  checksum: cc0e7806eee7997a1b4b2990badacc4a8d089893ed0a377f35c9658e2ac392503cb340d0187203ed82e36e427dda94b0fb7107e44a71cca99efac86be26e16ee
-  languageName: node
-  linkType: hard
-
-"typescript@patch:typescript@^4.0.2#builtin<compat/typescript>":
-  version: 4.0.2
-  resolution: "typescript@patch:typescript@npm%3A4.0.2#builtin<compat/typescript>::version=4.0.2&hash=5b02a2"
-  bin:
-    tsc: bin/tsc
-    tsserver: bin/tsserver
-  checksum: b8b689ef994cce4fe59950d56ddfffce3c4bdda8edb85b72e752d4a6d27bf7df8a318e76ccde25cbe6e642058f2f4ccf47187db4b243bbc98278a2844db9461b
   languageName: node
   linkType: hard
 
