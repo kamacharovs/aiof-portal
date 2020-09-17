@@ -1,17 +1,11 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import { Helmet } from 'react-helmet';
 import agent from '../../agent';
 import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
+import Button from '@material-ui/core/Button';
 import { FI_TIME_TO_FI } from '../../constants/actionTypes';
-
-const useStyles = makeStyles((theme) => ({
-  root: {
-    '& > *': {
-      margin: theme.spacing(1),
-      width: '25ch',
-    },
-  },
-}));
 
 const mapStateToProps = state => ({
   ...state.auth,
@@ -34,6 +28,15 @@ class TimeToFi extends React.Component {
       desiredAnnualSpending: '',
     };
 
+    this.classes = makeStyles((theme) => ({
+      root: {
+        '& > *': {
+          margin: theme.spacing(1),
+          width: '25ch',
+        },
+      },
+    }));
+    
     this.updateState = field => ev => {
       const state = this.state;
       const newState = Object.assign({}, state, { [field]: ev.target.value });
@@ -55,16 +58,19 @@ class TimeToFi extends React.Component {
   }
 
   render() {
-    const classes = useStyles();
     return (
       <React.Fragment>
         <Helmet>
           <title>{this.props.appName} | Time to FI</title>
         </Helmet>
-        <form className={classes.root} noValidate autoComplete="off">
+        <form className={this.classes.root} noValidate autoComplete="off" onSubmit={this.submitForm}>
           <TextField id="standard-basic" label="Standard" />
           <TextField id="filled-basic" label="Filled" variant="filled" />
           <TextField id="outlined-basic" label="Outlined" variant="outlined" />
+
+          <Button type="submit" variant="contained" color="primary" className={this.classes.button} >
+            Calculate
+          </Button>
         </form>
       </React.Fragment>
     );
