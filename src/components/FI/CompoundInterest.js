@@ -9,7 +9,6 @@ import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import InputAdornment from '@material-ui/core/InputAdornment';
-import Table from 'react-bootstrap/Table';
 import { numberWithCommas } from '../Finance/Common';
 import { FI_COMPOUND_INTEREST } from '../../constants/actionTypes';
 
@@ -76,14 +75,14 @@ class CompoundInterest extends React.Component {
   }
 
   componentDidMount() {
-    if (this.props.time) {
+    if (this.props.compoundInterest) {
       this.setState({
-        startingAmount: this.props.time.startingAmount,
-        monthlyInvestment: this.props.time.monthlyInvestment,
-        interest: this.props.time.interest,
-        numberOfYears: this.props.time.numberOfYears,
-        investmentFees: this.props.time.investmentFees,
-        taxDrag: this.props.time.taxDrag,
+        startingAmount: this.props.compoundInterest[0].startingAmount,
+        monthlyInvestment: this.props.compoundInterest[0].monthlyInvestment,
+        interest: this.props.compoundInterest[0].interest,
+        numberOfYears: this.props.compoundInterest[0].numberOfYears,
+        investmentFees: this.props.compoundInterest[0].investmentFees,
+        taxDrag: this.props.compoundInterest[0].taxDrag,
       });
     }
   }
@@ -95,7 +94,7 @@ class CompoundInterest extends React.Component {
           <title>{this.props.appName} | Compound Interest</title>
         </Helmet>
         <Container maxWidth="sm">
-          <Paper elevation={3} style={{padding: "1rem"}}>
+          <Paper elevation={3} style={{ padding: "1rem" }}>
             <form className={this.classes.root} noValidate autoComplete="off" onSubmit={this.submitForm}>
               <Grid container spacing={3}>
                 <Grid item xs={6}>
@@ -170,7 +169,7 @@ class CompoundInterest extends React.Component {
             </form>
           </Paper>
 
-          <TimeToFiResults time={this.props.time} />
+          <CompoundInterestResults compoundInterest={this.props.compoundInterest} />
 
         </Container>
       </React.Fragment>
@@ -178,78 +177,85 @@ class CompoundInterest extends React.Component {
   }
 }
 
-const TimeToFiResults = props => {
-  if (props.time) {
+const CompoundInterestResults = props => {
+  if (props.compoundInterest) {
     return (
-      <Paper elevation={3}>
+      <Paper elevation={3} style={{padding: "1rem", marginTop: "1rem"}}>
         <h3>Results</h3>
         <hr />
-        <Grid container spacing={1}>
-          <Grid item xs={6}>
-            <b>Starting amount</b>:
+        {
+          props.compoundInterest.map(ci => {
+            return (
+              <React.Fragment>
+              <Grid container spacing={1}>
+                <Grid item xs={6}>
+                  <b>Beginning</b>:
           </Grid>
-          <Grid item xs={6}>
-            <i style={{ color: "green" }}>${numberWithCommas(props.time.startingAmount)}</i>
-          </Grid>
+                <Grid item xs={6}>
+                  <i style={{ color: "green" }}>${numberWithCommas(ci.compoundedBeginning)}</i>
+                </Grid>
 
-          <Grid item xs={6}>
-            <b>Monthly investment</b>:
+                <Grid item xs={6}>
+                  <b>End</b>:
           </Grid>
-          <Grid item xs={6}>
-            <i style={{ color: "green" }}>${numberWithCommas(props.time.monthlyInvestment)}</i>
-          </Grid>
+                <Grid item xs={6}>
+                  <i style={{ color: "green" }}>${numberWithCommas(ci.compoundedEnd)}</i>
+                </Grid>
 
-          <Grid item xs={6}>
-            <b>Desired years expenses for FI</b>:
+                <Grid item xs={6}>
+                  <b>Starting amount</b>:
           </Grid>
-          <Grid item xs={6}>
-            <i style={{ color: "green" }}>{props.time.desiredYearsExpensesForFi}</i>
-          </Grid>
+                <Grid item xs={6}>
+                  <i style={{ color: "green" }}>${numberWithCommas(ci.startingAmount)}</i>
+                </Grid>
 
-          <Grid item xs={6}>
-            <b>Desired annual spending</b>:
+                <Grid item xs={6}>
+                  <b>Monthly investment</b>:
           </Grid>
-          <Grid item xs={6}>
-            <i style={{ color: "green" }}>${numberWithCommas(props.time.desiredAnnualSpending)}</i>
-          </Grid>
+                <Grid item xs={6}>
+                  <i style={{ color: "green" }}>${numberWithCommas(ci.monthlyInvestment)}</i>
+                </Grid>
 
-          <Grid item xs={6}>
-            <b>Desired retirement savings for FI</b>:
+                <Grid item xs={6}>
+                  <b>Interest</b>:
           </Grid>
-          <Grid item xs={6}>
-            <i style={{ color: "green" }}>${numberWithCommas(props.time.desiredRetirementSavingsForFi)}</i>
-          </Grid>
+                <Grid item xs={6}>
+                  <i style={{ color: "green" }}>{ci.interest}%</i>
+                </Grid>
 
-          <Grid item xs={6}>
-            <b>Current deficit</b>:
+                <Grid item xs={6}>
+                  <b>Years</b>:
           </Grid>
-          <Grid item xs={6}>
-            <i style={{ color: "red" }}>${numberWithCommas(props.time.currentDeficit)}</i>
-          </Grid>
+                <Grid item xs={6}>
+                  <i style={{ color: "green" }}>{ci.numberOfYears}</i>
+                </Grid>
 
-        </Grid>
-        <hr />
-        <Table responsive="sm"
-          borderless={true}>
-          <thead>
-            <tr>
-              <th>interest</th>
-              <th>years</th>
-            </tr>
-          </thead>
-          <tbody>
-            {
-              props.time.years.map(year => {
-                return (
-                  <tr>
-                    <td>{year.interest}%</td>
-                    <td>{year.years}</td>
-                  </tr>
-                );
-              })
-            }
-          </tbody>
-        </Table>
+                <Grid item xs={6}>
+                  <b>Frequency</b>:
+          </Grid>
+                <Grid item xs={6}>
+                  <i style={{ color: "green" }}>{ci.frequency}</i>
+                </Grid>
+
+                <Grid item xs={6}>
+                  <b>Investment fees</b>:
+          </Grid>
+                <Grid item xs={6}>
+                  <i style={{ color: "red" }}>{ci.investmentFees}%</i>
+                </Grid>
+
+                <Grid item xs={6}>
+                  <b>Tax drag</b>:
+          </Grid>
+                <Grid item xs={6}>
+                  <i style={{ color: "red" }}>{ci.taxDrag}%</i>
+                </Grid>
+              </Grid>
+              <hr/>
+              </React.Fragment>
+            );
+          })
+        }
       </Paper>
     );
   }
