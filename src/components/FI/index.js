@@ -55,7 +55,7 @@ class FI extends React.Component {
                                             <CoolLink to="/fi/time">Time to FI</CoolLink>
                                         </li>
                                         <li className="nav-item">
-                                            <CoolLink to="/">Link 2</CoolLink>
+                                            <CoolLink to="/fi/compound/interest">Compound Interest</CoolLink>
                                         </li>
                                         <li className="nav-item">
                                             <CoolLink to="/">Link 3</CoolLink>
