@@ -12,7 +12,7 @@ import ArrowUpwardIcon from '@material-ui/icons/ArrowUpward';
 import Table from 'react-bootstrap/Table';
 import { numberWithCommas } from '../Finance/Common';
 import { AiofBox } from '../../style/common';
-import { FI_TIME_TO_FI } from '../../constants/actionTypes';
+import { FI_TIME_TO_FI, FI_TIME_TO_FI_PAGE_UNLOADED } from '../../constants/actionTypes';
 
 const mapStateToProps = state => ({
   ...state.fi,
@@ -23,6 +23,8 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   onSubmit: timeToFi =>
     dispatch({ type: FI_TIME_TO_FI, payload: agent.Fi.time(timeToFi) }),
+  onUnload: () =>
+    dispatch({ type: FI_TIME_TO_FI_PAGE_UNLOADED })
 });
 
 class TimeToFi extends React.Component {
@@ -70,6 +72,10 @@ class TimeToFi extends React.Component {
 
       this.props.onSubmit(timeToFi);
     };
+  }
+
+  componentWillUnmount() {
+    this.props.onUnload();
   }
 
   render() {
