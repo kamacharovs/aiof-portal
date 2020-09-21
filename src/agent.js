@@ -72,6 +72,8 @@ const Asset = {
 const Fi = {
   time: payload =>
     requestsMetadata.post('/fi/time/to/fi', payload),
+  compoundInterest: payload =>
+    requestsMetadata.post('/fi/compound/interest', payload),
 }
 
 
