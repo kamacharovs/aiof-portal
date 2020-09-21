@@ -2,7 +2,10 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
 import { makeStyles } from '@material-ui/core/styles';
+import Container from '@material-ui/core/Container';
+import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
+import { CoolLink } from '../../style/common';
 
 const mapStateToProps = state => ({
     ...state.fi,
@@ -22,6 +25,7 @@ class FI extends React.Component {
                 flexWrap: 'wrap',
                 '& > *': {
                     margin: theme.spacing(1),
+                    padding: theme.spacing(1),
                     width: theme.spacing(16),
                     height: theme.spacing(16),
                 },
@@ -33,7 +37,6 @@ class FI extends React.Component {
     }
 
     componentWillUnmount() {
-        this.props.onUnload();
     }
 
     render() {
@@ -42,10 +45,27 @@ class FI extends React.Component {
                 <Helmet>
                     <title>{this.props.appName} | FI</title>
                 </Helmet>
-                <div className={this.classes.root}>
-                    <Paper elevation={3}>
-                    </Paper>
-                </div>
+                <Container maxWidth="sm">
+                    <div className={this.classes.root}>
+                        <Paper elevation={3}>
+                            <Grid container spacing={1}>
+                                <Grid item xs={6}>
+                                    <ul className="navbar-nav">
+                                        <li className="nav-item">
+                                            <CoolLink to="/fi/time">Time to FI</CoolLink>
+                                        </li>
+                                        <li className="nav-item">
+                                            <CoolLink to="/">Link 2</CoolLink>
+                                        </li>
+                                        <li className="nav-item">
+                                            <CoolLink to="/">Link 3</CoolLink>
+                                        </li>
+                                    </ul>
+                                </Grid>
+                            </Grid>
+                        </Paper>
+                    </div>
+                </Container>
             </React.Fragment>
         );
     }
