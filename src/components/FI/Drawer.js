@@ -65,7 +65,7 @@ export const FIDrawer = props => {
 
     return (
         <React.Fragment key={anchor}>
-            <Button onClick={toggleDrawer(true)}>FI</Button>
+            <Button onClick={toggleDrawer(true)} style={{color: props.color}}>FI</Button>
             <Drawer anchor={anchor} open={state[anchor]} onClose={toggleDrawer(false)}>
                 {list}
             </Drawer>

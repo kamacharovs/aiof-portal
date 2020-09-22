@@ -30,7 +30,7 @@ class AddedTime extends React.Component {
 
         this.state = {
             monthlyInvestment: 10000,
-            totalAdditionalExpenses: 422000,
+            totalAdditionalExpense: 422000,
         };
 
         this.classes = makeStyles((theme) => ({
@@ -59,7 +59,7 @@ class AddedTime extends React.Component {
             ev.preventDefault();
             const addedTime = Object.assign({}, this.state);
             addedTime.monthlyInvestment = addedTime.monthlyInvestment ? Number(addedTime.monthlyInvestment) : null;
-            addedTime.totalAdditionalExpenses = addedTime.totalAdditionalExpenses ? Number(addedTime.totalAdditionalExpenses) : null;
+            addedTime.totalAdditionalExpense = addedTime.totalAdditionalExpense ? Number(addedTime.totalAdditionalExpense) : null;
             this.props.onSubmit(addedTime);
         };
     }
@@ -68,7 +68,7 @@ class AddedTime extends React.Component {
         if (this.props.addedTime) {
             this.setState({
                 monthlyInvestment: this.props.addedTime.monthlyInvestment,
-                totalAdditionalExpenses: this.props.addedTime.totalAdditionalExpenses,
+                totalAdditionalExpense: this.props.addedTime.totalAdditionalExpense,
             });
         }
     }
@@ -105,9 +105,9 @@ class AddedTime extends React.Component {
                                                 <AttachMoneyIcon />
                                             </Grid>
                                             <Grid item>
-                                                <TextField label="Additional expenses"
-                                                    value={this.state.totalAdditionalExpenses}
-                                                    onChange={this.updateState('totalAdditionalExpenses')} />
+                                                <TextField label="Additional expense"
+                                                    value={this.state.totalAdditionalExpense}
+                                                    onChange={this.updateState('totalAdditionalExpense')} />
                                             </Grid>
                                         </Grid>
                                     </div>
