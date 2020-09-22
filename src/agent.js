@@ -74,6 +74,8 @@ const Fi = {
     requestsMetadata.post('/fi/time/to/fi', payload),
   compoundInterest: payload =>
     requestsMetadata.post('/fi/compound/interest', payload),
+  addedTime: payload =>
+    requestsMetadata.post('/fi/added/time', payload),
 }
 
 

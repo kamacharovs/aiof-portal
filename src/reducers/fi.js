@@ -1,6 +1,7 @@
 import {
     FI_TIME_TO_FI,
     FI_COMPOUND_INTEREST,
+    FI_ADDED_TIME,
     FI_TIME_TO_FI_PAGE_UNLOADED,
 } from '../constants/actionTypes';
 
@@ -15,6 +16,11 @@ export default (state = {}, action) => {
             return {
                 ...state,
                 compoundInterest: action.payload
+            }
+        case FI_ADDED_TIME:
+            return {
+                ...state,
+                addedTime: action.payload
             }
         case FI_TIME_TO_FI_PAGE_UNLOADED:
             return { ...state, viewChangeCounter: state.viewChangeCounter + 1 };

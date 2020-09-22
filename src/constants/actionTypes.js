@@ -44,4 +44,5 @@ export const ASSET_ADD = 'ASSET_ADD';
 
 export const FI_TIME_TO_FI = 'FI_TIME_TO_FI';
 export const FI_COMPOUND_INTEREST = 'FI_COMPOUND_INTEREST';
+export const FI_ADDED_TIME = 'FI_ADDED_TIME';
 export const FI_TIME_TO_FI_PAGE_UNLOADED = 'FI_TIME_TO_FI_PAGE_UNLOADED';

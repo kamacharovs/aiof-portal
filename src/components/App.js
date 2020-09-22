@@ -15,6 +15,7 @@ import FinanceMainView from '../components/Finance/FinanceMainView';
 import Register from '../components/Register';
 import FI from '../components/FI';
 import TimeToFi from '../components/FI/TimeToFi';
+import AddedTime from '../components/FI/AddedTime';
 import CompoundInterest from '../components/FI/CompoundInterest';
 import { store } from '../store';
 import { push } from 'react-router-redux';
@@ -78,6 +79,7 @@ class App extends React.Component {
             <Route exact path="/@:username/settings" component={ProfileSettings} />
             <Route exact path="/@:username" component={Profile} />
             <Route exact path="/fi" component={FI} />
+            <Route exact path="/fi/added/time" component={AddedTime} />
             <Route exact path="/fi/time" component={TimeToFi} />
             <Route exact path="/fi/compound/interest" component={CompoundInterest} />
           </Switch>

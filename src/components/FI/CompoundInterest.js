@@ -91,7 +91,7 @@ class CompoundInterest extends React.Component {
     return (
       <React.Fragment>
         <Helmet>
-          <title>{this.props.appName} | Compound Interest</title>
+          <title>{this.props.appName} | Compound interest</title>
         </Helmet>
         <Container maxWidth="sm">
           <AiofPaper elevation={3}>
