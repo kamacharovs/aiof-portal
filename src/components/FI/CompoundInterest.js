@@ -7,9 +7,9 @@ import Container from '@material-ui/core/Container';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
-import Paper from '@material-ui/core/Paper';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import { numberWithCommas } from '../Finance/Common';
+import { AiofPaper } from '../../style/mui';
 import { FI_COMPOUND_INTEREST } from '../../constants/actionTypes';
 
 const mapStateToProps = state => ({
@@ -94,7 +94,7 @@ class CompoundInterest extends React.Component {
           <title>{this.props.appName} | Compound Interest</title>
         </Helmet>
         <Container maxWidth="sm">
-          <Paper elevation={3} style={{ padding: "1rem" }}>
+          <AiofPaper elevation={3}>
             <form className={this.classes.root} noValidate autoComplete="off" onSubmit={this.submitForm}>
               <Grid container spacing={3}>
                 <Grid item xs={6}>
@@ -103,7 +103,7 @@ class CompoundInterest extends React.Component {
                       value={this.state.startingAmount}
                       onChange={this.updateState('startingAmount')}
                       InputProps={{
-                        startAdornment: <InputAdornment position="start">$</InputAdornment>,
+                        startAdornment: <InputAdornment position="start">$</InputAdornment>
                       }} />
                   </div>
                 </Grid>
@@ -114,7 +114,7 @@ class CompoundInterest extends React.Component {
                       value={this.state.monthlyInvestment}
                       onChange={this.updateState('monthlyInvestment')}
                       InputProps={{
-                        startAdornment: <InputAdornment position="start">$</InputAdornment>,
+                        startAdornment: <InputAdornment position="start">$</InputAdornment>
                       }} />
                   </div>
                 </Grid>
@@ -125,7 +125,7 @@ class CompoundInterest extends React.Component {
                       value={this.state.interest}
                       onChange={this.updateState('interest')}
                       InputProps={{
-                        startAdornment: <InputAdornment position="start">%</InputAdornment>,
+                        startAdornment: <InputAdornment position="start">%</InputAdornment>
                       }} />
                   </div>
                 </Grid>
@@ -144,7 +144,7 @@ class CompoundInterest extends React.Component {
                       value={this.state.investmentFees}
                       onChange={this.updateState('investmentFees')}
                       InputProps={{
-                        startAdornment: <InputAdornment position="start">%</InputAdornment>,
+                        startAdornment: <InputAdornment position="start">%</InputAdornment>
                       }} />
                   </div>
                 </Grid>
@@ -155,7 +155,7 @@ class CompoundInterest extends React.Component {
                       value={this.state.taxDrag}
                       onChange={this.updateState('taxDrag')}
                       InputProps={{
-                        startAdornment: <InputAdornment position="start">%</InputAdornment>,
+                        startAdornment: <InputAdornment position="start">%</InputAdornment>
                       }} />
                   </div>
                 </Grid>
@@ -167,7 +167,7 @@ class CompoundInterest extends React.Component {
                 </Grid>
               </Grid>
             </form>
-          </Paper>
+          </AiofPaper>
 
           <CompoundInterestResults compoundInterest={this.props.compoundInterest} />
 
@@ -180,7 +180,7 @@ class CompoundInterest extends React.Component {
 const CompoundInterestResults = props => {
   if (props.compoundInterest) {
     return (
-      <Paper elevation={3} style={{padding: "1rem", marginTop: "1rem"}}>
+      <AiofPaper elevation={3}>
         <h3>Results</h3>
         <hr />
         {
@@ -256,7 +256,7 @@ const CompoundInterestResults = props => {
             );
           })
         }
-      </Paper>
+      </AiofPaper>
     );
   }
   return null

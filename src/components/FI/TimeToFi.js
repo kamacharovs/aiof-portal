@@ -173,9 +173,8 @@ class TimeToFi extends React.Component {
 const TimeToFiResults = props => {
   if (props.time) {
     return (
-      <AiofBox>
-        <h3>Results</h3>
-        <hr />
+      <React.Fragment>
+      <AiofBox style={{fontSize: ".8125rem"}}>
         <Grid container spacing={1}>
           <Grid item xs={6}>
             <b>Starting amount</b>:
@@ -218,9 +217,8 @@ const TimeToFiResults = props => {
           <Grid item xs={6}>
             <i style={{ color: "red" }}>${numberWithCommas(props.time.currentDeficit)}</i>
           </Grid>
-
         </Grid>
-        <hr />
+        <hr/>
         <Table responsive="sm"
           borderless={true}>
           <thead>
@@ -243,6 +241,7 @@ const TimeToFiResults = props => {
           </tbody>
         </Table>
       </AiofBox>
+      </React.Fragment>
     );
   }
   return null
