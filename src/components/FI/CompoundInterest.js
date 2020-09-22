@@ -99,7 +99,7 @@ class CompoundInterest extends React.Component {
               <Grid container spacing={3}>
                 <Grid item xs={6}>
                   <div className={this.classes.margin}>
-                    <TextField id="input-with-icon-grid" label="Starting amount"
+                    <TextField label="Starting amount"
                       value={this.state.startingAmount}
                       onChange={this.updateState('startingAmount')}
                       InputProps={{
@@ -110,7 +110,7 @@ class CompoundInterest extends React.Component {
 
                 <Grid item xs={6}>
                   <div className={this.classes.margin}>
-                    <TextField id="input-with-icon-grid" label="Monthly investment"
+                    <TextField label="Monthly investment"
                       value={this.state.monthlyInvestment}
                       onChange={this.updateState('monthlyInvestment')}
                       InputProps={{
@@ -121,7 +121,7 @@ class CompoundInterest extends React.Component {
 
                 <Grid item xs={6}>
                   <div className={this.classes.margin}>
-                    <TextField id="input-with-icon-grid" label="Interest"
+                    <TextField label="Interest"
                       value={this.state.interest}
                       onChange={this.updateState('interest')}
                       InputProps={{
@@ -132,7 +132,7 @@ class CompoundInterest extends React.Component {
 
                 <Grid item xs={6}>
                   <div className={this.classes.margin}>
-                    <TextField id="input-with-icon-grid" label="Years"
+                    <TextField label="Years"
                       value={this.state.numberOfYears}
                       onChange={this.updateState('numberOfYears')} />
                   </div>
@@ -140,7 +140,7 @@ class CompoundInterest extends React.Component {
 
                 <Grid item xs={6}>
                   <div className={this.classes.margin}>
-                    <TextField id="input-with-icon-grid" label="Investment Fees"
+                    <TextField label="Investment Fees"
                       value={this.state.investmentFees}
                       onChange={this.updateState('investmentFees')}
                       InputProps={{
@@ -151,7 +151,7 @@ class CompoundInterest extends React.Component {
 
                 <Grid item xs={6}>
                   <div className={this.classes.margin}>
-                    <TextField id="input-with-icon-grid" label="Tax Drag"
+                    <TextField label="Tax Drag"
                       value={this.state.taxDrag}
                       onChange={this.updateState('taxDrag')}
                       InputProps={{
@@ -186,72 +186,72 @@ const CompoundInterestResults = props => {
         {
           props.compoundInterest.map(ci => {
             return (
-              <React.Fragment>
-              <Grid container spacing={1}>
-                <Grid item xs={6}>
-                  <b>Beginning</b>:
-          </Grid>
-                <Grid item xs={6}>
-                  <i style={{ color: "green" }}>${numberWithCommas(ci.compoundedBeginning)}</i>
-                </Grid>
+              <React.Fragment key={ci.frequency}>
+                <Grid container spacing={1}>
+                  <Grid item xs={6}>
+                    <b>Beginning</b>
+                  </Grid>
+                  <Grid item xs={6}>
+                    <i style={{ color: "green" }}>${numberWithCommas(ci.compoundedBeginning)}</i>
+                  </Grid>
 
-                <Grid item xs={6}>
-                  <b>End</b>:
-          </Grid>
-                <Grid item xs={6}>
-                  <i style={{ color: "green" }}>${numberWithCommas(ci.compoundedEnd)}</i>
-                </Grid>
+                  <Grid item xs={6}>
+                    <b>End</b>
+                  </Grid>
+                  <Grid item xs={6}>
+                    <i style={{ color: "green" }}>${numberWithCommas(ci.compoundedEnd)}</i>
+                  </Grid>
 
-                <Grid item xs={6}>
-                  <b>Starting amount</b>:
-          </Grid>
-                <Grid item xs={6}>
-                  <i style={{ color: "green" }}>${numberWithCommas(ci.startingAmount)}</i>
-                </Grid>
+                  <Grid item xs={6}>
+                    <b>Starting amount</b>
+                  </Grid>
+                  <Grid item xs={6}>
+                    <i style={{ color: "green" }}>${numberWithCommas(ci.startingAmount)}</i>
+                  </Grid>
 
-                <Grid item xs={6}>
-                  <b>Monthly investment</b>:
-          </Grid>
-                <Grid item xs={6}>
-                  <i style={{ color: "green" }}>${numberWithCommas(ci.monthlyInvestment)}</i>
-                </Grid>
+                  <Grid item xs={6}>
+                    <b>Monthly investment</b>
+                  </Grid>
+                  <Grid item xs={6}>
+                    <i style={{ color: "green" }}>${numberWithCommas(ci.monthlyInvestment)}</i>
+                  </Grid>
 
-                <Grid item xs={6}>
-                  <b>Interest</b>:
-          </Grid>
-                <Grid item xs={6}>
-                  <i style={{ color: "green" }}>{ci.interest}%</i>
-                </Grid>
+                  <Grid item xs={6}>
+                    <b>Interest</b>
+                  </Grid>
+                  <Grid item xs={6}>
+                    <i style={{ color: "green" }}>{ci.interest}%</i>
+                  </Grid>
 
-                <Grid item xs={6}>
-                  <b>Years</b>:
-          </Grid>
-                <Grid item xs={6}>
-                  <i style={{ color: "green" }}>{ci.numberOfYears}</i>
-                </Grid>
+                  <Grid item xs={6}>
+                    <b>Years</b>
+                  </Grid>
+                  <Grid item xs={6}>
+                    <i style={{ color: "green" }}>{ci.numberOfYears}</i>
+                  </Grid>
 
-                <Grid item xs={6}>
-                  <b>Frequency</b>:
-          </Grid>
-                <Grid item xs={6}>
-                  <i style={{ color: "green" }}>{ci.frequency}</i>
-                </Grid>
+                  <Grid item xs={6}>
+                    <b>Frequency</b>
+                  </Grid>
+                  <Grid item xs={6}>
+                    <i style={{ color: "green" }}>{ci.frequency}</i>
+                  </Grid>
 
-                <Grid item xs={6}>
-                  <b>Investment fees</b>:
-          </Grid>
-                <Grid item xs={6}>
-                  <i style={{ color: "red" }}>{ci.investmentFees}%</i>
-                </Grid>
+                  <Grid item xs={6}>
+                    <b>Investment fees</b>
+                  </Grid>
+                  <Grid item xs={6}>
+                    <i style={{ color: "red" }}>{ci.investmentFees}%</i>
+                  </Grid>
 
-                <Grid item xs={6}>
-                  <b>Tax drag</b>:
-          </Grid>
-                <Grid item xs={6}>
-                  <i style={{ color: "red" }}>{ci.taxDrag}%</i>
+                  <Grid item xs={6}>
+                    <b>Tax drag</b>
+                  </Grid>
+                  <Grid item xs={6}>
+                    <i style={{ color: "red" }}>{ci.taxDrag}%</i>
+                  </Grid>
                 </Grid>
-              </Grid>
-              <hr/>
+                <hr />
               </React.Fragment>
             );
           })

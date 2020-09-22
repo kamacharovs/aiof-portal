@@ -177,42 +177,42 @@ const TimeToFiResults = props => {
       <AiofBox style={{fontSize: ".8125rem"}}>
         <Grid container spacing={1}>
           <Grid item xs={6}>
-            <b>Starting amount</b>:
+            <b>Starting amount</b>
           </Grid>
           <Grid item xs={6}>
             <i style={{ color: "green" }}>${numberWithCommas(props.time.startingAmount)}</i>
           </Grid>
 
           <Grid item xs={6}>
-            <b>Monthly investment</b>:
+            <b>Monthly investment</b>
           </Grid>
           <Grid item xs={6}>
             <i style={{ color: "green" }}>${numberWithCommas(props.time.monthlyInvestment)}</i>
           </Grid>
 
           <Grid item xs={6}>
-            <b>Desired years expenses for FI</b>:
+            <b>Desired years expenses for FI</b>
           </Grid>
           <Grid item xs={6}>
             <i style={{ color: "green" }}>{props.time.desiredYearsExpensesForFi}</i>
           </Grid>
 
           <Grid item xs={6}>
-            <b>Desired annual spending</b>:
+            <b>Desired annual spending</b>
           </Grid>
           <Grid item xs={6}>
             <i style={{ color: "green" }}>${numberWithCommas(props.time.desiredAnnualSpending)}</i>
           </Grid>
 
           <Grid item xs={6}>
-            <b>Desired retirement savings for FI</b>:
+            <b>Desired retirement savings for FI</b>
           </Grid>
           <Grid item xs={6}>
             <i style={{ color: "green" }}>${numberWithCommas(props.time.desiredRetirementSavingsForFi)}</i>
           </Grid>
 
           <Grid item xs={6}>
-            <b>Current deficit</b>:
+            <b>Current deficit</b>
           </Grid>
           <Grid item xs={6}>
             <i style={{ color: "red" }}>${numberWithCommas(props.time.currentDeficit)}</i>
@@ -231,7 +231,7 @@ const TimeToFiResults = props => {
             {
               props.time.years.map(year => {
                 return (
-                  <tr>
+                  <tr key={year.interest}>
                     <td>{year.interest}%</td>
                     <td>{year.years}</td>
                   </tr>
