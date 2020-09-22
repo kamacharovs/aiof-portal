@@ -11,7 +11,7 @@ import AttachMoneyIcon from '@material-ui/icons/AttachMoney';
 import ArrowUpwardIcon from '@material-ui/icons/ArrowUpward';
 import Table from 'react-bootstrap/Table';
 import { numberWithCommas } from '../Finance/Common';
-import { AiofBox } from '../../style/common';
+import { AiofPaper } from '../../style/mui';
 import { FI_TIME_TO_FI } from '../../constants/actionTypes';
 
 const mapStateToProps = state => ({
@@ -90,7 +90,7 @@ class TimeToFi extends React.Component {
           <title>{this.props.appName} | Time to FI</title>
         </Helmet>
         <Container maxWidth="sm">
-          <AiofBox>
+          <AiofPaper elevation={3}>
             <form className={this.classes.root} noValidate autoComplete="off" onSubmit={this.submitForm}>
               <Grid container spacing={3}>
                 <Grid item xs={6}>
@@ -160,7 +160,7 @@ class TimeToFi extends React.Component {
                 </Grid>
               </Grid>
             </form>
-          </AiofBox>
+          </AiofPaper>
 
           <TimeToFiResults time={this.props.time} />
 
@@ -174,7 +174,7 @@ const TimeToFiResults = props => {
   if (props.time) {
     return (
       <React.Fragment>
-      <AiofBox style={{fontSize: ".8125rem"}}>
+      <AiofPaper elevation={3}>
         <Grid container spacing={1}>
           <Grid item xs={6}>
             <b>Starting amount</b>
@@ -240,7 +240,7 @@ const TimeToFiResults = props => {
             }
           </tbody>
         </Table>
-      </AiofBox>
+      </AiofPaper>
       </React.Fragment>
     );
   }
