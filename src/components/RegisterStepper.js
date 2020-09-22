@@ -37,6 +37,9 @@ class RegisterStepper extends React.Component {
             root: {
                 width: '100%',
             },
+            margin: {
+              margin: theme.spacing(1),
+            },
             backButton: {
                 marginRight: theme.spacing(1),
             },
@@ -45,7 +48,7 @@ class RegisterStepper extends React.Component {
                 marginBottom: theme.spacing(1),
             },
         }));
-        
+
         this.getSteps = () => {
             return ['Update income', 'Update assets', 'Update liabilities'];
         }
@@ -67,6 +70,10 @@ class RegisterStepper extends React.Component {
             this.setState({ prevActiveStep: 0 });
         };
 
+        this.handleSave = () => {
+            //TODO: Call API to save
+        }
+
         this.updateState = field => ev => {
             const state = this.state;
             const newState = Object.assign({}, state, { [field]: ev.target.value });
@@ -77,31 +84,48 @@ class RegisterStepper extends React.Component {
             switch (this.state.activeStep) {
                 case 0:         //Update income
                     return (
-                        <React.Fragment>
-                            <Container maxWidth="sm">
-                                <AiofPaper elevation={3}>
-                                    <Grid container spacing={3}>
+                        <Grid container spacing={3}>
 
-                                        <Grid item xs={6}>
-                                            <div className={this.classes.margin}>
-                                                <TextField label="Gross salary"
-                                                    value={this.state.grossSalary}
-                                                    onChange={this.updateState('grossSalary')}
-                                                    InputProps={{
-                                                        startAdornment: <InputAdornment position="start">$</InputAdornment>
-                                                    }} />
-                                            </div>
-                                        </Grid>
+                            <Grid item md={12} style={{textAlign: "center"}}>
+                                <h3>Income</h3>
+                                <hr/>
+                            </Grid>
 
-                                    </Grid>
-                                </AiofPaper>
-                            </Container>
-                        </React.Fragment>
+                            <Grid item xs={6}>
+                                <div className={this.classes.margin}>
+                                    <TextField label="Gross salary"
+                                        value={this.state.grossSalary}
+                                        onChange={this.updateState('grossSalary')}
+                                        InputProps={{
+                                            startAdornment: <InputAdornment position="start">$</InputAdornment>
+                                        }} />
+                                </div>
+                            </Grid>
+
+                        </Grid>
                     );
                 case 1:
-                    return 'Update assets';
+                    return (
+                        <Grid container spacing={3}>
+
+                            <Grid item md={12} style={{textAlign: "center"}}>
+                                <h3>Assets</h3>
+                                <hr/>
+                            </Grid>
+
+                        </Grid>
+                    );
                 case 2:
-                    return 'Update liabilities';
+                    return (
+                        <Grid container spacing={3}>
+
+                            <Grid item md={12} style={{textAlign: "center"}}>
+                                <h3>Liabilities</h3>
+                                <hr/>
+                            </Grid>
+
+                        </Grid>
+                    );
                 default:
                     return 'Unknown stepIndex';
             }
@@ -122,31 +146,36 @@ class RegisterStepper extends React.Component {
                             </Step>
                         ))}
                     </Stepper>
-                    <div>
-                        {this.state.activeStep === this.steps.length ? (
-                            <div>
-                                <Typography className={this.classes.instructions}>All steps completed</Typography>
-                                <Button onClick={this.handleReset}>Reset</Button>
-                            </div>
-                        ) : (
+                    <Container maxWidth="md">
+                        <AiofPaper elevation={3}>
+                            {this.state.activeStep === this.steps.length ? (
                                 <div>
-                                    <Typography className={this.classes.instructions}>{this.getStepContent}</Typography>
-                                    <div>
-                                        <Button
-                                            disabled={this.state.activeStep === 0}
-                                            onClick={this.handleBack}
-                                            className={this.classes.backButton} >
-                                            Back
-                                </Button>
-                                        <Button
-                                            onClick={this.handleNext}
-                                            className={this.classes.backButton} >
-                                            {this.state.activeStep === this.steps.length - 1 ? 'Finish' : 'Next'}
-                                        </Button>
-                                    </div>
+                                    <p>All steps completed</p>
+                                    <Button onClick={this.handleReset}>Reset</Button>
+                                    <Button onClick={this.handleSave}>Save</Button>
                                 </div>
-                            )}
-                    </div>
+                            ) : (
+                                    <div>
+                                        <AiofPaper elevation={3}>
+                                            {this.getStepContent}
+                                        </AiofPaper>
+                                        <div>
+                                            <Button
+                                                disabled={this.state.activeStep === 0}
+                                                onClick={this.handleBack}
+                                                className={this.classes.backButton} >
+                                                Back
+                                        </Button>
+                                            <Button
+                                                onClick={this.handleNext}
+                                                className={this.classes.backButton} >
+                                                {this.state.activeStep === this.steps.length - 1 ? 'Finish' : 'Next'}
+                                            </Button>
+                                        </div>
+                                    </div>
+                                )}
+                        </AiofPaper>
+                    </Container>
                 </div>
             </React.Fragment>
         );
