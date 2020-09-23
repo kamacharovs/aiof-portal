@@ -18,11 +18,6 @@ import FormHelperText from '@material-ui/core/FormHelperText';
 import FormControl from '@material-ui/core/FormControl';
 import { AiofPaper } from '../style/mui';
 
-import DateFnsUtils from '@date-io/date-fns';
-import {
-    MuiPickersUtilsProvider,
-    KeyboardDatePicker,
-} from '@material-ui/pickers';
 
 const mapStateToProps = state => ({
     ...state.auth,
@@ -103,6 +98,10 @@ class RegisterStepper extends React.Component {
                 case 0:         //Profile
                     return (
                         <React.Fragment>
+                            <p>
+                                Please update your profile. These fields are all <i>optional</i>. However, they will help <b>{this.props.appName}</b> generate better financial results for you
+                            </p>
+                            <hr/>
                             <Grid container spacing={3}>
                                 <Grid item xs={4}>
                                     <div>
@@ -123,28 +122,6 @@ class RegisterStepper extends React.Component {
                                     </div>
                                 </Grid>
 
-                            </Grid>
-
-                            <Grid container spacing={3}>
-                                <Grid item xs={4}>
-                                    <MuiPickersUtilsProvider utils={DateFnsUtils}>
-                                        <KeyboardDatePicker
-                                            fullWidth
-                                            margin="normal"
-                                            id="dob-date-picker"
-                                            label="Date of birth"
-                                            format="MM/dd/yyyy"
-                                            value={this.state.dateOfBirth}
-                                            onChange={this.updateState('dateOfBirth')}
-                                            KeyboardButtonProps={{
-                                                'date of birth': 'change date',
-                                            }}
-                                        />
-                                    </MuiPickersUtilsProvider>
-                                </Grid>
-                            </Grid>
-
-                            <Grid container spacing={3}>
                                 <Grid item xs={4}>
                                     <TextField
                                         fullWidth
@@ -152,9 +129,7 @@ class RegisterStepper extends React.Component {
                                         value={this.state.age}
                                         onChange={this.updateState('age')} />
                                 </Grid>
-                            </Grid>
 
-                            <Grid container spacing={3}>
                                 <Grid item xs={4}>
                                     <div>
                                         <FormControl style={{ minWidth: "100%" }}>
@@ -186,6 +161,7 @@ class RegisterStepper extends React.Component {
                                             InputProps={{
                                                 startAdornment: <InputAdornment position="start">$</InputAdornment>
                                             }} />
+                                        <FormHelperText>Post-tax</FormHelperText>
                                     </div>
                                 </Grid>
                             </Grid>
@@ -201,6 +177,7 @@ class RegisterStepper extends React.Component {
                                             InputProps={{
                                                 startAdornment: <InputAdornment position="start">$</InputAdornment>
                                             }} />
+                                        <FormHelperText>Pre-tax</FormHelperText>
                                     </div>
                                 </Grid>
 
@@ -223,7 +200,7 @@ class RegisterStepper extends React.Component {
                                                 <MenuItem value={5}>5 Adults</MenuItem>
                                                 <MenuItem value={6}>6+ Adults</MenuItem>
                                             </Select>
-                                            <FormHelperText># of adults in household</FormHelperText>
+                                            <FormHelperText>Number of adults in household</FormHelperText>
                                         </FormControl>
                                     </div>
                                 </Grid>
@@ -247,7 +224,7 @@ class RegisterStepper extends React.Component {
                                                 <MenuItem value={5}>5 Children</MenuItem>
                                                 <MenuItem value={6}>6+ Children</MenuItem>
                                             </Select>
-                                            <FormHelperText># of children in household</FormHelperText>
+                                            <FormHelperText>Number of children in household</FormHelperText>
                                         </FormControl>
                                     </div>
                                 </Grid>
@@ -264,6 +241,7 @@ class RegisterStepper extends React.Component {
                                             InputProps={{
                                                 startAdornment: <InputAdornment position="start">$</InputAdornment>
                                             }} />
+                                        <FormHelperText>Pre-tax</FormHelperText>
                                     </div>
                                 </Grid>
                             </Grid>
