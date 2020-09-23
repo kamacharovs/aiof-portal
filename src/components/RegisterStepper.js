@@ -14,6 +14,8 @@ import InputAdornment from '@material-ui/core/InputAdornment';
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import Select from '@material-ui/core/Select';
+import FormHelperText from '@material-ui/core/FormHelperText';
+import FormControl from '@material-ui/core/FormControl';
 import { AiofPaper } from '../style/mui';
 
 import DateFnsUtils from '@date-io/date-fns';
@@ -42,14 +44,14 @@ class RegisterStepper extends React.Component {
             dateOfBirth: '01/01/1999',
             age: '',
             grossSalary: '',
+            householdIncome: '',
+            householdAdults: 1,
+            householdChildren: 0,
         }
 
         this.classes = makeStyles((theme) => ({
             root: {
                 width: '100%',
-            },
-            halfWidth: {
-                width: '50%',
             },
             margin: {
                 margin: theme.spacing(1),
@@ -101,18 +103,22 @@ class RegisterStepper extends React.Component {
                         <React.Fragment>
                             <Grid container spacing={3}>
                                 <Grid item xs={4}>
-                                    <InputLabel id="gender-label">Gender</InputLabel>
-                                    <Select
-                                        fullWidth
-                                        labelId="gender-label"
-                                        id="gender-select"
-                                        value={this.state.gender}
-                                        onChange={this.updateState('gender')}
-                                    >
-                                        <MenuItem value={"male"}>Male</MenuItem>
-                                        <MenuItem value={"female"}>Female</MenuItem>
-                                        <MenuItem value={"other"}>Other</MenuItem>
-                                    </Select>
+                                    <div>
+                                        <FormControl style={{ minWidth: "100%" }}>
+                                            <InputLabel id="gender-label">Gender</InputLabel>
+                                            <Select
+                                                fullWidth
+                                                labelId="gender-label"
+                                                id="gender-select"
+                                                value={this.state.gender}
+                                                onChange={this.updateState('gender')}
+                                            >
+                                                <MenuItem value={"male"}>Male</MenuItem>
+                                                <MenuItem value={"female"}>Female</MenuItem>
+                                                <MenuItem value={"other"}>Other</MenuItem>
+                                            </Select>
+                                        </FormControl>
+                                    </div>
                                 </Grid>
 
                             </Grid>
@@ -159,10 +165,71 @@ class RegisterStepper extends React.Component {
                                             }} />
                                     </div>
                                 </Grid>
-
-
-
                             </Grid>
+
+                            <Grid container spacing={3}>
+                                <Grid item xs={4}>
+                                    <div className={this.classes.margin}>
+                                        <TextField
+                                            fullWidth
+                                            label="Household income"
+                                            value={this.state.householdIncome}
+                                            onChange={this.updateState('householdIncome')}
+                                            InputProps={{
+                                                startAdornment: <InputAdornment position="start">$</InputAdornment>
+                                            }} />
+                                    </div>
+                                </Grid>
+
+                                <Grid item xs={4}>
+                                    <div>
+                                        <FormControl style={{ minWidth: "100%" }}>
+                                            <InputLabel id="household-adults-label">Household adults</InputLabel>
+                                            <Select
+                                                fullWidth
+                                                labelId="household-adults-label"
+                                                id="household-adults-select"
+                                                value={this.state.householdAdults}
+                                                onChange={this.updateState('householdAdults')}
+                                            >
+                                                <MenuItem value={0}>0 Adults</MenuItem>
+                                                <MenuItem value={1}>1 Adult</MenuItem>
+                                                <MenuItem value={2}>2 Adults</MenuItem>
+                                                <MenuItem value={3}>3 Adults</MenuItem>
+                                                <MenuItem value={4}>4 Adults</MenuItem>
+                                                <MenuItem value={5}>5 Adults</MenuItem>
+                                                <MenuItem value={6}>6+ Adults</MenuItem>
+                                            </Select>
+                                            <FormHelperText># of adults in household</FormHelperText>
+                                        </FormControl>
+                                    </div>
+                                </Grid>
+
+                                <Grid item xs={4}>
+                                    <div>
+                                        <FormControl style={{ minWidth: "100%" }}>
+                                            <InputLabel id="household-children-label">Household children</InputLabel>
+                                            <Select
+                                                fullWidth
+                                                labelId="household-children-label"
+                                                id="household-children-select"
+                                                value={this.state.householdChildren}
+                                                onChange={this.updateState('householdChildren')}
+                                            >
+                                                <MenuItem value={0}>0 Children</MenuItem>
+                                                <MenuItem value={1}>1 Child</MenuItem>
+                                                <MenuItem value={2}>2 Children</MenuItem>
+                                                <MenuItem value={3}>3 Children</MenuItem>
+                                                <MenuItem value={4}>4 Children</MenuItem>
+                                                <MenuItem value={5}>5 Children</MenuItem>
+                                                <MenuItem value={6}>6+ Children</MenuItem>
+                                            </Select>
+                                            <FormHelperText># of hildren in household</FormHelperText>
+                                        </FormControl>
+                                    </div>
+                                </Grid>
+                            </Grid>
+
                         </React.Fragment>
                     );
                 case 1:
