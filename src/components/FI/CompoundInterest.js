@@ -181,8 +181,6 @@ const CompoundInterestResults = props => {
   if (props.compoundInterest) {
     return (
       <AiofPaper elevation={3}>
-        <h3>Results</h3>
-        <hr />
         {
           props.compoundInterest.map(ci => {
             return (
