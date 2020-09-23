@@ -6,13 +6,21 @@ import Stepper from '@material-ui/core/Stepper';
 import Step from '@material-ui/core/Step';
 import StepLabel from '@material-ui/core/StepLabel';
 import Button from '@material-ui/core/Button';
-import Typography from '@material-ui/core/Typography';
 
 import Container from '@material-ui/core/Container';
 import TextField from '@material-ui/core/TextField';
 import Grid from '@material-ui/core/Grid';
 import InputAdornment from '@material-ui/core/InputAdornment';
+import InputLabel from '@material-ui/core/InputLabel';
+import MenuItem from '@material-ui/core/MenuItem';
+import Select from '@material-ui/core/Select';
 import { AiofPaper } from '../style/mui';
+
+import DateFnsUtils from '@date-io/date-fns';
+import {
+    MuiPickersUtilsProvider,
+    KeyboardDatePicker,
+} from '@material-ui/pickers';
 
 const mapStateToProps = state => ({
     ...state.auth,
@@ -30,15 +38,21 @@ class RegisterStepper extends React.Component {
         this.state = {
             activeStep: 0,
             prevActiveStep: 0,
-            grossSalary: null,
+            gender: '',
+            dateOfBirth: '01/01/1999',
+            age: '',
+            grossSalary: '',
         }
 
         this.classes = makeStyles((theme) => ({
             root: {
                 width: '100%',
             },
+            halfWidth: {
+                width: '50%',
+            },
             margin: {
-              margin: theme.spacing(1),
+                margin: theme.spacing(1),
             },
             backButton: {
                 marginRight: theme.spacing(1),
@@ -50,7 +64,7 @@ class RegisterStepper extends React.Component {
         }));
 
         this.getSteps = () => {
-            return ['Update income', 'Update assets', 'Update liabilities'];
+            return ['Profile', 'Assets', 'Liabilities'];
         }
 
         this.steps = this.getSteps();
@@ -82,35 +96,82 @@ class RegisterStepper extends React.Component {
 
         this.getStepContent = () => {
             switch (this.state.activeStep) {
-                case 0:         //Update income
+                case 0:         //Profile
                     return (
-                        <Grid container spacing={3}>
+                        <React.Fragment>
+                            <Grid container spacing={3}>
+                                <Grid item xs={4}>
+                                    <InputLabel id="gender-label">Gender</InputLabel>
+                                    <Select
+                                        fullWidth
+                                        labelId="gender-label"
+                                        id="gender-select"
+                                        value={this.state.gender}
+                                        onChange={this.updateState('gender')}
+                                    >
+                                        <MenuItem value={"male"}>Male</MenuItem>
+                                        <MenuItem value={"female"}>Female</MenuItem>
+                                        <MenuItem value={"other"}>Other</MenuItem>
+                                    </Select>
+                                </Grid>
 
-                            <Grid item md={12} style={{textAlign: "center"}}>
-                                <h3>Income</h3>
-                                <hr/>
                             </Grid>
 
-                            <Grid item xs={6}>
-                                <div className={this.classes.margin}>
-                                    <TextField label="Gross salary"
-                                        value={this.state.grossSalary}
-                                        onChange={this.updateState('grossSalary')}
-                                        InputProps={{
-                                            startAdornment: <InputAdornment position="start">$</InputAdornment>
-                                        }} />
-                                </div>
+                            <Grid container spacing={3}>
+                                <Grid item xs={4}>
+                                    <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                                        <KeyboardDatePicker
+                                            fullWidth
+                                            margin="normal"
+                                            id="dob-date-picker"
+                                            label="Date of birth"
+                                            format="MM/dd/yyyy"
+                                            value={this.state.dateOfBirth}
+                                            onChange={this.updateState('dateOfBirth')}
+                                            KeyboardButtonProps={{
+                                                'date of birth': 'change date',
+                                            }}
+                                        />
+                                    </MuiPickersUtilsProvider>
+                                </Grid>
                             </Grid>
 
-                        </Grid>
+                            <Grid container spacing={3}>
+                                <Grid item xs={4}>
+                                    <TextField
+                                        fullWidth
+                                        label="Age"
+                                        value={this.state.age}
+                                        onChange={this.updateState('age')} />
+                                </Grid>
+                            </Grid>
+
+                            <Grid container spacing={3}>
+                                <Grid item xs={4}>
+                                    <div className={this.classes.margin}>
+                                        <TextField
+                                            fullWidth
+                                            label="Gross salary"
+                                            value={this.state.grossSalary}
+                                            onChange={this.updateState('grossSalary')}
+                                            InputProps={{
+                                                startAdornment: <InputAdornment position="start">$</InputAdornment>
+                                            }} />
+                                    </div>
+                                </Grid>
+
+
+
+                            </Grid>
+                        </React.Fragment>
                     );
                 case 1:
                     return (
                         <Grid container spacing={3}>
 
-                            <Grid item md={12} style={{textAlign: "center"}}>
+                            <Grid item md={12} style={{ textAlign: "center" }}>
                                 <h3>Assets</h3>
-                                <hr/>
+                                <hr />
                             </Grid>
 
                         </Grid>
@@ -119,9 +180,9 @@ class RegisterStepper extends React.Component {
                     return (
                         <Grid container spacing={3}>
 
-                            <Grid item md={12} style={{textAlign: "center"}}>
+                            <Grid item md={12} style={{ textAlign: "center" }}>
                                 <h3>Liabilities</h3>
-                                <hr/>
+                                <hr />
                             </Grid>
 
                         </Grid>
@@ -159,6 +220,7 @@ class RegisterStepper extends React.Component {
                                         <AiofPaper elevation={3}>
                                             {this.getStepContent}
                                         </AiofPaper>
+                                        <hr />
                                         <div>
                                             <Button
                                                 disabled={this.state.activeStep === 0}
