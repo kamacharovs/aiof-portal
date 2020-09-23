@@ -37,7 +37,8 @@ class RegisterStepper extends React.Component {
             prevActiveStep: 0,
             gender: '',
             maritalStatus: '',
-            dateOfBirth: '01/01/1999',
+            occupation: '',
+            occupationIndustry: '',
             age: '',
             grossSalary: '',
             householdIncome: '',
@@ -102,6 +103,7 @@ class RegisterStepper extends React.Component {
                                 Please update your profile. These fields are all <i>optional</i>. However, they will help <b>{this.props.appName}</b> generate better financial results for you
                             </p>
                             <hr/>
+
                             <Grid container spacing={3}>
                                 <Grid item xs={4}>
                                     <div>
@@ -147,6 +149,24 @@ class RegisterStepper extends React.Component {
                                             </Select>
                                         </FormControl>
                                     </div>
+                                </Grid>
+                            </Grid>
+
+                            <Grid container spacing={3}>
+                            <Grid item xs={4}>
+                                    <TextField
+                                        fullWidth
+                                        label="Occupation"
+                                        value={this.state.occupation}
+                                        onChange={this.updateState('occupation')} />
+                                </Grid>
+
+                                <Grid item xs={4}>
+                                    <TextField
+                                        fullWidth
+                                        label="Occupation industry"
+                                        value={this.state.occupationIndustry}
+                                        onChange={this.updateState('occupationIndustry')} />
                                 </Grid>
                             </Grid>
 
