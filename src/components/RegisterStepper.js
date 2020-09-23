@@ -41,12 +41,14 @@ class RegisterStepper extends React.Component {
             activeStep: 0,
             prevActiveStep: 0,
             gender: '',
+            maritalStatus: '',
             dateOfBirth: '01/01/1999',
             age: '',
             grossSalary: '',
             householdIncome: '',
             householdAdults: 1,
             householdChildren: 0,
+            retirementContributionsPreTax: '',
         }
 
         this.classes = makeStyles((theme) => ({
@@ -154,6 +156,27 @@ class RegisterStepper extends React.Component {
 
                             <Grid container spacing={3}>
                                 <Grid item xs={4}>
+                                    <div>
+                                        <FormControl style={{ minWidth: "100%" }}>
+                                            <InputLabel id="marital-status-label">Marital status</InputLabel>
+                                            <Select
+                                                fullWidth
+                                                labelId="marital-status-label"
+                                                id="marital-status-select"
+                                                value={this.state.maritalStatus}
+                                                onChange={this.updateState('maritalStatus')}
+                                            >
+                                                <MenuItem value={"single"}>Single</MenuItem>
+                                                <MenuItem value={"married"}>Married</MenuItem>
+                                                <MenuItem value={"other"}>Other</MenuItem>
+                                            </Select>
+                                        </FormControl>
+                                    </div>
+                                </Grid>
+                            </Grid>
+
+                            <Grid container spacing={3}>
+                                <Grid item xs={4}>
                                     <div className={this.classes.margin}>
                                         <TextField
                                             fullWidth
@@ -224,8 +247,23 @@ class RegisterStepper extends React.Component {
                                                 <MenuItem value={5}>5 Children</MenuItem>
                                                 <MenuItem value={6}>6+ Children</MenuItem>
                                             </Select>
-                                            <FormHelperText># of hildren in household</FormHelperText>
+                                            <FormHelperText># of children in household</FormHelperText>
                                         </FormControl>
+                                    </div>
+                                </Grid>
+                            </Grid>
+
+                            <Grid container spacing={3}>
+                                <Grid item xs={4}>
+                                    <div className={this.classes.margin}>
+                                        <TextField
+                                            fullWidth
+                                            label="Retirement contributions"
+                                            value={this.state.retirementContributionsPreTax}
+                                            onChange={this.updateState('retirementContributionsPreTax')}
+                                            InputProps={{
+                                                startAdornment: <InputAdornment position="start">$</InputAdornment>
+                                            }} />
                                     </div>
                                 </Grid>
                             </Grid>
