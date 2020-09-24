@@ -3,7 +3,7 @@ import _superagent from 'superagent';
 
 const superagent = superagentPromise(_superagent, global.Promise);
 
-const API_ROOT = 'http://localhost:5001';
+const API_ROOT = 'http://localhost:5000';
 const API_AUTH_ROOT = 'http://localhost:5000';
 const API_METADATA_ROOT = 'http://127.0.0.1:8000/api';
 
@@ -56,8 +56,8 @@ const User = {
 const UserProfile = {
   get: username =>
     User.byUsername(username),
-  upsert: (username, settings) =>
-    requests.put(`/user/profile?username=${username}`, settings),
+  upsert: (username, payload) =>
+    requests.put(`/user/profile?username=${username}`, payload),
 }
 
 const Asset = {

@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
+import agent from '../agent';
 import { makeStyles } from '@material-ui/core/styles';
 import Stepper from '@material-ui/core/Stepper';
 import Step from '@material-ui/core/Step';
@@ -85,7 +86,21 @@ class RegisterStepper extends React.Component {
         };
 
         this.handleSave = () => {
-            //TODO: Call API to save
+            const currentState = Object.assign({}, this.state);
+            const profile = {}
+
+            profile.gender = currentState.gender ? currentState.gender : null;
+            profile.age = currentState.age ? parseInt(currentState.age, 10) : null;
+            profile.occupation = currentState.occupation ? currentState.occupation : null;
+            profile.occupationIndustry = currentState.occupationIndustry ? currentState.occupationIndustry : null;
+            profile.grossSalary = currentState.grossSalary ? Number(currentState.grossSalary) : null;
+            profile.maritalStatus = currentState.maritalStatus ? currentState.maritalStatus.value : null;
+            profile.householdIncome = currentState.householdIncome ? Number(currentState.householdIncome) : null;
+            profile.householdAdults = currentState.householdAdults ? parseInt(currentState.householdAdults.value, 10) : null;
+            profile.householdChildren = currentState.householdChildren ? parseInt(currentState.householdChildren.value, 10) : null;
+            profile.retirementContributionsPreTax = currentState.retirementContributionsPreTax ? Number(currentState.retirementContributionsPreTax) : null;
+
+            agent.UserProfile.upsert("gkama", profile)
         }
 
         this.updateState = field => ev => {
@@ -270,14 +285,17 @@ class RegisterStepper extends React.Component {
                     );
                 case 1:
                     return (
-                        <Grid container spacing={3}>
+                        <React.Fragment>
+                            <p>
+                                Please update your assets. This is <i>optional</i>. However, it will help <b>{this.props.appName}</b> generate better financial results for you
+                            </p>
+                            <hr/>
 
-                            <Grid item md={12} style={{ textAlign: "center" }}>
-                                <h3>Assets</h3>
-                                <hr />
+                            <Grid container spacing={3}>
+                                <Grid item xs={4}>
+                                </Grid>
                             </Grid>
-
-                        </Grid>
+                        </React.Fragment>
                     );
                 case 2:
                     return (
