@@ -65,10 +65,17 @@ export default (state = defaultState, action) => {
         profile: action.error ? null : action.payload.profile
       };
     case LOGIN:
-    case REGISTER:
       return {
         ...state,
         redirectTo: action.error ? null : '/',
+        token: action.error ? null : action.payload.access_token,
+        refreshToken: action.error ? null : action.payload.refresh_token,
+        currentUser: action.error ? null : action.payload.user
+      };
+    case REGISTER:
+      return {
+        ...state,
+        redirectTo: action.error ? null : '/profile/update',
         token: action.error ? null : action.payload.access_token,
         refreshToken: action.error ? null : action.payload.refresh_token,
         currentUser: action.error ? null : action.payload.user

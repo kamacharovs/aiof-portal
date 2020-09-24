@@ -5,8 +5,6 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
 import { Route, Switch } from 'react-router-dom';
-import Article from '../components/Article';
-import Editor from '../components/Editor';
 import Home from '../components/Home';
 import Login from '../components/Login';
 import Register from '../components/Register';
@@ -73,9 +71,6 @@ class App extends React.Component {
             <Route exact path="/" component={Home} />
             <Route path="/login" component={Login} />
             <Route exact path="/register" component={Register} />
-            <Route path="/editor/:slug" component={Editor} />
-            <Route path="/editor" component={Editor} />
-            <Route path="/article/:id" component={Article} />
             <Route exact path="/profile/update" component={ProfileStepper} />
             <Route exact path="/@:username/finance" component={FinanceMainView} />
             <Route exact path="/@:username/settings" component={ProfileSettings} />

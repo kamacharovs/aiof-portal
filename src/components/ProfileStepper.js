@@ -113,7 +113,8 @@ class ProfileStepper extends React.Component {
             profile.householdChildren = currentState.householdChildren ? parseInt(currentState.householdChildren.value, 10) : null;
             profile.retirementContributionsPreTax = currentState.retirementContributionsPreTax ? Number(currentState.retirementContributionsPreTax) : null;
 
-            agent.UserProfile.upsert("gkama", profile)
+            //TODO add AddAsset and AddLiability api calls
+            agent.UserProfile.upsert(this.props.currentUser.username, profile)
         }
 
         this.updateState = field => ev => {
@@ -300,7 +301,7 @@ class ProfileStepper extends React.Component {
                     return (
                         <React.Fragment>
                             <p>
-                                Please update your assets. This is <i>optional</i>. However, it will help <b>{this.props.appName}</b> generate better financial results for you
+                                Please add a quick initial asset. This is <i>optional</i>. However, it will help <b>{this.props.appName}</b> generate better financial results for you
                             </p>
                             <hr />
 
@@ -356,13 +357,14 @@ class ProfileStepper extends React.Component {
                                 </Grid>
 
                             </Grid>
+
                         </React.Fragment>
                     );
                 case 2:
                     return (
                         <React.Fragment>
                             <p>
-                                Please update your liabilities. This is <i>optional</i>. However, it will help <b>{this.props.appName}</b> generate better financial results for you
+                                Please add a quick initial liability. This is <i>optional</i>. However, it will help <b>{this.props.appName}</b> generate better financial results for you
                             </p>
                             <hr />
 
@@ -434,53 +436,56 @@ class ProfileStepper extends React.Component {
     }
 
     render() {
-        return (
-            <React.Fragment>
-                <Helmet>
-                    <title>{this.props.appName} | Update</title>
-                </Helmet>
-                <div className={this.classes.root}>
-                    <Stepper activeStep={this.state.activeStep} alternativeLabel>
-                        {this.steps.map((label) => (
-                            <Step key={label}>
-                                <StepLabel>{label}</StepLabel>
-                            </Step>
-                        ))}
-                    </Stepper>
-                    <Container maxWidth="md">
-                        <AiofPaper elevation={3}>
-                            {this.state.activeStep === this.steps.length ? (
-                                <div>
-                                    <p>All steps completed</p>
-                                    <Button onClick={this.handleReset}>Reset</Button>
-                                    <Button onClick={this.handleSave}>Save</Button>
-                                </div>
-                            ) : (
+        if (this.props.currentUser) {
+            return (
+                <React.Fragment>
+                    <Helmet>
+                        <title>{this.props.appName} | Update</title>
+                    </Helmet>
+                    <div className={this.classes.root}>
+                        <Stepper activeStep={this.state.activeStep} alternativeLabel>
+                            {this.steps.map((label) => (
+                                <Step key={label}>
+                                    <StepLabel>{label}</StepLabel>
+                                </Step>
+                            ))}
+                        </Stepper>
+                        <Container maxWidth="md">
+                            <AiofPaper elevation={3}>
+                                {this.state.activeStep === this.steps.length ? (
                                     <div>
-                                        <AiofPaper elevation={3}>
-                                            {this.getStepContent}
-                                        </AiofPaper>
-                                        <hr />
-                                        <div>
-                                            <Button
-                                                disabled={this.state.activeStep === 0}
-                                                onClick={this.handleBack}
-                                                className={this.classes.backButton} >
-                                                Back
-                                        </Button>
-                                            <Button
-                                                onClick={this.handleNext}
-                                                className={this.classes.backButton} >
-                                                {this.state.activeStep === this.steps.length - 1 ? 'Finish' : 'Next'}
-                                            </Button>
-                                        </div>
+                                        <p>Thank you for updating your profile. You can either save the changes by clicking on the 'Save' button below or reset your process by clicking the 'Reset' button</p>
+                                        <Button onClick={this.handleReset}>Reset</Button>
+                                        <Button onClick={this.handleSave}>Save</Button>
                                     </div>
-                                )}
-                        </AiofPaper>
-                    </Container>
-                </div>
-            </React.Fragment>
-        );
+                                ) : (
+                                        <div>
+                                            <AiofPaper elevation={3}>
+                                                {this.getStepContent}
+                                            </AiofPaper>
+                                            <hr />
+                                            <div>
+                                                <Button
+                                                    disabled={this.state.activeStep === 0}
+                                                    onClick={this.handleBack}
+                                                    className={this.classes.backButton} >
+                                                    Back
+                                        </Button>
+                                                <Button
+                                                    onClick={this.handleNext}
+                                                    className={this.classes.backButton} >
+                                                    {this.state.activeStep === this.steps.length - 1 ? 'Finish' : 'Next'}
+                                                </Button>
+                                            </div>
+                                        </div>
+                                    )}
+                            </AiofPaper>
+                        </Container>
+                    </div>
+                </React.Fragment>
+            );
+        }
+        return null
     }
 }
 
