@@ -10,7 +10,7 @@ import Editor from '../components/Editor';
 import Home from '../components/Home';
 import Login from '../components/Login';
 import Register from '../components/Register';
-import RegisterStepper from '../components/RegisterStepper';
+import ProfileStepper from '../components/ProfileStepper';
 import Profile from '../components/Profile';
 import ProfileSettings from '../components/ProfileSettings';
 import FinanceMainView from '../components/Finance/FinanceMainView';
@@ -72,11 +72,11 @@ class App extends React.Component {
           <Switch>
             <Route exact path="/" component={Home} />
             <Route path="/login" component={Login} />
-            <Route exact path="/register/update" component={RegisterStepper} />
             <Route exact path="/register" component={Register} />
             <Route path="/editor/:slug" component={Editor} />
             <Route path="/editor" component={Editor} />
             <Route path="/article/:id" component={Article} />
+            <Route exact path="/profile/update" component={ProfileStepper} />
             <Route exact path="/@:username/finance" component={FinanceMainView} />
             <Route exact path="/@:username/settings" component={ProfileSettings} />
             <Route exact path="/@:username" component={Profile} />

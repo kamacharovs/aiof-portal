@@ -67,6 +67,8 @@ const Asset = {
     requests.put(`/asset/${publicKey}`, asset),
   delete: publicKey =>
     requests.del(`/asset/${publicKey}`),
+  types: () =>
+    requests.get('/asset/types'),
 }
 
 const Fi = {

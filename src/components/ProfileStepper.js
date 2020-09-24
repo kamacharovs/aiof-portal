@@ -18,6 +18,7 @@ import Select from '@material-ui/core/Select';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import FormControl from '@material-ui/core/FormControl';
 import { AiofPaper } from '../style/mui';
+import { PROFILE_STEPPER_PAGE_LOADED } from '../constants/actionTypes';
 
 
 const mapStateToProps = state => ({
@@ -27,9 +28,11 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
+    onLoad: payload => 
+        dispatch({ type: PROFILE_STEPPER_PAGE_LOADED, payload }),
 });
 
-class RegisterStepper extends React.Component {
+class ProfileStepper extends React.Component {
     constructor() {
         super();
 
@@ -293,7 +296,32 @@ class RegisterStepper extends React.Component {
 
                             <Grid container spacing={3}>
                                 <Grid item xs={4}>
+                                    <div>
+                                        <FormControl style={{ minWidth: "100%" }}>
+                                            <InputLabel id="gender-label">Gender</InputLabel>
+                                            <Select
+                                                fullWidth
+                                                labelId="gender-label"
+                                                id="gender-select"
+                                                value={this.state.gender}
+                                                onChange={this.updateState('gender')}
+                                            >
+                                                <MenuItem value={"male"}>Male</MenuItem>
+                                                <MenuItem value={"female"}>Female</MenuItem>
+                                                <MenuItem value={"other"}>Other</MenuItem>
+                                            </Select>
+                                        </FormControl>
+                                    </div>
                                 </Grid>
+
+                                <Grid item xs={4}>
+                                    <TextField
+                                        fullWidth
+                                        label="Age"
+                                        value={this.state.age}
+                                        onChange={this.updateState('age')} />
+                                </Grid>
+
                             </Grid>
                         </React.Fragment>
                     );
@@ -313,6 +341,12 @@ class RegisterStepper extends React.Component {
             }
         }
     }
+
+    componentWillMount() {
+        this.props.onLoad(Promise.all([
+          agent.Asset.types(),
+        ]));
+      }
 
     render() {
         return (
@@ -365,4 +399,4 @@ class RegisterStepper extends React.Component {
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(RegisterStepper);
+export default connect(mapStateToProps, mapDispatchToProps)(ProfileStepper);
