@@ -70,6 +70,10 @@ const Asset = {
   types: () =>
     requests.get('/asset/types'),
 }
+const Liability = {
+  types: () =>
+    requests.get('/liability/types'),
+}
 
 const Fi = {
   time: payload =>
@@ -133,6 +137,7 @@ export default {
   User,
   UserProfile,
   Asset,
+  Liability,
   Fi,
   Comments,
   Profile,

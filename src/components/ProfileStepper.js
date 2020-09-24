@@ -26,6 +26,7 @@ const mapStateToProps = state => ({
     appName: state.common.appName,
     currentUser: state.common.currentUser,
     assetTypes: state.profile.assetTypes,
+    liabilityTypes: state.profile.liabilityTypes,
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -54,6 +55,10 @@ class ProfileStepper extends React.Component {
             assetName: '',
             assetType: '',
             assetValue: '',
+
+            liabilityName: '',
+            liabilityType: '',
+            liabilityValue: '',
         }
 
         this.classes = makeStyles((theme) => ({
@@ -355,14 +360,65 @@ class ProfileStepper extends React.Component {
                     );
                 case 2:
                     return (
-                        <Grid container spacing={3}>
+                        <React.Fragment>
+                            <p>
+                                Please update your liabilities. This is <i>optional</i>. However, it will help <b>{this.props.appName}</b> generate better financial results for you
+                            </p>
+                            <hr />
 
-                            <Grid item md={12} style={{ textAlign: "center" }}>
-                                <h3>Liabilities</h3>
-                                <hr />
+                            <Grid container spacing={3}>
+                                <Grid item xs={4}>
+                                    <div className={this.classes.margin}>
+                                        <TextField
+                                            fullWidth
+                                            label="Name"
+                                            value={this.state.liabilityName}
+                                            onChange={this.updateState('liabilityName')}
+                                        />
+                                        <FormHelperText>Liability's name</FormHelperText>
+                                    </div>
+                                </Grid>
+
+                                <Grid item xs={4}>
+                                    <div>
+                                        <FormControl style={{ minWidth: "100%" }}>
+                                            <InputLabel id="liability-type-label">Type</InputLabel>
+                                            <Select
+                                                fullWidth
+                                                labelId="liability-type-label"
+                                                id="liability-type-select"
+                                                value={this.state.liabilityType}
+                                                onChange={this.updateState('liabilityType')}
+                                            >
+                                                {
+                                                    this.props.liabilityTypes.map(liabilityType => {
+                                                        return (
+                                                            <MenuItem key={liabilityType.name} value={liabilityType.name}>{liabilityType.name}</MenuItem>
+                                                        );
+                                                    })
+                                                }
+                                            </Select>
+                                            <FormHelperText>Liability's type</FormHelperText>
+                                        </FormControl>
+                                    </div>
+                                </Grid>
+
+                                <Grid item xs={4}>
+                                    <div className={this.classes.margin}>
+                                        <TextField
+                                            fullWidth
+                                            label="Value"
+                                            value={this.state.liabilityValue}
+                                            onChange={this.updateState('liabilityValue')}
+                                            InputProps={{
+                                                startAdornment: <InputAdornment position="start">$</InputAdornment>
+                                            }} />
+                                        <FormHelperText>Liability's real value</FormHelperText>
+                                    </div>
+                                </Grid>
+
                             </Grid>
-
-                        </Grid>
+                        </React.Fragment>
                     );
                 default:
                     return 'Unknown stepIndex';
@@ -373,6 +429,7 @@ class ProfileStepper extends React.Component {
     componentDidMount() {
         this.props.onLoad(Promise.all([
             agent.Asset.types(),
+            agent.Liability.types(),
         ]));
     }
 

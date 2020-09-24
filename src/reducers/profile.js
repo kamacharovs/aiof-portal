@@ -23,7 +23,8 @@ export default (state = {}, action) => {
     case PROFILE_STEPPER_PAGE_LOADED:
       return {
         ...state,
-        assetTypes: action.payload[0]
+        assetTypes: action.payload[0],
+        liabilityTypes: action.payload[1],
       }
     case PROFILE_PAGE_UNLOADED:
       return {};
