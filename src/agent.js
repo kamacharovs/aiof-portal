@@ -5,7 +5,7 @@ const superagent = superagentPromise(_superagent, global.Promise);
 
 const API_ROOT = 'http://localhost:5001';
 const API_AUTH_ROOT = 'http://localhost:5000';
-const API_METADATA_ROOT = 'http://127.0.0.1:5000/metadata';
+const API_METADATA_ROOT = 'http://127.0.0.1:8000/api';
 
 const encode = encodeURIComponent;
 const responseBody = res => res.body;
@@ -71,7 +71,7 @@ const Asset = {
 
 const Fi = {
   time: payload =>
-    requestsMetadata.post('/fi/time/to/fi', payload),
+    requestsMetadata.post('/fi/time', payload),
   compoundInterest: payload =>
     requestsMetadata.post('/fi/compound/interest', payload),
   addedTime: payload =>
