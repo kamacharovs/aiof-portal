@@ -22,13 +22,14 @@ import { PROFILE_STEPPER_PAGE_LOADED } from '../constants/actionTypes';
 
 
 const mapStateToProps = state => ({
-    ...state.auth,
+    ...state.profile,
     appName: state.common.appName,
     currentUser: state.common.currentUser,
+    assetTypes: state.profile.assetTypes,
 });
 
 const mapDispatchToProps = dispatch => ({
-    onLoad: payload => 
+    onLoad: payload =>
         dispatch({ type: PROFILE_STEPPER_PAGE_LOADED, payload }),
 });
 
@@ -49,6 +50,10 @@ class ProfileStepper extends React.Component {
             householdAdults: 1,
             householdChildren: 0,
             retirementContributionsPreTax: '',
+
+            assetName: '',
+            assetType: '',
+            assetValue: '',
         }
 
         this.classes = makeStyles((theme) => ({
@@ -120,7 +125,7 @@ class ProfileStepper extends React.Component {
                             <p>
                                 Please update your profile. These fields are all <i>optional</i>. However, they will help <b>{this.props.appName}</b> generate better financial results for you
                             </p>
-                            <hr/>
+                            <hr />
 
                             <Grid container spacing={3}>
                                 <Grid item xs={4}>
@@ -171,7 +176,7 @@ class ProfileStepper extends React.Component {
                             </Grid>
 
                             <Grid container spacing={3}>
-                            <Grid item xs={4}>
+                                <Grid item xs={4}>
                                     <TextField
                                         fullWidth
                                         label="Occupation"
@@ -292,34 +297,57 @@ class ProfileStepper extends React.Component {
                             <p>
                                 Please update your assets. This is <i>optional</i>. However, it will help <b>{this.props.appName}</b> generate better financial results for you
                             </p>
-                            <hr/>
+                            <hr />
 
                             <Grid container spacing={3}>
                                 <Grid item xs={4}>
+                                    <div className={this.classes.margin}>
+                                        <TextField
+                                            fullWidth
+                                            label="Name"
+                                            value={this.state.assetName}
+                                            onChange={this.updateState('assetName')}
+                                        />
+                                        <FormHelperText>Asset's name</FormHelperText>
+                                    </div>
+                                </Grid>
+
+                                <Grid item xs={4}>
                                     <div>
                                         <FormControl style={{ minWidth: "100%" }}>
-                                            <InputLabel id="gender-label">Gender</InputLabel>
+                                            <InputLabel id="asset-type-label">Type</InputLabel>
                                             <Select
                                                 fullWidth
-                                                labelId="gender-label"
-                                                id="gender-select"
-                                                value={this.state.gender}
-                                                onChange={this.updateState('gender')}
+                                                labelId="asset-type-label"
+                                                id="asset-type-select"
+                                                value={this.state.assetType}
+                                                onChange={this.updateState('assetType')}
                                             >
-                                                <MenuItem value={"male"}>Male</MenuItem>
-                                                <MenuItem value={"female"}>Female</MenuItem>
-                                                <MenuItem value={"other"}>Other</MenuItem>
+                                                {
+                                                    this.props.assetTypes.map(assetType => {
+                                                        return (
+                                                            <MenuItem key={assetType.name} value={assetType.name}>{assetType.name}</MenuItem>
+                                                        );
+                                                    })
+                                                }
                                             </Select>
+                                            <FormHelperText>Asset's type</FormHelperText>
                                         </FormControl>
                                     </div>
                                 </Grid>
 
                                 <Grid item xs={4}>
-                                    <TextField
-                                        fullWidth
-                                        label="Age"
-                                        value={this.state.age}
-                                        onChange={this.updateState('age')} />
+                                    <div className={this.classes.margin}>
+                                        <TextField
+                                            fullWidth
+                                            label="Value"
+                                            value={this.state.assetValue}
+                                            onChange={this.updateState('assetValue')}
+                                            InputProps={{
+                                                startAdornment: <InputAdornment position="start">$</InputAdornment>
+                                            }} />
+                                        <FormHelperText>Asset's real value</FormHelperText>
+                                    </div>
                                 </Grid>
 
                             </Grid>
@@ -342,11 +370,11 @@ class ProfileStepper extends React.Component {
         }
     }
 
-    componentWillMount() {
+    componentDidMount() {
         this.props.onLoad(Promise.all([
-          agent.Asset.types(),
+            agent.Asset.types(),
         ]));
-      }
+    }
 
     render() {
         return (
