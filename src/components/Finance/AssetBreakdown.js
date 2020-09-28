@@ -157,7 +157,7 @@ class AssetBreakdown extends React.Component {
                             </Grid>
 
                             <Grid container spacing={3}>
-                            <Grid item xs={6}>
+                                <Grid item xs={6}>
                                     <div className={this.classes.margin}>
                                         <TextField label="Tax drag"
                                             value={this.state.taxDrag}
@@ -181,20 +181,152 @@ class AssetBreakdown extends React.Component {
                             </Grid>
 
                             <Grid container spacing={3}>
-                                    <Grid item xs={12}>
-                                        <Button type="submit" variant="contained" color="primary" className={this.classes.button} >
-                                            Calculate
+                                <Grid item xs={12}>
+                                    <Button type="submit" variant="contained" color="primary" className={this.classes.button} >
+                                        Calculate
                                 </Button>
-                                    </Grid>
+                                </Grid>
                             </Grid>
-
                         </form>
                     </AiofPaper>
-                </Container>
 
+                    <AssetBreakdownResults assetBreakdown={this.props.assetBreakdown} />
+
+                </Container>
             </React.Fragment>
         );
     }
+}
+
+const AssetBreakdownResults = props => {
+    if (props.assetBreakdown) {
+        return (
+            <React.Fragment>
+                <AiofPaper elevation={3}>
+                    <Grid container spacing={1}>
+                        <Grid item xs={6}>
+                            <b>Value</b>
+                        </Grid>
+                        <Grid item xs={6} align="right">
+                            <i style={{ color: "green" }}>${numberWithCommas(props.assetBreakdown.value)}</i>
+                        </Grid>
+
+                        <Grid item xs={6}>
+                            <b>Contribution</b>
+                        </Grid>
+                        <Grid item xs={6} align="right">
+                            <i style={{ color: "green" }}>${numberWithCommas(props.assetBreakdown.contribution)}</i>
+                        </Grid>
+
+                        <Grid item xs={6}>
+                            <b>Interest</b>
+                        </Grid>
+                        <Grid item xs={6} align="right">
+                            <i style={{ color: "green" }}>{props.assetBreakdown.interest}%</i>
+                        </Grid>
+
+                        <Grid item xs={6}>
+                            <b>HYS interest</b>
+                        </Grid>
+                        <Grid item xs={6} align="right">
+                            <i style={{ color: "green" }}>{props.assetBreakdown.hysInterest}%</i>
+                        </Grid>
+
+                        <Grid item xs={6}>
+                            <b>Years</b>
+                        </Grid>
+                        <Grid item xs={6} align="right">
+                            <i style={{ color: "green" }}>{props.assetBreakdown.years}</i>
+                        </Grid>
+
+                        <Grid item xs={6}>
+                            <b>Frequency</b>
+                        </Grid>
+                        <Grid item xs={6} align="right">
+                            <i style={{ color: "green" }}>{props.assetBreakdown.frequency}</i>
+                        </Grid>
+
+                        <Grid item xs={6}>
+                            <b>Investment fees</b>
+                        </Grid>
+                        <Grid item xs={6} align="right">
+                            <i style={{ color: "red" }}>{props.assetBreakdown.investmentFees}%</i>
+                        </Grid>
+
+                        <Grid item xs={6}>
+                            <b>Tax drag</b>
+                        </Grid>
+                        <Grid item xs={6} align="right">
+                            <i style={{ color: "red" }}>{props.assetBreakdown.taxDrag}%</i>
+                        </Grid>
+                    </Grid>
+
+                    <hr/>
+
+                    <Grid container spacing={1}>
+                        <Grid item xs={6}>
+                            <b>Market value</b>
+                        </Grid>
+                        <Grid item xs={6} align="right">
+                            <i style={{ color: "green" }}>${numberWithCommas(props.assetBreakdown.marketValue)}</i>
+                        </Grid>
+
+                        <Grid item xs={6}>
+                            <b>Market (begin) value</b>
+                        </Grid>
+                        <Grid item xs={6} align="right">
+                            <i style={{ color: "green" }}>${numberWithCommas(props.assetBreakdown.marketBeginValue)}</i>
+                        </Grid>
+
+                        <Grid item xs={6}>
+                            <b>Market (with contribution) value</b>
+                        </Grid>
+                        <Grid item xs={6} align="right">
+                            <i style={{ color: "green" }}>${numberWithCommas(props.assetBreakdown.marketWithContributionValue)}</i>
+                        </Grid>
+
+                        <Grid item xs={6}>
+                            <b>Market (begin with contribution) value</b>
+                        </Grid>
+                        <Grid item xs={6} align="right">
+                            <i style={{ color: "green" }}>${numberWithCommas(props.assetBreakdown.marketBeginWithContributionValue)}</i>
+                        </Grid>
+
+                        <Grid item xs={6}>
+                            <b>HYS value</b>
+                        </Grid>
+                        <Grid item xs={6} align="right">
+                            <i style={{ color: "green" }}>${numberWithCommas(props.assetBreakdown.hysValue)}</i>
+                        </Grid>
+
+                        <Grid item xs={6}>
+                            <b>HYS (begin) value</b>
+                        </Grid>
+                        <Grid item xs={6} align="right">
+                            <i style={{ color: "green" }}>${numberWithCommas(props.assetBreakdown.hysBeginValue)}</i>
+                        </Grid>
+
+                        <Grid item xs={6}>
+                            <b>HYS (with contribution) value</b>
+                        </Grid>
+                        <Grid item xs={6} align="right">
+                            <i style={{ color: "green" }}>${numberWithCommas(props.assetBreakdown.hysWithContributionValue)}</i>
+                        </Grid>
+
+                        <Grid item xs={6}>
+                            <b>HYS (begin with contribution) value</b>
+                        </Grid>
+                        <Grid item xs={6} align="right">
+                            <i style={{ color: "green" }}>${numberWithCommas(props.assetBreakdown.hysBeginWithContributionValue)}</i>
+                        </Grid>
+
+                    </Grid>
+
+                </AiofPaper>
+            </React.Fragment>
+        )
+    }
+    return null
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(AssetBreakdown);
