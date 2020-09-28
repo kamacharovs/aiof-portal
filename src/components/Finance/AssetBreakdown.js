@@ -11,6 +11,7 @@ import InputAdornment from '@material-ui/core/InputAdornment';
 import { numberWithCommas } from '../Finance/Common';
 import { AiofPaper } from '../../style/mui';
 import { ASSET_BREAKDOWN } from '../../constants/actionTypes';
+import { Line } from 'react-chartjs-2';
 
 const mapStateToProps = state => ({
     ...state.finance,
@@ -261,7 +262,7 @@ const AssetBreakdownResults = props => {
                         </Grid>
                     </Grid>
 
-                    <hr/>
+                    <hr />
 
                     <Grid container spacing={1}>
                         <Grid item xs={6}>
@@ -319,14 +320,58 @@ const AssetBreakdownResults = props => {
                         <Grid item xs={6} align="right">
                             <i style={{ color: "green" }}>${numberWithCommas(props.assetBreakdown.hysBeginWithContributionValue)}</i>
                         </Grid>
-
                     </Grid>
+                </AiofPaper>
 
+                <AiofPaper>
+                    <AssetBreakdownChart breakdown={props.assetBreakdown.marketValueBreakdown} title={'Market value'} />
                 </AiofPaper>
             </React.Fragment>
         )
     }
     return null
+}
+
+class AssetBreakdownChart extends React.Component {
+    render() {
+        if (this.props.breakdown) {
+            const years = this.props.breakdown.map(x => x.year)
+            const values = this.props.breakdown.map(x => x.value)
+            const data = {
+                labels: years,
+                datasets: [
+                    {
+                        label: this.props.title,
+                        fill: false,
+                        lineTension: 0.1,
+                        backgroundColor: 'rgba(75,192,192,0.4)',
+                        borderColor: 'rgba(75,192,192,1)',
+                        borderCapStyle: 'butt',
+                        borderDash: [],
+                        borderDashOffset: 0.0,
+                        borderJoinStyle: 'miter',
+                        pointBorderColor: 'rgba(75,192,192,1)',
+                        pointBackgroundColor: '#fff',
+                        pointBorderWidth: 1,
+                        pointHoverRadius: 5,
+                        pointHoverBackgroundColor: 'rgba(75,192,192,1)',
+                        pointHoverBorderColor: 'rgba(220,220,220,1)',
+                        pointHoverBorderWidth: 2,
+                        pointRadius: 1,
+                        pointHitRadius: 10,
+                        data: values
+                    }
+                ]
+            };
+
+            return (
+                <div>
+                    <Line data={data} />
+                </div>
+            );
+        }
+        return null
+    }
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(AssetBreakdown);
