@@ -12,6 +12,7 @@ import ProfileStepper from '../components/ProfileStepper';
 import Profile from '../components/Profile';
 import ProfileSettings from '../components/ProfileSettings';
 import FinanceMainView from '../components/Finance/FinanceMainView';
+import AssetBreakdown from '../components/Finance/AssetBreakdown';
 import FI from '../components/FI';
 import TimeToFi from '../components/FI/TimeToFi';
 import AddedTime from '../components/FI/AddedTime';
@@ -79,6 +80,7 @@ class App extends React.Component {
             <Route exact path="/fi/added/time" component={AddedTime} />
             <Route exact path="/fi/time" component={TimeToFi} />
             <Route exact path="/fi/compound/interest" component={CompoundInterest} />
+            <Route exact path="/asset/breakdown" component={AssetBreakdown} />
           </Switch>
           <Footer
             appName={this.props.appName}

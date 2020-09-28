@@ -69,8 +69,8 @@ class AssetBreakdown extends React.Component {
             assetBreakdown.interest = assetBreakdown.interest ? Number(assetBreakdown.interest) : null;
             assetBreakdown.hysInterest = assetBreakdown.hysInterest ? Number(assetBreakdown.hysInterest) : null;
             assetBreakdown.years = assetBreakdown.years ? Number(assetBreakdown.years) : null;
-            assetBreakdown.investmentFees = assetBreakdown.investmentFees ? Number(assetBreakdown.investmentFees) : null;
-            assetBreakdown.taxDrag = assetBreakdown.taxDrag ? Number(assetBreakdown.taxDrag) : null;
+            assetBreakdown.investmentFees = assetBreakdown.investmentFees ? Number(assetBreakdown.investmentFees) : 0;
+            assetBreakdown.taxDrag = assetBreakdown.taxDrag ? Number(assetBreakdown.taxDrag) : 0;
 
             this.props.onSubmit(assetBreakdown);
         };
@@ -111,12 +111,81 @@ class AssetBreakdown extends React.Component {
                                             }} />
                                     </div>
                                 </Grid>
+
+                                <Grid item xs={6}>
+                                    <div className={this.classes.margin}>
+                                        <TextField label="Contribution"
+                                            value={this.state.contribution}
+                                            onChange={this.updateState('contribution')}
+                                            InputProps={{
+                                                startAdornment: <InputAdornment position="start">$</InputAdornment>
+                                            }} />
+                                    </div>
+                                </Grid>
+
+                                <Grid item xs={6}>
+                                    <div className={this.classes.margin}>
+                                        <TextField label="Interest"
+                                            value={this.state.interest}
+                                            onChange={this.updateState('interest')}
+                                            InputProps={{
+                                                startAdornment: <InputAdornment position="start">%</InputAdornment>
+                                            }} />
+                                    </div>
+                                </Grid>
+
+                                <Grid item xs={6}>
+                                    <div className={this.classes.margin}>
+                                        <TextField label="HYS interest"
+                                            value={this.state.hysInterest}
+                                            onChange={this.updateState('hysInterest')}
+                                            InputProps={{
+                                                startAdornment: <InputAdornment position="start">%</InputAdornment>
+                                            }} />
+                                    </div>
+                                </Grid>
                             </Grid>
 
-                            <Grid item xs={12}>
-                                <Button type="submit" variant="contained" color="primary" className={this.classes.button} >
-                                    Calculate
+                            <Grid container spacing={3}>
+                                <Grid item xs={6}>
+                                    <div className={this.classes.margin}>
+                                        <TextField label="Years"
+                                            value={this.state.years}
+                                            onChange={this.updateState('years')} />
+                                    </div>
+                                </Grid>
+                            </Grid>
+
+                            <Grid container spacing={3}>
+                            <Grid item xs={6}>
+                                    <div className={this.classes.margin}>
+                                        <TextField label="Tax drag"
+                                            value={this.state.taxDrag}
+                                            onChange={this.updateState('taxDrag')}
+                                            InputProps={{
+                                                startAdornment: <InputAdornment position="start">%</InputAdornment>
+                                            }} />
+                                    </div>
+                                </Grid>
+
+                                <Grid item xs={6}>
+                                    <div className={this.classes.margin}>
+                                        <TextField label="Investment fees"
+                                            value={this.state.investmentFees}
+                                            onChange={this.updateState('investmentFees')}
+                                            InputProps={{
+                                                startAdornment: <InputAdornment position="start">%</InputAdornment>
+                                            }} />
+                                    </div>
+                                </Grid>
+                            </Grid>
+
+                            <Grid container spacing={3}>
+                                    <Grid item xs={12}>
+                                        <Button type="submit" variant="contained" color="primary" className={this.classes.button} >
+                                            Calculate
                                 </Button>
+                                    </Grid>
                             </Grid>
 
                         </form>
