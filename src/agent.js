@@ -69,6 +69,8 @@ const Asset = {
     requests.del(`/asset/${publicKey}`),
   types: () =>
     requests.get('/asset/types'),
+  breakdown: payload =>
+    requestsMetadata.post('/asset/breakdown', payload)
 }
 const Liability = {
   types: () =>

@@ -1,6 +1,7 @@
 import {
   FINANCE_PAGE_LOADED,
   FINANCE_PAGE_UNLOADED,
+  ASSET_BREAKDOWN,
   ASSET_ADD,
 } from '../constants/actionTypes';
 
@@ -15,6 +16,11 @@ export default (state = {}, action) => {
         goals: action.payload.goals,
         subscriptions: action.payload.subscriptions,
       };
+    case ASSET_BREAKDOWN:
+      return {
+        ...state,
+        assetBreakdown: action.payload
+      }
     case FINANCE_PAGE_UNLOADED:
       return {};
     case ASSET_ADD:
