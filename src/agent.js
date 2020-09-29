@@ -1,11 +1,12 @@
 import superagentPromise from 'superagent-promise';
 import _superagent from 'superagent';
+import config from './config';
 
 const superagent = superagentPromise(_superagent, global.Promise);
 
-const API_ROOT = process.env.REACT_APP_API_ROOT;
-const API_AUTH_ROOT = process.env.REACT_APP_API_AUTH_ROOT;
-const API_METADATA_ROOT = process.env.REACT_APP_API_METADATA_ROOT;
+const API_ROOT = config.apiUrl;
+const API_AUTH_ROOT = config.authUrl;
+const API_METADATA_ROOT = config.metadataUrl;
 
 const encode = encodeURIComponent;
 const responseBody = res => res.body;
