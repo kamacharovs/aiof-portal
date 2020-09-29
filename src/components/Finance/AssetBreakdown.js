@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
 import agent from '../../agent';
 import { makeStyles } from '@material-ui/core/styles';
+import { Typography } from '@material-ui/core';
 import Container from '@material-ui/core/Container';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
@@ -12,6 +13,7 @@ import { numberWithCommas } from '../Finance/Common';
 import { AiofPaper } from '../../style/mui';
 import { ASSET_BREAKDOWN } from '../../constants/actionTypes';
 import { Line } from 'react-chartjs-2';
+
 
 const mapStateToProps = state => ({
     ...state.finance,
@@ -23,6 +25,7 @@ const mapDispatchToProps = dispatch => ({
     onSubmit: assetBreakdown =>
         dispatch({ type: ASSET_BREAKDOWN, payload: agent.Asset.breakdown(assetBreakdown) })
 });
+
 
 class AssetBreakdown extends React.Component {
     constructor() {
@@ -48,6 +51,10 @@ class AssetBreakdown extends React.Component {
             },
             withoutLabel: {
                 marginTop: theme.spacing(3),
+            },
+            p: {
+                padding: '0rem',
+                margin: '0rem',
             },
             textField: {
                 width: '25ch',
@@ -199,6 +206,7 @@ class AssetBreakdown extends React.Component {
     }
 }
 
+
 const AssetBreakdownResults = props => {
     if (props.assetBreakdown) {
         return (
@@ -261,9 +269,9 @@ const AssetBreakdownResults = props => {
                             <i style={{ color: "red" }}>{props.assetBreakdown.taxDrag}%</i>
                         </Grid>
                     </Grid>
+                </AiofPaper>
 
-                    <hr />
-
+                <AiofPaper elevation={3}>
                     <Grid container spacing={1}>
                         <Grid item xs={6}>
                             <b>Market value</b>
@@ -292,7 +300,13 @@ const AssetBreakdownResults = props => {
                         <Grid item xs={6} align="right">
                             <i style={{ color: "green" }}>${numberWithCommas(props.assetBreakdown.marketBeginWithContributionValue)}</i>
                         </Grid>
+                    </Grid>
 
+                    <AssetBreakdownChart breakdown={props.assetBreakdown.marketValueBreakdown} title={'Market value'} />
+                </AiofPaper>
+
+                <AiofPaper elevation={3}>
+                    <Grid container spacing={1}>
                         <Grid item xs={6}>
                             <b>HYS value</b>
                         </Grid>
@@ -321,16 +335,15 @@ const AssetBreakdownResults = props => {
                             <i style={{ color: "green" }}>${numberWithCommas(props.assetBreakdown.hysBeginWithContributionValue)}</i>
                         </Grid>
                     </Grid>
-                </AiofPaper>
 
-                <AiofPaper>
-                    <AssetBreakdownChart breakdown={props.assetBreakdown.marketValueBreakdown} title={'Market value'} />
+                    <AssetBreakdownChart breakdown={props.assetBreakdown.marketWithContributionValueBreakdown} title={'Market (with contributions) value'} />
                 </AiofPaper>
             </React.Fragment>
         )
     }
     return null
 }
+
 
 class AssetBreakdownChart extends React.Component {
     render() {
@@ -365,9 +378,7 @@ class AssetBreakdownChart extends React.Component {
             };
 
             return (
-                <div>
-                    <Line data={data} />
-                </div>
+                <Line data={data} />
             );
         }
         return null

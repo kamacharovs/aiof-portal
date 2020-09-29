@@ -1,10 +1,10 @@
-import agent from '../agent';
-import Header from './Header';
-import Footer from './Footer';
 import React from 'react';
 import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
 import { Route, Switch } from 'react-router-dom';
+import agent from '../agent';
+import Header from '../components/Header';
+import Footer from '../components/Footer';
 import Home from '../components/Home';
 import Login from '../components/Login';
 import Register from '../components/Register';
