@@ -19,7 +19,19 @@ All documentation
 - [React charts](https://www.npmjs.com/package/react-chartjs-2)
 - [React helmet](https://github.com/nfl/react-helmet)
 
+### React
+
+- [Deployment](https://create-react-app.dev/docs/deployment/)
+
 #### Additional details
 
 - [React tabs - Support for vertical tabs?](https://github.com/reactjs/react-tabs/issues/274)
 - [How to use chart.js to create charts in React](https://www.educative.io/edpresso/how-to-use-chartjs-to-create-charts-in-react)
+
+### How to run it
+
+To run it locally
+
+```powershel
+npm run start:dev
+```
