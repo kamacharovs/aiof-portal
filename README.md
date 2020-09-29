@@ -23,6 +23,7 @@ All documentation
 
 - [Deployment](https://create-react-app.dev/docs/deployment/)
 - [Dockerizing a React App](https://mherman.org/blog/dockerizing-a-react-app/)
+- [Adding Custom Environment Variables](https://create-react-app.dev/docs/adding-custom-environment-variables/)
 
 #### Additional details
 
