@@ -38,7 +38,7 @@ Documentation on how to run the application locally via different tools
 Run
 
 ```powershel
-npm run start:dev
+npm start
 ```
 
 #### Docker
@@ -46,7 +46,7 @@ npm run start:dev
 Build it
 
 ```powershell
-docker build -f Dockerfile.prod -t aiof-portal .
+docker build -t aiof-portal .
 ```
 
 Run it
