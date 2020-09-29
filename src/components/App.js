@@ -23,6 +23,8 @@ import Cookies from 'js-cookie';
 import { APP_LOAD, REDIRECT } from '../constants/actionTypes';
 import { ACCESS_TOKEN, USER } from '../constants/common';
 
+import { LeftSidebar } from './AppMenu';
+
 const mapStateToProps = state => {
   return {
     appLoaded: state.common.appLoaded,
@@ -82,6 +84,7 @@ class App extends React.Component {
             <Route exact path="/fi/compound/interest" component={CompoundInterest} />
             <Route exact path="/asset/breakdown" component={AssetBreakdown} />
           </Switch>
+          <LeftSidebar />
           <Footer
             appName={this.props.appName}
             currentUser={this.props.currentUser} />

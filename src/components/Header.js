@@ -4,7 +4,6 @@ import Navbar from 'react-bootstrap/Navbar';
 import Container from 'react-bootstrap/Container';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { FIDrawer } from './FI/Drawer';
 import {
   LOGOUT
 } from '../constants/actionTypes';
@@ -37,7 +36,6 @@ const LoggedOutView = props => {
     return (
       <Nav pullright={pullright}>
         <Nav className="mr-auto">
-          <FIDrawer color="white" />
           <Link to="/login" className="nav-link">Sign in</Link>
         </Nav>
       </Nav>

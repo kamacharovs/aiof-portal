@@ -6,7 +6,6 @@ import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import { CoolLink } from '../../style/common';
-import { FIDrawer } from './Drawer';
 
 const mapStateToProps = state => ({
     ...state.fi,
@@ -57,9 +56,6 @@ class FI extends React.Component {
                                         </li>
                                         <li className="nav-item">
                                             <CoolLink to="/fi/compound/interest">Compound Interest</CoolLink>
-                                        </li>
-                                        <li className="nav-item">
-                                            <FIDrawer></FIDrawer>
                                         </li>
                                     </ul>
                                 </Grid>
