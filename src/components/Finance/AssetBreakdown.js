@@ -87,13 +87,13 @@ class AssetBreakdown extends React.Component {
     componentDidMount() {
         if (this.props.assetBreakdown) {
             this.setState({
-                value: this.props.assetBreakdown[0].value,
-                contribution: this.props.assetBreakdown[0].contribution,
-                interest: this.props.assetBreakdown[0].interest,
-                hysInterest: this.props.assetBreakdown[0].hysInterest,
-                years: this.props.assetBreakdown[0].years,
-                investmentFees: this.props.assetBreakdown[0].investmentFees,
-                taxDrag: this.props.assetBreakdown[0].taxDrag,
+                value: this.props.assetBreakdown.value,
+                contribution: this.props.assetBreakdown.contribution,
+                interest: this.props.assetBreakdown.interest,
+                hysInterest: this.props.assetBreakdown.hysInterest,
+                years: this.props.assetBreakdown.years,
+                investmentFees: this.props.assetBreakdown.investmentFees,
+                taxDrag: this.props.assetBreakdown.taxDrag,
             });
         }
     }
@@ -303,6 +303,7 @@ const AssetBreakdownResults = props => {
                     </Grid>
 
                     <AssetBreakdownChart breakdown={props.assetBreakdown.marketValueBreakdown} title={'Market value'} />
+                    <AssetBreakdownChart breakdown={props.assetBreakdown.marketWithContributionValueBreakdown} title={'Market (with contributions) value'} />
                 </AiofPaper>
 
                 <AiofPaper elevation={3}>
@@ -336,7 +337,9 @@ const AssetBreakdownResults = props => {
                         </Grid>
                     </Grid>
 
-                    <AssetBreakdownChart breakdown={props.assetBreakdown.marketWithContributionValueBreakdown} title={'Market (with contributions) value'} />
+                    <AssetBreakdownChart breakdown={props.assetBreakdown.hysValueBreakdown} title={'HYS value'} />
+                    <AssetBreakdownChart breakdown={props.assetBreakdown.hysWithContributionValueBreakdown} title={'HYS (with contributions) value'} />
+
                 </AiofPaper>
             </React.Fragment>
         )
