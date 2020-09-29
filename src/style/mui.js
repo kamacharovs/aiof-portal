@@ -13,3 +13,9 @@ export const AiofPaper = styled(Paper)({
   marginTop: '1rem',
   fontSize: '.8125rem'
 });
+
+export const LoginPaper = styled(Paper)({
+  padding: '1rem 4rem 1rem 4rem',
+  marginTop: '1rem',
+  fontSize: '.8125rem'
+});
