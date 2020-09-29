@@ -3,9 +3,9 @@ import _superagent from 'superagent';
 
 const superagent = superagentPromise(_superagent, global.Promise);
 
-const API_ROOT = 'http://localhost:5001';
-const API_AUTH_ROOT = 'http://localhost:5000';
-const API_METADATA_ROOT = 'http://127.0.0.1:8000/api';
+const API_ROOT = process.env.REACT_APP_API_ROOT;
+const API_AUTH_ROOT = process.env.REACT_APP_API_AUTH_ROOT;
+const API_METADATA_ROOT = process.env.REACT_APP_API_METADATA_ROOT;
 
 const encode = encodeURIComponent;
 const responseBody = res => res.body;
