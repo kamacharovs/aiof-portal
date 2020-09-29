@@ -1,4 +1,4 @@
-FROM node:latest
+FROM node:14.11.0-buster-slim
 
 WORKDIR /app
 ENV PATH /app/node_modules/.bin:$PATH
