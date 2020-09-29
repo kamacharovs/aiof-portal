@@ -3,13 +3,13 @@ import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
 import agent from '../../agent';
 import { makeStyles } from '@material-ui/core/styles';
-import { Typography } from '@material-ui/core';
 import Container from '@material-ui/core/Container';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import { numberWithCommas } from '../Finance/Common';
+import { GreenP, RedP } from '../../style/common';
 import { AiofPaper } from '../../style/mui';
 import { ASSET_BREAKDOWN } from '../../constants/actionTypes';
 import { Line } from 'react-chartjs-2';
@@ -217,56 +217,56 @@ const AssetBreakdownResults = props => {
                             <b>Value</b>
                         </Grid>
                         <Grid item xs={6} align="right">
-                            <i style={{ color: "green" }}>${numberWithCommas(props.assetBreakdown.value)}</i>
+                            <GreenP>${numberWithCommas(props.assetBreakdown.value)}</GreenP>
                         </Grid>
 
                         <Grid item xs={6}>
                             <b>Contribution</b>
                         </Grid>
                         <Grid item xs={6} align="right">
-                            <i style={{ color: "green" }}>${numberWithCommas(props.assetBreakdown.contribution)}</i>
+                            <GreenP>${numberWithCommas(props.assetBreakdown.contribution)}</GreenP>
                         </Grid>
 
                         <Grid item xs={6}>
                             <b>Interest</b>
                         </Grid>
                         <Grid item xs={6} align="right">
-                            <i style={{ color: "green" }}>{props.assetBreakdown.interest}%</i>
+                            <GreenP>{props.assetBreakdown.interest}%</GreenP>
                         </Grid>
 
                         <Grid item xs={6}>
                             <b>HYS interest</b>
                         </Grid>
                         <Grid item xs={6} align="right">
-                            <i style={{ color: "green" }}>{props.assetBreakdown.hysInterest}%</i>
+                            <GreenP>{props.assetBreakdown.hysInterest}%</GreenP>
                         </Grid>
 
                         <Grid item xs={6}>
                             <b>Years</b>
                         </Grid>
                         <Grid item xs={6} align="right">
-                            <i style={{ color: "green" }}>{props.assetBreakdown.years}</i>
+                            <GreenP>{props.assetBreakdown.years}</GreenP>
                         </Grid>
 
                         <Grid item xs={6}>
                             <b>Frequency</b>
                         </Grid>
                         <Grid item xs={6} align="right">
-                            <i style={{ color: "green" }}>{props.assetBreakdown.frequency}</i>
+                            <GreenP>{props.assetBreakdown.frequency}</GreenP>
                         </Grid>
 
                         <Grid item xs={6}>
                             <b>Investment fees</b>
                         </Grid>
                         <Grid item xs={6} align="right">
-                            <i style={{ color: "red" }}>{props.assetBreakdown.investmentFees}%</i>
+                            <RedP>{props.assetBreakdown.investmentFees}%</RedP>
                         </Grid>
 
                         <Grid item xs={6}>
                             <b>Tax drag</b>
                         </Grid>
                         <Grid item xs={6} align="right">
-                            <i style={{ color: "red" }}>{props.assetBreakdown.taxDrag}%</i>
+                            <RedP>{props.assetBreakdown.taxDrag}%</RedP>
                         </Grid>
                     </Grid>
                 </AiofPaper>
@@ -277,28 +277,28 @@ const AssetBreakdownResults = props => {
                             <b>Market value</b>
                         </Grid>
                         <Grid item xs={6} align="right">
-                            <i style={{ color: "green" }}>${numberWithCommas(props.assetBreakdown.marketValue)}</i>
+                            <GreenP>${numberWithCommas(props.assetBreakdown.marketValue)}</GreenP>
                         </Grid>
 
                         <Grid item xs={6}>
                             <b>Market (begin) value</b>
                         </Grid>
                         <Grid item xs={6} align="right">
-                            <i style={{ color: "green" }}>${numberWithCommas(props.assetBreakdown.marketBeginValue)}</i>
+                            <GreenP>${numberWithCommas(props.assetBreakdown.marketBeginValue)}</GreenP>
                         </Grid>
 
                         <Grid item xs={6}>
                             <b>Market (with contribution) value</b>
                         </Grid>
                         <Grid item xs={6} align="right">
-                            <i style={{ color: "green" }}>${numberWithCommas(props.assetBreakdown.marketWithContributionValue)}</i>
+                            <GreenP>${numberWithCommas(props.assetBreakdown.marketWithContributionValue)}</GreenP>
                         </Grid>
 
                         <Grid item xs={6}>
                             <b>Market (begin with contribution) value</b>
                         </Grid>
                         <Grid item xs={6} align="right">
-                            <i style={{ color: "green" }}>${numberWithCommas(props.assetBreakdown.marketBeginWithContributionValue)}</i>
+                            <GreenP>${numberWithCommas(props.assetBreakdown.marketBeginWithContributionValue)}</GreenP>
                         </Grid>
                     </Grid>
 
@@ -311,28 +311,28 @@ const AssetBreakdownResults = props => {
                             <b>HYS value</b>
                         </Grid>
                         <Grid item xs={6} align="right">
-                            <i style={{ color: "green" }}>${numberWithCommas(props.assetBreakdown.hysValue)}</i>
+                            <GreenP>${numberWithCommas(props.assetBreakdown.hysValue)}</GreenP>
                         </Grid>
 
                         <Grid item xs={6}>
                             <b>HYS (begin) value</b>
                         </Grid>
                         <Grid item xs={6} align="right">
-                            <i style={{ color: "green" }}>${numberWithCommas(props.assetBreakdown.hysBeginValue)}</i>
+                            <GreenP>${numberWithCommas(props.assetBreakdown.hysBeginValue)}</GreenP>
                         </Grid>
 
                         <Grid item xs={6}>
                             <b>HYS (with contribution) value</b>
                         </Grid>
                         <Grid item xs={6} align="right">
-                            <i style={{ color: "green" }}>${numberWithCommas(props.assetBreakdown.hysWithContributionValue)}</i>
+                            <GreenP>${numberWithCommas(props.assetBreakdown.hysWithContributionValue)}</GreenP>
                         </Grid>
 
                         <Grid item xs={6}>
                             <b>HYS (begin with contribution) value</b>
                         </Grid>
                         <Grid item xs={6} align="right">
-                            <i style={{ color: "green" }}>${numberWithCommas(props.assetBreakdown.hysBeginWithContributionValue)}</i>
+                            <GreenP>${numberWithCommas(props.assetBreakdown.hysBeginWithContributionValue)}</GreenP>
                         </Grid>
                     </Grid>
 
