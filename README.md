@@ -22,6 +22,7 @@ All documentation
 ### React
 
 - [Deployment](https://create-react-app.dev/docs/deployment/)
+- [Dockerizing a React App](https://mherman.org/blog/dockerizing-a-react-app/)
 
 #### Additional details
 
@@ -30,8 +31,38 @@ All documentation
 
 ### How to run it
 
-To run it locally
+Documentation on how to run the application locally via different tools
+
+#### Npm
+
+Run
 
 ```powershel
 npm run start:dev
+```
+
+#### Docker
+
+Build it
+
+```powershell
+docker build -f Dockerfile.prod -t aiof-portal .
+```
+
+Run it
+
+```powershell
+docker run -it --rm -p 1337:80 aiof-portal
+```
+
+Go to
+
+```text
+http://localhost:1337/
+```
+
+Optional command to clean up `<none>` images
+
+```powershell
+docker rmi $(docker images -f “dangling=true” -q)
 ```
