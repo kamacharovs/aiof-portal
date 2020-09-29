@@ -17,6 +17,13 @@ import ListSubheader from '@material-ui/core/ListSubheader'
 import CreditCardIcon from '@material-ui/icons/CreditCard';
 import ExpandLess from '@material-ui/icons/ExpandLess';
 import ExpandMore from '@material-ui/icons/ExpandMore';
+import FunctionsTwoToneIcon from '@material-ui/icons/FunctionsTwoTone';
+import TrendingUpTwoToneIcon from '@material-ui/icons/TrendingUpTwoTone';
+import UpdateTwoToneIcon from '@material-ui/icons/UpdateTwoTone';
+import QueryBuilderTwoToneIcon from '@material-ui/icons/QueryBuilderTwoTone';
+import HomeTwoToneIcon from '@material-ui/icons/HomeTwoTone';
+import AssessmentTwoToneIcon from '@material-ui/icons/AssessmentTwoTone';
+
 
 const drawerWidth = 240;
 
@@ -48,12 +55,12 @@ const useStyles = makeStyles((theme) => ({
 
 export const LeftSidebar = props => {
   const classes = useStyles();
-  const [open, setOpen] = React.useState(true);
+  const [fiCalculatorsOpen, setCalculatorsOpen] = React.useState(true);
   const [assetOpen, setAssetOpen] = React.useState(true);
 
-  const handleClick = () => {
-    setOpen(!open);
-  };
+  const handleFiCalculatorsOpen = () => {
+    setCalculatorsOpen(!fiCalculatorsOpen)
+  }
   const handleAssetClick = () => {
     setAssetOpen(!assetOpen);
   };
@@ -85,32 +92,32 @@ export const LeftSidebar = props => {
                 Financial Independence
               </ListSubheader>
             }>
-            <ListItem button onClick={handleClick}>
+            <ListItem button onClick={handleFiCalculatorsOpen}>
               <ListItemIcon>
-                <CreditCardIcon />
+                <FunctionsTwoToneIcon />
               </ListItemIcon>
-              <ListItemText primary="FI" />
-              {open ? <ExpandLess /> : <ExpandMore />}
+              <ListItemText primary="Calculators" />
+                {fiCalculatorsOpen ? <ExpandLess /> : <ExpandMore />}
             </ListItem>
-            <Collapse in={open} timeout="auto" unmountOnExit>
+            <Collapse in={fiCalculatorsOpen} timeout="auto" unmountOnExit>
               <List component="div" disablePadding>
                 <ListItem button className={classes.nested} component={Link} to="/fi/time">
                   <ListItemIcon>
-                    <CreditCardIcon />
+                    <QueryBuilderTwoToneIcon />
                   </ListItemIcon>
                   <ListItemText primary="Time" />
                 </ListItem>
 
                 <ListItem button className={classes.nested} component={Link} to="/fi/added/time">
                   <ListItemIcon>
-                    <CreditCardIcon />
+                    <UpdateTwoToneIcon />
                   </ListItemIcon>
                   <ListItemText primary="Added time" />
                 </ListItem>
 
                 <ListItem button className={classes.nested} component={Link} to="/fi/compound/interest">
                   <ListItemIcon>
-                    <CreditCardIcon />
+                    <TrendingUpTwoToneIcon />
                   </ListItemIcon>
                   <ListItemText primary="Compound interest" />
                 </ListItem>
@@ -123,12 +130,12 @@ export const LeftSidebar = props => {
           <List
             subheader={
               <ListSubheader component="div" id="nested-list-subheader">
-                Asset
+                Finances
               </ListSubheader>
             }>
             <ListItem button onClick={handleAssetClick}>
               <ListItemIcon>
-                <CreditCardIcon />
+                <HomeTwoToneIcon />
               </ListItemIcon>
               <ListItemText primary="Asset" />
               {assetOpen ? <ExpandLess /> : <ExpandMore />}
@@ -137,7 +144,7 @@ export const LeftSidebar = props => {
               <List component="div" disablePadding>
                 <ListItem button className={classes.nested} component={Link} to="/asset/breakdown">
                   <ListItemIcon>
-                    <CreditCardIcon />
+                    <AssessmentTwoToneIcon />
                   </ListItemIcon>
                   <ListItemText primary="Breakdown" />
                 </ListItem>
