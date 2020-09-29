@@ -11,6 +11,7 @@ import AttachMoneyIcon from '@material-ui/icons/AttachMoney';
 import ArrowUpwardIcon from '@material-ui/icons/ArrowUpward';
 import Table from 'react-bootstrap/Table';
 import { numberWithCommas } from '../Finance/Common';
+import { GreenP, RedP } from '../../style/common';
 import { AiofPaper } from '../../style/mui';
 import { FI_TIME_TO_FI } from '../../constants/actionTypes';
 
@@ -179,43 +180,43 @@ const TimeToFiResults = props => {
           <Grid item xs={6}>
             <b>Starting amount</b>
           </Grid>
-          <Grid item xs={6}>
-            <i style={{ color: "green" }}>${numberWithCommas(props.time.startingAmount)}</i>
+          <Grid item xs={6} align="right">
+            <GreenP>${numberWithCommas(props.time.startingAmount)}</GreenP>
           </Grid>
 
           <Grid item xs={6}>
             <b>Monthly investment</b>
           </Grid>
-          <Grid item xs={6}>
-            <i style={{ color: "green" }}>${numberWithCommas(props.time.monthlyInvestment)}</i>
+          <Grid item xs={6} align="right">
+            <GreenP>${numberWithCommas(props.time.monthlyInvestment)}</GreenP>
           </Grid>
 
           <Grid item xs={6}>
             <b>Desired years expenses for FI</b>
           </Grid>
-          <Grid item xs={6}>
-            <i style={{ color: "green" }}>{props.time.desiredYearsExpensesForFi}</i>
+          <Grid item xs={6} align="right">
+            <GreenP>{props.time.desiredYearsExpensesForFi}</GreenP>
           </Grid>
 
           <Grid item xs={6}>
             <b>Desired annual spending</b>
           </Grid>
-          <Grid item xs={6}>
-            <i style={{ color: "green" }}>${numberWithCommas(props.time.desiredAnnualSpending)}</i>
+          <Grid item xs={6} align="right">
+            <GreenP>${numberWithCommas(props.time.desiredAnnualSpending)}</GreenP>
           </Grid>
 
           <Grid item xs={6}>
             <b>Desired retirement savings for FI</b>
           </Grid>
-          <Grid item xs={6}>
-            <i style={{ color: "green" }}>${numberWithCommas(props.time.desiredRetirementSavingsForFi)}</i>
+          <Grid item xs={6} align="right">
+            <GreenP>${numberWithCommas(props.time.desiredRetirementSavingsForFi)}</GreenP>
           </Grid>
 
           <Grid item xs={6}>
             <b>Current deficit</b>
           </Grid>
-          <Grid item xs={6}>
-            <i style={{ color: "red" }}>${numberWithCommas(props.time.currentDeficit)}</i>
+          <Grid item xs={6} align="right">
+            <RedP>${numberWithCommas(props.time.currentDeficit)}</RedP>
           </Grid>
         </Grid>
         <hr/>
@@ -223,8 +224,8 @@ const TimeToFiResults = props => {
           borderless={true}>
           <thead>
             <tr>
-              <th>interest</th>
-              <th>years</th>
+              <th>Interest</th>
+              <th>Years</th>
             </tr>
           </thead>
           <tbody>

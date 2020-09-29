@@ -7,7 +7,9 @@ import Container from '@material-ui/core/Container';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
-import InputAdornment from '@material-ui/core/InputAdornment';
+import AttachMoneyIcon from '@material-ui/icons/AttachMoney';
+import ArrowUpwardIcon from '@material-ui/icons/ArrowUpward';
+import TrendingUpIcon from '@material-ui/icons/TrendingUp';
 import { numberWithCommas } from '../Finance/Common';
 import { GreenP, RedP } from '../../style/common';
 import { AiofPaper } from '../../style/mui';
@@ -109,47 +111,64 @@ class AssetBreakdown extends React.Component {
                     <AiofPaper elevation={3}>
                         <form className={this.classes.root} noValidate autoComplete="off" onSubmit={this.submitForm}>
                             <Grid container spacing={3}>
+
                                 <Grid item xs={6}>
                                     <div className={this.classes.margin}>
-                                        <TextField label="Value"
-                                            value={this.state.value}
-                                            onChange={this.updateState('value')}
-                                            InputProps={{
-                                                startAdornment: <InputAdornment position="start">$</InputAdornment>
-                                            }} />
+                                        <Grid container spacing={1} alignItems="flex-end">
+                                            <Grid item>
+                                                <AttachMoneyIcon />
+                                            </Grid>
+                                            <Grid item>
+                                                <TextField label="Value"
+                                                    value={this.state.value}
+                                                    onChange={this.updateState('value')} />
+                                            </Grid>
+                                        </Grid>
                                     </div>
                                 </Grid>
 
                                 <Grid item xs={6}>
                                     <div className={this.classes.margin}>
-                                        <TextField label="Contribution"
-                                            value={this.state.contribution}
-                                            onChange={this.updateState('contribution')}
-                                            InputProps={{
-                                                startAdornment: <InputAdornment position="start">$</InputAdornment>
-                                            }} />
+                                        <Grid container spacing={1} alignItems="flex-end">
+                                            <Grid item>
+                                                <AttachMoneyIcon />
+                                            </Grid>
+                                            <Grid item>
+                                                <TextField label="Contribution"
+                                                    value={this.state.contribution}
+                                                    onChange={this.updateState('contribution')} />
+                                            </Grid>
+                                        </Grid>
                                     </div>
                                 </Grid>
 
                                 <Grid item xs={6}>
                                     <div className={this.classes.margin}>
-                                        <TextField label="Interest"
-                                            value={this.state.interest}
-                                            onChange={this.updateState('interest')}
-                                            InputProps={{
-                                                startAdornment: <InputAdornment position="start">%</InputAdornment>
-                                            }} />
+                                        <Grid container spacing={1} alignItems="flex-end">
+                                            <Grid item>
+                                                <TrendingUpIcon />
+                                            </Grid>
+                                            <Grid item>
+                                                <TextField label="Interest"
+                                                    value={this.state.interest}
+                                                    onChange={this.updateState('interest')} />
+                                            </Grid>
+                                        </Grid>
                                     </div>
                                 </Grid>
 
                                 <Grid item xs={6}>
                                     <div className={this.classes.margin}>
-                                        <TextField label="HYS interest"
-                                            value={this.state.hysInterest}
-                                            onChange={this.updateState('hysInterest')}
-                                            InputProps={{
-                                                startAdornment: <InputAdornment position="start">%</InputAdornment>
-                                            }} />
+                                        <Grid container spacing={1} alignItems="flex-end">
+                                            <Grid item>
+                                                <TrendingUpIcon />
+                                            </Grid>
+                                            <Grid item>
+                                                <TextField label="HYS interest"
+                                                    value={this.state.hysInterest}
+                                                    onChange={this.updateState('hysInterest')} />
+                                            </Grid>
+                                        </Grid>
                                     </div>
                                 </Grid>
                             </Grid>
@@ -157,9 +176,16 @@ class AssetBreakdown extends React.Component {
                             <Grid container spacing={3}>
                                 <Grid item xs={6}>
                                     <div className={this.classes.margin}>
-                                        <TextField label="Years"
-                                            value={this.state.years}
-                                            onChange={this.updateState('years')} />
+                                        <Grid container spacing={1} alignItems="flex-end">
+                                            <Grid item>
+                                                <ArrowUpwardIcon />
+                                            </Grid>
+                                            <Grid item>
+                                                <TextField label="Years"
+                                                    value={this.state.years}
+                                                    onChange={this.updateState('years')} />
+                                            </Grid>
+                                        </Grid>
                                     </div>
                                 </Grid>
                             </Grid>
@@ -167,23 +193,31 @@ class AssetBreakdown extends React.Component {
                             <Grid container spacing={3}>
                                 <Grid item xs={6}>
                                     <div className={this.classes.margin}>
-                                        <TextField label="Tax drag"
-                                            value={this.state.taxDrag}
-                                            onChange={this.updateState('taxDrag')}
-                                            InputProps={{
-                                                startAdornment: <InputAdornment position="start">%</InputAdornment>
-                                            }} />
+                                        <Grid container spacing={1} alignItems="flex-end">
+                                            <Grid item>
+                                                <TrendingUpIcon />
+                                            </Grid>
+                                            <Grid item>
+                                                <TextField label="Tax drag"
+                                                    value={this.state.taxDrag}
+                                                    onChange={this.updateState('taxDrag')} />
+                                            </Grid>
+                                        </Grid>
                                     </div>
                                 </Grid>
 
                                 <Grid item xs={6}>
                                     <div className={this.classes.margin}>
-                                        <TextField label="Investment fees"
-                                            value={this.state.investmentFees}
-                                            onChange={this.updateState('investmentFees')}
-                                            InputProps={{
-                                                startAdornment: <InputAdornment position="start">%</InputAdornment>
-                                            }} />
+                                        <Grid container spacing={1} alignItems="flex-end">
+                                            <Grid item>
+                                                <TrendingUpIcon />
+                                            </Grid>
+                                            <Grid item>
+                                                <TextField label="Investment fees"
+                                                    value={this.state.investmentFees}
+                                                    onChange={this.updateState('investmentFees')} />
+                                            </Grid>
+                                        </Grid>
                                     </div>
                                 </Grid>
                             </Grid>
