@@ -1,7 +1,6 @@
 import React from 'react';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
-import Container from 'react-bootstrap/Container';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import {
@@ -9,10 +8,6 @@ import {
 } from '../constants/actionTypes';
 import { HeaderLink } from '../style/common';
 
-const bg = "dark"
-const variant = "dark"
-const pullright = "true"
-const navbarStyle = {"borderRadius": "0"}
 
 const HomeView = props => {
   if (props.currentUser) {
@@ -34,10 +29,8 @@ const HomeView = props => {
 const LoggedOutView = props => {
   if (!props.currentUser) {
     return (
-      <Nav pullright={pullright}>
-        <Nav className="mr-auto">
-          <Link to="/login" className="nav-link">Sign in</Link>
-        </Nav>
+      <Nav className="ml-auto">
+        <Link to="/login" className="nav-link">Sign in</Link>
       </Nav>
     );
   }
@@ -47,12 +40,10 @@ const LoggedOutView = props => {
 const LoggedInView = props => {
   if (props.currentUser) {
     return (
-      <Nav pullright={pullright}>
-        <Nav className="mr-auto">
-          <Link to="/login" className="nav-link" onClick={props.onClickLogout}>Log out</Link>
-          <Link to={`/@${props.currentUser.username}/finance`} className="nav-link">Finance</Link>
-          <Link to={`/@${props.currentUser.username}`} className="nav-link">{props.currentUser.lastName}, {props.currentUser.firstName}</Link>
-        </Nav>
+      <Nav className="ml-auto">
+        <Link to="/login" className="nav-link" onClick={props.onClickLogout}>Log out</Link>
+        <Link to={`/@${props.currentUser.username}/finance`} className="nav-link">Finance</Link>
+        <Link to={`/@${props.currentUser.username}`} className="nav-link">{props.currentUser.lastName}, {props.currentUser.firstName}</Link>
       </Nav>
     );
   }
@@ -66,18 +57,14 @@ const mapDispatchToProps = dispatch => ({
 class Header extends React.Component {
   render() {
     return (
-      <Navbar bg={bg} variant={variant} expand="sm" sticky="top" style={navbarStyle} >
+      <Navbar bg="dark" variant="dark" expand="sm" sticky="top" >
         <Navbar.Toggle/>
         <Navbar.Collapse>
-          <Container>
+          <HomeView currentUser={this.props.currentUser} appName={this.props.appName.toLowerCase()} />
 
-            <HomeView currentUser={this.props.currentUser} appName={this.props.appName.toLowerCase()} />
+          <LoggedOutView currentUser={this.props.currentUser} />
 
-            <LoggedOutView currentUser={this.props.currentUser} />
-
-            <LoggedInView currentUser={this.props.currentUser} onClickLogout={this.props.onClickLogout} />
-
-          </Container>
+          <LoggedInView currentUser={this.props.currentUser} onClickLogout={this.props.onClickLogout} />
         </Navbar.Collapse>
       </Navbar>
     );

@@ -55,6 +55,7 @@ const useStyles = makeStyles((theme) => ({
 
 export const LeftSidebar = props => {
   const classes = useStyles();
+  const open = props.open || false;
   const [fiCalculatorsOpen, setCalculatorsOpen] = React.useState(true);
   const [assetOpen, setAssetOpen] = React.useState(true);
 
@@ -70,7 +71,8 @@ export const LeftSidebar = props => {
       <CssBaseline />
       <Drawer
         className={classes.drawer}
-        variant="permanent"
+        variant="persistent"
+        open={open}
         classes={{
           paper: classes.drawerPaper,
         }}
