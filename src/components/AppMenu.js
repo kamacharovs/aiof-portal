@@ -4,7 +4,6 @@ import { Link } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
 import CssBaseline from '@material-ui/core/CssBaseline';
-import Toolbar from '@material-ui/core/Toolbar';
 import List from '@material-ui/core/List';
 import Divider from '@material-ui/core/Divider';
 import Collapse from '@material-ui/core/Collapse';
@@ -17,12 +16,16 @@ import ListSubheader from '@material-ui/core/ListSubheader'
 import CreditCardIcon from '@material-ui/icons/CreditCard';
 import ExpandLess from '@material-ui/icons/ExpandLess';
 import ExpandMore from '@material-ui/icons/ExpandMore';
+import IconButton from '@material-ui/core/IconButton';
+import MenuIcon from '@material-ui/icons/Menu';
 import FunctionsTwoToneIcon from '@material-ui/icons/FunctionsTwoTone';
 import TrendingUpTwoToneIcon from '@material-ui/icons/TrendingUpTwoTone';
 import UpdateTwoToneIcon from '@material-ui/icons/UpdateTwoTone';
 import QueryBuilderTwoToneIcon from '@material-ui/icons/QueryBuilderTwoTone';
 import HomeTwoToneIcon from '@material-ui/icons/HomeTwoTone';
 import AssessmentTwoToneIcon from '@material-ui/icons/AssessmentTwoTone';
+
+import { DefaultColor } from '../style/common';
 
 
 const drawerWidth = 240;
@@ -31,8 +34,8 @@ const useStyles = makeStyles((theme) => ({
   root: {
     display: 'flex',
   },
-  appBar: {
-    zIndex: theme.zIndex.drawer + 1,
+  button: {
+    color: DefaultColor
   },
   drawer: {
     width: drawerWidth,
@@ -53,12 +56,18 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export const LeftSidebar = props => {
+export const AppMenu = () => {
   const classes = useStyles();
-  const open = props.open || false;
-  const [fiCalculatorsOpen, setCalculatorsOpen] = React.useState(true);
-  const [assetOpen, setAssetOpen] = React.useState(true);
+  const [open, setOpen] = React.useState(false);
+  const [fiCalculatorsOpen, setCalculatorsOpen] = React.useState(false);
+  const [assetOpen, setAssetOpen] = React.useState(false);
 
+  const handleOpen = () => {
+    setOpen(true)
+  }
+  const handleClose = () => {
+    setOpen(false)
+  }
   const handleFiCalculatorsOpen = () => {
     setCalculatorsOpen(!fiCalculatorsOpen)
   }
@@ -69,15 +78,24 @@ export const LeftSidebar = props => {
   return (
     <div className={classes.root}>
       <CssBaseline />
+        <IconButton
+            className={classes.button}
+            aria-label="open drawer"
+            onClick={handleOpen}
+            edge="start"
+          >
+            <MenuIcon />
+        </IconButton>
+
       <Drawer
         className={classes.drawer}
-        variant="persistent"
+        variant="temporary"
         open={open}
+        onClose={handleClose}
         classes={{
           paper: classes.drawerPaper,
         }}
       >
-        <Toolbar />
         <div className={classes.drawerContainer}>
           <List>
             <ListItem button key="time-to-fi" component={Link} to="/">
@@ -153,7 +171,6 @@ export const LeftSidebar = props => {
               </List>
             </Collapse>
           </List>
-
         </div>
       </Drawer>
     </div>

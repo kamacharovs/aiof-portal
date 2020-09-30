@@ -7,6 +7,7 @@ import {
   LOGOUT
 } from '../constants/actionTypes';
 import { HeaderLink } from '../style/common';
+import { AppMenu } from './AppMenu';
 
 
 const HomeView = props => {
@@ -58,14 +59,15 @@ class Header extends React.Component {
   render() {
     return (
       <Navbar bg="dark" variant="dark" expand="sm" sticky="top" >
-        <Navbar.Toggle/>
-        <Navbar.Collapse>
+      
+        <AppMenu />
+
           <HomeView currentUser={this.props.currentUser} appName={this.props.appName.toLowerCase()} />
 
           <LoggedOutView currentUser={this.props.currentUser} />
 
           <LoggedInView currentUser={this.props.currentUser} onClickLogout={this.props.onClickLogout} />
-        </Navbar.Collapse>
+        
       </Navbar>
     );
   }
