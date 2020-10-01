@@ -9,6 +9,7 @@ import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import { numberWithCommas } from '../Finance/Common';
+import { GreenP, RedP } from '../../style/common';
 import { AiofPaper } from '../../style/mui';
 import { FI_COMPOUND_INTEREST } from '../../constants/actionTypes';
 
@@ -189,64 +190,64 @@ const CompoundInterestResults = props => {
                   <Grid item xs={6}>
                     <b>Beginning</b>
                   </Grid>
-                  <Grid item xs={6}>
-                    <i style={{ color: "green" }}>${numberWithCommas(ci.compoundedBeginning)}</i>
+                  <Grid item xs={6} align="right">
+                    <GreenP>${numberWithCommas(ci.compoundedBeginning)}</GreenP>
                   </Grid>
 
                   <Grid item xs={6}>
                     <b>End</b>
                   </Grid>
-                  <Grid item xs={6}>
-                    <i style={{ color: "green" }}>${numberWithCommas(ci.compoundedEnd)}</i>
+                  <Grid item xs={6} align="right">
+                    <GreenP>${numberWithCommas(ci.compoundedEnd)}</GreenP>
                   </Grid>
 
                   <Grid item xs={6}>
                     <b>Starting amount</b>
                   </Grid>
-                  <Grid item xs={6}>
-                    <i style={{ color: "green" }}>${numberWithCommas(ci.startingAmount)}</i>
+                  <Grid item xs={6} align="right">
+                    <GreenP>${numberWithCommas(ci.startingAmount)}</GreenP>
                   </Grid>
 
                   <Grid item xs={6}>
                     <b>Monthly investment</b>
                   </Grid>
-                  <Grid item xs={6}>
-                    <i style={{ color: "green" }}>${numberWithCommas(ci.monthlyInvestment)}</i>
+                  <Grid item xs={6} align="right">
+                    <GreenP>${numberWithCommas(ci.monthlyInvestment)}</GreenP>
                   </Grid>
 
                   <Grid item xs={6}>
                     <b>Interest</b>
                   </Grid>
-                  <Grid item xs={6}>
-                    <i style={{ color: "green" }}>{ci.interest}%</i>
+                  <Grid item xs={6} align="right">
+                    <GreenP>{ci.interest}%</GreenP>
                   </Grid>
 
                   <Grid item xs={6}>
                     <b>Years</b>
                   </Grid>
-                  <Grid item xs={6}>
-                    <i style={{ color: "green" }}>{ci.numberOfYears}</i>
+                  <Grid item xs={6} align="right">
+                    <GreenP>{ci.numberOfYears}</GreenP>
                   </Grid>
 
                   <Grid item xs={6}>
                     <b>Frequency</b>
                   </Grid>
-                  <Grid item xs={6}>
-                    <i style={{ color: "green" }}>{ci.frequency}</i>
+                  <Grid item xs={6} align="right">
+                    <GreenP>{ci.frequency}</GreenP>
                   </Grid>
 
                   <Grid item xs={6}>
                     <b>Investment fees</b>
                   </Grid>
-                  <Grid item xs={6}>
-                    <i style={{ color: "red" }}>{ci.investmentFees}%</i>
+                  <Grid item xs={6} align="right">
+                    <RedP>{ci.investmentFees}%</RedP>
                   </Grid>
 
                   <Grid item xs={6}>
                     <b>Tax drag</b>
                   </Grid>
-                  <Grid item xs={6}>
-                    <i style={{ color: "red" }}>{ci.taxDrag}%</i>
+                  <Grid item xs={6} align="right">
+                    <RedP>{ci.taxDrag}%</RedP>
                   </Grid>
                 </Grid>
                 <hr />
