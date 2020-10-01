@@ -9,6 +9,15 @@ import {
 import { HeaderLink } from '../style/common';
 import { AppMenu } from './AppMenu';
 
+import { makeStyles } from '@material-ui/core/styles';
+import Button from '@material-ui/core/Button';
+import Menu from '@material-ui/core/Menu';
+import MenuItem from '@material-ui/core/MenuItem';
+
+import ExpandMore from '@material-ui/icons/ExpandMore';
+
+import { DefaultColor } from '../style/common';
+
 
 const HomeView = props => {
   if (props.currentUser) {
@@ -45,6 +54,7 @@ const LoggedInView = props => {
         <Link to="/login" className="nav-link" onClick={props.onClickLogout}>Log out</Link>
         <Link to={`/@${props.currentUser.username}/finance`} className="nav-link">Finance</Link>
         <Link to={`/@${props.currentUser.username}`} className="nav-link">{props.currentUser.lastName}, {props.currentUser.firstName}</Link>
+        <ProfileMenu lastName={props.currentUser.lastName} firstName={props.currentUser.firstName} onClickLogout={props.onClickLogout}/>
       </Nav>
     );
   }
@@ -54,6 +64,48 @@ const LoggedInView = props => {
 const mapDispatchToProps = dispatch => ({
   onClickLogout: () => dispatch({ type: LOGOUT }),
 });
+
+const useStyles = makeStyles((theme) => ({
+  root: {
+    display: 'flex',
+  },
+  button: {
+    color: DefaultColor,
+    textTransform: 'capitalize',
+  },
+}));
+
+const ProfileMenu = props => {
+  const classes = useStyles();
+  const [anchorEl, setAnchorEl] = React.useState(null);
+
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
+  return (
+    <div>
+      <Button className={classes.button} aria-controls="simple-menu" aria-haspopup="true" onClick={handleClick}>
+        {props.lastName}, {props.firstName} <ExpandMore/>
+      </Button>
+      <Menu
+        id="simple-menu"
+        anchorEl={anchorEl}
+        keepMounted
+        open={Boolean(anchorEl)}
+        onClose={handleClose}
+      >
+        <MenuItem onClick={handleClose}>Profile</MenuItem>
+        <MenuItem onClick={handleClose}>My account</MenuItem>
+        <MenuItem onClick={props.onClickLogout}>Logout</MenuItem>
+      </Menu>
+    </div>
+  );
+}
 
 class Header extends React.Component {
   render() {
