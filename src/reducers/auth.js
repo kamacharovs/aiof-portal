@@ -1,6 +1,7 @@
 import {
   LOGIN,
   REGISTER,
+  REFRESH,
   LOGIN_PAGE_UNLOADED,
   REGISTER_PAGE_UNLOADED,
   ASYNC_START,
@@ -11,6 +12,7 @@ export default (state = {}, action) => {
   switch (action.type) {
     case LOGIN:
     case REGISTER:
+    case REFRESH:
       return {
         ...state,
         inProgress: false,

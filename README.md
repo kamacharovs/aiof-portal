@@ -19,7 +19,51 @@ All documentation
 - [React charts](https://www.npmjs.com/package/react-chartjs-2)
 - [React helmet](https://github.com/nfl/react-helmet)
 
+### React
+
+- [Deployment](https://create-react-app.dev/docs/deployment/)
+- [Dockerizing a React App](https://mherman.org/blog/dockerizing-a-react-app/)
+- [Adding Custom Environment Variables](https://create-react-app.dev/docs/adding-custom-environment-variables/)
+
 #### Additional details
 
 - [React tabs - Support for vertical tabs?](https://github.com/reactjs/react-tabs/issues/274)
 - [How to use chart.js to create charts in React](https://www.educative.io/edpresso/how-to-use-chartjs-to-create-charts-in-react)
+
+### How to run it
+
+Documentation on how to run the application locally via different tools
+
+#### Npm
+
+Run
+
+```powershel
+npm start
+```
+
+#### Docker
+
+Build it
+
+```powershell
+docker build -t aiof-portal .
+```
+
+Run it
+
+```powershell
+docker run -it --rm -p 1337:80 aiof-portal
+```
+
+Go to
+
+```text
+http://localhost:1337/
+```
+
+Optional command to clean up `<none>` images
+
+```powershell
+docker rmi $(docker images -f “dangling=true” -q)
+```

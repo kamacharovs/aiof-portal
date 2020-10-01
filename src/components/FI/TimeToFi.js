@@ -11,7 +11,8 @@ import AttachMoneyIcon from '@material-ui/icons/AttachMoney';
 import ArrowUpwardIcon from '@material-ui/icons/ArrowUpward';
 import Table from 'react-bootstrap/Table';
 import { numberWithCommas } from '../Finance/Common';
-import { AiofBox } from '../../style/common';
+import { GreenP, RedP } from '../../style/common';
+import { AiofPaper } from '../../style/mui';
 import { FI_TIME_TO_FI } from '../../constants/actionTypes';
 
 const mapStateToProps = state => ({
@@ -22,7 +23,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   onSubmit: timeToFi =>
-    dispatch({ type: FI_TIME_TO_FI, payload: agent.Fi.time(timeToFi) }),
+    dispatch({ type: FI_TIME_TO_FI, payload: agent.Fi.time(timeToFi) })
 });
 
 class TimeToFi extends React.Component {
@@ -72,6 +73,17 @@ class TimeToFi extends React.Component {
     };
   }
 
+  componentDidMount() {
+    if (this.props.time) {
+      this.setState({
+        startingAmount: this.props.time.startingAmount,
+        monthlyInvestment: this.props.time.monthlyInvestment,
+        desiredYearsExpensesForFi: this.props.time.desiredYearsExpensesForFi,
+        desiredAnnualSpending: this.props.time.desiredAnnualSpending,
+      });
+    }
+  }
+
   render() {
     return (
       <React.Fragment>
@@ -79,7 +91,7 @@ class TimeToFi extends React.Component {
           <title>{this.props.appName} | Time to FI</title>
         </Helmet>
         <Container maxWidth="sm">
-          <AiofBox>
+          <AiofPaper elevation={3}>
             <form className={this.classes.root} noValidate autoComplete="off" onSubmit={this.submitForm}>
               <Grid container spacing={3}>
                 <Grid item xs={6}>
@@ -149,7 +161,7 @@ class TimeToFi extends React.Component {
                 </Grid>
               </Grid>
             </form>
-          </AiofBox>
+          </AiofPaper>
 
           <TimeToFiResults time={this.props.time} />
 
@@ -162,67 +174,65 @@ class TimeToFi extends React.Component {
 const TimeToFiResults = props => {
   if (props.time) {
     return (
-      <AiofBox>
-        <h3>Results</h3>
-        <hr />
+      <React.Fragment>
+      <AiofPaper elevation={3}>
         <Grid container spacing={1}>
           <Grid item xs={6}>
-            <b>Starting amount</b>:
+            <b>Starting amount</b>
           </Grid>
-          <Grid item xs={6}>
-            <i style={{ color: "green" }}>${numberWithCommas(props.time.startingAmount)}</i>
-          </Grid>
-
-          <Grid item xs={6}>
-            <b>Monthly investment</b>:
-          </Grid>
-          <Grid item xs={6}>
-            <i style={{ color: "green" }}>${numberWithCommas(props.time.monthlyInvestment)}</i>
+          <Grid item xs={6} align="right">
+            <GreenP>${numberWithCommas(props.time.startingAmount)}</GreenP>
           </Grid>
 
           <Grid item xs={6}>
-            <b>Desired years expenses for FI</b>:
+            <b>Monthly investment</b>
           </Grid>
-          <Grid item xs={6}>
-            <i style={{ color: "green" }}>{props.time.desiredYearsExpensesForFi}</i>
-          </Grid>
-
-          <Grid item xs={6}>
-            <b>Desired annual spending</b>:
-          </Grid>
-          <Grid item xs={6}>
-            <i style={{ color: "green" }}>${numberWithCommas(props.time.desiredAnnualSpending)}</i>
+          <Grid item xs={6} align="right">
+            <GreenP>${numberWithCommas(props.time.monthlyInvestment)}</GreenP>
           </Grid>
 
           <Grid item xs={6}>
-            <b>Desired retirement savings for FI</b>:
+            <b>Desired years expenses for FI</b>
           </Grid>
+          <Grid item xs={6} align="right">
+            <GreenP>{props.time.desiredYearsExpensesForFi}</GreenP>
+          </Grid>
+
           <Grid item xs={6}>
-            <i style={{ color: "green" }}>${numberWithCommas(props.time.desiredRetirementSavingsForFi)}</i>
+            <b>Desired annual spending</b>
+          </Grid>
+          <Grid item xs={6} align="right">
+            <GreenP>${numberWithCommas(props.time.desiredAnnualSpending)}</GreenP>
           </Grid>
 
           <Grid item xs={6}>
-            <b>Current deficit</b>:
+            <b>Desired retirement savings for FI</b>
           </Grid>
-          <Grid item xs={6}>
-            <i style={{ color: "red" }}>${numberWithCommas(props.time.currentDeficit)}</i>
+          <Grid item xs={6} align="right">
+            <GreenP>${numberWithCommas(props.time.desiredRetirementSavingsForFi)}</GreenP>
           </Grid>
 
+          <Grid item xs={6}>
+            <b>Current deficit</b>
+          </Grid>
+          <Grid item xs={6} align="right">
+            <RedP>${numberWithCommas(props.time.currentDeficit)}</RedP>
+          </Grid>
         </Grid>
-        <hr />
+        <hr/>
         <Table responsive="sm"
           borderless={true}>
           <thead>
             <tr>
-              <th>interest</th>
-              <th>years</th>
+              <th>Interest</th>
+              <th>Years</th>
             </tr>
           </thead>
           <tbody>
             {
               props.time.years.map(year => {
                 return (
-                  <tr>
+                  <tr key={year.interest}>
                     <td>{year.interest}%</td>
                     <td>{year.years}</td>
                   </tr>
@@ -231,7 +241,8 @@ const TimeToFiResults = props => {
             }
           </tbody>
         </Table>
-      </AiofBox>
+      </AiofPaper>
+      </React.Fragment>
     );
   }
   return null

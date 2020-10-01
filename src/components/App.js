@@ -1,24 +1,28 @@
-import agent from '../agent';
-import Header from './Header';
-import Footer from './Footer';
 import React from 'react';
 import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
 import { Route, Switch } from 'react-router-dom';
-import Article from '../components/Article';
-import Editor from '../components/Editor';
+import agent from '../agent';
+import Header from '../components/Header';
+import Footer from '../components/Footer';
 import Home from '../components/Home';
 import Login from '../components/Login';
+import Register from '../components/Register';
+import ProfileStepper from '../components/ProfileStepper';
 import Profile from '../components/Profile';
 import ProfileSettings from '../components/ProfileSettings';
 import FinanceMainView from '../components/Finance/FinanceMainView';
-import Register from '../components/Register';
+import AssetBreakdown from '../components/Finance/AssetBreakdown';
+import FI from '../components/FI';
 import TimeToFi from '../components/FI/TimeToFi';
+import AddedTime from '../components/FI/AddedTime';
+import CompoundInterest from '../components/FI/CompoundInterest';
 import { store } from '../store';
 import { push } from 'react-router-redux';
 import Cookies from 'js-cookie';
 import { APP_LOAD, REDIRECT } from '../constants/actionTypes';
 import { ACCESS_TOKEN, USER } from '../constants/common';
+
 
 const mapStateToProps = state => {
   return {
@@ -67,15 +71,17 @@ class App extends React.Component {
             currentUser={this.props.currentUser} />
           <Switch>
             <Route exact path="/" component={Home} />
-            <Route path="/login" component={Login} />
-            <Route path="/register" component={Register} />
-            <Route path="/editor/:slug" component={Editor} />
-            <Route path="/editor" component={Editor} />
-            <Route path="/article/:id" component={Article} />
+            <Route exact path="/login" component={Login} />
+            <Route exact path="/register" component={Register} />
+            <Route exact path="/profile/update" component={ProfileStepper} />
             <Route exact path="/@:username/finance" component={FinanceMainView} />
             <Route exact path="/@:username/settings" component={ProfileSettings} />
             <Route exact path="/@:username" component={Profile} />
+            <Route exact path="/fi" component={FI} />
+            <Route exact path="/fi/added/time" component={AddedTime} />
             <Route exact path="/fi/time" component={TimeToFi} />
+            <Route exact path="/fi/compound/interest" component={CompoundInterest} />
+            <Route exact path="/asset/breakdown" component={AssetBreakdown} />
           </Switch>
           <Footer
             appName={this.props.appName}

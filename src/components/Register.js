@@ -1,23 +1,17 @@
 import React from 'react';
-import Form from 'react-bootstrap/Form';
-import Button from 'react-bootstrap/Button';
-import Row from 'react-bootstrap/Row';
 import { Helmet } from 'react-helmet';
 import agent from '../agent';
-import { FaUnlock } from "react-icons/fa";
 import { connect } from 'react-redux';
-import {
-  UPDATE_FIELD_AUTH,
-  REGISTER,
-  REGISTER_PAGE_UNLOADED
-} from '../constants/actionTypes';
-import { 
-  ContainerAiof, 
-  CoolLink, 
-  RoundBorderBox, 
-  RoundBorderBoxText, 
-  InlineFormLabel 
-} from '../style/common';
+import { makeStyles } from '@material-ui/core/styles';
+import Container from '@material-ui/core/Container';
+import TextField from '@material-ui/core/TextField';
+import Button from '@material-ui/core/Button';
+import Grid from '@material-ui/core/Grid';
+import { LoginPaper } from '../style/mui';
+import LockOpenIcon from '@material-ui/icons/LockOpen';
+import { CoolLink } from '../style/common';
+import { UPDATE_FIELD_AUTH, REGISTER, REGISTER_PAGE_UNLOADED } from '../constants/actionTypes';
+
 
 const mapStateToProps = state => ({ ...state.auth, appName: state.common.appName });
 
@@ -53,6 +47,13 @@ class Register extends React.Component {
       ev.preventDefault();
       this.props.onSubmit(firstName, lastName, email, username, password);
     }
+
+    this.classes = makeStyles((theme) => ({
+      root: {
+        display: 'flex',
+        flexWrap: 'wrap',
+      },
+    }));
   }
 
   componentWillUnmount() {
@@ -78,88 +79,99 @@ class Register extends React.Component {
         <Helmet>
           <title>{this.props.appName} | Register</title>
         </Helmet>
-        <ContainerAiof>
-          <Row>
-            <RoundBorderBox className="col-md-6 offset-md-3 col-xs-12 text-center">
+        <Container maxWidth="sm">
+          <LoginPaper elevation={3} variant="outlined">
 
-              <h1>Sign Up</h1>
-              <p>
-                <CoolLink to="/login">
-                  Have an account?
+            <Grid container spacing={3} alignItems="center" justify="center" alignContent="center">
+              <Grid item xs={12}>
+                <h1 className="text-center">Sign Up</h1>
+                <p className="text-center">
+                  <CoolLink to="/login">
+                    Have an account?
               </CoolLink>
-              </p>
+                </p>
+              </Grid>
+            </Grid>
 
-              <Form onSubmit={this.submitForm(firstName, lastName, email, username, password)}>
-                <Form.Text className="text-muted">
+            <form className={this.classes.root} noValidate autoComplete="off" onSubmit={this.submitForm(firstName, lastName, email, username, password)}>
+              <Grid container spacing={3} alignItems="center" justify="center">
+                <p className="text-center text-muted">
                   One account for everything finance
-                </Form.Text>
+                </p>
 
-                <RoundBorderBoxText className="text-left">
-                  <Form.Group>
-                    <InlineFormLabel>First Name</InlineFormLabel>
-                    <Form.Control type="text"
-                      required
-                      value={firstName}
-                      onChange={this.changeFirstName} />
-                    <Form.Text muted={true}>
-                      {isFirstNameValid && !focused ? null : "First name is required and must be between 1 and 200 characters"}
-                    </Form.Text>
-                  </Form.Group>
+                <Grid item xs={12}>
+                  <TextField
+                    required
+                    fullWidth
+                    label="First name"
+                    variant="outlined"
+                    value={firstName}
+                    onChange={this.changeFirstName}
+                    helperText={isFirstNameValid && !focused ? null : "First name is required and must be between 1 and 200 characters"}
+                  />
+                </Grid>
 
-                  <Form.Group>
-                    <InlineFormLabel>Last Name</InlineFormLabel>
-                    <Form.Control type="text"
-                      required
-                      value={lastName}
-                      onChange={this.changeLastName} />
-                    <Form.Text muted={true}>
-                      {isLastNameValid ? null : "Last name is required and must be between 1 and 200 characters"}
-                    </Form.Text>
-                  </Form.Group>
+                <Grid item xs={12}>
+                  <TextField
+                    required
+                    fullWidth
+                    label="Last name"
+                    variant="outlined"
+                    value={lastName}
+                    onChange={this.changeLastName}
+                    helperText={isLastNameValid ? null : "Last name is required and must be between 1 and 200 characters"}
+                  />
+                </Grid>
 
-                  <Form.Group>
-                    <InlineFormLabel>Email</InlineFormLabel>
-                    <Form.Control type="text"
-                      required
-                      value={email}
-                      onChange={this.changeEmail} />
-                    <Form.Text muted={true}>
-                      {isEmailValid ? null : "Email is required and must be between 1 and 200 characters"}
-                    </Form.Text>
-                  </Form.Group>
+                <Grid item xs={12}>
+                  <TextField
+                    required
+                    fullWidth
+                    label="Email"
+                    variant="outlined"
+                    value={email}
+                    onChange={this.changeEmail}
+                    helperText={isEmailValid ? null : "Email is required and must be between 1 and 200 characters"}
+                  />
+                </Grid>
 
-                  <Form.Group>
-                    <InlineFormLabel>Username</InlineFormLabel>
-                    <Form.Control type="text"
-                      required
-                      value={username}
-                      onChange={this.changeUsername} />
-                    <Form.Text muted={true}>
-                      {isUsernameValid ? null : "Username is required and must be unique and between 1 and 200 characters"}
-                    </Form.Text>
-                  </Form.Group>
+                <Grid item xs={12}>
+                  <TextField
+                    required
+                    fullWidth
+                    label="Username"
+                    variant="outlined"
+                    value={username}
+                    onChange={this.changeUsername}
+                    helperText={isUsernameValid ? null : "Username is required and must be unique and between 1 and 200 characters"}
+                  />
+                </Grid>
 
-                  <Form.Group>
-                    <InlineFormLabel>Password</InlineFormLabel>
-                    <Form.Control type="password"
-                      required
-                      value={password}
-                      onChange={this.changePassword} />
-                    <Form.Text muted={true}>
-                      {isPasswordValid ? null : "Password is required and must be between 8 to 50 characters, have a number and at least 1 uppercase character"}
-                    </Form.Text>
-                  </Form.Group>
+                <Grid item xs={12}>
+                  <TextField
+                    required
+                    fullWidth
+                    label="Password"
+                    type="password"
+                    variant="outlined"
+                    value={password}
+                    onChange={this.changePassword}
+                    helperText={isPasswordValid ? null : "Password is required and must be between 8 to 50 characters, have a number and at least 1 uppercase character"}
+                  />
+                </Grid>
 
-                  <Button variant="primary" size="lg" type="submit" block
+                <Grid item xs={12}>
+                  <Button type="submit" variant="contained" color="primary" fullWidth
                     disabled={!isEnabled}>
-                    <FaUnlock size={20} />&nbsp;&nbsp;Sign up
+                    <LockOpenIcon />&nbsp;&nbsp;Sign up
                   </Button>
-                </RoundBorderBoxText>
-              </Form>
+                </Grid>
 
-            </RoundBorderBox>
-          </Row>
-        </ContainerAiof>
+              </Grid>
+            </form>
+
+          </LoginPaper>
+        </Container>
       </React.Fragment>
     );
   }

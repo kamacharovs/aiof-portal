@@ -8,6 +8,17 @@ export const DefaultColor = "#5cb85c";
 export const DefaultRedColor = "#b21f00";
 export const DefaultAlternateColor = "#137a8f";
 
+export const GreenP = styled.p`
+   color:green;
+   margin: 0rem;
+   padding: 0rem;
+`;
+export const RedP = styled.p`
+   color: red;
+   margin: 0rem;
+   padding: 0rem;
+`;
+
 export const ContainerAiof = styled(Container)`
   padding: 2rem;
 `;
@@ -132,6 +143,9 @@ export const HeaderLink = styled(Link)`
   &:focus, &:visited, &:link, &:active {
     text-decoration: none;
   }
+`;
+export const HeaderRightLink = styled(HeaderLink)`
+  font-size: 1.25rem !important;
 `;
 
 export const RoundBorderBox = styled.div`

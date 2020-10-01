@@ -1,5 +1,6 @@
 import {
   PROFILE_PAGE_LOADED,
+  PROFILE_STEPPER_PAGE_LOADED,
   PROFILE_PAGE_UNLOADED,
   UPDATE_FIELD_PROFILE
 } from '../constants/actionTypes';
@@ -19,6 +20,12 @@ export default (state = {}, action) => {
         goals: action.payload[0].goals,
         subscriptions: action.payload[0].subscriptions,
       };
+    case PROFILE_STEPPER_PAGE_LOADED:
+      return {
+        ...state,
+        assetTypes: action.payload[0],
+        liabilityTypes: action.payload[1],
+      }
     case PROFILE_PAGE_UNLOADED:
       return {};
     case UPDATE_FIELD_PROFILE:

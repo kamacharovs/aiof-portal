@@ -1,16 +1,18 @@
 import superagentPromise from 'superagent-promise';
 import _superagent from 'superagent';
+import config from './config';
 
 const superagent = superagentPromise(_superagent, global.Promise);
 
-const API_ROOT = 'http://localhost:5001';
-const API_AUTH_ROOT = 'http://localhost:5000';
-const API_METADATA_ROOT = 'http://127.0.0.1:5000/metadata';
+const API_ROOT = config.apiUrl;
+const API_AUTH_ROOT = config.authUrl;
+const API_METADATA_ROOT = config.metadataUrl;
 
 const encode = encodeURIComponent;
 const responseBody = res => res.body;
 
 let token = null;
+let refresh_token = null
 const tokenPlugin = req => {
   if (token) {
     req.set('Authorization', `Bearer ${token}`);
@@ -45,8 +47,8 @@ const Auth = {
     requestsAuth.post('/auth/token', { username, password }),
   register: (firstName, lastName, email, username, password) =>
     requestsAuth.post('/user', { firstName, lastName, email, username, password }),
-  refresh: refreshToken =>
-    requestsAuth.post('/auth/token', { refresh_token: refreshToken }),
+  refresh: () =>
+    requestsAuth.post('/auth/token', { refresh_token: refresh_token }),
 };
 
 const User = {
@@ -56,8 +58,8 @@ const User = {
 const UserProfile = {
   get: username =>
     User.byUsername(username),
-  upsert: (username, settings) =>
-    requests.put(`/user/profile?username=${username}`, settings),
+  upsert: (username, payload) =>
+    requests.put(`/user/profile?username=${username}`, payload),
 }
 
 const Asset = {
@@ -67,11 +69,23 @@ const Asset = {
     requests.put(`/asset/${publicKey}`, asset),
   delete: publicKey =>
     requests.del(`/asset/${publicKey}`),
+  types: () =>
+    requests.get('/asset/types'),
+  breakdown: payload =>
+    requestsMetadata.post('/asset/breakdown', payload)
+}
+const Liability = {
+  types: () =>
+    requests.get('/liability/types'),
 }
 
 const Fi = {
   time: payload =>
-    requestsMetadata.post('/fi/time/to/fi', payload),
+    requestsMetadata.post('/fi/time', payload),
+  compoundInterest: payload =>
+    requestsMetadata.post('/fi/compound/interest', payload),
+  addedTime: payload =>
+    requestsMetadata.post('/fi/added/time', payload),
 }
 
 
@@ -127,8 +141,10 @@ export default {
   User,
   UserProfile,
   Asset,
+  Liability,
   Fi,
   Comments,
   Profile,
   setToken: _token => { token = _token; },
+  setRefreshToken: _refreshToken => { refresh_token = _refreshToken },
 };
