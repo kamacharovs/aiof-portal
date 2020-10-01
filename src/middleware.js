@@ -5,7 +5,7 @@ import {
   ASYNC_END,
   LOGIN,
   LOGOUT,
-  REGISTER
+  REGISTER, REFRESH
 } from './constants/actionTypes';
 import {
   ACCESS_TOKEN,
@@ -66,6 +66,13 @@ const cookieMiddleware = store => next => action => {
       Cookies.set(USER, action.payload.user, { path: '/', expires: expires });
 
       agent.setToken(action.payload.acess_token);
+      agent.setRefreshToken(action.payload.refresh_token);
+    }
+  } else if (action.type === REFRESH) {
+    if (!action.error) {
+      const expires = new Date(new Date().getTime() + action.payload.expires * 1000);
+
+      Cookies.set(ACCESS_TOKEN, action.payload.access_token, { path: '/', expires: expires });
     }
   } else if (action.type === LOGOUT) {
     Cookies.remove(ACCESS_TOKEN);
@@ -73,6 +80,7 @@ const cookieMiddleware = store => next => action => {
     Cookies.remove(USER);
 
     agent.setToken(null);
+    agent.setRefreshToken(null);
   }
 
   next(action);

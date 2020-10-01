@@ -84,7 +84,7 @@ export default (state = defaultState, action) => {
       return {
         ...state,
         token: action.error ? null : action.payload.access_token,
-        currentUser: action.error ? null : action.payload.user
+        expiresIn: action.error ? null : action.payload.expires_in,
       };
     case DELETE_ARTICLE:
       return { ...state, redirectTo: '/' };

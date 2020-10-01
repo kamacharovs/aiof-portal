@@ -12,7 +12,7 @@ import { LoginPaper } from '../style/mui';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import LockOpenIcon from '@material-ui/icons/LockOpen';
 import { CoolLink, ErrorTextMuted } from '../style/common';
-import { UPDATE_FIELD_AUTH, LOGIN, LOGIN_PAGE_UNLOADED } from '../constants/actionTypes';
+import { LOGIN, REFRESH, UPDATE_FIELD_AUTH, LOGIN_PAGE_UNLOADED } from '../constants/actionTypes';
 
 const mapStateToProps = state => ({
   ...state.auth,
@@ -28,6 +28,8 @@ const mapDispatchToProps = dispatch => ({
     dispatch({ type: UPDATE_FIELD_AUTH, key: 'rememberMe', value }),
   onSubmit: (username, password) =>
     dispatch({ type: LOGIN, payload: agent.Auth.login(username, password) }),
+  onRefresh: () =>
+    dispatch({ type: REFRESH, payload: agent.Auth.refresh() }),
   onUnload: () =>
     dispatch({ type: LOGIN_PAGE_UNLOADED })
 });
@@ -72,6 +74,7 @@ class Login extends React.Component {
   }
 
   componentWillUnmount() {
+    this.props.onRefresh();
     this.props.onUnload();
   }
 

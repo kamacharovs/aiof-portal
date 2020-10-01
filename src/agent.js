@@ -12,6 +12,7 @@ const encode = encodeURIComponent;
 const responseBody = res => res.body;
 
 let token = null;
+let refresh_token = null
 const tokenPlugin = req => {
   if (token) {
     req.set('Authorization', `Bearer ${token}`);
@@ -46,8 +47,8 @@ const Auth = {
     requestsAuth.post('/auth/token', { username, password }),
   register: (firstName, lastName, email, username, password) =>
     requestsAuth.post('/user', { firstName, lastName, email, username, password }),
-  refresh: refreshToken =>
-    requestsAuth.post('/auth/token', { refresh_token: refreshToken }),
+  refresh: () =>
+    requestsAuth.post('/auth/token', { refresh_token: refresh_token }),
 };
 
 const User = {
@@ -145,4 +146,5 @@ export default {
   Comments,
   Profile,
   setToken: _token => { token = _token; },
+  setRefreshToken: _refreshToken => { refresh_token = _refreshToken },
 };
