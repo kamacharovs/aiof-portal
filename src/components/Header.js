@@ -12,7 +12,11 @@ import { AppMenu } from './AppMenu';
 import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import Menu from '@material-ui/core/Menu';
-import MenuItem from '@material-ui/core/MenuItem';
+import List from '@material-ui/core/List';
+import Divider from '@material-ui/core/Divider';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemText from '@material-ui/core/ListItemText';
+import ListSubheader from '@material-ui/core/ListSubheader'
 
 import ExpandMore from '@material-ui/icons/ExpandMore';
 
@@ -40,7 +44,9 @@ const LoggedOutView = props => {
   if (!props.currentUser) {
     return (
       <Nav className="ml-auto">
-        <Link to="/login" className="nav-link">Sign in</Link>
+        <HeaderLink to="/login">
+          Sign in
+        </HeaderLink>
       </Nav>
     );
   }
@@ -51,10 +57,7 @@ const LoggedInView = props => {
   if (props.currentUser) {
     return (
       <Nav className="ml-auto">
-        <Link to="/login" className="nav-link" onClick={props.onClickLogout}>Log out</Link>
-        <Link to={`/@${props.currentUser.username}/finance`} className="nav-link">Finance</Link>
-        <Link to={`/@${props.currentUser.username}`} className="nav-link">{props.currentUser.lastName}, {props.currentUser.firstName}</Link>
-        <ProfileMenu lastName={props.currentUser.lastName} firstName={props.currentUser.firstName} onClickLogout={props.onClickLogout}/>
+        <ProfileMenu currentUser={props.currentUser} lastName={props.currentUser.lastName} firstName={props.currentUser.firstName} onClickLogout={props.onClickLogout}/>
       </Nav>
     );
   }
@@ -88,22 +91,37 @@ const ProfileMenu = props => {
   };
 
   return (
-    <div>
-      <Button className={classes.button} aria-controls="simple-menu" aria-haspopup="true" onClick={handleClick}>
+    <React.Fragment>
+      <Button className={classes.button} aria-controls="user-menu" aria-haspopup="true" onClick={handleClick}>
         {props.lastName}, {props.firstName} <ExpandMore/>
       </Button>
       <Menu
-        id="simple-menu"
+        id="user-menu"
         anchorEl={anchorEl}
         keepMounted
         open={Boolean(anchorEl)}
         onClose={handleClose}
       >
-        <MenuItem onClick={handleClose}>Profile</MenuItem>
-        <MenuItem onClick={handleClose}>My account</MenuItem>
-        <MenuItem onClick={props.onClickLogout}>Logout</MenuItem>
+        <List
+            subheader={
+              <ListSubheader component="div" id="nested-list-subheader">
+                Account management
+              </ListSubheader>
+            }>
+            <ListItem button onClick={handleClose} component={Link} to={`/@${props.currentUser.username}`}>
+              <ListItemText primary="Profile" />
+            </ListItem>
+        </List>
+
+        <Divider />
+
+        <List>
+          <ListItem button onClick={props.onClickLogout}>
+              <ListItemText primary="Logout" />
+          </ListItem>
+        </List>
       </Menu>
-    </div>
+    </React.Fragment>
   );
 }
 
