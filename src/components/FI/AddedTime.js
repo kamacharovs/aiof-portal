@@ -10,6 +10,7 @@ import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
 import AttachMoneyIcon from '@material-ui/icons/AttachMoney';
 import { numberWithCommas } from '../Finance/Common';
+import { GreenP, RedP } from '../../style/common';
 import { AiofPaper } from '../../style/mui';
 import { FI_ADDED_TIME } from '../../constants/actionTypes';
 
@@ -136,44 +137,44 @@ const AddedTimeResults = props => {
             <React.Fragment>
                 <AiofPaper elevation={3}>
                     <Grid container spacing={1}>
-
                         <Grid item xs={6}>
                             <b>Monthly investment</b>
                         </Grid>
-                        <Grid item xs={6}>
-                            <i style={{ color: "green" }}>${numberWithCommas(props.addedTime.monthlyInvestment)}</i>
+                        <Grid item xs={6} align="right">
+                            <GreenP>${numberWithCommas(props.addedTime.monthlyInvestment)}</GreenP>
                         </Grid>
 
                         <Grid item xs={6}>
                             <b>Total expenses</b>
                         </Grid>
-                        <Grid item xs={6}>
-                            <i style={{ color: "green" }}>${numberWithCommas(props.addedTime.totalAdditionalExpense)}</i>
+                        <Grid item xs={6} align="right">
+                            <GreenP>${numberWithCommas(props.addedTime.totalAdditionalExpense)}</GreenP>
                         </Grid>
-
                     </Grid>
                     <hr />
-                    <Table responsive="sm"
-                        borderless={true}>
-                        <thead>
-                            <tr>
-                                <th>interest</th>
-                                <th>years</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {
-                                props.addedTime.years.map(year => {
-                                    return (
-                                        <tr key={year.interest}>
-                                            <td>{year.interest}%</td>
-                                            <td>{year.years}</td>
-                                        </tr>
-                                    );
-                                })
-                            }
-                        </tbody>
-                    </Table>
+                    <Grid container spacing={1}>
+                        <Grid item xs={6}>
+                            <b>Interest</b>
+                        </Grid>
+                        <Grid item xs={6} align="right">
+                            <b>Years</b>
+                        </Grid>
+                    </Grid>
+                    {
+                        props.addedTime.years.map(year => {
+                            return (
+                                <Grid container spacing={1}>
+                                    <Grid item xs={6}>
+                                        <GreenP>{year.interest}%</GreenP>
+                                    </Grid>
+                                    <Grid item xs={6} align="right">
+                                        <RedP>{year.years}</RedP>
+                                    </Grid>
+                                </Grid>
+                            );
+                        })
+                    }
+                    <hr/>
                 </AiofPaper>
             </React.Fragment>
         );
