@@ -144,6 +144,9 @@ export const HeaderLink = styled(Link)`
     text-decoration: none;
   }
 `;
+export const HeaderRightLink = styled(HeaderLink)`
+  font-size: 1.25rem !important;
+`;
 
 export const RoundBorderBox = styled.div`
   background: #fff;

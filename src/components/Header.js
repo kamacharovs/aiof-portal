@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import {
   LOGOUT
 } from '../constants/actionTypes';
-import { HeaderLink } from '../style/common';
+import { HeaderLink, HeaderRightLink } from '../style/common';
 import { AppMenu } from './AppMenu';
 
 import { makeStyles } from '@material-ui/core/styles';
@@ -44,9 +44,9 @@ const LoggedOutView = props => {
   if (!props.currentUser) {
     return (
       <Nav className="ml-auto">
-        <HeaderLink to="/login">
+        <HeaderRightLink to="/login">
           Sign in
-        </HeaderLink>
+        </HeaderRightLink>
       </Nav>
     );
   }
