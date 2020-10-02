@@ -65,7 +65,7 @@ const cookieMiddleware = store => next => action => {
       Cookies.set(REFRESH_TOKEN, action.payload.refresh_token, { path: '/', expires: expires });
       Cookies.set(USER, action.payload.user, { path: '/', expires: expires });
 
-      agent.setToken(action.payload.acess_token);
+      agent.setToken(action.payload.access_token);
       agent.setRefreshToken(action.payload.refresh_token);
     }
   } else if (action.type === REFRESH) {
@@ -73,6 +73,8 @@ const cookieMiddleware = store => next => action => {
       const expires = new Date(new Date().getTime() + action.payload.expires * 1000);
 
       Cookies.set(ACCESS_TOKEN, action.payload.access_token, { path: '/', expires: expires });
+
+      agent.setToken(action.payload.access_token);
     }
   } else if (action.type === LOGOUT) {
     Cookies.remove(ACCESS_TOKEN);
