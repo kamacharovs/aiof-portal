@@ -74,7 +74,10 @@ class Login extends React.Component {
   }
 
   componentWillUnmount() {
-    this.props.onRefresh();
+    if (this.props.username && this.props.password) {
+      this.props.onRefresh();
+    }
+    
     this.props.onUnload();
   }
 
