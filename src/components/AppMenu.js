@@ -24,6 +24,7 @@ import UpdateTwoToneIcon from '@material-ui/icons/UpdateTwoTone';
 import QueryBuilderTwoToneIcon from '@material-ui/icons/QueryBuilderTwoTone';
 import HomeTwoToneIcon from '@material-ui/icons/HomeTwoTone';
 import AssessmentTwoToneIcon from '@material-ui/icons/AssessmentTwoTone';
+import DirectionsRunIcon from '@material-ui/icons/DirectionsRun';
 
 import { DefaultColor } from '../style/common';
 
@@ -144,7 +145,7 @@ export const AppMenu = () => {
 
                 <ListItem button className={classes.nested} component={Link} to="/fi/bmi">
                   <ListItemIcon>
-                    <TrendingUpTwoToneIcon />
+                    <DirectionsRunIcon />
                   </ListItemIcon>
                   <ListItemText primary="BMI" />
                 </ListItem>

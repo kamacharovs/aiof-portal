@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
 import agent from '../../agent';
@@ -44,7 +44,7 @@ const Bmi = (props) => {
     const [imperialInches, setImperialInches] = useState(0);
     const [metricWeight, setMetricWeight] = useState(75);
     const [metricHeight, setMetricHeight] = useState(183);
-    
+
     const submitImperial = ev => {
         ev.preventDefault();
 
@@ -59,12 +59,12 @@ const Bmi = (props) => {
 
     const submitMetric = ev => {
         ev.preventDefault();
-        
+
         let metricPayload = {
             weight: metricWeight,
             height: metricHeight
         }
-        
+
         props.onMetricSubmit(metricPayload);
     }
 
@@ -146,7 +146,7 @@ const Bmi = (props) => {
                                 <div className={classes.margin}>
                                     <TextField label="Height"
                                         value={metricHeight}
-                                        onChange={e => setMetricHeight(e.target.value)} 
+                                        onChange={e => setMetricHeight(e.target.value)}
                                         InputProps={{
                                             startAdornment: <InputAdornment position="start">cms</InputAdornment>
                                         }} />
@@ -180,6 +180,10 @@ const BmiResult = (props) => {
                     <Grid item xs={6} align="right">
                         {props.bmiImperial.bmi}
                     </Grid>
+
+                    <Grid item md={12}>
+                        <Guidelines />
+                    </Grid>
                 </Grid>
             </AiofPaper>
         );
@@ -199,12 +203,27 @@ const BmiMetricResult = (props) => {
                     <Grid item xs={6} align="right">
                         {props.bmiMetric.bmi}
                     </Grid>
+
+                    <Grid item md={12}>
+                        <Guidelines />
+                    </Grid>
                 </Grid>
             </AiofPaper>
         );
     }
 
     return null;
+}
+
+const Guidelines = () => {
+    return (
+        <p>
+            Underweight &lt;= 18.5 <br/>
+            Normal weight = 18.5–24.9 <br/>
+            Overweight = 25–29.9 <br/>
+            Obesity = BMI of 30 or greater
+        </p>
+    );
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Bmi);
