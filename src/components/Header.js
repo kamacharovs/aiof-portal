@@ -111,6 +111,10 @@ const ProfileMenu = props => {
             <ListItem button onClick={handleClose} component={Link} to={`/@${props.currentUser.username}`}>
               <ListItemText primary="Profile" />
             </ListItem>
+
+            <ListItem button onClick={handleClose} component={Link} to={`/@${props.currentUser.username}/finance`}>
+              <ListItemText primary="Finances" />
+            </ListItem>
         </List>
 
         <Divider />
