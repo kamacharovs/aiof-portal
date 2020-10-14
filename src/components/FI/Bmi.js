@@ -217,12 +217,44 @@ const BmiMetricResult = (props) => {
 
 const Guidelines = () => {
     return (
-        <p>
-            Underweight &lt;= 18.5 <br/>
-            Normal weight = 18.5–24.9 <br/>
-            Overweight = 25–29.9 <br/>
-            Obesity = BMI of 30 or greater
-        </p>
+        <React.Fragment>
+            <hr />
+            <Grid container spacing={1}>
+                <Grid item xs={6} align="left">
+                    Underweight is less than
+             </Grid>
+                <Grid item xs={6} align="right">
+                    <b>18.5</b>
+                </Grid>
+            </Grid>
+
+            <Grid container spacing={1}>
+                <Grid item xs={6} align="left">
+                    Normal weight is between
+                </Grid>
+                <Grid item xs={6} align="right">
+                    <b>18.5</b> and <b>24.9</b>
+                </Grid>
+            </Grid>
+
+            <Grid container spacing={1}>
+                <Grid item xs={6} align="left">
+                    Overweight is between
+                </Grid>
+                <Grid item xs={6} align="right">
+                    <b>25</b> and <b>29.9</b>
+                </Grid>
+            </Grid>
+
+            <Grid container spacing={1}>
+                <Grid item xs={6} align="left">
+                    Obesity greater than
+                </Grid>
+                <Grid item xs={6} align="right">
+                    <b>30</b>
+                </Grid>
+            </Grid>
+        </React.Fragment>
     );
 }
 
