@@ -86,6 +86,10 @@ const Fi = {
     requestsMetadata.post('/fi/compound/interest', payload),
   addedTime: payload =>
     requestsMetadata.post('/fi/added/time', payload),
+  bmiImperial: payload =>
+    requestsMetadata.post('/fi/health/bmi/imperial', payload),
+  bmiMetric: payload =>
+    requestsMetadata.post('/fi/health/bmi/metric', payload),
 }
 
 

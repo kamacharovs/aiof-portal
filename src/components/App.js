@@ -17,6 +17,7 @@ import FI from '../components/FI';
 import TimeToFi from '../components/FI/TimeToFi';
 import AddedTime from '../components/FI/AddedTime';
 import CompoundInterest from '../components/FI/CompoundInterest';
+import Bmi from '../components/FI/Bmi';
 import { store } from '../store';
 import { push } from 'react-router-redux';
 import Cookies from 'js-cookie';
@@ -81,6 +82,7 @@ class App extends React.Component {
             <Route exact path="/fi/added/time" component={AddedTime} />
             <Route exact path="/fi/time" component={TimeToFi} />
             <Route exact path="/fi/compound/interest" component={CompoundInterest} />
+            <Route exact path="/fi/bmi" component={Bmi} />
             <Route exact path="/asset/breakdown" component={AssetBreakdown} />
           </Switch>
           <Footer

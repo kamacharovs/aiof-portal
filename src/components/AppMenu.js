@@ -141,6 +141,13 @@ export const AppMenu = () => {
                   </ListItemIcon>
                   <ListItemText primary="Compound interest" />
                 </ListItem>
+
+                <ListItem button className={classes.nested} component={Link} to="/fi/bmi">
+                  <ListItemIcon>
+                    <TrendingUpTwoToneIcon />
+                  </ListItemIcon>
+                  <ListItemText primary="BMI" />
+                </ListItem>
               </List>
             </Collapse>
           </List>
