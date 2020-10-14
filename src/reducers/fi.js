@@ -27,12 +27,21 @@ export default (state = {}, action) => {
         case FI_BMI_IMPERIAL:
             return {
                 ...state,
-                bmiImperial: action.payload
+                bmiImperial: {
+                    bmi: action.payload,
+                    weight: action.bmiPayload.weight,
+                    feet: action.bmiPayload.feet,
+                    inches: action.bmiPayload.inches
+                }
             }
         case FI_BMI_METRIC:
             return {
                 ...state,
-                bmiMetric: action.payload
+                bmiMetric: {
+                    bmi: action.payload,
+                    weight: action.bmiPayload.weight,
+                    height: action.bmiPayload.height
+                }
             }
         case FI_TIME_TO_FI_PAGE_UNLOADED:
             return { ...state, viewChangeCounter: state.viewChangeCounter + 1 };

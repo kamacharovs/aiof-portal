@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
 import agent from '../../agent';
@@ -22,9 +22,9 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
     onImperialSubmit: bmi =>
-        dispatch({ type: FI_BMI_IMPERIAL, payload: agent.Fi.bmiImperial(bmi) }),
+        dispatch({ type: FI_BMI_IMPERIAL, payload: agent.Fi.bmiImperial(bmi), bmiPayload: bmi }),
     onMetricSubmit: bmi =>
-        dispatch({ type: FI_BMI_METRIC, payload: agent.Fi.bmiMetric(bmi) })
+        dispatch({ type: FI_BMI_METRIC, payload: agent.Fi.bmiMetric(bmi), bmiPayload: bmi })
 });
 
 const useStyles = makeStyles((theme) => ({
@@ -36,17 +36,15 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
+
 const Bmi = (props) => {
     const classes = useStyles();
     const [imperialWeight, setImperialWeight] = useState(165);
     const [imperialFeet, setImperialFeet] = useState(6);
     const [imperialInches, setImperialInches] = useState(0);
-    const [imperialBmi, setImperialBmi] = useState(null);
-
     const [metricWeight, setMetricWeight] = useState(75);
     const [metricHeight, setMetricHeight] = useState(183);
-    const [metricBmi, setMetricBmi] = useState(null);
-
+    
     const submitImperial = ev => {
         ev.preventDefault();
 
@@ -72,12 +70,15 @@ const Bmi = (props) => {
 
     useEffect(() => {
         if (props.bmiImperial) {
-            
+            setImperialWeight(props.bmiImperial.weight);
+            setImperialFeet(props.bmiImperial.feet);
+            setImperialInches(props.bmiImperial.inches);
         }
-        //if (props.bmiMetric) {
-        //    setMetricBmi(props.bmiMetric);
-        //}
-    });
+        if (props.bmiMetric) {
+            setMetricWeight(props.bmiMetric.weight);
+            setMetricHeight(props.bmiMetric.height);
+        }
+    }, []);
 
     return (
         <React.Fragment>
@@ -177,7 +178,7 @@ const BmiResult = (props) => {
                         BMI:
                     </Grid>
                     <Grid item xs={6} align="right">
-                        {props.bmiImperial}
+                        {props.bmiImperial.bmi}
                     </Grid>
                 </Grid>
             </AiofPaper>
@@ -196,7 +197,7 @@ const BmiMetricResult = (props) => {
                         BMI:
                     </Grid>
                     <Grid item xs={6} align="right">
-                        {props.bmiMetric}
+                        {props.bmiMetric.bmi}
                     </Grid>
                 </Grid>
             </AiofPaper>
