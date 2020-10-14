@@ -67,3 +67,11 @@ Optional command to clean up `<none>` images
 ```powershell
 docker rmi $(docker images -f “dangling=true” -q)
 ```
+
+### Docker compose
+
+From the project root directory
+
+```powershell
+docker-compose up
+```
