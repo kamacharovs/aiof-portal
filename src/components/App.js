@@ -13,6 +13,8 @@ import Profile from '../components/Profile';
 import ProfileSettings from '../components/ProfileSettings';
 import FinanceMainView from '../components/Finance/FinanceMainView';
 import AssetBreakdown from '../components/Finance/AssetBreakdown';
+import LiabilityEditor from '../components/Finance/LiabilityEditor';
+
 import FI from '../components/FI';
 import TimeToFi from '../components/FI/TimeToFi';
 import AddedTime from '../components/FI/AddedTime';
@@ -76,6 +78,7 @@ class App extends React.Component {
             <Route exact path="/register" component={Register} />
             <Route exact path="/profile/update" component={ProfileStepper} />
             <Route exact path="/@:username/finance" component={FinanceMainView} />
+            <Route exact path="/@:username/finance/liability" component={LiabilityEditor} />
             <Route exact path="/@:username/settings" component={ProfileSettings} />
             <Route exact path="/@:username" component={Profile} />
             <Route exact path="/fi" component={FI} />

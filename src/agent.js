@@ -74,7 +74,10 @@ const Asset = {
   breakdown: payload =>
     requestsMetadata.post('/asset/breakdown', payload)
 }
+
 const Liability = {
+  add: liability =>
+    requests.post('/liability', liability),
   types: () =>
     requests.get('/liability/types'),
 }
