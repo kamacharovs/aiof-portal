@@ -42,6 +42,12 @@ Run
 npm start
 ```
 
+Go to
+
+```text
+http://localhost:4100/
+```
+
 #### Docker
 
 Build it
@@ -75,3 +81,5 @@ From the project root directory
 ```powershell
 docker-compose up
 ```
+
+Run the `npm` start script from above and follow the steps to go to `http://localhost:4100/`
