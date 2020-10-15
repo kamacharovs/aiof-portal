@@ -133,7 +133,6 @@ const AddLiability = (props) => {
                             </Grid>
                         </Grid>
                     </form>
-
                 </AiofPaper>
             </Container>
         </React.Fragment>

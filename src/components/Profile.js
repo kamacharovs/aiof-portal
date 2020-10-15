@@ -7,12 +7,10 @@ import { Helmet } from 'react-helmet';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import agent from '../agent';
-import FinanceList from './FinanceList';
 import {
   PROFILE_PAGE_LOADED,
   PROFILE_PAGE_UNLOADED
 } from '../constants/actionTypes';
-import { Subscriptions } from './Finance/Subscriptions';
 
 import '../style/tabs.css';
 import { ContainerAiof, CustomHr, Hr50, MutedH2 } from '../style/common';
@@ -40,15 +38,6 @@ const EditProfileSettings = props => {
     );
   }
   return null;
-};
-
-const ProfileFinanceList = props => {
-  return (
-    <FinanceList
-      assets={props.profile.assets}
-      goals={props.profile.goals}
-      liabilities={props.profile.liabilities} />
-  );
 };
 
 const ProfileMain = props => {
@@ -251,22 +240,12 @@ class Profile extends React.Component {
               <MutedH2>Settings</MutedH2>
               <CustomHr />
               <Tab>Profile</Tab>
-              <Tab>Finances</Tab>
-              <Tab>Notifications</Tab>
-              <Tab>Subscriptions</Tab>
+
             </TabList>
             <TabPanel>
               <ProfileMain profile={profile} />
             </TabPanel>
-            <TabPanel>
-              <ProfileFinanceList profile={profile} />
-            </TabPanel>
-            <TabPanel>
-              <h2>Any content 1</h2>
-            </TabPanel>
-            <TabPanel>
-              <Subscriptions subscriptions={profile.subscriptions} />
-            </TabPanel>
+            
           </Tabs>
         </ContainerAiof>
       </React.Fragment>
