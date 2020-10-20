@@ -21,6 +21,8 @@ export default (state = {}, action) => {
             return {}
         case ASYNC_START:
             if (action.subtype === FI_TIME_TO_FI
+                || action.subtype === FI_ADDED_TIME
+                || action.subtype === FI_COMPOUND_INTEREST
                 || action.subtype === FI_BMI_IMPERIAL
                 || action.subtype === FI_BMI_METRIC) {
                 return { ...state, inProgress: true };
@@ -31,16 +33,19 @@ export default (state = {}, action) => {
         case FI_TIME_TO_FI:
             return {
                 ...state,
+                inProgress: false,
                 time: action.payload
             }
         case FI_COMPOUND_INTEREST:
             return {
                 ...state,
+                inProgress: false,
                 compoundInterest: action.payload
             }
         case FI_ADDED_TIME:
             return {
                 ...state,
+                inProgress: false,
                 addedTime: action.payload
             }
         case FI_BMI_IMPERIAL:
