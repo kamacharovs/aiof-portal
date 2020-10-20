@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
 import agent from '../agent';
+
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import TextField from '@material-ui/core/TextField';
@@ -12,7 +13,7 @@ import { LoginPaper } from '../style/mui';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import LockOpenIcon from '@material-ui/icons/LockOpen';
 import { CoolLink, ErrorTextMuted } from '../style/common';
-import ClipLoader from "react-spinners/ClipLoader";
+import { AiofLoader } from '../components/Common/Loader';
 import { LOGIN, REFRESH, UPDATE_FIELD_AUTH, LOGIN_PAGE_UNLOADED } from '../constants/actionTypes';
 
 const mapStateToProps = state => ({
@@ -180,13 +181,7 @@ const LoadingClip = props => {
 
   if (inProgress) {
     return (
-      <div className="sweet-loading">
-        <ClipLoader
-          size={16}
-          color={"#123abc"}
-          loading={inProgress}
-        />
-      </div>
+      <AiofLoader inProgress={inProgress} size={16} br={false} color={"#ffffff"} />
     );
   }
   else {

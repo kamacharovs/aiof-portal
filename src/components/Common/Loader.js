@@ -5,17 +5,20 @@ import ClipLoader from "react-spinners/ClipLoader";
 const defaultSize = 50;
 const defaultFirstGridSize = 5;
 const defaultSecondGridSize = 7;
+const defaultColor = "#123abc";
 
 export const AiofLoader = props => {
     const inProgress = props.inProgress ? props.inProgress : false;
     const size = props.size ? props.size : defaultSize;
+    const br = props.br ? props.br : false;
+    const color = props.color ? props.color : defaultColor;
 
     return (
         <div className="sweet-loading">
-            <br/>
+            { br ? <br/> : null }
             <ClipLoader
                 size={size}
-                color={"#123abc"}
+                color={color}
                 loading={inProgress}
             />
         </div>
@@ -25,6 +28,7 @@ export const AiofLoader = props => {
 export const AiofGridLoader = props => {
     const inProgress = props.inProgress ? props.inProgress : false;
     const size = props.size ? props.size : defaultSize;
+    const color = props.color ? props.color : defaultColor;
     const firstGridSize = props.firstGridSize ? props.firstGridSize : defaultFirstGridSize;
     const secondGridSize = props.secondGridSize ? props.secondGridSize : defaultSecondGridSize;
 
@@ -37,7 +41,7 @@ export const AiofGridLoader = props => {
                     <br/>
                     <ClipLoader
                         size={size}
-                        color={"#123abc"}
+                        color={color}
                         loading={inProgress}
                     />
                 </div>
