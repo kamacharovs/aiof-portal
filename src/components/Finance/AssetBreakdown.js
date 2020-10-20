@@ -386,7 +386,7 @@ const AssetBreakdownResults = props => {
                 <Grid item xs={5}>
                 </Grid>
                 <Grid item xs={7}>
-                    <div className="sweet-loading align-center">
+                    <div className="sweet-loading">
                         <br/>
                         <ClipLoader
                             size={50}

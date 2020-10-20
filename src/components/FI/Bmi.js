@@ -2,9 +2,10 @@ import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
 import agent from '../../agent';
-import { FI_BMI_IMPERIAL, FI_BMI_METRIC } from '../../constants/actionTypes';
+import { FI_PAGE_LOADED, FI_BMI_IMPERIAL, FI_BMI_METRIC } from '../../constants/actionTypes';
 
 import { AiofPaper } from '../../style/mui';
+import { AiofGridLoader } from '../Common/Loader';
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Container from '@material-ui/core/Container';
@@ -16,11 +17,14 @@ import Button from '@material-ui/core/Button';
 const mapStateToProps = state => ({
     ...state.fi,
     appName: state.common.appName,
+    inProgress: state.fi.inProgress,
     bmiImperial: state.fi.bmiImperial,
     bmiMetric: state.fi.bmiMetric,
 });
 
 const mapDispatchToProps = dispatch => ({
+    onLoad: () =>
+        dispatch({ type: FI_PAGE_LOADED }),
     onImperialSubmit: bmi =>
         dispatch({ type: FI_BMI_IMPERIAL, payload: agent.Fi.bmiImperial(bmi), bmiPayload: bmi }),
     onMetricSubmit: bmi =>
@@ -69,6 +73,8 @@ const Bmi = (props) => {
     }
 
     useEffect(() => {
+        props.onLoad();
+
         if (props.bmiImperial) {
             setImperialWeight(props.bmiImperial.weight);
             setImperialFeet(props.bmiImperial.feet);
@@ -165,6 +171,10 @@ const Bmi = (props) => {
                 <BmiMetricResult bmiMetric={props.bmiMetric} />
 
             </Container>
+
+            <Container>
+                <AiofGridLoader inProgress={props.inProgress} />
+            </Container>
         </React.Fragment>
     );
 }
@@ -188,8 +198,9 @@ const BmiResult = (props) => {
             </AiofPaper>
         );
     }
-
-    return null;
+    else {
+        return null;
+    }
 }
 
 const BmiMetricResult = (props) => {
@@ -211,8 +222,9 @@ const BmiMetricResult = (props) => {
             </AiofPaper>
         );
     }
-
-    return null;
+    else {
+        return null;
+    }
 }
 
 const Guidelines = () => {

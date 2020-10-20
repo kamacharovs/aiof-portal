@@ -1,4 +1,7 @@
 import {
+    FI_PAGE_LOADED,
+    FI_PAGE_UNLOADED,
+    ASYNC_START,
     FI_TIME_TO_FI,
     FI_COMPOUND_INTEREST,
     FI_ADDED_TIME,
@@ -9,6 +12,22 @@ import {
 
 export default (state = {}, action) => {
     switch (action.type) {
+        case FI_PAGE_LOADED:
+            return {
+                ...state,
+                inProgress: false
+            }
+        case FI_PAGE_UNLOADED:
+            return {}
+        case ASYNC_START:
+            if (action.subtype === FI_TIME_TO_FI
+                || action.subtype === FI_BMI_IMPERIAL
+                || action.subtype === FI_BMI_METRIC) {
+                return { ...state, inProgress: true };
+            }
+            else {
+                return { ...state }
+            }
         case FI_TIME_TO_FI:
             return {
                 ...state,
@@ -27,6 +46,7 @@ export default (state = {}, action) => {
         case FI_BMI_IMPERIAL:
             return {
                 ...state,
+                inProgress: false,
                 bmiImperial: {
                     bmi: action.payload,
                     weight: action.bmiPayload.weight,
@@ -37,6 +57,7 @@ export default (state = {}, action) => {
         case FI_BMI_METRIC:
             return {
                 ...state,
+                inProgress: false,
                 bmiMetric: {
                     bmi: action.payload,
                     weight: action.bmiPayload.weight,

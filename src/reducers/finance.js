@@ -19,15 +19,15 @@ export default (state = {}, action) => {
         liabilities: action.payload.liabilities,
         goals: action.payload.goals,
         subscriptions: action.payload.subscriptions,
-      };
+      }
     case FINANCE_PAGE_UNLOADED:
-      return {};
+      return {}
     case ASSET_BREAKDOWN:
       return {
         ...state,
         inProgress: false,
         assetBreakdown: action.payload
-      };
+      }
     case ASYNC_START:
       if (action.subtype === ASSET_BREAKDOWN) {
         return { ...state, inProgress: true };
@@ -39,17 +39,17 @@ export default (state = {}, action) => {
       return {
         ...state,
         asset: action.error ? null : action.payload.asset,
-      };
+      }
     case LIABILITY_TYPES:
       return {
         ...state,
         liabilityTypes: action.error ? null : action.payload
-      };
+      }
     case LIABILITY_ADD:
       return {
         ...state,
         liability: action.error ? null : action.payload
-      };
+      }
     default:
       return state;
   }
