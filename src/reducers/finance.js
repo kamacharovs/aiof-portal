@@ -25,10 +25,16 @@ export default (state = {}, action) => {
     case ASSET_BREAKDOWN:
       return {
         ...state,
+        inProgress: false,
         assetBreakdown: action.payload
       };
     case ASYNC_START:
-      return { ...state, inProgress: true };
+      if (action.subtype === ASSET_BREAKDOWN) {
+        return { ...state, inProgress: true };
+      }
+      else {
+        return { ...state }
+      }
     case ASSET_ADD:
       return {
         ...state,
