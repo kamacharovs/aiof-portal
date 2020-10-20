@@ -18,6 +18,7 @@ All documentation
 - [JS cookie](https://www.npmjs.com/package/js-cookie)
 - [React charts](https://www.npmjs.com/package/react-chartjs-2)
 - [React helmet](https://github.com/nfl/react-helmet)
+- [React spinners](https://www.npmjs.com/package/react-spinners)
 
 ### React
 

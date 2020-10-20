@@ -12,11 +12,13 @@ import { LoginPaper } from '../style/mui';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import LockOpenIcon from '@material-ui/icons/LockOpen';
 import { CoolLink, ErrorTextMuted } from '../style/common';
+import ClipLoader from "react-spinners/ClipLoader";
 import { LOGIN, REFRESH, UPDATE_FIELD_AUTH, LOGIN_PAGE_UNLOADED } from '../constants/actionTypes';
 
 const mapStateToProps = state => ({
   ...state.auth,
   appName: state.common.appName,
+  inProgress: state.auth.inProgress,
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -77,7 +79,7 @@ class Login extends React.Component {
     if (this.props.username && this.props.password) {
       this.props.onRefresh();
     }
-    
+
     this.props.onUnload();
   }
 
@@ -139,36 +141,57 @@ class Login extends React.Component {
                 </Grid>
 
                 <Grid item xs={12}>
-                    <FormControlLabel
-                      control={
-                        <Checkbox
-                          checked={rememberMe}
-                          onChange={this.changeRememberMe}
-                          name="rememberMe"
-                          color="primary"
-                        />
-                      }
-                      label="Remember me?"
-                    />
+                  <FormControlLabel
+                    control={
+                      <Checkbox
+                        checked={rememberMe}
+                        onChange={this.changeRememberMe}
+                        name="rememberMe"
+                        color="primary"
+                      />
+                    }
+                    label="Remember me?"
+                  />
                 </Grid>
 
                 <Grid item xs={12}>
                   <Button type="submit" variant="contained" color="primary" fullWidth
                     disabled={!isEnabled}>
-                    <LockOpenIcon />&nbsp;&nbsp;Sign in
+                    <LoadingClip inProgress={this.props.inProgress} />&nbsp;&nbsp;Sign in
                   </Button>
                 </Grid>
 
                 <Grid item xs={12}>
-                <p className="text-center text-muted">
-                  <i>By clicking Sign In, you agree to our <a href="/">Terms</a> and have read and acknowledge our <a href="/">US Privacy Statement</a>.</i>
-                </p>
+                  <p className="text-center text-muted">
+                    <i>By clicking Sign In, you agree to our <a href="/">Terms</a> and have read and acknowledge our <a href="/">US Privacy Statement</a>.</i>
+                  </p>
                 </Grid>
               </Grid>
             </form>
           </LoginPaper>
         </Container>
       </React.Fragment>
+    );
+  }
+}
+
+const LoadingClip = props => {
+  const inProgress = props.inProgress;
+
+  if (inProgress) {
+    return (
+      <div className="sweet-loading">
+        <ClipLoader
+          size={16}
+          color={"#123abc"}
+          loading={inProgress}
+        />
+      </div>
+    );
+  }
+  else {
+    return (
+      <LockOpenIcon />
     );
   }
 }
