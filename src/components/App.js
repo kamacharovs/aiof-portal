@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
 import { Route, Switch } from 'react-router-dom';
 import agent from '../agent';
+
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import Home from '../components/Home';
@@ -11,7 +12,7 @@ import Register from '../components/Register';
 import ProfileStepper from '../components/ProfileStepper';
 import Profile from '../components/Profile';
 import ProfileSettings from '../components/ProfileSettings';
-import FinanceMainView from '../components/Finance/FinanceMainView';
+import FinanceMainView from '../components/Finance/FinanceMainViewMui';
 import AssetBreakdown from '../components/Finance/AssetBreakdown';
 import LiabilityEditor from '../components/Finance/LiabilityEditor';
 

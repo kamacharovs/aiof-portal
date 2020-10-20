@@ -52,6 +52,8 @@ const Auth = {
 };
 
 const User = {
+  get: id =>
+    requests.get(`/user/${id}`),
   byUsername: username =>
     requests.get(`/user?username=${username}`),
 }
