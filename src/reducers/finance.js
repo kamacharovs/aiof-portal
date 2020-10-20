@@ -29,7 +29,8 @@ export default (state = {}, action) => {
         assetBreakdown: action.payload
       }
     case ASYNC_START:
-      if (action.subtype === ASSET_BREAKDOWN) {
+      if (action.subtype === ASSET_BREAKDOWN
+        || action.subtype === FINANCE_PAGE_LOADED) {
         return { ...state, inProgress: true };
       }
       else {

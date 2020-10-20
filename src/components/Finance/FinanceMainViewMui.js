@@ -5,6 +5,7 @@ import agent from '../../agent';
 import { FINANCE_PAGE_LOADED } from '../../constants/actionTypes';
 
 import { Overview } from './Overview';
+import { AiofLoader } from '../Common/Loader';
 import { Bar } from 'react-chartjs-2';
 import { AiofPaper } from '../../style/mui';
 import { CoolExternalLink } from '../../style/common';
@@ -373,9 +374,7 @@ const AssetsLiabilitiesChart = props => {
     return (
         <Bar
             data={state || []}
-            height={300}
             options={{
-                maintainAspectRatio: false,
                 title: {
                     display: true,
                     text: title,
@@ -450,10 +449,10 @@ const FinanceMainView = props => {
                         <Grid item xs={12}>
                             <AiofPaper elevation={3}>
                                 <Grid item xs={12}>
-                                    <img src={House} alt="House" style={{width: "5rem", height: "5rem"}} />
+                                    <img src={House} alt="House" style={{ width: "5rem", height: "5rem" }} />
                                 </Grid>
                                 <Grid item xs={12}>
-                                    <br/>
+                                    <br />
                                     <h6><b>Usefull documentations</b></h6>
                                 </Grid>
                                 <Grid item xs={12}>
@@ -461,34 +460,47 @@ const FinanceMainView = props => {
                                         <li><CoolExternalLink href="https://en.wikipedia.org/wiki/Financial_asset">What is a financial asset?</CoolExternalLink></li>
                                         <li><CoolExternalLink href="https://en.wikipedia.org/wiki/Liability_(financial_accounting)">What is a financial liability?</CoolExternalLink></li>
                                         <li><CoolExternalLink href="https://www.nerdwallet.com/article/finance/what-are-liabilities">What are my financial liabilities? (Nerdwallet)</CoolExternalLink></li>
-                                    </ul>        
-                                    </Grid>
+                                    </ul>
+                                </Grid>
                             </AiofPaper>
                         </Grid>
 
                     </Grid>
 
                     <Grid item xs={9}>
+                        {props.inProgress ? <AiofLoader inProgress={props.inProgress} /> : (
+                            <React.Fragment>
+                                <Grid container spacing={3} className={classes.root}>
+                                    <Grid item xs={12}>
+                                        <MainTabs
+                                            assets={props.assets}
+                                            liabilities={props.liabilities}
+                                            goals={props.goals}
+                                            subscriptions={props.subscriptions} />
+                                    </Grid>
+                                </Grid>
 
-                        <Grid container spacing={3} className={classes.root}>
-                            <Grid item xs={12}>
-                                <MainTabs
-                                    assets={props.assets}
-                                    liabilities={props.liabilities}
-                                    goals={props.goals}
-                                    subscriptions={props.subscriptions} />
-                            </Grid>
-                        </Grid>
+                                <Grid container spacing={3} className={classes.root}>
+                                    <Grid item xs={12}>
+                                        <AiofPaper elevation={3}>
+                                            <AssetsLiabilitiesChart
+                                                assets={props.assets}
+                                                liabilities={props.liabilities} />
+                                        </AiofPaper>
+                                    </Grid>
+                                </Grid>
 
-                        <Grid container spacing={3} className={classes.root}>
-                            <Grid item xs={12}>
-                                <AiofPaper elevation={3}>
-                                    <p>more</p>
-                                </AiofPaper>
-                            </Grid>
-                        </Grid>
-
+                                <Grid container spacing={3} className={classes.root}>
+                                    <Grid item xs={12}>
+                                        <AiofPaper elevation={3}>
+                                            <p>More to come...</p>
+                                        </AiofPaper>
+                                    </Grid>
+                                </Grid>
+                            </React.Fragment>
+                        )}
                     </Grid>
+
                 </Grid>
             </Container>
         </React.Fragment>
