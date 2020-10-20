@@ -2,7 +2,7 @@ import {
   PROFILE_PAGE_LOADED,
   PROFILE_STEPPER_PAGE_LOADED,
   PROFILE_PAGE_UNLOADED,
-  UPDATE_FIELD_PROFILE
+  UPDATE_FIELD_PROFILE,
 } from '../constants/actionTypes';
 
 export default (state = {}, action) => {

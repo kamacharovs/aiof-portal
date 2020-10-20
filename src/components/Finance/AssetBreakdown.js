@@ -15,12 +15,14 @@ import { GreenP, RedP } from '../../style/common';
 import { AiofPaper } from '../../style/mui';
 import { ASSET_BREAKDOWN } from '../../constants/actionTypes';
 import { Line } from 'react-chartjs-2';
+import ClipLoader from "react-spinners/ClipLoader";
 
 
 const mapStateToProps = state => ({
     ...state.finance,
     appName: state.common.appName,
     assetBreakdown: state.finance.assetBreakdown,
+    inProgress: state.finance.inProgress,
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -226,13 +228,13 @@ class AssetBreakdown extends React.Component {
                                 <Grid item xs={12}>
                                     <Button type="submit" variant="contained" color="primary" className={this.classes.button} >
                                         Calculate
-                                </Button>
+                                    </Button>
                                 </Grid>
                             </Grid>
                         </form>
                     </AiofPaper>
 
-                    <AssetBreakdownResults assetBreakdown={this.props.assetBreakdown} />
+                    <AssetBreakdownResults assetBreakdown={this.props.assetBreakdown} inProgress={this.props.inProgress} />
 
                 </Container>
             </React.Fragment>
@@ -378,7 +380,27 @@ const AssetBreakdownResults = props => {
             </React.Fragment>
         )
     }
-    return null
+    if (props.inProgress) {
+        return (
+            <Grid container spacing={1}>
+                <Grid item xs={5}>
+                </Grid>
+                <Grid item xs={7}>
+                    <div className="sweet-loading align-center">
+                        <br/>
+                        <ClipLoader
+                            size={50}
+                            color={"#123abc"}
+                            loading={props.inProgress}
+                        />
+                    </div>
+                </Grid>
+            </Grid>
+        );
+    }
+    else {
+        return null;
+    }
 }
 
 

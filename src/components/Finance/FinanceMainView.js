@@ -13,6 +13,7 @@ const mapStateToProps = state => ({
   ...state.finance,
   appName: state.common.appName,
   currentUser: state.common.currentUser,
+  inProgress: state.finance.inProgress,
   finance: state.finance,
 });
 
@@ -55,6 +56,7 @@ class FinanceMainView extends React.Component {
           <Overview />
 
           <h3>Your finances</h3>
+
           <AssetsPreview assets={assets} onFinancesUpdate={this.getFinances} />
           <LiabilitiesPreview liabilities={liabilities} />
 
@@ -68,6 +70,5 @@ class FinanceMainView extends React.Component {
     );
   }
 };
-
 
 export default connect(mapStateToProps, mapDispatchToProps)(FinanceMainView);
