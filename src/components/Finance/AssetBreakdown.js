@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
 import agent from '../../agent';
+
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import TextField from '@material-ui/core/TextField';
@@ -13,16 +14,16 @@ import TrendingUpIcon from '@material-ui/icons/TrendingUp';
 import { numberWithCommas } from '../Finance/Common';
 import { GreenP, RedP } from '../../style/common';
 import { AiofPaper } from '../../style/mui';
+import { AiofGridLoader } from '../Common/Loader';
 import { ASSET_BREAKDOWN } from '../../constants/actionTypes';
 import { Line } from 'react-chartjs-2';
-import ClipLoader from "react-spinners/ClipLoader";
 
 
 const mapStateToProps = state => ({
     ...state.finance,
     appName: state.common.appName,
-    assetBreakdown: state.finance.assetBreakdown,
     inProgress: state.finance.inProgress,
+    assetBreakdown: state.finance.assetBreakdown,
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -380,22 +381,9 @@ const AssetBreakdownResults = props => {
             </React.Fragment>
         )
     }
-    if (props.inProgress) {
+    else if (props.inProgress) {
         return (
-            <Grid container spacing={1}>
-                <Grid item xs={5}>
-                </Grid>
-                <Grid item xs={7}>
-                    <div className="sweet-loading">
-                        <br/>
-                        <ClipLoader
-                            size={50}
-                            color={"#123abc"}
-                            loading={props.inProgress}
-                        />
-                    </div>
-                </Grid>
-            </Grid>
+            <AiofGridLoader inProgress={props.inProgress} />
         );
     }
     else {

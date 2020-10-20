@@ -12,6 +12,7 @@ export const AiofLoader = props => {
 
     return (
         <div className="sweet-loading">
+            <br/>
             <ClipLoader
                 size={size}
                 color={"#123abc"}
@@ -33,6 +34,7 @@ export const AiofGridLoader = props => {
             </Grid>
             <Grid item xs={secondGridSize}>
                 <div className="sweet-loading">
+                    <br/>
                     <ClipLoader
                         size={size}
                         color={"#123abc"}
