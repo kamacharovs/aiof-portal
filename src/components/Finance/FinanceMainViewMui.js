@@ -1,28 +1,22 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
 import agent from '../../agent';
-import { FINANCE_PAGE_LOADED, LIABILITY_ADD, LIABILITY_TYPES } from '../../constants/actionTypes';
+import { FINANCE_PAGE_LOADED } from '../../constants/actionTypes';
 
 import { Overview } from './Overview';
+import { Bar } from 'react-chartjs-2';
 import { AiofPaper } from '../../style/mui';
-import Calculator from '../../style/icons/Calculator.svg';
+import { CoolExternalLink } from '../../style/common';
+import House from '../../style/icons/House_4.svg';
 import { numberWithCommas, formatDate } from './Common';
 
-import { makeStyles } from '@material-ui/core/styles';
 import PropTypes from 'prop-types';
-import Paper from '@material-ui/core/Paper';
+import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Container from '@material-ui/core/Container';
-import TextField from '@material-ui/core/TextField';
-import Button from '@material-ui/core/Button';
-import InputLabel from '@material-ui/core/InputLabel';
-import MenuItem from '@material-ui/core/MenuItem';
-import FormControl from '@material-ui/core/FormControl';
-import Select from '@material-ui/core/Select';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
-import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 
 
@@ -103,90 +97,297 @@ const AssetsPreview = props => {
     const classes = useStyles();
     const assets = props.assets ? props.assets : [];
 
-    return (
-        <React.Fragment>
-            <Grid container spacing={3} className={classes.root}>
-                <Grid item xs={4}>
-                    <b>Name</b>
+    if (assets && assets.length > 0) {
+        return (
+            <React.Fragment>
+                <Grid container spacing={3} className={classes.root}>
+                    <Grid item xs={4}>
+                        <b>Name</b>
+                    </Grid>
+                    <Grid item xs={4}>
+                        <b>Type</b>
+                    </Grid>
+                    <Grid item xs={4}>
+                        <b>Value</b>
+                    </Grid>
                 </Grid>
-                <Grid item xs={4}>
-                    <b>Type</b>
-                </Grid>
-                <Grid item xs={4}>
-                    <b>Value</b>
-                </Grid>
-            </Grid>
-            {
-                assets.map(asset => {
-                    return (
-                        <Grid key={asset.publicKey} container spacing={3} className={classes.root}>
-                            <Grid item xs={4}>
-                                {asset.name}
-                                <hr className={classes.hr} />
-                            </Grid>
+                {
+                    assets.map(asset => {
+                        return (
+                            <Grid key={asset.publicKey} container spacing={3} className={classes.root}>
+                                <Grid item xs={4}>
+                                    {asset.name}
+                                    <hr className={classes.hr} />
+                                </Grid>
 
-                            <Grid item xs={4}>
-                                {asset.typeName}
-                                <hr className={classes.hr} />
-                            </Grid>
+                                <Grid item xs={4}>
+                                    {asset.typeName}
+                                    <hr className={classes.hr} />
+                                </Grid>
 
-                            <Grid item xs={4}>
-                                <p className={classes.green}>${numberWithCommas(asset.value)}</p>
-                                <hr className={classes.hr} />
+                                <Grid item xs={4}>
+                                    <p className={classes.green}>${numberWithCommas(asset.value)}</p>
+                                    <hr className={classes.hr} />
+                                </Grid>
                             </Grid>
-                        </Grid>
-                    );
-                })
-            }
-        </React.Fragment>
-    );
+                        );
+                    })
+                }
+            </React.Fragment>
+        );
+    }
+    else {
+        return (
+            <React.Fragment>
+                No assets yet...
+            </React.Fragment>
+        );
+    }
 }
 
 const LiabilitiesPreview = props => {
     const classes = useStyles();
     const liabilities = props.liabilities ? props.liabilities : [];
 
-    return (
-        <React.Fragment>
-            <Grid container spacing={3} className={classes.root}>
-                <Grid item xs={4}>
-                    <b>Name</b>
+    if (liabilities && liabilities.length > 0) {
+        return (
+            <React.Fragment>
+                <Grid container spacing={3} className={classes.root}>
+                    <Grid item xs={4}>
+                        <b>Name</b>
+                    </Grid>
+                    <Grid item xs={4}>
+                        <b>Type</b>
+                    </Grid>
+                    <Grid item xs={4}>
+                        <b>Value</b>
+                    </Grid>
                 </Grid>
-                <Grid item xs={4}>
-                    <b>Type</b>
+                {
+                    liabilities.map(liability => {
+                        return (
+                            <Grid key={liability.publicKey} container spacing={3} className={classes.root}>
+                                <Grid item xs={4}>
+                                    {liability.name}
+                                    <hr className={classes.hr} />
+                                </Grid>
+
+                                <Grid item xs={4}>
+                                    {liability.typeName}
+                                    <hr className={classes.hr} />
+                                </Grid>
+
+                                <Grid item xs={4}>
+                                    <p className={classes.red}>${numberWithCommas(liability.value)}</p>
+                                    <hr className={classes.hr} />
+                                </Grid>
+                            </Grid>
+                        );
+                    })
+                }
+            </React.Fragment>
+        );
+    }
+    else {
+        return (
+            <React.Fragment>
+                No liabilities yet...
+            </React.Fragment>
+        );
+    }
+}
+
+const GoalsPreview = props => {
+    const classes = useStyles();
+    const goals = props.goals ? props.goals : [];
+
+    if (goals && goals.length > 0) {
+        return (
+            <React.Fragment>
+                <Grid container spacing={3} className={classes.root}>
+                    <Grid item xs={2}>
+                        <b>Name</b>
+                    </Grid>
+                    <Grid item xs={2}>
+                        <b>Type</b>
+                    </Grid>
+                    <Grid item xs={2}>
+                        <b>Planned date</b>
+                    </Grid>
+                    <Grid item xs={2}>
+                        <b>Frequency</b>
+                    </Grid>
+                    <Grid item xs={2}>
+                        <b>Goal</b>
+                    </Grid>
+                    <Grid item xs={2}>
+                        <b>Current amount</b>
+                    </Grid>
                 </Grid>
-                <Grid item xs={4}>
-                    <b>Value</b>
+                {
+                    goals.map(goal => {
+                        return (
+                            <Grid key={goal.publicKey} container spacing={3} className={classes.root}>
+                                <Grid item xs={2}>
+                                    {goal.name}
+                                    <hr className={classes.hr} />
+                                </Grid>
+
+                                <Grid item xs={2}>
+                                    {goal.typeName}
+                                    <hr className={classes.hr} />
+                                </Grid>
+
+                                <Grid item xs={2}>
+                                    {formatDate(goal.plannedDate)}
+                                    <hr className={classes.hr} />
+                                </Grid>
+
+                                <Grid item xs={2}>
+                                    {goal.contributionFrequencyName}
+                                    <hr className={classes.hr} />
+                                </Grid>
+
+                                <Grid item xs={2}>
+                                    <p className={classes.green}>${numberWithCommas(goal.amount)}</p>
+                                    <hr className={classes.hr} />
+                                </Grid>
+
+                                <Grid item xs={2}>
+                                    <p className={classes.green}>${numberWithCommas(goal.currentAmount)}</p>
+                                    <hr className={classes.hr} />
+                                </Grid>
+                            </Grid>
+                        );
+                    })
+                }
+            </React.Fragment>
+        );
+    }
+    else {
+        return (
+            <React.Fragment>
+                No goals yet...
+            </React.Fragment>
+        );
+    }
+}
+
+const SubscriptionsPreview = props => {
+    const classes = useStyles();
+    const subscriptions = props.subscriptions ? props.subscriptions : [];
+
+    if (subscriptions && subscriptions.length > 0) {
+        return (
+            <React.Fragment>
+                <Grid container spacing={3} className={classes.root}>
+                    <Grid item xs={3}>
+                        <b>Name</b>
+                    </Grid>
+                    <Grid item xs={3}>
+                        <b>Description</b>
+                    </Grid>
+                    <Grid item xs={3}>
+                        <b>From</b>
+                    </Grid>
+                    <Grid item xs={3}>
+                        <b>Amount</b>
+                    </Grid>
                 </Grid>
-            </Grid>
+                {
+                    subscriptions.map(subscription => {
+                        return (
+                            <Grid key={subscription.publicKey} container spacing={3} className={classes.root}>
+                                <Grid item xs={3}>
+                                    {subscription.name}
+                                    <hr className={classes.hr} />
+                                </Grid>
+
+                                <Grid item xs={3}>
+                                    {subscription.description}
+                                    <hr className={classes.hr} />
+                                </Grid>
+
+                                <Grid item xs={3}>
+                                    {subscription.from}
+                                    <hr className={classes.hr} />
+                                </Grid>
+
+                                <Grid item xs={3}>
+                                    <p className={classes.green}>${numberWithCommas(subscription.amount)}</p>
+                                    <hr className={classes.hr} />
+                                </Grid>
+                            </Grid>
+                        );
+                    })
+                }
+            </React.Fragment>
+        );
+    }
+    else {
+        return (
+            <React.Fragment>
+                No subscriptions yet...
+            </React.Fragment>
+        );
+    }
+}
+
+const AssetsLiabilitiesChart = props => {
+    const assets = props.assets ? props.assets : [];
+    const liabilities = props.liabilities ? props.liabilities : [];
+
+    if ((!assets && assets.length === 0)
+        || (!liabilities && liabilities.length === 0)) {
+        return null;
+    }
+
+    const title = 'Assets vs. Liabilities';
+    const assetsSum = props.totalAssets
+        ? props.totalAssets
+        : assets.map(a => a.value)
+            .reduce((sum, current) => sum + current, 0);
+    const liabilitiesSum = props.totalLiabilities
+        ? props.totalLiabilities
+        : liabilities.map(a => a.value)
+            .reduce((sum, current) => sum + current, 0);
+
+    const state = {
+        labels: [],
+        datasets: [
             {
-                liabilities.map(liability => {
-                    return (
-                        <Grid key={liability.publicKey} container spacing={3} className={classes.root}>
-                            <Grid item xs={4}>
-                                {liability.name}
-                                <hr className={classes.hr} />
-                            </Grid>
-
-                            <Grid item xs={4}>
-                                {liability.typeName}
-                                <hr className={classes.hr} />
-                            </Grid>
-
-                            <Grid item xs={4}>
-                                <p className={classes.red}>${numberWithCommas(liability.value)}</p>
-                                <hr className={classes.hr} />
-                            </Grid>
-                        </Grid>
-                    );
-                })
+                label: 'Assets',
+                backgroundColor: '#2FDE00',
+                hoverBackgroundColor: '#2FDE00',
+                data: [assetsSum]
+            },
+            {
+                label: 'Liabilities',
+                backgroundColor: '#B21F00',
+                hoverBackgroundColor: '#B21F00',
+                data: [liabilitiesSum]
             }
-        </React.Fragment>
+        ]
+    }
+
+    return (
+        <Bar
+            data={state || []}
+            height={300}
+            options={{
+                maintainAspectRatio: false,
+                title: {
+                    display: true,
+                    text: title,
+                    fontSize: 20
+                }
+            }}
+        />
     );
 }
 
+
 const MainTabs = props => {
-    const classes = useStyles();
     const [value, setValue] = React.useState(0);
 
     const handleChange = (event, newValue) => {
@@ -202,12 +403,20 @@ const MainTabs = props => {
                 aria-label="assets liabilities goals tabs">
                 <Tab label="Assets" {...a11yProps(0)} />
                 <Tab label="Liabilities" {...a11yProps(1)} />
+                <Tab label="Goals" {...a11yProps(2)} />
+                <Tab label="Subscriptions" {...a11yProps(3)} />
             </Tabs>
             <TabPanel value={value} index={0}>
                 <AssetsPreview assets={props.assets} />
             </TabPanel>
             <TabPanel value={value} index={1}>
                 <LiabilitiesPreview liabilities={props.liabilities} />
+            </TabPanel>
+            <TabPanel value={value} index={2}>
+                <GoalsPreview goals={props.goals} />
+            </TabPanel>
+            <TabPanel value={value} index={3}>
+                <SubscriptionsPreview subscriptions={props.subscriptions} />
             </TabPanel>
         </AiofPaper>
     );
@@ -228,9 +437,9 @@ const FinanceMainView = props => {
                 <title>{props.appName} | Finance</title>
             </Helmet>
 
-            <Container maxWidth="lg">
+            <Container maxWidth="xl">
                 <Grid container spacing={3} className={classes.root}>
-                    <Grid item xs={4}>
+                    <Grid item xs={3}>
 
                         <Grid item xs={12}>
                             <AiofPaper elevation={3}>
@@ -240,22 +449,43 @@ const FinanceMainView = props => {
 
                         <Grid item xs={12}>
                             <AiofPaper elevation={3}>
-
+                                <Grid item xs={12}>
+                                    <img src={House} alt="House" style={{width: "5rem", height: "5rem"}} />
+                                </Grid>
+                                <Grid item xs={12}>
+                                    <br/>
+                                    <h6><b>Usefull documentations</b></h6>
+                                </Grid>
+                                <Grid item xs={12}>
+                                    <ul>
+                                        <li><CoolExternalLink href="https://en.wikipedia.org/wiki/Financial_asset">What is a financial asset?</CoolExternalLink></li>
+                                        <li><CoolExternalLink href="https://en.wikipedia.org/wiki/Liability_(financial_accounting)">What is a financial liability?</CoolExternalLink></li>
+                                        <li><CoolExternalLink href="https://www.nerdwallet.com/article/finance/what-are-liabilities">What are my financial liabilities? (Nerdwallet)</CoolExternalLink></li>
+                                    </ul>        
+                                    </Grid>
                             </AiofPaper>
                         </Grid>
 
                     </Grid>
 
-                    <Grid item xs={8}>
+                    <Grid item xs={9}>
 
-                        <Grid item xs={12}>
-                            <MainTabs assets={props.assets} liabilities={props.liabilities} />
+                        <Grid container spacing={3} className={classes.root}>
+                            <Grid item xs={12}>
+                                <MainTabs
+                                    assets={props.assets}
+                                    liabilities={props.liabilities}
+                                    goals={props.goals}
+                                    subscriptions={props.subscriptions} />
+                            </Grid>
                         </Grid>
 
-                        <Grid item xs={12}>
-                            <AiofPaper elevation={3}>
-                                <p>more</p>
-                            </AiofPaper>
+                        <Grid container spacing={3} className={classes.root}>
+                            <Grid item xs={12}>
+                                <AiofPaper elevation={3}>
+                                    <p>more</p>
+                                </AiofPaper>
+                            </Grid>
                         </Grid>
 
                     </Grid>
