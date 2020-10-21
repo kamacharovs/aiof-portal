@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
 import agent from '../../agent';
+
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import TextField from '@material-ui/core/TextField';
@@ -12,7 +13,7 @@ import ArrowUpwardIcon from '@material-ui/icons/ArrowUpward';
 import TrendingUpIcon from '@material-ui/icons/TrendingUp';
 import { numberWithCommas } from '../Finance/Common';
 import { GreenP, RedP } from '../../style/common';
-import { AiofPaper } from '../../style/mui';
+import { AiofPaper, AiofLinearProgress } from '../../style/mui';
 import { ASSET_BREAKDOWN } from '../../constants/actionTypes';
 import { Line } from 'react-chartjs-2';
 
@@ -20,6 +21,7 @@ import { Line } from 'react-chartjs-2';
 const mapStateToProps = state => ({
     ...state.finance,
     appName: state.common.appName,
+    inProgress: state.finance.inProgress,
     assetBreakdown: state.finance.assetBreakdown,
 });
 
@@ -226,13 +228,13 @@ class AssetBreakdown extends React.Component {
                                 <Grid item xs={12}>
                                     <Button type="submit" variant="contained" color="primary" className={this.classes.button} >
                                         Calculate
-                                </Button>
+                                    </Button>
                                 </Grid>
                             </Grid>
                         </form>
                     </AiofPaper>
 
-                    <AssetBreakdownResults assetBreakdown={this.props.assetBreakdown} />
+                    <AssetBreakdownResults assetBreakdown={this.props.assetBreakdown} inProgress={this.props.inProgress} />
 
                 </Container>
             </React.Fragment>
@@ -378,7 +380,14 @@ const AssetBreakdownResults = props => {
             </React.Fragment>
         )
     }
-    return null
+    else if (props.inProgress) {
+        return (
+            <AiofLinearProgress />
+        );
+    }
+    else {
+        return null;
+    }
 }
 
 

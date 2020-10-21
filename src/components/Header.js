@@ -132,9 +132,9 @@ const ProfileMenu = props => {
 class Header extends React.Component {
   render() {
     return (
-      <Navbar bg="dark" variant="dark" expand="sm" sticky="top" >
+      <Navbar bg="dark" variant="dark" expand="sm" sticky="top">
       
-        <AppMenu />
+          <AppMenu />
 
           <HomeView currentUser={this.props.currentUser} appName={this.props.appName.toLowerCase()} />
 

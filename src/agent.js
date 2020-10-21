@@ -52,6 +52,8 @@ const Auth = {
 };
 
 const User = {
+  get: id =>
+    requests.get(`/user/${id}`),
   byUsername: username =>
     requests.get(`/user?username=${username}`),
 }
@@ -74,7 +76,10 @@ const Asset = {
   breakdown: payload =>
     requestsMetadata.post('/asset/breakdown', payload)
 }
+
 const Liability = {
+  add: liability =>
+    requests.post('/liability', liability),
   types: () =>
     requests.get('/liability/types'),
 }
@@ -86,6 +91,10 @@ const Fi = {
     requestsMetadata.post('/fi/compound/interest', payload),
   addedTime: payload =>
     requestsMetadata.post('/fi/added/time', payload),
+  bmiImperial: payload =>
+    requestsMetadata.post('/fi/health/bmi/imperial', payload),
+  bmiMetric: payload =>
+    requestsMetadata.post('/fi/health/bmi/metric', payload),
 }
 
 

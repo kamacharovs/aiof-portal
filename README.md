@@ -18,6 +18,7 @@ All documentation
 - [JS cookie](https://www.npmjs.com/package/js-cookie)
 - [React charts](https://www.npmjs.com/package/react-chartjs-2)
 - [React helmet](https://github.com/nfl/react-helmet)
+- [React spinners](https://www.npmjs.com/package/react-spinners)
 
 ### React
 
@@ -40,6 +41,12 @@ Run
 
 ```powershel
 npm start
+```
+
+Go to
+
+```text
+http://localhost:4100/
 ```
 
 #### Docker
@@ -67,3 +74,13 @@ Optional command to clean up `<none>` images
 ```powershell
 docker rmi $(docker images -f “dangling=true” -q)
 ```
+
+### Docker compose
+
+From the project root directory
+
+```powershell
+docker-compose up
+```
+
+Run the `npm` start script from above and follow the steps to go to `http://localhost:4100/`

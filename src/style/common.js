@@ -123,6 +123,39 @@ export const CoolLink = styled(Link)`
     display: block;
   }
 `;
+export const CoolExternalLink = styled.a`
+  margin-bottom: 10px;
+  display: inline-block;
+  color: #000;
+  text-decoration: none;
+
+  &::after {
+    content: '';
+    display: block;
+    width: 0;
+    height: 1px;
+    background: #000;
+    transition: width .3s;
+  };
+
+  &:hover {
+    text-decoration: none;
+    color: inherit;
+  }
+
+  &:hover::after {
+    width: 100%;
+    transition: width .3s;
+  }
+
+  &:focus, &:visited, &:link, &:active {
+    text-decoration: none;
+  }
+
+  &.outer {
+    display: block;
+  }
+`;
 
 export const HeaderLink = styled(Link)`
   font-family: titillium web,sans-serif;

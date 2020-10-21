@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
 import agent from '../../agent';
+
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import TextField from '@material-ui/core/TextField';
@@ -10,16 +11,20 @@ import Grid from '@material-ui/core/Grid';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import { numberWithCommas } from '../Finance/Common';
 import { GreenP, RedP } from '../../style/common';
-import { AiofPaper } from '../../style/mui';
-import { FI_COMPOUND_INTEREST } from '../../constants/actionTypes';
+import { AiofPaper, AiofLinearProgress } from '../../style/mui';
+import { FI_PAGE_LOADED, FI_COMPOUND_INTEREST } from '../../constants/actionTypes';
+
 
 const mapStateToProps = state => ({
   ...state.fi,
   appName: state.common.appName,
+  inProgress: state.fi.inProgress,
   compoundInterest: state.fi.compoundInterest,
 });
 
 const mapDispatchToProps = dispatch => ({
+  onLoad: () =>
+    dispatch({ type: FI_PAGE_LOADED }),
   onSubmit: compoundInterest =>
     dispatch({ type: FI_COMPOUND_INTEREST, payload: agent.Fi.compoundInterest(compoundInterest) })
 });
@@ -76,6 +81,8 @@ class CompoundInterest extends React.Component {
   }
 
   componentDidMount() {
+    this.props.onLoad();
+
     if (this.props.compoundInterest) {
       this.setState({
         startingAmount: this.props.compoundInterest[0].startingAmount,
@@ -170,7 +177,7 @@ class CompoundInterest extends React.Component {
             </form>
           </AiofPaper>
 
-          <CompoundInterestResults compoundInterest={this.props.compoundInterest} />
+          <CompoundInterestResults compoundInterest={this.props.compoundInterest} inProgress={this.props.inProgress} />
 
         </Container>
       </React.Fragment>
@@ -258,7 +265,14 @@ const CompoundInterestResults = props => {
       </AiofPaper>
     );
   }
-  return null
+  else if (props.inProgress) {
+    return (
+      <AiofLinearProgress />
+    );
+  }
+  else {
+    return null;
+  }
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(CompoundInterest);

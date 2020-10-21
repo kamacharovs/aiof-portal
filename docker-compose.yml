@@ -5,7 +5,7 @@ services:
     image: gkama/aiof-auth:latest
     container_name: aiof-auth
     ports: 
-      - 5000:80
+      - 8001:80
     environment: 
       ASPNETCORE_ENVIRONMENT: Development
   
@@ -13,7 +13,7 @@ services:
     image: gkama/aiof-metadata:latest
     container_name: aiof-metadata
     ports:
-      - 8000:80
+      - 8002:80
 
   aiofapi:
     image: gkama/aiof-api:latest
@@ -22,6 +22,6 @@ services:
       - aiofauth
       - aiofmetadata
     ports:
-      - 5001:80
+      - 8000:80
     environment:
       ASPNETCORE_ENVIRONMENT: Development

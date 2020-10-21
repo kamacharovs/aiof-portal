@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
 import { Route, Switch } from 'react-router-dom';
 import agent from '../agent';
+
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import Home from '../components/Home';
@@ -11,12 +12,15 @@ import Register from '../components/Register';
 import ProfileStepper from '../components/ProfileStepper';
 import Profile from '../components/Profile';
 import ProfileSettings from '../components/ProfileSettings';
-import FinanceMainView from '../components/Finance/FinanceMainView';
+import FinanceMainView from '../components/Finance/FinanceMainViewMui';
 import AssetBreakdown from '../components/Finance/AssetBreakdown';
+import LiabilityEditor from '../components/Finance/LiabilityEditor';
+
 import FI from '../components/FI';
 import TimeToFi from '../components/FI/TimeToFi';
 import AddedTime from '../components/FI/AddedTime';
 import CompoundInterest from '../components/FI/CompoundInterest';
+import Bmi from '../components/FI/Bmi';
 import { store } from '../store';
 import { push } from 'react-router-redux';
 import Cookies from 'js-cookie';
@@ -75,12 +79,14 @@ class App extends React.Component {
             <Route exact path="/register" component={Register} />
             <Route exact path="/profile/update" component={ProfileStepper} />
             <Route exact path="/@:username/finance" component={FinanceMainView} />
+            <Route exact path="/@:username/finance/liability" component={LiabilityEditor} />
             <Route exact path="/@:username/settings" component={ProfileSettings} />
             <Route exact path="/@:username" component={Profile} />
             <Route exact path="/fi" component={FI} />
             <Route exact path="/fi/added/time" component={AddedTime} />
             <Route exact path="/fi/time" component={TimeToFi} />
             <Route exact path="/fi/compound/interest" component={CompoundInterest} />
+            <Route exact path="/fi/bmi" component={Bmi} />
             <Route exact path="/asset/breakdown" component={AssetBreakdown} />
           </Switch>
           <Footer

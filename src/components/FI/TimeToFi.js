@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
 import agent from '../../agent';
+
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import TextField from '@material-ui/core/TextField';
@@ -12,16 +13,20 @@ import ArrowUpwardIcon from '@material-ui/icons/ArrowUpward';
 import Table from 'react-bootstrap/Table';
 import { numberWithCommas } from '../Finance/Common';
 import { GreenP, RedP } from '../../style/common';
-import { AiofPaper } from '../../style/mui';
-import { FI_TIME_TO_FI } from '../../constants/actionTypes';
+import { AiofPaper, AiofLinearProgress } from '../../style/mui';
+import { FI_PAGE_LOADED, FI_TIME_TO_FI } from '../../constants/actionTypes';
+
 
 const mapStateToProps = state => ({
   ...state.fi,
   appName: state.common.appName,
+  inProgress: state.fi.inProgress,
   time: state.fi.time,
 });
 
 const mapDispatchToProps = dispatch => ({
+  onLoad: () =>
+    dispatch({ type: FI_PAGE_LOADED }),
   onSubmit: timeToFi =>
     dispatch({ type: FI_TIME_TO_FI, payload: agent.Fi.time(timeToFi) })
 });
@@ -74,6 +79,8 @@ class TimeToFi extends React.Component {
   }
 
   componentDidMount() {
+    this.props.onLoad();
+
     if (this.props.time) {
       this.setState({
         startingAmount: this.props.time.startingAmount,
@@ -163,7 +170,7 @@ class TimeToFi extends React.Component {
             </form>
           </AiofPaper>
 
-          <TimeToFiResults time={this.props.time} />
+          <TimeToFiResults time={this.props.time} inProgress={this.props.inProgress} />
 
         </Container>
       </React.Fragment>
@@ -245,7 +252,14 @@ const TimeToFiResults = props => {
       </React.Fragment>
     );
   }
-  return null
+  else if (props.inProgress) {
+    return (
+      <AiofLinearProgress />
+    );
+  }
+  else {
+    return null;
+  }
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(TimeToFi);

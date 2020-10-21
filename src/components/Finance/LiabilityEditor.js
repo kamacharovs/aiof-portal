@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
 import agent from '../../agent';
-import { ASSET_ADD, ASSET_TYPES } from '../../constants/actionTypes';
+import { LIABILITY_ADD, LIABILITY_TYPES } from '../../constants/actionTypes';
 
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
@@ -19,14 +19,14 @@ const mapStateToProps = state => ({
     ...state.finance,
     appName: state.common.appName,
     currentUser: state.common.currentUser,
-    assetTypes: state.finance.assetTypes,
+    liabilityTypes: state.finance.liabilityTypes,
 });
 
 const mapDispatchToProps = dispatch => ({
-    onAddAsset: asset =>
-        dispatch({ type: ASSET_ADD, payload: agent.Asset.add(asset) }),
-    onGetAssetTypes: () =>
-        dispatch({ type: ASSET_TYPES, payload: agent.Asset.types() }),
+    onAddLiability: liability =>
+        dispatch({ type: LIABILITY_ADD, payload: agent.Liability.add(liability) }),
+    onGetLiabilityTypes: () =>
+        dispatch({ type: LIABILITY_TYPES, payload: agent.Liability.types() }),
 });
 
 const useStyles = makeStyles((theme) => ({
@@ -43,49 +43,49 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-const AddAsset = (props) => {
+const AddLiability = (props) => {
     const classes = useStyles();
     const [name, setName] = useState('');
     const [typeName, setTypeName] = useState('');
     const [value, setValue] = useState('');
-    const assetTypes = props.assetTypes || [];
+    const liabilityTypes = props.liabilityTypes || [];
 
     const handleTypeNameChange = (event) => {
         setTypeName(event.target.value);
     };
 
-    const submitAddAsset = ev => {
+    const submitAddLiability = ev => {
         ev.preventDefault();
 
-        let addAssetPayload = {
+        let addLiabilityPayload = {
             name: name,
             typeName: typeName,
             value: Number(value),
             userId: props.currentUser.id
         };
 
-        props.onAddAsset(addAssetPayload)
+        props.onAddLiability(addLiabilityPayload)
         props.onAdd(true);
     }
 
     useEffect(() => {
-        if (!props.assetTypes) {
-            props.onGetAssetTypes();
+        if (!props.liabilityTypes) {
+            props.onGetLiabilityTypes();
         }
     }, []);
 
     return (
         <React.Fragment>
             <Helmet>
-                <title>{props.appName} | Asset</title>
+                <title>{props.appName} | Liability</title>
             </Helmet>
 
             <Container maxWidth="xl">
-                    <form className={classes.root} noValidate autoComplete="off" onSubmit={submitAddAsset}>
+                    <form className={classes.root} noValidate autoComplete="off" onSubmit={submitAddLiability}>
                         <Grid container spacing={3}>
                             <Grid item xs={12}>
                                 <p>
-                                    A financial asset is a liquid asset that gets its value from a contractual right or ownership claim. Cash, stocks, bonds, mutual funds, and bank deposits are all are examples of financial assets
+                                    A liability is something a person or company owes, usually a sum of money. Liabilities are settled over time through the transfer of economic benefits including money, goods, or services
                                 </p>
                             </Grid>
 
@@ -107,9 +107,9 @@ const AddAsset = (props) => {
                                         onChange={handleTypeNameChange}
                                     >
                                         {
-                                            assetTypes.map(assetType => {
+                                            liabilityTypes.map(liabilityType => {
                                                 return (
-                                                    <MenuItem key={assetType.name} value={assetType.name}>{assetType.name}</MenuItem>
+                                                    <MenuItem key={liabilityType.name} value={liabilityType.name}>{liabilityType.name}</MenuItem>
                                                 );
                                             })
                                         }
@@ -137,4 +137,4 @@ const AddAsset = (props) => {
     );
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(AddAsset);
+export default connect(mapStateToProps, mapDispatchToProps)(AddLiability);

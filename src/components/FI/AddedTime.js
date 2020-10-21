@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
 import agent from '../../agent';
+
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import TextField from '@material-ui/core/TextField';
@@ -10,16 +11,19 @@ import Grid from '@material-ui/core/Grid';
 import AttachMoneyIcon from '@material-ui/icons/AttachMoney';
 import { numberWithCommas } from '../Finance/Common';
 import { GreenP, RedP } from '../../style/common';
-import { AiofPaper } from '../../style/mui';
-import { FI_ADDED_TIME } from '../../constants/actionTypes';
+import { AiofPaper, AiofLinearProgress } from '../../style/mui';
+import { FI_PAGE_LOADED, FI_ADDED_TIME } from '../../constants/actionTypes';
 
 const mapStateToProps = state => ({
     ...state.fi,
     appName: state.common.appName,
+    inProgress: state.fi.inProgress,
     addedTime: state.fi.addedTime,
 });
 
 const mapDispatchToProps = dispatch => ({
+    onLoad: () =>
+        dispatch({ type: FI_PAGE_LOADED }),
     onSubmit: addedTime =>
         dispatch({ type: FI_ADDED_TIME, payload: agent.Fi.addedTime(addedTime) })
 });
@@ -65,6 +69,8 @@ class AddedTime extends React.Component {
     }
 
     componentDidMount() {
+        this.props.onLoad();
+
         if (this.props.addedTime) {
             this.setState({
                 monthlyInvestment: this.props.addedTime.monthlyInvestment,
@@ -122,7 +128,7 @@ class AddedTime extends React.Component {
                         </form>
                     </AiofPaper>
 
-                    <AddedTimeResults addedTime={this.props.addedTime} />
+                    <AddedTimeResults addedTime={this.props.addedTime} inProgress={this.props.inProgress} />
 
                 </Container>
             </React.Fragment>
@@ -162,7 +168,7 @@ const AddedTimeResults = props => {
                     {
                         props.addedTime.years.map(year => {
                             return (
-                                <Grid container spacing={1}>
+                                <Grid container spacing={1} key={year.interest} >
                                     <Grid item xs={6}>
                                         <GreenP>{year.interest}%</GreenP>
                                     </Grid>
@@ -178,7 +184,14 @@ const AddedTimeResults = props => {
             </React.Fragment>
         );
     }
-    return null
+    else if (props.inProgress) {
+        return (
+            <AiofLinearProgress />
+        );
+    }
+    else {
+        return null;
+    }
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(AddedTime);
