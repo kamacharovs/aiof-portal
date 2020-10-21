@@ -164,10 +164,10 @@ const LiabilitiesPreview = props => {
     const handleClickAddOpen = () => {
         setOpenAdd(true);
     };
-    const handleAddClose = () => {
+    const handleAddClose = (added) => {
         setOpenAdd(false);
         
-        if (props.currentUser) {
+        if (props.currentUser && added === true) {
             props.onLoad(agent.User.get(props.currentUser.id));
         }
     };
@@ -468,8 +468,8 @@ const LiabilityAddDialog = props => {
         onClose();
     };
 
-    const handleAddClick = () => {
-        onClose();
+    const handleAddClick = (added) => {
+        onClose(added);
     };
 
     return (

@@ -66,7 +66,7 @@ const AddLiability = (props) => {
 
         agent.Liability.add(addLiabilityPayload)
 
-        props.onAdd();
+        props.onAdd(true);
     }
 
     useEffect(() => {

@@ -24,12 +24,13 @@ export const LoginPaper = styled(Paper)({
   fontSize: '.8125rem'
 });
 
+export const AiofDefaultLinearProgress = styled(LinearProgress)({
+  width: '100%',
+  marginTop: '1rem',
+  backgroundColor: 'transparent'
+});
 export const AiofLinearProgress = withStyles({
   barColorPrimary: {
     backgroundColor: DefaultColor
   }
-})(styled(LinearProgress)({
-  width: '100%',
-  marginTop: '1rem',
-  backgroundColor: 'transparent'
-}));
+})(AiofDefaultLinearProgress);
