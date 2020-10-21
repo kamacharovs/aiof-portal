@@ -1,5 +1,9 @@
-import { makeStyles, styled } from '@material-ui/core/styles';
+import { withStyles, makeStyles, styled } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
+import LinearProgress from '@material-ui/core/LinearProgress';
+
+
+export const DefaultColor = '#5cb85c';
 
 export const commonStyles = makeStyles({
   p: {
@@ -19,3 +23,13 @@ export const LoginPaper = styled(Paper)({
   marginTop: '1rem',
   fontSize: '.8125rem'
 });
+
+export const AiofLinearProgress = withStyles({
+  barColorPrimary: {
+    backgroundColor: DefaultColor
+  }
+})(styled(LinearProgress)({
+  width: '100%',
+  marginTop: '1rem',
+  backgroundColor: 'transparent'
+}));

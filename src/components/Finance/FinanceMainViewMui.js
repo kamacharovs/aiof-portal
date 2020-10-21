@@ -5,9 +5,8 @@ import agent from '../../agent';
 import { FINANCE_PAGE_LOADED } from '../../constants/actionTypes';
 
 import { Overview } from './Overview';
-import { AiofLoader } from '../Common/Loader';
 import { Bar } from 'react-chartjs-2';
-import { AiofPaper } from '../../style/mui';
+import { AiofPaper, AiofLinearProgress } from '../../style/mui';
 import { CoolExternalLink } from '../../style/common';
 import House from '../../style/icons/House_4.svg';
 import { numberWithCommas, formatDate } from './Common';
@@ -468,7 +467,7 @@ const FinanceMainView = props => {
                     </Grid>
 
                     <Grid item xs={9}>
-                        {props.inProgress ? <AiofLoader inProgress={props.inProgress} /> : (
+                        {props.inProgress ? <AiofLinearProgress /> : (
                             <React.Fragment>
                                 <Grid container spacing={3} className={classes.root}>
                                     <Grid item xs={12}>
