@@ -11,8 +11,7 @@ import Grid from '@material-ui/core/Grid';
 import AttachMoneyIcon from '@material-ui/icons/AttachMoney';
 import { numberWithCommas } from '../Finance/Common';
 import { GreenP, RedP } from '../../style/common';
-import { AiofPaper } from '../../style/mui';
-import { AiofGridLoader } from '../Common/Loader';
+import { AiofPaper, AiofLinearProgress } from '../../style/mui';
 import { FI_PAGE_LOADED, FI_ADDED_TIME } from '../../constants/actionTypes';
 
 const mapStateToProps = state => ({
@@ -187,7 +186,7 @@ const AddedTimeResults = props => {
     }
     else if (props.inProgress) {
         return (
-            <AiofGridLoader inProgress={props.inProgress} />
+            <AiofLinearProgress />
         );
     }
     else {

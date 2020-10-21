@@ -4,8 +4,7 @@ import { Helmet } from 'react-helmet';
 import agent from '../../agent';
 import { FI_PAGE_LOADED, FI_BMI_IMPERIAL, FI_BMI_METRIC } from '../../constants/actionTypes';
 
-import { AiofPaper } from '../../style/mui';
-import { AiofGridLoader } from '../Common/Loader';
+import { AiofPaper, AiofLinearProgress } from '../../style/mui';
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Container from '@material-ui/core/Container';
@@ -132,7 +131,7 @@ const Bmi = (props) => {
                     </form>
                 </AiofPaper>
 
-                <BmiResult bmiImperial={props.bmiImperial} />
+                <BmiResult bmiImperial={props.bmiImperial} inProgress={props.inProgress} />
 
                 <AiofPaper elevation={3}>
                     <form className={classes.root} noValidate autoComplete="off" onSubmit={submitMetric}>
@@ -168,12 +167,8 @@ const Bmi = (props) => {
                     </form>
                 </AiofPaper>
 
-                <BmiMetricResult bmiMetric={props.bmiMetric} />
+                <BmiMetricResult bmiMetric={props.bmiMetric} inProgress={props.inProgress} />
 
-            </Container>
-
-            <Container>
-                <AiofGridLoader inProgress={props.inProgress} />
             </Container>
         </React.Fragment>
     );
@@ -198,6 +193,11 @@ const BmiResult = (props) => {
             </AiofPaper>
         );
     }
+    else if (props.inProgress) {
+        return (
+            <AiofLinearProgress />
+        );
+    }
     else {
         return null;
     }
@@ -220,6 +220,11 @@ const BmiMetricResult = (props) => {
                     </Grid>
                 </Grid>
             </AiofPaper>
+        );
+    }
+    else if (props.inProgress) {
+        return (
+            <AiofLinearProgress />
         );
     }
     else {

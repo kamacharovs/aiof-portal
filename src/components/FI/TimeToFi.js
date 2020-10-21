@@ -13,9 +13,9 @@ import ArrowUpwardIcon from '@material-ui/icons/ArrowUpward';
 import Table from 'react-bootstrap/Table';
 import { numberWithCommas } from '../Finance/Common';
 import { GreenP, RedP } from '../../style/common';
-import { AiofPaper } from '../../style/mui';
-import { AiofGridLoader } from '../Common/Loader';
+import { AiofPaper, AiofLinearProgress } from '../../style/mui';
 import { FI_PAGE_LOADED, FI_TIME_TO_FI } from '../../constants/actionTypes';
+
 
 const mapStateToProps = state => ({
   ...state.fi,
@@ -254,7 +254,7 @@ const TimeToFiResults = props => {
   }
   else if (props.inProgress) {
     return (
-      <AiofGridLoader inProgress={props.inProgress} />
+      <AiofLinearProgress />
     );
   }
   else {

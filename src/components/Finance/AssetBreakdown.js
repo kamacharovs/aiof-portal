@@ -13,8 +13,7 @@ import ArrowUpwardIcon from '@material-ui/icons/ArrowUpward';
 import TrendingUpIcon from '@material-ui/icons/TrendingUp';
 import { numberWithCommas } from '../Finance/Common';
 import { GreenP, RedP } from '../../style/common';
-import { AiofPaper } from '../../style/mui';
-import { AiofGridLoader } from '../Common/Loader';
+import { AiofPaper, AiofLinearProgress } from '../../style/mui';
 import { ASSET_BREAKDOWN } from '../../constants/actionTypes';
 import { Line } from 'react-chartjs-2';
 
@@ -383,7 +382,7 @@ const AssetBreakdownResults = props => {
     }
     else if (props.inProgress) {
         return (
-            <AiofGridLoader inProgress={props.inProgress} />
+            <AiofLinearProgress />
         );
     }
     else {

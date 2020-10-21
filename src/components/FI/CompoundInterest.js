@@ -11,9 +11,9 @@ import Grid from '@material-ui/core/Grid';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import { numberWithCommas } from '../Finance/Common';
 import { GreenP, RedP } from '../../style/common';
-import { AiofPaper } from '../../style/mui';
-import { AiofGridLoader } from '../Common/Loader';
+import { AiofPaper, AiofLinearProgress } from '../../style/mui';
 import { FI_PAGE_LOADED, FI_COMPOUND_INTEREST } from '../../constants/actionTypes';
+
 
 const mapStateToProps = state => ({
   ...state.fi,
@@ -267,7 +267,7 @@ const CompoundInterestResults = props => {
   }
   else if (props.inProgress) {
     return (
-      <AiofGridLoader inProgress={props.inProgress} />
+      <AiofLinearProgress />
     );
   }
   else {
