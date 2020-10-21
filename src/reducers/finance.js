@@ -48,8 +48,7 @@ export default (state = {}, action) => {
       }
     case LIABILITY_ADD:
       return {
-        ...state,
-        liability: action.error ? null : action.payload
+        ...state
       }
     default:
       return state;

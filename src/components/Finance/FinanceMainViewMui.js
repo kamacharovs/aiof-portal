@@ -18,6 +18,12 @@ import Container from '@material-ui/core/Container';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import Box from '@material-ui/core/Box';
+import Dialog from '@material-ui/core/Dialog'
+import DialogTitle from '@material-ui/core/DialogTitle';
+import DialogContent from '@material-ui/core/DialogContent';
+import Button from '@material-ui/core/Button';
+
+import AddLiability from './LiabilityEditor';
 
 
 const mapStateToProps = state => ({
@@ -36,6 +42,10 @@ const mapDispatchToProps = dispatch => ({
 const useStyles = makeStyles((theme) => ({
     root: {
         display: 'flex',
+    },
+    dialogPaper: {
+        minHeight: '30vh',
+        maxHeight: '30vh',
     },
     margin: {
         margin: theme.spacing(1),
@@ -149,6 +159,19 @@ const LiabilitiesPreview = props => {
     const classes = useStyles();
     const liabilities = props.liabilities ? props.liabilities : [];
 
+    const [openAdd, setOpenAdd] = React.useState(false);
+
+    const handleClickAddOpen = () => {
+        setOpenAdd(true);
+    };
+    const handleAddClose = () => {
+        setOpenAdd(false);
+        
+        if (props.currentUser) {
+            props.onLoad(agent.User.get(props.currentUser.id));
+        }
+    };
+
     if (liabilities && liabilities.length > 0) {
         return (
             <React.Fragment>
@@ -185,13 +208,31 @@ const LiabilitiesPreview = props => {
                         );
                     })
                 }
+
+                <Grid item xs={12}>
+                    <Button variant="outlined" color="primary" onClick={handleClickAddOpen}>
+                        Add
+                    </Button>
+                    <LiabilityAddDialog open={openAdd} onClose={handleAddClose} />
+                </Grid>
             </React.Fragment>
         );
     }
     else {
         return (
             <React.Fragment>
-                No liabilities yet...
+                <Grid container spacing={3} className={classes.root}>
+                <Grid item xs={12}>
+                    No liabilities yet...
+                </Grid>
+
+                <Grid item xs={12}>
+                    <Button variant="outlined" color="primary" onClick={handleClickAddOpen}>
+                        Add
+                    </Button>
+                    <LiabilityAddDialog open={openAdd} onClose={handleAddClose} />
+                </Grid>
+                </Grid>
             </React.Fragment>
         );
     }
@@ -384,7 +425,6 @@ const AssetsLiabilitiesChart = props => {
     );
 }
 
-
 const MainTabs = props => {
     const [value, setValue] = React.useState(0);
 
@@ -408,7 +448,7 @@ const MainTabs = props => {
                 <AssetsPreview assets={props.assets} />
             </TabPanel>
             <TabPanel value={value} index={1}>
-                <LiabilitiesPreview liabilities={props.liabilities} />
+                <LiabilitiesPreview liabilities={props.liabilities} currentUser={props.currentUser} onLoad={props.onLoad} />
             </TabPanel>
             <TabPanel value={value} index={2}>
                 <GoalsPreview goals={props.goals} />
@@ -419,6 +459,36 @@ const MainTabs = props => {
         </AiofPaper>
     );
 }
+
+const LiabilityAddDialog = props => {
+    const classes = useStyles();
+    const { onClose, open } = props;
+
+    const handleClose = () => {
+        onClose();
+    };
+
+    const handleAddClick = () => {
+        onClose();
+    };
+
+    return (
+        <Dialog
+            onClose={handleClose}
+            aria-labelledby="liability-add-dialog"
+            open={open}
+            classes={{ paper: classes.dialogPaper }}>
+            <DialogTitle id="liability-add-dialog-title">Add liability</DialogTitle>
+            <DialogContent>
+                <AddLiability onAdd={handleAddClick} />
+            </DialogContent>
+        </Dialog>
+    );
+}
+LiabilityAddDialog.propTypes = {
+    onClose: PropTypes.func.isRequired,
+    open: PropTypes.bool.isRequired,
+};
 
 const FinanceMainView = props => {
     const classes = useStyles();
@@ -475,7 +545,9 @@ const FinanceMainView = props => {
                                             assets={props.assets}
                                             liabilities={props.liabilities}
                                             goals={props.goals}
-                                            subscriptions={props.subscriptions} />
+                                            subscriptions={props.subscriptions}
+                                            currentUser={props.currentUser}
+                                            onLoad={props.onLoad} />
                                     </Grid>
                                 </Grid>
 

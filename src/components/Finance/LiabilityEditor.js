@@ -4,7 +4,6 @@ import { Helmet } from 'react-helmet';
 import agent from '../../agent';
 import { LIABILITY_ADD, LIABILITY_TYPES } from '../../constants/actionTypes';
 
-import { AiofPaper } from '../../style/mui';
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Container from '@material-ui/core/Container';
@@ -65,14 +64,16 @@ const AddLiability = (props) => {
             userId: props.currentUser.id
         };
 
-        props.onAddLiability(addLiabilityPayload);
+        agent.Liability.add(addLiabilityPayload)
+
+        props.onAdd();
     }
 
     useEffect(() => {
         if (!props.liabilityTypes) {
             props.onGetLiabilityTypes();
         }
-    });
+    }, []);
 
     return (
         <React.Fragment>
@@ -80,8 +81,7 @@ const AddLiability = (props) => {
                 <title>{props.appName} | Liability</title>
             </Helmet>
 
-            <Container maxWidth="sm">
-                <AiofPaper elevation={3}>
+            <Container maxWidth="xl">
                     <form className={classes.root} noValidate autoComplete="off" onSubmit={submitAddLiability}>
                         <Grid container spacing={3}>
                             <Grid item xs={12}>
@@ -133,7 +133,6 @@ const AddLiability = (props) => {
                             </Grid>
                         </Grid>
                     </form>
-                </AiofPaper>
             </Container>
         </React.Fragment>
     );
