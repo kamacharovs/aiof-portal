@@ -23,8 +23,8 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-    onAddAsset: () =>
-        dispatch({ type: ASSET_ADD }),
+    onAddAsset: asset =>
+        dispatch({ type: ASSET_ADD, payload: agent.Asset.add(asset) }),
     onGetAssetTypes: () =>
         dispatch({ type: ASSET_TYPES, payload: agent.Asset.types() }),
 });
@@ -64,7 +64,7 @@ const AddAsset = (props) => {
             userId: props.currentUser.id
         };
 
-        props.onAddAsset(agent.Asset.add(addAssetPayload))
+        props.onAddAsset(addAssetPayload)
         props.onAdd(true);
     }
 

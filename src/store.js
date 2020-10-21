@@ -1,4 +1,5 @@
 import { applyMiddleware, createStore } from 'redux';
+import thunkMiddleware from 'redux-thunk'
 import { createLogger } from 'redux-logger'
 import { composeWithDevTools } from 'redux-devtools-extension/developmentOnly';
 import { promiseMiddleware, cookieMiddleware } from './middleware';
@@ -14,10 +15,10 @@ const myRouterMiddleware = routerMiddleware(history);
 
 const getMiddleware = () => {
   if (process.env.NODE_ENV === 'production') {
-    return applyMiddleware(myRouterMiddleware, promiseMiddleware, cookieMiddleware);
+    return applyMiddleware(myRouterMiddleware, thunkMiddleware, promiseMiddleware, cookieMiddleware);
   } else {
     // Enable additional logging in non-production environments.
-    return applyMiddleware(myRouterMiddleware, promiseMiddleware, cookieMiddleware, createLogger())
+    return applyMiddleware(myRouterMiddleware, thunkMiddleware, promiseMiddleware, cookieMiddleware, createLogger())
   }
 };
 

@@ -64,8 +64,7 @@ const AddLiability = (props) => {
             userId: props.currentUser.id
         };
 
-        agent.Liability.add(addLiabilityPayload)
-
+        props.onAddLiability(addLiabilityPayload)
         props.onAdd(true);
     }
 

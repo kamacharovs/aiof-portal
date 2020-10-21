@@ -31,29 +31,38 @@ export default (state = {}, action) => {
       }
     case ASYNC_START:
       if (action.subtype === ASSET_BREAKDOWN
-        || action.subtype === FINANCE_PAGE_LOADED) {
-        return { ...state, inProgress: true };
+        || action.subtype === FINANCE_PAGE_LOADED
+        || action.subtype === ASSET_ADD
+        || action.subtype === LIABILITY_ADD) {
+        return { 
+          ...state,
+          inProgress: true
+        }
       }
       else {
-        return { ...state }
+        return { 
+          ...state 
+        }
       }
     case ASSET_ADD:
       return {
-        ...state
+        ...state,
+        inProgress: false,
       }
     case ASSET_TYPES:
       return {
         ...state,
         assetTypes: action.error ? null : action.payload
       }
+    case LIABILITY_ADD:
+      return {
+        ...state,
+        inProgress: false,
+      }
     case LIABILITY_TYPES:
       return {
         ...state,
         liabilityTypes: action.error ? null : action.payload
-      }
-    case LIABILITY_ADD:
-      return {
-        ...state
       }
     default:
       return state;

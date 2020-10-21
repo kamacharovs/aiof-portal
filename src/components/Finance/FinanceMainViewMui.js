@@ -36,8 +36,8 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-    onLoad: payload =>
-        dispatch({ type: FINANCE_PAGE_LOADED, payload }),
+    onLoad: id =>
+        dispatch({ type: FINANCE_PAGE_LOADED, payload: agent.User.get(id) }),
 });
 
 const useStyles = makeStyles((theme) => ({
@@ -117,7 +117,7 @@ const AssetsPreview = props => {
         setOpenAdd(false);
         
         if (props.currentUser && added === true) {
-            props.onLoad(agent.User.get(props.currentUser.id));
+            props.onLoad(props.currentUser.id);
         }
     };
 
@@ -170,7 +170,18 @@ const AssetsPreview = props => {
     else {
         return (
             <React.Fragment>
-                No assets yet...
+                <Grid container spacing={3} className={classes.root}>
+                <Grid item xs={12}>
+                    No assets yet...
+                </Grid>
+
+                <Grid item xs={12}>
+                    <Button variant="outlined" color="primary" onClick={handleClickAddOpen}>
+                        Add
+                    </Button>
+                    <AssetAddDialog open={openAdd} onClose={handleAddClose} />
+                </Grid>
+                </Grid>
             </React.Fragment>
         );
     }
@@ -189,7 +200,7 @@ const LiabilitiesPreview = props => {
         setOpenAdd(false);
         
         if (props.currentUser && added === true) {
-            props.onLoad(agent.User.get(props.currentUser.id));
+            props.onLoad(props.currentUser.id);
         }
     };
 
@@ -546,7 +557,7 @@ const FinanceMainView = props => {
 
     useEffect(() => {
         if (props.currentUser) {
-            props.onLoad(agent.User.get(props.currentUser.id));
+            props.onLoad(props.currentUser.id);
         }
     }, []);
 
