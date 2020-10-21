@@ -4,6 +4,7 @@ import {
   FINANCE_PAGE_UNLOADED,
   ASSET_BREAKDOWN,
   ASSET_ADD,
+  ASSET_TYPES,
   LIABILITY_ADD,
   LIABILITY_TYPES,
 } from '../constants/actionTypes';
@@ -38,8 +39,12 @@ export default (state = {}, action) => {
       }
     case ASSET_ADD:
       return {
+        ...state
+      }
+    case ASSET_TYPES:
+      return {
         ...state,
-        asset: action.error ? null : action.payload.asset,
+        assetTypes: action.error ? null : action.payload
       }
     case LIABILITY_TYPES:
       return {

@@ -23,6 +23,7 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import DialogContent from '@material-ui/core/DialogContent';
 import Button from '@material-ui/core/Button';
 
+import AddAsset from './AssetEditor';
 import AddLiability from './LiabilityEditor';
 
 
@@ -107,6 +108,19 @@ const AssetsPreview = props => {
     const classes = useStyles();
     const assets = props.assets ? props.assets : [];
 
+    const [openAdd, setOpenAdd] = React.useState(false);
+
+    const handleClickAddOpen = () => {
+        setOpenAdd(true);
+    };
+    const handleAddClose = (added) => {
+        setOpenAdd(false);
+        
+        if (props.currentUser && added === true) {
+            props.onLoad(agent.User.get(props.currentUser.id));
+        }
+    };
+
     if (assets && assets.length > 0) {
         return (
             <React.Fragment>
@@ -143,6 +157,13 @@ const AssetsPreview = props => {
                         );
                     })
                 }
+
+                <Grid item xs={12}>
+                    <Button variant="outlined" color="primary" onClick={handleClickAddOpen}>
+                        Add
+                    </Button>
+                    <AssetAddDialog open={openAdd} onClose={handleAddClose} />
+                </Grid>
             </React.Fragment>
         );
     }
@@ -445,7 +466,7 @@ const MainTabs = props => {
                 <Tab label="Subscriptions" {...a11yProps(3)} />
             </Tabs>
             <TabPanel value={value} index={0}>
-                <AssetsPreview assets={props.assets} />
+                <AssetsPreview assets={props.assets} currentUser={props.currentUser} onLoad={props.onLoad} />
             </TabPanel>
             <TabPanel value={value} index={1}>
                 <LiabilitiesPreview liabilities={props.liabilities} currentUser={props.currentUser} onLoad={props.onLoad} />
@@ -459,6 +480,36 @@ const MainTabs = props => {
         </AiofPaper>
     );
 }
+
+const AssetAddDialog = props => {
+    const classes = useStyles();
+    const { onClose, open } = props;
+
+    const handleClose = () => {
+        onClose();
+    };
+
+    const handleAddClick = (added) => {
+        onClose(added);
+    };
+
+    return (
+        <Dialog
+            onClose={handleClose}
+            aria-labelledby="asset-add-dialog"
+            open={open}
+            classes={{ paper: classes.dialogPaper }}>
+            <DialogTitle id="asset-add-dialog-title">Add asset</DialogTitle>
+            <DialogContent>
+                <AddAsset onAdd={handleAddClick} />
+            </DialogContent>
+        </Dialog>
+    );
+}
+AssetAddDialog.propTypes = {
+    onClose: PropTypes.func.isRequired,
+    open: PropTypes.bool.isRequired,
+};
 
 const LiabilityAddDialog = props => {
     const classes = useStyles();

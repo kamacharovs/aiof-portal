@@ -1,124 +1,140 @@
-import React from 'react';
-import Form from 'react-bootstrap/Form';
-import Button from 'react-bootstrap/Button';
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
-import agent from '../../agent';
+import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
-import { ContainerAiof, RoundBorderBox, TinyPadding, TinyFormLabel } from '../../style/common';
-import { ASSET_ADD } from '../../constants/actionTypes';
+import { Helmet } from 'react-helmet';
+import agent from '../../agent';
+import { ASSET_ADD, ASSET_TYPES } from '../../constants/actionTypes';
+
+import { makeStyles } from '@material-ui/core/styles';
+import Grid from '@material-ui/core/Grid';
+import Container from '@material-ui/core/Container';
+import TextField from '@material-ui/core/TextField';
+import Button from '@material-ui/core/Button';
+import InputLabel from '@material-ui/core/InputLabel';
+import MenuItem from '@material-ui/core/MenuItem';
+import FormControl from '@material-ui/core/FormControl';
+import Select from '@material-ui/core/Select';
+
 
 const mapStateToProps = state => ({
     ...state.finance,
+    appName: state.common.appName,
     currentUser: state.common.currentUser,
+    assetTypes: state.finance.assetTypes,
 });
 
 const mapDispatchToProps = dispatch => ({
-    onAddForm: asset =>
-        dispatch({ type: ASSET_ADD, payload: asset }),
+    onAddAsset: () =>
+        dispatch({ type: ASSET_ADD }),
+    onGetAssetTypes: () =>
+        dispatch({ type: ASSET_TYPES, payload: agent.Asset.types() }),
 });
 
-class AssetEditor extends React.Component {
-    constructor() {
-        super();
+const useStyles = makeStyles((theme) => ({
+    root: {
+        display: 'flex',
+    },
+    margin: {
+        margin: theme.spacing(1),
+    },
+    formControl: {
+        margin: theme.spacing(1),
+        minWidth: 120,
+    }
+}));
 
-        this.state = {
-            name: '',
-            typeName: '',
-            value: '',
-            userId: '',
+
+const AddAsset = (props) => {
+    const classes = useStyles();
+    const [name, setName] = useState('');
+    const [typeName, setTypeName] = useState('');
+    const [value, setValue] = useState('');
+    const assetTypes = props.assetTypes || [];
+
+    const handleTypeNameChange = (event) => {
+        setTypeName(event.target.value);
+    };
+
+    const submitAddAsset = ev => {
+        ev.preventDefault();
+
+        let addAssetPayload = {
+            name: name,
+            typeName: typeName,
+            value: Number(value),
+            userId: props.currentUser.id
         };
 
-        this.updateState = field => ev => {
-            const state = this.state;
-            const newState = Object.assign({}, state, { [field]: ev.target.value });
-            this.setState(newState);
-        };
-
-        this.submitAddForm = ev => {
-            ev.preventDefault();
-
-            const asset = Object.assign({}, this.state);
-            const userId = this.props.currentUser.id;
-
-            asset.name = asset.name ? asset.name : null;
-            asset.typeName = asset.typeName ? asset.typeName : null;
-            asset.value = asset.value ? Number(asset.value) : null;
-            asset.userId = asset.userId ? asset.userId : userId;
-
-            const promise = agent.Asset.add(asset);
-
-            this.props.onAddForm(promise);
-            
-            promise.then(this.props.onFinancesUpdate());
-        };
+        props.onAddAsset(agent.Asset.add(addAssetPayload))
+        props.onAdd(true);
     }
 
-    componentDidMount() {
-        if (this.props.currentUser && this.props.state) {
-            Object.assign(this.state, {
-                name: this.props.state.name || '',
-                typeName: this.props.state.typeName || '',
-                value: this.props.state.value || '',
-            });
+    useEffect(() => {
+        if (!props.assetTypes) {
+            props.onGetAssetTypes();
         }
-    }
+    }, []);
 
-    render() {
-        return (
-            <ContainerAiof>
-                <RoundBorderBox className="text-center">
-                    <TinyPadding>
-                        <Form onSubmit={this.submitAddForm}>
-                            <Row>
-                                <Col>
-                                    <Form.Group>
-                                        <TinyFormLabel>Asset name</TinyFormLabel>
-                                        <Form.Control type="text"
-                                            value={this.state.name}
-                                            onChange={this.updateState('name')}
-                                            placeholder="Name" />
-                                        <Form.Text className="text-muted">
-                                            Please provide your asset's name
-                                        </Form.Text>
-                                    </Form.Group>
-                                </Col>
-                                <Col>
-                                    <Form.Group>
-                                        <TinyFormLabel>Asset type</TinyFormLabel>
-                                        <Form.Control type="text"
-                                            value={this.state.typeName}
-                                            onChange={this.updateState('typeName')}
-                                            placeholder="i.e. car" />
-                                        <Form.Text className="text-muted">
-                                            Please provide your asset's type (car, house, etc.)
-                                        </Form.Text>
-                                    </Form.Group>
-                                </Col>
-                                <Col>
-                                    <Form.Group>
-                                        <TinyFormLabel>Asset value</TinyFormLabel>
-                                        <Form.Control type="text"
-                                            value={this.state.value}
-                                            onChange={this.updateState('value')}
-                                            placeholder="i.e. $5000" />
-                                        <Form.Text className="text-muted">
-                                            Please provide your asset's value
-                                        </Form.Text>
-                                    </Form.Group>
-                                </Col>
-                            </Row>
+    return (
+        <React.Fragment>
+            <Helmet>
+                <title>{props.appName} | Asset</title>
+            </Helmet>
 
-                            <Button variant="outline-primary" size="sm" type="submit"
-                                disabled={this.props.inProgress}>
-                                Add
-                            </Button>
-                        </Form>
-                    </TinyPadding>
-                </RoundBorderBox>
-            </ContainerAiof>
-        )
-    }
+            <Container maxWidth="xl">
+                    <form className={classes.root} noValidate autoComplete="off" onSubmit={submitAddAsset}>
+                        <Grid container spacing={3}>
+                            <Grid item xs={12}>
+                                <p>
+                                    A financial asset is a liquid asset that gets its value from a contractual right or ownership claim. Cash, stocks, bonds, mutual funds, and bank deposits are all are examples of financial assets
+                                </p>
+                            </Grid>
+
+                            <Grid item xs={4}>
+                                <div className={classes.margin}>
+                                    <TextField label="Name"
+                                        value={name}
+                                        onChange={e => setName(e.target.value)} />
+                                </div>
+                            </Grid>
+
+                            <Grid item xs={4}>
+                                <FormControl className={classes.formControl}>
+                                    <InputLabel id="type-name-label">Type</InputLabel>
+                                    <Select
+                                        labelId="type-name-label"
+                                        id="type-name-select"
+                                        value={typeName}
+                                        onChange={handleTypeNameChange}
+                                    >
+                                        {
+                                            assetTypes.map(assetType => {
+                                                return (
+                                                    <MenuItem key={assetType.name} value={assetType.name}>{assetType.name}</MenuItem>
+                                                );
+                                            })
+                                        }
+                                    </Select>
+                                </FormControl>
+                            </Grid>
+
+                            <Grid item xs={4}>
+                                <div className={classes.margin}>
+                                    <TextField label="Value"
+                                        value={value}
+                                        onChange={e => setValue(e.target.value)} />
+                                </div>
+                            </Grid>
+
+                            <Grid item xs={12}>
+                                <Button type="submit" variant="contained" color="primary" className={classes.button} >
+                                    Add
+                                </Button>
+                            </Grid>
+                        </Grid>
+                    </form>
+            </Container>
+        </React.Fragment>
+    );
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(AssetEditor);
+export default connect(mapStateToProps, mapDispatchToProps)(AddAsset);
