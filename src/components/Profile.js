@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
 import agent from '../agent';
-import { PROFILE_GET_USER_PROFILE } from '../constants/actionTypes';
+import { PROFILE_GET_USER_PROFILE, PROFILE_UPSERT_USER_PROFILE } from '../constants/actionTypes';
 
 import { AiofPaper, AiofLinearProgress } from '../style/mui';
 import { numberWithCommas, formatDate } from './Finance/Common';
@@ -10,6 +10,7 @@ import { numberWithCommas, formatDate } from './Finance/Common';
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Container from '@material-ui/core/Container';
+import Button from '@material-ui/core/Button';
 
 
 const mapStateToProps = state => ({
@@ -23,6 +24,8 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
     onProfile: id =>
         dispatch({ type: PROFILE_GET_USER_PROFILE, payload: agent.User.profile(id) }),
+    onProfileUpsert: (id, payload) =>
+        dispatch({ type: PROFILE_UPSERT_USER_PROFILE, payload: agent.User.profileUpsert(id, payload) }),
 });
 
 const useStyles = makeStyles((theme) => ({
@@ -72,6 +75,23 @@ const Profile = props => {
     const householdAdults = props.profile ? props.profile.householdAdults : null;
     const householdChildren = props.profile ? props.profile.householdChildren : null;
     const retirementContributionsPreTax = props.profile ? props.profile.retirementContributionsPreTax : null;
+    const isUpdated = false;
+
+    const handleUpdate = () => {
+        if (props.currentUser) {
+            var payload = {
+                gender,
+                dateOfBirth,
+                age,
+                maritalStatus,
+                occupation,
+                occupationIndustry,
+                householdAdults
+            };
+
+            props.onProfileUpsert(props.currentUser.id, payload);
+        }
+    }
 
     useEffect(() => {
         if (props.currentUser) {
@@ -257,6 +277,23 @@ const Profile = props => {
                                                 </Grid>
                                             </Grid>
 
+                                        </AiofPaper>
+                                    </Grid>
+
+                                    <Grid item xs={12}>
+                                        <AiofPaper elevation={3}>
+                                            <Grid container spacing={2} className={classes.root}>
+
+                                                <Grid item xs={6}>
+                                                    <Button variant="outlined" color="primary" disabled={!isUpdated} onClick={handleUpdate}>
+                                                        Update
+                                                    </Button>
+                                                </Grid>
+
+                                                <Grid item xs={6}>
+                                                </Grid>
+
+                                            </Grid>
                                         </AiofPaper>
                                     </Grid>
                                 </Grid>

@@ -58,6 +58,8 @@ const User = {
     requests.get(`/user?username=${username}`),
   profile: id =>
     requests.get(`/user/${id}/profile`),
+  profileUpsert: (id, payload) =>
+    requests.put(`/user/${id}/profile`, payload)
 }
 const UserProfile = {
   get: username =>

@@ -3,6 +3,7 @@ import {
   PROFILE_PAGE_LOADED,
   PROFILE_PAGE_UNLOADED,
   PROFILE_GET_USER_PROFILE,
+  PROFILE_UPSERT_USER_PROFILE,
   PROFILE_STEPPER_PAGE_LOADED,
   UPDATE_FIELD_PROFILE,
 } from '../constants/actionTypes';
@@ -15,13 +16,15 @@ export default (state = {}, action) => {
         inProgress: false,
       };
     case PROFILE_GET_USER_PROFILE:
+    case PROFILE_UPSERT_USER_PROFILE:
       return {
         ...state,
         inProgress: false,
         profile: action.error ? null : action.payload
       }
     case ASYNC_START:
-      if (action.subtype === PROFILE_GET_USER_PROFILE) {
+      if (action.subtype === PROFILE_GET_USER_PROFILE
+        || action.subtype === PROFILE_UPSERT_USER_PROFILE) {
         return { 
           ...state, 
           inProgress: true
