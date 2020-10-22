@@ -25,10 +25,15 @@ export default (state = {}, action) => {
                 || action.subtype === FI_COMPOUND_INTEREST
                 || action.subtype === FI_BMI_IMPERIAL
                 || action.subtype === FI_BMI_METRIC) {
-                return { ...state, inProgress: true };
+                return {
+                    ...state,
+                    inProgress: true
+                };
             }
             else {
-                return { ...state }
+                return {
+                    ...state
+                }
             }
         case FI_TIME_TO_FI:
             return {
@@ -70,7 +75,10 @@ export default (state = {}, action) => {
                 }
             }
         case FI_TIME_TO_FI_PAGE_UNLOADED:
-            return { ...state, viewChangeCounter: state.viewChangeCounter + 1 };
+            return {
+                ...state,
+                viewChangeCounter: state.viewChangeCounter + 1
+            }
         default:
             return state;
     }

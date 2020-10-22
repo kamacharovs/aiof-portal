@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
 import agent from '../agent';
@@ -11,6 +11,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Container from '@material-ui/core/Container';
 import Button from '@material-ui/core/Button';
+import TextField from '@material-ui/core/TextField';
 
 
 const mapStateToProps = state => ({
@@ -41,6 +42,12 @@ const useStyles = makeStyles((theme) => ({
         color: '#ebebeb',
         opacity: '90%'
     },
+    textField: {
+        marginTop: '-6px'
+    },
+    resize: {
+        fontSize: '.8125rem'
+    },
     green: {
         color: 'green',
         margin: '0rem',
@@ -62,19 +69,19 @@ const Profile = props => {
     const classes = useStyles();
     const empty = "Unspecified";
     const zero = "0";
-    const gender = props.profile ? props.profile.gender : null;
-    const dateOfBirth = props.profile ? props.profile.dateOfBirth : null;
-    const age = props.profile ? props.profile.age : null;
-    const maritalStatus = props.profile ? props.profile.maritalStatus : null;
-    const occupation = props.profile ? props.profile.occupation : null;
-    const occupationIndustry = props.profile ? props.profile.occupationIndustry : null;
-    const grossSalary = props.profile ? props.profile.grossSalary : null;
-    const educationLevel = props.profile ? props.profile.educationLevel : null;
-    const residentialStatus = props.profile ? props.profile.residentialStatus : null;
-    const householdIncome = props.profile ? props.profile.householdIncome : null;
-    const householdAdults = props.profile ? props.profile.householdAdults : null;
-    const householdChildren = props.profile ? props.profile.householdChildren : null;
-    const retirementContributionsPreTax = props.profile ? props.profile.retirementContributionsPreTax : null;
+    const [gender, setGender] = useState('');
+    const [dateOfBirth, setDateOfBirth] = useState('');
+    const [age, setAge] = useState('');
+    const [maritalStatus, setMaritalStatus] = useState('');
+    const [occupation, setOccupation] = useState('');
+    const [occupationIndustry, setOccupationIndustry] = useState('');
+    const [grossSalary, setGrossSalary] = useState('');
+    const [educationLevel, setEducationLevel] = useState('');
+    const [residentialStatus, setResidentialStatus] = useState('');
+    const [householdIncome, setHouseholdIncome] = useState('');
+    const [householdAdults, setHouseholdAdults] = useState('');
+    const [householdChildren, setHouseholdChildren] = useState('');
+    const [retirementContributionsPreTax, setRetirementContributionsPreTax] = useState('');
     const isUpdated = false;
 
     const handleUpdate = () => {
@@ -86,7 +93,9 @@ const Profile = props => {
                 maritalStatus,
                 occupation,
                 occupationIndustry,
-                householdAdults
+                householdAdults,
+                householdChildren,
+                retirementContributionsPreTax
             };
 
             props.onProfileUpsert(props.currentUser.id, payload);
@@ -95,9 +104,26 @@ const Profile = props => {
 
     useEffect(() => {
         if (props.currentUser) {
-            props.onProfile(props.currentUser.id);
+            props.onProfile(props.currentUser.id);      
         }
     }, []);
+    useEffect(() => {
+        if (props.profile) {
+            setGender(props.profile.gender);
+            setDateOfBirth(props.profile.dateOfBirth);
+            setAge(props.profile.age);
+            setMaritalStatus(props.profile.maritalStatus);
+            setOccupation(props.profile.occupation);
+            setOccupationIndustry(props.profile.occupationIndustry);
+            setGrossSalary(props.profile.grossSalary);
+            setEducationLevel(props.profile.educationLevel);
+            setResidentialStatus(props.profile.residentialStatus);
+            setHouseholdIncome(props.profile.householdIncome);
+            setHouseholdAdults(props.profile.householdAdults);
+            setHouseholdChildren(props.profile.householdChildren);
+            setRetirementContributionsPreTax(props.profile.retirementContributionsPreTax);
+        }
+    }, [props.profile]);
 
     return (
         <React.Fragment>
@@ -134,8 +160,16 @@ const Profile = props => {
                                                     <hr className={classes.hr} />
                                                 </Grid>
                                                 <Grid item xs={6}>
-                                                    {gender || empty}
-                                                    <hr className={classes.hr} />
+                                                    <TextField className={classes.textField}
+                                                        fullWidth
+                                                        value={gender}
+                                                        onChange={e => setGender(e.target.value)}
+                                                        InputProps={{
+                                                            classes: {
+                                                              input: classes.resize,
+                                                            },
+                                                        }}
+                                                     />
                                                 </Grid>
                                             </Grid>
 
@@ -145,8 +179,16 @@ const Profile = props => {
                                                     <hr className={classes.hr} />
                                                 </Grid>
                                                 <Grid item xs={6}>
-                                                    {dateOfBirth ? formatDate(dateOfBirth) : empty}
-                                                    <hr className={classes.hr} />
+                                                    <TextField className={classes.textField}
+                                                        fullWidth
+                                                        value={dateOfBirth ? formatDate(dateOfBirth) : empty}
+                                                        onChange={e => setDateOfBirth(e.target.value)}
+                                                        InputProps={{
+                                                            classes: {
+                                                              input: classes.resize,
+                                                            },
+                                                        }}
+                                                     />
                                                 </Grid>
                                             </Grid>
 
@@ -156,8 +198,16 @@ const Profile = props => {
                                                     <hr className={classes.hr} />
                                                 </Grid>
                                                 <Grid item xs={6}>
-                                                    {age || empty}
-                                                    <hr className={classes.hr} />
+                                                    <TextField className={classes.textField}
+                                                        fullWidth
+                                                        value={age || empty}
+                                                        onChange={e => setAge(e.target.value)}
+                                                        InputProps={{
+                                                            classes: {
+                                                              input: classes.resize,
+                                                            },
+                                                        }}
+                                                     />
                                                 </Grid>
                                             </Grid>
 
@@ -167,8 +217,16 @@ const Profile = props => {
                                                     <hr className={classes.hr} />
                                                 </Grid>
                                                 <Grid item xs={6}>
-                                                    {maritalStatus || empty}
-                                                    <hr className={classes.hr} />
+                                                    <TextField className={classes.textField}
+                                                        fullWidth
+                                                        value={maritalStatus || empty}
+                                                        onChange={e => setMaritalStatus(e.target.value)}
+                                                        InputProps={{
+                                                            classes: {
+                                                              input: classes.resize,
+                                                            },
+                                                        }}
+                                                     />
                                                 </Grid>
                                             </Grid>
 
@@ -178,8 +236,16 @@ const Profile = props => {
                                                     <hr className={classes.hr} />
                                                 </Grid>
                                                 <Grid item xs={6}>
-                                                    {educationLevel || empty}
-                                                    <hr className={classes.hr} />
+                                                    <TextField className={classes.textField}
+                                                        fullWidth
+                                                        value={educationLevel || empty}
+                                                        onChange={e => setEducationLevel(e.target.value)}
+                                                        InputProps={{
+                                                            classes: {
+                                                              input: classes.resize,
+                                                            },
+                                                        }}
+                                                     />
                                                 </Grid>
                                             </Grid>
 
@@ -189,8 +255,16 @@ const Profile = props => {
                                                     <hr className={classes.hr} />
                                                 </Grid>
                                                 <Grid item xs={6}>
-                                                    {residentialStatus || empty}
-                                                    <hr className={classes.hr} />
+                                                    <TextField className={classes.textField}
+                                                        fullWidth
+                                                        value={residentialStatus || empty}
+                                                        onChange={e => setResidentialStatus(e.target.value)}
+                                                        InputProps={{
+                                                            classes: {
+                                                              input: classes.resize,
+                                                            },
+                                                        }}
+                                                     />
                                                 </Grid>
                                             </Grid>
 
@@ -206,8 +280,16 @@ const Profile = props => {
                                                     <hr className={classes.hr} />
                                                 </Grid>
                                                 <Grid item xs={6}>
-                                                    {occupation || empty}
-                                                    <hr className={classes.hr} />
+                                                    <TextField className={classes.textField}
+                                                        fullWidth
+                                                        value={occupation || empty}
+                                                        onChange={e => setOccupation(e.target.value)}
+                                                        InputProps={{
+                                                            classes: {
+                                                              input: classes.resize,
+                                                            },
+                                                        }}
+                                                     />
                                                 </Grid>
                                             </Grid>
 
@@ -217,8 +299,16 @@ const Profile = props => {
                                                     <hr className={classes.hr} />
                                                 </Grid>
                                                 <Grid item xs={6}>
-                                                    {occupationIndustry || empty}
-                                                    <hr className={classes.hr} />
+                                                    <TextField className={classes.textField}
+                                                        fullWidth
+                                                        value={occupationIndustry || empty}
+                                                        onChange={e => setOccupationIndustry(e.target.value)}
+                                                        InputProps={{
+                                                            classes: {
+                                                              input: classes.resize,
+                                                            },
+                                                        }}
+                                                     />
                                                 </Grid>
                                             </Grid>
 
@@ -228,8 +318,16 @@ const Profile = props => {
                                                     <hr className={classes.hr} />
                                                 </Grid>
                                                 <Grid item xs={6}>
-                                                    <p className={classes.green}>${grossSalary ? numberWithCommas(grossSalary) : zero}</p>
-                                                    <hr className={classes.hr} />
+                                                    <TextField className={classes.textField}
+                                                        fullWidth
+                                                        value={grossSalary ? numberWithCommas(grossSalary) : zero}
+                                                        onChange={e => setGrossSalary(e.target.value)}
+                                                        InputProps={{
+                                                            classes: {
+                                                              input: classes.resize,
+                                                            },
+                                                        }}
+                                                     />
                                                 </Grid>
                                             </Grid>
 
@@ -239,8 +337,16 @@ const Profile = props => {
                                                     <hr className={classes.hr} />
                                                 </Grid>
                                                 <Grid item xs={6}>
-                                                    <p className={classes.green}>${householdIncome ? numberWithCommas(householdIncome) : zero}</p>
-                                                    <hr className={classes.hr} />
+                                                    <TextField className={classes.textField}
+                                                        fullWidth
+                                                        value={householdIncome ? numberWithCommas(householdIncome) : zero}
+                                                        onChange={e => setHouseholdIncome(e.target.value)}
+                                                        InputProps={{
+                                                            classes: {
+                                                              input: classes.resize,
+                                                            },
+                                                        }}
+                                                     />
                                                 </Grid>
                                             </Grid>
 
@@ -250,8 +356,16 @@ const Profile = props => {
                                                     <hr className={classes.hr} />
                                                 </Grid>
                                                 <Grid item xs={6}>
-                                                    {householdAdults || empty}
-                                                    <hr className={classes.hr} />
+                                                    <TextField className={classes.textField}
+                                                        fullWidth
+                                                        value={householdAdults || empty}
+                                                        onChange={e => setHouseholdAdults(e.target.value)}
+                                                        InputProps={{
+                                                            classes: {
+                                                              input: classes.resize,
+                                                            },
+                                                        }}
+                                                     />
                                                 </Grid>
                                             </Grid>
 
@@ -261,8 +375,16 @@ const Profile = props => {
                                                     <hr className={classes.hr} />
                                                 </Grid>
                                                 <Grid item xs={6}>
-                                                    {householdChildren || empty}
-                                                    <hr className={classes.hr} />
+                                                    <TextField className={classes.textField}
+                                                        fullWidth
+                                                        value={householdChildren || empty}
+                                                        onChange={e => setHouseholdChildren(e.target.value)}
+                                                        InputProps={{
+                                                            classes: {
+                                                              input: classes.resize,
+                                                            },
+                                                        }}
+                                                     />
                                                 </Grid>
                                             </Grid>
 
@@ -272,8 +394,16 @@ const Profile = props => {
                                                     <hr className={classes.hr} />
                                                 </Grid>
                                                 <Grid item xs={6}>
-                                                    <p className={classes.green}>${retirementContributionsPreTax ? numberWithCommas(retirementContributionsPreTax) : zero}</p>
-                                                    <hr className={classes.hr} />
+                                                    <TextField className={classes.textField}
+                                                        fullWidth
+                                                        value={retirementContributionsPreTax ? numberWithCommas(retirementContributionsPreTax) : zero}
+                                                        onChange={e => setRetirementContributionsPreTax(e.target.value)}
+                                                        InputProps={{
+                                                            classes: {
+                                                              input: classes.resize,
+                                                            },
+                                                        }}
+                                                     />
                                                 </Grid>
                                             </Grid>
 
