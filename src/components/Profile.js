@@ -43,6 +43,11 @@ const useStyles = makeStyles((theme) => ({
         margin: '0rem',
         padding: '0rem'
     },
+    tinyMutedText: {
+        color: '#999',
+        margin: '0 0 8px',
+        fontSize: '12px'
+    },
     mutedText: {
         color: '#999',
         margin: '0 0 8px',
@@ -87,19 +92,23 @@ const Profile = props => {
                         {props.inProgress ? <AiofLinearProgress /> : (
                             <React.Fragment>
                                 <Grid container spacing={1} className={classes.root}>
-                                <Grid item xs={12}>
-                            <AiofPaper elevation={3}>
-                                <h3>{props.currentUser.lastName + ", " + props.currentUser.firstName}</h3>
-                                <p className={classes.mutedText}>
-                                    Tell us about yourself so we can improve the financial advice we provide
-                                </p>
-                            </AiofPaper>
-                        </Grid>
+
+                                    <Grid item xs={12}>
+                                        <AiofPaper elevation={3}>
+                                            <h3>{props.currentUser.lastName + ", " + props.currentUser.firstName}</h3>
+                                            <p className={classes.tinyMutedText}>{formatDate(props.currentUser.created)}</p>
+                                            <p className={classes.tinyMutedText}>{props.currentUser.email}</p>
+                                            <br />
+                                            <p className={classes.mutedText}>
+                                                Tell us about yourself so we can improve the financial advice we provide
+                                            </p>
+                                        </AiofPaper>
+                                    </Grid>
 
                                     <Grid item xs={12}>
                                         <AiofPaper elevation={3}>
 
-                                        <Grid container spacing={2} className={classes.root}>
+                                            <Grid container spacing={2} className={classes.root}>
                                                 <Grid item xs={6}>
                                                     <b>Gender</b>
                                                     <hr className={classes.hr} />
@@ -170,7 +179,7 @@ const Profile = props => {
 
                                     <Grid item xs={12}>
                                         <AiofPaper elevation={3}>
-                                            
+
                                             <Grid container spacing={2} className={classes.root}>
                                                 <Grid item xs={6}>
                                                     <b>Occupation</b>
