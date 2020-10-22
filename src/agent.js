@@ -56,6 +56,8 @@ const User = {
     requests.get(`/user/${id}`),
   byUsername: username =>
     requests.get(`/user?username=${username}`),
+  profile: id =>
+    requests.get(`/user/${id}/profile`),
 }
 const UserProfile = {
   get: username =>

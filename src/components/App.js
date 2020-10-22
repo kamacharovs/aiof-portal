@@ -10,7 +10,7 @@ import Home from '../components/Home';
 import Login from '../components/Login';
 import Register from '../components/Register';
 import ProfileStepper from '../components/ProfileStepper';
-import Profile from '../components/Profile';
+import Profile from '../components/ProfileMui';
 import ProfileSettings from '../components/ProfileSettings';
 import FinanceMainView from '../components/Finance/FinanceMainViewMui';
 import AssetBreakdown from '../components/Finance/AssetBreakdown';

@@ -1,7 +1,9 @@
 import {
+  ASYNC_START,
   PROFILE_PAGE_LOADED,
-  PROFILE_STEPPER_PAGE_LOADED,
   PROFILE_PAGE_UNLOADED,
+  PROFILE_GET_USER_PROFILE,
+  PROFILE_STEPPER_PAGE_LOADED,
   UPDATE_FIELD_PROFILE,
 } from '../constants/actionTypes';
 
@@ -10,16 +12,26 @@ export default (state = {}, action) => {
     case PROFILE_PAGE_LOADED:
       return {
         ...state,
-        firstName: action.payload[0].firstName,
-        lastName: action.payload[0].lastName,
-        email: action.payload[0].email,
-        username: action.payload[0].username,
-        profile: action.payload[0].profile,
-        assets: action.payload[0].assets,
-        liabilities: action.payload[0].liabilities,
-        goals: action.payload[0].goals,
-        subscriptions: action.payload[0].subscriptions,
+        inProgress: false,
       };
+    case PROFILE_GET_USER_PROFILE:
+      return {
+        ...state,
+        inProgress: false,
+        profile: action.error ? null : action.payload
+      }
+    case ASYNC_START:
+      if (action.subtype === PROFILE_GET_USER_PROFILE) {
+        return { 
+          ...state, 
+          inProgress: true
+        };
+      }
+      else {
+        return { 
+          ...state
+        }
+      }
     case PROFILE_STEPPER_PAGE_LOADED:
       return {
         ...state,
