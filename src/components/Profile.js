@@ -1,257 +1,265 @@
-import React from 'react';
-import Container from 'react-bootstrap/Container';
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
-import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
-import { Helmet } from 'react-helmet';
-import { Link } from 'react-router-dom';
+import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
+import { Helmet } from 'react-helmet';
 import agent from '../agent';
-import {
-  PROFILE_PAGE_LOADED,
-  PROFILE_PAGE_UNLOADED
-} from '../constants/actionTypes';
+import { PROFILE_GET_USER_PROFILE } from '../constants/actionTypes';
 
-import '../style/tabs.css';
-import { ContainerAiof, CustomHr, Hr50, MutedH2 } from '../style/common';
+import { AiofPaper, AiofLinearProgress } from '../style/mui';
+import { numberWithCommas, formatDate } from './Finance/Common';
 
-const UserInfo = {
-  textAlign: "center",
-  background: "#f3f3f3",
-  display: "block",
-  paddingTop: "5rem",
-  paddingBottom: "2.5rem",
-  fontWeight: "700",
-  lineHeight: "1.5",
-  color: "#212529",
-}
+import { makeStyles } from '@material-ui/core/styles';
+import Grid from '@material-ui/core/Grid';
+import Container from '@material-ui/core/Container';
 
-const EditProfileSettings = props => {
-  if (props.isUser
-    && props.username) {
-    return (
-      <Link
-        to={`/@${props.username}/settings`}
-        className="btn btn-sm btn-outline-secondary action-btn">
-        <i className="ion-gear-a"></i> Edit Profile Settings
-      </Link>
-    );
-  }
-  return null;
-};
-
-const ProfileMain = props => {
-  const profile = props.profile;
-  const innerProfile = profile.profile;
-
-  const gender = innerProfile ? innerProfile.gender : null;
-  const dateOfBirth = innerProfile ? innerProfile.profiledateOfBirth : null;
-  const age = innerProfile ? innerProfile.age : null;
-  const maritalStatus = innerProfile ? innerProfile.maritalStatus : null;
-  const occupation = innerProfile ? innerProfile.occupation : null;
-  const occupationIndustry = innerProfile ? innerProfile.occupationIndustry : null;
-  const grossSalary = innerProfile ? innerProfile.grossSalary : null;
-  const educationLevel = innerProfile ? innerProfile.educationLevel : null;
-  const residentialStatus = innerProfile ? innerProfile.residentialStatus : null;
-  const householdIncome = innerProfile ? innerProfile.householdIncome : null;
-  const householdAdults = innerProfile ? innerProfile.householdAdults : null;
-  const householdChildren = innerProfile ? innerProfile.householdChildren : null;
-  const retirementContributionsPreTax = innerProfile ? innerProfile.retirementContributionsPreTax : null;
-
-  return (
-    <Container fluid>
-      <h1>Profile</h1>
-      <p className="text-muted">
-        Tell us about yourself so we can improve the financial advice we provide
-      </p>
-      <br />
-      <h2>About Me</h2>
-      <Hr50 />
-
-      <Row>
-        <Col xs="6">
-          Gender
-                </Col>
-        <Col xs="6">
-          <b>{gender}</b>
-        </Col>
-      </Row>
-      <Row>
-        <Col xs="6">
-          Date of birth
-                </Col>
-        <Col xs="6">
-          <b>{dateOfBirth}</b>
-        </Col>
-      </Row>
-      <Row>
-        <Col xs="6">
-          Age
-                </Col>
-        <Col xs="6">
-          <b>{age}</b>
-        </Col>
-      </Row>
-      <Row>
-        <Col xs="6">
-          Marital status
-                </Col>
-        <Col xs="6">
-          <b>{maritalStatus}</b>
-        </Col>
-      </Row>
-      <Hr50 />
-
-      <Row>
-        <Col xs="6">
-          Occupation
-                </Col>
-        <Col xs="6">
-          <b>{occupation}</b>
-        </Col>
-      </Row>
-      <Row>
-        <Col xs="6">
-          Occupation industry
-                </Col>
-        <Col xs="6">
-          <b>{occupationIndustry}</b>
-        </Col>
-      </Row>
-      <Row>
-        <Col xs="6">
-          Gross salary
-                </Col>
-        <Col xs="6">
-          <b>{grossSalary}</b>
-        </Col>
-      </Row>
-      <Row>
-        <Col xs="6">
-          Education level
-                </Col>
-        <Col xs="6">
-          <b>{educationLevel}</b>
-        </Col>
-      </Row>
-      <Hr50 />
-
-      <Row>
-        <Col xs="6">
-          Residential status
-                </Col>
-        <Col xs="6">
-          <b>{residentialStatus}</b>
-        </Col>
-      </Row>
-      <Row>
-        <Col xs="6">
-          Household income
-                </Col>
-        <Col xs="6">
-          <b>{householdIncome}</b>
-        </Col>
-      </Row>
-      <Row>
-        <Col xs="6">
-          Household adults
-                </Col>
-        <Col xs="6">
-          <b>{householdAdults}</b>
-        </Col>
-      </Row>
-      <Row>
-        <Col xs="6">
-          Household children
-                </Col>
-        <Col xs="6">
-          <b>{householdChildren}</b>
-        </Col>
-      </Row>
-      <Hr50 />
-
-      <Row>
-        <Col sm="6">
-          Retirement contributions pre-tax
-                </Col>
-        <Col sm="6">
-          <b>{retirementContributionsPreTax}</b>
-        </Col>
-      </Row>
-      <Hr50 />
-    </Container>
-  );
-};
 
 const mapStateToProps = state => ({
-  ...state.profile,
-  appName: state.common.appName,
-  currentUser: state.common.currentUser,
-  profile: state.profile,
+    ...state.profile,
+    appName: state.common.appName,
+    currentUser: state.common.currentUser,
+    inProgress: state.profile.inProgress,
+    profile: state.profile.profile,
 });
 
 const mapDispatchToProps = dispatch => ({
-  onLoad: payload => dispatch({ type: PROFILE_PAGE_LOADED, payload }),
-  onUnload: () => dispatch({ type: PROFILE_PAGE_UNLOADED }),
+    onProfile: id =>
+        dispatch({ type: PROFILE_GET_USER_PROFILE, payload: agent.User.profile(id) }),
 });
 
-class Profile extends React.Component {
-  componentDidMount() {
-    if (this.props.currentUser) {
-      this.props.onLoad(Promise.all([
-        agent.UserProfile.get(this.props.currentUser.username)
-      ]));
+const useStyles = makeStyles((theme) => ({
+    root: {
+        display: 'flex',
+    },
+    margin: {
+        margin: theme.spacing(1),
+    },
+    hr: {
+        borderTop: '1px solid',
+        marginTop: '0.25rem',
+        color: '#ebebeb',
+        opacity: '90%'
+    },
+    green: {
+        color: 'green',
+        margin: '0rem',
+        padding: '0rem'
+    },
+    mutedText: {
+        color: '#999',
+        margin: '0 0 8px',
+        fontSize: '14px'
     }
-  }
+}));
 
-  componentWillUnmount() {
-    this.props.onUnload();
-  }
+const Profile = props => {
+    const classes = useStyles();
+    const empty = "Unspecified";
+    const zero = "0";
+    const gender = props.profile ? props.profile.gender : null;
+    const dateOfBirth = props.profile ? props.profile.dateOfBirth : null;
+    const age = props.profile ? props.profile.age : null;
+    const maritalStatus = props.profile ? props.profile.maritalStatus : null;
+    const occupation = props.profile ? props.profile.occupation : null;
+    const occupationIndustry = props.profile ? props.profile.occupationIndustry : null;
+    const grossSalary = props.profile ? props.profile.grossSalary : null;
+    const educationLevel = props.profile ? props.profile.educationLevel : null;
+    const residentialStatus = props.profile ? props.profile.residentialStatus : null;
+    const householdIncome = props.profile ? props.profile.householdIncome : null;
+    const householdAdults = props.profile ? props.profile.householdAdults : null;
+    const householdChildren = props.profile ? props.profile.householdChildren : null;
+    const retirementContributionsPreTax = props.profile ? props.profile.retirementContributionsPreTax : null;
 
-  render() {
-    const profile = this.props.profile;
-
-    if (!this.props.currentUser) {
-      return null;
-    }
+    useEffect(() => {
+        if (props.currentUser) {
+            props.onProfile(props.currentUser.id);
+        }
+    }, []);
 
     return (
-      <React.Fragment>
-        <Helmet>
-          <title>{this.props.appName} | Profile</title>
-        </Helmet>
-        <div style={UserInfo}>
-          <Container>
-            <Row>
-              <Col xs="12">
+        <React.Fragment>
+            <Helmet>
+                <title>{props.appName} | Profile</title>
+            </Helmet>
 
-                <h4>{profile.lastName}, {profile.firstName}</h4>
-                <p>{profile.email}</p>
+            <Container maxWidth="xl">
+                <Grid container spacing={3} className={classes.root}>
 
-                <EditProfileSettings username={profile.username} isUser={profile} />
+                    <Grid item xs={12}>
+                        {props.inProgress ? <AiofLinearProgress /> : (
+                            <React.Fragment>
+                                <Grid container spacing={1} className={classes.root}>
+                                <Grid item xs={12}>
+                            <AiofPaper elevation={3}>
+                                <h3>{props.currentUser.lastName + ", " + props.currentUser.firstName}</h3>
+                                <p className={classes.mutedText}>
+                                    Tell us about yourself so we can improve the financial advice we provide
+                                </p>
+                            </AiofPaper>
+                        </Grid>
 
-              </Col>
-            </Row>
-          </Container>
-        </div>
-        <ContainerAiof>
-          <Tabs>
-            <TabList>
-              <MutedH2>Settings</MutedH2>
-              <CustomHr />
-              <Tab>Profile</Tab>
+                                    <Grid item xs={12}>
+                                        <AiofPaper elevation={3}>
 
-            </TabList>
-            <TabPanel>
-              <ProfileMain profile={profile} />
-            </TabPanel>
-            
-          </Tabs>
-        </ContainerAiof>
-      </React.Fragment>
+                                        <Grid container spacing={2} className={classes.root}>
+                                                <Grid item xs={6}>
+                                                    <b>Gender</b>
+                                                    <hr className={classes.hr} />
+                                                </Grid>
+                                                <Grid item xs={6}>
+                                                    {gender || empty}
+                                                    <hr className={classes.hr} />
+                                                </Grid>
+                                            </Grid>
+
+                                            <Grid container spacing={2} className={classes.root}>
+                                                <Grid item xs={6}>
+                                                    <b>Date of birth</b>
+                                                    <hr className={classes.hr} />
+                                                </Grid>
+                                                <Grid item xs={6}>
+                                                    {dateOfBirth ? formatDate(dateOfBirth) : empty}
+                                                    <hr className={classes.hr} />
+                                                </Grid>
+                                            </Grid>
+
+                                            <Grid container spacing={2} className={classes.root}>
+                                                <Grid item xs={6}>
+                                                    <b>Age</b>
+                                                    <hr className={classes.hr} />
+                                                </Grid>
+                                                <Grid item xs={6}>
+                                                    {age || empty}
+                                                    <hr className={classes.hr} />
+                                                </Grid>
+                                            </Grid>
+
+                                            <Grid container spacing={2} className={classes.root}>
+                                                <Grid item xs={6}>
+                                                    <b>Marital status</b>
+                                                    <hr className={classes.hr} />
+                                                </Grid>
+                                                <Grid item xs={6}>
+                                                    {maritalStatus || empty}
+                                                    <hr className={classes.hr} />
+                                                </Grid>
+                                            </Grid>
+
+                                            <Grid container spacing={2} className={classes.root}>
+                                                <Grid item xs={6}>
+                                                    <b>Education level</b>
+                                                    <hr className={classes.hr} />
+                                                </Grid>
+                                                <Grid item xs={6}>
+                                                    {educationLevel || empty}
+                                                    <hr className={classes.hr} />
+                                                </Grid>
+                                            </Grid>
+
+                                            <Grid container spacing={2} className={classes.root}>
+                                                <Grid item xs={6}>
+                                                    <b>Residential status</b>
+                                                    <hr className={classes.hr} />
+                                                </Grid>
+                                                <Grid item xs={6}>
+                                                    {residentialStatus || empty}
+                                                    <hr className={classes.hr} />
+                                                </Grid>
+                                            </Grid>
+
+                                        </AiofPaper>
+                                    </Grid>
+
+                                    <Grid item xs={12}>
+                                        <AiofPaper elevation={3}>
+                                            
+                                            <Grid container spacing={2} className={classes.root}>
+                                                <Grid item xs={6}>
+                                                    <b>Occupation</b>
+                                                    <hr className={classes.hr} />
+                                                </Grid>
+                                                <Grid item xs={6}>
+                                                    {occupation || empty}
+                                                    <hr className={classes.hr} />
+                                                </Grid>
+                                            </Grid>
+
+                                            <Grid container spacing={2} className={classes.root}>
+                                                <Grid item xs={6}>
+                                                    <b>Occupation industry</b>
+                                                    <hr className={classes.hr} />
+                                                </Grid>
+                                                <Grid item xs={6}>
+                                                    {occupationIndustry || empty}
+                                                    <hr className={classes.hr} />
+                                                </Grid>
+                                            </Grid>
+
+                                            <Grid container spacing={2} className={classes.root}>
+                                                <Grid item xs={6}>
+                                                    <b>Gross salary</b>
+                                                    <hr className={classes.hr} />
+                                                </Grid>
+                                                <Grid item xs={6}>
+                                                    <p className={classes.green}>${grossSalary ? numberWithCommas(grossSalary) : zero}</p>
+                                                    <hr className={classes.hr} />
+                                                </Grid>
+                                            </Grid>
+
+                                            <Grid container spacing={2} className={classes.root}>
+                                                <Grid item xs={6}>
+                                                    <b>Household income</b>
+                                                    <hr className={classes.hr} />
+                                                </Grid>
+                                                <Grid item xs={6}>
+                                                    <p className={classes.green}>${householdIncome ? numberWithCommas(householdIncome) : zero}</p>
+                                                    <hr className={classes.hr} />
+                                                </Grid>
+                                            </Grid>
+
+                                            <Grid container spacing={2} className={classes.root}>
+                                                <Grid item xs={6}>
+                                                    <b>Household adults</b>
+                                                    <hr className={classes.hr} />
+                                                </Grid>
+                                                <Grid item xs={6}>
+                                                    {householdAdults || empty}
+                                                    <hr className={classes.hr} />
+                                                </Grid>
+                                            </Grid>
+
+                                            <Grid container spacing={2} className={classes.root}>
+                                                <Grid item xs={6}>
+                                                    <b>Household children</b>
+                                                    <hr className={classes.hr} />
+                                                </Grid>
+                                                <Grid item xs={6}>
+                                                    {householdChildren || empty}
+                                                    <hr className={classes.hr} />
+                                                </Grid>
+                                            </Grid>
+
+                                            <Grid container spacing={2} className={classes.root}>
+                                                <Grid item xs={6}>
+                                                    <b>Retirement contributions pre tax</b>
+                                                    <hr className={classes.hr} />
+                                                </Grid>
+                                                <Grid item xs={6}>
+                                                    <p className={classes.green}>${retirementContributionsPreTax ? numberWithCommas(retirementContributionsPreTax) : zero}</p>
+                                                    <hr className={classes.hr} />
+                                                </Grid>
+                                            </Grid>
+
+                                        </AiofPaper>
+                                    </Grid>
+                                </Grid>
+                            </React.Fragment>
+                        )}
+
+                    </Grid>
+
+                </Grid>
+            </Container>
+        </React.Fragment>
     );
-  }
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Profile);
-export { Profile, mapStateToProps };
