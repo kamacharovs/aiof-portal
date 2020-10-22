@@ -5,7 +5,7 @@ import agent from '../agent';
 import { PROFILE_GET_USER_PROFILE, PROFILE_UPSERT_USER_PROFILE } from '../constants/actionTypes';
 
 import { AiofPaper, AiofLinearProgress } from '../style/mui';
-import { numberWithCommas, formatDate } from './Finance/Common';
+import { formatDate } from './Finance/Common';
 
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
@@ -82,20 +82,24 @@ const Profile = props => {
     const [householdAdults, setHouseholdAdults] = useState('');
     const [householdChildren, setHouseholdChildren] = useState('');
     const [retirementContributionsPreTax, setRetirementContributionsPreTax] = useState('');
-    const isUpdated = false;
+    const [isUpdated, setIsUpdated] = useState(false);
 
     const handleUpdate = () => {
         if (props.currentUser) {
             var payload = {
                 gender,
                 dateOfBirth,
-                age,
+                age: Number(age),
                 maritalStatus,
                 occupation,
                 occupationIndustry,
-                householdAdults,
-                householdChildren,
-                retirementContributionsPreTax
+                grossSalary: Number(grossSalary),
+                educationLevel,
+                residentialStatus,
+                householdIncome: Number(householdIncome),
+                householdAdults: Number(householdAdults),
+                householdChildren: Number(householdChildren),
+                retirementContributionsPreTax: Number(retirementContributionsPreTax)
             };
 
             props.onProfileUpsert(props.currentUser.id, payload);
@@ -164,6 +168,7 @@ const Profile = props => {
                                                         fullWidth
                                                         value={gender}
                                                         onChange={e => setGender(e.target.value)}
+                                                        onFocus={() => setIsUpdated(true)}
                                                         InputProps={{
                                                             classes: {
                                                               input: classes.resize,
@@ -183,6 +188,7 @@ const Profile = props => {
                                                         fullWidth
                                                         value={dateOfBirth ? formatDate(dateOfBirth) : empty}
                                                         onChange={e => setDateOfBirth(e.target.value)}
+                                                        onFocus={() => setIsUpdated(true)}
                                                         InputProps={{
                                                             classes: {
                                                               input: classes.resize,
@@ -200,8 +206,9 @@ const Profile = props => {
                                                 <Grid item xs={6}>
                                                     <TextField className={classes.textField}
                                                         fullWidth
-                                                        value={age || empty}
+                                                        value={age ? Number(age) : zero}
                                                         onChange={e => setAge(e.target.value)}
+                                                        onFocus={() => setIsUpdated(true)}
                                                         InputProps={{
                                                             classes: {
                                                               input: classes.resize,
@@ -221,6 +228,7 @@ const Profile = props => {
                                                         fullWidth
                                                         value={maritalStatus || empty}
                                                         onChange={e => setMaritalStatus(e.target.value)}
+                                                        onFocus={() => setIsUpdated(true)}
                                                         InputProps={{
                                                             classes: {
                                                               input: classes.resize,
@@ -240,6 +248,7 @@ const Profile = props => {
                                                         fullWidth
                                                         value={educationLevel || empty}
                                                         onChange={e => setEducationLevel(e.target.value)}
+                                                        onFocus={() => setIsUpdated(true)}
                                                         InputProps={{
                                                             classes: {
                                                               input: classes.resize,
@@ -259,6 +268,7 @@ const Profile = props => {
                                                         fullWidth
                                                         value={residentialStatus || empty}
                                                         onChange={e => setResidentialStatus(e.target.value)}
+                                                        onFocus={() => setIsUpdated(true)}
                                                         InputProps={{
                                                             classes: {
                                                               input: classes.resize,
@@ -284,6 +294,7 @@ const Profile = props => {
                                                         fullWidth
                                                         value={occupation || empty}
                                                         onChange={e => setOccupation(e.target.value)}
+                                                        onFocus={() => setIsUpdated(true)}
                                                         InputProps={{
                                                             classes: {
                                                               input: classes.resize,
@@ -303,6 +314,7 @@ const Profile = props => {
                                                         fullWidth
                                                         value={occupationIndustry || empty}
                                                         onChange={e => setOccupationIndustry(e.target.value)}
+                                                        onFocus={() => setIsUpdated(true)}
                                                         InputProps={{
                                                             classes: {
                                                               input: classes.resize,
@@ -320,8 +332,9 @@ const Profile = props => {
                                                 <Grid item xs={6}>
                                                     <TextField className={classes.textField}
                                                         fullWidth
-                                                        value={grossSalary ? numberWithCommas(grossSalary) : zero}
+                                                        value={grossSalary ? Number(grossSalary) : zero}
                                                         onChange={e => setGrossSalary(e.target.value)}
+                                                        onFocus={() => setIsUpdated(true)}
                                                         InputProps={{
                                                             classes: {
                                                               input: classes.resize,
@@ -339,8 +352,9 @@ const Profile = props => {
                                                 <Grid item xs={6}>
                                                     <TextField className={classes.textField}
                                                         fullWidth
-                                                        value={householdIncome ? numberWithCommas(householdIncome) : zero}
+                                                        value={householdIncome ? Number(householdIncome) : zero}
                                                         onChange={e => setHouseholdIncome(e.target.value)}
+                                                        onFocus={() => setIsUpdated(true)}
                                                         InputProps={{
                                                             classes: {
                                                               input: classes.resize,
@@ -358,8 +372,9 @@ const Profile = props => {
                                                 <Grid item xs={6}>
                                                     <TextField className={classes.textField}
                                                         fullWidth
-                                                        value={householdAdults || empty}
+                                                        value={householdAdults ? Number(householdAdults) : zero}
                                                         onChange={e => setHouseholdAdults(e.target.value)}
+                                                        onFocus={() => setIsUpdated(true)}
                                                         InputProps={{
                                                             classes: {
                                                               input: classes.resize,
@@ -377,8 +392,9 @@ const Profile = props => {
                                                 <Grid item xs={6}>
                                                     <TextField className={classes.textField}
                                                         fullWidth
-                                                        value={householdChildren || empty}
+                                                        value={householdChildren ? Number(householdChildren) : zero}
                                                         onChange={e => setHouseholdChildren(e.target.value)}
+                                                        onFocus={() => setIsUpdated(true)}
                                                         InputProps={{
                                                             classes: {
                                                               input: classes.resize,
@@ -396,8 +412,9 @@ const Profile = props => {
                                                 <Grid item xs={6}>
                                                     <TextField className={classes.textField}
                                                         fullWidth
-                                                        value={retirementContributionsPreTax ? numberWithCommas(retirementContributionsPreTax) : zero}
+                                                        value={retirementContributionsPreTax ? Number(retirementContributionsPreTax) : zero}
                                                         onChange={e => setRetirementContributionsPreTax(e.target.value)}
+                                                        onFocus={() => setIsUpdated(true)}
                                                         InputProps={{
                                                             classes: {
                                                               input: classes.resize,
