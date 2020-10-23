@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
 import agent from '../../agent';
+import { Line } from 'react-chartjs-2';
 
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
@@ -15,7 +16,6 @@ import { numberWithCommas } from '../Finance/Common';
 import { GreenP, RedP } from '../../style/common';
 import { AiofPaper, AiofLinearProgress } from '../../style/mui';
 import { ASSET_BREAKDOWN } from '../../constants/actionTypes';
-import { Line } from 'react-chartjs-2';
 
 
 const mapStateToProps = state => ({

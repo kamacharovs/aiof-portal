@@ -1,9 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
+
+import { makeStyles } from '@material-ui/core/styles';
+import Container from '@material-ui/core/Container';
+import Grid from '@material-ui/core/Grid';
 import Accounts from './Accounts';
-import { ContainerAiof } from '../../style/common';
+import { AiofPaper } from '../../style/mui';
 
 const mapStateToProps = state => ({
   ...state.home,
@@ -14,16 +16,26 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
 });
 
+const useStyles = makeStyles((theme) => ({
+  root: {
+    display: 'flex',
+  }
+}));
+
 const MainView = props => {
+  const classes = useStyles();
+
   return (
-    <ContainerAiof>
-      <Row>
-        <Col sm="4">
-          <Accounts
-            token={props.token} />
-        </Col>
-      </Row>
-    </ContainerAiof>
+    <Container>
+      <Grid container spacing={1} className={classes.root}>
+        <Grid item xs={4}>
+          <AiofPaper>
+            <Accounts
+              token={props.token} />
+          </AiofPaper>
+        </Grid>
+      </Grid>
+    </Container>
   );
 };
 

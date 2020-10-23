@@ -3,10 +3,8 @@ import { connect } from 'react-redux';
 import Helmet from 'react-helmet';
 import Banner from './Banner';
 import MainView from './MainView';
-import {
-  HOME_PAGE_LOADED,
-  HOME_PAGE_UNLOADED
-} from '../../constants/actionTypes';
+import { HOME_PAGE_LOADED, HOME_PAGE_UNLOADED } from '../../constants/actionTypes';
+
 
 const mapStateToProps = state => ({
   ...state.home,

@@ -3,11 +3,11 @@ import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import {
-  LOGOUT
-} from '../constants/actionTypes';
-import { HeaderLink, HeaderRightLink } from '../style/common';
+
 import { AppMenu } from './AppMenu';
+import { LOGOUT } from '../constants/actionTypes';
+import { HeaderLink, HeaderRightLink } from '../style/common';
+import { DefaultColor } from '../style/common';
 
 import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
@@ -17,10 +17,8 @@ import Divider from '@material-ui/core/Divider';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import ListSubheader from '@material-ui/core/ListSubheader'
-
 import ExpandMore from '@material-ui/icons/ExpandMore';
 
-import { DefaultColor } from '../style/common';
 
 
 const HomeView = props => {
