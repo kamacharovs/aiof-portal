@@ -4,7 +4,7 @@ import Navbar from 'react-bootstrap/Navbar';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 
-import { AppMenu } from './AppMenu';
+import AppMenu from './AppMenu';
 import { LOGOUT } from '../constants/actionTypes';
 import { HeaderLink, HeaderRightLink } from '../style/common';
 import { DefaultColor } from '../style/common';

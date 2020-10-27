@@ -1,4 +1,5 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 import { makeStyles } from '@material-ui/core/styles';
@@ -29,8 +30,16 @@ import DirectionsRunIcon from '@material-ui/icons/DirectionsRun';
 import { DefaultColor } from '../style/common';
 
 
-const drawerWidth = 240;
+const mapStateToProps = state => {
+  return {
+    currentUser: state.common.currentUser
+  }
+};
 
+const mapDispatchToProps = dispatch => ({
+});
+
+const drawerWidth = 240;
 const useStyles = makeStyles((theme) => ({
   root: {
     display: 'flex',
@@ -57,7 +66,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export const AppMenu = () => {
+const AppMenu = props => {
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
   const [fiCalculatorsOpen, setCalculatorsOpen] = React.useState(false);
@@ -79,14 +88,14 @@ export const AppMenu = () => {
   return (
     <div className={classes.root}>
       <CssBaseline />
-        <IconButton
-            className={classes.button}
-            aria-label="open drawer"
-            onClick={handleOpen}
-            edge="start"
-          >
-            <MenuIcon />
-        </IconButton>
+      <IconButton
+        className={classes.button}
+        aria-label="open drawer"
+        onClick={handleOpen}
+        edge="start"
+      >
+        <MenuIcon />
+      </IconButton>
 
       <Drawer
         className={classes.drawer}
@@ -118,7 +127,7 @@ export const AppMenu = () => {
                 <FunctionsTwoToneIcon />
               </ListItemIcon>
               <ListItemText primary="Calculators" />
-                {fiCalculatorsOpen ? <ExpandLess /> : <ExpandMore />}
+              {fiCalculatorsOpen ? <ExpandLess /> : <ExpandMore />}
             </ListItem>
             <Collapse in={fiCalculatorsOpen} timeout="auto" unmountOnExit>
               <List component="div" disablePadding>
@@ -155,32 +164,38 @@ export const AppMenu = () => {
 
           <Divider />
 
-          <List
-            subheader={
-              <ListSubheader component="div" id="nested-list-subheader">
-                Finances
+          {props.currentUser ?
+            <List
+              subheader={
+                <ListSubheader component="div" id="nested-list-subheader">
+                  Finances
               </ListSubheader>
-            }>
-            <ListItem button onClick={handleAssetClick}>
-              <ListItemIcon>
-                <HomeTwoToneIcon />
-              </ListItemIcon>
-              <ListItemText primary="Asset" />
-              {assetOpen ? <ExpandLess /> : <ExpandMore />}
-            </ListItem>
-            <Collapse in={assetOpen} timeout="auto" unmountOnExit>
-              <List component="div" disablePadding>
-                <ListItem button className={classes.nested} component={Link} to="/asset/breakdown">
-                  <ListItemIcon>
-                    <AssessmentTwoToneIcon />
-                  </ListItemIcon>
-                  <ListItemText primary="Breakdown" />
-                </ListItem>
-              </List>
-            </Collapse>
-          </List>
+              }>
+              <ListItem button onClick={handleAssetClick}>
+                <ListItemIcon>
+                  <HomeTwoToneIcon />
+                </ListItemIcon>
+                <ListItemText primary="Asset" />
+                {assetOpen ? <ExpandLess /> : <ExpandMore />}
+              </ListItem>
+              <Collapse in={assetOpen} timeout="auto" unmountOnExit>
+                <List component="div" disablePadding>
+
+                  <ListItem button className={classes.nested} component={Link} to="/asset/breakdown">
+                    <ListItemIcon>
+                      <AssessmentTwoToneIcon />
+                    </ListItemIcon>
+                    <ListItemText primary="Breakdown" />
+                  </ListItem>
+
+                </List>
+              </Collapse>
+            </List>
+            : null}
         </div>
       </Drawer>
     </div>
   );
 }
+
+export default connect(mapStateToProps, mapDispatchToProps)(AppMenu);

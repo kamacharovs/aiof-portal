@@ -15,19 +15,22 @@ import TrendingUpIcon from '@material-ui/icons/TrendingUp';
 import { numberWithCommas } from '../Finance/Common';
 import { GreenP, RedP } from '../../style/common';
 import { AiofPaper, AiofLinearProgress } from '../../style/mui';
-import { ASSET_BREAKDOWN } from '../../constants/actionTypes';
+import { ASSET_BREAKDOWN, REDIRECT_HOME } from '../../constants/actionTypes';
 
 
 const mapStateToProps = state => ({
     ...state.finance,
     appName: state.common.appName,
+    currentUser: state.common.currentUser,
     inProgress: state.finance.inProgress,
     assetBreakdown: state.finance.assetBreakdown,
 });
 
 const mapDispatchToProps = dispatch => ({
     onSubmit: assetBreakdown =>
-        dispatch({ type: ASSET_BREAKDOWN, payload: agent.Asset.breakdown(assetBreakdown) })
+        dispatch({ type: ASSET_BREAKDOWN, payload: agent.Asset.breakdown(assetBreakdown) }),
+    onRedirectHome: () =>
+        dispatch({ type: REDIRECT_HOME })
 });
 
 
@@ -89,6 +92,10 @@ class AssetBreakdown extends React.Component {
     }
 
     componentDidMount() {
+        if (!this.props.currentUser) {
+            this.props.onRedirectHome();
+        }
+
         if (this.props.assetBreakdown) {
             this.setState({
                 value: this.props.assetBreakdown.value,

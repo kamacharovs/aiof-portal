@@ -7,6 +7,7 @@ import Grid from '@material-ui/core/Grid';
 import Accounts from './Accounts';
 import { AiofPaper } from '../../style/mui';
 
+
 const mapStateToProps = state => ({
   ...state.home,
   token: state.common.token,

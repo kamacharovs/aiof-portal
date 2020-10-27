@@ -1,6 +1,7 @@
 import {
   APP_LOAD,
   REDIRECT,
+  REDIRECT_HOME,
   LOGOUT,
   ARTICLE_SUBMITTED,
   SETTINGS_SAVED,
@@ -45,6 +46,8 @@ export default (state = defaultState, action) => {
       };
     case REDIRECT:
       return { ...state, redirectTo: null };
+    case REDIRECT_HOME:
+      return { ...state, redirectTo: '/' }
     case LOGOUT:
       return { ...state, redirectTo: '/login', token: null, currentUser: null };
     case ARTICLE_SUBMITTED:

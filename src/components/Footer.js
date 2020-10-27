@@ -2,6 +2,7 @@ import React from 'react';
 import Container from 'react-bootstrap/Container';
 import { FooterNavbar, CoolLink } from '../style/common';
 
+
 const HomeView = props => {
     return (
         <p>© {new Date().getFullYear()} {props.appName} All rights reserved</p>
