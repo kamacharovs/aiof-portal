@@ -28,14 +28,14 @@ const MainView = props => {
   return (
     <Container maxWidth="xl">
       <Grid container spacing={1} className={classes.root}>
-        <Grid item xs={2}>
+        <Grid item xs={4}>
           <AiofPaper>
             <Accounts
               token={props.token} />
           </AiofPaper>
         </Grid>
 
-        <Grid item xs={10}>
+        <Grid item xs={8}>
           <AiofPaper>
             More to come...
           </AiofPaper>
