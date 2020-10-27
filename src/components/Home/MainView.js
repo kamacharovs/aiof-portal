@@ -26,12 +26,18 @@ const MainView = props => {
   const classes = useStyles();
 
   return (
-    <Container>
+    <Container maxWidth="xl">
       <Grid container spacing={1} className={classes.root}>
-        <Grid item xs={4}>
+        <Grid item xs={2}>
           <AiofPaper>
             <Accounts
               token={props.token} />
+          </AiofPaper>
+        </Grid>
+
+        <Grid item xs={10}>
+          <AiofPaper>
+            More to come...
           </AiofPaper>
         </Grid>
       </Grid>
