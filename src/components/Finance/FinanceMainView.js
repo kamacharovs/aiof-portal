@@ -7,7 +7,7 @@ import { FINANCE_PAGE_LOADED } from '../../constants/actionTypes';
 import { Overview } from './Overview';
 import { Bar } from 'react-chartjs-2';
 import { AiofPaper, AiofLinearProgress } from '../../style/mui';
-import { CoolExternalLink } from '../../style/common';
+import { CoolExternalLink, CoolLink } from '../../style/common';
 import House from '../../style/icons/House_4.svg';
 import { numberWithCommas, formatDate } from './Common';
 
@@ -115,7 +115,7 @@ const AssetsPreview = props => {
     };
     const handleAddClose = (added) => {
         setOpenAdd(false);
-        
+
         if (props.currentUser && added === true) {
             props.onLoad(props.currentUser.id);
         }
@@ -158,11 +158,19 @@ const AssetsPreview = props => {
                     })
                 }
 
-                <Grid item xs={12}>
-                    <Button variant="outlined" color="primary" onClick={handleClickAddOpen}>
-                        Add
+                <Grid container spacing={3} className={classes.root}>
+                    <Grid item xs={12}>
+                        <Button variant="outlined" color="primary" onClick={handleClickAddOpen}>
+                            Add
                     </Button>
-                    <AssetAddDialog open={openAdd} onClose={handleAddClose} />
+                        <AssetAddDialog open={openAdd} onClose={handleAddClose} />
+                    </Grid>
+
+                    <Grid item xs={12}>
+                        <CoolLink to="/asset/breakdown">
+                            Or see how your asset can grow over the years
+                    </CoolLink>
+                    </Grid>
                 </Grid>
             </React.Fragment>
         );
@@ -171,16 +179,16 @@ const AssetsPreview = props => {
         return (
             <React.Fragment>
                 <Grid container spacing={3} className={classes.root}>
-                <Grid item xs={12}>
-                    No assets yet...
+                    <Grid item xs={12}>
+                        No assets yet...
                 </Grid>
 
-                <Grid item xs={12}>
-                    <Button variant="outlined" color="primary" onClick={handleClickAddOpen}>
-                        Add
+                    <Grid item xs={12}>
+                        <Button variant="outlined" color="primary" onClick={handleClickAddOpen}>
+                            Add
                     </Button>
-                    <AssetAddDialog open={openAdd} onClose={handleAddClose} />
-                </Grid>
+                        <AssetAddDialog open={openAdd} onClose={handleAddClose} />
+                    </Grid>
                 </Grid>
             </React.Fragment>
         );
@@ -198,7 +206,7 @@ const LiabilitiesPreview = props => {
     };
     const handleAddClose = (added) => {
         setOpenAdd(false);
-        
+
         if (props.currentUser && added === true) {
             props.onLoad(props.currentUser.id);
         }
@@ -254,16 +262,16 @@ const LiabilitiesPreview = props => {
         return (
             <React.Fragment>
                 <Grid container spacing={3} className={classes.root}>
-                <Grid item xs={12}>
-                    No liabilities yet...
+                    <Grid item xs={12}>
+                        No liabilities yet...
                 </Grid>
 
-                <Grid item xs={12}>
-                    <Button variant="outlined" color="primary" onClick={handleClickAddOpen}>
-                        Add
+                    <Grid item xs={12}>
+                        <Button variant="outlined" color="primary" onClick={handleClickAddOpen}>
+                            Add
                     </Button>
-                    <LiabilityAddDialog open={openAdd} onClose={handleAddClose} />
-                </Grid>
+                        <LiabilityAddDialog open={openAdd} onClose={handleAddClose} />
+                    </Grid>
                 </Grid>
             </React.Fragment>
         );
