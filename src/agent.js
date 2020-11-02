@@ -52,14 +52,14 @@ const Auth = {
 };
 
 const User = {
-  get: id =>
-    requests.get(`/user/${id}`),
+  get: () =>
+    requests.get(`/user`),
   byUsername: username =>
     requests.get(`/user?username=${username}`),
-  profile: id =>
-    requests.get(`/user/${id}/profile`),
-  profileUpsert: (id, payload) =>
-    requests.put(`/user/${id}/profile`, payload)
+  profile: () =>
+    requests.get(`/user/profile`),
+  profileUpsert: (payload) =>
+    requests.put(`/user/profile`, payload)
 }
 const UserProfile = {
   get: username =>

@@ -36,8 +36,8 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-    onLoad: id =>
-        dispatch({ type: FINANCE_PAGE_LOADED, payload: agent.User.get(id) }),
+    onLoad: () =>
+        dispatch({ type: FINANCE_PAGE_LOADED, payload: agent.User.get() }),
 });
 
 const useStyles = makeStyles((theme) => ({
@@ -117,7 +117,7 @@ const AssetsPreview = props => {
         setOpenAdd(false);
 
         if (props.currentUser && added === true) {
-            props.onLoad(props.currentUser.id);
+            props.onLoad();
         }
     };
 
@@ -208,7 +208,7 @@ const LiabilitiesPreview = props => {
         setOpenAdd(false);
 
         if (props.currentUser && added === true) {
-            props.onLoad(props.currentUser.id);
+            props.onLoad();
         }
     };
 
@@ -565,7 +565,7 @@ const FinanceMainView = props => {
 
     useEffect(() => {
         if (props.currentUser) {
-            props.onLoad(props.currentUser.id);
+            props.onLoad();
         }
     }, []);
 

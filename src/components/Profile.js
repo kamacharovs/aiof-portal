@@ -23,10 +23,10 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-    onProfile: id =>
-        dispatch({ type: PROFILE_GET_USER_PROFILE, payload: agent.User.profile(id) }),
-    onProfileUpsert: (id, payload) =>
-        dispatch({ type: PROFILE_UPSERT_USER_PROFILE, payload: agent.User.profileUpsert(id, payload) }),
+    onProfile: () =>
+        dispatch({ type: PROFILE_GET_USER_PROFILE, payload: agent.User.profile() }),
+    onProfileUpsert: (payload) =>
+        dispatch({ type: PROFILE_UPSERT_USER_PROFILE, payload: agent.User.profileUpsert(payload) }),
 });
 
 const useStyles = makeStyles((theme) => ({
@@ -102,13 +102,13 @@ const Profile = props => {
                 retirementContributionsPreTax: Number(retirementContributionsPreTax)
             };
 
-            props.onProfileUpsert(props.currentUser.id, payload);
+            props.onProfileUpsert(payload);
         }
     }
 
     useEffect(() => {
         if (props.currentUser) {
-            props.onProfile(props.currentUser.id);      
+            props.onProfile();      
         }
     }, []);
     useEffect(() => {
