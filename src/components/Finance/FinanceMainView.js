@@ -216,13 +216,19 @@ const LiabilitiesPreview = props => {
         return (
             <React.Fragment>
                 <Grid container spacing={3} className={classes.root}>
-                    <Grid item xs={4}>
+                    <Grid item xs={2}>
                         <b>Name</b>
                     </Grid>
-                    <Grid item xs={4}>
+                    <Grid item xs={2}>
                         <b>Type</b>
                     </Grid>
-                    <Grid item xs={4}>
+                    <Grid item xs={2}>
+                        <b>Monthly payment</b>
+                    </Grid>
+                    <Grid item xs={2}>
+                        <b>Years</b>
+                    </Grid>
+                    <Grid item xs={2}>
                         <b>Value</b>
                     </Grid>
                 </Grid>
@@ -230,17 +236,27 @@ const LiabilitiesPreview = props => {
                     liabilities.map(liability => {
                         return (
                             <Grid key={liability.publicKey} container spacing={3} className={classes.root}>
-                                <Grid item xs={4}>
+                                <Grid item xs={2}>
                                     {liability.name}
                                     <hr className={classes.hr} />
                                 </Grid>
 
-                                <Grid item xs={4}>
+                                <Grid item xs={2}>
                                     {liability.typeName}
                                     <hr className={classes.hr} />
                                 </Grid>
 
-                                <Grid item xs={4}>
+                                <Grid item xs={2}>
+                                    <p className={classes.red}>${liability.monthlyPayment ? numberWithCommas(liability.monthlyPayment) : 0}</p>
+                                    <hr className={classes.hr} />
+                                </Grid>
+
+                                <Grid item xs={2}>
+                                    {liability.years ? liability.years : "Unspecified"}
+                                    <hr className={classes.hr} />
+                                </Grid>
+
+                                <Grid item xs={2}>
                                     <p className={classes.red}>${numberWithCommas(liability.value)}</p>
                                     <hr className={classes.hr} />
                                 </Grid>
