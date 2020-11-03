@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
-import Accounts from './Accounts';
 import { AiofPaper } from '../../style/mui';
 
 
@@ -29,18 +28,13 @@ const MainView = props => {
   return (
     <Container maxWidth="xl">
       <Grid container spacing={1} className={classes.root}>
-        <Grid item xs={4}>
-          <AiofPaper>
-            <Accounts
-              token={props.token} />
-          </AiofPaper>
-        </Grid>
 
-        <Grid item xs={8}>
+        <Grid item xs={12}>
           <AiofPaper>
             More to come...
           </AiofPaper>
         </Grid>
+        
       </Grid>
     </Container>
   );
