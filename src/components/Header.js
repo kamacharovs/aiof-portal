@@ -139,8 +139,8 @@ const Header = props => {
     return (
         <React.Fragment>
             <div className={classes.root}>
-                <AppBar position="fixed">
-                    <Toolbar className={classes.header} variant="dense">
+                <AppBar position="fixed" className={classes.header}>
+                    <Toolbar variant="dense">
                         <AppMenu currentUser={props.currentUser} />
 
                         <div className={classes.app}>

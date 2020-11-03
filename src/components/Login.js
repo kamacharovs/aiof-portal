@@ -12,9 +12,10 @@ import Checkbox from '@material-ui/core/Checkbox';
 import { LoginPaper } from '../style/mui';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import LockOpenIcon from '@material-ui/icons/LockOpen';
-import { CoolLink, ErrorTextMuted } from '../style/common';
+import { CoolLink, RedP } from '../style/common';
 import { AiofLoader } from '../components/Common/Loader';
 import { LOGIN, REFRESH, UPDATE_FIELD_AUTH, LOGIN_PAGE_UNLOADED } from '../constants/actionTypes';
+
 
 const mapStateToProps = state => ({
   ...state.auth,
@@ -72,7 +73,7 @@ class Login extends React.Component {
       },
       textField: {
         width: '25ch',
-      },
+      }
     }));
   }
 
@@ -114,9 +115,9 @@ class Login extends React.Component {
                 <p className="text-center text-muted">
                   One account for everything finance
                 </p>
-                <ErrorTextMuted>
+                <RedP>
                   {this.props.error ? "Invalid username or password. Please try again" : null}
-                </ErrorTextMuted>
+                </RedP>
 
                 <Grid item xs={12}>
                   <TextField

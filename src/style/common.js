@@ -1,7 +1,4 @@
 import styled from 'styled-components';
-import Form from 'react-bootstrap/Form';
-import Container from 'react-bootstrap/Container';
-import Navbar from 'react-bootstrap/Navbar';
 import { Link } from 'react-router-dom';
 
 export const DefaultColor = "#5cb85c";
@@ -17,10 +14,6 @@ export const RedP = styled.p`
    color: red;
    margin: 0rem;
    padding: 0rem;
-`;
-
-export const ContainerAiof = styled(Container)`
-  padding: 2rem;
 `;
 
 export const CustomHr = styled.hr`
@@ -63,30 +56,6 @@ export const H1LiabilityPreview = styled.h1`
    font-size: 1rem;
    font-weight: 900;
    color: ${DefaultRedColor}
-`;
-
-export const FooterNavbar = styled(Navbar)`
-  background: white;
-  font-size: 12px;
-`;
-
-
-export const ErrorTextMuted = styled(Form.Text)`
-  color: red !important;
-  muted: true;
-`;
-export const TinyFormLabel = styled(Form.Label)`
- font-size: 12px;
- font-weight: 700;
-`;
-export const InlineFormLabel = styled(Form.Label)`
-  top: 18px;
-  left: 6px;
-  position: relative;
-  background-color: white;
-  padding: 0px 5px 0px 5px;
-  font-size: 0.9em;
-  font-weight: 500;
 `;
 
 
