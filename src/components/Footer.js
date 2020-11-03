@@ -1,11 +1,31 @@
 import React from 'react';
-import Container from 'react-bootstrap/Container';
-import { FooterNavbar, CoolLink } from '../style/common';
 
+import { CoolLink } from '../style/common';
+import { DefaultWhiteColor } from '../style/mui';
+
+import { makeStyles } from '@material-ui/core/styles';
+import AppBar from '@material-ui/core/AppBar';
+import Toolbar from '@material-ui/core/Toolbar';
+
+
+const useStyles = makeStyles((theme) => ({
+    root: {
+        flexGrow: 1,
+    },
+    appBar: {
+        top: 'auto',
+        bottom: 0,
+        background: DefaultWhiteColor,
+        fontSize: '12px',
+        color: 'black'
+    }
+}));
 
 const HomeView = props => {
+    const classes = useStyles();
+
     return (
-        <p>© {new Date().getFullYear()} {props.appName} All rights reserved</p>
+        <p className={classes.text}>© {new Date().getFullYear()} {props.appName} All rights reserved</p>
     );
 }
 
@@ -33,23 +53,23 @@ const LoggedInView = props => {
     return null;
 };
 
+const Footer = props => {
+    const classes = useStyles();
 
-class Footer extends React.Component {
-    render() {
-        return (
-            <FooterNavbar bg="light" variant="light" expand="sm" fixed="bottom" >
-                <Container>
+    return (
+        <React.Fragment>
+                <AppBar position="fixed" className={classes.appBar}>
+                    <Toolbar variant="dense">
+                        <div className={classes.root}>
+                            <HomeView appName={props.appName.toLowerCase()} />
+                        </div>
 
-                    <HomeView appName={this.props.appName.toLowerCase()} />
-
-                    <LoggedOutView currentUser={this.props.currentUser} />
-
-                    <LoggedInView currentUser={this.props.currentUser} />
-
-                </Container>
-            </FooterNavbar>
-        );
-    }
+                        <LoggedOutView currentUser={props.currentUser} />
+                        <LoggedInView currentUser={props.currentUser} />
+                    </Toolbar>
+                </AppBar>
+        </React.Fragment>
+    );
 }
 
-export default Footer;
+export default Footer

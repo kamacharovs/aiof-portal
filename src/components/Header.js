@@ -23,9 +23,10 @@ import ExpandMore from '@material-ui/icons/ExpandMore';
 const useStyles = makeStyles((theme) => ({
     root: {
         flexGrow: 1,
+        marginBottom: '3.25rem'
     },
     header: {
-        backgroundColor: 'black'
+        backgroundColor: '#343a40'
     },
     app: {
         flexGrow: 1
@@ -138,7 +139,7 @@ const Header = props => {
     return (
         <React.Fragment>
             <div className={classes.root}>
-                <AppBar position="sticky">
+                <AppBar position="fixed">
                     <Toolbar className={classes.header} variant="dense">
                         <AppMenu currentUser={props.currentUser} />
 

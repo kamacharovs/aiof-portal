@@ -6,7 +6,7 @@ import { FINANCE_PAGE_LOADED } from '../../constants/actionTypes';
 
 import { Overview } from './Overview';
 import { Bar } from 'react-chartjs-2';
-import { AiofPaper, AiofLinearProgress } from '../../style/mui';
+import { AiofPaper, AiofLinearProgress, DefaultRedColor, DefaultGreenColor, DefaultHrColor } from '../../style/mui';
 import { CoolExternalLink, CoolLink } from '../../style/common';
 import House from '../../style/icons/House_4.svg';
 import { numberWithCommas, formatDate } from './Common';
@@ -54,16 +54,16 @@ const useStyles = makeStyles((theme) => ({
     hr: {
         borderTop: '1px solid',
         marginTop: '0.25rem',
-        color: '#ebebeb',
+        color: DefaultHrColor,
         opacity: '90%'
     },
     green: {
-        color: 'green',
+        color: DefaultGreenColor,
         margin: '0rem',
         padding: '0rem'
     },
     red: {
-        color: 'red',
+        color: DefaultRedColor,
         margin: '0rem',
         padding: '0rem'
     }
