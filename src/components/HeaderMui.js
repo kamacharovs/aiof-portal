@@ -134,7 +134,7 @@ const HeaderMui = props => {
         <React.Fragment>
             <div className={classes.root}>
                 <AppBar position="sticky">
-                    <Toolbar className={classes.header}>
+                    <Toolbar className={classes.header} variant="dense">
                         <AppMenu currentUser={props.currentUser} />
 
                         <div className={classes.app}>
