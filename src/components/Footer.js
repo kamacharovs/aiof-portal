@@ -33,8 +33,8 @@ const LoggedOutView = props => {
     if (!props.currentUser) {
         return (
             <div className="text-right">
-                <CoolLink to="/" className="nav-link">Terms & Conditions</CoolLink>
-                <CoolLink to="/" className="nav-link">Privay Policy</CoolLink>
+                <CoolLink to="/terms-and-conditions" className="nav-link">Terms & Conditions</CoolLink>
+                <CoolLink to="/privacy-policy" className="nav-link">Privacy Policy</CoolLink>
             </div>
         );
     }
@@ -45,8 +45,8 @@ const LoggedInView = props => {
     if (props.currentUser) {
         return (
             <div className="text-right">
-                <CoolLink to="/" className="nav-link">Terms & Conditions</CoolLink>
-                <CoolLink to="/" className="nav-link">Privay Policy</CoolLink>
+                <CoolLink to="/terms-and-conditions" className="nav-link">Terms & Conditions</CoolLink>
+                <CoolLink to="/privacy-policy" className="nav-link">Privacy Policy</CoolLink>
             </div>
         );
     }

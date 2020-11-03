@@ -22,6 +22,10 @@ import TimeToFi from '../components/FI/TimeToFi';
 import AddedTime from '../components/FI/AddedTime';
 import CompoundInterest from '../components/FI/CompoundInterest';
 import Bmi from '../components/FI/Bmi';
+
+import TermsAndConditions from '../components/Documents/TermsAndConditions';
+import PrivacyPolicy from '../components/Documents/PrivacyPolicy';
+
 import { APP_LOAD, REDIRECT } from '../constants/actionTypes';
 import { ACCESS_TOKEN, USER } from '../constants/common';
 
@@ -84,6 +88,9 @@ class App extends React.Component {
             <Route exact path="/fi/compound/interest" component={CompoundInterest} />
             <Route exact path="/fi/bmi" component={Bmi} />
             <Route exact path="/asset/breakdown" component={AssetBreakdown} />
+
+            <Route exact path="/terms-and-conditions" component={TermsAndConditions} />
+            <Route exact path="/privacy-policy" component={PrivacyPolicy} />
           </Switch>
           <Footer
             appName={this.props.appName}

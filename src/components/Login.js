@@ -104,7 +104,7 @@ class Login extends React.Component {
                 <p className="text-center">
                   <CoolLink to="/register">
                     Need an account?
-              </CoolLink>
+                  </CoolLink>
                 </p>
               </Grid>
             </Grid>
