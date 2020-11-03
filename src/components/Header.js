@@ -20,7 +20,6 @@ import ListSubheader from '@material-ui/core/ListSubheader'
 import ExpandMore from '@material-ui/icons/ExpandMore';
 
 
-
 const HomeView = props => {
   if (props.currentUser) {
     return (

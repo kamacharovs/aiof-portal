@@ -8,6 +8,7 @@ import { store } from '../store';
 import Cookies from 'js-cookie';
 
 import Header from '../components/Header';
+import HeaderMui from '../components/HeaderMui';
 import Footer from '../components/Footer';
 import Home from '../components/Home';
 import Login from '../components/Login';
@@ -68,7 +69,7 @@ class App extends React.Component {
             <meta charSet="utf-8" />
             <meta name="description" content={this.props.appDescription} />
           </Helmet>
-          <Header
+          <HeaderMui
             appName={this.props.appName}
             currentUser={this.props.currentUser} />
           <Switch>
@@ -93,7 +94,7 @@ class App extends React.Component {
     }
     return (
       <React.Fragment>
-        <Header
+        <HeaderMui
           appName={this.props.appName}
           currentUser={this.props.currentUser} />
         <Footer
