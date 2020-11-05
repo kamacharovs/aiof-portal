@@ -49,6 +49,9 @@ const useStyles = makeStyles((theme) => ({
     margin: {
         margin: theme.spacing(1),
     },
+    resize: {
+        fontSize: '.8125rem'
+    },
     hr: {
         borderTop: '1px solid',
         marginTop: '0.25rem',
@@ -113,9 +116,9 @@ const SavingsRateInputs = (props) => {
                         </Grid>
                     </div>
                 </Grid>
-                </Grid>
+            </Grid>
 
-                <Grid container spacing={3}>
+            <Grid container spacing={3}>
                 <Grid item xs>
                     <div className={classes.margin}>
                         <Grid container spacing={1} alignItems="flex-end">
@@ -130,9 +133,9 @@ const SavingsRateInputs = (props) => {
                         </Grid>
                     </div>
                 </Grid>
-                </Grid>
+            </Grid>
 
-                <Grid container spacing={3}>
+            <Grid container spacing={3}>
                 <Grid item xs>
                     <div className={classes.margin}>
                         <Grid container spacing={1} alignItems="flex-end">
@@ -261,13 +264,23 @@ const SavingsRateGenerator = props => {
                             <Grid item xs>
                                 <TextField className={classes.textField}
                                     value={sr.contribution}
-                                    onChange={e => onUpdateContribution(index, e.target.value)} />
+                                    onChange={e => onUpdateContribution(index, e.target.value)}
+                                    InputProps={{
+                                        classes: {
+                                            input: classes.resize,
+                                        },
+                                    }} />
                             </Grid>
 
                             <Grid item xs>
                                 <TextField className={classes.textField}
                                     value={sr.yearlyReturn}
-                                    onChange={e => onUpdateYearlyReturn(index, e.target.value)} />
+                                    onChange={e => onUpdateYearlyReturn(index, e.target.value)}
+                                    InputProps={{
+                                        classes: {
+                                            input: classes.resize,
+                                        },
+                                    }} />
                             </Grid>
                         </Grid>
                     );
@@ -304,6 +317,68 @@ const StepContent = props => {
         default:
             return 'Unknown stepIndex';
     }
+}
+
+const FinalStepContent = props => {
+    const classes = useStyles();
+
+    return (
+        <React.Fragment>
+            <Grid container direction="column" spacing={0} className={classes.container}>
+                <Grid item xs>
+                    All steps completed. You can now submit your request to calculate your Coast FIRE savings
+                </Grid>
+
+                <Grid item xs>
+                    <br/>
+                </Grid>
+
+                <Grid item xs>
+                    <strong>Current balance</strong>
+                </Grid>
+                <Grid item xs>
+                    ${numberWithCommas(props.currentBalance)}
+                </Grid>
+
+                <Grid item xs>
+                    <br/>
+                </Grid>
+
+                <Grid item xs>
+                    <strong>Initial interest rate</strong>
+                </Grid>
+                <Grid item xs>
+                    {props.initialInterestRate}%
+                </Grid>
+
+                <Grid item xs>
+                    <br/>
+                </Grid>
+
+                <Grid item xs>
+                    <strong>Start age</strong>
+                </Grid>
+                <Grid item xs>
+                    {props.startAge}
+                </Grid>
+
+                <Grid item xs>
+                    <br/>
+                </Grid>
+
+                <Grid item xs>
+                    <strong>End age</strong>
+                </Grid>
+                <Grid item xs>
+                    {props.endAge}
+                </Grid>
+
+                <Grid item xs>
+                    <br/>
+                </Grid>
+            </Grid>
+        </React.Fragment>
+    );
 }
 
 const SavingsResults = props => {
@@ -470,14 +545,23 @@ const SavingsRateStepper = props => {
                         <div>
                             {activeStep === steps.length ? (
                                 <div>
-                                    <p>
-                                        All steps completed. You can now submit your request to calculate your Coast FIRE savings
-                                        <br/><br/>
-                                        Current balance: <strong>${numberWithCommas(currentBalance)}</strong><br/>
-                                    </p>
+                                    <FinalStepContent currentBalance={currentBalance}
+                                        initialInterestRate={initialInterestRate}
+                                        startAge={startAge}
+                                        endAge={endAge} />
+
                                     <hr className={classes.hr} />
-                                    <Button onClick={handleReset}>Reset</Button>
-                                    <Button variant="contained" color="primary" onClick={handleCalculate}>Calculate</Button>
+                                    <Button 
+                                        onClick={handleReset}
+                                        className={classes.backButton}>
+                                        Reset
+                                    </Button>
+                                    <Button 
+                                        variant="contained" 
+                                        color="primary" 
+                                        onClick={handleCalculate}>
+                                        Calculate
+                                    </Button>
                                 </div>
                             ) : (
                                     <div>

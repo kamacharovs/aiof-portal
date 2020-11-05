@@ -158,6 +158,13 @@ const AppMenu = props => {
                   </ListItemIcon>
                   <ListItemText primary="BMI" />
                 </ListItem>
+
+                <ListItem button className={classes.nested} component={Link} to="/fi/coast/savings">
+                  <ListItemIcon>
+                    <TrendingUpTwoToneIcon />
+                  </ListItemIcon>
+                  <ListItemText primary="Coast savings" />
+                </ListItem>
               </List>
             </Collapse>
           </List>
