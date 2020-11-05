@@ -22,6 +22,7 @@ const useStyles = makeStyles((theme) => ({
     textField: {
         marginTop: '-6px',
         paddingBottom: '3px',
+        width: '50%',
     },
     backButton: {
         marginRight: theme.spacing(1),
@@ -91,6 +92,10 @@ const savingsRateGenerator = props => {
                     </Grid>
 
                     <Grid item xs={3}>
+                        <strong>Contribution</strong>
+                    </Grid>
+
+                    <Grid item xs={3}>
                         <strong>Yearly return</strong>
                     </Grid>
                 </Grid>
@@ -107,8 +112,11 @@ const savingsRateGenerator = props => {
                                 </Grid>
 
                                 <Grid item xs={3}>
+                                    0
+                                </Grid>
+
+                                <Grid item xs={3}>
                                     <TextField className={classes.textField}
-                                        fullWidth
                                         value={sr.yearlyReturn}
                                         onChange={e => onUpdateYearlyReturn(index, e.target.value)}
                                     />
