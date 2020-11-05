@@ -9,6 +9,7 @@ import Step from '@material-ui/core/Step';
 import StepLabel from '@material-ui/core/StepLabel';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
+import { setRef } from '@material-ui/core';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -57,19 +58,25 @@ const savingsRateGenerator = props => {
     let year = new Date().getFullYear()
     let [savingsRateList, setSavingsRateList] = useState([]);
 
-    const handleYearlyReturnChange = (i, yearlyReturn) => {
-        savingsRateList[i].yearlyReturn = yearlyReturn
-        setSavingsRateList(savingsRateList)
+    const onUpdateYearlyReturn = (index, yearlyReturn) => {
+        const savingsRateListCopy = [...savingsRateList];
+        savingsRateListCopy[index].yearlyReturn = yearlyReturn
+        setSavingsRateList(savingsRateListCopy)
     }
 
-    for (var i = 0; i < years + 1; i++) {
-        let sr = {}
-        sr.age = startAge + i
-        sr.year = year
-        sr.yearlyReturn = 0.08
-        year += 1
-        savingsRateList.push(sr)
+    if (savingsRateList.length === 0) {
+        for (var i = 0; i < years + 1; i++) {
+            let sr = {}
+            sr.age = startAge + i
+            sr.year = year
+            sr.yearlyReturn = 8
+            year += 1
+            savingsRateList.push(sr)
+        }
     }
+
+    useEffect(() => {
+    }, []);
 
     return (
         <React.Fragment>
@@ -88,7 +95,7 @@ const savingsRateGenerator = props => {
                     </Grid>
                 </Grid>
                 {
-                    savingsRateList.map(sr => {
+                    savingsRateList.map((sr, index) => {
                         return (
                             <Grid key={sr.age} container spacing={1} className={classes.container}>
                                 <Grid item xs={3}>
@@ -103,7 +110,7 @@ const savingsRateGenerator = props => {
                                     <TextField className={classes.textField}
                                         fullWidth
                                         value={sr.yearlyReturn}
-                                        onChange={e => handleYearlyReturnChange(sr.age - startAge, e.target.value)}
+                                        onChange={e => onUpdateYearlyReturn(index, e.target.value)}
                                     />
                                 </Grid>
                             </Grid>
