@@ -470,7 +470,7 @@ class ProfileStepper extends React.Component {
                                                     onClick={this.handleBack}
                                                     className={this.classes.backButton} >
                                                     Back
-                                        </Button>
+                                                </Button>
                                                 <Button
                                                     onClick={this.handleNext}
                                                     className={this.classes.backButton} >

@@ -100,7 +100,7 @@ const Fi = {
   bmiMetric: payload =>
     requestsMetadata.post('/fi/health/bmi/metric', payload),
   coastSavings: payload =>
-    requestsMetadata.post('fi/coast/savings', payload),
+    requestsMetadata.post('/fi/coast/savings', payload),
 }
 
 

@@ -8,6 +8,7 @@ import {
     FI_BMI_IMPERIAL,
     FI_BMI_METRIC,
     FI_COAST_FIRE,
+    FI_COAST_FIRE_RESET,
     FI_TIME_TO_FI_PAGE_UNLOADED,
 } from '../constants/actionTypes';
 
@@ -81,6 +82,12 @@ export default (state = {}, action) => {
                 ...state,
                 inProgress: false,
                 savings: action.payload
+            }
+        case FI_COAST_FIRE_RESET:
+            return {
+                ...state,
+                inProgress: false,
+                savings: null
             }
         case FI_TIME_TO_FI_PAGE_UNLOADED:
             return {
