@@ -9,7 +9,8 @@ import Step from '@material-ui/core/Step';
 import StepLabel from '@material-ui/core/StepLabel';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
-import { setRef } from '@material-ui/core';
+import AttachMoneyIcon from '@material-ui/icons/AttachMoney';
+import ArrowUpwardIcon from '@material-ui/icons/ArrowUpward';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -23,6 +24,9 @@ const useStyles = makeStyles((theme) => ({
         marginTop: '-6px',
         paddingBottom: '3px',
         width: '50%',
+    },
+    margin: {
+        margin: theme.spacing(1),
     },
     backButton: {
         marginRight: theme.spacing(1),
@@ -48,11 +52,88 @@ const savingsRate = {
     presentValueTwo: null || ''
 }
 
+const savingsRateInputs = props => {
+    const classes = useStyles();
+
+    const [initialInterestRate, setInitialInterestRate] = useState(2);
+    const [startAge, setStartAge] = useState(33);
+    const [endAge, setEndAge] = useState(72);
+    const [currentBalance, setCurrentBalance] = useState(100000);
+
+    return (
+        <React.Fragment>
+            <Grid container spacing={3}>
+                <Grid item xs={4}>
+                    <div className={classes.margin}>
+                        <Grid container spacing={1} alignItems="flex-end">
+                            <Grid item>
+                                <ArrowUpwardIcon />
+                            </Grid>
+                            <Grid item>
+                                <TextField label="Initial interest rate"
+                                    value={initialInterestRate}
+                                    onChange={e => setInitialInterestRate(e.target.value)} />
+                            </Grid>
+                        </Grid>
+                    </div>
+                </Grid>
+
+                <Grid item xs={4}>
+                    <div className={classes.margin}>
+                        <Grid container spacing={1} alignItems="flex-end">
+                            <Grid item>
+                                <ArrowUpwardIcon />
+                            </Grid>
+                            <Grid item>
+                                <TextField label="Start age"
+                                    value={startAge}
+                                    onChange={e => setStartAge(e.target.value)} />
+                            </Grid>
+                        </Grid>
+                    </div>
+                </Grid>
+
+                <Grid item xs={4}>
+                    <div className={classes.margin}>
+                        <Grid container spacing={1} alignItems="flex-end">
+                            <Grid item>
+                                <ArrowUpwardIcon />
+                            </Grid>
+                            <Grid item>
+                                <TextField label="End age"
+                                    value={endAge}
+                                    onChange={e => setEndAge(e.target.value)} />
+                            </Grid>
+                        </Grid>
+                    </div>
+                </Grid>
+            </Grid>
+
+            <Grid container spacing={3}>
+                <Grid item xs={4}>
+                    <div className={classes.margin}>
+                        <Grid container spacing={1} alignItems="flex-end">
+                            <Grid item>
+                                <AttachMoneyIcon />
+                            </Grid>
+                            <Grid item>
+                                <TextField label="Current balance"
+                                    value={currentBalance}
+                                    onChange={e => setCurrentBalance(e.target.value)} />
+                            </Grid>
+                        </Grid>
+                    </div>
+                </Grid>
+            </Grid>
+        </React.Fragment>
+    );
+}
+
 const savingsRateGenerator = props => {
     const classes = useStyles();
 
     const startAge = props.startAge ? Number(props.startAge) : 33
-    const endAge = props.endAge ? Number(props.endAge) : 36
+    const endAge = props.endAge ? Number(props.endAge) : 72
     const currentBalance = props.currentBalance ? Number(props.currentBalance) : 100000
 
     let years = endAge - startAge
@@ -64,12 +145,18 @@ const savingsRateGenerator = props => {
         savingsRateListCopy[index].yearlyReturn = yearlyReturn
         setSavingsRateList(savingsRateListCopy)
     }
+    const onUpdateContribution = (index, contribution) => {
+        const savingsRateListCopy = [...savingsRateList];
+        savingsRateListCopy[index].contribution = contribution
+        setSavingsRateList(savingsRateListCopy)
+    }
 
     if (savingsRateList.length === 0) {
         for (var i = 0; i < years + 1; i++) {
             let sr = {}
             sr.age = startAge + i
             sr.year = year
+            sr.contribution = 15000
             sr.yearlyReturn = 8
             year += 1
             savingsRateList.push(sr)
@@ -112,7 +199,10 @@ const savingsRateGenerator = props => {
                                 </Grid>
 
                                 <Grid item xs={3}>
-                                    0
+                                    <TextField className={classes.textField}
+                                        value={sr.contribution}
+                                        onChange={e => onUpdateContribution(index, e.target.value)}
+                                    />
                                 </Grid>
 
                                 <Grid item xs={3}>
@@ -130,4 +220,4 @@ const savingsRateGenerator = props => {
     );
 }
 
-export default savingsRateGenerator;
+export default savingsRateInputs;
