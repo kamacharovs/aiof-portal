@@ -130,7 +130,9 @@ const SavingsRateInputs = (props) => {
                         </Grid>
                     </div>
                 </Grid>
+                </Grid>
 
+                <Grid container spacing={3}>
                 <Grid item xs>
                     <div className={classes.margin}>
                         <Grid container spacing={1} alignItems="flex-end">
