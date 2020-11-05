@@ -7,6 +7,7 @@ import {
     FI_ADDED_TIME,
     FI_BMI_IMPERIAL,
     FI_BMI_METRIC,
+    FI_COAST_FIRE,
     FI_TIME_TO_FI_PAGE_UNLOADED,
 } from '../constants/actionTypes';
 
@@ -24,7 +25,8 @@ export default (state = {}, action) => {
                 || action.subtype === FI_ADDED_TIME
                 || action.subtype === FI_COMPOUND_INTEREST
                 || action.subtype === FI_BMI_IMPERIAL
-                || action.subtype === FI_BMI_METRIC) {
+                || action.subtype === FI_BMI_METRIC
+                || action.subtype === FI_COAST_FIRE) {
                 return {
                     ...state,
                     inProgress: true
@@ -73,6 +75,12 @@ export default (state = {}, action) => {
                     weight: action.bmiPayload.weight,
                     height: action.bmiPayload.height
                 }
+            }
+        case FI_COAST_FIRE:
+            return {
+                ...state,
+                inProgress: false,
+                savings: action.payload
             }
         case FI_TIME_TO_FI_PAGE_UNLOADED:
             return {

@@ -22,7 +22,7 @@ import TimeToFi from '../components/FI/TimeToFi';
 import AddedTime from '../components/FI/AddedTime';
 import CompoundInterest from '../components/FI/CompoundInterest';
 import Bmi from '../components/FI/Bmi';
-import savingsRateGenerator from '../components/FI/ReSavingsRate';
+import SavingsRateStepper from '../components/FI/ReSavingsRate';
 
 import TermsAndConditions from '../components/Documents/TermsAndConditions';
 import PrivacyPolicy from '../components/Documents/PrivacyPolicy';
@@ -88,12 +88,11 @@ class App extends React.Component {
             <Route exact path="/fi/time" component={TimeToFi} />
             <Route exact path="/fi/compound/interest" component={CompoundInterest} />
             <Route exact path="/fi/bmi" component={Bmi} />
+            <Route exact path="/fi/coast/savings" component={SavingsRateStepper} />
             <Route exact path="/asset/breakdown" component={AssetBreakdown} />
 
             <Route exact path="/terms-and-conditions" component={TermsAndConditions} />
             <Route exact path="/privacy-policy" component={PrivacyPolicy} />
-
-            <Route exact path="/re/test" component={savingsRateGenerator} />
           </Switch>
           <Footer
             appName={this.props.appName}

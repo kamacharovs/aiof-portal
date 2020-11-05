@@ -60,3 +60,4 @@ export const FI_ADDED_TIME = 'FI_ADDED_TIME';
 export const FI_TIME_TO_FI_PAGE_UNLOADED = 'FI_TIME_TO_FI_PAGE_UNLOADED';
 export const FI_BMI_IMPERIAL = 'FI_BMI_IMPERIAL';
 export const FI_BMI_METRIC = 'FI_BMI_METRIC';
+export const FI_COAST_FIRE = 'FI_COAST_FIRE';
