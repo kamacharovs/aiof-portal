@@ -12,6 +12,8 @@ import Typography from '@material-ui/core/Typography';
 import AttachMoneyIcon from '@material-ui/icons/AttachMoney';
 import ArrowUpwardIcon from '@material-ui/icons/ArrowUpward';
 
+import { AiofPaper, DefaultHrColor } from '../../style/mui';
+
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -27,6 +29,12 @@ const useStyles = makeStyles((theme) => ({
     },
     margin: {
         margin: theme.spacing(1),
+    },
+    hr: {
+        borderTop: '1px solid',
+        marginTop: '0.25rem',
+        color: DefaultHrColor,
+        opacity: '90%'
     },
     backButton: {
         marginRight: theme.spacing(1),
@@ -52,14 +60,10 @@ const savingsRate = {
     presentValueTwo: null || ''
 }
 
-const savingsRateInputs = props => {
+
+const SavingsRateInputs = (props) => {
     const classes = useStyles();
-
-    const [initialInterestRate, setInitialInterestRate] = useState(2);
-    const [startAge, setStartAge] = useState(33);
-    const [endAge, setEndAge] = useState(72);
-    const [currentBalance, setCurrentBalance] = useState(100000);
-
+    
     return (
         <React.Fragment>
             <Grid container spacing={3}>
@@ -71,8 +75,8 @@ const savingsRateInputs = props => {
                             </Grid>
                             <Grid item>
                                 <TextField label="Initial interest rate"
-                                    value={initialInterestRate}
-                                    onChange={e => setInitialInterestRate(e.target.value)} />
+                                    value={props.initialInterestRate}
+                                    onChange={e => props.setInitialInterestRate(e.target.value)} />
                             </Grid>
                         </Grid>
                     </div>
@@ -86,8 +90,8 @@ const savingsRateInputs = props => {
                             </Grid>
                             <Grid item>
                                 <TextField label="Start age"
-                                    value={startAge}
-                                    onChange={e => setStartAge(e.target.value)} />
+                                    value={props.startAge}
+                                    onChange={e => props.setStartAge(e.target.value)} />
                             </Grid>
                         </Grid>
                     </div>
@@ -101,8 +105,8 @@ const savingsRateInputs = props => {
                             </Grid>
                             <Grid item>
                                 <TextField label="End age"
-                                    value={endAge}
-                                    onChange={e => setEndAge(e.target.value)} />
+                                    value={props.endAge}
+                                    onChange={e => props.setEndAge(e.target.value)} />
                             </Grid>
                         </Grid>
                     </div>
@@ -118,8 +122,8 @@ const savingsRateInputs = props => {
                             </Grid>
                             <Grid item>
                                 <TextField label="Current balance"
-                                    value={currentBalance}
-                                    onChange={e => setCurrentBalance(e.target.value)} />
+                                    value={props.currentBalance}
+                                    onChange={e => props.setCurrentBalance(e.target.value)} />
                             </Grid>
                         </Grid>
                     </div>
@@ -129,7 +133,7 @@ const savingsRateInputs = props => {
     );
 }
 
-const savingsRateGenerator = props => {
+const SavingsRateGenerator = props => {
     const classes = useStyles();
 
     const startAge = props.startAge ? Number(props.startAge) : 33
@@ -164,11 +168,11 @@ const savingsRateGenerator = props => {
     }
 
     useEffect(() => {
+
     }, []);
 
     return (
         <React.Fragment>
-            <Container maxWidth="xl">
                 <Grid container spacing={1} className={classes.container}>
                     <Grid item xs={3}>
                         <strong>Age</strong>
@@ -215,9 +219,100 @@ const savingsRateGenerator = props => {
                         );
                     })
                 }
+        </React.Fragment>
+    );
+}
+
+const getSteps = () => {
+    return ["Fill out inputs", "Customize each year", "Submit"];
+}
+const getStepContent = (stepIndex) => {
+    
+    const [startAge, setStartAge] = useState(33);
+    const [endAge, setEndAge] = useState(72);
+    const [initialInterestRate, setInitialInterestRate] = useState(2);
+    const [currentBalance, setCurrentBalance] = useState(100000);
+
+    switch (stepIndex) {
+        case 0:
+            return <SavingsRateInputs 
+                        startAge={startAge} setStartAge={setStartAge}
+                        endAge={endAge} setEndAge={setEndAge}
+                        initialInterestRate={initialInterestRate} setInitialInterestRate={setInitialInterestRate}
+                        currentBalance={currentBalance} setCurrentBalance={setCurrentBalance} />;
+        case 1:
+            return <SavingsRateGenerator
+                        startAge={startAge}
+                        endAge={endAge} />;
+        case 2:
+            return 'This is the bit I really care about!';
+        default:
+            return 'Unknown stepIndex';
+    }
+}
+
+const SavingsRateStepper = () => {
+    const classes = useStyles();
+
+    const [activeStep, setActiveStep] = React.useState(0);
+    const steps = getSteps();
+
+    const handleNext = () => {
+        setActiveStep((prevActiveStep) => prevActiveStep + 1);
+    };
+
+    const handleBack = () => {
+        setActiveStep((prevActiveStep) => prevActiveStep - 1);
+    };
+
+    const handleReset = () => {
+        setActiveStep(0);
+    };
+
+    return (
+        <React.Fragment>
+            <Container maxWidth="md">
+                <AiofPaper elevation={3}>
+                    <div className={classes.root}>
+                        <Stepper activeStep={activeStep} alternativeLabel>
+                            {steps.map((label) => (
+                                <Step key={label}>
+                                    <StepLabel>{label}</StepLabel>
+                                </Step>
+                            ))}
+                        </Stepper>
+                        <hr className={classes.hr} />
+                        <div>
+                            {activeStep === steps.length ? (
+                                <div>
+                                    <Typography className={classes.instructions}>All steps completed</Typography>
+                                    <Button onClick={handleReset}>Reset</Button>
+                                </div>
+                            ) : (
+                                    <div>
+                                        <Typography className={classes.instructions}>{getStepContent(activeStep)}</Typography>
+                                        <div>
+                                            <hr className={classes.hr} />
+                                            <Button
+                                                disabled={activeStep === 0}
+                                                onClick={handleBack}
+                                                className={classes.backButton}
+                                            >
+                                                Back
+                                        </Button>
+                                            <Button variant="contained" color="primary" onClick={handleNext}>
+                                                {activeStep === steps.length - 1 ? 'Finish' : 'Next'}
+                                            </Button>
+                                        </div>
+                                    </div>
+                                )}
+                        </div>
+                    </div>
+
+                </AiofPaper>
             </Container>
         </React.Fragment>
     );
 }
 
-export default savingsRateInputs;
+export default SavingsRateStepper;
