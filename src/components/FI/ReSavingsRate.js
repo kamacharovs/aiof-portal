@@ -184,13 +184,34 @@ const SavingsRateGenerator = props => {
     let setSavingsRateList = props.setSavingsRateList;
 
     const onUpdateYearlyReturn = (index, yearlyReturn) => {
+        let validYearlyReturn = 0;
+
+        if (yearlyReturn < 0) {
+            validYearlyReturn = 0;
+        } else if (yearlyReturn > 100) {
+            validYearlyReturn = 100;
+        } else {
+            validYearlyReturn = yearlyReturn;
+        }
+
         const savingsRateListCopy = [...savingsRateList];
-        savingsRateListCopy[index].yearlyReturn = yearlyReturn
+        savingsRateListCopy[index].yearlyReturn = validYearlyReturn
         setSavingsRateList(savingsRateListCopy)
     }
     const onUpdateContribution = (index, contribution) => {
+        let validContribution = 0;
+        let maxContribution = 10000000;
+
+        if (contribution < -maxContribution) {
+            validContribution = -maxContribution;
+        } else if (contribution > maxContribution) {
+            validContribution = maxContribution;
+        } else {
+            validContribution = contribution;
+        }
+
         const savingsRateListCopy = [...savingsRateList];
-        savingsRateListCopy[index].contribution = contribution
+        savingsRateListCopy[index].contribution = validContribution
         setSavingsRateList(savingsRateListCopy)
     }
 
