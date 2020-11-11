@@ -28,7 +28,7 @@ const mapDispatchToProps = dispatch => ({
     dispatch({ type: UPDATE_FIELD_AUTH, key: 'username', value }),
   onChangePassword: value =>
     dispatch({ type: UPDATE_FIELD_AUTH, key: 'password', value }),
-  onChangeRememberMe: (name, value) =>
+  onChangeRememberMe: value =>
     dispatch({ type: UPDATE_FIELD_AUTH, key: 'rememberMe', value }),
   onSubmit: (username, password) =>
     dispatch({ type: LOGIN, payload: agent.Auth.login(username, password) }),
@@ -158,14 +158,14 @@ class Login extends React.Component {
 
                 <Grid item xs={12}>
                   <Button type="submit" variant="contained" color="primary" fullWidth
-                    disabled={!isEnabled}>
+                    disabled={!isEnabled || this.props.inProgress}>
                     <LoadingClip inProgress={this.props.inProgress} />&nbsp;&nbsp;Sign in
                   </Button>
                 </Grid>
 
                 <Grid item xs={12}>
                   <p className="text-center text-muted">
-                    <i>By clicking Sign In, you agree to our <a href="/">Terms</a> and have read and acknowledge our <a href="/">US Privacy Statement</a>.</i>
+                    <i>By clicking Sign In, you agree to our <a href="/terms-and-conditions">Terms</a> and have read and acknowledge our <a href="/privacy-policy">US Privacy Statement</a>.</i>
                   </p>
                 </Grid>
               </Grid>
@@ -182,7 +182,7 @@ const LoadingClip = props => {
 
   if (inProgress) {
     return (
-      <AiofLoader inProgress={inProgress} size={16} br={false} color={"#ffffff"} />
+      <AiofLoader inProgress={inProgress} size={15} br={false} color={"#ffffff"} />
     );
   }
   else {
