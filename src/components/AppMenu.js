@@ -26,6 +26,7 @@ import QueryBuilderTwoToneIcon from '@material-ui/icons/QueryBuilderTwoTone';
 import HomeTwoToneIcon from '@material-ui/icons/HomeTwoTone';
 import AssessmentTwoToneIcon from '@material-ui/icons/AssessmentTwoTone';
 import DirectionsRunIcon from '@material-ui/icons/DirectionsRun';
+import BeachAccessIcon from '@material-ui/icons/BeachAccess';
 
 import { DefaultColor } from '../style/common';
 
@@ -161,7 +162,7 @@ const AppMenu = props => {
 
                 <ListItem button className={classes.nested} component={Link} to="/fi/coast/savings">
                   <ListItemIcon>
-                    <TrendingUpTwoToneIcon />
+                    <BeachAccessIcon />
                   </ListItemIcon>
                   <ListItemText primary="Coast savings" />
                 </ListItem>
