@@ -131,7 +131,7 @@ const Bmi = (props) => {
                     </form>
                 </AiofPaper>
 
-                <BmiResult bmiImperial={props.bmiImperial} inProgress={props.inProgress} />
+                <BmiResult bmiImperial={props.bmiImperial} />
 
                 <AiofPaper elevation={3}>
                     <form className={classes.root} noValidate autoComplete="off" onSubmit={submitMetric}>
@@ -167,14 +167,16 @@ const Bmi = (props) => {
                     </form>
                 </AiofPaper>
 
-                <BmiMetricResult bmiMetric={props.bmiMetric} inProgress={props.inProgress} />
+                <BmiMetricResult bmiMetric={props.bmiMetric} />
+
+                <InProgressBar inProgress={props.inProgress} />       
 
             </Container>
         </React.Fragment>
     );
 }
 
-const BmiResult = (props) => {
+const BmiResult = props => {
     if (props.bmiImperial) {
         return (
             <AiofPaper elevation={3}>
@@ -193,17 +195,12 @@ const BmiResult = (props) => {
             </AiofPaper>
         );
     }
-    else if (props.inProgress) {
-        return (
-            <AiofLinearProgress />
-        );
-    }
     else {
         return null;
     }
 }
 
-const BmiMetricResult = (props) => {
+const BmiMetricResult = props => {
     if (props.bmiMetric) {
         return (
             <AiofPaper elevation={3}>
@@ -222,7 +219,13 @@ const BmiMetricResult = (props) => {
             </AiofPaper>
         );
     }
-    else if (props.inProgress) {
+    else {
+        return null;
+    }
+}
+
+const InProgressBar = props => {
+    if (props.inProgress) {
         return (
             <AiofLinearProgress />
         );

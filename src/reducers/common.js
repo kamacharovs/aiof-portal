@@ -21,6 +21,7 @@ import {
 
 const defaultState = {
   appName: 'Aiof',
+  appFullName: 'All in one finance',
   appDescription: 'All in one finance',
   token: null,
   viewChangeCounter: 0
