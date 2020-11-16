@@ -45,8 +45,10 @@ const useStyles = makeStyles((theme) => ({
         display: 'flex',
     },
     dialogPaper: {
-        minHeight: '30vh',
-        maxHeight: '30vh',
+        minHeight: '40vh',
+        maxHeight: '80vh',
+        minWidth: '40vh',
+        maxWidth: '90vh',
     },
     margin: {
         margin: theme.spacing(1),
@@ -160,7 +162,7 @@ const AssetsPreview = props => {
 
                 <Grid container spacing={3} className={classes.root}>
                     <Grid item xs={12}>
-                        <Button variant="outlined" color="primary" onClick={handleClickAddOpen}>
+                        <Button variant="contained" color="primary" onClick={handleClickAddOpen}>
                             Add
                     </Button>
                         <AssetAddDialog open={openAdd} onClose={handleAddClose} />
@@ -168,7 +170,7 @@ const AssetsPreview = props => {
 
                     <Grid item xs={12}>
                         <CoolLink to="/asset/breakdown">
-                            Or see how your asset can grow over the years
+                            Or see how your cash assets can grow over the years
                     </CoolLink>
                     </Grid>
                 </Grid>
@@ -184,7 +186,7 @@ const AssetsPreview = props => {
                 </Grid>
 
                     <Grid item xs={12}>
-                        <Button variant="outlined" color="primary" onClick={handleClickAddOpen}>
+                        <Button variant="contained" color="primary" onClick={handleClickAddOpen}>
                             Add
                     </Button>
                         <AssetAddDialog open={openAdd} onClose={handleAddClose} />
@@ -266,7 +268,7 @@ const LiabilitiesPreview = props => {
                 }
 
                 <Grid item xs={12}>
-                    <Button variant="outlined" color="primary" onClick={handleClickAddOpen}>
+                    <Button variant="contained" color="primary" onClick={handleClickAddOpen}>
                         Add
                     </Button>
                     <LiabilityAddDialog open={openAdd} onClose={handleAddClose} />
@@ -283,7 +285,7 @@ const LiabilitiesPreview = props => {
                 </Grid>
 
                     <Grid item xs={12}>
-                        <Button variant="outlined" color="primary" onClick={handleClickAddOpen}>
+                        <Button variant="contained" color="primary" onClick={handleClickAddOpen}>
                             Add
                     </Button>
                         <LiabilityAddDialog open={openAdd} onClose={handleAddClose} />

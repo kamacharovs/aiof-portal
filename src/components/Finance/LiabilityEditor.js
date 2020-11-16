@@ -33,12 +33,15 @@ const useStyles = makeStyles((theme) => ({
     root: {
         display: 'flex',
     },
+    container: {
+        paddingBottom: '1rem',
+    },
     margin: {
         margin: theme.spacing(1),
     },
     formControl: {
         margin: theme.spacing(1),
-        minWidth: 120,
+        minWidth: 182,
     }
 }));
 
@@ -48,7 +51,11 @@ const AddLiability = (props) => {
     const [name, setName] = useState('');
     const [typeName, setTypeName] = useState('');
     const [value, setValue] = useState('');
+    const [monthlyPayment, setMonthlyPayment] = useState('');
+    const [years, setYears] = useState('');
     const liabilityTypes = props.liabilityTypes || [];
+
+    const isReadyToAdd = name && typeName && value ? value > 0 : false;
 
     const handleTypeNameChange = (event) => {
         setTypeName(event.target.value);
@@ -60,6 +67,8 @@ const AddLiability = (props) => {
         let addLiabilityPayload = {
             name: name,
             typeName: typeName,
+            monthlyPayment: Number(monthlyPayment),
+            years: Number(years),
             value: Number(value),
             userId: props.currentUser.id
         };
@@ -80,58 +89,80 @@ const AddLiability = (props) => {
                 <title>{props.appName} | Liability</title>
             </Helmet>
 
-            <Container maxWidth="xl">
-                    <form className={classes.root} noValidate autoComplete="off" onSubmit={submitAddLiability}>
-                        <Grid container spacing={3}>
-                            <Grid item xs={12}>
-                                <p>
-                                    A liability is something a person or company owes, usually a sum of money. Liabilities are settled over time through the transfer of economic benefits including money, goods, or services
-                                </p>
-                            </Grid>
-
-                            <Grid item xs={4}>
-                                <div className={classes.margin}>
-                                    <TextField label="Name"
-                                        value={name}
-                                        onChange={e => setName(e.target.value)} />
-                                </div>
-                            </Grid>
-
-                            <Grid item xs={4}>
-                                <FormControl className={classes.formControl}>
-                                    <InputLabel id="type-name-label">Type</InputLabel>
-                                    <Select
-                                        labelId="type-name-label"
-                                        id="type-name-select"
-                                        value={typeName}
-                                        onChange={handleTypeNameChange}
-                                    >
-                                        {
-                                            liabilityTypes.map(liabilityType => {
-                                                return (
-                                                    <MenuItem key={liabilityType.name} value={liabilityType.name}>{liabilityType.name}</MenuItem>
-                                                );
-                                            })
-                                        }
-                                    </Select>
-                                </FormControl>
-                            </Grid>
-
-                            <Grid item xs={4}>
-                                <div className={classes.margin}>
-                                    <TextField label="Value"
-                                        value={value}
-                                        onChange={e => setValue(e.target.value)} />
-                                </div>
-                            </Grid>
-
-                            <Grid item xs={12}>
-                                <Button type="submit" variant="contained" color="primary" className={classes.button} >
-                                    Add
-                                </Button>
-                            </Grid>
+            <Container maxWidth="xl" className={classes.container}>
+                <form className={classes.root} noValidate autoComplete="off" onSubmit={submitAddLiability}>
+                    <Grid
+                        container
+                        spacing={1}
+                        direction="column"
+                        justify="flex-start"
+                        alignItems="flex-start"
+                    >
+                        <Grid item xs>
+                            <p>
+                                A liability is something a person or company owes, usually a sum of money. Liabilities are settled over time through the transfer of economic benefits including money, goods, or services
+                            </p>
                         </Grid>
-                    </form>
+
+                        <Grid item xs>
+                            <div className={classes.margin}>
+                                <TextField label="Name"
+                                    value={name}
+                                    onChange={e => setName(e.target.value)} />
+                            </div>
+                        </Grid>
+
+                        <Grid item xs>
+                            <FormControl className={classes.formControl}>
+                                <InputLabel id="type-name-label">Type</InputLabel>
+                                <Select
+                                    labelId="type-name-label"
+                                    id="type-name-select"
+                                    value={typeName}
+                                    onChange={handleTypeNameChange}
+                                >
+                                    {
+                                        liabilityTypes.map(liabilityType => {
+                                            return (
+                                                <MenuItem key={liabilityType.name} value={liabilityType.name}>{liabilityType.name}</MenuItem>
+                                            );
+                                        })
+                                    }
+                                </Select>
+                            </FormControl>
+                        </Grid>
+
+                        <Grid item xs>
+                            <div className={classes.margin}>
+                                <TextField label="Value"
+                                    value={value}
+                                    onChange={e => setValue(e.target.value)} />
+                            </div>
+                        </Grid>
+
+                        <Grid item xs>
+                            <div className={classes.margin}>
+                                <TextField label="Monthly payment"
+                                    value={monthlyPayment}
+                                    onChange={e => setMonthlyPayment(e.target.value)} />
+                            </div>
+                        </Grid>
+
+                        <Grid item xs>
+                            <div className={classes.margin}>
+                                <TextField label="Years"
+                                    value={years}
+                                    onChange={e => setYears(e.target.value)} />
+                            </div>
+                        </Grid>
+
+                        <Grid item xs>
+                            <Button type="submit" variant="contained" color="primary" className={classes.button} disabled={!isReadyToAdd} >
+                                Add
+                                </Button>
+                        </Grid>
+                    </Grid>
+                </form>
             </Container>
         </React.Fragment>
     );
