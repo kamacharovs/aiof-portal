@@ -69,7 +69,7 @@ Go to
 http://localhost:1337/
 ```
 
-Optional command to clean up `<none>` images
+(Optional) Clean up `<none>` images
 
 ```powershell
 docker rmi $(docker images -f “dangling=true” -q)
