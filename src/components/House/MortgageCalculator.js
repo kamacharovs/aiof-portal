@@ -1,3 +1,4 @@
+import 'date-fns';
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
@@ -9,6 +10,8 @@ import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
 import InputAdornment from '@material-ui/core/InputAdornment';
+import DateFnsUtils from '@date-io/date-fns';
+import { MuiPickersUtilsProvider, KeyboardDatePicker } from '@material-ui/pickers';
 import { numberWithCommas } from '../Finance/Common';
 
 import { AiofPaper, AiofLinearProgress } from '../../style/mui';
@@ -43,7 +46,7 @@ const MortgageCalculator = props => {
     const [downPayment, setDownPayment] = useState(60000);
     const [interestRate, setInterestRate] = useState(3.8);
     const [loanTermYears, setLoanTermYears] = useState(30);
-    const [startDate, setStartDate] = useState('');
+    const [startDate, setStartDate] = useState(new Date());
     const [pmi, setPmi] = useState(0.5);
     const [propertyInsurance, setPropertyInsurance] = useState(1000);
     const [monthlyHoa, setMonthlyHoa] = useState(0);
@@ -106,11 +109,20 @@ const MortgageCalculator = props => {
                         </Grid>
 
                         <Grid item xs={4}>
-                            <div className={classes.margin}>
-                                <TextField label="Start date"
+                            <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                                <KeyboardDatePicker
+                                    disableToolbar
+                                    variant="inline"
+                                    format="MM/dd/yyyy"
+                                    margin="normal"
+                                    label="Start date"
                                     value={startDate}
-                                    onChange={e => setStartDate(e.target.value)} />
-                            </div>
+                                    onChange={e => setStartDate(e.target.value)}
+                                    KeyboardButtonProps={{
+                                        'aria-label': 'start date',
+                                    }}
+                                />
+                            </MuiPickersUtilsProvider>
                         </Grid>
                     </Grid>
 
