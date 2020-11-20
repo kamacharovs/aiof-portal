@@ -24,6 +24,8 @@ import CompoundInterest from '../components/FI/CompoundInterest';
 import Bmi from '../components/FI/Bmi';
 import SavingsRateStepper from '../components/FI/ReSavingsRate';
 
+import MortgageCalculator from '../components/House/MortgageCalculator';
+
 import TermsAndConditions from '../components/Documents/TermsAndConditions';
 import PrivacyPolicy from '../components/Documents/PrivacyPolicy';
 
@@ -90,6 +92,8 @@ class App extends React.Component {
             <Route exact path="/fi/bmi" component={Bmi} />
             <Route exact path="/fi/coast/savings" component={SavingsRateStepper} />
             <Route exact path="/asset/breakdown" component={AssetBreakdown} />
+
+            <Route exact path="/house/mortgage" component={MortgageCalculator} />
 
             <Route exact path="/terms-and-conditions" component={TermsAndConditions} />
             <Route exact path="/privacy-policy" component={PrivacyPolicy} />

@@ -103,6 +103,10 @@ const Fi = {
     requestsMetadata.post('/fi/coast/savings', payload),
 }
 
+const House = {
+  mortgage: payload =>
+    requestsMetadata.post('/house/mortgage', payload)
+}
 
 
 const limit = (count, p) => `limit=${count}&offset=${p ? p * count : 0}`;
@@ -158,6 +162,7 @@ export default {
   Asset,
   Liability,
   Fi,
+  House,
   Comments,
   Profile,
   setToken: _token => { token = _token; },

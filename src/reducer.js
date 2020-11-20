@@ -1,12 +1,13 @@
-import auth from './reducers/auth';
 import { combineReducers } from 'redux';
+import { routerReducer } from 'react-router-redux';
+import auth from './reducers/auth';
 import common from './reducers/common';
 import fi from './reducers/fi';
 import finance from './reducers/finance';
 import home from './reducers/home';
 import profile from './reducers/profile';
 import settings from './reducers/settings';
-import { routerReducer } from 'react-router-redux';
+import house from './reducers/house';
 
 export default combineReducers({
   auth,
@@ -16,5 +17,6 @@ export default combineReducers({
   home,
   profile,
   settings,
+  house,
   router: routerReducer
 });
