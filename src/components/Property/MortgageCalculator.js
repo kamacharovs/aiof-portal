@@ -51,6 +51,10 @@ const MortgageCalculator = props => {
     const [propertyInsurance, setPropertyInsurance] = useState(1000);
     const [monthlyHoa, setMonthlyHoa] = useState(0);
 
+    const handleStartDateChange = (date) => {
+        setStartDate(date);
+    };
+
     return (
         <React.Fragment>
             <Helmet>
@@ -117,7 +121,7 @@ const MortgageCalculator = props => {
                                     margin="normal"
                                     label="Start date"
                                     value={startDate}
-                                    onChange={e => setStartDate(e.target.value)}
+                                    onChange={handleStartDateChange}
                                     KeyboardButtonProps={{
                                         'aria-label': 'start date',
                                     }}

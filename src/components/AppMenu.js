@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
@@ -69,9 +69,10 @@ const useStyles = makeStyles((theme) => ({
 
 const AppMenu = props => {
   const classes = useStyles();
-  const [open, setOpen] = React.useState(false);
-  const [fiCalculatorsOpen, setCalculatorsOpen] = React.useState(false);
-  const [assetOpen, setAssetOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
+  const [fiCalculatorsOpen, setCalculatorsOpen] = useState(false);
+  const [assetOpen, setAssetOpen] = useState(false);
+  const [propertyOpen, setPropertyOpen] = useState(false);
 
   const handleOpen = () => {
     setOpen(true)
@@ -85,6 +86,9 @@ const AppMenu = props => {
   const handleAssetClick = () => {
     setAssetOpen(!assetOpen);
   };
+  const handlePropertyOpen = () => {
+    setPropertyOpen(!propertyOpen);
+  }
 
   return (
     <div className={classes.root}>
@@ -169,6 +173,35 @@ const AppMenu = props => {
               </List>
             </Collapse>
           </List>
+
+          <Divider />
+
+          <List
+              subheader={
+                <ListSubheader component="div">
+                  Property
+              </ListSubheader>
+              }>
+              <ListItem button onClick={handlePropertyOpen}>
+                <ListItemIcon>
+                  <FunctionsTwoToneIcon />
+                </ListItemIcon>
+                <ListItemText primary="Calculators" />
+                {propertyOpen ? <ExpandLess /> : <ExpandMore />}
+              </ListItem>
+              <Collapse in={propertyOpen} timeout="auto" unmountOnExit>
+                <List component="div" disablePadding>
+
+                  <ListItem button className={classes.nested} component={Link} to="/property/mortgage">
+                    <ListItemIcon>
+                      <HomeTwoToneIcon />
+                    </ListItemIcon>
+                    <ListItemText primary="Mortgage" />
+                  </ListItem>
+
+                </List>
+              </Collapse>
+            </List>
 
           <Divider />
 
