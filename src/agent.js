@@ -103,7 +103,7 @@ const Fi = {
     requestsMetadata.post('/fi/coast/savings', payload),
 }
 
-const House = {
+const Property = {
   mortgage: payload =>
     requestsMetadata.post('/house/mortgage', payload)
 }
@@ -162,7 +162,7 @@ export default {
   Asset,
   Liability,
   Fi,
-  House,
+  Property,
   Comments,
   Profile,
   setToken: _token => { token = _token; },
