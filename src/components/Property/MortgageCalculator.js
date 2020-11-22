@@ -1,8 +1,8 @@
-import 'date-fns';
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
 import agent from '../../agent';
+import 'date-fns';
 
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
@@ -13,7 +13,7 @@ import InputAdornment from '@material-ui/core/InputAdornment';
 import DateFnsUtils from '@date-io/date-fns';
 import { MuiPickersUtilsProvider, KeyboardDatePicker } from '@material-ui/pickers';
 import { numberWithCommas } from '../Finance/Common';
-import { Line } from 'react-chartjs-2';
+import { Line, Bar } from 'react-chartjs-2';
 
 import { AiofPaper, AiofLinearProgress } from '../../style/mui';
 import { HOUSE_MORTGAGE_CALCULATOR } from '../../constants/actionTypes';
@@ -236,7 +236,7 @@ const MortgageCalculatorResult = props => {
             totalInterestPaid += value.interestPaid;
         }
         breakdown.push(last);
-        
+
         const paymentDate = breakdown.map(x => new Date(x.paymentDate).toLocaleDateString());
         const endingBalance = breakdown.map(x => x.endingBalance);
 
@@ -279,10 +279,43 @@ const MortgageCalculatorResult = props => {
             },
         }
 
+        const stackedData = {
+            labels: props.breakdown.map(x => x.year),
+            datasets: [
+                {
+                    label: "Principal paid",
+                    data: props.breakdown.map(x => x.totalPrincipalPaid),
+                    backgroundColor: "rgb(54, 162, 235)",
+                },
+                {
+                    label: "Interest paid",
+                    data: props.breakdown.map(x => x.totalInterestPaid),
+                    backgroundColor: "rgb(255, 99, 132)",
+                }
+            ],
+        }
+        const stackedOptions = {
+            scales: {
+                yAxes: [
+                    {
+                        stacked: true,
+                        ticks: {
+                            beginAtZero: true,
+                        },
+                    },
+                ],
+                xAxes: [
+                    {
+                        stacked: true,
+                    },
+                ],
+            },
+        }
+
         return (
             <React.Fragment>
                 <AiofPaper elevation={3}>
-                    <Grid container direction="column" spacing={0} className={classes.container}>             
+                    <Grid container direction="column" spacing={0} className={classes.container}>
                         <Grid>
                             <strong>Loan amount</strong>
                         </Grid>
@@ -290,7 +323,7 @@ const MortgageCalculatorResult = props => {
                             ${numberWithCommas(loanAmount)}
                         </Grid>
                         <Grid>
-                            <br/>
+                            <br />
                         </Grid>
 
                         <Grid item xs>
@@ -300,7 +333,7 @@ const MortgageCalculatorResult = props => {
                             ${numberWithCommas(Math.round(totalPrincipalPaid))}
                         </Grid>
                         <Grid>
-                            <br/>
+                            <br />
                         </Grid>
 
                         <Grid item xs>
@@ -310,7 +343,7 @@ const MortgageCalculatorResult = props => {
                             ${numberWithCommas(Math.round(totalInterestPaid))}
                         </Grid>
                         <Grid>
-                            <br/>
+                            <br />
                         </Grid>
 
                         <Grid item xs>
@@ -320,7 +353,7 @@ const MortgageCalculatorResult = props => {
                             ${numberWithCommas(Math.round(totalPrincipalPaid + totalInterestPaid))}
                         </Grid>
                         <Grid>
-                            <br/>
+                            <br />
                         </Grid>
 
                         <Grid item xs>
@@ -334,6 +367,10 @@ const MortgageCalculatorResult = props => {
 
                 <AiofPaper elevation={3}>
                     <Line data={lineData} options={lineOptions} />
+                </AiofPaper>
+
+                <AiofPaper>
+                    <Bar data={stackedData} options={stackedOptions} />
                 </AiofPaper>
             </React.Fragment>
         );
