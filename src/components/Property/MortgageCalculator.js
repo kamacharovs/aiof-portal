@@ -24,7 +24,8 @@ const mapStateToProps = state => ({
     appName: state.common.appName,
     currentUser: state.common.currentUser,
     inProgress: state.property.inProgress,
-    mortgageCalculator: state.property.mortgageCalculator,
+    data: state.property.mortgageCalculatorData,
+    breakdown: state.property.mortgageCalculatorBreakdown,
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -201,7 +202,7 @@ const MortgageCalculator = props => {
                     </form>
                 </AiofPaper>
 
-                <MortgageCalculatorResult mortgageCalculator={props.mortgageCalculator} />
+                <MortgageCalculatorResult data={props.data} breakdown={props.breakdown} />
 
                 <InProgressBar inProgress={props.inProgress} />
 
@@ -211,10 +212,10 @@ const MortgageCalculator = props => {
 }
 
 const MortgageCalculatorResult = props => {
-    if (props.mortgageCalculator) {
+    if (props.data && props.breakdown) {
         const classes = useStyles();
-        const first = props.mortgageCalculator[0];
-        const last = props.mortgageCalculator[props.mortgageCalculator.length - 1];
+        const first = props.data[0];
+        const last = props.data[props.data.length - 1];
         const payment = first.payment;
 
         const loanAmount = first.startingBalance;
@@ -222,14 +223,11 @@ const MortgageCalculatorResult = props => {
         let totalInterestPaid = first.interestPaid;
 
         let breakdown = [first];
-        for (var i = 1; i < props.mortgageCalculator.length - 1; i++) {
-            let value = props.mortgageCalculator[i];
+        for (var i = 1; i < props.data.length - 1; i++) {
+            let value = props.data[i];
             if (new Date(value.paymentDate).getMonth() === 11) {
                 breakdown.push({
                     paymentDate: value.paymentDate,
-                    principalPaid: value.principalPaid,
-                    interestPaid: value.interestPaid,
-                    startingBalance: value.startingBalance,
                     endingBalance: value.endingBalance,
                 })
             }
@@ -240,10 +238,7 @@ const MortgageCalculatorResult = props => {
         breakdown.push(last);
         
         const paymentDate = breakdown.map(x => new Date(x.paymentDate).toLocaleDateString());
-        const startingBalance = breakdown.map(x => x.startingBalance);
         const endingBalance = breakdown.map(x => x.endingBalance);
-        const interestPaid = breakdown.map(x => x.interestPaid);
-        const principalPaid = breakdown.map(x => x.principalPaid);
 
         const lineData = {
             labels: paymentDate,

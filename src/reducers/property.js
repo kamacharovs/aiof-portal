@@ -19,7 +19,8 @@ export default (state = {}, action) => {
       return {
         ...state,
         inProgress: false,
-        mortgageCalculator:  action.error ? null : action.payload
+        mortgageCalculatorData: action.error ? null : action.payload.data,
+        mortgageCalculatorBreakdown: action.error ? null : action.payload.breakdown,
       }
     default:
       return state

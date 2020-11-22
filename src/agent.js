@@ -105,7 +105,7 @@ const Fi = {
 
 const Property = {
   mortgage: payload =>
-    requestsMetadata.post('/house/mortgage', payload)
+    requestsMetadata.post('/property/mortgage', payload)
 }
 
 
