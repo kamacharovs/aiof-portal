@@ -315,6 +315,16 @@ const MortgageCalculatorResult = props => {
             <React.Fragment>
                 <AiofPaper elevation={3}>
                     <Grid container direction="column" spacing={0} className={classes.container}>
+                        <Grid item xs>
+                            <strong>Monthly payment</strong>
+                        </Grid>
+                        <Grid item xs>
+                            ${numberWithCommas(payment)}
+                        </Grid>
+                        <Grid>
+                            <br />
+                        </Grid>
+
                         <Grid>
                             <strong>Loan amount</strong>
                         </Grid>
@@ -350,16 +360,6 @@ const MortgageCalculatorResult = props => {
                         </Grid>
                         <Grid item xs>
                             ${numberWithCommas(Math.round(totalPrincipalPaid + totalInterestPaid))}
-                        </Grid>
-                        <Grid>
-                            <br />
-                        </Grid>
-
-                        <Grid item xs>
-                            <strong>Monthly payment</strong>
-                        </Grid>
-                        <Grid item xs>
-                            ${numberWithCommas(payment)}
                         </Grid>
                         <Grid>
                             <br />
