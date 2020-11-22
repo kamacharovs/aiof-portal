@@ -91,7 +91,7 @@ const MortgageCalculator = props => {
                         <Grid container spacing={3}>
                             <Grid item xs={4}>
                                 <div className={classes.margin}>
-                                    <TextField label="Loan amount"
+                                    <TextField label="Property value"
                                         value={propertyValue}
                                         onChange={e => setPropertyValue(e.target.value)}
                                         InputProps={{
@@ -242,8 +242,10 @@ const MortgageCalculatorResult = props => {
         const paymentDate = breakdown.map(x => new Date(x.paymentDate).toLocaleDateString());
         const startingBalance = breakdown.map(x => x.startingBalance);
         const endingBalance = breakdown.map(x => x.endingBalance);
+        const interestPaid = breakdown.map(x => x.interestPaid);
+        const principalPaid = breakdown.map(x => x.principalPaid);
 
-        const data = {
+        const lineData = {
             labels: paymentDate,
             datasets: [
                 {
@@ -252,11 +254,11 @@ const MortgageCalculatorResult = props => {
                     fill: false,
                     backgroundColor: "rgb(255, 99, 132)",
                     borderColor: "rgba(255, 99, 132, 0.2)",
-                },
+                }
             ],
         }
 
-        const options = {
+        const lineOptions = {
             scales: {
                 xAxes: [
                     {
@@ -317,6 +319,16 @@ const MortgageCalculatorResult = props => {
                         </Grid>
 
                         <Grid item xs>
+                            <strong>Total paid</strong>
+                        </Grid>
+                        <Grid item xs>
+                            ${numberWithCommas(Math.round(totalPrincipalPaid + totalInterestPaid))}
+                        </Grid>
+                        <Grid>
+                            <br/>
+                        </Grid>
+
+                        <Grid item xs>
                             <strong>Monthly payment</strong>
                         </Grid>
                         <Grid item xs>
@@ -326,7 +338,7 @@ const MortgageCalculatorResult = props => {
                 </AiofPaper>
 
                 <AiofPaper elevation={3}>
-                    <Line data={data} options={options} />
+                    <Line data={lineData} options={lineOptions} />
                 </AiofPaper>
             </React.Fragment>
         );
