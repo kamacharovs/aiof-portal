@@ -44,7 +44,7 @@ const useStyles = makeStyles((theme) => ({
 const MortgageCalculator = props => {
     const classes = useStyles();
 
-    const [loanAmount, setLoanAmount] = useState(300000);
+    const [propertyValue, setPropertyValue] = useState(300000);
     const [downPayment, setDownPayment] = useState(60000);
     const [interestRate, setInterestRate] = useState(3.8);
     const [loanTermYears, setLoanTermYears] = useState(30);
@@ -61,7 +61,7 @@ const MortgageCalculator = props => {
         ev.preventDefault();
 
         let mortgageCalculatorPayload = {
-            loanAmount,
+            propertyValue,
             downPayment,
             interestRate,
             loanTermYears,
@@ -92,8 +92,8 @@ const MortgageCalculator = props => {
                             <Grid item xs={4}>
                                 <div className={classes.margin}>
                                     <TextField label="Loan amount"
-                                        value={loanAmount}
-                                        onChange={e => setLoanAmount(e.target.value)}
+                                        value={propertyValue}
+                                        onChange={e => setPropertyValue(e.target.value)}
                                         InputProps={{
                                             startAdornment: <InputAdornment position="start">$</InputAdornment>
                                         }} />
@@ -217,6 +217,10 @@ const MortgageCalculatorResult = props => {
         const last = props.mortgageCalculator[props.mortgageCalculator.length - 1];
         const payment = first.payment;
 
+        const loanAmount = first.startingBalance;
+        let totalPrincipalPaid = first.principalPaid;
+        let totalInterestPaid = first.interestPaid;
+
         let breakdown = [first];
         for (var i = 1; i < props.mortgageCalculator.length - 1; i++) {
             let value = props.mortgageCalculator[i];
@@ -229,14 +233,15 @@ const MortgageCalculatorResult = props => {
                     endingBalance: value.endingBalance,
                 })
             }
+
+            totalPrincipalPaid += value.principalPaid;
+            totalInterestPaid += value.interestPaid;
         }
         breakdown.push(last);
-        console.log(breakdown);
+        
         const paymentDate = breakdown.map(x => new Date(x.paymentDate).toLocaleDateString());
         const startingBalance = breakdown.map(x => x.startingBalance);
         const endingBalance = breakdown.map(x => x.endingBalance);
-
-        console.log(paymentDate);
 
         const data = {
             labels: paymentDate,
@@ -280,7 +285,37 @@ const MortgageCalculatorResult = props => {
         return (
             <React.Fragment>
                 <AiofPaper elevation={3}>
-                    <Grid container direction="column" spacing={0} className={classes.container}>
+                    <Grid container direction="column" spacing={0} className={classes.container}>             
+                        <Grid>
+                            <strong>Loan amount</strong>
+                        </Grid>
+                        <Grid>
+                            ${numberWithCommas(loanAmount)}
+                        </Grid>
+                        <Grid>
+                            <br/>
+                        </Grid>
+
+                        <Grid item xs>
+                            <strong>Total principal paid</strong>
+                        </Grid>
+                        <Grid item xs>
+                            ${numberWithCommas(Math.round(totalPrincipalPaid))}
+                        </Grid>
+                        <Grid>
+                            <br/>
+                        </Grid>
+
+                        <Grid item xs>
+                            <strong>Total interest paid</strong>
+                        </Grid>
+                        <Grid item xs>
+                            ${numberWithCommas(Math.round(totalInterestPaid))}
+                        </Grid>
+                        <Grid>
+                            <br/>
+                        </Grid>
+
                         <Grid item xs>
                             <strong>Monthly payment</strong>
                         </Grid>
