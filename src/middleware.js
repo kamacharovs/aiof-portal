@@ -73,6 +73,8 @@ const cookieMiddleware = store => next => action => {
       const expires = new Date(new Date().getTime() + action.payload.expires * 1000);
 
       Cookies.set(ACCESS_TOKEN, action.payload.access_token, { path: '/', expires: expires });
+      Cookies.set(REFRESH_TOKEN, Cookies.get(REFRESH_TOKEN), { path: '/', expires: expires });
+      Cookies.set(USER, Cookies.get(USER), { path: '/', expires: expires });
 
       agent.setToken(action.payload.access_token);
     }

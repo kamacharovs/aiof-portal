@@ -33,12 +33,15 @@ const useStyles = makeStyles((theme) => ({
     root: {
         display: 'flex',
     },
+    container: {
+        paddingBottom: '1rem',
+    },
     margin: {
         margin: theme.spacing(1),
     },
     formControl: {
         margin: theme.spacing(1),
-        minWidth: 120,
+        minWidth: 182,
     }
 }));
 
@@ -49,6 +52,8 @@ const AddAsset = (props) => {
     const [typeName, setTypeName] = useState('');
     const [value, setValue] = useState('');
     const assetTypes = props.assetTypes || [];
+
+    const isReadyToAdd = name && typeName && value ? value > 0 : false;
 
     const handleTypeNameChange = (event) => {
         setTypeName(event.target.value);
@@ -80,16 +85,22 @@ const AddAsset = (props) => {
                 <title>{props.appName} | Asset</title>
             </Helmet>
 
-            <Container maxWidth="xl">
+            <Container maxWidth="xl" className={classes.container}>
                     <form className={classes.root} noValidate autoComplete="off" onSubmit={submitAddAsset}>
-                        <Grid container spacing={3}>
-                            <Grid item xs={12}>
+                    <Grid
+                        container
+                        spacing={1}
+                        direction="column"
+                        justify="flex-start"
+                        alignItems="flex-start"
+                    >
+                            <Grid item xs>
                                 <p>
                                     A financial asset is a liquid asset that gets its value from a contractual right or ownership claim. Cash, stocks, bonds, mutual funds, and bank deposits are all are examples of financial assets
                                 </p>
                             </Grid>
 
-                            <Grid item xs={4}>
+                            <Grid item xs>
                                 <div className={classes.margin}>
                                     <TextField label="Name"
                                         value={name}
@@ -97,7 +108,7 @@ const AddAsset = (props) => {
                                 </div>
                             </Grid>
 
-                            <Grid item xs={4}>
+                            <Grid item xs>
                                 <FormControl className={classes.formControl}>
                                     <InputLabel id="type-name-label">Type</InputLabel>
                                     <Select
@@ -117,7 +128,7 @@ const AddAsset = (props) => {
                                 </FormControl>
                             </Grid>
 
-                            <Grid item xs={4}>
+                            <Grid item xs>
                                 <div className={classes.margin}>
                                     <TextField label="Value"
                                         value={value}
@@ -125,8 +136,8 @@ const AddAsset = (props) => {
                                 </div>
                             </Grid>
 
-                            <Grid item xs={12}>
-                                <Button type="submit" variant="contained" color="primary" className={classes.button} >
+                            <Grid item xs>
+                                <Button type="submit" variant="contained" color="primary" className={classes.button} disabled={!isReadyToAdd} >
                                     Add
                                 </Button>
                             </Grid>

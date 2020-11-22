@@ -12,9 +12,10 @@ import Checkbox from '@material-ui/core/Checkbox';
 import { LoginPaper } from '../style/mui';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import LockOpenIcon from '@material-ui/icons/LockOpen';
-import { CoolLink, ErrorTextMuted } from '../style/common';
+import { CoolLink, RedP } from '../style/common';
 import { AiofLoader } from '../components/Common/Loader';
 import { LOGIN, REFRESH, UPDATE_FIELD_AUTH, LOGIN_PAGE_UNLOADED } from '../constants/actionTypes';
+
 
 const mapStateToProps = state => ({
   ...state.auth,
@@ -72,7 +73,7 @@ class Login extends React.Component {
       },
       textField: {
         width: '25ch',
-      },
+      }
     }));
   }
 
@@ -104,7 +105,7 @@ class Login extends React.Component {
                 <p className="text-center">
                   <CoolLink to="/register">
                     Need an account?
-              </CoolLink>
+                  </CoolLink>
                 </p>
               </Grid>
             </Grid>
@@ -114,9 +115,9 @@ class Login extends React.Component {
                 <p className="text-center text-muted">
                   One account for everything finance
                 </p>
-                <ErrorTextMuted>
+                <RedP>
                   {this.props.error ? "Invalid username or password. Please try again" : null}
-                </ErrorTextMuted>
+                </RedP>
 
                 <Grid item xs={12}>
                   <TextField
@@ -157,14 +158,14 @@ class Login extends React.Component {
 
                 <Grid item xs={12}>
                   <Button type="submit" variant="contained" color="primary" fullWidth
-                    disabled={!isEnabled}>
+                    disabled={!isEnabled || this.props.inProgress}>
                     <LoadingClip inProgress={this.props.inProgress} />&nbsp;&nbsp;Sign in
                   </Button>
                 </Grid>
 
                 <Grid item xs={12}>
                   <p className="text-center text-muted">
-                    <i>By clicking Sign In, you agree to our <a href="/">Terms</a> and have read and acknowledge our <a href="/">US Privacy Statement</a>.</i>
+                    <i>By clicking Sign In, you agree to our <a href="/terms-and-conditions">Terms</a> and have read and acknowledge our <a href="/privacy-policy">US Privacy Statement</a>.</i>
                   </p>
                 </Grid>
               </Grid>
@@ -181,7 +182,7 @@ const LoadingClip = props => {
 
   if (inProgress) {
     return (
-      <AiofLoader inProgress={inProgress} size={16} br={false} color={"#ffffff"} />
+      <AiofLoader inProgress={inProgress} size={15} br={false} color={"#ffffff"} />
     );
   }
   else {

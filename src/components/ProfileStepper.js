@@ -2,12 +2,12 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
 import agent from '../agent';
+
 import { makeStyles } from '@material-ui/core/styles';
 import Stepper from '@material-ui/core/Stepper';
 import Step from '@material-ui/core/Step';
 import StepLabel from '@material-ui/core/StepLabel';
 import Button from '@material-ui/core/Button';
-
 import Container from '@material-ui/core/Container';
 import TextField from '@material-ui/core/TextField';
 import Grid from '@material-ui/core/Grid';
@@ -470,7 +470,7 @@ class ProfileStepper extends React.Component {
                                                     onClick={this.handleBack}
                                                     className={this.classes.backButton} >
                                                     Back
-                                        </Button>
+                                                </Button>
                                                 <Button
                                                     onClick={this.handleNext}
                                                     className={this.classes.backButton} >

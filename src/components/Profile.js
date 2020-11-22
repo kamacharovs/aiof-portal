@@ -1,257 +1,458 @@
-import React from 'react';
-import Container from 'react-bootstrap/Container';
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
-import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
-import { Helmet } from 'react-helmet';
-import { Link } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
+import { Helmet } from 'react-helmet';
 import agent from '../agent';
-import {
-  PROFILE_PAGE_LOADED,
-  PROFILE_PAGE_UNLOADED
-} from '../constants/actionTypes';
+import { PROFILE_GET_USER_PROFILE, PROFILE_UPSERT_USER_PROFILE } from '../constants/actionTypes';
 
-import '../style/tabs.css';
-import { ContainerAiof, CustomHr, Hr50, MutedH2 } from '../style/common';
+import { AiofPaper, AiofLinearProgress } from '../style/mui';
+import { formatDate } from './Finance/Common';
 
-const UserInfo = {
-  textAlign: "center",
-  background: "#f3f3f3",
-  display: "block",
-  paddingTop: "5rem",
-  paddingBottom: "2.5rem",
-  fontWeight: "700",
-  lineHeight: "1.5",
-  color: "#212529",
-}
+import { makeStyles } from '@material-ui/core/styles';
+import Grid from '@material-ui/core/Grid';
+import Container from '@material-ui/core/Container';
+import Button from '@material-ui/core/Button';
+import TextField from '@material-ui/core/TextField';
 
-const EditProfileSettings = props => {
-  if (props.isUser
-    && props.username) {
-    return (
-      <Link
-        to={`/@${props.username}/settings`}
-        className="btn btn-sm btn-outline-secondary action-btn">
-        <i className="ion-gear-a"></i> Edit Profile Settings
-      </Link>
-    );
-  }
-  return null;
-};
-
-const ProfileMain = props => {
-  const profile = props.profile;
-  const innerProfile = profile.profile;
-
-  const gender = innerProfile ? innerProfile.gender : null;
-  const dateOfBirth = innerProfile ? innerProfile.profiledateOfBirth : null;
-  const age = innerProfile ? innerProfile.age : null;
-  const maritalStatus = innerProfile ? innerProfile.maritalStatus : null;
-  const occupation = innerProfile ? innerProfile.occupation : null;
-  const occupationIndustry = innerProfile ? innerProfile.occupationIndustry : null;
-  const grossSalary = innerProfile ? innerProfile.grossSalary : null;
-  const educationLevel = innerProfile ? innerProfile.educationLevel : null;
-  const residentialStatus = innerProfile ? innerProfile.residentialStatus : null;
-  const householdIncome = innerProfile ? innerProfile.householdIncome : null;
-  const householdAdults = innerProfile ? innerProfile.householdAdults : null;
-  const householdChildren = innerProfile ? innerProfile.householdChildren : null;
-  const retirementContributionsPreTax = innerProfile ? innerProfile.retirementContributionsPreTax : null;
-
-  return (
-    <Container fluid>
-      <h1>Profile</h1>
-      <p className="text-muted">
-        Tell us about yourself so we can improve the financial advice we provide
-      </p>
-      <br />
-      <h2>About Me</h2>
-      <Hr50 />
-
-      <Row>
-        <Col xs="6">
-          Gender
-                </Col>
-        <Col xs="6">
-          <b>{gender}</b>
-        </Col>
-      </Row>
-      <Row>
-        <Col xs="6">
-          Date of birth
-                </Col>
-        <Col xs="6">
-          <b>{dateOfBirth}</b>
-        </Col>
-      </Row>
-      <Row>
-        <Col xs="6">
-          Age
-                </Col>
-        <Col xs="6">
-          <b>{age}</b>
-        </Col>
-      </Row>
-      <Row>
-        <Col xs="6">
-          Marital status
-                </Col>
-        <Col xs="6">
-          <b>{maritalStatus}</b>
-        </Col>
-      </Row>
-      <Hr50 />
-
-      <Row>
-        <Col xs="6">
-          Occupation
-                </Col>
-        <Col xs="6">
-          <b>{occupation}</b>
-        </Col>
-      </Row>
-      <Row>
-        <Col xs="6">
-          Occupation industry
-                </Col>
-        <Col xs="6">
-          <b>{occupationIndustry}</b>
-        </Col>
-      </Row>
-      <Row>
-        <Col xs="6">
-          Gross salary
-                </Col>
-        <Col xs="6">
-          <b>{grossSalary}</b>
-        </Col>
-      </Row>
-      <Row>
-        <Col xs="6">
-          Education level
-                </Col>
-        <Col xs="6">
-          <b>{educationLevel}</b>
-        </Col>
-      </Row>
-      <Hr50 />
-
-      <Row>
-        <Col xs="6">
-          Residential status
-                </Col>
-        <Col xs="6">
-          <b>{residentialStatus}</b>
-        </Col>
-      </Row>
-      <Row>
-        <Col xs="6">
-          Household income
-                </Col>
-        <Col xs="6">
-          <b>{householdIncome}</b>
-        </Col>
-      </Row>
-      <Row>
-        <Col xs="6">
-          Household adults
-                </Col>
-        <Col xs="6">
-          <b>{householdAdults}</b>
-        </Col>
-      </Row>
-      <Row>
-        <Col xs="6">
-          Household children
-                </Col>
-        <Col xs="6">
-          <b>{householdChildren}</b>
-        </Col>
-      </Row>
-      <Hr50 />
-
-      <Row>
-        <Col sm="6">
-          Retirement contributions pre-tax
-                </Col>
-        <Col sm="6">
-          <b>{retirementContributionsPreTax}</b>
-        </Col>
-      </Row>
-      <Hr50 />
-    </Container>
-  );
-};
 
 const mapStateToProps = state => ({
-  ...state.profile,
-  appName: state.common.appName,
-  currentUser: state.common.currentUser,
-  profile: state.profile,
+    ...state.profile,
+    appName: state.common.appName,
+    currentUser: state.common.currentUser,
+    inProgress: state.profile.inProgress,
+    profile: state.profile.profile,
 });
 
 const mapDispatchToProps = dispatch => ({
-  onLoad: payload => dispatch({ type: PROFILE_PAGE_LOADED, payload }),
-  onUnload: () => dispatch({ type: PROFILE_PAGE_UNLOADED }),
+    onProfile: () =>
+        dispatch({ type: PROFILE_GET_USER_PROFILE, payload: agent.User.profile() }),
+    onProfileUpsert: (payload) =>
+        dispatch({ type: PROFILE_UPSERT_USER_PROFILE, payload: agent.User.profileUpsert(payload) }),
 });
 
-class Profile extends React.Component {
-  componentDidMount() {
-    if (this.props.currentUser) {
-      this.props.onLoad(Promise.all([
-        agent.UserProfile.get(this.props.currentUser.username)
-      ]));
+const useStyles = makeStyles((theme) => ({
+    root: {
+        display: 'flex',
+    },
+    margin: {
+        margin: theme.spacing(1),
+    },
+    hr: {
+        borderTop: '1px solid',
+        marginTop: '0.25rem',
+        color: '#ebebeb',
+        opacity: '90%'
+    },
+    textField: {
+        marginTop: '-6px'
+    },
+    resize: {
+        fontSize: '.8125rem'
+    },
+    green: {
+        color: 'green',
+        margin: '0rem',
+        padding: '0rem'
+    },
+    tinyMutedText: {
+        color: '#999',
+        margin: '0 0 8px',
+        fontSize: '12px'
+    },
+    mutedText: {
+        color: '#999',
+        margin: '0 0 8px',
+        fontSize: '14px'
     }
-  }
+}));
 
-  componentWillUnmount() {
-    this.props.onUnload();
-  }
+const Profile = props => {
+    const classes = useStyles();
+    const empty = "Unspecified";
+    const zero = "0";
+    const [gender, setGender] = useState('');
+    const [dateOfBirth, setDateOfBirth] = useState('');
+    const [age, setAge] = useState('');
+    const [maritalStatus, setMaritalStatus] = useState('');
+    const [occupation, setOccupation] = useState('');
+    const [occupationIndustry, setOccupationIndustry] = useState('');
+    const [grossSalary, setGrossSalary] = useState('');
+    const [educationLevel, setEducationLevel] = useState('');
+    const [residentialStatus, setResidentialStatus] = useState('');
+    const [householdIncome, setHouseholdIncome] = useState('');
+    const [householdAdults, setHouseholdAdults] = useState('');
+    const [householdChildren, setHouseholdChildren] = useState('');
+    const [retirementContributionsPreTax, setRetirementContributionsPreTax] = useState('');
+    const [isUpdated, setIsUpdated] = useState(false);
 
-  render() {
-    const profile = this.props.profile;
+    const handleUpdate = () => {
+        if (props.currentUser) {
+            var payload = {
+                gender,
+                dateOfBirth,
+                age: Number(age),
+                maritalStatus,
+                occupation,
+                occupationIndustry,
+                grossSalary: Number(grossSalary),
+                educationLevel,
+                residentialStatus,
+                householdIncome: Number(householdIncome),
+                householdAdults: Number(householdAdults),
+                householdChildren: Number(householdChildren),
+                retirementContributionsPreTax: Number(retirementContributionsPreTax)
+            };
 
-    if (!this.props.currentUser) {
-      return null;
+            props.onProfileUpsert(payload);
+        }
     }
+
+    useEffect(() => {
+        if (props.currentUser) {
+            props.onProfile();      
+        }
+    }, []);
+    useEffect(() => {
+        if (props.profile) {
+            setGender(props.profile.gender);
+            setDateOfBirth(props.profile.dateOfBirth);
+            setAge(props.profile.age);
+            setMaritalStatus(props.profile.maritalStatus);
+            setOccupation(props.profile.occupation);
+            setOccupationIndustry(props.profile.occupationIndustry);
+            setGrossSalary(props.profile.grossSalary);
+            setEducationLevel(props.profile.educationLevel);
+            setResidentialStatus(props.profile.residentialStatus);
+            setHouseholdIncome(props.profile.householdIncome);
+            setHouseholdAdults(props.profile.householdAdults);
+            setHouseholdChildren(props.profile.householdChildren);
+            setRetirementContributionsPreTax(props.profile.retirementContributionsPreTax);
+        }
+    }, [props.profile]);
 
     return (
-      <React.Fragment>
-        <Helmet>
-          <title>{this.props.appName} | Profile</title>
-        </Helmet>
-        <div style={UserInfo}>
-          <Container>
-            <Row>
-              <Col xs="12">
+        <React.Fragment>
+            <Helmet>
+                <title>{props.appName} | Profile</title>
+            </Helmet>
 
-                <h4>{profile.lastName}, {profile.firstName}</h4>
-                <p>{profile.email}</p>
+            <Container maxWidth="xl">
+                <Grid container spacing={3} className={classes.root}>
 
-                <EditProfileSettings username={profile.username} isUser={profile} />
+                    <Grid item xs={12}>
+                        {props.inProgress ? <AiofLinearProgress /> : (
+                            <React.Fragment>
+                                <Grid container spacing={1} className={classes.root}>
 
-              </Col>
-            </Row>
-          </Container>
-        </div>
-        <ContainerAiof>
-          <Tabs>
-            <TabList>
-              <MutedH2>Settings</MutedH2>
-              <CustomHr />
-              <Tab>Profile</Tab>
+                                    <Grid item xs={12}>
+                                        <AiofPaper elevation={3}>
+                                            <h3>{props.currentUser.lastName + ", " + props.currentUser.firstName}</h3>
+                                            <p className={classes.tinyMutedText}>{formatDate(props.currentUser.created)}</p>
+                                            <p className={classes.tinyMutedText}>{props.currentUser.email}</p>
+                                            <br />
+                                            <p className={classes.mutedText}>
+                                                Tell us about yourself so we can improve the financial advice we provide
+                                            </p>
+                                        </AiofPaper>
+                                    </Grid>
 
-            </TabList>
-            <TabPanel>
-              <ProfileMain profile={profile} />
-            </TabPanel>
-            
-          </Tabs>
-        </ContainerAiof>
-      </React.Fragment>
+                                    <Grid item xs={12}>
+                                        <AiofPaper elevation={3}>
+
+                                            <Grid container spacing={2} className={classes.root}>
+                                                <Grid item xs={6}>
+                                                    <b>Gender</b>
+                                                    <hr className={classes.hr} />
+                                                </Grid>
+                                                <Grid item xs={6}>
+                                                    <TextField className={classes.textField}
+                                                        fullWidth
+                                                        value={gender}
+                                                        onChange={e => setGender(e.target.value)}
+                                                        onFocus={() => setIsUpdated(true)}
+                                                        InputProps={{
+                                                            classes: {
+                                                              input: classes.resize,
+                                                            },
+                                                        }}
+                                                     />
+                                                </Grid>
+                                            </Grid>
+
+                                            <Grid container spacing={2} className={classes.root}>
+                                                <Grid item xs={6}>
+                                                    <b>Date of birth</b>
+                                                    <hr className={classes.hr} />
+                                                </Grid>
+                                                <Grid item xs={6}>
+                                                    <TextField className={classes.textField}
+                                                        fullWidth
+                                                        value={dateOfBirth ? formatDate(dateOfBirth) : empty}
+                                                        onChange={e => setDateOfBirth(e.target.value)}
+                                                        onFocus={() => setIsUpdated(true)}
+                                                        InputProps={{
+                                                            classes: {
+                                                              input: classes.resize,
+                                                            },
+                                                        }}
+                                                     />
+                                                </Grid>
+                                            </Grid>
+
+                                            <Grid container spacing={2} className={classes.root}>
+                                                <Grid item xs={6}>
+                                                    <b>Age</b>
+                                                    <hr className={classes.hr} />
+                                                </Grid>
+                                                <Grid item xs={6}>
+                                                    <TextField className={classes.textField}
+                                                        fullWidth
+                                                        value={age ? Number(age) : zero}
+                                                        onChange={e => setAge(e.target.value)}
+                                                        onFocus={() => setIsUpdated(true)}
+                                                        InputProps={{
+                                                            classes: {
+                                                              input: classes.resize,
+                                                            },
+                                                        }}
+                                                     />
+                                                </Grid>
+                                            </Grid>
+
+                                            <Grid container spacing={2} className={classes.root}>
+                                                <Grid item xs={6}>
+                                                    <b>Marital status</b>
+                                                    <hr className={classes.hr} />
+                                                </Grid>
+                                                <Grid item xs={6}>
+                                                    <TextField className={classes.textField}
+                                                        fullWidth
+                                                        value={maritalStatus || empty}
+                                                        onChange={e => setMaritalStatus(e.target.value)}
+                                                        onFocus={() => setIsUpdated(true)}
+                                                        InputProps={{
+                                                            classes: {
+                                                              input: classes.resize,
+                                                            },
+                                                        }}
+                                                     />
+                                                </Grid>
+                                            </Grid>
+
+                                            <Grid container spacing={2} className={classes.root}>
+                                                <Grid item xs={6}>
+                                                    <b>Education level</b>
+                                                    <hr className={classes.hr} />
+                                                </Grid>
+                                                <Grid item xs={6}>
+                                                    <TextField className={classes.textField}
+                                                        fullWidth
+                                                        value={educationLevel || empty}
+                                                        onChange={e => setEducationLevel(e.target.value)}
+                                                        onFocus={() => setIsUpdated(true)}
+                                                        InputProps={{
+                                                            classes: {
+                                                              input: classes.resize,
+                                                            },
+                                                        }}
+                                                     />
+                                                </Grid>
+                                            </Grid>
+
+                                            <Grid container spacing={2} className={classes.root}>
+                                                <Grid item xs={6}>
+                                                    <b>Residential status</b>
+                                                    <hr className={classes.hr} />
+                                                </Grid>
+                                                <Grid item xs={6}>
+                                                    <TextField className={classes.textField}
+                                                        fullWidth
+                                                        value={residentialStatus || empty}
+                                                        onChange={e => setResidentialStatus(e.target.value)}
+                                                        onFocus={() => setIsUpdated(true)}
+                                                        InputProps={{
+                                                            classes: {
+                                                              input: classes.resize,
+                                                            },
+                                                        }}
+                                                     />
+                                                </Grid>
+                                            </Grid>
+
+                                        </AiofPaper>
+                                    </Grid>
+
+                                    <Grid item xs={12}>
+                                        <AiofPaper elevation={3}>
+
+                                            <Grid container spacing={2} className={classes.root}>
+                                                <Grid item xs={6}>
+                                                    <b>Occupation</b>
+                                                    <hr className={classes.hr} />
+                                                </Grid>
+                                                <Grid item xs={6}>
+                                                    <TextField className={classes.textField}
+                                                        fullWidth
+                                                        value={occupation || empty}
+                                                        onChange={e => setOccupation(e.target.value)}
+                                                        onFocus={() => setIsUpdated(true)}
+                                                        InputProps={{
+                                                            classes: {
+                                                              input: classes.resize,
+                                                            },
+                                                        }}
+                                                     />
+                                                </Grid>
+                                            </Grid>
+
+                                            <Grid container spacing={2} className={classes.root}>
+                                                <Grid item xs={6}>
+                                                    <b>Occupation industry</b>
+                                                    <hr className={classes.hr} />
+                                                </Grid>
+                                                <Grid item xs={6}>
+                                                    <TextField className={classes.textField}
+                                                        fullWidth
+                                                        value={occupationIndustry || empty}
+                                                        onChange={e => setOccupationIndustry(e.target.value)}
+                                                        onFocus={() => setIsUpdated(true)}
+                                                        InputProps={{
+                                                            classes: {
+                                                              input: classes.resize,
+                                                            },
+                                                        }}
+                                                     />
+                                                </Grid>
+                                            </Grid>
+
+                                            <Grid container spacing={2} className={classes.root}>
+                                                <Grid item xs={6}>
+                                                    <b>Gross salary</b>
+                                                    <hr className={classes.hr} />
+                                                </Grid>
+                                                <Grid item xs={6}>
+                                                    <TextField className={classes.textField}
+                                                        fullWidth
+                                                        value={grossSalary ? Number(grossSalary) : zero}
+                                                        onChange={e => setGrossSalary(e.target.value)}
+                                                        onFocus={() => setIsUpdated(true)}
+                                                        InputProps={{
+                                                            classes: {
+                                                              input: classes.resize,
+                                                            },
+                                                        }}
+                                                     />
+                                                </Grid>
+                                            </Grid>
+
+                                            <Grid container spacing={2} className={classes.root}>
+                                                <Grid item xs={6}>
+                                                    <b>Household income</b>
+                                                    <hr className={classes.hr} />
+                                                </Grid>
+                                                <Grid item xs={6}>
+                                                    <TextField className={classes.textField}
+                                                        fullWidth
+                                                        value={householdIncome ? Number(householdIncome) : zero}
+                                                        onChange={e => setHouseholdIncome(e.target.value)}
+                                                        onFocus={() => setIsUpdated(true)}
+                                                        InputProps={{
+                                                            classes: {
+                                                              input: classes.resize,
+                                                            },
+                                                        }}
+                                                     />
+                                                </Grid>
+                                            </Grid>
+
+                                            <Grid container spacing={2} className={classes.root}>
+                                                <Grid item xs={6}>
+                                                    <b>Household adults</b>
+                                                    <hr className={classes.hr} />
+                                                </Grid>
+                                                <Grid item xs={6}>
+                                                    <TextField className={classes.textField}
+                                                        fullWidth
+                                                        value={householdAdults ? Number(householdAdults) : zero}
+                                                        onChange={e => setHouseholdAdults(e.target.value)}
+                                                        onFocus={() => setIsUpdated(true)}
+                                                        InputProps={{
+                                                            classes: {
+                                                              input: classes.resize,
+                                                            },
+                                                        }}
+                                                     />
+                                                </Grid>
+                                            </Grid>
+
+                                            <Grid container spacing={2} className={classes.root}>
+                                                <Grid item xs={6}>
+                                                    <b>Household children</b>
+                                                    <hr className={classes.hr} />
+                                                </Grid>
+                                                <Grid item xs={6}>
+                                                    <TextField className={classes.textField}
+                                                        fullWidth
+                                                        value={householdChildren ? Number(householdChildren) : zero}
+                                                        onChange={e => setHouseholdChildren(e.target.value)}
+                                                        onFocus={() => setIsUpdated(true)}
+                                                        InputProps={{
+                                                            classes: {
+                                                              input: classes.resize,
+                                                            },
+                                                        }}
+                                                     />
+                                                </Grid>
+                                            </Grid>
+
+                                            <Grid container spacing={2} className={classes.root}>
+                                                <Grid item xs={6}>
+                                                    <b>Retirement contributions pre tax</b>
+                                                    <hr className={classes.hr} />
+                                                </Grid>
+                                                <Grid item xs={6}>
+                                                    <TextField className={classes.textField}
+                                                        fullWidth
+                                                        value={retirementContributionsPreTax ? Number(retirementContributionsPreTax) : zero}
+                                                        onChange={e => setRetirementContributionsPreTax(e.target.value)}
+                                                        onFocus={() => setIsUpdated(true)}
+                                                        InputProps={{
+                                                            classes: {
+                                                              input: classes.resize,
+                                                            },
+                                                        }}
+                                                     />
+                                                </Grid>
+                                            </Grid>
+
+                                        </AiofPaper>
+                                    </Grid>
+
+                                    <Grid item xs={12}>
+                                        <AiofPaper elevation={3}>
+                                            <Grid container spacing={2} className={classes.root}>
+
+                                                <Grid item xs={6}>
+                                                    <Button variant="outlined" color="primary" disabled={!isUpdated} onClick={handleUpdate}>
+                                                        Update
+                                                    </Button>
+                                                </Grid>
+
+                                                <Grid item xs={6}>
+                                                </Grid>
+
+                                            </Grid>
+                                        </AiofPaper>
+                                    </Grid>
+                                </Grid>
+                            </React.Fragment>
+                        )}
+
+                    </Grid>
+
+                </Grid>
+            </Container>
+        </React.Fragment>
     );
-  }
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Profile);
-export { Profile, mapStateToProps };

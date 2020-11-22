@@ -52,10 +52,14 @@ const Auth = {
 };
 
 const User = {
-  get: id =>
-    requests.get(`/user/${id}`),
+  get: () =>
+    requests.get(`/user`),
   byUsername: username =>
     requests.get(`/user?username=${username}`),
+  profile: () =>
+    requests.get(`/user/profile`),
+  profileUpsert: (payload) =>
+    requests.put(`/user/profile`, payload)
 }
 const UserProfile = {
   get: username =>
@@ -95,8 +99,14 @@ const Fi = {
     requestsMetadata.post('/fi/health/bmi/imperial', payload),
   bmiMetric: payload =>
     requestsMetadata.post('/fi/health/bmi/metric', payload),
+  coastSavings: payload =>
+    requestsMetadata.post('/fi/coast/savings', payload),
 }
 
+const House = {
+  mortgage: payload =>
+    requestsMetadata.post('/house/mortgage', payload)
+}
 
 
 const limit = (count, p) => `limit=${count}&offset=${p ? p * count : 0}`;
@@ -152,6 +162,7 @@ export default {
   Asset,
   Liability,
   Fi,
+  House,
   Comments,
   Profile,
   setToken: _token => { token = _token; },

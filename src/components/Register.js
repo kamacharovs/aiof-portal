@@ -2,6 +2,7 @@ import React from 'react';
 import { Helmet } from 'react-helmet';
 import agent from '../agent';
 import { connect } from 'react-redux';
+
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import TextField from '@material-ui/core/TextField';
@@ -10,10 +11,15 @@ import Grid from '@material-ui/core/Grid';
 import { LoginPaper } from '../style/mui';
 import LockOpenIcon from '@material-ui/icons/LockOpen';
 import { CoolLink } from '../style/common';
+import { AiofLoader } from '../components/Common/Loader';
 import { UPDATE_FIELD_AUTH, REGISTER, REGISTER_PAGE_UNLOADED } from '../constants/actionTypes';
 
 
-const mapStateToProps = state => ({ ...state.auth, appName: state.common.appName });
+const mapStateToProps = state => ({ 
+  ...state.auth,
+  appName: state.common.appName,
+  inProgress: state.auth.inProgress,
+});
 
 const mapDispatchToProps = dispatch => ({
   onChangeFirstName: value =>
@@ -162,8 +168,8 @@ class Register extends React.Component {
 
                 <Grid item xs={12}>
                   <Button type="submit" variant="contained" color="primary" fullWidth
-                    disabled={!isEnabled}>
-                    <LockOpenIcon />&nbsp;&nbsp;Sign up
+                    disabled={!isEnabled || this.props.inProgress}>
+                    <LoadingClip inProgress={this.props.inProgress} />&nbsp;&nbsp;Sign up
                   </Button>
                 </Grid>
 
@@ -173,6 +179,21 @@ class Register extends React.Component {
           </LoginPaper>
         </Container>
       </React.Fragment>
+    );
+  }
+}
+
+const LoadingClip = props => {
+  const inProgress = props.inProgress;
+
+  if (inProgress) {
+    return (
+      <AiofLoader inProgress={inProgress} size={15} br={false} color={"#ffffff"} />
+    );
+  }
+  else {
+    return (
+      <LockOpenIcon />
     );
   }
 }

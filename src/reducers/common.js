@@ -1,6 +1,7 @@
 import {
   APP_LOAD,
   REDIRECT,
+  REDIRECT_HOME,
   LOGOUT,
   ARTICLE_SUBMITTED,
   SETTINGS_SAVED,
@@ -20,6 +21,7 @@ import {
 
 const defaultState = {
   appName: 'Aiof',
+  appFullName: 'All in one finance',
   appDescription: 'All in one finance',
   token: null,
   viewChangeCounter: 0
@@ -45,6 +47,8 @@ export default (state = defaultState, action) => {
       };
     case REDIRECT:
       return { ...state, redirectTo: null };
+    case REDIRECT_HOME:
+      return { ...state, redirectTo: '/' }
     case LOGOUT:
       return { ...state, redirectTo: '/login', token: null, currentUser: null };
     case ARTICLE_SUBMITTED:
