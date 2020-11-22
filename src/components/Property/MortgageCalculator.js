@@ -252,7 +252,6 @@ const MortgageCalculatorResult = props => {
                 }
             ],
         }
-
         const lineOptions = {
             scales: {
                 xAxes: [
@@ -361,6 +360,16 @@ const MortgageCalculatorResult = props => {
                         </Grid>
                         <Grid item xs>
                             ${numberWithCommas(payment)}
+                        </Grid>
+                        <Grid>
+                            <br />
+                        </Grid>
+
+                        <Grid item xs>
+                            <strong>Start date - end date</strong>
+                        </Grid>
+                        <Grid item xs>
+                            {new Date(first.paymentDate).toLocaleDateString()} - {new Date(last.paymentDate).toLocaleDateString()}
                         </Grid>
                     </Grid>
                 </AiofPaper>
