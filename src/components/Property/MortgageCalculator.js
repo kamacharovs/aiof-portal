@@ -214,8 +214,8 @@ const MortgageCalculator = props => {
 const MortgageCalculatorResult = props => {
     if (props.data && props.breakdown) {
         const classes = useStyles();
-        const [showCompleteBreakdown, setShowCompleteBreakdown] = useState(true);
-        const [showYearlyCompleteBreakdown, setShowYearlyCompleteBreakdown] = useState(true);
+        const [showCompleteBreakdown, setShowCompleteBreakdown] = useState(false);
+        const [showYearlyCompleteBreakdown, setShowYearlyCompleteBreakdown] = useState(false);
         const first = props.data[0];
         const last = props.data[props.data.length - 1];
         const payment = first.payment;
@@ -388,6 +388,9 @@ const MortgageCalculatorResult = props => {
                     <Button color="primary" onClick={() => setShowCompleteBreakdown(!showCompleteBreakdown)}>
                         {showCompleteBreakdown === false ? "View complete breakdown" : "Hide complete breakdown"}
                     </Button>
+
+                    <br/>
+                    The complete breakdown will show you exactly what is in each month from the start date. This can be helpful in order to further see into the numbers
                     
                     <CompleteBreakdown data={props.data} show={showCompleteBreakdown} />
                 </AiofPaper>
@@ -396,6 +399,9 @@ const MortgageCalculatorResult = props => {
                     <Button color="primary" onClick={() => setShowYearlyCompleteBreakdown(!showYearlyCompleteBreakdown)}>
                         {showYearlyCompleteBreakdown === false ? "View yearly complete breakdown" : "Hide yearly complete breakdown"}
                     </Button>
+
+                    <br/>
+                    The yearly complete breakdown will show you exactly what is in each year from the start date. This is very similar to the complete breakdown but it's a higher level overview
                     
                     <YearlyCompleteBreakdown data={props.breakdown} show={showYearlyCompleteBreakdown} />
                 </AiofPaper>
@@ -442,7 +448,7 @@ const CompleteBreakdown = props => {
                 </Grid>
                 {props.data.map(d => {
                     return (
-                        <Grid container spacing={0}>
+                        <Grid container spacing={0} key={d.paymentDate}>
                             <Grid item xs>
                                 {new Date(d.paymentDate).toLocaleDateString()}
                             </Grid>
@@ -493,7 +499,7 @@ const YearlyCompleteBreakdown = props => {
                 </Grid>
                 {props.data.map(d => {
                     return (
-                        <Grid container spacing={0}>
+                        <Grid container spacing={0} key={d.year}>
                             <Grid item xs>
                                 {d.year}
                             </Grid>
