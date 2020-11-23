@@ -54,9 +54,94 @@ const MortgageCalculator = props => {
     const [propertyInsurance, setPropertyInsurance] = useState(1000);
     const [monthlyHoa, setMonthlyHoa] = useState(0);
 
+    const [errorPropertyText, setErrorPropertyText] = useState("");
+    const [errorDownPaymentText, setErrorDownPaymentText] = useState("");
+    const [errorInterestRateText, setErrorInterestRateText] = useState("");
+    const [errorLoanTermYearsText, setErrorLoanTermYearsText] = useState("");
+    const [errorPmiText, setErrorPmiText] = useState("");
+    const [errorPropertyInsuranceText, setErrorPropertyInsuranceText] = useState("");
+    const [errorMonthlyHoaText, setErrorMonthlyHoaText] = useState("");
+    const negativeText = "Cannot be negative";
+
     const handleStartDateChange = (date) => {
         setStartDate(date);
     };
+
+    const onPropertyValueChange = e => {
+        if (e.target.value < 0)
+            setErrorPropertyText(negativeText);
+        else {
+            if (errorPropertyText !== "")
+                setErrorPropertyText("");
+            setPropertyValue(e.target.value);
+        }
+    }
+
+    const onDownPaymentChange = e => {
+        if (e.target.value < 0)
+            setErrorDownPaymentText(negativeText);
+        else {
+            if (errorDownPaymentText !== "")
+                setErrorDownPaymentText("");
+            setDownPayment(e.target.value);
+        }
+    }
+
+    const onInterestRateChange = e => {
+        if (e.target.value < 0)
+            setErrorInterestRateText(negativeText);
+        else if (e.target.value > 100)
+            setErrorInterestRateText("Cannot be bigger than 100");
+        else {
+            if (errorInterestRateText !== "")
+                setErrorInterestRateText("");
+            setInterestRate(e.target.value);
+        }
+    }
+
+    const onLoanTermYearsChange = e => {
+        if (e.target.value < 0)
+            setErrorLoanTermYearsText(negativeText);
+        else if (e.target.value > 30 )
+            setErrorLoanTermYearsText("Cannot be bigger than 30");
+        else {
+            if (errorLoanTermYearsText !== "")
+                setErrorLoanTermYearsText("");
+            setLoanTermYears(e.target.value);
+        }
+    }
+
+    const onPmiChange = e => {
+        if (e.target.value < 0)
+            setErrorPmiText(negativeText);
+        else if (e.target.value > 100)
+            setErrorPmiText("Cannot be bigger than 100");
+        else {
+            if (errorPmiText !== "")
+                setErrorPmiText("");
+            setPmi(e.target.value);
+        }
+    }
+
+    const onPropertyInsuranceChange = e => {
+        if (e.target.value < 0)
+            setErrorPropertyInsuranceText(negativeText);
+        else {
+            if (errorPropertyInsuranceText !== "")
+                setErrorPropertyInsuranceText("");
+            setPropertyInsurance(e.target.value);
+        }
+    }
+
+    const onMonthlyHoa = e => {
+        if (e.target.value < 0)
+            setErrorMonthlyHoaText(negativeText);
+        else {
+            if (errorMonthlyHoaText !== "")
+                setErrorMonthlyHoaText("");
+            setMonthlyHoa(e.target.value);
+        }
+    }
 
     const onCalculate = (ev) => {
         ev.preventDefault();
@@ -99,8 +184,10 @@ const MortgageCalculator = props => {
                             <Grid item xs={4}>
                                 <div className={classes.margin}>
                                     <TextField label="Property value"
+                                        error={errorPropertyText === "" ? false : true}
                                         value={propertyValue}
-                                        onChange={e => setPropertyValue(e.target.value)}
+                                        onChange={onPropertyValueChange}
+                                        helperText={errorPropertyText}
                                         InputProps={{
                                             startAdornment: <InputAdornment position="start">$</InputAdornment>
                                         }} />
@@ -110,8 +197,10 @@ const MortgageCalculator = props => {
                             <Grid item xs={4}>
                                 <div className={classes.margin}>
                                     <TextField label="Down payment"
+                                        error={errorDownPaymentText === "" ? false : true}
                                         value={downPayment}
-                                        onChange={e => setDownPayment(e.target.value)}
+                                        onChange={onDownPaymentChange}
+                                        helperText={errorDownPaymentText}
                                         InputProps={{
                                             startAdornment: <InputAdornment position="start">$</InputAdornment>
                                         }} />
@@ -121,8 +210,10 @@ const MortgageCalculator = props => {
                             <Grid item xs={4}>
                                 <div className={classes.margin}>
                                     <TextField label="Interest rate"
+                                        error={errorInterestRateText === "" ? false : true}
                                         value={interestRate}
-                                        onChange={e => setInterestRate(e.target.value)}
+                                        onChange={onInterestRateChange}
+                                        helperText={errorInterestRateText}
                                         InputProps={{
                                             startAdornment: <InputAdornment position="start">%</InputAdornment>
                                         }} />
@@ -134,8 +225,10 @@ const MortgageCalculator = props => {
                             <Grid item xs={4}>
                                 <div className={classes.margin}>
                                     <TextField label="Loan term years"
+                                        error={errorLoanTermYearsText === "" ? false : true}
                                         value={loanTermYears}
-                                        onChange={e => setLoanTermYears(e.target.value)} />
+                                        helperText={errorLoanTermYearsText}
+                                        onChange={onLoanTermYearsChange} />
                                 </div>
                             </Grid>
 
@@ -167,8 +260,10 @@ const MortgageCalculator = props => {
                             <Grid item xs={4}>
                                 <div className={classes.margin}>
                                     <TextField label="PMI"
+                                        error={errorPmiText === "" ? false : true}
                                         value={pmi}
-                                        onChange={e => setPmi(e.target.value)}
+                                        onChange={onPmiChange}
+                                        helperText={errorPmiText}
                                         InputProps={{
                                             startAdornment: <InputAdornment position="start">%</InputAdornment>
                                         }} />
@@ -178,8 +273,10 @@ const MortgageCalculator = props => {
                             <Grid item xs={4}>
                                 <div className={classes.margin}>
                                     <TextField label="Property insurance"
+                                        error={errorPropertyInsuranceText === "" ? false : true}
                                         value={propertyInsurance}
-                                        onChange={e => setPropertyInsurance(e.target.value)}
+                                        onChange={onPropertyInsuranceChange}
+                                        helperText={errorPropertyInsuranceText}
                                         InputProps={{
                                             startAdornment: <InputAdornment position="start">$</InputAdornment>
                                         }} />
@@ -189,8 +286,10 @@ const MortgageCalculator = props => {
                             <Grid item xs={4}>
                                 <div className={classes.margin}>
                                     <TextField label="Monthly HOA"
+                                        error={errorMonthlyHoaText === "" ? false : true}
                                         value={monthlyHoa}
-                                        onChange={e => setMonthlyHoa(e.target.value)}
+                                        onChange={onMonthlyHoa}
+                                        helperText={errorMonthlyHoaText}
                                         InputProps={{
                                             startAdornment: <InputAdornment position="start">$</InputAdornment>
                                         }} />
