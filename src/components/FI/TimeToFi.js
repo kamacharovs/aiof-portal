@@ -10,11 +10,6 @@ import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
 import AttachMoneyIcon from '@material-ui/icons/AttachMoney';
 import ArrowUpwardIcon from '@material-ui/icons/ArrowUpward';
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
-import TableCell from '@material-ui/core/TableCell';
-import TableHead from '@material-ui/core/TableHead';
-import TableRow from '@material-ui/core/TableRow';
 import { numberWithCommas } from '../Finance/Common';
 import { GreenP, RedP } from '../../style/common';
 import { AiofPaper, AiofLinearProgress } from '../../style/mui';
@@ -171,71 +166,92 @@ const TimeToFiResults = props => {
     return (
       <React.Fragment>
         <AiofPaper elevation={3}>
-          <Grid container spacing={1}>
-            <Grid item xs={6}>
-              <b>Starting amount</b>
+          <Grid container direction="column" spacing={0}>
+            <Grid item xs>
+              <strong>Starting amount</strong>
             </Grid>
-            <Grid item xs={6} align="right">
+            <Grid item xs>
               <GreenP>${numberWithCommas(props.time.startingAmount)}</GreenP>
             </Grid>
-
-            <Grid item xs={6}>
-              <b>Monthly investment</b>
+            <Grid>
+              <br />
             </Grid>
-            <Grid item xs={6} align="right">
+
+            <Grid>
+              <strong>Monthly investment</strong>
+            </Grid>
+            <Grid>
               <GreenP>${numberWithCommas(props.time.monthlyInvestment)}</GreenP>
             </Grid>
-
-            <Grid item xs={6}>
-              <b>Desired years expenses for FI</b>
-            </Grid>
-            <Grid item xs={6} align="right">
-              <GreenP>{props.time.desiredYearsExpensesForFi}</GreenP>
+            <Grid>
+              <br />
             </Grid>
 
-            <Grid item xs={6}>
-              <b>Desired annual spending</b>
+            <Grid>
+              <strong>Desired years expenses for FI</strong>
             </Grid>
-            <Grid item xs={6} align="right">
+            <Grid>
+              {props.time.desiredYearsExpensesForFi}
+            </Grid>
+            <Grid>
+              <br />
+            </Grid>
+
+            <Grid>
+              <strong>Desired annual spending</strong>
+            </Grid>
+            <Grid>
               <GreenP>${numberWithCommas(props.time.desiredAnnualSpending)}</GreenP>
             </Grid>
-
-            <Grid item xs={6}>
-              <b>Desired retirement savings for FI</b>
+            <Grid>
+              <br />
             </Grid>
-            <Grid item xs={6} align="right">
+
+            <Grid>
+              <strong>Desired retirement savings for FI</strong>
+            </Grid>
+            <Grid>
               <GreenP>${numberWithCommas(props.time.desiredRetirementSavingsForFi)}</GreenP>
             </Grid>
-
-            <Grid item xs={6}>
-              <b>Current deficit</b>
+            <Grid>
+              <br />
             </Grid>
-            <Grid item xs={6} align="right">
+
+            <Grid>
+              <strong>Current deficit</strong>
+            </Grid>
+            <Grid>
               <RedP>${numberWithCommas(props.time.currentDeficit)}</RedP>
+            </Grid>
+            <Grid>
+              <br />
             </Grid>
           </Grid>
 
-          <Table responsive="sm"
-            borderless={true}>
-            <TableHead>
-              <TableRow>
-                <TableCell align="left"><strong>Interest</strong></TableCell>
-                <TableCell align="left"><strong>Years</strong></TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {
-                props.time.years.map(year => {
-                  return (
-                    <TableRow key={year.interest}>
-                      <TableCell align="left">{year.interest}%</TableCell>
-                      <TableCell align="left">{year.years}</TableCell>
-                    </TableRow>
-                  );
-                })
-              }
-            </TableBody>
-          </Table>
+          <Grid container>
+            <Grid container spacing={0}>
+              <Grid item xs>
+                <strong>Interest</strong>
+              </Grid>
+              <Grid item xs>
+                <strong>Years</strong>
+              </Grid>
+            </Grid>
+            {
+              props.time.years.map(year => {
+                return (
+                  <Grid container spacing={0}>
+                    <Grid item xs>
+                      {year.interest}%
+                            </Grid>
+                    <Grid item xs>
+                      {year.years}
+                    </Grid>
+                  </Grid>
+                );
+              })
+            }
+          </Grid>
         </AiofPaper>
       </React.Fragment>
     );
