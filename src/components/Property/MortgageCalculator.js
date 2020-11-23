@@ -214,6 +214,7 @@ const MortgageCalculator = props => {
 const MortgageCalculatorResult = props => {
     if (props.data && props.breakdown) {
         const classes = useStyles();
+        const [showCompleteBreakdown, setShowCompleteBreakdown] = useState(false);
         const first = props.data[0];
         const last = props.data[props.data.length - 1];
         const payment = first.payment;
@@ -381,6 +382,15 @@ const MortgageCalculatorResult = props => {
                 <AiofPaper>
                     <Bar data={stackedData} options={stackedOptions} />
                 </AiofPaper>
+
+                <AiofPaper>
+                    <Button color="primary" onClick={() => setShowCompleteBreakdown(!showCompleteBreakdown)}>
+                        {showCompleteBreakdown === false ? "View complete breakdown" : "Hide complete breakdown"}
+                    </Button>
+
+                    <CompleteBreakdown data={props.data} show={showCompleteBreakdown} />
+
+                </AiofPaper>
             </React.Fragment>
         );
     }
@@ -393,6 +403,56 @@ const InProgressBar = props => {
     if (props.inProgress) {
         return (
             <AiofLinearProgress />
+        );
+    }
+    else {
+        return null;
+    }
+}
+
+const CompleteBreakdown = props => {
+    if (props.data && props.show === true) {
+        return (
+            <React.Fragment>
+                <Grid container spacing={3}>
+                    <Grid item xs>
+                        <strong>Date</strong>
+                    </Grid>
+                    <Grid item xs>
+                        <strong>Starting balance</strong>
+                    </Grid>
+                    <Grid item xs>
+                        <strong>Ending balance</strong>
+                    </Grid>
+                    <Grid item xs>
+                        <strong>Principal paid</strong>
+                    </Grid>
+                    <Grid item xs>
+                        <strong>Interest paid</strong>
+                    </Grid>
+                </Grid>
+                {props.data.map(d => {
+                    return (
+                        <Grid container spacing={0}>
+                            <Grid item xs>
+                                {new Date(d.paymentDate).toLocaleDateString()}
+                            </Grid>
+                            <Grid item xs>
+                                ${numberWithCommas(d.startingBalance)}
+                            </Grid>
+                            <Grid item xs>
+                                ${numberWithCommas(d.endingBalance)}
+                            </Grid>
+                            <Grid item xs>
+                                ${numberWithCommas(d.principalPaid)}
+                            </Grid>
+                            <Grid item xs>
+                                ${numberWithCommas(d.interestPaid)}
+                            </Grid>
+                        </Grid>
+                    );
+                })}
+            </React.Fragment>
         );
     }
     else {
