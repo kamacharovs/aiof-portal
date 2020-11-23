@@ -214,7 +214,8 @@ const MortgageCalculator = props => {
 const MortgageCalculatorResult = props => {
     if (props.data && props.breakdown) {
         const classes = useStyles();
-        const [showCompleteBreakdown, setShowCompleteBreakdown] = useState(false);
+        const [showCompleteBreakdown, setShowCompleteBreakdown] = useState(true);
+        const [showYearlyCompleteBreakdown, setShowYearlyCompleteBreakdown] = useState(true);
         const first = props.data[0];
         const last = props.data[props.data.length - 1];
         const payment = first.payment;
@@ -390,6 +391,14 @@ const MortgageCalculatorResult = props => {
                     
                     <CompleteBreakdown data={props.data} show={showCompleteBreakdown} />
                 </AiofPaper>
+
+                <AiofPaper>
+                    <Button color="primary" onClick={() => setShowYearlyCompleteBreakdown(!showYearlyCompleteBreakdown)}>
+                        {showYearlyCompleteBreakdown === false ? "View yearly complete breakdown" : "Hide yearly complete breakdown"}
+                    </Button>
+                    
+                    <YearlyCompleteBreakdown data={props.breakdown} show={showYearlyCompleteBreakdown} />
+                </AiofPaper>
             </React.Fragment>
         );
     }
@@ -448,6 +457,57 @@ const CompleteBreakdown = props => {
                             </Grid>
                             <Grid item xs>
                                 ${numberWithCommas(d.interestPaid)}
+                            </Grid>
+                        </Grid>
+                    );
+                })}
+            </React.Fragment>
+        );
+    }
+    else {
+        return null;
+    }
+}
+
+const YearlyCompleteBreakdown = props => {
+    if (props.data && props.show === true) {
+        return (
+            <React.Fragment>
+                <hr/>
+                <Grid container spacing={0}>
+                    <Grid item xs>
+                        <strong>Year</strong>
+                    </Grid>
+                    <Grid item xs>
+                        <strong>Starting balance</strong>
+                    </Grid>
+                    <Grid item xs>
+                        <strong>Ending balance</strong>
+                    </Grid>
+                    <Grid item xs>
+                        <strong>Principal paid</strong>
+                    </Grid>
+                    <Grid item xs>
+                        <strong>Interest paid</strong>
+                    </Grid>
+                </Grid>
+                {props.data.map(d => {
+                    return (
+                        <Grid container spacing={0}>
+                            <Grid item xs>
+                                {d.year}
+                            </Grid>
+                            <Grid item xs>
+                                ${numberWithCommas(d.startingBalance)}
+                            </Grid>
+                            <Grid item xs>
+                                ${numberWithCommas(d.endingBalance)}
+                            </Grid>
+                            <Grid item xs>
+                                ${numberWithCommas(d.totalPrincipalPaid)}
+                            </Grid>
+                            <Grid item xs>
+                                ${numberWithCommas(d.totalInterestPaid)}
                             </Grid>
                         </Grid>
                     );
