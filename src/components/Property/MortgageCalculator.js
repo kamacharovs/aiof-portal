@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
 import agent from '../../agent';
@@ -62,18 +62,24 @@ const MortgageCalculator = props => {
         ev.preventDefault();
 
         let mortgageCalculatorPayload = {
-            propertyValue,
-            downPayment,
-            interestRate,
-            loanTermYears,
-            startDate,
-            pmi,
-            propertyInsurance,
-            monthlyHoa
+            propertyValue: Number(propertyValue) || null,
+            downPayment: Number(downPayment) || null,
+            interestRate: Number(interestRate) || null,
+            loanTermYears: Number(loanTermYears) || null,
+            startDate: startDate || null,
+            pmi: Number(pmi) || null,
+            propertyInsurance: Number(propertyInsurance) || null,
+            monthlyHoa: Number(monthlyHoa) || null
         }
 
         props.onCalculate(mortgageCalculatorPayload);
     }
+
+    useEffect(() => {
+        if (props.data && props.breakdown) {
+            setPropertyValue(propertyValue);
+        }
+    }, []);
 
     return (
         <React.Fragment>
