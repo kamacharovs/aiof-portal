@@ -63,7 +63,7 @@ const AddedTime = props => {
     useEffect(() => {
         props.onLoad();
 
-        if (props.time) {
+        if (props.addedTime) {
             setMonthlyInvestment(props.addedTime.monthlyInvestment);
             setTotalAdditionalExpense(props.addedTime.totalAdditionalExpense);
         }
