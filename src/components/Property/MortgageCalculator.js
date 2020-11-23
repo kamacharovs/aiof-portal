@@ -61,41 +61,42 @@ const MortgageCalculator = props => {
     const [errorPmiText, setErrorPmiText] = useState("");
     const [errorPropertyInsuranceText, setErrorPropertyInsuranceText] = useState("");
     const [errorMonthlyHoaText, setErrorMonthlyHoaText] = useState("");
-    const negativeText = "Cannot be negative";
+    const negativeText = "Value cannot be negative";
+    const biggerThanPerc = "Value cannot be bigger than 100";
+
+    const isCalculateEnabled = errorPropertyText === "" 
+        && errorDownPaymentText === ""
+        && errorInterestRateText === ""
+        && errorLoanTermYearsText === ""
+        && errorPmiText === ""
+        && errorPropertyInsuranceText === ""
+        && errorMonthlyHoaText === "";
 
     const handleStartDateChange = (date) => {
         setStartDate(date);
     };
 
-    const onPropertyValueChange = e => {
-        if (e.target.value < 0)
-            setErrorPropertyText(negativeText);
+    const onNegativeChange = (e, errorText, setErrorText, setValue) => {
+        const value = e.target.value;
+        if (value < 0)
+            setErrorText(negativeText);
         else {
-            if (errorPropertyText !== "")
-                setErrorPropertyText("");
-            setPropertyValue(e.target.value);
+            if (errorText !== "")
+                setErrorText("");
+            setValue(value);
         }
     }
 
-    const onDownPaymentChange = e => {
-        if (e.target.value < 0)
-            setErrorDownPaymentText(negativeText);
+    const onPercentageChange = (e, errorText, setErrorText, setValue) => {
+        const value = e.target.value;
+        if (value < 0)
+            setErrorText(negativeText);
+        else if (value > 100)
+            setErrorText(biggerThanPerc);
         else {
-            if (errorDownPaymentText !== "")
-                setErrorDownPaymentText("");
-            setDownPayment(e.target.value);
-        }
-    }
-
-    const onInterestRateChange = e => {
-        if (e.target.value < 0)
-            setErrorInterestRateText(negativeText);
-        else if (e.target.value > 100)
-            setErrorInterestRateText("Cannot be bigger than 100");
-        else {
-            if (errorInterestRateText !== "")
-                setErrorInterestRateText("");
-            setInterestRate(e.target.value);
+            if (errorText !== "")
+                setErrorText("");
+            setValue(value);
         }
     }
 
@@ -108,38 +109,6 @@ const MortgageCalculator = props => {
             if (errorLoanTermYearsText !== "")
                 setErrorLoanTermYearsText("");
             setLoanTermYears(e.target.value);
-        }
-    }
-
-    const onPmiChange = e => {
-        if (e.target.value < 0)
-            setErrorPmiText(negativeText);
-        else if (e.target.value > 100)
-            setErrorPmiText("Cannot be bigger than 100");
-        else {
-            if (errorPmiText !== "")
-                setErrorPmiText("");
-            setPmi(e.target.value);
-        }
-    }
-
-    const onPropertyInsuranceChange = e => {
-        if (e.target.value < 0)
-            setErrorPropertyInsuranceText(negativeText);
-        else {
-            if (errorPropertyInsuranceText !== "")
-                setErrorPropertyInsuranceText("");
-            setPropertyInsurance(e.target.value);
-        }
-    }
-
-    const onMonthlyHoa = e => {
-        if (e.target.value < 0)
-            setErrorMonthlyHoaText(negativeText);
-        else {
-            if (errorMonthlyHoaText !== "")
-                setErrorMonthlyHoaText("");
-            setMonthlyHoa(e.target.value);
         }
     }
 
@@ -186,7 +155,7 @@ const MortgageCalculator = props => {
                                     <TextField label="Property value"
                                         error={errorPropertyText === "" ? false : true}
                                         value={propertyValue}
-                                        onChange={onPropertyValueChange}
+                                        onChange={e => onNegativeChange(e, errorPropertyText, setErrorPropertyText, setPropertyValue)}
                                         helperText={errorPropertyText}
                                         InputProps={{
                                             startAdornment: <InputAdornment position="start">$</InputAdornment>
@@ -199,7 +168,7 @@ const MortgageCalculator = props => {
                                     <TextField label="Down payment"
                                         error={errorDownPaymentText === "" ? false : true}
                                         value={downPayment}
-                                        onChange={onDownPaymentChange}
+                                        onChange={e => onNegativeChange(e, errorDownPaymentText, setErrorDownPaymentText, setDownPayment)}
                                         helperText={errorDownPaymentText}
                                         InputProps={{
                                             startAdornment: <InputAdornment position="start">$</InputAdornment>
@@ -212,7 +181,7 @@ const MortgageCalculator = props => {
                                     <TextField label="Interest rate"
                                         error={errorInterestRateText === "" ? false : true}
                                         value={interestRate}
-                                        onChange={onInterestRateChange}
+                                        onChange={e => onPercentageChange(e, errorInterestRateText, setErrorInterestRateText, setInterestRate)}
                                         helperText={errorInterestRateText}
                                         InputProps={{
                                             startAdornment: <InputAdornment position="start">%</InputAdornment>
@@ -262,7 +231,7 @@ const MortgageCalculator = props => {
                                     <TextField label="PMI"
                                         error={errorPmiText === "" ? false : true}
                                         value={pmi}
-                                        onChange={onPmiChange}
+                                        onChange={e => onPercentageChange(e, errorPmiText, setErrorPmiText, setPmi)}
                                         helperText={errorPmiText}
                                         InputProps={{
                                             startAdornment: <InputAdornment position="start">%</InputAdornment>
@@ -275,7 +244,7 @@ const MortgageCalculator = props => {
                                     <TextField label="Property insurance"
                                         error={errorPropertyInsuranceText === "" ? false : true}
                                         value={propertyInsurance}
-                                        onChange={onPropertyInsuranceChange}
+                                        onChange={e => onNegativeChange(e, errorPropertyInsuranceText, setErrorPropertyInsuranceText, setPropertyInsurance)}
                                         helperText={errorPropertyInsuranceText}
                                         InputProps={{
                                             startAdornment: <InputAdornment position="start">$</InputAdornment>
@@ -288,7 +257,7 @@ const MortgageCalculator = props => {
                                     <TextField label="Monthly HOA"
                                         error={errorMonthlyHoaText === "" ? false : true}
                                         value={monthlyHoa}
-                                        onChange={onMonthlyHoa}
+                                        onChange={e => onNegativeChange(e, errorMonthlyHoaText, setErrorMonthlyHoaText, setMonthlyHoa)}
                                         helperText={errorMonthlyHoaText}
                                         InputProps={{
                                             startAdornment: <InputAdornment position="start">$</InputAdornment>
@@ -299,7 +268,7 @@ const MortgageCalculator = props => {
 
                         <Grid container spacing={3}>
                             <Grid item xs>
-                                <Button type="submit" variant="contained" color="primary" className={classes.button} >
+                                <Button type="submit" variant="contained" color="primary" className={classes.button} disabled={!isCalculateEnabled} >
                                     Calculate
                                 </Button>
                             </Grid>
