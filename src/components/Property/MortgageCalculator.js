@@ -387,9 +387,8 @@ const MortgageCalculatorResult = props => {
                     <Button color="primary" onClick={() => setShowCompleteBreakdown(!showCompleteBreakdown)}>
                         {showCompleteBreakdown === false ? "View complete breakdown" : "Hide complete breakdown"}
                     </Button>
-
+                    
                     <CompleteBreakdown data={props.data} show={showCompleteBreakdown} />
-
                 </AiofPaper>
             </React.Fragment>
         );
@@ -414,7 +413,8 @@ const CompleteBreakdown = props => {
     if (props.data && props.show === true) {
         return (
             <React.Fragment>
-                <Grid container spacing={3}>
+                <hr/>
+                <Grid container spacing={0}>
                     <Grid item xs>
                         <strong>Date</strong>
                     </Grid>
