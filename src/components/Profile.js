@@ -107,44 +107,6 @@ const Profile = props => {
         setDateOfBirth(date);
         setIsUpdated(true);
     };
-    const convertHouseholdChildren = value => {
-        switch (value) {
-            case 0:
-                return '0 children';
-            case 1:
-                return '1 child';
-            case 2:
-                return '2 children';
-            case 3:
-                return '3 children';
-            case 4:
-                return '4 children';
-            case 5:
-                return '5 children';
-            case 6:
-                return '6 children';
-            default:
-                return '0 children';
-        }
-    }
-    const convertHouseholdAdults = value => {
-        switch (value) {
-            case 1:
-                return '1 adult';
-            case 2:
-                return '2 adults';
-            case 3:
-                return '3 adults';
-            case 4:
-                return '4 adults';
-            case 5:
-                return '5 adults';
-            case 6:
-                return '6 adults';
-            default:
-                return '1 adult';
-        }
-    }
 
     const handleUpdate = () => {
         if (props.currentUser) {
@@ -159,8 +121,8 @@ const Profile = props => {
                 educationLevel: educationLevel === '' ? null : educationLevel,
                 residentialStatus,
                 householdIncome: Number(householdIncome),
-                householdAdults: Number(householdAdults.toString().substring(0, 1)),
-                householdChildren: Number(householdChildren.toString().substring(0, 1)),
+                householdAdults: Number(householdAdults),
+                householdChildren: Number(householdChildren),
                 retirementContributionsPreTax: Number(retirementContributionsPreTax)
             };
 
@@ -186,8 +148,8 @@ const Profile = props => {
             setEducationLevel(props.profile.educationLevel);
             setResidentialStatus(props.profile.residentialStatus);
             setHouseholdIncome(props.profile.householdIncome);
-            setHouseholdAdults(convertHouseholdAdults(props.profile.householdAdults));
-            setHouseholdChildren(convertHouseholdChildren(props.profile.householdChildren));
+            setHouseholdAdults(props.profile.householdAdults);
+            setHouseholdChildren(props.profile.householdChildren);
             setRetirementContributionsPreTax(props.profile.retirementContributionsPreTax);
         }
     }, [props.profile, props.options]);
@@ -437,7 +399,7 @@ const Profile = props => {
                                                         {
                                                             householdAdultsSelect.map(hha => {
                                                                 return (
-                                                                    <MenuItem key={hha.publicKey} value={hha.name}>{hha.name}</MenuItem>
+                                                                    <MenuItem key={hha.publicKey} value={hha.value}>{hha.name}</MenuItem>
                                                                 );
                                                             })
                                                         }
@@ -461,7 +423,7 @@ const Profile = props => {
                                                         {
                                                             householdChildrenSelect.map(hhc => {
                                                                 return (
-                                                                    <MenuItem key={hhc.publicKey} value={hhc.name}>{hhc.name}</MenuItem>
+                                                                    <MenuItem key={hhc.publicKey} value={hhc.value}>{hhc.name}</MenuItem>
                                                                 );
                                                             })
                                                         }
