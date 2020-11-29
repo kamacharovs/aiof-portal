@@ -50,6 +50,9 @@ const useStyles = makeStyles((theme) => ({
     textField: {
         marginTop: '-6px'
     },
+    select: {
+        marginTop: '-30px'
+    },
     resize: {
         fontSize: '.8125rem'
     },
@@ -88,8 +91,17 @@ const Profile = props => {
     const [householdChildren, setHouseholdChildren] = useState('');
     const [retirementContributionsPreTax, setRetirementContributionsPreTax] = useState('');
     const [isUpdated, setIsUpdated] = useState(false);
-    
+
     const educationLevels = props.options ? props.options.educationLevels : [];
+    const maritalStatuses = props.options ? props.options.maritalStatuses : [];
+    const residentialStatuses = props.options ? props.options.residentialStatuses : [];
+    const genders = props.options ? props.options.genders : [];
+    const householdAdultsSelect = props.options ? props.options.householdAdults : [];
+    const householdChildrenSelect = props.options ? props.options.householdChildren : [];
+
+    const handleSelectChange = (e, setField) => {
+        setField(e.target.value);
+    }
 
     const handleUpdate = () => {
         if (props.currentUser) {
@@ -101,7 +113,7 @@ const Profile = props => {
                 occupation,
                 occupationIndustry,
                 grossSalary: Number(grossSalary),
-                educationLevel,
+                educationLevel: educationLevel === '' ? null : educationLevel,
                 residentialStatus,
                 householdIncome: Number(householdIncome),
                 householdAdults: Number(householdAdults),
@@ -115,7 +127,7 @@ const Profile = props => {
 
     useEffect(() => {
         if (props.currentUser) {
-            props.onProfile();      
+            props.onProfile();
             props.onProfileOptions();
         }
     }, []);
@@ -165,24 +177,27 @@ const Profile = props => {
 
                                     <Grid item xs={12}>
                                         <AiofPaper elevation={3}>
-
                                             <Grid container spacing={2} className={classes.root}>
                                                 <Grid item xs={6}>
                                                     <b>Gender</b>
                                                     <hr className={classes.hr} />
                                                 </Grid>
                                                 <Grid item xs={6}>
-                                                    <TextField className={classes.textField}
+                                                    <Select
                                                         fullWidth
-                                                        value={gender}
-                                                        onChange={e => setGender(e.target.value)}
+                                                        className={classes.textField}
+                                                        value={gender || ''}
+                                                        onChange={e => handleSelectChange(e, setGender)}
                                                         onFocus={() => setIsUpdated(true)}
-                                                        InputProps={{
-                                                            classes: {
-                                                              input: classes.resize,
-                                                            },
-                                                        }}
-                                                     />
+                                                    >
+                                                        {
+                                                            genders.map(g => {
+                                                                return (
+                                                                    <MenuItem key={g.publicKey} value={g.name}>{g.name}</MenuItem>
+                                                                );
+                                                            })
+                                                        }
+                                                    </Select>
                                                 </Grid>
                                             </Grid>
 
@@ -199,10 +214,10 @@ const Profile = props => {
                                                         onFocus={() => setIsUpdated(true)}
                                                         InputProps={{
                                                             classes: {
-                                                              input: classes.resize,
+                                                                input: classes.resize,
                                                             },
                                                         }}
-                                                     />
+                                                    />
                                                 </Grid>
                                             </Grid>
 
@@ -219,10 +234,10 @@ const Profile = props => {
                                                         onFocus={() => setIsUpdated(true)}
                                                         InputProps={{
                                                             classes: {
-                                                              input: classes.resize,
+                                                                input: classes.resize,
                                                             },
                                                         }}
-                                                     />
+                                                    />
                                                 </Grid>
                                             </Grid>
 
@@ -232,17 +247,21 @@ const Profile = props => {
                                                     <hr className={classes.hr} />
                                                 </Grid>
                                                 <Grid item xs={6}>
-                                                    <TextField className={classes.textField}
+                                                    <Select
                                                         fullWidth
-                                                        value={maritalStatus || empty}
-                                                        onChange={e => setMaritalStatus(e.target.value)}
+                                                        className={classes.textField}
+                                                        value={maritalStatus || ''}
+                                                        onChange={e => handleSelectChange(e, setMaritalStatus)}
                                                         onFocus={() => setIsUpdated(true)}
-                                                        InputProps={{
-                                                            classes: {
-                                                              input: classes.resize,
-                                                            },
-                                                        }}
-                                                     />
+                                                    >
+                                                        {
+                                                            maritalStatuses.map(ms => {
+                                                                return (
+                                                                    <MenuItem key={ms.publicKey} value={ms.name}>{ms.name}</MenuItem>
+                                                                );
+                                                            })
+                                                        }
+                                                    </Select>
                                                 </Grid>
                                             </Grid>
 
@@ -252,17 +271,21 @@ const Profile = props => {
                                                     <hr className={classes.hr} />
                                                 </Grid>
                                                 <Grid item xs={6}>
-                                                    <TextField className={classes.textField}
+                                                    <Select
                                                         fullWidth
-                                                        value={educationLevel || empty}
-                                                        onChange={e => setEducationLevel(e.target.value)}
+                                                        className={classes.textField}
+                                                        value={educationLevel || ''}
+                                                        onChange={e => handleSelectChange(e, setEducationLevel)}
                                                         onFocus={() => setIsUpdated(true)}
-                                                        InputProps={{
-                                                            classes: {
-                                                              input: classes.resize,
-                                                            },
-                                                        }}
-                                                     />
+                                                    >
+                                                        {
+                                                            educationLevels.map(el => {
+                                                                return (
+                                                                    <MenuItem key={el.publicKey} value={el.name}>{el.name}</MenuItem>
+                                                                );
+                                                            })
+                                                        }
+                                                    </Select>
                                                 </Grid>
                                             </Grid>
 
@@ -272,17 +295,21 @@ const Profile = props => {
                                                     <hr className={classes.hr} />
                                                 </Grid>
                                                 <Grid item xs={6}>
-                                                    <TextField className={classes.textField}
+                                                    <Select
                                                         fullWidth
-                                                        value={residentialStatus || empty}
-                                                        onChange={e => setResidentialStatus(e.target.value)}
+                                                        className={classes.textField}
+                                                        value={residentialStatus || ''}
+                                                        onChange={e => handleSelectChange(e, setResidentialStatus)}
                                                         onFocus={() => setIsUpdated(true)}
-                                                        InputProps={{
-                                                            classes: {
-                                                              input: classes.resize,
-                                                            },
-                                                        }}
-                                                     />
+                                                    >
+                                                        {
+                                                            residentialStatuses.map(rs => {
+                                                                return (
+                                                                    <MenuItem key={rs.publicKey} value={rs.name}>{rs.name}</MenuItem>
+                                                                );
+                                                            })
+                                                        }
+                                                    </Select>
                                                 </Grid>
                                             </Grid>
 
@@ -305,10 +332,10 @@ const Profile = props => {
                                                         onFocus={() => setIsUpdated(true)}
                                                         InputProps={{
                                                             classes: {
-                                                              input: classes.resize,
+                                                                input: classes.resize,
                                                             },
                                                         }}
-                                                     />
+                                                    />
                                                 </Grid>
                                             </Grid>
 
@@ -325,10 +352,10 @@ const Profile = props => {
                                                         onFocus={() => setIsUpdated(true)}
                                                         InputProps={{
                                                             classes: {
-                                                              input: classes.resize,
+                                                                input: classes.resize,
                                                             },
                                                         }}
-                                                     />
+                                                    />
                                                 </Grid>
                                             </Grid>
 
@@ -345,10 +372,10 @@ const Profile = props => {
                                                         onFocus={() => setIsUpdated(true)}
                                                         InputProps={{
                                                             classes: {
-                                                              input: classes.resize,
+                                                                input: classes.resize,
                                                             },
                                                         }}
-                                                     />
+                                                    />
                                                 </Grid>
                                             </Grid>
 
@@ -365,10 +392,10 @@ const Profile = props => {
                                                         onFocus={() => setIsUpdated(true)}
                                                         InputProps={{
                                                             classes: {
-                                                              input: classes.resize,
+                                                                input: classes.resize,
                                                             },
                                                         }}
-                                                     />
+                                                    />
                                                 </Grid>
                                             </Grid>
 
@@ -378,17 +405,21 @@ const Profile = props => {
                                                     <hr className={classes.hr} />
                                                 </Grid>
                                                 <Grid item xs={6}>
-                                                    <TextField className={classes.textField}
+                                                    <Select
                                                         fullWidth
-                                                        value={householdAdults ? Number(householdAdults) : zero}
-                                                        onChange={e => setHouseholdAdults(e.target.value)}
+                                                        className={classes.textField}
+                                                        value={householdAdults || ''}
+                                                        onChange={e => handleSelectChange(e, setHouseholdAdults)}
                                                         onFocus={() => setIsUpdated(true)}
-                                                        InputProps={{
-                                                            classes: {
-                                                              input: classes.resize,
-                                                            },
-                                                        }}
-                                                     />
+                                                    >
+                                                        {
+                                                            householdAdultsSelect.map(hha => {
+                                                                return (
+                                                                    <MenuItem key={hha.publicKey} value={hha.name}>{hha.name}</MenuItem>
+                                                                );
+                                                            })
+                                                        }
+                                                    </Select>
                                                 </Grid>
                                             </Grid>
 
@@ -398,17 +429,21 @@ const Profile = props => {
                                                     <hr className={classes.hr} />
                                                 </Grid>
                                                 <Grid item xs={6}>
-                                                    <TextField className={classes.textField}
+                                                    <Select
                                                         fullWidth
-                                                        value={householdChildren ? Number(householdChildren) : zero}
-                                                        onChange={e => setHouseholdChildren(e.target.value)}
+                                                        className={classes.textField}
+                                                        value={householdChildren || ''}
+                                                        onChange={e => handleSelectChange(e, setHouseholdChildren)}
                                                         onFocus={() => setIsUpdated(true)}
-                                                        InputProps={{
-                                                            classes: {
-                                                              input: classes.resize,
-                                                            },
-                                                        }}
-                                                     />
+                                                    >
+                                                        {
+                                                            householdChildrenSelect.map(hhc => {
+                                                                return (
+                                                                    <MenuItem key={hhc.publicKey} value={hhc.name}>{hhc.name}</MenuItem>
+                                                                );
+                                                            })
+                                                        }
+                                                    </Select>
                                                 </Grid>
                                             </Grid>
 
@@ -425,10 +460,10 @@ const Profile = props => {
                                                         onFocus={() => setIsUpdated(true)}
                                                         InputProps={{
                                                             classes: {
-                                                              input: classes.resize,
+                                                                input: classes.resize,
                                                             },
                                                         }}
-                                                     />
+                                                    />
                                                 </Grid>
                                             </Grid>
                                         </AiofPaper>
