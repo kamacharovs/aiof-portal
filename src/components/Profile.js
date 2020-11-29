@@ -2,10 +2,11 @@ import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
 import agent from '../agent';
-import { PROFILE_GET_USER_PROFILE, PROFILE_UPSERT_USER_PROFILE, PROFILE_GET_OPTIONS } from '../constants/actionTypes';
+import 'date-fns';
 
 import { AiofPaper, AiofLinearProgress } from '../style/mui';
 import { formatDate } from './Finance/Common';
+import { PROFILE_GET_USER_PROFILE, PROFILE_UPSERT_USER_PROFILE, PROFILE_GET_OPTIONS } from '../constants/actionTypes';
 
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
@@ -14,6 +15,8 @@ import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import MenuItem from '@material-ui/core/MenuItem';
 import Select from '@material-ui/core/Select';
+import { MuiPickersUtilsProvider, KeyboardDatePicker } from '@material-ui/pickers';
+import DateFnsUtils from '@date-io/date-fns';
 
 
 const mapStateToProps = state => ({
@@ -73,6 +76,7 @@ const useStyles = makeStyles((theme) => ({
 const Profile = props => {
     const classes = useStyles();
     const empty = "Unspecified";
+    const defaultDate = "01/01/1990";
     const zero = "0";
     const [gender, setGender] = useState('');
     const [dateOfBirth, setDateOfBirth] = useState('');
@@ -99,6 +103,10 @@ const Profile = props => {
     const handleSelectChange = (e, setField) => {
         setField(e.target.value);
     }
+    const handleDateOfBirthChange = date => {
+        setDateOfBirth(date);
+        setIsUpdated(true);
+    };
     const convertHouseholdChildren = value => {
         switch (value) {
             case 0:
@@ -167,7 +175,7 @@ const Profile = props => {
         }
     }, []);
     useEffect(() => {
-        if (props.profile) {
+        if (props.profile && props.options) {
             setGender(props.profile.gender);
             setDateOfBirth(props.profile.dateOfBirth);
             setAge(props.profile.age);
@@ -182,7 +190,7 @@ const Profile = props => {
             setHouseholdChildren(convertHouseholdChildren(props.profile.householdChildren));
             setRetirementContributionsPreTax(props.profile.retirementContributionsPreTax);
         }
-    }, [props.profile]);
+    }, [props.profile, props.options]);
 
     return (
         <React.Fragment>
@@ -242,12 +250,21 @@ const Profile = props => {
                                                     <hr className={classes.hr} />
                                                 </Grid>
                                                 <Grid item xs={6}>
-                                                    <TextField className={classes.textField}
-                                                        fullWidth
-                                                        value={dateOfBirth ? formatDate(dateOfBirth) : empty}
-                                                        onChange={e => setDateOfBirth(e.target.value)}
-                                                        onFocus={() => setIsUpdated(true)}
-                                                    />
+                                                    <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                                                        <KeyboardDatePicker className={classes.textField}
+                                                            disableToolbar
+                                                            fullWidth
+                                                            variant="inline"
+                                                            format="MM/dd/yyyy"
+                                                            margin="normal"
+                                                            value={dateOfBirth ? dateOfBirth : defaultDate}
+                                                            onChange={handleDateOfBirthChange}
+                                                            onFocus={() => setIsUpdated(true)}
+                                                            KeyboardButtonProps={{
+                                                                'aria-label': 'start date',
+                                                            }}
+                                                        />
+                                                    </MuiPickersUtilsProvider>
                                                 </Grid>
                                             </Grid>
 
