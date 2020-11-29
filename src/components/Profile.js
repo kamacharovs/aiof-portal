@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
 import agent from '../agent';
-import { PROFILE_GET_USER_PROFILE, PROFILE_UPSERT_USER_PROFILE } from '../constants/actionTypes';
+import { PROFILE_GET_USER_PROFILE, PROFILE_UPSERT_USER_PROFILE, PROFILE_GET_OPTIONS } from '../constants/actionTypes';
 
 import { AiofPaper, AiofLinearProgress } from '../style/mui';
 import { formatDate } from './Finance/Common';
@@ -20,11 +20,14 @@ const mapStateToProps = state => ({
     currentUser: state.common.currentUser,
     inProgress: state.profile.inProgress,
     profile: state.profile.profile,
+    options: state.profile.options,
 });
 
 const mapDispatchToProps = dispatch => ({
     onProfile: () =>
         dispatch({ type: PROFILE_GET_USER_PROFILE, payload: agent.User.profile() }),
+    onProfileOptions: () =>
+        dispatch({ type: PROFILE_GET_OPTIONS, payload: agent.UserProfile.options() }),
     onProfileUpsert: (payload) =>
         dispatch({ type: PROFILE_UPSERT_USER_PROFILE, payload: agent.User.profileUpsert(payload) }),
 });
@@ -109,6 +112,7 @@ const Profile = props => {
     useEffect(() => {
         if (props.currentUser) {
             props.onProfile();      
+            props.onProfileOptions();
         }
     }, []);
     useEffect(() => {

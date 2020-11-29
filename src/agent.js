@@ -66,6 +66,8 @@ const UserProfile = {
     User.byUsername(username),
   upsert: (username, payload) =>
     requests.put(`/user/profile?username=${username}`, payload),
+  options: () =>
+    requests.get(`/user/profile/options`),
 }
 
 const Asset = {
