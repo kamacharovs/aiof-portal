@@ -12,6 +12,8 @@ import Grid from '@material-ui/core/Grid';
 import Container from '@material-ui/core/Container';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
+import MenuItem from '@material-ui/core/MenuItem';
+import Select from '@material-ui/core/Select';
 
 
 const mapStateToProps = state => ({
@@ -86,6 +88,8 @@ const Profile = props => {
     const [householdChildren, setHouseholdChildren] = useState('');
     const [retirementContributionsPreTax, setRetirementContributionsPreTax] = useState('');
     const [isUpdated, setIsUpdated] = useState(false);
+    
+    const educationLevels = props.options ? props.options.educationLevels : [];
 
     const handleUpdate = () => {
         if (props.currentUser) {
@@ -427,7 +431,6 @@ const Profile = props => {
                                                      />
                                                 </Grid>
                                             </Grid>
-
                                         </AiofPaper>
                                     </Grid>
 
