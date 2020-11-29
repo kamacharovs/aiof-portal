@@ -53,9 +53,6 @@ const useStyles = makeStyles((theme) => ({
     select: {
         marginTop: '-30px'
     },
-    resize: {
-        fontSize: '.8125rem'
-    },
     green: {
         color: 'green',
         margin: '0rem',
@@ -102,6 +99,44 @@ const Profile = props => {
     const handleSelectChange = (e, setField) => {
         setField(e.target.value);
     }
+    const convertHouseholdChildren = value => {
+        switch (value) {
+            case 0:
+                return '0 children';
+            case 1:
+                return '1 child';
+            case 2:
+                return '2 children';
+            case 3:
+                return '3 children';
+            case 4:
+                return '4 children';
+            case 5:
+                return '5 children';
+            case 6:
+                return '6 children';
+            default:
+                return '0 children';
+        }
+    }
+    const convertHouseholdAdults = value => {
+        switch (value) {
+            case 1:
+                return '1 adult';
+            case 2:
+                return '2 adults';
+            case 3:
+                return '3 adults';
+            case 4:
+                return '4 adults';
+            case 5:
+                return '5 adults';
+            case 6:
+                return '6 adults';
+            default:
+                return '1 adult';
+        }
+    }
 
     const handleUpdate = () => {
         if (props.currentUser) {
@@ -116,8 +151,8 @@ const Profile = props => {
                 educationLevel: educationLevel === '' ? null : educationLevel,
                 residentialStatus,
                 householdIncome: Number(householdIncome),
-                householdAdults: Number(householdAdults),
-                householdChildren: Number(householdChildren),
+                householdAdults: Number(householdAdults.toString().substring(0, 1)),
+                householdChildren: Number(householdChildren.toString().substring(0, 1)),
                 retirementContributionsPreTax: Number(retirementContributionsPreTax)
             };
 
@@ -143,8 +178,8 @@ const Profile = props => {
             setEducationLevel(props.profile.educationLevel);
             setResidentialStatus(props.profile.residentialStatus);
             setHouseholdIncome(props.profile.householdIncome);
-            setHouseholdAdults(props.profile.householdAdults);
-            setHouseholdChildren(props.profile.householdChildren);
+            setHouseholdAdults(convertHouseholdAdults(props.profile.householdAdults));
+            setHouseholdChildren(convertHouseholdChildren(props.profile.householdChildren));
             setRetirementContributionsPreTax(props.profile.retirementContributionsPreTax);
         }
     }, [props.profile]);
@@ -212,11 +247,6 @@ const Profile = props => {
                                                         value={dateOfBirth ? formatDate(dateOfBirth) : empty}
                                                         onChange={e => setDateOfBirth(e.target.value)}
                                                         onFocus={() => setIsUpdated(true)}
-                                                        InputProps={{
-                                                            classes: {
-                                                                input: classes.resize,
-                                                            },
-                                                        }}
                                                     />
                                                 </Grid>
                                             </Grid>
@@ -232,11 +262,6 @@ const Profile = props => {
                                                         value={age ? Number(age) : zero}
                                                         onChange={e => setAge(e.target.value)}
                                                         onFocus={() => setIsUpdated(true)}
-                                                        InputProps={{
-                                                            classes: {
-                                                                input: classes.resize,
-                                                            },
-                                                        }}
                                                     />
                                                 </Grid>
                                             </Grid>
@@ -330,11 +355,6 @@ const Profile = props => {
                                                         value={occupation || empty}
                                                         onChange={e => setOccupation(e.target.value)}
                                                         onFocus={() => setIsUpdated(true)}
-                                                        InputProps={{
-                                                            classes: {
-                                                                input: classes.resize,
-                                                            },
-                                                        }}
                                                     />
                                                 </Grid>
                                             </Grid>
@@ -350,11 +370,6 @@ const Profile = props => {
                                                         value={occupationIndustry || empty}
                                                         onChange={e => setOccupationIndustry(e.target.value)}
                                                         onFocus={() => setIsUpdated(true)}
-                                                        InputProps={{
-                                                            classes: {
-                                                                input: classes.resize,
-                                                            },
-                                                        }}
                                                     />
                                                 </Grid>
                                             </Grid>
@@ -370,11 +385,6 @@ const Profile = props => {
                                                         value={grossSalary ? Number(grossSalary) : zero}
                                                         onChange={e => setGrossSalary(e.target.value)}
                                                         onFocus={() => setIsUpdated(true)}
-                                                        InputProps={{
-                                                            classes: {
-                                                                input: classes.resize,
-                                                            },
-                                                        }}
                                                     />
                                                 </Grid>
                                             </Grid>
@@ -390,11 +400,6 @@ const Profile = props => {
                                                         value={householdIncome ? Number(householdIncome) : zero}
                                                         onChange={e => setHouseholdIncome(e.target.value)}
                                                         onFocus={() => setIsUpdated(true)}
-                                                        InputProps={{
-                                                            classes: {
-                                                                input: classes.resize,
-                                                            },
-                                                        }}
                                                     />
                                                 </Grid>
                                             </Grid>
@@ -458,11 +463,6 @@ const Profile = props => {
                                                         value={retirementContributionsPreTax ? Number(retirementContributionsPreTax) : zero}
                                                         onChange={e => setRetirementContributionsPreTax(e.target.value)}
                                                         onFocus={() => setIsUpdated(true)}
-                                                        InputProps={{
-                                                            classes: {
-                                                                input: classes.resize,
-                                                            },
-                                                        }}
                                                     />
                                                 </Grid>
                                             </Grid>
