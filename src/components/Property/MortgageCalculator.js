@@ -287,7 +287,6 @@ const MortgageCalculator = props => {
 
 const MortgageCalculatorResult = props => {
     if (props.data && props.breakdown) {
-        const classes = useStyles();
         const [showCompleteBreakdown, setShowCompleteBreakdown] = useState(false);
         const [showYearlyCompleteBreakdown, setShowYearlyCompleteBreakdown] = useState(false);
         const first = props.data[0];
@@ -390,7 +389,7 @@ const MortgageCalculatorResult = props => {
         return (
             <React.Fragment>
                 <AiofPaper elevation={3}>
-                    <Grid container direction="column" spacing={0} className={classes.container}>
+                    <Grid container direction="column" spacing={0}>
                         <Grid item xs>
                             <strong>Monthly payment</strong>
                         </Grid>
