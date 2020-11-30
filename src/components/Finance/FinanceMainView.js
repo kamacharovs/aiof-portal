@@ -468,17 +468,34 @@ const AssetsLiabilitiesChart = props => {
             }
         ]
     }
+    const options = {
+        title: {
+            display: true,
+            text: title,
+            fontSize: 20
+        },
+        scales: {
+            xAxes: [
+                {
+                    ticks: {
+                        beginAtZero: true,
+                    },
+                },
+            ],
+            yAxes: [
+                {
+                    ticks: {
+                        beginAtZero: true,
+                    },
+                },
+            ]
+        }
+    }
 
     return (
         <Bar
             data={state || []}
-            options={{
-                title: {
-                    display: true,
-                    text: title,
-                    fontSize: 20
-                }
-            }}
+            options={options}
         />
     );
 }
