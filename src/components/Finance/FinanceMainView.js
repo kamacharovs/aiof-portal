@@ -608,7 +608,7 @@ const AnalyzeView = props => {
                         <strong>Assets total</strong>
                     </Grid>
                     <Grid item xs>
-                        {<div className={classes.green}>${props.analyze.assetsTotal}</div>}
+                        {<div className={classes.green}>${numberWithCommas(props.analyze.assetsTotal)}</div>}
                     </Grid>
                     <Grid>
                         <br />
@@ -618,7 +618,7 @@ const AnalyzeView = props => {
                         <strong>Liabilities total</strong>
                     </Grid>
                     <Grid item xs>
-                        {<div className={classes.red}>${props.analyze.liabilitiesTotal}</div>}
+                        {<div className={classes.red}>${numberWithCommas(props.analyze.liabilitiesTotal)}</div>}
                     </Grid>
                     <Grid>
                         <br />
@@ -629,32 +629,49 @@ const AnalyzeView = props => {
                     </Grid>
                     <Grid item xs>
                         {props.analyze.analytics.diff > 0
-                            ? <div className={classes.green}>${props.analyze.analytics.diff}</div>
-                            : <div className={classes.red}>${props.analyze.analytics.diff}</div>}
+                            ? <div className={classes.green}>${numberWithCommas(props.analyze.analytics.diff)}</div>
+                            : <div className={classes.red}>${numberWithCommas(props.analyze.analytics.diff)}</div>}
                     </Grid>
                     <Grid>
                         <br />
                     </Grid>
 
-                    <Grid item xs>
-                        <strong>
-                            {
-                                props.analyze.analytics.cashToCcRatio !== null
-                                    ? "Cash to credit card ratio"
-                                    : "Credit card to cash ratio"
-                            }
-                        </strong>
-                    </Grid>
-                    <Grid item xs>
-                        {
-                            props.analyze.analytics.cashToCcRatio !== null
-                                ? props.analyze.analytics.cashToCcRatio
-                                : props.analyze.analytics.ccToCashRatio
-                        }%
-                </Grid>
-                    <Grid>
-                        <br />
-                    </Grid>
+                    {props.analyze.analytics.cashToCcRatio === null && props.analyze.analytics.ccToCashRatio === null
+                        ? null
+                        : <React.Fragment>
+                            <Grid item xs>
+                                <strong>
+                                    {
+                                        props.analyze.analytics.cashToCcRatio !== null
+                                            ? "Cash to credit card ratio"
+                                            : "Credit card to cash ratio"
+                                    }
+                                </strong>
+                            </Grid>
+                            <Grid item xs>
+                                {
+                                    props.analyze.analytics.cashToCcRatio !== null
+                                        ? props.analyze.analytics.cashToCcRatio
+                                        : props.analyze.analytics.ccToCashRatio
+                                }%
+                            </Grid>
+                            <Grid>
+                                <br />
+                            </Grid>
+                        </React.Fragment>
+                    }
+
+                    {props.analyze.analytics.debtToIncomeRatio === null || Number(props.analyze.analytics.debtToIncomeRatio) === 0
+                        ? null
+                        : <React.Fragment>
+                            <Grid item xs>
+                                <strong>Debt to income ratio</strong>
+                            </Grid>  
+                            <Grid item xs>
+                                ${numberWithCommas(props.analyze.analytics.debtToIncomeRatio)}
+                            </Grid>
+                          </React.Fragment>
+                    }
 
                 </Grid>
                 : "Loading..."}
