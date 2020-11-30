@@ -104,6 +104,10 @@ const Fi = {
   coastSavings: payload =>
     requestsMetadata.post('/fi/coast/savings', payload),
 }
+const Analytics = {
+  analyze: payload =>
+    requestsMetadata.post('/analytics/analyze', payload),
+}
 
 const Property = {
   mortgage: payload =>
@@ -164,6 +168,7 @@ export default {
   Asset,
   Liability,
   Fi,
+  Analytics,
   Property,
   Comments,
   Profile,

@@ -7,6 +7,7 @@ import {
   ASSET_TYPES,
   LIABILITY_ADD,
   LIABILITY_TYPES,
+  ANALYTICS_ANALYZE,
 } from '../constants/actionTypes';
 
 export default (state = {}, action) => {
@@ -33,7 +34,8 @@ export default (state = {}, action) => {
       if (action.subtype === ASSET_BREAKDOWN
         || action.subtype === FINANCE_PAGE_LOADED
         || action.subtype === ASSET_ADD
-        || action.subtype === LIABILITY_ADD) {
+        || action.subtype === LIABILITY_ADD
+        || action.subtype === ANALYTICS_ANALYZE) {
         return { 
           ...state,
           inProgress: true
@@ -63,6 +65,12 @@ export default (state = {}, action) => {
       return {
         ...state,
         liabilityTypes: action.error ? null : action.payload
+      }
+    case ANALYTICS_ANALYZE:
+      return {
+        ...state,
+        inProgress: false,
+        analyze: action.error ? null : action.payload
       }
     default:
       return state;

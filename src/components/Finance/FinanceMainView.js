@@ -2,7 +2,6 @@ import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
 import agent from '../../agent';
-import { FINANCE_PAGE_LOADED } from '../../constants/actionTypes';
 
 import { Overview } from './Overview';
 import { Bar } from 'react-chartjs-2';
@@ -10,6 +9,7 @@ import { AiofPaper, AiofLinearProgress, DefaultRedColor, DefaultGreenColor, Defa
 import { CoolExternalLink, CoolLink } from '../../style/common';
 import House from '../../style/icons/House_4.svg';
 import { numberWithCommas, formatDate } from './Common';
+import { FINANCE_PAGE_LOADED, ANALYTICS_ANALYZE } from '../../constants/actionTypes';
 
 import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
@@ -38,6 +38,8 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
     onLoad: () =>
         dispatch({ type: FINANCE_PAGE_LOADED, payload: agent.User.get() }),
+    onAnalyze: (assets, liabilities) =>
+        dispatch({ type: ANALYTICS_ANALYZE, payload: agent.Analytics.analyze({ assets, liabilities }) }),
 });
 
 const useStyles = makeStyles((theme) => ({
@@ -595,6 +597,73 @@ LiabilityAddDialog.propTypes = {
     open: PropTypes.bool.isRequired,
 };
 
+const AnalyzeView = props => {
+    const classes = useStyles();
+
+    return (
+        <React.Fragment>
+            {props.analyze ?
+                <Grid container direction="column" spacing={0}>
+                    <Grid item xs>
+                        <strong>Assets total</strong>
+                    </Grid>
+                    <Grid item xs>
+                        {<div className={classes.green}>${props.analyze.assetsTotal}</div>}
+                    </Grid>
+                    <Grid>
+                        <br />
+                    </Grid>
+
+                    <Grid item xs>
+                        <strong>Liabilities total</strong>
+                    </Grid>
+                    <Grid item xs>
+                        {<div className={classes.red}>${props.analyze.liabilitiesTotal}</div>}
+                    </Grid>
+                    <Grid>
+                        <br />
+                    </Grid>
+
+                    <Grid item xs>
+                        <strong>Assets to liabilities difference</strong>
+                    </Grid>
+                    <Grid item xs>
+                        {props.analyze.analytics.diff > 0
+                            ? <div className={classes.green}>${props.analyze.analytics.diff}</div>
+                            : <div className={classes.red}>${props.analyze.analytics.diff}</div>}
+                    </Grid>
+                    <Grid>
+                        <br />
+                    </Grid>
+
+                    <Grid item xs>
+                        <strong>
+                            {
+                                props.analyze.analytics.cashToCcRatio !== null
+                                    ? "Cash to credit card ratio"
+                                    : "Credit card to cash ratio"
+                            }
+                        </strong>
+                    </Grid>
+                    <Grid item xs>
+                        {
+                            props.analyze.analytics.cashToCcRatio !== null
+                                ? props.analyze.analytics.cashToCcRatio
+                                : props.analyze.analytics.ccToCashRatio
+                        }%
+                </Grid>
+                    <Grid>
+                        <br />
+                    </Grid>
+
+                </Grid>
+                : "Loading..."}
+        </React.Fragment>
+    );
+}
+
+
+
 const FinanceMainView = props => {
     const classes = useStyles();
 
@@ -603,6 +672,13 @@ const FinanceMainView = props => {
             props.onLoad();
         }
     }, []);
+    useEffect(() => {
+        if (props.currentUser && props.finance) {
+            if (props.finance.assets && props.finance.liabilities) {
+                props.onAnalyze(props.finance.assets, props.finance.liabilities);
+            }
+        }
+    }, [props.finance.assets, props.finance.liabilities]);
 
     return (
         <React.Fragment>
@@ -645,7 +721,7 @@ const FinanceMainView = props => {
                         {props.inProgress ? <AiofLinearProgress /> : (
                             <React.Fragment>
                                 <Grid container spacing={3} className={classes.root}>
-                                    <Grid item xs={12}>
+                                    <Grid item xs>
                                         <MainTabs
                                             assets={props.assets}
                                             liabilities={props.liabilities}
@@ -657,7 +733,7 @@ const FinanceMainView = props => {
                                 </Grid>
 
                                 <Grid container spacing={3} className={classes.root}>
-                                    <Grid item xs={12}>
+                                    <Grid item xs>
                                         <AiofPaper elevation={3}>
                                             <AssetsLiabilitiesChart
                                                 assets={props.assets}
@@ -667,9 +743,17 @@ const FinanceMainView = props => {
                                 </Grid>
 
                                 <Grid container spacing={3} className={classes.root}>
-                                    <Grid item xs={12}>
+                                    <Grid item xs>
                                         <AiofPaper elevation={3}>
-                                            <p>More to come...</p>
+                                            <AnalyzeView analyze={props.analyze} />
+                                        </AiofPaper>
+                                    </Grid>
+                                </Grid>
+
+                                <Grid container spacing={3} className={classes.root}>
+                                    <Grid item xs>
+                                        <AiofPaper elevation={3}>
+                                            More to come...
                                         </AiofPaper>
                                     </Grid>
                                 </Grid>
