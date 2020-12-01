@@ -5,8 +5,9 @@ import agent from '../../agent';
 
 import { Overview } from './Overview';
 import { Bar } from 'react-chartjs-2';
-import { AiofPaper, AiofLinearProgress, DefaultRedColor, DefaultGreenColor, DefaultHrColor } from '../../style/mui';
+import { AiofPaper, DefaultRedColor, DefaultGreenColor, DefaultHrColor } from '../../style/mui';
 import { CoolExternalLink, CoolLink } from '../../style/common';
+import { RectSkeleton } from '../Common/Sekeleton';
 import House from '../../style/icons/House_4.svg';
 import { numberWithCommas, formatDate } from './Common';
 import { FINANCE_PAGE_LOADED, ANALYTICS_ANALYZE } from '../../constants/actionTypes';
@@ -666,11 +667,11 @@ const AnalyzeView = props => {
                         : <React.Fragment>
                             <Grid item xs>
                                 <strong>Debt to income ratio</strong>
-                            </Grid>  
+                            </Grid>
                             <Grid item xs>
                                 ${numberWithCommas(props.analyze.analytics.debtToIncomeRatio)}
                             </Grid>
-                          </React.Fragment>
+                        </React.Fragment>
                     }
 
                 </Grid>
@@ -708,74 +709,97 @@ const FinanceMainView = props => {
                     <Grid item xs={3}>
 
                         <Grid item xs={12}>
-                            <AiofPaper elevation={3}>
-                                <Overview />
-                            </AiofPaper>
+                            {
+                                props.inProgress
+                                    ? <RectSkeleton height={600} />
+                                    : <AiofPaper elevation={3}>
+                                        <Overview />
+                                    </AiofPaper>
+                            }
                         </Grid>
 
                         <Grid item xs={12}>
-                            <AiofPaper elevation={3}>
-                                <Grid item xs={12}>
-                                    <img src={House} alt="House" style={{ width: "5rem", height: "5rem" }} />
-                                </Grid>
-                                <Grid item xs={12}>
-                                    <br />
-                                    <h6><b>Usefull documentations</b></h6>
-                                </Grid>
-                                <Grid item xs={12}>
-                                    <ul>
-                                        <li><CoolExternalLink href="https://en.wikipedia.org/wiki/Financial_asset">What is a financial asset?</CoolExternalLink></li>
-                                        <li><CoolExternalLink href="https://en.wikipedia.org/wiki/Liability_(financial_accounting)">What is a financial liability?</CoolExternalLink></li>
-                                        <li><CoolExternalLink href="https://www.nerdwallet.com/article/finance/what-are-liabilities">What are my financial liabilities? (Nerdwallet)</CoolExternalLink></li>
-                                    </ul>
-                                </Grid>
-                            </AiofPaper>
+                            {
+                                props.inProgress
+                                    ? <RectSkeleton height={300} />
+                                    : <AiofPaper elevation={3}>
+                                        <Grid item xs={12}>
+                                            <img src={House} alt="House" style={{ width: "5rem", height: "5rem" }} />
+                                        </Grid>
+                                        <Grid item xs={12}>
+                                            <br />
+                                            <h6><b>Usefull documentations</b></h6>
+                                        </Grid>
+                                        <Grid item xs={12}>
+                                            <ul>
+                                                <li><CoolExternalLink href="https://en.wikipedia.org/wiki/Financial_asset">What is a financial asset?</CoolExternalLink></li>
+                                                <li><CoolExternalLink href="https://en.wikipedia.org/wiki/Liability_(financial_accounting)">What is a financial liability?</CoolExternalLink></li>
+                                                <li><CoolExternalLink href="https://www.nerdwallet.com/article/finance/what-are-liabilities">What are my financial liabilities? (Nerdwallet)</CoolExternalLink></li>
+                                            </ul>
+                                        </Grid>
+                                    </AiofPaper>
+                            }
                         </Grid>
 
                     </Grid>
 
                     <Grid item xs={9}>
-                        {props.inProgress ? <AiofLinearProgress /> : (
-                            <React.Fragment>
-                                <Grid container spacing={3} className={classes.root}>
-                                    <Grid item xs>
-                                        <MainTabs
-                                            assets={props.assets}
-                                            liabilities={props.liabilities}
-                                            goals={props.goals}
-                                            subscriptions={props.subscriptions}
-                                            currentUser={props.currentUser}
-                                            onLoad={props.onLoad} />
-                                    </Grid>
-                                </Grid>
-
-                                <Grid container spacing={3} className={classes.root}>
-                                    <Grid item xs>
-                                        <AiofPaper elevation={3}>
-                                            <AssetsLiabilitiesChart
+                        <React.Fragment>
+                            <Grid container spacing={3} className={classes.root}>
+                                <Grid item xs>
+                                    {
+                                        props.inProgress
+                                            ? <RectSkeleton height={400} />
+                                            : <MainTabs
                                                 assets={props.assets}
-                                                liabilities={props.liabilities} />
-                                        </AiofPaper>
-                                    </Grid>
+                                                liabilities={props.liabilities}
+                                                goals={props.goals}
+                                                subscriptions={props.subscriptions}
+                                                currentUser={props.currentUser}
+                                                onLoad={props.onLoad} />
+                                    }
                                 </Grid>
+                            </Grid>
 
-                                <Grid container spacing={3} className={classes.root}>
-                                    <Grid item xs>
-                                        <AiofPaper elevation={3}>
-                                            <AnalyzeView analyze={props.analyze} />
-                                        </AiofPaper>
-                                    </Grid>
+                            <Grid container spacing={3} className={classes.root}>
+                                <Grid item xs>
+                                    {
+                                        props.inProgress
+                                            ? <RectSkeleton height={400} />
+                                            : <AiofPaper elevation={3}>
+                                                <AssetsLiabilitiesChart
+                                                    assets={props.assets}
+                                                    liabilities={props.liabilities} />
+                                            </AiofPaper>
+                                    }
                                 </Grid>
+                            </Grid>
 
-                                <Grid container spacing={3} className={classes.root}>
-                                    <Grid item xs>
-                                        <AiofPaper elevation={3}>
-                                            More to come...
-                                        </AiofPaper>
-                                    </Grid>
+                            <Grid container spacing={3} className={classes.root}>
+                                <Grid item xs>
+                                    {
+                                        props.inProgress
+                                            ? <RectSkeleton />
+                                            : <AiofPaper elevation={3}>
+                                                <AnalyzeView analyze={props.analyze} />
+                                            </AiofPaper>
+                                    }
                                 </Grid>
-                            </React.Fragment>
-                        )}
+                            </Grid>
+
+                            <Grid container spacing={3} className={classes.root}>
+                                <Grid item xs>
+                                    {
+                                        props.inProgress
+                                            ? <RectSkeleton />
+                                            : <AiofPaper elevation={3}>
+                                                More to come...
+                                              </AiofPaper>
+                                    }
+
+                                </Grid>
+                            </Grid>
+                        </React.Fragment>
                     </Grid>
 
                 </Grid>
