@@ -164,14 +164,13 @@ const Profile = props => {
             <Container maxWidth="xl">
                 <Grid container spacing={3} className={classes.root}>
                     <Grid item xs={12}>
-                        {
-                            props.inProgress
-                                ? <RectSkeleton height={900} />
-                                :
-                                <React.Fragment>
-                                    <Grid container spacing={1} className={classes.root}>
-
-                                        <Grid item xs={12}>
+                        <React.Fragment>
+                            <Grid container spacing={1} className={classes.root}>
+                                <Grid item xs={12}>
+                                    {
+                                        props.inProgress
+                                            ? <RectSkeleton height={100} />
+                                            :
                                             <AiofPaper elevation={3}>
                                                 <h3>{props.currentUser.lastName + ", " + props.currentUser.firstName}</h3>
                                                 <p className={classes.tinyMutedText}>{formatDate(props.currentUser.created)}</p>
@@ -181,9 +180,14 @@ const Profile = props => {
                                                     Tell us about yourself so we can improve the financial advice we provide
                                             </p>
                                             </AiofPaper>
-                                        </Grid>
+                                    }
+                                </Grid>
 
-                                        <Grid item xs={12}>
+                                <Grid item xs={12}>
+                                    {
+                                        props.inProgress
+                                            ? <RectSkeleton height={400} />
+                                            :
                                             <AiofPaper elevation={3}>
                                                 <Grid container spacing={2} className={classes.root}>
                                                     <Grid item xs={6}>
@@ -319,11 +323,15 @@ const Profile = props => {
                                                         </Select>
                                                     </Grid>
                                                 </Grid>
-
                                             </AiofPaper>
-                                        </Grid>
+                                    }
+                                </Grid>
 
-                                        <Grid item xs={12}>
+                                <Grid item xs={12}>
+                                    {
+                                        props.inProgress
+                                            ? <RectSkeleton height={400} />
+                                            :
                                             <AiofPaper elevation={3}>
 
                                                 <Grid container spacing={2} className={classes.root}>
@@ -449,12 +457,16 @@ const Profile = props => {
                                                     </Grid>
                                                 </Grid>
                                             </AiofPaper>
-                                        </Grid>
+                                    }
+                                </Grid>
 
-                                        <Grid item xs={12}>
+                                <Grid item xs={12}>
+                                    {
+                                        props.inProgress
+                                            ? <RectSkeleton height={100} />
+                                            :
                                             <AiofPaper elevation={3}>
                                                 <Grid container spacing={2} className={classes.root}>
-
                                                     <Grid item xs={6}>
                                                         <Button variant="outlined" color="primary" disabled={!isUpdated} onClick={handleUpdate}>
                                                             Update
@@ -463,13 +475,12 @@ const Profile = props => {
 
                                                     <Grid item xs={6}>
                                                     </Grid>
-
                                                 </Grid>
                                             </AiofPaper>
-                                        </Grid>
-                                    </Grid>
-                                </React.Fragment>
-                        }
+                                    }
+                                </Grid>
+                            </Grid>
+                        </React.Fragment>
                     </Grid>
                 </Grid>
             </Container>

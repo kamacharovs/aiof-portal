@@ -791,7 +791,7 @@ const FinanceMainView = props => {
                                 <Grid item xs>
                                     {
                                         props.inProgress
-                                            ? <RectSkeleton />
+                                            ? <RectSkeleton height={100} />
                                             : <AiofPaper elevation={3}>
                                                 More to come...
                                               </AiofPaper>
