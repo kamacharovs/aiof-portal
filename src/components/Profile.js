@@ -4,7 +4,8 @@ import { Helmet } from 'react-helmet';
 import agent from '../agent';
 import 'date-fns';
 
-import { AiofPaper, AiofLinearProgress } from '../style/mui';
+import { AiofPaper } from '../style/mui';
+import { RectSkeleton } from './Common/Sekeleton';
 import { formatDate } from './Finance/Common';
 import { PROFILE_GET_USER_PROFILE, PROFILE_UPSERT_USER_PROFILE, PROFILE_GET_OPTIONS } from '../constants/actionTypes';
 
@@ -162,314 +163,314 @@ const Profile = props => {
 
             <Container maxWidth="xl">
                 <Grid container spacing={3} className={classes.root}>
-
                     <Grid item xs={12}>
-                        {props.inProgress ? <AiofLinearProgress /> : (
-                            <React.Fragment>
-                                <Grid container spacing={1} className={classes.root}>
+                        {
+                            props.inProgress
+                                ? <RectSkeleton height={900} />
+                                :
+                                <React.Fragment>
+                                    <Grid container spacing={1} className={classes.root}>
 
-                                    <Grid item xs={12}>
-                                        <AiofPaper elevation={3}>
-                                            <h3>{props.currentUser.lastName + ", " + props.currentUser.firstName}</h3>
-                                            <p className={classes.tinyMutedText}>{formatDate(props.currentUser.created)}</p>
-                                            <p className={classes.tinyMutedText}>{props.currentUser.email}</p>
-                                            <br />
-                                            <p className={classes.mutedText}>
-                                                Tell us about yourself so we can improve the financial advice we provide
+                                        <Grid item xs={12}>
+                                            <AiofPaper elevation={3}>
+                                                <h3>{props.currentUser.lastName + ", " + props.currentUser.firstName}</h3>
+                                                <p className={classes.tinyMutedText}>{formatDate(props.currentUser.created)}</p>
+                                                <p className={classes.tinyMutedText}>{props.currentUser.email}</p>
+                                                <br />
+                                                <p className={classes.mutedText}>
+                                                    Tell us about yourself so we can improve the financial advice we provide
                                             </p>
-                                        </AiofPaper>
-                                    </Grid>
+                                            </AiofPaper>
+                                        </Grid>
 
-                                    <Grid item xs={12}>
-                                        <AiofPaper elevation={3}>
-                                            <Grid container spacing={2} className={classes.root}>
-                                                <Grid item xs={6}>
-                                                    <b>Gender</b>
-                                                    <hr className={classes.hr} />
-                                                </Grid>
-                                                <Grid item xs={6}>
-                                                    <Select
-                                                        fullWidth
-                                                        className={classes.textField}
-                                                        value={gender || ''}
-                                                        onChange={e => handleSelectChange(e, setGender)}
-                                                        onFocus={() => setIsUpdated(true)}
-                                                    >
-                                                        {
-                                                            genders.map(g => {
-                                                                return (
-                                                                    <MenuItem key={g.publicKey} value={g.name}>{g.name}</MenuItem>
-                                                                );
-                                                            })
-                                                        }
-                                                    </Select>
-                                                </Grid>
-                                            </Grid>
-
-                                            <Grid container spacing={2} className={classes.root}>
-                                                <Grid item xs={6}>
-                                                    <b>Date of birth</b>
-                                                    <hr className={classes.hr} />
-                                                </Grid>
-                                                <Grid item xs={6}>
-                                                    <MuiPickersUtilsProvider utils={DateFnsUtils}>
-                                                        <KeyboardDatePicker className={classes.textField}
-                                                            disableToolbar
+                                        <Grid item xs={12}>
+                                            <AiofPaper elevation={3}>
+                                                <Grid container spacing={2} className={classes.root}>
+                                                    <Grid item xs={6}>
+                                                        <b>Gender</b>
+                                                        <hr className={classes.hr} />
+                                                    </Grid>
+                                                    <Grid item xs={6}>
+                                                        <Select
                                                             fullWidth
-                                                            variant="inline"
-                                                            format="MM/dd/yyyy"
-                                                            margin="normal"
-                                                            value={dateOfBirth ? dateOfBirth : defaultDate}
-                                                            onChange={handleDateOfBirthChange}
+                                                            className={classes.textField}
+                                                            value={gender || ''}
+                                                            onChange={e => handleSelectChange(e, setGender)}
                                                             onFocus={() => setIsUpdated(true)}
-                                                            KeyboardButtonProps={{
-                                                                'aria-label': 'start date',
-                                                            }}
+                                                        >
+                                                            {
+                                                                genders.map(g => {
+                                                                    return (
+                                                                        <MenuItem key={g.publicKey} value={g.name}>{g.name}</MenuItem>
+                                                                    );
+                                                                })
+                                                            }
+                                                        </Select>
+                                                    </Grid>
+                                                </Grid>
+
+                                                <Grid container spacing={2} className={classes.root}>
+                                                    <Grid item xs={6}>
+                                                        <b>Date of birth</b>
+                                                        <hr className={classes.hr} />
+                                                    </Grid>
+                                                    <Grid item xs={6}>
+                                                        <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                                                            <KeyboardDatePicker className={classes.textField}
+                                                                disableToolbar
+                                                                fullWidth
+                                                                variant="inline"
+                                                                format="MM/dd/yyyy"
+                                                                margin="normal"
+                                                                value={dateOfBirth ? dateOfBirth : defaultDate}
+                                                                onChange={handleDateOfBirthChange}
+                                                                onFocus={() => setIsUpdated(true)}
+                                                                KeyboardButtonProps={{
+                                                                    'aria-label': 'start date',
+                                                                }}
+                                                            />
+                                                        </MuiPickersUtilsProvider>
+                                                    </Grid>
+                                                </Grid>
+
+                                                <Grid container spacing={2} className={classes.root}>
+                                                    <Grid item xs={6}>
+                                                        <b>Age</b>
+                                                        <hr className={classes.hr} />
+                                                    </Grid>
+                                                    <Grid item xs={6}>
+                                                        <TextField className={classes.textField}
+                                                            fullWidth
+                                                            value={age ? Number(age) : zero}
+                                                            onChange={e => setAge(e.target.value)}
+                                                            onFocus={() => setIsUpdated(true)}
                                                         />
-                                                    </MuiPickersUtilsProvider>
+                                                    </Grid>
                                                 </Grid>
-                                            </Grid>
 
-                                            <Grid container spacing={2} className={classes.root}>
-                                                <Grid item xs={6}>
-                                                    <b>Age</b>
-                                                    <hr className={classes.hr} />
+                                                <Grid container spacing={2} className={classes.root}>
+                                                    <Grid item xs={6}>
+                                                        <b>Marital status</b>
+                                                        <hr className={classes.hr} />
+                                                    </Grid>
+                                                    <Grid item xs={6}>
+                                                        <Select
+                                                            fullWidth
+                                                            className={classes.textField}
+                                                            value={maritalStatus || ''}
+                                                            onChange={e => handleSelectChange(e, setMaritalStatus)}
+                                                            onFocus={() => setIsUpdated(true)}
+                                                        >
+                                                            {
+                                                                maritalStatuses.map(ms => {
+                                                                    return (
+                                                                        <MenuItem key={ms.publicKey} value={ms.name}>{ms.name}</MenuItem>
+                                                                    );
+                                                                })
+                                                            }
+                                                        </Select>
+                                                    </Grid>
                                                 </Grid>
-                                                <Grid item xs={6}>
-                                                    <TextField className={classes.textField}
-                                                        fullWidth
-                                                        value={age ? Number(age) : zero}
-                                                        onChange={e => setAge(e.target.value)}
-                                                        onFocus={() => setIsUpdated(true)}
-                                                    />
-                                                </Grid>
-                                            </Grid>
 
-                                            <Grid container spacing={2} className={classes.root}>
-                                                <Grid item xs={6}>
-                                                    <b>Marital status</b>
-                                                    <hr className={classes.hr} />
+                                                <Grid container spacing={2} className={classes.root}>
+                                                    <Grid item xs={6}>
+                                                        <b>Education level</b>
+                                                        <hr className={classes.hr} />
+                                                    </Grid>
+                                                    <Grid item xs={6}>
+                                                        <Select
+                                                            fullWidth
+                                                            className={classes.textField}
+                                                            value={educationLevel || ''}
+                                                            onChange={e => handleSelectChange(e, setEducationLevel)}
+                                                            onFocus={() => setIsUpdated(true)}
+                                                        >
+                                                            {
+                                                                educationLevels.map(el => {
+                                                                    return (
+                                                                        <MenuItem key={el.publicKey} value={el.name}>{el.name}</MenuItem>
+                                                                    );
+                                                                })
+                                                            }
+                                                        </Select>
+                                                    </Grid>
                                                 </Grid>
-                                                <Grid item xs={6}>
-                                                    <Select
-                                                        fullWidth
-                                                        className={classes.textField}
-                                                        value={maritalStatus || ''}
-                                                        onChange={e => handleSelectChange(e, setMaritalStatus)}
-                                                        onFocus={() => setIsUpdated(true)}
-                                                    >
-                                                        {
-                                                            maritalStatuses.map(ms => {
-                                                                return (
-                                                                    <MenuItem key={ms.publicKey} value={ms.name}>{ms.name}</MenuItem>
-                                                                );
-                                                            })
-                                                        }
-                                                    </Select>
-                                                </Grid>
-                                            </Grid>
 
-                                            <Grid container spacing={2} className={classes.root}>
-                                                <Grid item xs={6}>
-                                                    <b>Education level</b>
-                                                    <hr className={classes.hr} />
+                                                <Grid container spacing={2} className={classes.root}>
+                                                    <Grid item xs={6}>
+                                                        <b>Residential status</b>
+                                                        <hr className={classes.hr} />
+                                                    </Grid>
+                                                    <Grid item xs={6}>
+                                                        <Select
+                                                            fullWidth
+                                                            className={classes.textField}
+                                                            value={residentialStatus || ''}
+                                                            onChange={e => handleSelectChange(e, setResidentialStatus)}
+                                                            onFocus={() => setIsUpdated(true)}
+                                                        >
+                                                            {
+                                                                residentialStatuses.map(rs => {
+                                                                    return (
+                                                                        <MenuItem key={rs.publicKey} value={rs.name}>{rs.name}</MenuItem>
+                                                                    );
+                                                                })
+                                                            }
+                                                        </Select>
+                                                    </Grid>
                                                 </Grid>
-                                                <Grid item xs={6}>
-                                                    <Select
-                                                        fullWidth
-                                                        className={classes.textField}
-                                                        value={educationLevel || ''}
-                                                        onChange={e => handleSelectChange(e, setEducationLevel)}
-                                                        onFocus={() => setIsUpdated(true)}
-                                                    >
-                                                        {
-                                                            educationLevels.map(el => {
-                                                                return (
-                                                                    <MenuItem key={el.publicKey} value={el.name}>{el.name}</MenuItem>
-                                                                );
-                                                            })
-                                                        }
-                                                    </Select>
-                                                </Grid>
-                                            </Grid>
 
-                                            <Grid container spacing={2} className={classes.root}>
-                                                <Grid item xs={6}>
-                                                    <b>Residential status</b>
-                                                    <hr className={classes.hr} />
-                                                </Grid>
-                                                <Grid item xs={6}>
-                                                    <Select
-                                                        fullWidth
-                                                        className={classes.textField}
-                                                        value={residentialStatus || ''}
-                                                        onChange={e => handleSelectChange(e, setResidentialStatus)}
-                                                        onFocus={() => setIsUpdated(true)}
-                                                    >
-                                                        {
-                                                            residentialStatuses.map(rs => {
-                                                                return (
-                                                                    <MenuItem key={rs.publicKey} value={rs.name}>{rs.name}</MenuItem>
-                                                                );
-                                                            })
-                                                        }
-                                                    </Select>
-                                                </Grid>
-                                            </Grid>
+                                            </AiofPaper>
+                                        </Grid>
 
-                                        </AiofPaper>
-                                    </Grid>
+                                        <Grid item xs={12}>
+                                            <AiofPaper elevation={3}>
 
-                                    <Grid item xs={12}>
-                                        <AiofPaper elevation={3}>
+                                                <Grid container spacing={2} className={classes.root}>
+                                                    <Grid item xs={6}>
+                                                        <b>Occupation</b>
+                                                        <hr className={classes.hr} />
+                                                    </Grid>
+                                                    <Grid item xs={6}>
+                                                        <TextField className={classes.textField}
+                                                            fullWidth
+                                                            value={occupation || empty}
+                                                            onChange={e => setOccupation(e.target.value)}
+                                                            onFocus={() => setIsUpdated(true)}
+                                                        />
+                                                    </Grid>
+                                                </Grid>
 
-                                            <Grid container spacing={2} className={classes.root}>
-                                                <Grid item xs={6}>
-                                                    <b>Occupation</b>
-                                                    <hr className={classes.hr} />
+                                                <Grid container spacing={2} className={classes.root}>
+                                                    <Grid item xs={6}>
+                                                        <b>Occupation industry</b>
+                                                        <hr className={classes.hr} />
+                                                    </Grid>
+                                                    <Grid item xs={6}>
+                                                        <TextField className={classes.textField}
+                                                            fullWidth
+                                                            value={occupationIndustry || empty}
+                                                            onChange={e => setOccupationIndustry(e.target.value)}
+                                                            onFocus={() => setIsUpdated(true)}
+                                                        />
+                                                    </Grid>
                                                 </Grid>
-                                                <Grid item xs={6}>
-                                                    <TextField className={classes.textField}
-                                                        fullWidth
-                                                        value={occupation || empty}
-                                                        onChange={e => setOccupation(e.target.value)}
-                                                        onFocus={() => setIsUpdated(true)}
-                                                    />
-                                                </Grid>
-                                            </Grid>
 
-                                            <Grid container spacing={2} className={classes.root}>
-                                                <Grid item xs={6}>
-                                                    <b>Occupation industry</b>
-                                                    <hr className={classes.hr} />
+                                                <Grid container spacing={2} className={classes.root}>
+                                                    <Grid item xs={6}>
+                                                        <b>Gross salary</b>
+                                                        <hr className={classes.hr} />
+                                                    </Grid>
+                                                    <Grid item xs={6}>
+                                                        <TextField className={classes.textField}
+                                                            fullWidth
+                                                            value={grossSalary ? Number(grossSalary) : zero}
+                                                            onChange={e => setGrossSalary(e.target.value)}
+                                                            onFocus={() => setIsUpdated(true)}
+                                                        />
+                                                    </Grid>
                                                 </Grid>
-                                                <Grid item xs={6}>
-                                                    <TextField className={classes.textField}
-                                                        fullWidth
-                                                        value={occupationIndustry || empty}
-                                                        onChange={e => setOccupationIndustry(e.target.value)}
-                                                        onFocus={() => setIsUpdated(true)}
-                                                    />
-                                                </Grid>
-                                            </Grid>
 
-                                            <Grid container spacing={2} className={classes.root}>
-                                                <Grid item xs={6}>
-                                                    <b>Gross salary</b>
-                                                    <hr className={classes.hr} />
+                                                <Grid container spacing={2} className={classes.root}>
+                                                    <Grid item xs={6}>
+                                                        <b>Household income</b>
+                                                        <hr className={classes.hr} />
+                                                    </Grid>
+                                                    <Grid item xs={6}>
+                                                        <TextField className={classes.textField}
+                                                            fullWidth
+                                                            value={householdIncome ? Number(householdIncome) : zero}
+                                                            onChange={e => setHouseholdIncome(e.target.value)}
+                                                            onFocus={() => setIsUpdated(true)}
+                                                        />
+                                                    </Grid>
                                                 </Grid>
-                                                <Grid item xs={6}>
-                                                    <TextField className={classes.textField}
-                                                        fullWidth
-                                                        value={grossSalary ? Number(grossSalary) : zero}
-                                                        onChange={e => setGrossSalary(e.target.value)}
-                                                        onFocus={() => setIsUpdated(true)}
-                                                    />
-                                                </Grid>
-                                            </Grid>
 
-                                            <Grid container spacing={2} className={classes.root}>
-                                                <Grid item xs={6}>
-                                                    <b>Household income</b>
-                                                    <hr className={classes.hr} />
+                                                <Grid container spacing={2} className={classes.root}>
+                                                    <Grid item xs={6}>
+                                                        <b>Household adults</b>
+                                                        <hr className={classes.hr} />
+                                                    </Grid>
+                                                    <Grid item xs={6}>
+                                                        <Select
+                                                            fullWidth
+                                                            className={classes.textField}
+                                                            value={householdAdults || ''}
+                                                            onChange={e => handleSelectChange(e, setHouseholdAdults)}
+                                                            onFocus={() => setIsUpdated(true)}
+                                                        >
+                                                            {
+                                                                householdAdultsSelect.map(hha => {
+                                                                    return (
+                                                                        <MenuItem key={hha.publicKey} value={hha.value}>{hha.name}</MenuItem>
+                                                                    );
+                                                                })
+                                                            }
+                                                        </Select>
+                                                    </Grid>
                                                 </Grid>
-                                                <Grid item xs={6}>
-                                                    <TextField className={classes.textField}
-                                                        fullWidth
-                                                        value={householdIncome ? Number(householdIncome) : zero}
-                                                        onChange={e => setHouseholdIncome(e.target.value)}
-                                                        onFocus={() => setIsUpdated(true)}
-                                                    />
-                                                </Grid>
-                                            </Grid>
 
-                                            <Grid container spacing={2} className={classes.root}>
-                                                <Grid item xs={6}>
-                                                    <b>Household adults</b>
-                                                    <hr className={classes.hr} />
+                                                <Grid container spacing={2} className={classes.root}>
+                                                    <Grid item xs={6}>
+                                                        <b>Household children</b>
+                                                        <hr className={classes.hr} />
+                                                    </Grid>
+                                                    <Grid item xs={6}>
+                                                        <Select
+                                                            fullWidth
+                                                            className={classes.textField}
+                                                            value={householdChildren || ''}
+                                                            onChange={e => handleSelectChange(e, setHouseholdChildren)}
+                                                            onFocus={() => setIsUpdated(true)}
+                                                        >
+                                                            {
+                                                                householdChildrenSelect.map(hhc => {
+                                                                    return (
+                                                                        <MenuItem key={hhc.publicKey} value={hhc.value}>{hhc.name}</MenuItem>
+                                                                    );
+                                                                })
+                                                            }
+                                                        </Select>
+                                                    </Grid>
                                                 </Grid>
-                                                <Grid item xs={6}>
-                                                    <Select
-                                                        fullWidth
-                                                        className={classes.textField}
-                                                        value={householdAdults || ''}
-                                                        onChange={e => handleSelectChange(e, setHouseholdAdults)}
-                                                        onFocus={() => setIsUpdated(true)}
-                                                    >
-                                                        {
-                                                            householdAdultsSelect.map(hha => {
-                                                                return (
-                                                                    <MenuItem key={hha.publicKey} value={hha.value}>{hha.name}</MenuItem>
-                                                                );
-                                                            })
-                                                        }
-                                                    </Select>
-                                                </Grid>
-                                            </Grid>
 
-                                            <Grid container spacing={2} className={classes.root}>
-                                                <Grid item xs={6}>
-                                                    <b>Household children</b>
-                                                    <hr className={classes.hr} />
+                                                <Grid container spacing={2} className={classes.root}>
+                                                    <Grid item xs={6}>
+                                                        <b>Retirement contributions pre tax</b>
+                                                        <hr className={classes.hr} />
+                                                    </Grid>
+                                                    <Grid item xs={6}>
+                                                        <TextField className={classes.textField}
+                                                            fullWidth
+                                                            value={retirementContributionsPreTax ? Number(retirementContributionsPreTax) : zero}
+                                                            onChange={e => setRetirementContributionsPreTax(e.target.value)}
+                                                            onFocus={() => setIsUpdated(true)}
+                                                        />
+                                                    </Grid>
                                                 </Grid>
-                                                <Grid item xs={6}>
-                                                    <Select
-                                                        fullWidth
-                                                        className={classes.textField}
-                                                        value={householdChildren || ''}
-                                                        onChange={e => handleSelectChange(e, setHouseholdChildren)}
-                                                        onFocus={() => setIsUpdated(true)}
-                                                    >
-                                                        {
-                                                            householdChildrenSelect.map(hhc => {
-                                                                return (
-                                                                    <MenuItem key={hhc.publicKey} value={hhc.value}>{hhc.name}</MenuItem>
-                                                                );
-                                                            })
-                                                        }
-                                                    </Select>
-                                                </Grid>
-                                            </Grid>
+                                            </AiofPaper>
+                                        </Grid>
 
-                                            <Grid container spacing={2} className={classes.root}>
-                                                <Grid item xs={6}>
-                                                    <b>Retirement contributions pre tax</b>
-                                                    <hr className={classes.hr} />
-                                                </Grid>
-                                                <Grid item xs={6}>
-                                                    <TextField className={classes.textField}
-                                                        fullWidth
-                                                        value={retirementContributionsPreTax ? Number(retirementContributionsPreTax) : zero}
-                                                        onChange={e => setRetirementContributionsPreTax(e.target.value)}
-                                                        onFocus={() => setIsUpdated(true)}
-                                                    />
-                                                </Grid>
-                                            </Grid>
-                                        </AiofPaper>
-                                    </Grid>
+                                        <Grid item xs={12}>
+                                            <AiofPaper elevation={3}>
+                                                <Grid container spacing={2} className={classes.root}>
 
-                                    <Grid item xs={12}>
-                                        <AiofPaper elevation={3}>
-                                            <Grid container spacing={2} className={classes.root}>
-
-                                                <Grid item xs={6}>
-                                                    <Button variant="outlined" color="primary" disabled={!isUpdated} onClick={handleUpdate}>
-                                                        Update
+                                                    <Grid item xs={6}>
+                                                        <Button variant="outlined" color="primary" disabled={!isUpdated} onClick={handleUpdate}>
+                                                            Update
                                                     </Button>
-                                                </Grid>
+                                                    </Grid>
 
-                                                <Grid item xs={6}>
-                                                </Grid>
+                                                    <Grid item xs={6}>
+                                                    </Grid>
 
-                                            </Grid>
-                                        </AiofPaper>
+                                                </Grid>
+                                            </AiofPaper>
+                                        </Grid>
                                     </Grid>
-                                </Grid>
-                            </React.Fragment>
-                        )}
-
+                                </React.Fragment>
+                        }
                     </Grid>
-
                 </Grid>
             </Container>
         </React.Fragment>
