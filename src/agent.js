@@ -174,6 +174,7 @@ export default {
   UserProfile,
   Asset,
   Liability,
+  Utility,
   Fi,
   Analytics,
   Property,

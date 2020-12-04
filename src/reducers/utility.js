@@ -22,7 +22,7 @@ export default (state = {}, action) => {
       return {
         ...state,
         inProgress: false,
-        usefulDocumentations: action.error ? null : action.payload.data
+        usefulDocumentations: action.error ? null : action.payload
       }
     default:
       return state

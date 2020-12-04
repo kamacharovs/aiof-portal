@@ -10,7 +10,7 @@ import { CoolExternalLink, CoolLink } from '../../style/common';
 import { RectSkeleton } from '../Common/Sekeleton';
 import House from '../../style/icons/House_4.svg';
 import { numberWithCommas, formatDate } from './Common';
-import { FINANCE_PAGE_LOADED, ANALYTICS_ANALYZE } from '../../constants/actionTypes';
+import { FINANCE_PAGE_LOADED, ANALYTICS_ANALYZE, UTILITY_USEFUL_DOCUMENTATION_BY_PAGE } from '../../constants/actionTypes';
 
 import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
@@ -34,6 +34,8 @@ const mapStateToProps = state => ({
     currentUser: state.common.currentUser,
     inProgress: state.finance.inProgress,
     finance: state.finance,
+    usefulDocumentationsInProgress: state.utility.inProgress,
+    usefulDocumentations: state.utility.usefulDocumentations,
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -41,6 +43,8 @@ const mapDispatchToProps = dispatch => ({
         dispatch({ type: FINANCE_PAGE_LOADED, payload: agent.User.get() }),
     onAnalyze: (assets, liabilities) =>
         dispatch({ type: ANALYTICS_ANALYZE, payload: agent.Analytics.analyze({ assets, liabilities }) }),
+    onUsefulDocumentations: () =>
+        dispatch({ type: UTILITY_USEFUL_DOCUMENTATION_BY_PAGE, payload: agent.Utility.usefulDocumentationByPage("finance") }),
 });
 
 const useStyles = makeStyles((theme) => ({
@@ -680,6 +684,33 @@ const AnalyzeView = props => {
     );
 }
 
+const UsefulDocumentation = props => {
+    const docs = props.usefulDocumentations ? props.usefulDocumentations : [];
+
+    return (
+        <AiofPaper elevation={3}>
+            <Grid item xs={12}>
+                <img src={House} alt="House" style={{ width: "5rem", height: "5rem" }} />
+            </Grid>
+            <Grid item xs={12}>
+                <br />
+                <h6><b>Useful documentations</b></h6>
+            </Grid>
+            <Grid item xs={12}>
+                <ul>
+                    {
+                        docs.map(d => {
+                            return (
+                                <li key={d.publicKey}><CoolExternalLink href={d.url}>{d.name}</CoolExternalLink></li>
+                            );
+                        })
+                    }
+                </ul>
+            </Grid>
+        </AiofPaper>
+    );
+}
+
 
 
 const FinanceMainView = props => {
@@ -688,6 +719,7 @@ const FinanceMainView = props => {
     useEffect(() => {
         if (props.currentUser) {
             props.onLoad();
+            props.onUsefulDocumentations();
         }
     }, []);
     useEffect(() => {
@@ -720,24 +752,9 @@ const FinanceMainView = props => {
 
                         <Grid item xs={12}>
                             {
-                                props.inProgress
+                                props.usefulDocumentationsInProgress
                                     ? <RectSkeleton height={300} />
-                                    : <AiofPaper elevation={3}>
-                                        <Grid item xs={12}>
-                                            <img src={House} alt="House" style={{ width: "5rem", height: "5rem" }} />
-                                        </Grid>
-                                        <Grid item xs={12}>
-                                            <br />
-                                            <h6><b>Usefull documentations</b></h6>
-                                        </Grid>
-                                        <Grid item xs={12}>
-                                            <ul>
-                                                <li><CoolExternalLink href="https://en.wikipedia.org/wiki/Financial_asset">What is a financial asset?</CoolExternalLink></li>
-                                                <li><CoolExternalLink href="https://en.wikipedia.org/wiki/Liability_(financial_accounting)">What is a financial liability?</CoolExternalLink></li>
-                                                <li><CoolExternalLink href="https://www.nerdwallet.com/article/finance/what-are-liabilities">What are my financial liabilities? (Nerdwallet)</CoolExternalLink></li>
-                                            </ul>
-                                        </Grid>
-                                    </AiofPaper>
+                                    : <UsefulDocumentation usefulDocumentations={props.usefulDocumentations} />
                             }
                         </Grid>
 
