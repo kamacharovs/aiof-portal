@@ -90,6 +90,13 @@ const Liability = {
     requests.get('/liability/types'),
 }
 
+const Utility = {
+  usefulDocumentationByPage: page =>
+    requests.get(`/useful/documentation?page=${page}`),
+  usefulDocumentationByCategory: category =>
+    requests.get(`/useful/documentation?category=${category}`),
+}
+
 const Fi = {
   time: payload =>
     requestsMetadata.post('/fi/time', payload),
