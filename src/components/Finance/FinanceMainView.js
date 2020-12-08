@@ -607,6 +607,8 @@ const AnalyzeView = props => {
 
     return (
         <React.Fragment>
+            <h3><strong>Analytics</strong></h3>
+            <hr className={classes.hr} />
             {props.analyze ?
                 <Grid container direction="column" spacing={0}>
                     <Grid item xs>
@@ -677,9 +679,8 @@ const AnalyzeView = props => {
                             </Grid>
                         </React.Fragment>
                     }
-
                 </Grid>
-                : "Loading..."}
+                : "Please add more information in order to run Analytics. Such as at least one Asset and Liability"}
         </React.Fragment>
     );
 }
