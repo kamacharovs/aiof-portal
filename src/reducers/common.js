@@ -72,13 +72,13 @@ export default (state = defaultState, action) => {
     case LOGIN:
       return {
         ...state,
-        redirectTo: action.error ? null : '/',
         token: action.error ? null : action.payload.access_token,
         refreshToken: action.error ? null : action.payload.refresh_token
       };
     case LOGIN_GET_USER:
       return {
         ...state,
+        redirectTo: action.error ? null : '/',
         currentUser: action.error ? null : action.payload
       }
     case REGISTER:
