@@ -1,5 +1,6 @@
 import {
   LOGIN,
+  LOGIN_GET_USER,
   REGISTER,
   REFRESH,
   LOGIN_PAGE_UNLOADED,
@@ -11,6 +12,7 @@ import {
 export default (state = {}, action) => {
   switch (action.type) {
     case LOGIN:
+    case LOGIN_GET_USER:
     case REGISTER:
     case REFRESH:
       return {
@@ -23,7 +25,8 @@ export default (state = {}, action) => {
       return {}
     case ASYNC_START:
       if (action.subtype === LOGIN 
-        || action.subtype === REGISTER) {
+        || action.subtype === REGISTER
+        || action.subtype === LOGIN_GET_USER) {
         return { 
           ...state,
           inProgress: true

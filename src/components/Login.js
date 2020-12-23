@@ -14,7 +14,7 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import LockOpenIcon from '@material-ui/icons/LockOpen';
 import { CoolLink, RedP } from '../style/common';
 import { AiofLoader } from '../components/Common/Loader';
-import { LOGIN, REFRESH, UPDATE_FIELD_AUTH, LOGIN_PAGE_UNLOADED } from '../constants/actionTypes';
+import { LOGIN, LOGIN_GET_USER, REFRESH, UPDATE_FIELD_AUTH, LOGIN_PAGE_UNLOADED } from '../constants/actionTypes';
 
 
 const mapStateToProps = state => ({
@@ -34,6 +34,8 @@ const mapDispatchToProps = dispatch => ({
     dispatch({ type: LOGIN, payload: agent.Auth.login(username, password) }),
   onRefresh: () =>
     dispatch({ type: REFRESH, payload: agent.Auth.refresh() }),
+  onGetUser: () =>
+    dispatch({ type: LOGIN_GET_USER, payload: agent.Auth.getUser() }),
   onUnload: () =>
     dispatch({ type: LOGIN_PAGE_UNLOADED })
 });
@@ -41,7 +43,7 @@ const mapDispatchToProps = dispatch => ({
 class Login extends React.Component {
   constructor() {
     super();
-
+    
     this.state = {
       rememberMe: false,
     }
@@ -80,6 +82,7 @@ class Login extends React.Component {
   componentWillUnmount() {
     if (this.props.username && this.props.password) {
       this.props.onRefresh();
+      this.props.onGetUser();
     }
 
     this.props.onUnload();

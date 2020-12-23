@@ -6,6 +6,7 @@ import {
   ARTICLE_SUBMITTED,
   SETTINGS_SAVED,
   LOGIN,
+  LOGIN_GET_USER,
   REGISTER,
   REFRESH,
   DELETE_ARTICLE,
@@ -73,9 +74,13 @@ export default (state = defaultState, action) => {
         ...state,
         redirectTo: action.error ? null : '/',
         token: action.error ? null : action.payload.access_token,
-        refreshToken: action.error ? null : action.payload.refresh_token,
-        currentUser: action.error ? null : action.payload.user
+        refreshToken: action.error ? null : action.payload.refresh_token
       };
+    case LOGIN_GET_USER:
+      return {
+        ...state,
+        currentUser: action.error ? null : action.payload
+      }
     case REGISTER:
       return {
         ...state,
