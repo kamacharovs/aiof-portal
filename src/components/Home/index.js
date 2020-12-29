@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import Helmet from 'react-helmet';
 import Banner from './Banner';
@@ -19,27 +19,22 @@ const mapDispatchToProps = dispatch => ({
     dispatch({  type: HOME_PAGE_UNLOADED })
 });
 
-class Home extends React.Component {
-  componentDidMount() {
-  }
+const Home = props => {
+  useEffect(() => () => {
+    props.onUnload();
+  }, []);
 
-  componentWillUnmount() {
-    this.props.onUnload();
-  }
-
-  render() {
-    return (
-      <React.Fragment>
+  return (
+    <React.Fragment>
         <Helmet>
-          <title>{this.props.appName} | Home</title>
+          <title>{props.appName} | Home</title>
         </Helmet>
 
-        <Banner token={this.props.token} appName={this.props.appName} />
+        <Banner token={props.token} appName={props.appName} />
         
         <MainView />
       </React.Fragment>
-    );
-  }
+  );
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Home);

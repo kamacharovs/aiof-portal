@@ -6,7 +6,7 @@ export const DefaultRedColor = "#b21f00";
 export const DefaultAlternateColor = "#137a8f";
 
 export const GreenP = styled.p`
-   color:green;
+   color: green;
    margin: 0rem;
    padding: 0rem;
 `;

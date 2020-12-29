@@ -12,7 +12,9 @@ const encode = encodeURIComponent;
 const responseBody = res => res.body;
 
 let token = null;
-let refresh_token = null
+let refresh_token = null;
+let expires = null;
+
 const tokenPlugin = req => {
   if (token) {
     req.set('Authorization', `Bearer ${token}`);
@@ -49,6 +51,10 @@ const Auth = {
     requestsAuth.post('/user', { firstName, lastName, email, username, password }),
   refresh: () =>
     requestsAuth.post('/auth/token', { refresh_token: refresh_token }),
+  getUser: () =>
+    requestsAuth.get(`/user`),
+  getExpires: () =>
+    expires
 };
 
 const User = {
@@ -66,6 +72,8 @@ const UserProfile = {
     User.byUsername(username),
   upsert: (username, payload) =>
     requests.put(`/user/profile?username=${username}`, payload),
+  options: () =>
+    requests.get(`/user/profile/options`),
 }
 
 const Asset = {
@@ -88,6 +96,13 @@ const Liability = {
     requests.get('/liability/types'),
 }
 
+const Utility = {
+  usefulDocumentationByPage: page =>
+    requests.get(`/useful/documentation?page=${page}`),
+  usefulDocumentationByCategory: category =>
+    requests.get(`/useful/documentation?category=${category}`),
+}
+
 const Fi = {
   time: payload =>
     requestsMetadata.post('/fi/time', payload),
@@ -102,10 +117,14 @@ const Fi = {
   coastSavings: payload =>
     requestsMetadata.post('/fi/coast/savings', payload),
 }
+const Analytics = {
+  analyze: payload =>
+    requestsMetadata.post('/analytics/analyze', payload),
+}
 
-const House = {
+const Property = {
   mortgage: payload =>
-    requestsMetadata.post('/house/mortgage', payload)
+    requestsMetadata.post('/property/mortgage', payload)
 }
 
 
@@ -161,10 +180,13 @@ export default {
   UserProfile,
   Asset,
   Liability,
+  Utility,
   Fi,
-  House,
+  Analytics,
+  Property,
   Comments,
   Profile,
   setToken: _token => { token = _token; },
   setRefreshToken: _refreshToken => { refresh_token = _refreshToken },
+  setExpires: _expires => { expires = _expires },
 };

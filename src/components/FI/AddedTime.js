@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
 import agent from '../../agent';
@@ -10,9 +10,10 @@ import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
 import AttachMoneyIcon from '@material-ui/icons/AttachMoney';
 import { numberWithCommas } from '../Finance/Common';
-import { GreenP, RedP } from '../../style/common';
+import { GreenP } from '../../style/common';
 import { AiofPaper, AiofLinearProgress } from '../../style/mui';
 import { FI_PAGE_LOADED, FI_ADDED_TIME } from '../../constants/actionTypes';
+
 
 const mapStateToProps = state => ({
     ...state.fi,
@@ -28,112 +29,99 @@ const mapDispatchToProps = dispatch => ({
         dispatch({ type: FI_ADDED_TIME, payload: agent.Fi.addedTime(addedTime) })
 });
 
-class AddedTime extends React.Component {
-    constructor() {
-        super();
+const useStyles = makeStyles((theme) => ({
+    root: {
+        display: 'flex',
+        flexWrap: 'wrap',
+    },
+    margin: {
+        margin: theme.spacing(1),
+    },
+    withoutLabel: {
+        marginTop: theme.spacing(3),
+    },
+    textField: {
+        width: '25ch',
+    },
+}));
 
-        this.state = {
-            monthlyInvestment: 10000,
-            totalAdditionalExpense: 422000,
-        };
+const AddedTime = props => {
+    const classes = useStyles();
+    const [monthlyInvestment, setMonthlyInvestment] = useState(10000);
+    const [totalAdditionalExpense, setTotalAdditionalExpense] = useState(422000);
 
-        this.classes = makeStyles((theme) => ({
-            root: {
-                display: 'flex',
-                flexWrap: 'wrap',
-            },
-            margin: {
-                margin: theme.spacing(1),
-            },
-            withoutLabel: {
-                marginTop: theme.spacing(3),
-            },
-            textField: {
-                width: '25ch',
-            },
-        }));
+    const onSubmitForm = ev => {
+        ev.preventDefault();
 
-        this.updateState = field => ev => {
-            const state = this.state;
-            const newState = Object.assign({}, state, { [field]: ev.target.value });
-            this.setState(newState);
-        };
+        let addedTime = {};
+        addedTime.monthlyInvestment = monthlyInvestment ? Number(monthlyInvestment) : null;
+        addedTime.totalAdditionalExpense = totalAdditionalExpense ? Number(totalAdditionalExpense) : null;
 
-        this.submitForm = ev => {
-            ev.preventDefault();
-            const addedTime = Object.assign({}, this.state);
-            addedTime.monthlyInvestment = addedTime.monthlyInvestment ? Number(addedTime.monthlyInvestment) : null;
-            addedTime.totalAdditionalExpense = addedTime.totalAdditionalExpense ? Number(addedTime.totalAdditionalExpense) : null;
-            this.props.onSubmit(addedTime);
-        };
-    }
+        props.onSubmit(addedTime);
+    };
 
-    componentDidMount() {
-        this.props.onLoad();
+    useEffect(() => {
+        props.onLoad();
 
-        if (this.props.addedTime) {
-            this.setState({
-                monthlyInvestment: this.props.addedTime.monthlyInvestment,
-                totalAdditionalExpense: this.props.addedTime.totalAdditionalExpense,
-            });
+        if (props.addedTime) {
+            setMonthlyInvestment(props.addedTime.monthlyInvestment);
+            setTotalAdditionalExpense(props.addedTime.totalAdditionalExpense);
         }
-    }
+    }, []);
 
-    render() {
-        return (
-            <React.Fragment>
-                <Helmet>
-                    <title>{this.props.appName} | Added time</title>
-                </Helmet>
-                <Container maxWidth="sm">
-                    <AiofPaper elevation={3}>
-                        <form className={this.classes.root} noValidate autoComplete="off" onSubmit={this.submitForm}>
-                            <Grid container spacing={3}>
-                                <Grid item xs={6}>
-                                    <div className={this.classes.margin}>
-                                        <Grid container spacing={1} alignItems="flex-end">
-                                            <Grid item>
-                                                <AttachMoneyIcon />
-                                            </Grid>
-                                            <Grid item>
-                                                <TextField label="Monthly investment"
-                                                    value={this.state.monthlyInvestment}
-                                                    onChange={this.updateState('monthlyInvestment')} />
-                                            </Grid>
+    return (
+        <React.Fragment>
+            <Helmet>
+                <title>{props.appName} | Added time</title>
+            </Helmet>
+            <Container maxWidth="sm">
+                <AiofPaper elevation={3}>
+                    <form className={classes.root} noValidate autoComplete="off" onSubmit={onSubmitForm}>
+                        <Grid container spacing={3}>
+                            <Grid item xs={6}>
+                                <div className={classes.margin}>
+                                    <Grid container spacing={1} alignItems="flex-end">
+                                        <Grid item>
+                                            <AttachMoneyIcon />
                                         </Grid>
-                                    </div>
-                                </Grid>
-
-                                <Grid item xs={6}>
-                                    <div className={this.classes.margin}>
-                                        <Grid container spacing={1} alignItems="flex-end">
-                                            <Grid item>
-                                                <AttachMoneyIcon />
-                                            </Grid>
-                                            <Grid item>
-                                                <TextField label="Additional expense"
-                                                    value={this.state.totalAdditionalExpense}
-                                                    onChange={this.updateState('totalAdditionalExpense')} />
-                                            </Grid>
+                                        <Grid item>
+                                            <TextField label="Monthly investment"
+                                                value={monthlyInvestment}
+                                                onChange={e => setMonthlyInvestment(e.target.value)} />
                                         </Grid>
-                                    </div>
-                                </Grid>
-
-                                <Grid item xs={12}>
-                                    <Button type="submit" variant="contained" color="primary" className={this.classes.button} >
-                                        Calculate
-                                    </Button>
-                                </Grid>
+                                    </Grid>
+                                </div>
                             </Grid>
-                        </form>
-                    </AiofPaper>
 
-                    <AddedTimeResults addedTime={this.props.addedTime} inProgress={this.props.inProgress} />
+                            <Grid item xs={6}>
+                                <div className={classes.margin}>
+                                    <Grid container spacing={1} alignItems="flex-end">
+                                        <Grid item>
+                                            <AttachMoneyIcon />
+                                        </Grid>
+                                        <Grid item>
+                                            <TextField label="Additional expense"
+                                                value={totalAdditionalExpense}
+                                                onChange={e => setTotalAdditionalExpense(e.target.value)} />
+                                        </Grid>
+                                    </Grid>
+                                </div>
+                            </Grid>
 
-                </Container>
-            </React.Fragment>
-        )
-    }
+                            <Grid item xs={12}>
+                                <Button type="submit" variant="contained" color="primary" className={classes.button} >
+                                    Calculate
+                                </Button>
+                            </Grid>
+                        </Grid>
+                    </form>
+                </AiofPaper>
+
+                <AddedTimeResults addedTime={props.addedTime} inProgress={props.inProgress} />
+
+            </Container>
+        </React.Fragment>
+    )
 }
 
 const AddedTimeResults = props => {
@@ -141,47 +129,55 @@ const AddedTimeResults = props => {
         return (
             <React.Fragment>
                 <AiofPaper elevation={3}>
-                    <Grid container spacing={1}>
-                        <Grid item xs={6}>
-                            <b>Monthly investment</b>
+                    <Grid container direction="column" spacing={0}>
+                        <Grid item xs>
+                            <strong>Monthly investment</strong>
                         </Grid>
-                        <Grid item xs={6} align="right">
+                        <Grid item xs>
                             <GreenP>${numberWithCommas(props.addedTime.monthlyInvestment)}</GreenP>
                         </Grid>
-
-                        <Grid item xs={6}>
-                            <b>Total expenses</b>
+                        <Grid>
+                            <br />
                         </Grid>
-                        <Grid item xs={6} align="right">
+
+                        <Grid>
+                            <strong>Total additional expenses</strong>
+                        </Grid>
+                        <Grid>
                             <GreenP>${numberWithCommas(props.addedTime.totalAdditionalExpense)}</GreenP>
                         </Grid>
-                    </Grid>
-                    <hr />
-                    <Grid container spacing={1}>
-                        <Grid item xs={6}>
-                            <b>Interest</b>
-                        </Grid>
-                        <Grid item xs={6} align="right">
-                            <b>Years</b>
+                        <Grid>
+                            <br />
                         </Grid>
                     </Grid>
-                    {
-                        props.addedTime.years.map(year => {
-                            return (
-                                <Grid container spacing={1} key={year.interest} >
-                                    <Grid item xs={6}>
-                                        <GreenP>{year.interest}%</GreenP>
+
+                    <Grid container>
+                        <Grid container spacing={0}>
+                            <Grid item xs>
+                                <strong>Interest</strong>
+                            </Grid>
+                            <Grid item xs>
+                                <strong>Years</strong>
+                            </Grid>
+                        </Grid>
+                        {
+                            props.addedTime.years.map(year => {
+                                return (
+                                    <Grid container spacing={0}>
+                                        <Grid item xs>
+                                            {year.interest}%
+                                        </Grid>
+                                        <Grid item xs>
+                                            {year.years}
+                                        </Grid>
                                     </Grid>
-                                    <Grid item xs={6} align="right">
-                                        <RedP>{year.years}</RedP>
-                                    </Grid>
-                                </Grid>
-                            );
-                        })
-                    }
-                    <hr/>
+                                );
+                            })
+                        }
+                    </Grid>
                 </AiofPaper>
             </React.Fragment>
+
         );
     }
     else if (props.inProgress) {

@@ -34,7 +34,6 @@ services:
     depends_on:
       - aiofdata
       - aiofauth
-      - aiofmetadata
     ports:
       - 8000:80
     environment:
