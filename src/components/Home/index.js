@@ -5,8 +5,6 @@ import Banner from './Banner';
 import MainView from './MainView';
 import { HOME_PAGE_LOADED, HOME_PAGE_UNLOADED } from '../../constants/actionTypes';
 
-import { makeStyles } from '@material-ui/core/styles';
-
 
 const mapStateToProps = state => ({
   ...state.home,
@@ -21,15 +19,7 @@ const mapDispatchToProps = dispatch => ({
     dispatch({  type: HOME_PAGE_UNLOADED })
 });
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    margin: '0px'
-  }
-}));
-
 const Home = props => {
-  const classes = useStyles();
-
   useEffect(() => () => {
     props.onUnload();
   }, []);
