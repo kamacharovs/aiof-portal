@@ -18,7 +18,7 @@ import { AiofLoader } from '../components/Common/Loader';
 import { UPDATE_FIELD_AUTH, REGISTER, REGISTER_PAGE_UNLOADED } from '../constants/actionTypes';
 
 
-const mapStateToProps = state => ({ 
+const mapStateToProps = state => ({
   ...state.auth,
   appName: state.common.appName,
   inProgress: state.auth.inProgress,
@@ -50,25 +50,36 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-const Register2 = props => {
+const Register = props => {
   const classes = useStyles();
-  const [focused, setFocused] = useState(false);
+
+  const regexHasNumber = new RegExp("[0-9]+");
+  const regexUpperChar = new RegExp("[A-Z]+");
+  const regexLength = new RegExp(".{8,50}");
+
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
+  const [passwordHasNumber, setPasswordHasNumber] = useState(false);
+  const [passwordHasUpperChar, setPasswordHasUpperChar] = useState(false);
+  const [passwordHasMinimum8Maximum50, setPasswordHasMinimum8Maximum50] = useState(false);
+
   const isFirstNameValid = firstName ? firstName.length > 0 && firstName.length < 200 : false;
   const isLastNameValid = lastName ? lastName.length > 0 && lastName.length < 200 : false;
   const isEmailValid = email ? email.length > 0 && email.length < 200 : false;
   const isUsernameValid = username ? username.length > 0 && username.length < 200 : false;
-  const isPasswordValid = password ? IsPasswordValid(password) : false;
+  const isPasswordValid = password ? regexHasNumber.test(password) && regexUpperChar.test(password) && regexLength.test(password) : false;
   const isEnabled = isFirstNameValid && isLastNameValid && isEmailValid && isUsernameValid && isPasswordValid;
 
-  const [passwordHasNumber, setPasswordHasNumber] = useState(false);
-  const [passwordHasUpperChar, setPasswordHasUpperChar] = useState(false);
-  const [passwordHasMinimum8Maximum50, setPasswordHasMinimum8Maximum50] = useState(false);
+  const updatePassword = (newPassword) => {
+    setPassword(newPassword);
+    setPasswordHasNumber(regexHasNumber.test(newPassword));
+    setPasswordHasUpperChar(regexUpperChar.test(newPassword));
+    setPasswordHasMinimum8Maximum50(regexLength.test(newPassword));
+  }
 
   const onSubmitForm = (firstName, lastName, email, username, password) => ev => {
     ev.preventDefault();
@@ -115,7 +126,7 @@ const Register2 = props => {
                   variant="outlined"
                   value={firstName}
                   onChange={e => setFirstName(e.target.value)}
-                  helperText={isFirstNameValid && !focused ? null : "First name is required and must be between 1 and 200 characters"}
+                  helperText={isFirstNameValid ? null : "First name is required and must be between 1 and 200 characters"}
                 />
               </Grid>
 
@@ -163,14 +174,14 @@ const Register2 = props => {
                   type="password"
                   variant="outlined"
                   value={password}
-                  onChange={e => setPassword(e.target.value)}
-                  helperText={isPasswordValid ? null : "Password is required and must be between 8 to 50 characters, have a number and at least 1 uppercase character"}
+                  onChange={e => updatePassword(e.target.value)}
                 />
               </Grid>
               <Grid item xs={12}>
-                <p>
-                  Password checker
-                </p>
+                <PasswordRuleChecker
+                  passwordHasNumber={passwordHasNumber}
+                  passwordHasUpperChar={passwordHasUpperChar}
+                  passwordHasLength={passwordHasMinimum8Maximum50} />
               </Grid>
 
               <Grid item xs={12}>
@@ -189,12 +200,41 @@ const Register2 = props => {
   );
 }
 
-const IsPasswordValid = (password) => {
-  var regexHasNumber = new RegExp("[0-9]+");
-  var regexUpperChar = new RegExp("[A-Z]+");
-  var regexLength = new RegExp(".{8,50}");
+const PasswordRuleChecker = props => {
+  const hasNumber = props.passwordHasNumber;
+  const hasUpperChar = props.passwordHasUpperChar;
+  const hasLength = props.passwordHasLength;
 
-  return password && regexHasNumber.test(password) && regexUpperChar.test(password) && regexLength.test(password);
+  return (
+    <React.Fragment>
+      <Grid container spacing={3} alignItems="center" justify="center">
+        <Grid item xs={1}>
+          {hasNumber ? <CheckIcon style={{ color: "green" }} /> : <CloseIcon style={{ color: "red" }} />}
+        </Grid>
+        <Grid item xs>
+          Password must contain a number
+        </Grid>
+      </Grid>
+
+      <Grid container spacing={3} alignItems="center" justify="center">
+        <Grid item xs={1}>
+          {hasUpperChar ? <CheckIcon style={{ color: "green" }} /> : <CloseIcon style={{ color: "red" }} />}
+        </Grid>
+        <Grid item xs>
+          Password must have at least 1 upper case character
+        </Grid>
+      </Grid>
+
+      <Grid container spacing={3} alignItems="center" justify="center">
+        <Grid item xs={1}>
+          {hasLength ? <CheckIcon style={{ color: "green" }} /> : <CloseIcon style={{ color: "red" }} />}
+        </Grid>
+        <Grid item xs>
+          Password must between 8 and 50 characters
+        </Grid>
+      </Grid>
+    </React.Fragment>
+  );
 }
 
 const LoadingClip = props => {
@@ -212,4 +252,4 @@ const LoadingClip = props => {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Register2);
+export default connect(mapStateToProps, mapDispatchToProps)(Register);
