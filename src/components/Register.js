@@ -82,7 +82,7 @@ const Register = props => {
     setPasswordHasMinimum8Maximum50(regexLength.test(newPassword));
   }
 
-  const onSubmitForm = (firstName, lastName, email, username, password) => ev => {
+  const onSubmitForm = () => ev => {
     ev.preventDefault();
 
     props.onSubmit(firstName, lastName, email, username, password);
@@ -113,7 +113,7 @@ const Register = props => {
             </Grid>
           </Grid>
 
-          <form className={classes.root} noValidate autoComplete="off" onSubmit={onSubmitForm(firstName, lastName, email, username, password)}>
+          <form className={classes.root} noValidate autoComplete="off" onSubmit={onSubmitForm()}>
             <Grid container spacing={3} alignItems="center" justify="center">
               <p className="text-center text-muted">
                 One account for everything finance
