@@ -168,7 +168,7 @@ const AppMenu = props => {
                   <ListItemIcon>
                     <BeachAccessIcon />
                   </ListItemIcon>
-                  <ListItemText primary="Coast savings" />
+                  <ListItemText primary="Coast FIRE" />
                 </ListItem>
               </List>
             </Collapse>
