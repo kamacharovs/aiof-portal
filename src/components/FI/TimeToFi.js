@@ -11,7 +11,7 @@ import Button from '@material-ui/core/Button';
 import AttachMoneyIcon from '@material-ui/icons/AttachMoney';
 import ArrowUpwardIcon from '@material-ui/icons/ArrowUpward';
 import { numberWithCommas } from '../Finance/Common';
-import { GreenP, RedP } from '../../style/common';
+import { GreenP, RedP, Hr75 } from '../../style/common';
 import { AiofPaper, AiofLinearProgress } from '../../style/mui';
 import { FI_PAGE_LOADED, FI_TIME_TO_FI } from '../../constants/actionTypes';
 
@@ -228,30 +228,29 @@ const TimeToFiResults = props => {
             </Grid>
           </Grid>
 
+          <Grid>
+            <br/>
+          </Grid>
+
           <Grid container>
-            <Grid container spacing={0}>
-              <Grid item xs>
-                <strong>Interest</strong>
-              </Grid>
-              <Grid item xs>
-                <strong>Years</strong>
-              </Grid>
-            </Grid>
             {
               props.time.years.map(year => {
                 return (
                   <Grid container spacing={0}>
                     <Grid item xs>
-                      {year.interest}%
-                            </Grid>
+                      <strong>Interest: </strong>{year.interest}%
+                    <Hr75 />
+                    </Grid>
                     <Grid item xs>
-                      {year.years}
+                      <strong>Years: </strong>{year.years}
+                      <Hr75 />
                     </Grid>
                   </Grid>
                 );
               })
             }
           </Grid>
+
         </AiofPaper>
       </React.Fragment>
     );

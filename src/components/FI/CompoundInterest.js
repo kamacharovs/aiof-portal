@@ -173,81 +173,86 @@ const CompoundInterest = props => {
 const CompoundInterestResults = props => {
   if (props.compoundInterest) {
     return (
-      <AiofPaper elevation={3}>
+      <React.Fragment>
         {
           props.compoundInterest.map(ci => {
             return (
               <React.Fragment key={ci.frequency}>
-                <Grid container spacing={1}>
-                  <Grid item xs={6}>
-                    <b>Beginning</b>
-                  </Grid>
-                  <Grid item xs={6} align="right">
-                    <GreenP>${numberWithCommas(ci.compoundedBeginning)}</GreenP>
-                  </Grid>
+                <AiofPaper elevation={3}>
+                  <Grid container spacing={1}>
+                    <Grid item xs={6}>
+                      <strong>Beginning</strong>
+                    </Grid>
+                    <Grid item xs={6} align="right">
+                      <GreenP>${numberWithCommas(ci.compoundedBeginning)}</GreenP>
+                    </Grid>
 
-                  <Grid item xs={6}>
-                    <b>End</b>
-                  </Grid>
-                  <Grid item xs={6} align="right">
-                    <GreenP>${numberWithCommas(ci.compoundedEnd)}</GreenP>
-                  </Grid>
+                    <Grid item xs={6}>
+                      <strong>End</strong>
+                    </Grid>
+                    <Grid item xs={6} align="right">
+                      <GreenP>${numberWithCommas(ci.compoundedEnd)}</GreenP>
+                    </Grid>
 
-                  <Grid item xs={6}>
-                    <b>Starting amount</b>
-                  </Grid>
-                  <Grid item xs={6} align="right">
-                    <GreenP>${numberWithCommas(ci.startingAmount)}</GreenP>
-                  </Grid>
+                    <Grid item xs={12}>
+                      <hr />
+                    </Grid>
 
-                  <Grid item xs={6}>
-                    <b>Monthly investment</b>
-                  </Grid>
-                  <Grid item xs={6} align="right">
-                    <GreenP>${numberWithCommas(ci.monthlyInvestment)}</GreenP>
-                  </Grid>
+                    <Grid item xs={6}>
+                      <strong>Starting amount</strong>
+                    </Grid>
+                    <Grid item xs={6} align="right">
+                      <GreenP>${numberWithCommas(ci.startingAmount)}</GreenP>
+                    </Grid>
 
-                  <Grid item xs={6}>
-                    <b>Interest</b>
-                  </Grid>
-                  <Grid item xs={6} align="right">
-                    <GreenP>{ci.interest}%</GreenP>
-                  </Grid>
+                    <Grid item xs={6}>
+                      <strong>Monthly investment</strong>
+                    </Grid>
+                    <Grid item xs={6} align="right">
+                      <GreenP>${numberWithCommas(ci.monthlyInvestment)}</GreenP>
+                    </Grid>
 
-                  <Grid item xs={6}>
-                    <b>Years</b>
-                  </Grid>
-                  <Grid item xs={6} align="right">
-                    <GreenP>{ci.numberOfYears}</GreenP>
-                  </Grid>
+                    <Grid item xs={6}>
+                      <strong>Interest</strong>
+                    </Grid>
+                    <Grid item xs={6} align="right">
+                      <GreenP>{ci.interest}%</GreenP>
+                    </Grid>
 
-                  <Grid item xs={6}>
-                    <b>Frequency</b>
-                  </Grid>
-                  <Grid item xs={6} align="right">
-                    <GreenP>{ci.frequency}</GreenP>
-                  </Grid>
+                    <Grid item xs={6}>
+                      <strong>Years</strong>
+                    </Grid>
+                    <Grid item xs={6} align="right">
+                      <GreenP>{ci.numberOfYears}</GreenP>
+                    </Grid>
 
-                  <Grid item xs={6}>
-                    <b>Investment fees</b>
-                  </Grid>
-                  <Grid item xs={6} align="right">
-                    <RedP>{ci.investmentFees}%</RedP>
-                  </Grid>
+                    <Grid item xs={6}>
+                      <strong>Frequency</strong>
+                    </Grid>
+                    <Grid item xs={6} align="right">
+                      <GreenP>{ci.frequency}</GreenP>
+                    </Grid>
 
-                  <Grid item xs={6}>
-                    <b>Tax drag</b>
+                    <Grid item xs={6}>
+                      <strong>Investment fees</strong>
+                    </Grid>
+                    <Grid item xs={6} align="right">
+                      <RedP>{ci.investmentFees}%</RedP>
+                    </Grid>
+
+                    <Grid item xs={6}>
+                      <strong>Tax drag</strong>
+                    </Grid>
+                    <Grid item xs={6} align="right">
+                      <RedP>{ci.taxDrag}%</RedP>
+                    </Grid>
                   </Grid>
-                  <Grid item xs={6} align="right">
-                    <RedP>{ci.taxDrag}%</RedP>
-                  </Grid>
-                </Grid>
-                <hr />
+                </AiofPaper>
               </React.Fragment>
             );
           })
         }
-      </AiofPaper>
+      </React.Fragment>
     );
   }
   else if (props.inProgress) {

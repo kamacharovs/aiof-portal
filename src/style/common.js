@@ -24,6 +24,11 @@ export const Hr50 = styled.hr`
   opacity: 0.5 !important;
   margin-left: 0px !important;
 `;
+export const Hr75 = styled.hr`
+  width: 75% !important;
+  opacity: 0.5 !important;
+  margin-left: 0px !important;
+`;
 export const HrPreview = styled.hr`
   border-top: 1px solid;
   margin-top: 0.25rem;

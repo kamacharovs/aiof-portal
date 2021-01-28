@@ -206,7 +206,7 @@ const BmiMetricResult = props => {
             <AiofPaper elevation={3}>
                 <Grid container spacing={1}>
                     <Grid item xs={6} align="left">
-                        BMI:
+                        <strong>BMI:</strong>
                     </Grid>
                     <Grid item xs={6} align="right">
                         {props.bmiMetric.bmi}
