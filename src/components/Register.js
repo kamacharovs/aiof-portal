@@ -266,7 +266,7 @@ const PasswordRuleChecker = props => {
           }
         </Grid>
         <Grid item xs>
-          Password must between 8 and 50 characters
+          Password must be between 8 and 50 characters long
         </Grid>
       </Grid>
     </React.Fragment>
