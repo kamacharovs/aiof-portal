@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Helmet } from 'react-helmet';
 import agent from '../agent';
 import { connect } from 'react-redux';
@@ -8,8 +8,11 @@ import Container from '@material-ui/core/Container';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
-import { LoginPaper } from '../style/mui';
 import LockOpenIcon from '@material-ui/icons/LockOpen';
+import CheckIcon from '@material-ui/icons/Check';
+import CloseIcon from '@material-ui/icons/Close';
+
+import { LoginPaper } from '../style/mui';
 import { CoolLink } from '../style/common';
 import { AiofLoader } from '../components/Common/Loader';
 import { UPDATE_FIELD_AUTH, REGISTER, REGISTER_PAGE_UNLOADED } from '../constants/actionTypes';
@@ -40,147 +43,158 @@ const mapDispatchToProps = dispatch => ({
     dispatch({ type: REGISTER_PAGE_UNLOADED })
 });
 
-class Register extends React.Component {
-  constructor() {
-    super();
-    this.changeFocus = ev => this.setState({ focused: true });
-    this.changeFirstName = ev => this.props.onChangeFirstName(ev.target.value);
-    this.changeLastName = ev => this.props.onChangeLastName(ev.target.value);
-    this.changeEmail = ev => this.props.onChangeEmail(ev.target.value);
-    this.changeUsername = ev => this.props.onChangeUsername(ev.target.value);
-    this.changePassword = ev => this.props.onChangePassword(ev.target.value);
-    this.submitForm = (firstName, lastName, email, username, password) => ev => {
-      ev.preventDefault();
-      this.props.onSubmit(firstName, lastName, email, username, password);
+const useStyles = makeStyles((theme) => ({
+  root: {
+    display: 'flex',
+    flexWrap: 'wrap',
+  }
+}));
+
+const Register2 = props => {
+  const classes = useStyles();
+  const [focused, setFocused] = useState(false);
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
+  const [email, setEmail] = useState('');
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+
+  const isFirstNameValid = firstName ? firstName.length > 0 && firstName.length < 200 : false;
+  const isLastNameValid = lastName ? lastName.length > 0 && lastName.length < 200 : false;
+  const isEmailValid = email ? email.length > 0 && email.length < 200 : false;
+  const isUsernameValid = username ? username.length > 0 && username.length < 200 : false;
+  const isPasswordValid = password ? IsPasswordValid(password) : false;
+  const isEnabled = isFirstNameValid && isLastNameValid && isEmailValid && isUsernameValid && isPasswordValid;
+
+  const [passwordHasNumber, setPasswordHasNumber] = useState(false);
+  const [passwordHasUpperChar, setPasswordHasUpperChar] = useState(false);
+  const [passwordHasMinimum8Maximum50, setPasswordHasMinimum8Maximum50] = useState(false);
+
+  const onSubmitForm = (firstName, lastName, email, username, password) => ev => {
+    ev.preventDefault();
+
+    props.onSubmit(firstName, lastName, email, username, password);
+  }
+
+  useEffect(() => {
+    if (firstName && lastName && email && username && password) {
+      props.onUnload();
     }
+  }, [firstName, lastName, email, username, password]);
 
-    this.classes = makeStyles((theme) => ({
-      root: {
-        display: 'flex',
-        flexWrap: 'wrap',
-      },
-    }));
-  }
+  return (
+    <React.Fragment>
+      <Helmet>
+        <title>{props.appName} | Register</title>
+      </Helmet>
+      <Container maxWidth="sm">
+        <LoginPaper elevation={3} variant="outlined">
 
-  componentWillUnmount() {
-    this.props.onUnload();
-  }
-
-  render() {
-    const focused = this.props.focused || false;
-    const firstName = this.props.firstName || "";
-    const lastName = this.props.lastName || "";
-    const email = this.props.email || "";
-    const username = this.props.username || "";
-    const password = this.props.password || "";
-    const isFirstNameValid = firstName ? firstName.length > 0 && firstName.length < 200 : false;
-    const isLastNameValid = lastName ? lastName.length > 0 && lastName.length < 200 : false;
-    const isEmailValid = email ? email.length > 0 && email.length < 200 : false;
-    const isUsernameValid = username ? username.length > 0 && username.length < 200 : false;
-    const isPasswordValid = password ? password.length > 8 && password.length < 50 : false;
-    const isEnabled = isFirstNameValid && isLastNameValid && isEmailValid && isUsernameValid && isPasswordValid;
-
-    return (
-      <React.Fragment>
-        <Helmet>
-          <title>{this.props.appName} | Register</title>
-        </Helmet>
-        <Container maxWidth="sm">
-          <LoginPaper elevation={3} variant="outlined">
-
-            <Grid container spacing={3} alignItems="center" justify="center" alignContent="center">
-              <Grid item xs={12}>
-                <h1 className="text-center">Sign Up</h1>
-                <p className="text-center">
-                  <CoolLink to="/login">
-                    Have an account?
-              </CoolLink>
-                </p>
-              </Grid>
+          <Grid container spacing={3} alignItems="center" justify="center" alignContent="center">
+            <Grid item xs={12}>
+              <h1 className="text-center">Sign Up</h1>
+              <p className="text-center">
+                <CoolLink to="/login">
+                  Have an account?
+            </CoolLink>
+              </p>
             </Grid>
+          </Grid>
 
-            <form className={this.classes.root} noValidate autoComplete="off" onSubmit={this.submitForm(firstName, lastName, email, username, password)}>
-              <Grid container spacing={3} alignItems="center" justify="center">
-                <p className="text-center text-muted">
-                  One account for everything finance
-                </p>
+          <form className={classes.root} noValidate autoComplete="off" onSubmit={onSubmitForm(firstName, lastName, email, username, password)}>
+            <Grid container spacing={3} alignItems="center" justify="center">
+              <p className="text-center text-muted">
+                One account for everything finance
+              </p>
 
-                <Grid item xs={12}>
-                  <TextField
-                    required
-                    fullWidth
-                    label="First name"
-                    variant="outlined"
-                    value={firstName}
-                    onChange={this.changeFirstName}
-                    helperText={isFirstNameValid && !focused ? null : "First name is required and must be between 1 and 200 characters"}
-                  />
-                </Grid>
-
-                <Grid item xs={12}>
-                  <TextField
-                    required
-                    fullWidth
-                    label="Last name"
-                    variant="outlined"
-                    value={lastName}
-                    onChange={this.changeLastName}
-                    helperText={isLastNameValid ? null : "Last name is required and must be between 1 and 200 characters"}
-                  />
-                </Grid>
-
-                <Grid item xs={12}>
-                  <TextField
-                    required
-                    fullWidth
-                    label="Email"
-                    variant="outlined"
-                    value={email}
-                    onChange={this.changeEmail}
-                    helperText={isEmailValid ? null : "Email is required and must be between 1 and 200 characters"}
-                  />
-                </Grid>
-
-                <Grid item xs={12}>
-                  <TextField
-                    required
-                    fullWidth
-                    label="Username"
-                    variant="outlined"
-                    value={username}
-                    onChange={this.changeUsername}
-                    helperText={isUsernameValid ? null : "Username is required and must be unique and between 1 and 200 characters"}
-                  />
-                </Grid>
-
-                <Grid item xs={12}>
-                  <TextField
-                    required
-                    fullWidth
-                    label="Password"
-                    type="password"
-                    variant="outlined"
-                    value={password}
-                    onChange={this.changePassword}
-                    helperText={isPasswordValid ? null : "Password is required and must be between 8 to 50 characters, have a number and at least 1 uppercase character"}
-                  />
-                </Grid>
-
-                <Grid item xs={12}>
-                  <Button type="submit" variant="contained" color="primary" fullWidth
-                    disabled={!isEnabled || this.props.inProgress}>
-                    <LoadingClip inProgress={this.props.inProgress} />&nbsp;&nbsp;Sign up
-                  </Button>
-                </Grid>
-
+              <Grid item xs={12}>
+                <TextField
+                  required
+                  fullWidth
+                  label="First name"
+                  variant="outlined"
+                  value={firstName}
+                  onChange={e => setFirstName(e.target.value)}
+                  helperText={isFirstNameValid && !focused ? null : "First name is required and must be between 1 and 200 characters"}
+                />
               </Grid>
-            </form>
 
-          </LoginPaper>
-        </Container>
-      </React.Fragment>
-    );
-  }
+              <Grid item xs={12}>
+                <TextField
+                  required
+                  fullWidth
+                  label="Last name"
+                  variant="outlined"
+                  value={lastName}
+                  onChange={e => setLastName(e.target.value)}
+                  helperText={isLastNameValid ? null : "Last name is required and must be between 1 and 200 characters"}
+                />
+              </Grid>
+
+              <Grid item xs={12}>
+                <TextField
+                  required
+                  fullWidth
+                  label="Email"
+                  variant="outlined"
+                  value={email}
+                  onChange={e => setEmail(e.target.value)}
+                  helperText={isEmailValid ? null : "Email is required and must be between 1 and 200 characters"}
+                />
+              </Grid>
+
+              <Grid item xs={12}>
+                <TextField
+                  required
+                  fullWidth
+                  label="Username"
+                  variant="outlined"
+                  value={username}
+                  onChange={e => setUsername(e.target.value)}
+                  helperText={isUsernameValid ? null : "Username is required and must be unique and between 1 and 200 characters"}
+                />
+              </Grid>
+
+              <Grid item xs={12}>
+                <TextField
+                  required
+                  fullWidth
+                  label="Password"
+                  type="password"
+                  variant="outlined"
+                  value={password}
+                  onChange={e => setPassword(e.target.value)}
+                  helperText={isPasswordValid ? null : "Password is required and must be between 8 to 50 characters, have a number and at least 1 uppercase character"}
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <p>
+                  Password checker
+                </p>
+              </Grid>
+
+              <Grid item xs={12}>
+                <Button type="submit" variant="contained" color="primary" fullWidth
+                  disabled={!isEnabled || props.inProgress}>
+                  <LoadingClip inProgress={props.inProgress} />&nbsp;&nbsp;Sign up
+                </Button>
+              </Grid>
+
+            </Grid>
+          </form>
+
+        </LoginPaper>
+      </Container>
+    </React.Fragment>
+  );
+}
+
+const IsPasswordValid = (password) => {
+  var regexHasNumber = new RegExp("[0-9]+");
+  var regexUpperChar = new RegExp("[A-Z]+");
+  var regexLength = new RegExp(".{8,50}");
+
+  return password && regexHasNumber.test(password) && regexUpperChar.test(password) && regexLength.test(password);
 }
 
 const LoadingClip = props => {
@@ -198,4 +212,4 @@ const LoadingClip = props => {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Register);
+export default connect(mapStateToProps, mapDispatchToProps)(Register2);
