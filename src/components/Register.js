@@ -8,6 +8,7 @@ import Container from '@material-ui/core/Container';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
+import Zoom from '@material-ui/core/Zoom';
 import LockOpenIcon from '@material-ui/icons/LockOpen';
 import CheckIcon from '@material-ui/icons/Check';
 import CloseIcon from '@material-ui/icons/Close';
@@ -209,7 +210,19 @@ const PasswordRuleChecker = props => {
     <React.Fragment>
       <Grid container spacing={3} alignItems="center" justify="center">
         <Grid item xs={1}>
-          {hasNumber ? <CheckIcon style={{ color: "green" }} /> : <CloseIcon style={{ color: "red" }} />}
+          {hasNumber ?
+            <React.Fragment>
+              <Zoom in={hasNumber}>
+                <CheckIcon style={{ color: "green" }} />
+              </Zoom>
+            </React.Fragment>
+            :
+            <React.Fragment>
+              <Zoom in={!hasNumber}>
+                <CloseIcon style={{ color: "red" }} />
+              </Zoom>
+            </React.Fragment>
+          }
         </Grid>
         <Grid item xs>
           Password must contain a number
@@ -218,7 +231,19 @@ const PasswordRuleChecker = props => {
 
       <Grid container spacing={3} alignItems="center" justify="center">
         <Grid item xs={1}>
-          {hasUpperChar ? <CheckIcon style={{ color: "green" }} /> : <CloseIcon style={{ color: "red" }} />}
+          {hasUpperChar ?
+            <React.Fragment>
+              <Zoom in={hasUpperChar}>
+                <CheckIcon style={{ color: "green" }} />
+              </Zoom>
+            </React.Fragment>
+            :
+            <React.Fragment>
+              <Zoom in={!hasUpperChar}>
+                <CloseIcon style={{ color: "red" }} />
+              </Zoom>
+            </React.Fragment>
+          }
         </Grid>
         <Grid item xs>
           Password must have at least 1 upper case character
@@ -227,7 +252,18 @@ const PasswordRuleChecker = props => {
 
       <Grid container spacing={3} alignItems="center" justify="center">
         <Grid item xs={1}>
-          {hasLength ? <CheckIcon style={{ color: "green" }} /> : <CloseIcon style={{ color: "red" }} />}
+          {hasLength ?
+            <React.Fragment>
+              <Zoom in={hasLength}>
+                <CheckIcon style={{ color: "green" }} />
+              </Zoom>
+            </React.Fragment>
+            : <React.Fragment>
+              <Zoom in={!hasLength}>
+                <CloseIcon style={{ color: "red" }} />
+              </Zoom>
+            </React.Fragment>
+          }
         </Grid>
         <Grid item xs>
           Password must between 8 and 50 characters
