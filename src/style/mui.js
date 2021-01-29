@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { withStyles, makeStyles, styled } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
@@ -28,7 +29,7 @@ export const AiofPaper = styled(Paper)({
   fontSize: '.8125rem',
 });
 export const SquarePaper = styled(Paper)({
-  padding: '2rem',
+  padding: '1.5rem',
   marginTop: '1rem',
   fontSize: '.8125rem',
 })
