@@ -112,11 +112,11 @@ const ProfileMenu = props => {
                             Account management
                         </ListSubheader>
                     }>
-                    <ListItem button onClick={handleClose} component={Link} to={`/@${props.currentUser.username}`}>
+                    <ListItem button onClick={handleClose} component={Link} to={`/@${props.currentUser.firstName.toLowerCase()}.${props.currentUser.lastName.toLowerCase()}`}>
                         <ListItemText primary="Profile" />
                     </ListItem>
 
-                    <ListItem button onClick={handleClose} component={Link} to={`/@${props.currentUser.username}/finance`}>
+                    <ListItem button onClick={handleClose} component={Link} to={`/@${props.currentUser.firstName.toLowerCase()}.${props.currentUser.lastName.toLowerCase()}/finance`}>
                         <ListItemText primary="Finances" />
                     </ListItem>
                 </List>

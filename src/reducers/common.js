@@ -57,13 +57,12 @@ export default (state = defaultState, action) => {
     case SETTINGS_SAVED:
       return {
         ...state,
-        redirectTo: action.error ? null : `/@${action.payload.username}`,
+        redirectTo: action.error ? null : `/@${action.payload.firstName}.${action.payload.lastName}`,
         currentUser: action.error ? null : 
           { 
             firstName: action.payload.firstName,
             lastName: action.payload.lastName,
             email: action.payload.email,
-            username: action.payload.username,
             created: action.payload.created
           },
         profile: action.error ? null : action.payload.profile
