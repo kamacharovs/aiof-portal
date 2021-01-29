@@ -4,7 +4,7 @@ import { Helmet } from 'react-helmet';
 import agent from '../agent';
 import 'date-fns';
 
-import { AiofPaper } from '../style/mui';
+import { SquarePaper } from '../style/mui';
 import { RectSkeleton } from './Common/Sekeleton';
 import { formatDate } from './Finance/Common';
 import { PROFILE_GET_USER_PROFILE, PROFILE_UPSERT_USER_PROFILE, PROFILE_GET_OPTIONS } from '../constants/actionTypes';
@@ -171,7 +171,7 @@ const Profile = props => {
                                         props.inProgress
                                             ? <RectSkeleton height={100} />
                                             :
-                                            <AiofPaper elevation={3}>
+                                            <SquarePaper variant="outlined" square>
                                                 <h3>{props.currentUser.lastName + ", " + props.currentUser.firstName}</h3>
                                                 <p className={classes.tinyMutedText}>{formatDate(props.currentUser.created)}</p>
                                                 <p className={classes.tinyMutedText}>{props.currentUser.email}</p>
@@ -179,7 +179,7 @@ const Profile = props => {
                                                 <p className={classes.mutedText}>
                                                     Tell us about yourself so we can improve the financial advice we provide
                                             </p>
-                                            </AiofPaper>
+                                            </SquarePaper>
                                     }
                                 </Grid>
 
@@ -188,7 +188,7 @@ const Profile = props => {
                                         props.inProgress
                                             ? <RectSkeleton height={400} />
                                             :
-                                            <AiofPaper elevation={3}>
+                                            <SquarePaper variant="outlined" square>
                                                 <Grid container spacing={2} className={classes.root}>
                                                     <Grid item xs={6}>
                                                         <b>Gender</b>
@@ -323,7 +323,7 @@ const Profile = props => {
                                                         </Select>
                                                     </Grid>
                                                 </Grid>
-                                            </AiofPaper>
+                                            </SquarePaper>
                                     }
                                 </Grid>
 
@@ -332,7 +332,7 @@ const Profile = props => {
                                         props.inProgress
                                             ? <RectSkeleton height={400} />
                                             :
-                                            <AiofPaper elevation={3}>
+                                            <SquarePaper variant="outlined" square>
 
                                                 <Grid container spacing={2} className={classes.root}>
                                                     <Grid item xs={6}>
@@ -456,7 +456,7 @@ const Profile = props => {
                                                         />
                                                     </Grid>
                                                 </Grid>
-                                            </AiofPaper>
+                                            </SquarePaper>
                                     }
                                 </Grid>
 
@@ -465,7 +465,7 @@ const Profile = props => {
                                         props.inProgress
                                             ? <RectSkeleton height={100} />
                                             :
-                                            <AiofPaper elevation={3}>
+                                            <SquarePaper variant="outlined" square>
                                                 <Grid container spacing={2} className={classes.root}>
                                                     <Grid item xs={6}>
                                                         <Button variant="outlined" color="primary" disabled={!isUpdated} onClick={handleUpdate}>
@@ -476,7 +476,7 @@ const Profile = props => {
                                                     <Grid item xs={6}>
                                                     </Grid>
                                                 </Grid>
-                                            </AiofPaper>
+                                            </SquarePaper>
                                     }
                                 </Grid>
                             </Grid>
