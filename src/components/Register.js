@@ -82,7 +82,7 @@ const Register = props => {
     setPasswordHasMinimum8Maximum50(regexLength.test(newPassword));
   }
 
-  const onSubmitForm = (firstName, lastName, email, username, password) => ev => {
+  const onSubmitForm = () => ev => {
     ev.preventDefault();
 
     props.onSubmit(firstName, lastName, email, username, password);
@@ -113,7 +113,7 @@ const Register = props => {
             </Grid>
           </Grid>
 
-          <form className={classes.root} noValidate autoComplete="off" onSubmit={onSubmitForm(firstName, lastName, email, username, password)}>
+          <form className={classes.root} noValidate autoComplete="off" onSubmit={onSubmitForm()}>
             <Grid container spacing={3} alignItems="center" justify="center">
               <p className="text-center text-muted">
                 One account for everything finance
@@ -202,6 +202,7 @@ const Register = props => {
 }
 
 const PasswordRuleChecker = props => {
+  const timeout = 750;
   const hasNumber = props.passwordHasNumber;
   const hasUpperChar = props.passwordHasUpperChar;
   const hasLength = props.passwordHasLength;
@@ -212,13 +213,13 @@ const PasswordRuleChecker = props => {
         <Grid item xs={1}>
           {hasNumber ?
             <React.Fragment>
-              <Zoom in={hasNumber}>
+              <Zoom in={hasNumber} timeout={timeout}>
                 <CheckIcon style={{ color: "green" }} />
               </Zoom>
             </React.Fragment>
             :
             <React.Fragment>
-              <Zoom in={!hasNumber}>
+              <Zoom in={!hasNumber} timeout={timeout}>
                 <CloseIcon style={{ color: "red" }} />
               </Zoom>
             </React.Fragment>
@@ -233,13 +234,13 @@ const PasswordRuleChecker = props => {
         <Grid item xs={1}>
           {hasUpperChar ?
             <React.Fragment>
-              <Zoom in={hasUpperChar}>
+              <Zoom in={hasUpperChar} timeout={timeout}>
                 <CheckIcon style={{ color: "green" }} />
               </Zoom>
             </React.Fragment>
             :
             <React.Fragment>
-              <Zoom in={!hasUpperChar}>
+              <Zoom in={!hasUpperChar} timeout={timeout}>
                 <CloseIcon style={{ color: "red" }} />
               </Zoom>
             </React.Fragment>
@@ -254,12 +255,12 @@ const PasswordRuleChecker = props => {
         <Grid item xs={1}>
           {hasLength ?
             <React.Fragment>
-              <Zoom in={hasLength}>
+              <Zoom in={hasLength} timeout={timeout}>
                 <CheckIcon style={{ color: "green" }} />
               </Zoom>
             </React.Fragment>
             : <React.Fragment>
-              <Zoom in={!hasLength}>
+              <Zoom in={!hasLength} timeout={timeout}>
                 <CloseIcon style={{ color: "red" }} />
               </Zoom>
             </React.Fragment>

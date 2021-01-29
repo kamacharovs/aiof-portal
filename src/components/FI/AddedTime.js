@@ -10,7 +10,7 @@ import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
 import AttachMoneyIcon from '@material-ui/icons/AttachMoney';
 import { numberWithCommas } from '../Finance/Common';
-import { GreenP } from '../../style/common';
+import { GreenP, Hr75 } from '../../style/common';
 import { AiofPaper, AiofLinearProgress } from '../../style/mui';
 import { FI_PAGE_LOADED, FI_ADDED_TIME } from '../../constants/actionTypes';
 
@@ -151,24 +151,20 @@ const AddedTimeResults = props => {
                         </Grid>
                     </Grid>
 
+                    <br/>
+
                     <Grid container>
-                        <Grid container spacing={0}>
-                            <Grid item xs>
-                                <strong>Interest</strong>
-                            </Grid>
-                            <Grid item xs>
-                                <strong>Years</strong>
-                            </Grid>
-                        </Grid>
                         {
                             props.addedTime.years.map(year => {
                                 return (
-                                    <Grid container spacing={0}>
+                                    <Grid container spacing={0} key={year.interest}>
                                         <Grid item xs>
-                                            {year.interest}%
+                                            <strong>Interest: </strong>{year.interest}%
+                                            <Hr75 />
                                         </Grid>
                                         <Grid item xs>
-                                            {year.years}
+                                            <strong>Years: </strong>{year.years}
+                                            <Hr75 />
                                         </Grid>
                                     </Grid>
                                 );

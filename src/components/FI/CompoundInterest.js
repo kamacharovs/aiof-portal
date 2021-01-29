@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
 import agent from '../../agent';
@@ -29,240 +29,230 @@ const mapDispatchToProps = dispatch => ({
     dispatch({ type: FI_COMPOUND_INTEREST, payload: agent.Fi.compoundInterest(compoundInterest) })
 });
 
-class CompoundInterest extends React.Component {
-  constructor() {
-    super();
+const useStyles = makeStyles((theme) => ({
+  root: {
+    display: 'flex',
+    flexWrap: 'wrap',
+  },
+  margin: {
+    margin: theme.spacing(1),
+  },
+  withoutLabel: {
+    marginTop: theme.spacing(3),
+  },
+  textField: {
+    width: '25ch',
+  },
+}));
 
-    this.state = {
-      startingAmount: 0,
-      monthlyInvestment: 5000,
-      interest: 7,
-      numberOfYears: 25,
-      investmentFees: 0.50,
-      taxDrag: 0.50,
-    };
+const CompoundInterest = props => {
+  const classes = useStyles();
+  const [startingAmount, setStartingAmount] = useState(0);
+  const [monthlyInvestment, setMonthlyInvestment] = useState(5000);
+  const [interest, setInterest] = useState(7);
+  const [numberOfYears, setNumberOfYears] = useState(25);
+  const [investmentFees, setInvestmentFees] = useState(0.50);
+  const [taxDrag, setTaxDrag] = useState(0.50);
 
-    this.classes = makeStyles((theme) => ({
-      root: {
-        display: 'flex',
-        flexWrap: 'wrap',
-      },
-      margin: {
-        margin: theme.spacing(1),
-      },
-      withoutLabel: {
-        marginTop: theme.spacing(3),
-      },
-      textField: {
-        width: '25ch',
-      },
-    }));
+  const onSubmitForm = () => ev => {
+    ev.preventDefault();
 
-    this.updateState = field => ev => {
-      const state = this.state;
-      const newState = Object.assign({}, state, { [field]: ev.target.value });
-      this.setState(newState);
-    };
+    const compoundInterest = {};
 
-    this.submitForm = ev => {
-      ev.preventDefault();
+    compoundInterest.startingAmount = startingAmount ? Number(startingAmount) : null;
+    compoundInterest.monthlyInvestment = monthlyInvestment ? Number(monthlyInvestment) : null;
+    compoundInterest.interest = interest ? Number(interest) : null;
+    compoundInterest.numberOfYears = numberOfYears ? Number(numberOfYears) : null;
+    compoundInterest.investmentFees = investmentFees ? Number(investmentFees) : null;
+    compoundInterest.taxDrag = taxDrag ? Number(taxDrag) : null;
 
-      const compoundInterest = Object.assign({}, this.state);
-
-      compoundInterest.startingAmount = compoundInterest.startingAmount ? Number(compoundInterest.startingAmount) : null;
-      compoundInterest.monthlyInvestment = compoundInterest.monthlyInvestment ? Number(compoundInterest.monthlyInvestment) : null;
-      compoundInterest.interest = compoundInterest.interest ? Number(compoundInterest.interest) : null;
-      compoundInterest.numberOfYears = compoundInterest.numberOfYears ? Number(compoundInterest.numberOfYears) : null;
-      compoundInterest.investmentFees = compoundInterest.investmentFees ? Number(compoundInterest.investmentFees) : null;
-      compoundInterest.taxDrag = compoundInterest.taxDrag ? Number(compoundInterest.taxDrag) : null;
-
-      this.props.onSubmit(compoundInterest);
-    };
+    props.onSubmit(compoundInterest);
   }
 
-  componentDidMount() {
-    this.props.onLoad();
+  useEffect(() => {
+    props.onLoad();
 
-    if (this.props.compoundInterest) {
-      this.setState({
-        startingAmount: this.props.compoundInterest[0].startingAmount,
-        monthlyInvestment: this.props.compoundInterest[0].monthlyInvestment,
-        interest: this.props.compoundInterest[0].interest,
-        numberOfYears: this.props.compoundInterest[0].numberOfYears,
-        investmentFees: this.props.compoundInterest[0].investmentFees,
-        taxDrag: this.props.compoundInterest[0].taxDrag,
-      });
+    if (props.compoundInterest) {
+      setStartingAmount(props.compoundInterest[0].startingAmount);
+      setMonthlyInvestment(props.compoundInterest[0].monthlyInvestment);
+      setInterest(props.compoundInterest[0].interest);
+      setNumberOfYears(props.compoundInterest[0].numberOfYears);
+      setInvestmentFees(props.compoundInterest[0].investmentFees);
+      setTaxDrag(props.compoundInterest[0].taxDrag);
     }
-  }
+  }, []);
 
-  render() {
-    return (
-      <React.Fragment>
-        <Helmet>
-          <title>{this.props.appName} | Compound interest</title>
-        </Helmet>
-        <Container maxWidth="sm">
-          <AiofPaper elevation={3}>
-            <form className={this.classes.root} noValidate autoComplete="off" onSubmit={this.submitForm}>
-              <Grid container spacing={3}>
-                <Grid item xs={6}>
-                  <div className={this.classes.margin}>
-                    <TextField label="Starting amount"
-                      value={this.state.startingAmount}
-                      onChange={this.updateState('startingAmount')}
-                      InputProps={{
-                        startAdornment: <InputAdornment position="start">$</InputAdornment>
-                      }} />
-                  </div>
-                </Grid>
-
-                <Grid item xs={6}>
-                  <div className={this.classes.margin}>
-                    <TextField label="Monthly investment"
-                      value={this.state.monthlyInvestment}
-                      onChange={this.updateState('monthlyInvestment')}
-                      InputProps={{
-                        startAdornment: <InputAdornment position="start">$</InputAdornment>
-                      }} />
-                  </div>
-                </Grid>
-
-                <Grid item xs={6}>
-                  <div className={this.classes.margin}>
-                    <TextField label="Interest"
-                      value={this.state.interest}
-                      onChange={this.updateState('interest')}
-                      InputProps={{
-                        startAdornment: <InputAdornment position="start">%</InputAdornment>
-                      }} />
-                  </div>
-                </Grid>
-
-                <Grid item xs={6}>
-                  <div className={this.classes.margin}>
-                    <TextField label="Years"
-                      value={this.state.numberOfYears}
-                      onChange={this.updateState('numberOfYears')} />
-                  </div>
-                </Grid>
-
-                <Grid item xs={6}>
-                  <div className={this.classes.margin}>
-                    <TextField label="Investment Fees"
-                      value={this.state.investmentFees}
-                      onChange={this.updateState('investmentFees')}
-                      InputProps={{
-                        startAdornment: <InputAdornment position="start">%</InputAdornment>
-                      }} />
-                  </div>
-                </Grid>
-
-                <Grid item xs={6}>
-                  <div className={this.classes.margin}>
-                    <TextField label="Tax Drag"
-                      value={this.state.taxDrag}
-                      onChange={this.updateState('taxDrag')}
-                      InputProps={{
-                        startAdornment: <InputAdornment position="start">%</InputAdornment>
-                      }} />
-                  </div>
-                </Grid>
-
-                <Grid item xs={12}>
-                  <Button type="submit" variant="contained" color="primary" className={this.classes.button} >
-                    Calculate
-                </Button>
-                </Grid>
+  return (
+    <React.Fragment>
+      <Helmet>
+        <title>{props.appName} | Compound interest</title>
+      </Helmet>
+      <Container maxWidth="sm">
+        <AiofPaper elevation={3}>
+          <form className={classes.root} noValidate autoComplete="off" onSubmit={onSubmitForm()}>
+            <Grid container spacing={3}>
+              <Grid item xs={6}>
+                <div className={classes.margin}>
+                  <TextField label="Starting amount"
+                    value={startingAmount}
+                    onChange={e => setStartingAmount(e.target.value)}
+                    InputProps={{
+                      startAdornment: <InputAdornment position="start">$</InputAdornment>
+                    }} />
+                </div>
               </Grid>
-            </form>
-          </AiofPaper>
 
-          <CompoundInterestResults compoundInterest={this.props.compoundInterest} inProgress={this.props.inProgress} />
+              <Grid item xs={6}>
+                <div className={classes.margin}>
+                  <TextField label="Monthly investment"
+                    value={monthlyInvestment}
+                    onChange={e => setMonthlyInvestment(e.target.value)}
+                    InputProps={{
+                      startAdornment: <InputAdornment position="start">$</InputAdornment>
+                    }} />
+                </div>
+              </Grid>
 
-        </Container>
-      </React.Fragment>
-    );
-  }
+              <Grid item xs={6}>
+                <div className={classes.margin}>
+                  <TextField label="Interest"
+                    value={interest}
+                    onChange={e => setInterest(e.target.value)}
+                    InputProps={{
+                      startAdornment: <InputAdornment position="start">%</InputAdornment>
+                    }} />
+                </div>
+              </Grid>
+
+              <Grid item xs={6}>
+                <div className={classes.margin}>
+                  <TextField label="Years"
+                    value={numberOfYears}
+                    onChange={e => setNumberOfYears(e.target.value)} />
+                </div>
+              </Grid>
+
+              <Grid item xs={6}>
+                <div className={classes.margin}>
+                  <TextField label="Investment Fees"
+                    value={investmentFees}
+                    onChange={e => setInvestmentFees(e.target.value)}
+                    InputProps={{
+                      startAdornment: <InputAdornment position="start">%</InputAdornment>
+                    }} />
+                </div>
+              </Grid>
+
+              <Grid item xs={6}>
+                <div className={classes.margin}>
+                  <TextField label="Tax Drag"
+                    value={taxDrag}
+                    onChange={e => setTaxDrag(e.target.value)}
+                    InputProps={{
+                      startAdornment: <InputAdornment position="start">%</InputAdornment>
+                    }} />
+                </div>
+              </Grid>
+
+              <Grid item xs={12}>
+                <Button type="submit" variant="contained" color="primary" className={classes.button} >
+                  Calculate
+              </Button>
+              </Grid>
+            </Grid>
+          </form>
+        </AiofPaper>
+
+        <CompoundInterestResults compoundInterest={props.compoundInterest} inProgress={props.inProgress} />
+
+      </Container>
+    </React.Fragment>
+  );
 }
 
 const CompoundInterestResults = props => {
   if (props.compoundInterest) {
     return (
-      <AiofPaper elevation={3}>
+      <React.Fragment>
         {
           props.compoundInterest.map(ci => {
             return (
               <React.Fragment key={ci.frequency}>
-                <Grid container spacing={1}>
-                  <Grid item xs={6}>
-                    <b>Beginning</b>
-                  </Grid>
-                  <Grid item xs={6} align="right">
-                    <GreenP>${numberWithCommas(ci.compoundedBeginning)}</GreenP>
-                  </Grid>
+                <AiofPaper elevation={3}>
+                  <Grid container spacing={1}>
+                    <Grid item xs={6}>
+                      <strong>Beginning</strong>
+                    </Grid>
+                    <Grid item xs={6} align="right">
+                      <GreenP>${numberWithCommas(ci.compoundedBeginning)}</GreenP>
+                    </Grid>
 
-                  <Grid item xs={6}>
-                    <b>End</b>
-                  </Grid>
-                  <Grid item xs={6} align="right">
-                    <GreenP>${numberWithCommas(ci.compoundedEnd)}</GreenP>
-                  </Grid>
+                    <Grid item xs={6}>
+                      <strong>End</strong>
+                    </Grid>
+                    <Grid item xs={6} align="right">
+                      <GreenP>${numberWithCommas(ci.compoundedEnd)}</GreenP>
+                    </Grid>
 
-                  <Grid item xs={6}>
-                    <b>Starting amount</b>
-                  </Grid>
-                  <Grid item xs={6} align="right">
-                    <GreenP>${numberWithCommas(ci.startingAmount)}</GreenP>
-                  </Grid>
+                    <Grid item xs={12}>
+                      <hr />
+                    </Grid>
 
-                  <Grid item xs={6}>
-                    <b>Monthly investment</b>
-                  </Grid>
-                  <Grid item xs={6} align="right">
-                    <GreenP>${numberWithCommas(ci.monthlyInvestment)}</GreenP>
-                  </Grid>
+                    <Grid item xs={6}>
+                      <strong>Starting amount</strong>
+                    </Grid>
+                    <Grid item xs={6} align="right">
+                      <GreenP>${numberWithCommas(ci.startingAmount)}</GreenP>
+                    </Grid>
 
-                  <Grid item xs={6}>
-                    <b>Interest</b>
-                  </Grid>
-                  <Grid item xs={6} align="right">
-                    <GreenP>{ci.interest}%</GreenP>
-                  </Grid>
+                    <Grid item xs={6}>
+                      <strong>Monthly investment</strong>
+                    </Grid>
+                    <Grid item xs={6} align="right">
+                      <GreenP>${numberWithCommas(ci.monthlyInvestment)}</GreenP>
+                    </Grid>
 
-                  <Grid item xs={6}>
-                    <b>Years</b>
-                  </Grid>
-                  <Grid item xs={6} align="right">
-                    <GreenP>{ci.numberOfYears}</GreenP>
-                  </Grid>
+                    <Grid item xs={6}>
+                      <strong>Interest</strong>
+                    </Grid>
+                    <Grid item xs={6} align="right">
+                      <GreenP>{ci.interest}%</GreenP>
+                    </Grid>
 
-                  <Grid item xs={6}>
-                    <b>Frequency</b>
-                  </Grid>
-                  <Grid item xs={6} align="right">
-                    <GreenP>{ci.frequency}</GreenP>
-                  </Grid>
+                    <Grid item xs={6}>
+                      <strong>Years</strong>
+                    </Grid>
+                    <Grid item xs={6} align="right">
+                      <GreenP>{ci.numberOfYears}</GreenP>
+                    </Grid>
 
-                  <Grid item xs={6}>
-                    <b>Investment fees</b>
-                  </Grid>
-                  <Grid item xs={6} align="right">
-                    <RedP>{ci.investmentFees}%</RedP>
-                  </Grid>
+                    <Grid item xs={6}>
+                      <strong>Frequency</strong>
+                    </Grid>
+                    <Grid item xs={6} align="right">
+                      <GreenP>{ci.frequency}</GreenP>
+                    </Grid>
 
-                  <Grid item xs={6}>
-                    <b>Tax drag</b>
+                    <Grid item xs={6}>
+                      <strong>Investment fees</strong>
+                    </Grid>
+                    <Grid item xs={6} align="right">
+                      <RedP>{ci.investmentFees}%</RedP>
+                    </Grid>
+
+                    <Grid item xs={6}>
+                      <strong>Tax drag</strong>
+                    </Grid>
+                    <Grid item xs={6} align="right">
+                      <RedP>{ci.taxDrag}%</RedP>
+                    </Grid>
                   </Grid>
-                  <Grid item xs={6} align="right">
-                    <RedP>{ci.taxDrag}%</RedP>
-                  </Grid>
-                </Grid>
-                <hr />
+                </AiofPaper>
               </React.Fragment>
             );
           })
         }
-      </AiofPaper>
+      </React.Fragment>
     );
   }
   else if (props.inProgress) {
