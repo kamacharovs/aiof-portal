@@ -15,7 +15,8 @@ import { MuiPickersUtilsProvider, KeyboardDatePicker } from '@material-ui/picker
 import { numberWithCommas } from '../Finance/Common';
 import { Line, Bar } from 'react-chartjs-2';
 
-import { AiofPaper, AiofLinearProgress, InPaper } from '../../style/mui';
+import { AiofLinearProgress, InPaper, SquarePaper } from '../../style/mui';
+import { ThinText } from '../../style/common';
 import { HOUSE_MORTGAGE_CALCULATOR } from '../../constants/actionTypes';
 
 
@@ -142,7 +143,7 @@ const MortgageCalculator = props => {
             </Helmet>
 
             <Container maxWidth="md">
-                <AiofPaper>
+                <SquarePaper variant="outlined" square>
                     <form className={classes.root} noValidate autoComplete="off" onSubmit={onCalculate}>
                         <Grid container spacing={3}>
                             <Grid item xs>
@@ -274,7 +275,7 @@ const MortgageCalculator = props => {
                             </Grid>
                         </Grid>
                     </form>
-                </AiofPaper>
+                </SquarePaper>
 
                 <MortgageCalculatorResult data={props.data} breakdown={props.breakdown} />
 
@@ -388,16 +389,16 @@ const MortgageCalculatorResult = props => {
 
         return (
             <React.Fragment>
-                <AiofPaper elevation={3}>
+                <SquarePaper variant="outlined" square>
                     <Grid container spacing={1}>
                         <h4>
                             <strong>Your results</strong>
                         </h4>
                     </Grid>
                     <Grid container spacing={1}>
-                        <p>
-                        Based on what you have entered into the form, we have calculated the following results:
-                        </p>
+                        <ThinText>
+                            Based on what you have entered into the form, we have calculated the following results:
+                        </ThinText>
                     </Grid>
 
                     <Grid container spacing={1}>
@@ -445,17 +446,17 @@ const MortgageCalculatorResult = props => {
                                 body={new Date(last.paymentDate).toLocaleDateString()} />
                         </Grid>
                     </Grid>
-                </AiofPaper>
+                </SquarePaper>
 
-                <AiofPaper elevation={3}>
+                <SquarePaper variant="outlined" square>
                     <Line data={lineData} options={lineOptions} />
-                </AiofPaper>
+                </SquarePaper>
 
-                <AiofPaper>
+                <SquarePaper variant="outlined" square>
                     <Bar data={stackedData} options={stackedOptions} />
-                </AiofPaper>
+                </SquarePaper>
 
-                <AiofPaper>
+                <SquarePaper variant="outlined" square>
                     <Button color="primary" onClick={() => setShowCompleteBreakdown(!showCompleteBreakdown)}>
                         {showCompleteBreakdown === false ? "View complete breakdown" : "Hide complete breakdown"}
                     </Button>
@@ -464,9 +465,9 @@ const MortgageCalculatorResult = props => {
                     The complete breakdown will show you exactly what is in each month from the start date. This can be helpful in order to further see into the numbers
 
                     <CompleteBreakdown data={props.data} show={showCompleteBreakdown} />
-                </AiofPaper>
+                </SquarePaper>
 
-                <AiofPaper>
+                <SquarePaper variant="outlined" square>
                     <Button color="primary" onClick={() => setShowYearlyCompleteBreakdown(!showYearlyCompleteBreakdown)}>
                         {showYearlyCompleteBreakdown === false ? "View yearly complete breakdown" : "Hide yearly complete breakdown"}
                     </Button>
@@ -475,7 +476,7 @@ const MortgageCalculatorResult = props => {
                     The yearly complete breakdown will show you exactly what is in each year from the start date. This is very similar to the complete breakdown but it's a higher level overview
 
                     <YearlyCompleteBreakdown data={props.breakdown} show={showYearlyCompleteBreakdown} />
-                </AiofPaper>
+                </SquarePaper>
             </React.Fragment>
         );
     }
