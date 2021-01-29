@@ -83,9 +83,9 @@ class App extends React.Component {
             <Route exact path="/login" component={Login} />
             <Route exact path="/register" component={Register} />
             <Route exact path="/profile/update" component={ProfileStepper} />
-            <Route exact path="/@:username/finance" component={FinanceMainView} />
-            <Route exact path="/@:username/finance/liability" component={LiabilityEditor} />
-            <Route exact path="/@:username" component={Profile} />
+            <Route exact path="/@:firstName.:lastName/finance" component={FinanceMainView} />
+            <Route exact path="/@:firstName.:lastName/finance/liability" component={LiabilityEditor} />
+            <Route exact path="/@:firstName.:lastName" component={Profile} />
             <Route exact path="/fi/added/time" component={AddedTime} />
             <Route exact path="/fi/time" component={TimeToFi} />
             <Route exact path="/fi/compound/interest" component={CompoundInterest} />

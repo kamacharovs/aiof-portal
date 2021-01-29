@@ -45,10 +45,10 @@ const requestsMetadata = {
 }
 
 const Auth = {
-  login: (username, password) =>
-    requestsAuth.post('/auth/token', { username, password }),
-  register: (firstName, lastName, email, username, password) =>
-    requestsAuth.post('/user', { firstName, lastName, email, username, password }),
+  login: (email, password) =>
+    requestsAuth.post('/auth/token', { email, password }),
+  register: (firstName, lastName, email, password) =>
+    requestsAuth.post('/user', { firstName, lastName, email, password }),
   refresh: () =>
     requestsAuth.post('/auth/token', { refresh_token: refresh_token }),
   getUser: () =>
@@ -60,18 +60,18 @@ const Auth = {
 const User = {
   get: () =>
     requests.get(`/user`),
-  byUsername: username =>
-    requests.get(`/user?username=${username}`),
+  byEmail: email =>
+    requests.get(`/user?email=${email}`),
   profile: () =>
     requests.get(`/user/profile`),
   profileUpsert: (payload) =>
     requests.put(`/user/profile`, payload)
 }
 const UserProfile = {
-  get: username =>
-    User.byUsername(username),
-  upsert: (username, payload) =>
-    requests.put(`/user/profile?username=${username}`, payload),
+  get: email =>
+    User.byEmail(email),
+  upsert: (email, payload) =>
+    requests.put(`/user/profile?email=${email}`, payload),
   options: () =>
     requests.get(`/user/profile/options`),
 }
@@ -164,15 +164,6 @@ const Comments = {
     requests.get(`/articles/${slug}/comments`)
 };
 
-const Profile = {
-  follow: username =>
-    requests.post(`/profiles/${username}/follow`),
-  get: username =>
-    requests.get(`/profiles/${username}`),
-  unfollow: username =>
-    requests.del(`/profiles/${username}/follow`)
-};
-
 export default {
   Articles,
   Auth,
@@ -185,7 +176,6 @@ export default {
   Analytics,
   Property,
   Comments,
-  Profile,
   setToken: _token => { token = _token; },
   setRefreshToken: _refreshToken => { refresh_token = _refreshToken },
   setExpires: _expires => { expires = _expires },
