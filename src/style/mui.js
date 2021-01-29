@@ -1,4 +1,6 @@
+import React from 'react';
 import { withStyles, makeStyles, styled } from '@material-ui/core/styles';
+import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import LinearProgress from '@material-ui/core/LinearProgress';
 
@@ -15,6 +17,9 @@ export const commonStyles = makeStyles({
     margin: '0rem',
     padding: '0rem',
   },
+  inPaper: {
+    fontSize: '24px !important',
+  }
 });
 
 export const AiofPaper = styled(Paper)({
@@ -39,3 +44,37 @@ export const AiofLinearProgress = withStyles({
     backgroundColor: DefaultColor
   }
 })(LinearProgress)
+
+const InPaperInternal = styled(Paper)({
+  padding: '1rem',
+  marginTop: '1rem',
+  fontSize: '.8125rem',
+});
+export const InPaper = props => {
+  const classes = commonStyles();
+
+  let prefix = props.prefix ? props.prefix : null;
+  let body = props.body ? props.body : "";
+
+  return (
+    <React.Fragment>
+      <InPaperInternal variant="outlined" square>
+      <Grid container spacing={1}>
+        <Grid item xs>
+          <div>
+            {props.title}
+          </div>
+        </Grid>
+      </Grid>
+
+      <Grid container spacing={1}>
+        <Grid item xs>
+          <div className={classes.inPaper}>
+              {prefix}{body}
+          </div>
+        </Grid>
+      </Grid>
+      </InPaperInternal>
+    </React.Fragment>
+  );
+}
