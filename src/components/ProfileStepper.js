@@ -114,7 +114,7 @@ class ProfileStepper extends React.Component {
             profile.retirementContributionsPreTax = currentState.retirementContributionsPreTax ? Number(currentState.retirementContributionsPreTax) : null;
 
             //TODO add AddAsset and AddLiability api calls
-            agent.UserProfile.upsert(this.props.currentUser.username, profile)
+            agent.UserProfile.upsert(profile)
         }
 
         this.updateState = field => ev => {

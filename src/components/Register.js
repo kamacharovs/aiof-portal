@@ -32,12 +32,10 @@ const mapDispatchToProps = dispatch => ({
     dispatch({ type: UPDATE_FIELD_AUTH, key: 'lastName', value }),
   onChangeEmail: value =>
     dispatch({ type: UPDATE_FIELD_AUTH, key: 'email', value }),
-  onChangeUsername: value =>
-    dispatch({ type: UPDATE_FIELD_AUTH, key: 'username', value }),
   onChangePassword: value =>
     dispatch({ type: UPDATE_FIELD_AUTH, key: 'password', value }),
-  onSubmit: (firstName, lastName, email, username, password) => {
-    const payload = agent.Auth.register(firstName, lastName, email, username, password);
+  onSubmit: (firstName, lastName, email, password) => {
+    const payload = agent.Auth.register(firstName, lastName, email, password);
     dispatch({ type: REGISTER, payload })
   },
   onUnload: () =>
@@ -61,7 +59,6 @@ const Register = props => {
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
-  const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
   const [passwordHasNumber, setPasswordHasNumber] = useState(false);
@@ -71,9 +68,8 @@ const Register = props => {
   const isFirstNameValid = firstName ? firstName.length > 0 && firstName.length < 200 : false;
   const isLastNameValid = lastName ? lastName.length > 0 && lastName.length < 200 : false;
   const isEmailValid = email ? email.length > 0 && email.length < 200 : false;
-  const isUsernameValid = username ? username.length > 0 && username.length < 200 : false;
   const isPasswordValid = password ? regexHasNumber.test(password) && regexUpperChar.test(password) && regexLength.test(password) : false;
-  const isEnabled = isFirstNameValid && isLastNameValid && isEmailValid && isUsernameValid && isPasswordValid;
+  const isEnabled = isFirstNameValid && isLastNameValid && isEmailValid && isPasswordValid;
 
   const updatePassword = (newPassword) => {
     setPassword(newPassword);
@@ -85,14 +81,14 @@ const Register = props => {
   const onSubmitForm = () => ev => {
     ev.preventDefault();
 
-    props.onSubmit(firstName, lastName, email, username, password);
+    props.onSubmit(firstName, lastName, email, password);
   }
 
   useEffect(() => {
-    if (firstName && lastName && email && username && password) {
+    if (firstName && lastName && email && password) {
       props.onUnload();
     }
-  }, [firstName, lastName, email, username, password]);
+  }, [firstName, lastName, email, password]);
 
   return (
     <React.Fragment>
@@ -152,18 +148,6 @@ const Register = props => {
                   value={email}
                   onChange={e => setEmail(e.target.value)}
                   helperText={isEmailValid ? null : "Email is required and must be between 1 and 200 characters"}
-                />
-              </Grid>
-
-              <Grid item xs={12}>
-                <TextField
-                  required
-                  fullWidth
-                  label="Username"
-                  variant="outlined"
-                  value={username}
-                  onChange={e => setUsername(e.target.value)}
-                  helperText={isUsernameValid ? null : "Username is required and must be unique and between 1 and 200 characters"}
                 />
               </Grid>
 

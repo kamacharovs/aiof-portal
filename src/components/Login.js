@@ -26,14 +26,14 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  onChangeUsername: value =>
-    dispatch({ type: UPDATE_FIELD_AUTH, key: 'username', value }),
+  onChangeEmail: value =>
+    dispatch({ type: UPDATE_FIELD_AUTH, key: 'email', value }),
   onChangePassword: value =>
     dispatch({ type: UPDATE_FIELD_AUTH, key: 'password', value }),
   onChangeRememberMe: (name, value) =>
     dispatch({ type: UPDATE_FIELD_AUTH, key: 'rememberMe', value }),
-  onSubmit: (username, password) =>
-    dispatch({ type: LOGIN, payload: agent.Auth.login(username, password) }),
+  onSubmit: (email, password) =>
+    dispatch({ type: LOGIN, payload: agent.Auth.login(email, password) }),
   onRefresh: () =>
     dispatch({ type: REFRESH, payload: agent.Auth.refresh() }),
   onGetUser: () =>
@@ -64,24 +64,24 @@ const useStyles = makeStyles((theme) => ({
 
 const Login = props => {
   const classes = useStyles();
-  const [username, setUsername] = useState('');
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [rememberMe, setRememberMe] = useState(false);
-  const isEnabled = username && password ? username.length > 0 && password.length >= 8 : false;
+  const isEnabled = email && password ? email.length > 0 && password.length >= 8 : false;
 
-  const onSubmitForm = (username, password) => ev => {
+  const onSubmitForm = (email, password) => ev => {
     ev.preventDefault();
-    props.onSubmit(username, password);
+    props.onSubmit(email, password);
   };
 
   useEffect(() => {
-    if (username && password) {
+    if (email && password) {
       props.onRefresh();
     }
   }, [props.token]);
 
   useEffect(() => {
-    if (username && password) {
+    if (email && password) {
       props.onGetUser();
     }
   }, [props.token, props.refreshToken]);
@@ -105,23 +105,23 @@ const Login = props => {
             </Grid>
           </Grid>
 
-          <form className={classes.root} noValidate autoComplete="off" onSubmit={onSubmitForm(username, password)}>
+          <form className={classes.root} noValidate autoComplete="off" onSubmit={onSubmitForm(email, password)}>
             <Grid container spacing={3} alignItems="center" justify="center">
               <p className="text-center text-muted">
                 One account for everything finance
                 </p>
               <RedP>
-                {props.error ? "Invalid username or password. Please try again" : null}
+                {props.error ? "Invalid email or password. Please try again" : null}
               </RedP>
 
               <Grid item xs={12}>
                 <TextField
                   required
                   fullWidth
-                  label="Username"
+                  label="Email"
                   variant="outlined"
-                  value={username}
-                  onChange={e => setUsername(e.target.value)}
+                  value={email}
+                  onChange={e => setEmail(e.target.value)}
                 />
               </Grid>
 

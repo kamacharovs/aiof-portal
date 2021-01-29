@@ -42,7 +42,6 @@ export default (state = defaultState, action) => {
             firstName: action.payload.firstName,
             lastName: action.payload.lastName,
             email: action.payload.email,
-            username: action.payload.username,
             created: action.payload.created
           } : null
       };
@@ -84,7 +83,7 @@ export default (state = defaultState, action) => {
     case REGISTER:
       return {
         ...state,
-        redirectTo: action.error ? null : '/profile/update',
+        redirectTo: action.error ? null : '/login',
         token: action.error ? null : action.payload.access_token,
         refreshToken: action.error ? null : action.payload.refresh_token,
         currentUser: action.error ? null : action.payload.user
