@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
-import { AiofPaper } from '../../style/mui';
+import { SquarePaper } from '../../style/mui';
 
 
 const mapStateToProps = state => ({
@@ -30,9 +30,9 @@ const MainView = props => {
       <Grid container spacing={1} className={classes.root}>
 
         <Grid item xs={12}>
-          <AiofPaper>
+          <SquarePaper variant="outlined" square>
             More to come...
-          </AiofPaper>
+          </SquarePaper>
         </Grid>
         
       </Grid>
