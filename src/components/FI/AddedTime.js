@@ -11,7 +11,7 @@ import Grid from '@material-ui/core/Grid';
 import AttachMoneyIcon from '@material-ui/icons/AttachMoney';
 import { numberWithCommas } from '../Finance/Common';
 import { GreenP, Hr75 } from '../../style/common';
-import { AiofPaper, AiofLinearProgress } from '../../style/mui';
+import { SquarePaper, AiofLinearProgress } from '../../style/mui';
 import { FI_PAGE_LOADED, FI_ADDED_TIME } from '../../constants/actionTypes';
 
 
@@ -75,7 +75,7 @@ const AddedTime = props => {
                 <title>{props.appName} | Added time</title>
             </Helmet>
             <Container maxWidth="sm">
-                <AiofPaper elevation={3}>
+                <SquarePaper variant="outlined" square>
                     <form className={classes.root} noValidate autoComplete="off" onSubmit={onSubmitForm}>
                         <Grid container spacing={3}>
                             <Grid item xs={6}>
@@ -115,7 +115,7 @@ const AddedTime = props => {
                             </Grid>
                         </Grid>
                     </form>
-                </AiofPaper>
+                </SquarePaper>
 
                 <AddedTimeResults addedTime={props.addedTime} inProgress={props.inProgress} />
 
@@ -128,7 +128,7 @@ const AddedTimeResults = props => {
     if (props.addedTime) {
         return (
             <React.Fragment>
-                <AiofPaper elevation={3}>
+                <SquarePaper variant="outlined" square>
                     <Grid container direction="column" spacing={0}>
                         <Grid item xs>
                             <strong>Monthly investment</strong>
@@ -171,7 +171,7 @@ const AddedTimeResults = props => {
                             })
                         }
                     </Grid>
-                </AiofPaper>
+                </SquarePaper>
             </React.Fragment>
 
         );

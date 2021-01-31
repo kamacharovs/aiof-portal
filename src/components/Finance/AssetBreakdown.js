@@ -14,7 +14,7 @@ import ArrowUpwardIcon from '@material-ui/icons/ArrowUpward';
 import TrendingUpIcon from '@material-ui/icons/TrendingUp';
 import { numberWithCommas } from '../Finance/Common';
 import { GreenP, RedP } from '../../style/common';
-import { AiofPaper, AiofLinearProgress } from '../../style/mui';
+import { SquarePaper, AiofLinearProgress } from '../../style/mui';
 import { ASSET_BREAKDOWN, REDIRECT_HOME } from '../../constants/actionTypes';
 
 
@@ -117,7 +117,7 @@ class AssetBreakdown extends React.Component {
                 </Helmet>
 
                 <Container maxWidth="sm">
-                    <AiofPaper elevation={3}>
+                    <SquarePaper variant="outlined" square>
                         <form className={this.classes.root} noValidate autoComplete="off" onSubmit={this.submitForm}>
                             <Grid container spacing={3}>
 
@@ -239,7 +239,7 @@ class AssetBreakdown extends React.Component {
                                 </Grid>
                             </Grid>
                         </form>
-                    </AiofPaper>
+                    </SquarePaper>
 
                     <AssetBreakdownResults assetBreakdown={this.props.assetBreakdown} inProgress={this.props.inProgress} />
 
@@ -254,7 +254,7 @@ const AssetBreakdownResults = props => {
     if (props.assetBreakdown) {
         return (
             <React.Fragment>
-                <AiofPaper elevation={3}>
+                <SquarePaper variant="outlined" square>
                     <Grid container spacing={1}>
                         <Grid item xs={6}>
                             <b>Value</b>
@@ -312,9 +312,9 @@ const AssetBreakdownResults = props => {
                             <RedP>{props.assetBreakdown.taxDrag}%</RedP>
                         </Grid>
                     </Grid>
-                </AiofPaper>
+                </SquarePaper>
 
-                <AiofPaper elevation={3}>
+                <SquarePaper variant="outlined" square>
                     <Grid container spacing={1}>
                         <Grid item xs={6}>
                             <b>Market value</b>
@@ -347,9 +347,9 @@ const AssetBreakdownResults = props => {
 
                     <AssetBreakdownChart breakdown={props.assetBreakdown.marketValueBreakdown} title={'Market value'} />
                     <AssetBreakdownChart breakdown={props.assetBreakdown.marketWithContributionValueBreakdown} title={'Market (with contributions) value'} />
-                </AiofPaper>
+                </SquarePaper>
 
-                <AiofPaper elevation={3}>
+                <SquarePaper variant="outlined" square>
                     <Grid container spacing={1}>
                         <Grid item xs={6}>
                             <b>HYS value</b>
@@ -383,7 +383,7 @@ const AssetBreakdownResults = props => {
                     <AssetBreakdownChart breakdown={props.assetBreakdown.hysValueBreakdown} title={'HYS value'} />
                     <AssetBreakdownChart breakdown={props.assetBreakdown.hysWithContributionValueBreakdown} title={'HYS (with contributions) value'} />
 
-                </AiofPaper>
+                </SquarePaper>
             </React.Fragment>
         )
     }

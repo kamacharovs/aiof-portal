@@ -12,7 +12,7 @@ import AttachMoneyIcon from '@material-ui/icons/AttachMoney';
 import ArrowUpwardIcon from '@material-ui/icons/ArrowUpward';
 import { numberWithCommas } from '../Finance/Common';
 import { GreenP, RedP, Hr75 } from '../../style/common';
-import { AiofPaper, AiofLinearProgress } from '../../style/mui';
+import { SquarePaper, AiofLinearProgress } from '../../style/mui';
 import { FI_PAGE_LOADED, FI_TIME_TO_FI } from '../../constants/actionTypes';
 
 
@@ -81,8 +81,9 @@ const TimeToFi = props => {
       <Helmet>
         <title>{props.appName} | Time to FI</title>
       </Helmet>
+
       <Container maxWidth="sm">
-        <AiofPaper elevation={3}>
+        <SquarePaper variant="outlined" square>
           <form className={classes.root} noValidate autoComplete="off" onSubmit={onSubmitForm}>
             <Grid container spacing={3}>
               <Grid item xs={6}>
@@ -152,7 +153,7 @@ const TimeToFi = props => {
               </Grid>
             </Grid>
           </form>
-        </AiofPaper>
+        </SquarePaper>
 
         <TimeToFiResults time={props.time} inProgress={props.inProgress} />
 
@@ -165,7 +166,7 @@ const TimeToFiResults = props => {
   if (props.time) {
     return (
       <React.Fragment>
-        <AiofPaper elevation={3}>
+        <SquarePaper variant="outlined" square>
           <Grid container direction="column" spacing={0}>
             <Grid item xs>
               <strong>Starting amount</strong>
@@ -251,7 +252,7 @@ const TimeToFiResults = props => {
             }
           </Grid>
 
-        </AiofPaper>
+        </SquarePaper>
       </React.Fragment>
     );
   }

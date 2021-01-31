@@ -11,7 +11,7 @@ import Grid from '@material-ui/core/Grid';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import { numberWithCommas } from '../Finance/Common';
 import { GreenP, RedP } from '../../style/common';
-import { AiofPaper, AiofLinearProgress } from '../../style/mui';
+import { SquarePaper, AiofLinearProgress } from '../../style/mui';
 import { FI_PAGE_LOADED, FI_COMPOUND_INTEREST } from '../../constants/actionTypes';
 
 
@@ -88,7 +88,7 @@ const CompoundInterest = props => {
         <title>{props.appName} | Compound interest</title>
       </Helmet>
       <Container maxWidth="sm">
-        <AiofPaper elevation={3}>
+        <SquarePaper variant="outlined" square>
           <form className={classes.root} noValidate autoComplete="off" onSubmit={onSubmitForm()}>
             <Grid container spacing={3}>
               <Grid item xs={6}>
@@ -161,7 +161,7 @@ const CompoundInterest = props => {
               </Grid>
             </Grid>
           </form>
-        </AiofPaper>
+        </SquarePaper>
 
         <CompoundInterestResults compoundInterest={props.compoundInterest} inProgress={props.inProgress} />
 
@@ -178,7 +178,7 @@ const CompoundInterestResults = props => {
           props.compoundInterest.map(ci => {
             return (
               <React.Fragment key={ci.frequency}>
-                <AiofPaper elevation={3}>
+                <SquarePaper variant="outlined" square>
                   <Grid container spacing={1}>
                     <Grid item xs={6}>
                       <strong>Beginning</strong>
@@ -247,7 +247,7 @@ const CompoundInterestResults = props => {
                       <RedP>{ci.taxDrag}%</RedP>
                     </Grid>
                   </Grid>
-                </AiofPaper>
+                </SquarePaper>
               </React.Fragment>
             );
           })

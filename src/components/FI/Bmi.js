@@ -4,7 +4,7 @@ import { Helmet } from 'react-helmet';
 import agent from '../../agent';
 import { FI_PAGE_LOADED, FI_BMI_IMPERIAL, FI_BMI_METRIC } from '../../constants/actionTypes';
 
-import { AiofPaper, AiofLinearProgress } from '../../style/mui';
+import { SquarePaper, AiofLinearProgress } from '../../style/mui';
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Container from '@material-ui/core/Container';
@@ -92,7 +92,7 @@ const Bmi = (props) => {
             </Helmet>
 
             <Container maxWidth="sm">
-                <AiofPaper elevation={3}>
+                <SquarePaper variant="outlined" square>
                     <form className={classes.root} noValidate autoComplete="off" onSubmit={submitImperial}>
                         <Grid container spacing={3}>
                             <Grid item xs={4}>
@@ -129,11 +129,11 @@ const Bmi = (props) => {
                             </Grid>
                         </Grid>
                     </form>
-                </AiofPaper>
+                </SquarePaper>
 
                 <BmiResult bmiImperial={props.bmiImperial} />
 
-                <AiofPaper elevation={3}>
+                <SquarePaper variant="outlined" square>
                     <form className={classes.root} noValidate autoComplete="off" onSubmit={submitMetric}>
                         <Grid container spacing={3}>
                             <Grid item xs={6}>
@@ -165,7 +165,7 @@ const Bmi = (props) => {
                             </Grid>
                         </Grid>
                     </form>
-                </AiofPaper>
+                </SquarePaper>
 
                 <BmiMetricResult bmiMetric={props.bmiMetric} />
 
@@ -179,7 +179,7 @@ const Bmi = (props) => {
 const BmiResult = props => {
     if (props.bmiImperial) {
         return (
-            <AiofPaper elevation={3}>
+            <SquarePaper variant="outlined" square>
                 <Grid container spacing={1}>
                     <Grid item xs={6} align="left">
                         BMI:
@@ -192,7 +192,7 @@ const BmiResult = props => {
                         <Guidelines />
                     </Grid>
                 </Grid>
-            </AiofPaper>
+            </SquarePaper>
         );
     }
     else {
@@ -203,7 +203,7 @@ const BmiResult = props => {
 const BmiMetricResult = props => {
     if (props.bmiMetric) {
         return (
-            <AiofPaper elevation={3}>
+            <SquarePaper variant="outlined" square>
                 <Grid container spacing={1}>
                     <Grid item xs={6} align="left">
                         <strong>BMI:</strong>
@@ -216,7 +216,7 @@ const BmiMetricResult = props => {
                         <Guidelines />
                     </Grid>
                 </Grid>
-            </AiofPaper>
+            </SquarePaper>
         );
     }
     else {
