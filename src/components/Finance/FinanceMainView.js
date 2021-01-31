@@ -638,17 +638,20 @@ const AnalyzeView = props => {
                         ? null
                         : <React.Fragment>
                             <InPaper
-                            title={<strong>
-                                {
-                                    props.analyze.analytics.cashToCcRatio !== null
-                                        ? "Cash to credit card ratio"
-                                        : "Credit card to cash ratio"
+                                title={
+                                <strong>
+                                    {
+                                        props.analyze.analytics.cashToCcRatio !== null
+                                            ? "Cash to credit card ratio"
+                                            : "Credit card to cash ratio"
+                                    }
+                                </strong>
                                 }
-                            </strong>}
-                            body={
-                                props.analyze.analytics.cashToCcRatio !== null
-                                    ? props.analyze.analytics.cashToCcRatio
-                                    : props.analyze.analytics.ccToCashRatio } />
+                                body={
+                                    props.analyze.analytics.cashToCcRatio !== null
+                                        ? props.analyze.analytics.cashToCcRatio + "%"
+                                        : props.analyze.analytics.ccToCashRatio + "%"
+                                } />
                         </React.Fragment>
                     }
 
