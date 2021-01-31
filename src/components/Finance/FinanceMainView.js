@@ -637,25 +637,18 @@ const AnalyzeView = props => {
                     {props.analyze.analytics.cashToCcRatio === null && props.analyze.analytics.ccToCashRatio === null
                         ? null
                         : <React.Fragment>
-                            <Grid item xs>
-                                <strong>
-                                    {
-                                        props.analyze.analytics.cashToCcRatio !== null
-                                            ? "Cash to credit card ratio"
-                                            : "Credit card to cash ratio"
-                                    }
-                                </strong>
-                            </Grid>
-                            <Grid item xs>
+                            <InPaper
+                            title={<strong>
                                 {
                                     props.analyze.analytics.cashToCcRatio !== null
-                                        ? props.analyze.analytics.cashToCcRatio
-                                        : props.analyze.analytics.ccToCashRatio
-                                }%
-                            </Grid>
-                            <Grid>
-                                <br />
-                            </Grid>
+                                        ? "Cash to credit card ratio"
+                                        : "Credit card to cash ratio"
+                                }
+                            </strong>}
+                            body={
+                                props.analyze.analytics.cashToCcRatio !== null
+                                    ? props.analyze.analytics.cashToCcRatio
+                                    : props.analyze.analytics.ccToCashRatio } />
                         </React.Fragment>
                     }
 
@@ -805,7 +798,6 @@ const FinanceMainView = props => {
                                                 More to come...
                                               </SquarePaper>
                                     }
-
                                 </Grid>
                             </Grid>
                         </React.Fragment>
