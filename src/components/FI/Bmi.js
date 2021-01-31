@@ -4,7 +4,7 @@ import { Helmet } from 'react-helmet';
 import agent from '../../agent';
 import { FI_PAGE_LOADED, FI_BMI_IMPERIAL, FI_BMI_METRIC } from '../../constants/actionTypes';
 
-import { SquarePaper, AiofLinearProgress } from '../../style/mui';
+import { SquarePaper, InPaper, AiofLinearProgress } from '../../style/mui';
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Container from '@material-ui/core/Container';
@@ -169,7 +169,7 @@ const Bmi = (props) => {
 
                 <BmiMetricResult bmiMetric={props.bmiMetric} />
 
-                <InProgressBar inProgress={props.inProgress} />       
+                <InProgressBar inProgress={props.inProgress} />
 
             </Container>
         </React.Fragment>
@@ -180,15 +180,21 @@ const BmiResult = props => {
     if (props.bmiImperial) {
         return (
             <SquarePaper variant="outlined" square>
-                <Grid container spacing={1}>
-                    <Grid item xs={6} align="left">
-                        BMI:
+                <Grid container spacing={1} alignItems="center" justify="center">
+                    <Grid item xs={4}>
+                        <InPaper title={"BMI"}
+                            body={props.bmiImperial.bmi} />
                     </Grid>
-                    <Grid item xs={6} align="right">
-                        {props.bmiImperial.bmi}
-                    </Grid>
+                </Grid>
 
-                    <Grid item md={12}>
+                <Grid container spacing={1}>
+                    <Grid item sm>
+                        <br />
+                    </Grid>
+                </Grid>
+
+                <Grid container spacing={1}>
+                    <Grid item md>
                         <Guidelines />
                     </Grid>
                 </Grid>
@@ -204,15 +210,21 @@ const BmiMetricResult = props => {
     if (props.bmiMetric) {
         return (
             <SquarePaper variant="outlined" square>
-                <Grid container spacing={1}>
-                    <Grid item xs={6} align="left">
-                        <strong>BMI:</strong>
+                <Grid container spacing={1} alignItems="center" justify="center">
+                    <Grid item xs={4}>
+                        <InPaper title={"BMI"}
+                            body={props.bmiMetric.bmi} />
                     </Grid>
-                    <Grid item xs={6} align="right">
-                        {props.bmiMetric.bmi}
-                    </Grid>
+                </Grid>
 
-                    <Grid item md={12}>
+                <Grid container spacing={1}>
+                    <Grid item sm>
+                        <br />
+                    </Grid>
+                </Grid>
+
+                <Grid container spacing={1}>
+                    <Grid item md>
                         <Guidelines />
                     </Grid>
                 </Grid>
@@ -238,7 +250,6 @@ const InProgressBar = props => {
 const Guidelines = () => {
     return (
         <React.Fragment>
-            <hr />
             <Grid container spacing={1}>
                 <Grid item xs={6} align="left">
                     Underweight is less than
