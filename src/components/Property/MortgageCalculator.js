@@ -15,7 +15,7 @@ import { MuiPickersUtilsProvider, KeyboardDatePicker } from '@material-ui/picker
 import { numberWithCommas } from '../Finance/Common';
 import { Line, Bar } from 'react-chartjs-2';
 
-import { AiofLinearProgress, InPaper, SquarePaper } from '../../style/mui';
+import { AiofLinearProgress, InPaper, SquarePaper, DefaultRedColor, DefaultGreenColor } from '../../style/mui';
 import { ThinText } from '../../style/common';
 import { HOUSE_MORTGAGE_CALCULATOR } from '../../constants/actionTypes';
 
@@ -41,6 +41,16 @@ const useStyles = makeStyles((theme) => ({
     margin: {
         margin: theme.spacing(1),
     },
+    green: {
+        color: DefaultGreenColor,
+        margin: '0rem',
+        padding: '0rem'
+    },
+    red: {
+        color: DefaultRedColor,
+        margin: '0rem',
+        padding: '0rem'
+    }
 }));
 
 const MortgageCalculator = props => {
@@ -118,7 +128,7 @@ const MortgageCalculator = props => {
 
         let mortgageCalculatorPayload = {
             propertyValue: Number(propertyValue) || null,
-            downPayment: Number(downPayment) || null,
+            downPayment: Number(downPayment) || 0,
             interestRate: Number(interestRate) || null,
             loanTermYears: Number(loanTermYears) || null,
             startDate: startDate || null,
@@ -288,6 +298,7 @@ const MortgageCalculator = props => {
 
 const MortgageCalculatorResult = props => {
     if (props.data && props.breakdown) {
+        const classes = useStyles();
         const [showCompleteBreakdown, setShowCompleteBreakdown] = useState(false);
         const [showYearlyCompleteBreakdown, setShowYearlyCompleteBreakdown] = useState(false);
         const first = props.data[0];
@@ -418,14 +429,12 @@ const MortgageCalculatorResult = props => {
                     <Grid container spacing={1}>
                         <Grid item xs>
                             <InPaper title={"Total principal paid"} 
-                                body={numberWithCommas(Math.round(totalPrincipalPaid))} 
-                                prefix={"$"} />
+                                body={<div className={classes.green}>${numberWithCommas(Math.round(totalPrincipalPaid))}</div>} />
                         </Grid>
 
                         <Grid item xs>
-                        <InPaper title={"Total interest paid"} 
-                        body={numberWithCommas(Math.round(totalInterestPaid))} 
-                        prefix={"$"}/>
+                            <InPaper title={"Total interest paid"} 
+                                body={<div className={classes.red}>${numberWithCommas(Math.round(totalInterestPaid))}</div>} />
                         </Grid>
 
                         <Grid item xs>
