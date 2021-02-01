@@ -44,7 +44,6 @@ const useStyles = makeStyles((theme) => ({
   textField: {
     width: '25ch',
   },
-
   green: {
     color: DefaultGreenColor,
     margin: '0rem',

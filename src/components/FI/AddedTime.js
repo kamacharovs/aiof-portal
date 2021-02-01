@@ -10,8 +10,8 @@ import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
 import AttachMoneyIcon from '@material-ui/icons/AttachMoney';
 import { numberWithCommas } from '../Finance/Common';
-import { GreenP, Hr75 } from '../../style/common';
-import { SquarePaper, AiofLinearProgress } from '../../style/mui';
+import { ThinText } from '../../style/common';
+import { SquarePaper, InPaper, AiofLinearProgress, DefaultRedColor, DefaultGreenColor } from '../../style/mui';
 import { FI_PAGE_LOADED, FI_ADDED_TIME } from '../../constants/actionTypes';
 
 
@@ -42,6 +42,16 @@ const useStyles = makeStyles((theme) => ({
     },
     textField: {
         width: '25ch',
+    },
+    green: {
+        color: DefaultGreenColor,
+        margin: '0rem',
+        padding: '0rem'
+    },
+    red: {
+        color: DefaultRedColor,
+        margin: '0rem',
+        padding: '0rem'
     },
 }));
 
@@ -74,6 +84,7 @@ const AddedTime = props => {
             <Helmet>
                 <title>{props.appName} | Added time</title>
             </Helmet>
+
             <Container maxWidth="sm">
                 <SquarePaper variant="outlined" square>
                     <form className={classes.root} noValidate autoComplete="off" onSubmit={onSubmitForm}>
@@ -126,45 +137,54 @@ const AddedTime = props => {
 
 const AddedTimeResults = props => {
     if (props.addedTime) {
+        const classes = useStyles();
+
         return (
             <React.Fragment>
                 <SquarePaper variant="outlined" square>
-                    <Grid container direction="column" spacing={0}>
-                        <Grid item xs>
-                            <strong>Monthly investment</strong>
-                        </Grid>
-                        <Grid item xs>
-                            <GreenP>${numberWithCommas(props.addedTime.monthlyInvestment)}</GreenP>
-                        </Grid>
-                        <Grid>
-                            <br />
-                        </Grid>
-
-                        <Grid>
-                            <strong>Total additional expenses</strong>
-                        </Grid>
-                        <Grid>
-                            <GreenP>${numberWithCommas(props.addedTime.totalAdditionalExpense)}</GreenP>
-                        </Grid>
-                        <Grid>
-                            <br />
-                        </Grid>
+                    <Grid container spacing={1}>
+                        <h4>
+                            <strong>Your results</strong>
+                        </h4>
+                    </Grid>
+                    <Grid container spacing={1}>
+                        <ThinText>
+                            Based on what you have entered into the form, we have calculated the following results
+                        </ThinText>
                     </Grid>
 
-                    <br/>
+                    <Grid container spacing={1}>
+                        <Grid item xs>
+                            <InPaper title={"Monthly investment"}
+                                body={<div className={classes.green}>${numberWithCommas(props.addedTime.monthlyInvestment)}</div>} />
+                        </Grid>
 
-                    <Grid container>
+                        <Grid item xs>
+                            <InPaper title={"Additional expenses"}
+                                body={<div className={classes.green}>${numberWithCommas(props.addedTime.totalAdditionalExpense)}</div>} />
+                        </Grid>
+                    </Grid>
+                </SquarePaper>
+
+                <SquarePaper variant="outlined" square>
+                    <Grid container spacing={1}>
+                        <ThinText>
+                            Time added to reach FI (Financial Independence) based on interests
+                        </ThinText>
+                    </Grid>
+
+                    <Grid container spacing={1}>
                         {
                             props.addedTime.years.map(year => {
                                 return (
-                                    <Grid container spacing={0} key={year.interest}>
+                                    <Grid container spacing={1}>
                                         <Grid item xs>
-                                            <strong>Interest: </strong>{year.interest}%
-                                            <Hr75 />
+                                            <InPaper title={"Interest"}
+                                                body={<div className={classes.green}>{year.interest}%</div>} />
                                         </Grid>
                                         <Grid item xs>
-                                            <strong>Years: </strong>{year.years}
-                                            <Hr75 />
+                                            <InPaper title={"Years"}
+                                                body={<div className={classes.green}>{year.years}</div>} />
                                         </Grid>
                                     </Grid>
                                 );
