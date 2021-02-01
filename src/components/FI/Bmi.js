@@ -251,38 +251,26 @@ const Guidelines = () => {
     return (
         <React.Fragment>
             <Grid container spacing={1}>
-                <Grid item xs={6} align="left">
-                    Underweight is less than
-             </Grid>
-                <Grid item xs={6} align="right">
-                    <b>18.5</b>
+                <Grid item xs>
+                    <InPaper title={"Underweight is less than"}
+                        body={"18.5"} />
+                </Grid>
+
+                <Grid item xs>
+                    <InPaper title={"Normal weight is between"}
+                        body={"18.5 - 24.9"} />
                 </Grid>
             </Grid>
 
             <Grid container spacing={1}>
-                <Grid item xs={6} align="left">
-                    Normal weight is between
+                <Grid item xs>
+                    <InPaper title={"Overweight is between"}
+                        body={"25 - 29.9"} />
                 </Grid>
-                <Grid item xs={6} align="right">
-                    <b>18.5</b> and <b>24.9</b>
-                </Grid>
-            </Grid>
 
-            <Grid container spacing={1}>
-                <Grid item xs={6} align="left">
-                    Overweight is between
-                </Grid>
-                <Grid item xs={6} align="right">
-                    <b>25</b> and <b>29.9</b>
-                </Grid>
-            </Grid>
-
-            <Grid container spacing={1}>
-                <Grid item xs={6} align="left">
-                    Obesity greater than
-                </Grid>
-                <Grid item xs={6} align="right">
-                    <b>30</b>
+                <Grid item xs>
+                    <InPaper title={"Obesity greater than"}
+                        body={"30"} />
                 </Grid>
             </Grid>
         </React.Fragment>
