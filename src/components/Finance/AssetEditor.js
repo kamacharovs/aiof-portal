@@ -102,7 +102,9 @@ const AddAsset = (props) => {
 
                             <Grid item xs>
                                 <div className={classes.margin}>
-                                    <TextField label="Name"
+                                    <TextField 
+                                        required
+                                        label="Name"
                                         value={name}
                                         onChange={e => setName(e.target.value)} />
                                 </div>
@@ -112,6 +114,7 @@ const AddAsset = (props) => {
                                 <FormControl className={classes.formControl}>
                                     <InputLabel id="type-name-label">Type</InputLabel>
                                     <Select
+                                        required
                                         labelId="type-name-label"
                                         id="type-name-select"
                                         value={typeName}
@@ -130,7 +133,9 @@ const AddAsset = (props) => {
 
                             <Grid item xs>
                                 <div className={classes.margin}>
-                                    <TextField label="Value"
+                                    <TextField 
+                                        required
+                                        label="Value"
                                         value={value}
                                         onChange={e => setValue(e.target.value)} />
                                 </div>
