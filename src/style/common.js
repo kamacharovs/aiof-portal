@@ -222,3 +222,7 @@ export const AiofBanner = styled.div`
   height: 300px;
   z-index: 2;
 `;
+
+export const ThinText = styled.p`
+  font-weight: 100;
+`;

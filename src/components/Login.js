@@ -91,9 +91,9 @@ const Login = props => {
       <Helmet>
         <title>{props.appName} | Login</title>
       </Helmet>
+
       <Container maxWidth="sm">
         <LoginPaper elevation={3} variant="outlined">
-
           <Grid container spacing={3} alignItems="center" justify="center" alignContent="center">
             <Grid item xs={12}>
               <h1 className="text-center">Sign In</h1>

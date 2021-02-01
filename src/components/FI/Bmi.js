@@ -4,7 +4,7 @@ import { Helmet } from 'react-helmet';
 import agent from '../../agent';
 import { FI_PAGE_LOADED, FI_BMI_IMPERIAL, FI_BMI_METRIC } from '../../constants/actionTypes';
 
-import { AiofPaper, AiofLinearProgress } from '../../style/mui';
+import { SquarePaper, InPaper, AiofLinearProgress } from '../../style/mui';
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Container from '@material-ui/core/Container';
@@ -92,7 +92,7 @@ const Bmi = (props) => {
             </Helmet>
 
             <Container maxWidth="sm">
-                <AiofPaper elevation={3}>
+                <SquarePaper variant="outlined" square>
                     <form className={classes.root} noValidate autoComplete="off" onSubmit={submitImperial}>
                         <Grid container spacing={3}>
                             <Grid item xs={4}>
@@ -129,11 +129,11 @@ const Bmi = (props) => {
                             </Grid>
                         </Grid>
                     </form>
-                </AiofPaper>
+                </SquarePaper>
 
                 <BmiResult bmiImperial={props.bmiImperial} />
 
-                <AiofPaper elevation={3}>
+                <SquarePaper variant="outlined" square>
                     <form className={classes.root} noValidate autoComplete="off" onSubmit={submitMetric}>
                         <Grid container spacing={3}>
                             <Grid item xs={6}>
@@ -165,11 +165,11 @@ const Bmi = (props) => {
                             </Grid>
                         </Grid>
                     </form>
-                </AiofPaper>
+                </SquarePaper>
 
                 <BmiMetricResult bmiMetric={props.bmiMetric} />
 
-                <InProgressBar inProgress={props.inProgress} />       
+                <InProgressBar inProgress={props.inProgress} />
 
             </Container>
         </React.Fragment>
@@ -179,20 +179,26 @@ const Bmi = (props) => {
 const BmiResult = props => {
     if (props.bmiImperial) {
         return (
-            <AiofPaper elevation={3}>
-                <Grid container spacing={1}>
-                    <Grid item xs={6} align="left">
-                        BMI:
+            <SquarePaper variant="outlined" square>
+                <Grid container spacing={1} alignItems="center" justify="center">
+                    <Grid item xs={4}>
+                        <InPaper title={"BMI"}
+                            body={props.bmiImperial.bmi} />
                     </Grid>
-                    <Grid item xs={6} align="right">
-                        {props.bmiImperial.bmi}
-                    </Grid>
+                </Grid>
 
-                    <Grid item md={12}>
+                <Grid container spacing={1}>
+                    <Grid item sm>
+                        <br />
+                    </Grid>
+                </Grid>
+
+                <Grid container spacing={1}>
+                    <Grid item md>
                         <Guidelines />
                     </Grid>
                 </Grid>
-            </AiofPaper>
+            </SquarePaper>
         );
     }
     else {
@@ -203,20 +209,26 @@ const BmiResult = props => {
 const BmiMetricResult = props => {
     if (props.bmiMetric) {
         return (
-            <AiofPaper elevation={3}>
-                <Grid container spacing={1}>
-                    <Grid item xs={6} align="left">
-                        <strong>BMI:</strong>
+            <SquarePaper variant="outlined" square>
+                <Grid container spacing={1} alignItems="center" justify="center">
+                    <Grid item xs={4}>
+                        <InPaper title={"BMI"}
+                            body={props.bmiMetric.bmi} />
                     </Grid>
-                    <Grid item xs={6} align="right">
-                        {props.bmiMetric.bmi}
-                    </Grid>
+                </Grid>
 
-                    <Grid item md={12}>
+                <Grid container spacing={1}>
+                    <Grid item sm>
+                        <br />
+                    </Grid>
+                </Grid>
+
+                <Grid container spacing={1}>
+                    <Grid item md>
                         <Guidelines />
                     </Grid>
                 </Grid>
-            </AiofPaper>
+            </SquarePaper>
         );
     }
     else {
@@ -238,40 +250,27 @@ const InProgressBar = props => {
 const Guidelines = () => {
     return (
         <React.Fragment>
-            <hr />
             <Grid container spacing={1}>
-                <Grid item xs={6} align="left">
-                    Underweight is less than
-             </Grid>
-                <Grid item xs={6} align="right">
-                    <b>18.5</b>
+                <Grid item xs>
+                    <InPaper title={"Underweight is less than"}
+                        body={"18.5"} />
+                </Grid>
+
+                <Grid item xs>
+                    <InPaper title={"Normal weight is between"}
+                        body={"18.5 - 24.9"} />
                 </Grid>
             </Grid>
 
             <Grid container spacing={1}>
-                <Grid item xs={6} align="left">
-                    Normal weight is between
+                <Grid item xs>
+                    <InPaper title={"Overweight is between"}
+                        body={"25 - 29.9"} />
                 </Grid>
-                <Grid item xs={6} align="right">
-                    <b>18.5</b> and <b>24.9</b>
-                </Grid>
-            </Grid>
 
-            <Grid container spacing={1}>
-                <Grid item xs={6} align="left">
-                    Overweight is between
-                </Grid>
-                <Grid item xs={6} align="right">
-                    <b>25</b> and <b>29.9</b>
-                </Grid>
-            </Grid>
-
-            <Grid container spacing={1}>
-                <Grid item xs={6} align="left">
-                    Obesity greater than
-                </Grid>
-                <Grid item xs={6} align="right">
-                    <b>30</b>
+                <Grid item xs>
+                    <InPaper title={"Obesity greater than"}
+                        body={"30"} />
                 </Grid>
             </Grid>
         </React.Fragment>

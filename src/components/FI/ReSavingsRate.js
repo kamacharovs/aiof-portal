@@ -15,7 +15,7 @@ import AttachMoneyIcon from '@material-ui/icons/AttachMoney';
 import ArrowUpwardIcon from '@material-ui/icons/ArrowUpward';
 
 import { numberWithCommas } from '../Finance/Common';
-import { AiofPaper, DefaultHrColor, AiofLinearProgress, DefaultRedColor, DefaultGreenColor } from '../../style/mui';
+import { SquarePaper, DefaultHrColor, AiofLinearProgress, DefaultRedColor, DefaultGreenColor } from '../../style/mui';
 import { FI_COAST_FIRE, FI_COAST_FIRE_RESET } from '../../constants/actionTypes';
 
 
@@ -408,7 +408,7 @@ const SavingsResults = props => {
     if (props.savings) {
         return (
             <React.Fragment>
-                <AiofPaper elevation={3}>
+                <SquarePaper variant="outlined" square>
                     <Grid container spacing={1} className={classes.container}>
                         <Grid item xs>
                             <strong>Age</strong>
@@ -489,7 +489,7 @@ const SavingsResults = props => {
                             )
                         })
                     }
-                </AiofPaper>
+                </SquarePaper>
             </React.Fragment>
         );
     }
@@ -553,7 +553,7 @@ const SavingsRateStepper = props => {
             </Helmet>
 
             <Container maxWidth="xl">
-                <AiofPaper elevation={3}>
+                <SquarePaper variant="outlined" square>
                     <div className={classes.root}>
                         <Stepper activeStep={activeStep} alternativeLabel>
                             {steps.map((label) => (
@@ -609,7 +609,7 @@ const SavingsRateStepper = props => {
                                 )}
                         </div>
                     </div>
-                </AiofPaper>
+                </SquarePaper>
 
                 <SavingsResults inProgress={props.inProgress} savings={props.savings} />
 

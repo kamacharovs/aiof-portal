@@ -10,8 +10,8 @@ import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import { numberWithCommas } from '../Finance/Common';
-import { GreenP, RedP } from '../../style/common';
-import { AiofPaper, AiofLinearProgress } from '../../style/mui';
+import { ThinText } from '../../style/common';
+import { SquarePaper, InPaper, AiofLinearProgress, DefaultRedColor, DefaultGreenColor } from '../../style/mui';
 import { FI_PAGE_LOADED, FI_COMPOUND_INTEREST } from '../../constants/actionTypes';
 
 
@@ -43,6 +43,16 @@ const useStyles = makeStyles((theme) => ({
   textField: {
     width: '25ch',
   },
+  green: {
+    color: DefaultGreenColor,
+    margin: '0rem',
+    padding: '0rem'
+  },
+  red: {
+    color: DefaultRedColor,
+    margin: '0rem',
+    padding: '0rem'
+  },
 }));
 
 const CompoundInterest = props => {
@@ -63,8 +73,8 @@ const CompoundInterest = props => {
     compoundInterest.monthlyInvestment = monthlyInvestment ? Number(monthlyInvestment) : null;
     compoundInterest.interest = interest ? Number(interest) : null;
     compoundInterest.numberOfYears = numberOfYears ? Number(numberOfYears) : null;
-    compoundInterest.investmentFees = investmentFees ? Number(investmentFees) : null;
-    compoundInterest.taxDrag = taxDrag ? Number(taxDrag) : null;
+    compoundInterest.investmentFees = investmentFees ? Number(investmentFees) : 0;
+    compoundInterest.taxDrag = taxDrag ? Number(taxDrag) : 0;
 
     props.onSubmit(compoundInterest);
   }
@@ -88,7 +98,7 @@ const CompoundInterest = props => {
         <title>{props.appName} | Compound interest</title>
       </Helmet>
       <Container maxWidth="sm">
-        <AiofPaper elevation={3}>
+        <SquarePaper variant="outlined" square>
           <form className={classes.root} noValidate autoComplete="off" onSubmit={onSubmitForm()}>
             <Grid container spacing={3}>
               <Grid item xs={6}>
@@ -161,7 +171,7 @@ const CompoundInterest = props => {
               </Grid>
             </Grid>
           </form>
-        </AiofPaper>
+        </SquarePaper>
 
         <CompoundInterestResults compoundInterest={props.compoundInterest} inProgress={props.inProgress} />
 
@@ -172,86 +182,68 @@ const CompoundInterest = props => {
 
 const CompoundInterestResults = props => {
   if (props.compoundInterest) {
+    const classes = useStyles();
+    const ciDefault = props.compoundInterest.filter(x => x.frequency === 12)[0];
+
     return (
       <React.Fragment>
-        {
-          props.compoundInterest.map(ci => {
-            return (
-              <React.Fragment key={ci.frequency}>
-                <AiofPaper elevation={3}>
-                  <Grid container spacing={1}>
-                    <Grid item xs={6}>
-                      <strong>Beginning</strong>
-                    </Grid>
-                    <Grid item xs={6} align="right">
-                      <GreenP>${numberWithCommas(ci.compoundedBeginning)}</GreenP>
-                    </Grid>
+        <SquarePaper variant="outlined" square>
+          <Grid container spacing={1}>
+            <h4>
+              <strong>Your results</strong>
+            </h4>
+          </Grid>
+          <Grid container spacing={1}>
+            <ThinText>Based on what you have entered into the form, we have calculated the following results</ThinText>
+          </Grid>
 
-                    <Grid item xs={6}>
-                      <strong>End</strong>
-                    </Grid>
-                    <Grid item xs={6} align="right">
-                      <GreenP>${numberWithCommas(ci.compoundedEnd)}</GreenP>
-                    </Grid>
+          <Grid container spacing={1}>
+            <Grid item xs>
+              <InPaper title={"Compounded"}
+                body={<div className={classes.green}>${numberWithCommas(ciDefault.compoundedBeginning)}</div>} />
+            </Grid>
+          </Grid>
 
-                    <Grid item xs={12}>
-                      <hr />
-                    </Grid>
+          <Grid container spacing={1}>
+            <Grid item xs>
+              <InPaper title={"Starting amount"}
+                body={<div className={classes.green}>${numberWithCommas(ciDefault.startingAmount)}</div>} />
+            </Grid>
+            <Grid item xs>
+              <InPaper title={"Monthly investment"}
+                body={<div className={classes.green}>${numberWithCommas(ciDefault.monthlyInvestment)}</div>} />
+            </Grid>
+          </Grid>
 
-                    <Grid item xs={6}>
-                      <strong>Starting amount</strong>
-                    </Grid>
-                    <Grid item xs={6} align="right">
-                      <GreenP>${numberWithCommas(ci.startingAmount)}</GreenP>
-                    </Grid>
+          <Grid container spacing={1}>
+            <Grid item xs>
+              <InPaper title={"Interest"}
+                body={<div className={classes.green}>{ciDefault.interest}%</div>} />
+            </Grid>
+            <Grid item xs>
+              <InPaper title={"Years"}
+                body={<div className={classes.green}>{ciDefault.numberOfYears}</div>} />
+            </Grid>
+          </Grid>
 
-                    <Grid item xs={6}>
-                      <strong>Monthly investment</strong>
-                    </Grid>
-                    <Grid item xs={6} align="right">
-                      <GreenP>${numberWithCommas(ci.monthlyInvestment)}</GreenP>
-                    </Grid>
+          <Grid container spacing={1}>
+            <Grid item xs={6}>
+              <InPaper title={"Frequency (months)"}
+                body={<div className={classes.green}>{ciDefault.frequency}</div>} />
+            </Grid>
+          </Grid>
 
-                    <Grid item xs={6}>
-                      <strong>Interest</strong>
-                    </Grid>
-                    <Grid item xs={6} align="right">
-                      <GreenP>{ci.interest}%</GreenP>
-                    </Grid>
-
-                    <Grid item xs={6}>
-                      <strong>Years</strong>
-                    </Grid>
-                    <Grid item xs={6} align="right">
-                      <GreenP>{ci.numberOfYears}</GreenP>
-                    </Grid>
-
-                    <Grid item xs={6}>
-                      <strong>Frequency</strong>
-                    </Grid>
-                    <Grid item xs={6} align="right">
-                      <GreenP>{ci.frequency}</GreenP>
-                    </Grid>
-
-                    <Grid item xs={6}>
-                      <strong>Investment fees</strong>
-                    </Grid>
-                    <Grid item xs={6} align="right">
-                      <RedP>{ci.investmentFees}%</RedP>
-                    </Grid>
-
-                    <Grid item xs={6}>
-                      <strong>Tax drag</strong>
-                    </Grid>
-                    <Grid item xs={6} align="right">
-                      <RedP>{ci.taxDrag}%</RedP>
-                    </Grid>
-                  </Grid>
-                </AiofPaper>
-              </React.Fragment>
-            );
-          })
-        }
+          <Grid container spacing={1}>
+            <Grid item xs>
+              <InPaper title={"Investment fees"}
+                body={<div className={classes.red}>{ciDefault.investmentFees}%</div>} />
+            </Grid>
+            <Grid item xs>
+              <InPaper title={"Tax drag"}
+                body={<div className={classes.red}>{ciDefault.taxDrag}%</div>} />
+            </Grid>
+          </Grid>
+        </SquarePaper>
       </React.Fragment>
     );
   }

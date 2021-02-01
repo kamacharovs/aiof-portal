@@ -18,7 +18,6 @@ import Select from '@material-ui/core/Select';
 const mapStateToProps = state => ({
     ...state.finance,
     appName: state.common.appName,
-    currentUser: state.common.currentUser,
     liabilityTypes: state.finance.liabilityTypes,
 });
 
@@ -67,10 +66,9 @@ const AddLiability = (props) => {
         let addLiabilityPayload = {
             name: name,
             typeName: typeName,
-            monthlyPayment: Number(monthlyPayment),
-            years: Number(years),
             value: Number(value),
-            userId: props.currentUser.id
+            monthlyPayment: Number(monthlyPayment) || null,
+            years: Number(years) || null
         };
 
         props.onAddLiability(addLiabilityPayload)
@@ -106,7 +104,9 @@ const AddLiability = (props) => {
 
                         <Grid item xs>
                             <div className={classes.margin}>
-                                <TextField label="Name"
+                                <TextField 
+                                    required
+                                    label="Name"
                                     value={name}
                                     onChange={e => setName(e.target.value)} />
                             </div>
@@ -116,6 +116,7 @@ const AddLiability = (props) => {
                             <FormControl className={classes.formControl}>
                                 <InputLabel id="type-name-label">Type</InputLabel>
                                 <Select
+                                    required
                                     labelId="type-name-label"
                                     id="type-name-select"
                                     value={typeName}
@@ -134,7 +135,9 @@ const AddLiability = (props) => {
 
                         <Grid item xs>
                             <div className={classes.margin}>
-                                <TextField label="Value"
+                                <TextField 
+                                    required
+                                    label="Value"
                                     value={value}
                                     onChange={e => setValue(e.target.value)} />
                             </div>
@@ -142,7 +145,8 @@ const AddLiability = (props) => {
 
                         <Grid item xs>
                             <div className={classes.margin}>
-                                <TextField label="Monthly payment"
+                                <TextField 
+                                    label="(O) Monthly payment"
                                     value={monthlyPayment}
                                     onChange={e => setMonthlyPayment(e.target.value)} />
                             </div>
@@ -150,7 +154,8 @@ const AddLiability = (props) => {
 
                         <Grid item xs>
                             <div className={classes.margin}>
-                                <TextField label="Years"
+                                <TextField 
+                                    label="(O) Years"
                                     value={years}
                                     onChange={e => setYears(e.target.value)} />
                             </div>
@@ -159,7 +164,7 @@ const AddLiability = (props) => {
                         <Grid item xs>
                             <Button type="submit" variant="contained" color="primary" className={classes.button} disabled={!isReadyToAdd} >
                                 Add
-                                </Button>
+                            </Button>
                         </Grid>
                     </Grid>
                 </form>

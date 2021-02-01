@@ -15,7 +15,8 @@ import { MuiPickersUtilsProvider, KeyboardDatePicker } from '@material-ui/picker
 import { numberWithCommas } from '../Finance/Common';
 import { Line, Bar } from 'react-chartjs-2';
 
-import { AiofPaper, AiofLinearProgress } from '../../style/mui';
+import { AiofLinearProgress, InPaper, SquarePaper, DefaultRedColor, DefaultGreenColor } from '../../style/mui';
+import { ThinText } from '../../style/common';
 import { HOUSE_MORTGAGE_CALCULATOR } from '../../constants/actionTypes';
 
 
@@ -40,6 +41,16 @@ const useStyles = makeStyles((theme) => ({
     margin: {
         margin: theme.spacing(1),
     },
+    green: {
+        color: DefaultGreenColor,
+        margin: '0rem',
+        padding: '0rem'
+    },
+    red: {
+        color: DefaultRedColor,
+        margin: '0rem',
+        padding: '0rem'
+    }
 }));
 
 const MortgageCalculator = props => {
@@ -64,7 +75,7 @@ const MortgageCalculator = props => {
     const negativeText = "Value cannot be negative";
     const biggerThanPerc = "Value cannot be bigger than 100";
 
-    const isCalculateEnabled = errorPropertyText === "" 
+    const isCalculateEnabled = errorPropertyText === ""
         && errorDownPaymentText === ""
         && errorInterestRateText === ""
         && errorLoanTermYearsText === ""
@@ -103,7 +114,7 @@ const MortgageCalculator = props => {
     const onLoanTermYearsChange = e => {
         if (e.target.value < 0)
             setErrorLoanTermYearsText(negativeText);
-        else if (e.target.value > 30 )
+        else if (e.target.value > 30)
             setErrorLoanTermYearsText("Cannot be bigger than 30");
         else {
             if (errorLoanTermYearsText !== "")
@@ -117,7 +128,7 @@ const MortgageCalculator = props => {
 
         let mortgageCalculatorPayload = {
             propertyValue: Number(propertyValue) || null,
-            downPayment: Number(downPayment) || null,
+            downPayment: Number(downPayment) || 0,
             interestRate: Number(interestRate) || null,
             loanTermYears: Number(loanTermYears) || null,
             startDate: startDate || null,
@@ -142,7 +153,7 @@ const MortgageCalculator = props => {
             </Helmet>
 
             <Container maxWidth="md">
-                <AiofPaper>
+                <SquarePaper variant="outlined" square>
                     <form className={classes.root} noValidate autoComplete="off" onSubmit={onCalculate}>
                         <Grid container spacing={3}>
                             <Grid item xs>
@@ -274,7 +285,7 @@ const MortgageCalculator = props => {
                             </Grid>
                         </Grid>
                     </form>
-                </AiofPaper>
+                </SquarePaper>
 
                 <MortgageCalculatorResult data={props.data} breakdown={props.breakdown} />
 
@@ -287,6 +298,7 @@ const MortgageCalculator = props => {
 
 const MortgageCalculatorResult = props => {
     if (props.data && props.breakdown) {
+        const classes = useStyles();
         const [showCompleteBreakdown, setShowCompleteBreakdown] = useState(false);
         const [showYearlyCompleteBreakdown, setShowYearlyCompleteBreakdown] = useState(false);
         const first = props.data[0];
@@ -388,96 +400,90 @@ const MortgageCalculatorResult = props => {
 
         return (
             <React.Fragment>
-                <AiofPaper elevation={3}>
-                    <Grid container direction="column" spacing={0}>
-                        <Grid item xs>
-                            <strong>Monthly payment</strong>
-                        </Grid>
-                        <Grid item xs>
-                            ${numberWithCommas(payment)}
-                        </Grid>
-                        <Grid>
-                            <br />
+                <SquarePaper variant="outlined" square>
+                    <Grid container spacing={1}>
+                        <h4>
+                            <strong>Your results</strong>
+                        </h4>
+                    </Grid>
+                    <Grid container spacing={1}>
+                        <ThinText>Based on what you have entered into the form, we have calculated the following results</ThinText>
+                    </Grid>
+
+                    <Grid container spacing={1}>
+                        <Grid item xs={4}>
+                            <InPaper title={"Monthly payment"} 
+                            body={numberWithCommas(payment)} 
+                            prefix={"$"}/>
                         </Grid>
 
-                        <Grid>
-                            <strong>Loan amount</strong>
-                        </Grid>
-                        <Grid>
-                            ${numberWithCommas(loanAmount)}
-                        </Grid>
-                        <Grid>
-                            <br />
-                        </Grid>
-
-                        <Grid item xs>
-                            <strong>Total principal paid</strong>
-                        </Grid>
-                        <Grid item xs>
-                            ${numberWithCommas(Math.round(totalPrincipalPaid))}
-                        </Grid>
-                        <Grid>
-                            <br />
-                        </Grid>
-
-                        <Grid item xs>
-                            <strong>Total interest paid</strong>
-                        </Grid>
-                        <Grid item xs>
-                            ${numberWithCommas(Math.round(totalInterestPaid))}
-                        </Grid>
-                        <Grid>
-                            <br />
-                        </Grid>
-
-                        <Grid item xs>
-                            <strong>Total paid</strong>
-                        </Grid>
-                        <Grid item xs>
-                            ${numberWithCommas(Math.round(totalPrincipalPaid + totalInterestPaid))}
-                        </Grid>
-                        <Grid>
-                            <br />
-                        </Grid>
-
-                        <Grid item xs>
-                            <strong>Start date - end date</strong>
-                        </Grid>
-                        <Grid item xs>
-                            {new Date(first.paymentDate).toLocaleDateString()} - {new Date(last.paymentDate).toLocaleDateString()}
+                        <Grid item xs={4}>
+                            <InPaper title={"Loan amount"} 
+                            body={numberWithCommas(loanAmount)} 
+                            prefix={"$"}/>
                         </Grid>
                     </Grid>
-                </AiofPaper>
 
-                <AiofPaper elevation={3}>
+                    <Grid container spacing={1}>
+                        <Grid item xs>
+                            <InPaper title={"Total principal paid"} 
+                                body={<div className={classes.green}>${numberWithCommas(Math.round(totalPrincipalPaid))}</div>} />
+                        </Grid>
+
+                        <Grid item xs>
+                            <InPaper title={"Total interest paid"} 
+                                body={<div className={classes.red}>${numberWithCommas(Math.round(totalInterestPaid))}</div>} />
+                        </Grid>
+
+                        <Grid item xs>
+                            <InPaper title={"Total paid"} 
+                            body={numberWithCommas(Math.round(totalPrincipalPaid + totalInterestPaid))} 
+                            prefix={"$"}/>
+                        </Grid>
+                    </Grid>
+
+                    <Grid container spacing={1}>
+                        <Grid item xs={4}>
+                            <InPaper title={"Start date"} 
+                                body={new Date(first.paymentDate).toLocaleDateString()} />
+                        </Grid>
+
+                        <Grid item xs={4}>
+                            <InPaper title={"End date"} 
+                                body={new Date(last.paymentDate).toLocaleDateString()} />
+                        </Grid>
+                    </Grid>
+                </SquarePaper>
+
+                <SquarePaper variant="outlined" square>
                     <Line data={lineData} options={lineOptions} />
-                </AiofPaper>
+                </SquarePaper>
 
-                <AiofPaper>
+                <SquarePaper variant="outlined" square>
                     <Bar data={stackedData} options={stackedOptions} />
-                </AiofPaper>
+                </SquarePaper>
 
-                <AiofPaper>
+                <SquarePaper variant="outlined" square>
                     <Button color="primary" onClick={() => setShowCompleteBreakdown(!showCompleteBreakdown)}>
                         {showCompleteBreakdown === false ? "View complete breakdown" : "Hide complete breakdown"}
                     </Button>
 
-                    <br/>
+                    <br />
                     The complete breakdown will show you exactly what is in each month from the start date. This can be helpful in order to further see into the numbers
-                    
-                    <CompleteBreakdown data={props.data} show={showCompleteBreakdown} />
-                </AiofPaper>
 
-                <AiofPaper>
+                    <CompleteBreakdown data={props.data} show={showCompleteBreakdown} />
+                </SquarePaper>
+
+                <SquarePaper variant="outlined" square>
                     <Button color="primary" onClick={() => setShowYearlyCompleteBreakdown(!showYearlyCompleteBreakdown)}>
                         {showYearlyCompleteBreakdown === false ? "View yearly complete breakdown" : "Hide yearly complete breakdown"}
                     </Button>
 
-                    <br/>
+                    <br />
                     The yearly complete breakdown will show you exactly what is in each year from the start date. This is very similar to the complete breakdown but it's a higher level overview
-                    
+
                     <YearlyCompleteBreakdown data={props.breakdown} show={showYearlyCompleteBreakdown} />
-                </AiofPaper>
+                </SquarePaper>
             </React.Fragment>
         );
     }
@@ -501,7 +507,7 @@ const CompleteBreakdown = props => {
     if (props.data && props.show === true) {
         return (
             <React.Fragment>
-                <hr/>
+                <hr />
                 <Grid container spacing={0}>
                     <Grid item xs>
                         <strong>Date</strong>
@@ -552,7 +558,7 @@ const YearlyCompleteBreakdown = props => {
     if (props.data && props.show === true) {
         return (
             <React.Fragment>
-                <hr/>
+                <hr />
                 <Grid container spacing={0}>
                     <Grid item xs>
                         <strong>Year</strong>

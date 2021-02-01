@@ -5,7 +5,7 @@ import agent from '../../agent';
 
 import { Overview } from './Overview';
 import { Bar } from 'react-chartjs-2';
-import { AiofPaper, DefaultRedColor, DefaultGreenColor, DefaultHrColor } from '../../style/mui';
+import { SquarePaper, InPaper, DefaultRedColor, DefaultGreenColor, DefaultHrColor } from '../../style/mui';
 import { CoolExternalLink, CoolLink } from '../../style/common';
 import { RectSkeleton } from '../Common/Sekeleton';
 import House from '../../style/icons/House_4.svg';
@@ -225,19 +225,19 @@ const LiabilitiesPreview = props => {
         return (
             <React.Fragment>
                 <Grid container spacing={3} className={classes.root}>
-                    <Grid item xs={2}>
+                    <Grid item xs>
                         <b>Name</b>
                     </Grid>
-                    <Grid item xs={2}>
+                    <Grid item xs>
                         <b>Type</b>
                     </Grid>
-                    <Grid item xs={2}>
+                    <Grid item xs>
                         <b>Monthly payment</b>
                     </Grid>
-                    <Grid item xs={2}>
+                    <Grid item xs>
                         <b>Years</b>
                     </Grid>
-                    <Grid item xs={2}>
+                    <Grid item xs>
                         <b>Value</b>
                     </Grid>
                 </Grid>
@@ -245,27 +245,27 @@ const LiabilitiesPreview = props => {
                     liabilities.map(liability => {
                         return (
                             <Grid key={liability.publicKey} container spacing={3} className={classes.root}>
-                                <Grid item xs={2}>
+                                <Grid item xs>
                                     {liability.name}
                                     <hr className={classes.hr} />
                                 </Grid>
 
-                                <Grid item xs={2}>
+                                <Grid item xs>
                                     {liability.typeName}
                                     <hr className={classes.hr} />
                                 </Grid>
 
-                                <Grid item xs={2}>
+                                <Grid item xs>
                                     <p className={classes.red}>${liability.monthlyPayment ? numberWithCommas(liability.monthlyPayment) : 0}</p>
                                     <hr className={classes.hr} />
                                 </Grid>
 
-                                <Grid item xs={2}>
+                                <Grid item xs>
                                     {liability.years ? liability.years : "Unspecified"}
                                     <hr className={classes.hr} />
                                 </Grid>
 
-                                <Grid item xs={2}>
+                                <Grid item xs>
                                     <p className={classes.red}>${numberWithCommas(liability.value)}</p>
                                     <hr className={classes.hr} />
                                 </Grid>
@@ -515,7 +515,7 @@ const MainTabs = props => {
     };
 
     return (
-        <AiofPaper elevation={3}>
+        <SquarePaper variant="outlined" square>
             <Tabs value={value}
                 indicatorColor="primary"
                 textColor="primary"
@@ -538,7 +538,7 @@ const MainTabs = props => {
             <TabPanel value={value} index={3}>
                 <SubscriptionsPreview subscriptions={props.subscriptions} />
             </TabPanel>
-        </AiofPaper>
+        </SquarePaper>
     );
 }
 
@@ -607,79 +607,64 @@ const AnalyzeView = props => {
 
     return (
         <React.Fragment>
-            <h3><strong>Analytics</strong></h3>
-            <hr className={classes.hr} />
+            <h4>
+                <strong>Analytics</strong>
+            </h4>
+
             {props.analyze ?
-                <Grid container direction="column" spacing={0}>
-                    <Grid item xs>
-                        <strong>Assets total</strong>
-                    </Grid>
-                    <Grid item xs>
-                        {<div className={classes.green}>${numberWithCommas(props.analyze.assetsTotal)}</div>}
-                    </Grid>
-                    <Grid>
-                        <br />
+                <React.Fragment>
+                    <Grid container spacing={1}>
+                        <Grid item xs={4}>
+                            <InPaper
+                                title={"Assets total"}
+                                body={<div className={classes.green}>${numberWithCommas(props.analyze.assetsTotal)}</div>} />
+                        </Grid>
+
+                        <Grid item xs={4}>
+                            <InPaper
+                                title={"Liabilities total"}
+                                body={<div className={classes.red}>${numberWithCommas(props.analyze.liabilitiesTotal)}</div>} />
+                        </Grid>
+
+                        <Grid item xs={4}>
+                            <InPaper
+                                title={"Assets to liabilities difference"}
+                                body={props.analyze.analytics.diff > 0
+                                    ? <div className={classes.green}>${numberWithCommas(props.analyze.analytics.diff)}</div>
+                                    : <div className={classes.red}>${numberWithCommas(props.analyze.analytics.diff)}</div>} />
+                        </Grid>
+
+
                     </Grid>
 
-                    <Grid item xs>
-                        <strong>Liabilities total</strong>
-                    </Grid>
-                    <Grid item xs>
-                        {<div className={classes.red}>${numberWithCommas(props.analyze.liabilitiesTotal)}</div>}
-                    </Grid>
-                    <Grid>
-                        <br />
-                    </Grid>
-
-                    <Grid item xs>
-                        <strong>Assets to liabilities difference</strong>
-                    </Grid>
-                    <Grid item xs>
-                        {props.analyze.analytics.diff > 0
-                            ? <div className={classes.green}>${numberWithCommas(props.analyze.analytics.diff)}</div>
-                            : <div className={classes.red}>${numberWithCommas(props.analyze.analytics.diff)}</div>}
-                    </Grid>
-                    <Grid>
-                        <br />
-                    </Grid>
-
-                    {props.analyze.analytics.cashToCcRatio === null && props.analyze.analytics.ccToCashRatio === null
-                        ? null
-                        : <React.Fragment>
-                            <Grid item xs>
-                                <strong>
-                                    {
+                    <Grid container spacing={1}>
+                        {props.analyze.analytics.cashToCcRatio === null && props.analyze.analytics.ccToCashRatio === null
+                            ? null
+                            : <Grid item xs={4}>
+                                <InPaper
+                                    title={
                                         props.analyze.analytics.cashToCcRatio !== null
                                             ? "Cash to credit card ratio"
                                             : "Credit card to cash ratio"
                                     }
-                                </strong>
-                            </Grid>
-                            <Grid item xs>
-                                {
-                                    props.analyze.analytics.cashToCcRatio !== null
-                                        ? props.analyze.analytics.cashToCcRatio
-                                        : props.analyze.analytics.ccToCashRatio
-                                }%
-                            </Grid>
-                            <Grid>
-                                <br />
-                            </Grid>
-                        </React.Fragment>
-                    }
+                                    body={
+                                        props.analyze.analytics.cashToCcRatio !== null
+                                            ? props.analyze.analytics.cashToCcRatio + "%"
+                                            : props.analyze.analytics.ccToCashRatio + "%"
+                                    } />
+                              </Grid>
+                        }
 
-                    {props.analyze.analytics.debtToIncomeRatio === null || Number(props.analyze.analytics.debtToIncomeRatio) === 0
-                        ? null
-                        : <React.Fragment>
-                            <Grid item xs>
-                                <strong>Debt to income ratio</strong>
-                            </Grid>
-                            <Grid item xs>
-                                ${numberWithCommas(props.analyze.analytics.debtToIncomeRatio)}
-                            </Grid>
-                        </React.Fragment>
-                    }
-                </Grid>
+                        {props.analyze.analytics.debtToIncomeRatio === null || Number(props.analyze.analytics.debtToIncomeRatio) === 0
+                            ? null
+                            : <Grid item xs={4}>
+                                <InPaper
+                                    title={"Debt to income ratio"}
+                                    body={numberWithCommas(props.analyze.analytics.debtToIncomeRatio * 100) + "%"} />
+                              </Grid>
+                        }
+                    </Grid>
+                </React.Fragment>
                 : "Please add more information in order to run Analytics. Such as at least one Asset and Liability"}
         </React.Fragment>
     );
@@ -689,7 +674,7 @@ const UsefulDocumentation = props => {
     const docs = props.usefulDocumentations ? props.usefulDocumentations : [];
 
     return (
-        <AiofPaper elevation={3}>
+        <SquarePaper variant="outlined" square>
             <Grid item xs={12}>
                 <img src={House} alt="House" style={{ width: "5rem", height: "5rem" }} />
             </Grid>
@@ -708,7 +693,7 @@ const UsefulDocumentation = props => {
                     }
                 </ul>
             </Grid>
-        </AiofPaper>
+        </SquarePaper>
     );
 }
 
@@ -745,9 +730,9 @@ const FinanceMainView = props => {
                             {
                                 props.inProgress
                                     ? <RectSkeleton height={600} />
-                                    : <AiofPaper elevation={3}>
+                                    : <SquarePaper variant="outlined" square>
                                         <Overview />
-                                    </AiofPaper>
+                                    </SquarePaper>
                             }
                         </Grid>
 
@@ -784,11 +769,11 @@ const FinanceMainView = props => {
                                     {
                                         props.inProgress
                                             ? <RectSkeleton height={400} />
-                                            : <AiofPaper elevation={3}>
+                                            : <SquarePaper variant="outlined" square>
                                                 <AssetsLiabilitiesChart
                                                     assets={props.assets}
                                                     liabilities={props.liabilities} />
-                                            </AiofPaper>
+                                            </SquarePaper>
                                     }
                                 </Grid>
                             </Grid>
@@ -798,9 +783,9 @@ const FinanceMainView = props => {
                                     {
                                         props.inProgress
                                             ? <RectSkeleton />
-                                            : <AiofPaper elevation={3}>
+                                            : <SquarePaper variant="outlined" square>
                                                 <AnalyzeView analyze={props.analyze} />
-                                            </AiofPaper>
+                                            </SquarePaper>
                                     }
                                 </Grid>
                             </Grid>
@@ -810,11 +795,10 @@ const FinanceMainView = props => {
                                     {
                                         props.inProgress
                                             ? <RectSkeleton height={100} />
-                                            : <AiofPaper elevation={3}>
+                                            : <SquarePaper variant="outlined" square>
                                                 More to come...
-                                              </AiofPaper>
+                                              </SquarePaper>
                                     }
-
                                 </Grid>
                             </Grid>
                         </React.Fragment>

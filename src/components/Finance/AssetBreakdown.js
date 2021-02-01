@@ -13,8 +13,8 @@ import AttachMoneyIcon from '@material-ui/icons/AttachMoney';
 import ArrowUpwardIcon from '@material-ui/icons/ArrowUpward';
 import TrendingUpIcon from '@material-ui/icons/TrendingUp';
 import { numberWithCommas } from '../Finance/Common';
-import { GreenP, RedP } from '../../style/common';
-import { AiofPaper, AiofLinearProgress } from '../../style/mui';
+import { ThinText } from '../../style/common';
+import { SquarePaper, InPaper, AiofLinearProgress, DefaultRedColor, DefaultGreenColor } from '../../style/mui';
 import { ASSET_BREAKDOWN, REDIRECT_HOME } from '../../constants/actionTypes';
 
 
@@ -32,6 +32,19 @@ const mapDispatchToProps = dispatch => ({
     onRedirectHome: () =>
         dispatch({ type: REDIRECT_HOME })
 });
+
+const useStyles = makeStyles((theme) => ({
+    green: {
+        color: DefaultGreenColor,
+        margin: '0rem',
+        padding: '0rem'
+    },
+    red: {
+        color: DefaultRedColor,
+        margin: '0rem',
+        padding: '0rem'
+    }
+}));
 
 
 class AssetBreakdown extends React.Component {
@@ -117,7 +130,7 @@ class AssetBreakdown extends React.Component {
                 </Helmet>
 
                 <Container maxWidth="sm">
-                    <AiofPaper elevation={3}>
+                    <SquarePaper variant="outlined" square>
                         <form className={this.classes.root} noValidate autoComplete="off" onSubmit={this.submitForm}>
                             <Grid container spacing={3}>
 
@@ -239,7 +252,7 @@ class AssetBreakdown extends React.Component {
                                 </Grid>
                             </Grid>
                         </form>
-                    </AiofPaper>
+                    </SquarePaper>
 
                     <AssetBreakdownResults assetBreakdown={this.props.assetBreakdown} inProgress={this.props.inProgress} />
 
@@ -252,138 +265,130 @@ class AssetBreakdown extends React.Component {
 
 const AssetBreakdownResults = props => {
     if (props.assetBreakdown) {
+        const classes = useStyles();
+
         return (
             <React.Fragment>
-                <AiofPaper elevation={3}>
+                <SquarePaper variant="outlined" square>
                     <Grid container spacing={1}>
-                        <Grid item xs={6}>
-                            <b>Value</b>
-                        </Grid>
-                        <Grid item xs={6} align="right">
-                            <GreenP>${numberWithCommas(props.assetBreakdown.value)}</GreenP>
-                        </Grid>
-
-                        <Grid item xs={6}>
-                            <b>Contribution</b>
-                        </Grid>
-                        <Grid item xs={6} align="right">
-                            <GreenP>${numberWithCommas(props.assetBreakdown.contribution)}</GreenP>
-                        </Grid>
-
-                        <Grid item xs={6}>
-                            <b>Interest</b>
-                        </Grid>
-                        <Grid item xs={6} align="right">
-                            <GreenP>{props.assetBreakdown.interest}%</GreenP>
-                        </Grid>
-
-                        <Grid item xs={6}>
-                            <b>HYS interest</b>
-                        </Grid>
-                        <Grid item xs={6} align="right">
-                            <GreenP>{props.assetBreakdown.hysInterest}%</GreenP>
-                        </Grid>
-
-                        <Grid item xs={6}>
-                            <b>Years</b>
-                        </Grid>
-                        <Grid item xs={6} align="right">
-                            <GreenP>{props.assetBreakdown.years}</GreenP>
-                        </Grid>
-
-                        <Grid item xs={6}>
-                            <b>Frequency</b>
-                        </Grid>
-                        <Grid item xs={6} align="right">
-                            <GreenP>{props.assetBreakdown.frequency}</GreenP>
-                        </Grid>
-
-                        <Grid item xs={6}>
-                            <b>Investment fees</b>
-                        </Grid>
-                        <Grid item xs={6} align="right">
-                            <RedP>{props.assetBreakdown.investmentFees}%</RedP>
-                        </Grid>
-
-                        <Grid item xs={6}>
-                            <b>Tax drag</b>
-                        </Grid>
-                        <Grid item xs={6} align="right">
-                            <RedP>{props.assetBreakdown.taxDrag}%</RedP>
-                        </Grid>
+                        <h4>
+                            <strong>Your results</strong>
+                        </h4>
                     </Grid>
-                </AiofPaper>
-
-                <AiofPaper elevation={3}>
                     <Grid container spacing={1}>
-                        <Grid item xs={6}>
-                            <b>Market value</b>
-                        </Grid>
-                        <Grid item xs={6} align="right">
-                            <GreenP>${numberWithCommas(props.assetBreakdown.marketValue)}</GreenP>
+                        <ThinText>
+                            Based on what you have entered into the form, we have calculated the following results:
+                        </ThinText>
+                    </Grid>
+
+                    <Grid container spacing={1}>
+                        <Grid item xs>
+                            <InPaper title={"Value"}
+                                body={<div className={classes.green}>${numberWithCommas(props.assetBreakdown.value)}</div>} />
                         </Grid>
 
-                        <Grid item xs={6}>
-                            <b>Market (begin) value</b>
-                        </Grid>
-                        <Grid item xs={6} align="right">
-                            <GreenP>${numberWithCommas(props.assetBreakdown.marketBeginValue)}</GreenP>
+                        <Grid item xs>
+                            <InPaper title={"Contribution"}
+                                body={<div className={classes.green}>${numberWithCommas(props.assetBreakdown.contribution)}</div>} />
                         </Grid>
 
-                        <Grid item xs={6}>
-                            <b>Market (with contribution) value</b>
-                        </Grid>
-                        <Grid item xs={6} align="right">
-                            <GreenP>${numberWithCommas(props.assetBreakdown.marketWithContributionValue)}</GreenP>
-                        </Grid>
-
-                        <Grid item xs={6}>
-                            <b>Market (begin with contribution) value</b>
-                        </Grid>
-                        <Grid item xs={6} align="right">
-                            <GreenP>${numberWithCommas(props.assetBreakdown.marketBeginWithContributionValue)}</GreenP>
+                        <Grid item xs>
+                            <InPaper title={"Interest"}
+                                body={<div className={classes.green}>{props.assetBreakdown.interest}%</div>} />
                         </Grid>
                     </Grid>
 
-                    <AssetBreakdownChart breakdown={props.assetBreakdown.marketValueBreakdown} title={'Market value'} />
-                    <AssetBreakdownChart breakdown={props.assetBreakdown.marketWithContributionValueBreakdown} title={'Market (with contributions) value'} />
-                </AiofPaper>
-
-                <AiofPaper elevation={3}>
                     <Grid container spacing={1}>
-                        <Grid item xs={6}>
-                            <b>HYS value</b>
-                        </Grid>
-                        <Grid item xs={6} align="right">
-                            <GreenP>${numberWithCommas(props.assetBreakdown.hysValue)}</GreenP>
+                        <Grid item xs>
+                            <InPaper title={"HYS interest"}
+                                body={<div className={classes.green}>{props.assetBreakdown.hysInterest}%</div>} />
                         </Grid>
 
-                        <Grid item xs={6}>
-                            <b>HYS (begin) value</b>
-                        </Grid>
-                        <Grid item xs={6} align="right">
-                            <GreenP>${numberWithCommas(props.assetBreakdown.hysBeginValue)}</GreenP>
+                        <Grid item xs>
+                            <InPaper title={"Years"}
+                                body={<div className={classes.green}>{props.assetBreakdown.years}</div>} />
                         </Grid>
 
-                        <Grid item xs={6}>
-                            <b>HYS (with contribution) value</b>
-                        </Grid>
-                        <Grid item xs={6} align="right">
-                            <GreenP>${numberWithCommas(props.assetBreakdown.hysWithContributionValue)}</GreenP>
-                        </Grid>
-
-                        <Grid item xs={6}>
-                            <b>HYS (begin with contribution) value</b>
-                        </Grid>
-                        <Grid item xs={6} align="right">
-                            <GreenP>${numberWithCommas(props.assetBreakdown.hysBeginWithContributionValue)}</GreenP>
+                        <Grid item xs>
+                            <InPaper title={"Frequency"}
+                                body={<div className={classes.green}>{props.assetBreakdown.frequency}</div>} />
                         </Grid>
                     </Grid>
 
-                    <AssetBreakdownChart breakdown={props.assetBreakdown.hysValueBreakdown} title={'HYS value'} />
-                    <AssetBreakdownChart breakdown={props.assetBreakdown.hysWithContributionValueBreakdown} title={'HYS (with contributions) value'} />
+                    <Grid container spacing={1}>
+                        <Grid item xs={4}>
+                            <InPaper title={"Investment fees"}
+                                body={<div className={classes.red}>{props.assetBreakdown.investmentFees}%</div>} />
+                        </Grid>
 
-                </AiofPaper>
+                        <Grid item xs={4}>
+                            <InPaper title={"Tax drag"}
+                                body={<div className={classes.red}>{props.assetBreakdown.taxDrag}%</div>} />
+                        </Grid>
+                    </Grid>
+                </SquarePaper>
+
+                <SquarePaper variant="outlined" square>
+                    <Grid container spacing={1}>
+                        <Grid item xs>
+                            <InPaper title={"Market value"}
+                                body={<div className={classes.green}>${numberWithCommas(props.assetBreakdown.marketValue)}</div>} />
+                        </Grid>
+                        <Grid item xs>
+                            <InPaper title={"With contributions"}
+                                body={<div className={classes.green}>${numberWithCommas(props.assetBreakdown.marketWithContributionValue)}</div>} />
+                        </Grid>
+                    </Grid>
+                </SquarePaper>
+
+                <SquarePaper variant="outlined" square>
+                    <Grid container spacing={1}>
+                        <Grid item xs>
+                            <AssetBreakdownChart breakdown={props.assetBreakdown.marketValueBreakdown}
+                                title={'Market value'} />
+                        </Grid>
+                    </Grid>
+                </SquarePaper>
+
+                <SquarePaper variant="outlined" square>
+                    <Grid container spacing={1}>
+                        <Grid item xs>
+                            <AssetBreakdownChart breakdown={props.assetBreakdown.marketWithContributionValueBreakdown}
+                                title={'Market (with contributions) value'} />
+                        </Grid>
+                    </Grid>
+                </SquarePaper>
+
+                <SquarePaper variant="outlined" square>
+                    <Grid container spacing={1}>
+                        <Grid item xs>
+                            <InPaper title={"HYS value"}
+                                body={<div className={classes.green}>${numberWithCommas(props.assetBreakdown.hysValue)}</div>} />
+                        </Grid>
+                        <Grid item xs>
+                            <InPaper title={"With contributions"}
+                                body={<div className={classes.green}>${numberWithCommas(props.assetBreakdown.hysWithContributionValue)}</div>} />
+                        </Grid>
+                    </Grid>
+                </SquarePaper>
+
+                <SquarePaper variant="outlined" square>
+                    <Grid container spacing={1}>
+                        <Grid item xs>
+                            <AssetBreakdownChart breakdown={props.assetBreakdown.hysValueBreakdown}
+                                title={'HYS value'} />
+                        </Grid>
+                    </Grid>
+                </SquarePaper>
+
+                <SquarePaper variant="outlined" square>
+                    <Grid container spacing={1}>
+                        <Grid item xs>
+                            <AssetBreakdownChart breakdown={props.assetBreakdown.hysWithContributionValueBreakdown}
+                                title={'HYS (with contributions) value'} />
+                        </Grid>
+                    </Grid>
+                </SquarePaper>
             </React.Fragment>
         )
     }
