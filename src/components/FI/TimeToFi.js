@@ -185,9 +185,7 @@ const TimeToFiResults = props => {
             </h4>
           </Grid>
           <Grid container spacing={1}>
-            <ThinText>
-              Based on what you have entered into the form, we have calculated the following results
-            </ThinText>
+            <ThinText>Based on what you have entered into the form, we have calculated the following results</ThinText>
           </Grid>
 
           <Grid container spacing={1}>
@@ -229,9 +227,7 @@ const TimeToFiResults = props => {
 
         <SquarePaper variant="outlined" square>
           <Grid container spacing={1}>
-            <ThinText>
-              Time to reach FI (Financial Independence) based on interests
-            </ThinText>
+            <ThinText>Time to reach FI (Financial Independence) based on interests</ThinText>
           </Grid>
 
           <Grid container spacing={1}>
