@@ -339,14 +339,18 @@ const AssetBreakdownResults = props => {
                                 body={<div className={classes.green}>${numberWithCommas(props.assetBreakdown.marketWithContributionValue)}</div>} />
                         </Grid>
                     </Grid>
+                </SquarePaper>
 
+                <SquarePaper variant="outlined" square>
                     <Grid container spacing={1}>
                         <Grid item xs>
                             <AssetBreakdownChart breakdown={props.assetBreakdown.marketValueBreakdown}
                                 title={'Market value'} />
                         </Grid>
                     </Grid>
+                </SquarePaper>
 
+                <SquarePaper variant="outlined" square>
                     <Grid container spacing={1}>
                         <Grid item xs>
                             <AssetBreakdownChart breakdown={props.assetBreakdown.marketWithContributionValueBreakdown}
@@ -366,14 +370,18 @@ const AssetBreakdownResults = props => {
                                 body={<div className={classes.green}>${numberWithCommas(props.assetBreakdown.hysWithContributionValue)}</div>} />
                         </Grid>
                     </Grid>
+                </SquarePaper>
 
+                <SquarePaper variant="outlined" square>
                     <Grid container spacing={1}>
                         <Grid item xs>
                             <AssetBreakdownChart breakdown={props.assetBreakdown.hysValueBreakdown}
                                 title={'HYS value'} />
                         </Grid>
                     </Grid>
+                </SquarePaper>
 
+                <SquarePaper variant="outlined" square>
                     <Grid container spacing={1}>
                         <Grid item xs>
                             <AssetBreakdownChart breakdown={props.assetBreakdown.hysWithContributionValueBreakdown}
