@@ -408,7 +408,7 @@ const MortgageCalculatorResult = props => {
                     </Grid>
                     <Grid container spacing={1}>
                         <ThinText>
-                            Based on what you have entered into the form, we have calculated the following results:
+                            Based on what you have entered into the form, we have calculated the following results
                         </ThinText>
                     </Grid>
 

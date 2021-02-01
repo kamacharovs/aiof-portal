@@ -11,7 +11,7 @@ import Button from '@material-ui/core/Button';
 import AttachMoneyIcon from '@material-ui/icons/AttachMoney';
 import ArrowUpwardIcon from '@material-ui/icons/ArrowUpward';
 import { numberWithCommas } from '../Finance/Common';
-import { GreenP, RedP, Hr75, ThinText } from '../../style/common';
+import { ThinText } from '../../style/common';
 import { SquarePaper, InPaper, AiofLinearProgress, DefaultRedColor, DefaultGreenColor } from '../../style/mui';
 import { FI_PAGE_LOADED, FI_TIME_TO_FI } from '../../constants/actionTypes';
 
@@ -187,8 +187,8 @@ const TimeToFiResults = props => {
           </Grid>
           <Grid container spacing={1}>
             <ThinText>
-              Based on what you have entered into the form, we have calculated the following results:
-                        </ThinText>
+              Based on what you have entered into the form, we have calculated the following results
+            </ThinText>
           </Grid>
 
           <Grid container spacing={1}>
@@ -229,33 +229,30 @@ const TimeToFiResults = props => {
         </SquarePaper>
 
         <SquarePaper variant="outlined" square>
-          <Grid container direction="column" spacing={0}>
-
+          <Grid container spacing={1}>
+            <ThinText>
+              Time to reach FI (Financial Independence) based on interests
+            </ThinText>
           </Grid>
 
-          <Grid>
-            <br />
-          </Grid>
-
-          <Grid container>
+          <Grid container spacing={1}>
             {
               props.time.years.map(year => {
                 return (
-                  <Grid container spacing={0}>
+                  <Grid container spacing={1}>
                     <Grid item xs>
-                      <strong>Interest: </strong>{year.interest}%
-                    <Hr75 />
+                      <InPaper title={"Interest"}
+                        body={<div className={classes.green}>{year.interest}%</div>} />
                     </Grid>
                     <Grid item xs>
-                      <strong>Years: </strong>{year.years}
-                      <Hr75 />
+                      <InPaper title={"Years"}
+                        body={<div className={classes.green}>{year.years}</div>} />
                     </Grid>
                   </Grid>
                 );
               })
             }
           </Grid>
-
         </SquarePaper>
       </React.Fragment>
     );
