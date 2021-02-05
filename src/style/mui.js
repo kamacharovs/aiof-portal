@@ -5,6 +5,8 @@ import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import LinearProgress from '@material-ui/core/LinearProgress';
 
+import { ThinText } from '../style/common';
+
 
 export const DefaultColor = '#5cb85c';
 export const DefaultRedColor = "#b21f00";
@@ -12,6 +14,7 @@ export const DefaultGreenColor = 'green';
 export const DefaultWhiteColor = '#fafafa';
 export const DefaultAlternateColor = "#137a8f";
 export const DefaultHrColor = '#ebebeb';
+export const DefaultDarkTeal = '#137a8f';
 
 export const commonStyles = makeStyles({
   p: {
@@ -20,6 +23,18 @@ export const commonStyles = makeStyles({
   },
   inPaper: {
     fontSize: '24px !important',
+  },
+  inBodyPaperDiv: {
+    backgroundColor: DefaultDarkTeal,
+    color: '#ffffff',
+    padding: '.25rem',
+  },
+  inBodyPaperBody: {
+    fontSize: '14px !important',
+    padding: '.25rem',
+  },
+  inBodyPaperSubTitle: {
+    fontSize: '16px !important',
   }
 });
 
@@ -65,22 +80,55 @@ export const InPaper = props => {
   return (
     <React.Fragment>
       <InPaperInternal variant="outlined" square>
-      <Grid container spacing={1}>
-        <Grid item xs>
-          <div>
-            {props.title}
-          </div>
+        <Grid container spacing={1}>
+          <Grid item xs>
+            <div>
+              {props.title}
+            </div>
+          </Grid>
         </Grid>
-      </Grid>
 
-      <Grid container spacing={1}>
-        <Grid item xs>
-          <div className={classes.inPaper}>
+        <Grid container spacing={1}>
+          <Grid item xs>
+            <div className={classes.inPaper}>
               {prefix}{body}
-          </div>
+            </div>
+          </Grid>
         </Grid>
-      </Grid>
       </InPaperInternal>
+    </React.Fragment>
+  );
+}
+
+const InBodyPaperInternal = styled(Paper)({
+  paddingBottom: '.5rem',
+  fontSize: '.8125rem',
+});
+export const InBodyPaper = props => {
+  const classes = commonStyles();
+
+  let body = props.body ? props.body : "";
+
+  return (
+    <React.Fragment>
+      <InBodyPaperInternal variant="outlined" square>
+        <Grid container spacing={1}>
+          <Grid item xs>
+            <div className={classes.inBodyPaperDiv}>
+              <div className={classes.inBodyPaperSubTitle}><strong>{props.title}</strong></div>
+              <ThinText>{props.subTitle}</ThinText>
+            </div>
+          </Grid>
+        </Grid>
+
+        <Grid container spacing={1}>
+          <Grid item xs>
+            <div className={classes.inBodyPaperBody}>
+              {body}
+            </div>
+          </Grid>
+        </Grid>
+      </InBodyPaperInternal>
     </React.Fragment>
   );
 }
