@@ -27,6 +27,7 @@ import HomeTwoToneIcon from '@material-ui/icons/HomeTwoTone';
 import AssessmentTwoToneIcon from '@material-ui/icons/AssessmentTwoTone';
 import DirectionsRunIcon from '@material-ui/icons/DirectionsRun';
 import BeachAccessIcon from '@material-ui/icons/BeachAccess';
+import MoneyIcon from '@material-ui/icons/Money';
 
 import { DefaultColor } from '../style/common';
 
@@ -126,9 +127,9 @@ const AppMenu = props => {
               Retirement
               </ListSubheader>
           }>
-              <ListItem button component={Link} to="/fi/time">
+              <ListItem button component={Link} to="/retirement/common/investments">
                 <ListItemIcon>
-                  <QueryBuilderTwoToneIcon />
+                  <MoneyIcon />
                 </ListItemIcon>
                 <ListItemText primary="Common investments" />
               </ListItem>

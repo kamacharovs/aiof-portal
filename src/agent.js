@@ -127,6 +127,11 @@ const Property = {
     requestsMetadata.post('/property/mortgage', payload)
 }
 
+const Retirement = {
+  commonInvestments: payload =>
+    requestsMetadata.post('/retirement/common/investments', payload)
+}
+
 
 const limit = (count, p) => `limit=${count}&offset=${p ? p * count : 0}`;
 const omitSlug = article => Object.assign({}, article, { slug: undefined })

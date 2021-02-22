@@ -52,12 +52,13 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const CommonInvestments = props => {
-    if (props.currentUser) {
+    const classes = makeStyles();
 
-    }
-    else {
-        return null;
-    }
+    return (
+        <React.Fragment>
+
+        </React.Fragment>
+    );
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(CommonInvestments);
