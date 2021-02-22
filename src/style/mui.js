@@ -6,6 +6,7 @@ import Paper from '@material-ui/core/Paper';
 import LinearProgress from '@material-ui/core/LinearProgress';
 
 
+export const DefaultFont = 'Montserrat';
 export const DefaultColor = '#5cb85c';
 export const DefaultRedColor = "#b21f00";
 export const DefaultGreenColor = 'green';
