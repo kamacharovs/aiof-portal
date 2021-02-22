@@ -325,6 +325,11 @@ const CommonInvestments = props => {
 
 const CommonInvestmentsResult = props => {
     if (props.commonInvestments) {
+        const classes = useStyles();
+
+        const commonInvestments = props.commonInvestments;
+        const lastYearResults = commonInvestments[commonInvestments.length - 1];
+
         return (
             <React.Fragment>
                 <SquarePaper variant="outlined" square>
@@ -339,9 +344,63 @@ const CommonInvestmentsResult = props => {
 
                     <Grid container spacing={1}>
                         <Grid item xs={4}>
-                            <InPaper title={"Monthly payment"}
-                                body={numberWithCommas(props.test)}
-                                prefix={"$"} />
+                            <InPaper title={"Year"}
+                                body={lastYearResults.year} />
+                        </Grid>
+
+                        <Grid item xs={4}>
+                            <InPaper title={"Compounding periods"}
+                                body={lastYearResults.compoundingPeriods} />
+                        </Grid>
+                    </Grid>
+
+                    <Grid container spacing={1}>
+                        <Grid item xs={4}>
+                            <InPaper title={"Total"}
+                                body={<div className={classes.green}>${numberWithCommas(lastYearResults.total)}</div>} />
+                        </Grid>
+
+                        <Grid item xs={4}>
+                            <InPaper title={"Total monthly contributions"}
+                                body={<div className={classes.green}>${numberWithCommas(lastYearResults.totalMonthlyContributions)}</div>} />
+                        </Grid>
+                    </Grid>
+                </SquarePaper>
+
+                <SquarePaper variant="outlined" square>
+                    <Grid container spacing={1}>
+                        <Grid item xs={4}>
+                            <InPaper title={"401(k)"}
+                                body={<div className={classes.green}>${numberWithCommas(lastYearResults.fourohoneK)}</div>} />
+                        </Grid>
+
+                        <Grid item xs={4}>
+                            <InPaper title={"401(k) monthly contributions"}
+                                body={<div className={classes.green}>${numberWithCommas(lastYearResults.fourohoneKMonthlyContributions)}</div>} />
+                        </Grid>
+                    </Grid>
+
+                    <Grid container spacing={1}>
+                        <Grid item xs={4}>
+                            <InPaper title={"Roth IRA"}
+                                body={<div className={classes.green}>${numberWithCommas(lastYearResults.rothIra)}</div>} />
+                        </Grid>
+
+                        <Grid item xs={4}>
+                            <InPaper title={"Roth IRA monthly contributions"}
+                                body={<div className={classes.green}>${numberWithCommas(lastYearResults.rothIraMonthlyContributions)}</div>} />
+                        </Grid>
+                    </Grid>
+
+                    <Grid container spacing={1}>
+                        <Grid item xs={4}>
+                            <InPaper title={"Brokerage"}
+                                body={<div className={classes.green}>${numberWithCommas(lastYearResults.brokerage)}</div>} />
+                        </Grid>
+
+                        <Grid item xs={4}>
+                            <InPaper title={"Brokerage monthly contributions"}
+                                body={<div className={classes.green}>${numberWithCommas(lastYearResults.brokerageMonthlyContributions)}</div>} />
                         </Grid>
                     </Grid>
                 </SquarePaper>
