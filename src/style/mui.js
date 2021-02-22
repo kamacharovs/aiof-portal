@@ -8,6 +8,7 @@ import LinearProgress from '@material-ui/core/LinearProgress';
 import { ThinText } from '../style/common';
 
 
+export const DefaultFont = 'Montserrat';
 export const DefaultColor = '#5cb85c';
 export const DefaultRedColor = "#b21f00";
 export const DefaultGreenColor = 'green';

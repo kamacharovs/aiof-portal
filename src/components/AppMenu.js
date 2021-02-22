@@ -27,6 +27,7 @@ import HomeTwoToneIcon from '@material-ui/icons/HomeTwoTone';
 import AssessmentTwoToneIcon from '@material-ui/icons/AssessmentTwoTone';
 import DirectionsRunIcon from '@material-ui/icons/DirectionsRun';
 import BeachAccessIcon from '@material-ui/icons/BeachAccess';
+import MoneyIcon from '@material-ui/icons/Money';
 
 import { DefaultColor } from '../style/common';
 
@@ -121,6 +122,21 @@ const AppMenu = props => {
 
           <Divider />
 
+          <List subheader={
+            <ListSubheader component="div" id="nested-list-subheader">
+              Retirement
+              </ListSubheader>
+          }>
+              <ListItem button component={Link} to="/retirement/common/investments">
+                <ListItemIcon>
+                  <MoneyIcon />
+                </ListItemIcon>
+                <ListItemText primary="Common investments" />
+              </ListItem>
+          </List>
+
+          <Divider />
+
           <List
             subheader={
               <ListSubheader component="div" id="nested-list-subheader">
@@ -177,31 +193,31 @@ const AppMenu = props => {
           <Divider />
 
           <List
-              subheader={
-                <ListSubheader component="div">
-                  Property
+            subheader={
+              <ListSubheader component="div">
+                Property
               </ListSubheader>
-              }>
-              <ListItem button onClick={handlePropertyOpen}>
-                <ListItemIcon>
-                  <FunctionsTwoToneIcon />
-                </ListItemIcon>
-                <ListItemText primary="Calculators" />
-                {propertyOpen ? <ExpandLess /> : <ExpandMore />}
-              </ListItem>
-              <Collapse in={propertyOpen} timeout="auto" unmountOnExit>
-                <List component="div" disablePadding>
+            }>
+            <ListItem button onClick={handlePropertyOpen}>
+              <ListItemIcon>
+                <FunctionsTwoToneIcon />
+              </ListItemIcon>
+              <ListItemText primary="Calculators" />
+              {propertyOpen ? <ExpandLess /> : <ExpandMore />}
+            </ListItem>
+            <Collapse in={propertyOpen} timeout="auto" unmountOnExit>
+              <List component="div" disablePadding>
 
-                  <ListItem button className={classes.nested} component={Link} to="/property/mortgage">
-                    <ListItemIcon>
-                      <HomeTwoToneIcon />
-                    </ListItemIcon>
-                    <ListItemText primary="Mortgage" />
-                  </ListItem>
+                <ListItem button className={classes.nested} component={Link} to="/property/mortgage">
+                  <ListItemIcon>
+                    <HomeTwoToneIcon />
+                  </ListItemIcon>
+                  <ListItemText primary="Mortgage" />
+                </ListItem>
 
-                </List>
-              </Collapse>
-            </List>
+              </List>
+            </Collapse>
+          </List>
 
           <Divider />
 
