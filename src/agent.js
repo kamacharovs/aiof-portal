@@ -180,6 +180,7 @@ export default {
   Fi,
   Analytics,
   Property,
+  Retirement,
   Comments,
   setToken: _token => { token = _token; },
   setRefreshToken: _refreshToken => { refresh_token = _refreshToken },
