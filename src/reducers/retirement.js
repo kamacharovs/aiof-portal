@@ -33,7 +33,10 @@ export default (state = {}, action) => {
             return {
                 ...state,
                 inProgress: false,
+                commonInvestments: action.error ? null : action.payload,
             }
         }
+        default:
+            return state
     }
 }
