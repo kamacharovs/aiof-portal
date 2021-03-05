@@ -17,7 +17,7 @@ import Profile from '../components/Profile';
 import FinanceMainView from '../components/Finance/FinanceMainView';
 import AssetBreakdown from '../components/Finance/AssetBreakdown';
 import LiabilityEditor from '../components/Finance/LiabilityEditor';
-import GoalMainView from '../components/Finance/Goal/GoalMainView';
+import GoalMainView from '../components/Finance/Goal/MainView';
 
 import TimeToFi from '../components/FI/TimeToFi';
 import AddedTime from '../components/FI/AddedTime';

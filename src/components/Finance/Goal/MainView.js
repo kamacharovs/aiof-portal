@@ -10,6 +10,8 @@ import Grid from '@material-ui/core/Grid';
 import { SquarePaper, InPaper, DefaultRedColor, DefaultGreenColor, DefaultHrColor } from '../../../style/mui';
 import { RETIREMENT_COMMON_INVESTMENTS } from '../../../constants/actionTypes';
 
+import AddGoals from './Add';
+
 
 const mapStateToProps = state => ({
     ...state.finance,
@@ -60,14 +62,16 @@ const CurrentGoals = props => {
     if (props.goals) {
         return (
             <React.Fragment>
-
+                <SquarePaper variant="outlined" square>
+                    There are goals here
+                </SquarePaper>
             </React.Fragment>
         );
     } else {
         return (
             <React.Fragment>
                 <SquarePaper variant="outlined" square>
-                    No goals...
+                    You don't have any current goals. Try setting new ones below
                 </SquarePaper>
             </React.Fragment>
         );
@@ -93,6 +97,12 @@ const GoalMainView = props => {
                 <Grid container spacing={1} className={classes.root}>
                     <Grid item xs>
                         <CurrentGoals goals={props.goals} />
+                    </Grid>
+                </Grid>
+
+                <Grid container spacing={1} className={classes.root}>
+                    <Grid item xs>
+                        <AddGoals />
                     </Grid>
                 </Grid>
             </Container>

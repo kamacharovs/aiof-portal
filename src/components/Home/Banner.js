@@ -37,20 +37,6 @@ const Banner = props => {
 
   return (
     <React.Fragment>
-      <div className={classes.main} />
-    </React.Fragment>
-  );
-};
-
-const Banner2 = props => {
-  if (props.token) {
-    return null;
-  }
-
-  const classes = useStyles();
-
-  return (
-    <React.Fragment>
       <Container maxWidth="xl">
         <SquarePaper variant="outlined" square>
           <h2>Welcome to <strong>{props.appFullName}</strong></h2>
@@ -124,4 +110,4 @@ const Banner2 = props => {
   );
 }
 
-export default Banner2;
+export default Banner;
