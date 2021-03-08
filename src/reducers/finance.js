@@ -7,6 +7,7 @@ import {
   ASSET_TYPES,
   LIABILITY_ADD,
   LIABILITY_TYPES,
+  GOAL_ADD,
   ANALYTICS_ANALYZE,
 } from '../constants/actionTypes';
 
@@ -41,6 +42,12 @@ export default (state = {}, action) => {
           inProgress: true
         }
       }
+      else if (action.subtype === GOAL_ADD) {
+        return {
+          ...state,
+          inProgressAddGoal: true,
+        }
+      }
       else {
         return { 
           ...state 
@@ -65,6 +72,11 @@ export default (state = {}, action) => {
       return {
         ...state,
         liabilityTypes: action.error ? null : action.payload
+      }
+    case GOAL_ADD:
+      return {
+        ...state,
+        inProgressAddGoal: false
       }
     case ANALYTICS_ANALYZE:
       return {

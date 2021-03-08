@@ -96,6 +96,11 @@ const Liability = {
     requests.get('/liability/types'),
 }
 
+const Goal = {
+  add: goal =>
+    requests.post('/goal', goal),
+}
+
 const Utility = {
   usefulDocumentationByPage: page =>
     requests.get(`/useful/documentation?page=${page}`),
@@ -176,6 +181,7 @@ export default {
   UserProfile,
   Asset,
   Liability,
+  Goal,
   Utility,
   Fi,
   Analytics,
