@@ -4,6 +4,7 @@ import { withStyles, makeStyles, styled } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import LinearProgress from '@material-ui/core/LinearProgress';
+import Button from '@material-ui/core/Button';
 
 import { ThinText } from '../style/common';
 
@@ -16,6 +17,8 @@ export const DefaultWhiteColor = '#fafafa';
 export const DefaultAlternateColor = "#137a8f";
 export const DefaultHrColor = '#ebebeb';
 export const DefaultDarkTeal = '#137a8f';
+export const DefaultWhite = '#ffffff';
+
 
 export const commonStyles = makeStyles({
   p: {
@@ -66,6 +69,11 @@ export const AiofLinearProgress = withStyles({
     backgroundColor: DefaultColor
   }
 })(LinearProgress)
+
+export const SecondaryButton = styled(Button)({
+  background: DefaultDarkTeal,
+  color: DefaultWhite,
+});
 
 const InPaperInternal = styled(Paper)({
   padding: '1rem',

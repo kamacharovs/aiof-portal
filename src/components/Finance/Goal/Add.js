@@ -5,7 +5,6 @@ import 'date-fns';
 
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
-import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import Switch from '@material-ui/core/Switch';
@@ -18,8 +17,9 @@ import Select from '@material-ui/core/Select';
 import HomeOutlinedIcon from '@material-ui/icons/HomeOutlined';
 import MonetizationOnOutlinedIcon from '@material-ui/icons/MonetizationOnOutlined';
 import WbSunnyOutlinedIcon from '@material-ui/icons/WbSunnyOutlined';
+import DirectionsCarOutlinedIcon from '@material-ui/icons/DirectionsCarOutlined';
 
-import { SquarePaper, DefaultRedColor, DefaultGreenColor } from '../../../style/mui';
+import { SquarePaper, DefaultDarkTeal, DefaultRedColor, DefaultGreenColor } from '../../../style/mui';
 import { GOAL_ADD } from '../../../constants/actionTypes';
 
 
@@ -58,25 +58,25 @@ const useStyles = makeStyles((theme) => ({
 
 const AddGoals = props => {
     const classes = useStyles();
-    const size = '80';
+    const size = '70';
     const [showGeneric, setShowGeneric] = useState(false);
     const [showTrip, setShowTrip] = useState(false);
     const [showBuyAHome, setShowBuyAHome] = useState(false);
 
     const handleShowGeneric = () => {
         setShowGeneric(!showGeneric);
-        setShowBuyAHome(false);
         setShowTrip(false);
+        setShowBuyAHome(false);
     }
     const handleShowTrip = () => {
         setShowGeneric(false);
-        setShowBuyAHome(false);
         setShowTrip(!showTrip);
+        setShowBuyAHome(false);
     }
     const handleShowHome = () => {
         setShowGeneric(false);
-        setShowBuyAHome(!showBuyAHome);
         setShowTrip(false);
+        setShowBuyAHome(!showBuyAHome);
     }
 
     return (
@@ -84,32 +84,52 @@ const AddGoals = props => {
             <SquarePaper variant="outlined" square>
                 <h5><strong>Add a Goal</strong></h5>
                 <hr />
-
+                Pick one of the following types to add
                 <Grid container spacing={1} className={classes.root}>
                     <Grid item sm>
-                        <Button color="default" size="large" onClick={handleShowGeneric}>
-                            <MonetizationOnOutlinedIcon style={{ fontSize: size }} />
-                            Generic
-                        </Button>
+                        <GoalPaper text={"Generic"} handleValue={handleShowGeneric} 
+                            icon={<MonetizationOnOutlinedIcon style={{ fontSize: size, color: DefaultDarkTeal }} />} />
                     </Grid>
 
                     <Grid item sm>
-                        <Button color="default" size="large" onClick={handleShowTrip}>
-                            <WbSunnyOutlinedIcon style={{ fontSize: size }} />
-                            Go on a trip
-                        </Button>
+                        <GoalPaper text={"Go on a trip"} handleValue={handleShowTrip} 
+                            icon={<WbSunnyOutlinedIcon style={{ fontSize: size, color: DefaultDarkTeal }} />} />
                     </Grid>
 
                     <Grid item sm>
-                        <Button color="default" size="large" onClick={handleShowHome}>
-                            <HomeOutlinedIcon style={{ fontSize: size }} />
-                            Buy a home
-                        </Button>
+                        <GoalPaper text={"Buy a home"} handleValue={handleShowHome} 
+                            icon={<HomeOutlinedIcon style={{ fontSize: size, color: DefaultDarkTeal }} />} />
+                    </Grid>
+                </Grid>
+
+                <Grid container spacing={1} className={classes.root}>
+                    <Grid item sm={4}>
+                        <GoalPaper text={"Buy a car"} handleValue={handleShowHome} 
+                            icon={<DirectionsCarOutlinedIcon style={{ fontSize: size, color: DefaultDarkTeal }} />} />
                     </Grid>
                 </Grid>
             </SquarePaper>
 
             <AddTripGoal showTrip={showTrip} />
+        </React.Fragment>
+    );
+}
+
+const GoalPaper = ({ text, handleValue, icon }) => {
+    return (
+        <React.Fragment>
+            <SquarePaper variant="outlined" square onClick={handleValue}>
+                <Grid container spacing={3} direction="column" justify="center" alignItems="center">
+                    <Grid item sm>
+                        {icon}
+                    </Grid>
+                    <Grid item sm>
+                        <div style={{ color: DefaultDarkTeal }}>
+                            <strong>{text.toUpperCase()}</strong>
+                        </div>
+                    </Grid>
+                </Grid>
+            </SquarePaper>
         </React.Fragment>
     );
 }
@@ -129,9 +149,9 @@ const AddTripGoal = props => {
         const [destination, setDestination] = useState("");
         const [duration, setDuration] = useState(7);
         const [travelers, setTravelers] = useState(2);
-        const [hasFlight, setHasFlight] = useState(false);
+        const [hasFlight, setHasFlight] = useState(true);
         const [flight, setFlight] = useState(0);
-        const [hasHotel, setHasHotel] = useState(false);
+        const [hasHotel, setHasHotel] = useState(true);
         const [hotel, setHotel] = useState(0);
         const [hasCar, setHasCar] = useState(false);
         const [car, setCar] = useState(0);
