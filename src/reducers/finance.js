@@ -7,6 +7,7 @@ import {
   ASSET_TYPES,
   LIABILITY_ADD,
   LIABILITY_TYPES,
+  GOALS,
   GOAL_TYPES,
   GOAL_TRIP_TYPES,
   GOAL_ADD,
@@ -42,6 +43,11 @@ export default (state = {}, action) => {
         return { 
           ...state,
           inProgress: true
+        }
+      } else if (action.subtype === GOALS) {
+        return {
+          ...state,
+          inProgressGoals: true,
         }
       } else if (action.subtype === GOAL_TYPES) {
         return {
@@ -82,6 +88,12 @@ export default (state = {}, action) => {
       return {
         ...state,
         liabilityTypes: action.error ? null : action.payload
+      }
+    case GOALS:
+      return {
+        ...state,
+        inProgressGoals: false,
+        goals: action.error ? null : action.payload
       }
     case GOAL_TRIP_TYPES:
       return {

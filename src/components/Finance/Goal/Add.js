@@ -84,7 +84,7 @@ const AddGoals = props => {
     }
 
     useEffect(() => {
-        if (props.goalTripTypes) {
+        if (!props.goalTripTypes) {
             props.onTripTypes();
         }
     }, []);
@@ -93,9 +93,9 @@ const AddGoals = props => {
         <React.Fragment>
             <SquarePaper variant="outlined" square>
                 <div style={{ color: DefaultDarkTeal }}>
-                    <h3><strong>Add a Goal</strong></h3>
+                    <h3><strong>Add</strong></h3>
                 </div>
-                Pick one of the following types to add
+                Pick one of the following goal types to add
 
                 <Grid container spacing={1} className={classes.root}>
                     <Grid item sm>
@@ -122,7 +122,7 @@ const AddGoals = props => {
                 </Grid>
             </SquarePaper>
 
-            <AddTripGoal showTrip={showTrip} />
+            <AddTripGoal showTrip={showTrip} goalTripTypes={props.goalTripTypes} />
         </React.Fragment>
     );
 }
@@ -175,11 +175,7 @@ const AddTripGoal = props => {
         const [other, setOther] = useState(0);
 
         const [type, setType] = useState("Romance");
-        const types = [
-            "Romance",
-            "Adventure",
-            "Beach"
-        ]
+        const types = props.goalTripTypes || [];
 
         const handleSetValue = (e, setValue) => {
             setValue(e.target.value);
