@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import agent from '../../../agent';
+import 'date-fns';
 
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
@@ -9,6 +10,10 @@ import TextField from '@material-ui/core/TextField';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import Switch from '@material-ui/core/Switch';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
+import InputLabel from '@material-ui/core/InputLabel';
+import MenuItem from '@material-ui/core/MenuItem';
+import FormControl from '@material-ui/core/FormControl';
+import Select from '@material-ui/core/Select';
 
 import HomeOutlinedIcon from '@material-ui/icons/HomeOutlined';
 import MonetizationOnOutlinedIcon from '@material-ui/icons/MonetizationOnOutlined';
@@ -46,12 +51,33 @@ const useStyles = makeStyles((theme) => ({
         margin: '0rem',
         padding: '0rem'
     },
+    select: {
+        minWidth: 'flex',
+    },
 }));
 
 const AddGoals = props => {
     const classes = useStyles();
     const size = '80';
+    const [showGeneric, setShowGeneric] = useState(false);
     const [showTrip, setShowTrip] = useState(false);
+    const [showBuyAHome, setShowBuyAHome] = useState(false);
+
+    const handleShowGeneric = () => {
+        setShowGeneric(!showGeneric);
+        setShowBuyAHome(false);
+        setShowTrip(false);
+    }
+    const handleShowTrip = () => {
+        setShowGeneric(false);
+        setShowBuyAHome(false);
+        setShowTrip(!showTrip);
+    }
+    const handleShowHome = () => {
+        setShowGeneric(false);
+        setShowBuyAHome(!showBuyAHome);
+        setShowTrip(false);
+    }
 
     return (
         <React.Fragment>
@@ -61,21 +87,21 @@ const AddGoals = props => {
 
                 <Grid container spacing={1} className={classes.root}>
                     <Grid item sm>
-                        <Button color="default" size="large">
+                        <Button color="default" size="large" onClick={handleShowGeneric}>
                             <MonetizationOnOutlinedIcon style={{ fontSize: size }} />
                             Generic
                         </Button>
                     </Grid>
 
                     <Grid item sm>
-                        <Button color="default" size="large" onClick={() => setShowTrip(!showTrip)}>
+                        <Button color="default" size="large" onClick={handleShowTrip}>
                             <WbSunnyOutlinedIcon style={{ fontSize: size }} />
                             Go on a trip
                         </Button>
                     </Grid>
 
                     <Grid item sm>
-                        <Button color="default" size="large">
+                        <Button color="default" size="large" onClick={handleShowHome}>
                             <HomeOutlinedIcon style={{ fontSize: size }} />
                             Buy a home
                         </Button>
@@ -88,7 +114,7 @@ const AddGoals = props => {
     );
 }
 
-const AddBaseGoal = props => {
+const AddGenericGoal = props => {
     if (props.showBase) {
         const classes = useStyles();
 
@@ -99,7 +125,8 @@ const AddBaseGoal = props => {
 
 const AddTripGoal = props => {
     if (props.showTrip) {
-        const [destination, setDestination] = useState('');
+        const classes = useStyles();
+        const [destination, setDestination] = useState("");
         const [duration, setDuration] = useState(7);
         const [travelers, setTravelers] = useState(2);
         const [hasFlight, setHasFlight] = useState(false);
@@ -114,6 +141,13 @@ const AddTripGoal = props => {
         const [activities, setActivities] = useState(0);
         const [hasOther, setHasOther] = useState(false);
         const [other, setOther] = useState(0);
+
+        const [type, setType] = useState("Romance");
+        const types = [
+            "Romance",
+            "Adventure",
+            "Beach"
+        ]
 
         const handleSetValue = (e, setValue) => {
             setValue(e.target.value);
@@ -132,7 +166,7 @@ const AddTripGoal = props => {
 
                     <Grid container spacing={1}>
                         <Grid item sm>
-                            <hr/>
+                            <hr />
                         </Grid>
                     </Grid>
 
@@ -144,6 +178,27 @@ const AddTripGoal = props => {
                                 onChange={e => handleSetValue(e, setDestination)}
                                 helperText="The name of your destination"
                             />
+                        </Grid>
+
+                        <Grid item sm>
+                            <FormControl className={classes.select}>
+                                <InputLabel id="type-name-label">Type</InputLabel>
+                                <Select
+                                    required
+                                    labelId="type-name-label"
+                                    id="type-name-select"
+                                    value={type}
+                                    onChange={e => setType(e.target.value)}
+                                >
+                                    {
+                                        types.map(type => {
+                                            return (
+                                                <MenuItem key={type} value={type}>{type}</MenuItem>
+                                            );
+                                        })
+                                    }
+                                </Select>
+                            </FormControl>
                         </Grid>
                     </Grid>
 
@@ -167,13 +222,15 @@ const AddTripGoal = props => {
 
                     <Grid container spacing={1}>
                         <Grid item sm>
-                            <hr/>
+                            <hr />
                         </Grid>
                     </Grid>
 
                     <Grid container spacing={1}>
                         <Grid item sm>
-                            This breakdown of separate categories will help you better calculate and manage your goal
+                            This breakdown of separate categories will help you better calculate and manage your goal.<br />
+                            If you don't have specific amounts, it is always best to overestimate<br /><br />
+                            <b><i>Note: </i></b>the prices below are <i>per traveler</i>
                         </Grid>
                     </Grid>
 
@@ -198,7 +255,7 @@ const YesNoSwitch = ({ title, hasValue, setHasValue, value, setValue, setHandleV
     return (
         <React.Fragment>
             <Grid container spacing={1} className={classes.root}>
-                <Grid item sm>
+                <Grid item sm={3}>
                     <FormControlLabel
                         control={
                             <Switch
@@ -211,10 +268,8 @@ const YesNoSwitch = ({ title, hasValue, setHasValue, value, setValue, setHandleV
                         label={title}
                     />
                 </Grid>
-            </Grid>
 
-            <Grid container spacing={1}>
-                <Grid item sm>
+                <Grid item sm={4}>
                     {hasValue ?
                         <TextField
                             value={value}
