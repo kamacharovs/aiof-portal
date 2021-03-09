@@ -100,7 +100,8 @@ const AddGoals = props => {
                 <Grid container spacing={1} className={classes.root}>
                     <Grid item sm>
                         <GoalPaper text={"Generic"} handleValue={handleShowGeneric}
-                            icon={<MonetizationOnOutlinedIcon style={{ fontSize: size, color: DefaultDarkTeal }} />} />
+                            icon={<MonetizationOnOutlinedIcon style={{ fontSize: size, color: DefaultDarkTeal }} />} 
+                            comingSoon={true} />
                     </Grid>
 
                     <Grid item sm>
@@ -110,14 +111,16 @@ const AddGoals = props => {
 
                     <Grid item sm>
                         <GoalPaper text={"Buy a home"} handleValue={handleShowHome}
-                            icon={<HomeOutlinedIcon style={{ fontSize: size, color: DefaultDarkTeal }} />} />
+                            icon={<HomeOutlinedIcon style={{ fontSize: size, color: DefaultDarkTeal }} />} 
+                            comingSoon={true} />
                     </Grid>
                 </Grid>
 
                 <Grid container spacing={1} className={classes.root}>
                     <Grid item sm={4}>
                         <GoalPaper text={"Buy a car"} handleValue={handleShowHome}
-                            icon={<DirectionsCarOutlinedIcon style={{ fontSize: size, color: DefaultDarkTeal }} />} />
+                            icon={<DirectionsCarOutlinedIcon style={{ fontSize: size, color: DefaultDarkTeal }} />}
+                            comingSoon={true} />
                     </Grid>
                 </Grid>
             </SquarePaper>
@@ -127,7 +130,7 @@ const AddGoals = props => {
     );
 }
 
-const GoalPaper = ({ text, handleValue, icon }) => {
+const GoalPaper = ({ text, handleValue, icon, comingSoon }) => {
     return (
         <React.Fragment>
             <SquarePaper variant="outlined" square onClick={handleValue}>
@@ -137,7 +140,9 @@ const GoalPaper = ({ text, handleValue, icon }) => {
                     </Grid>
                     <Grid item sm>
                         <div style={{ color: DefaultDarkTeal }}>
-                            <strong>{text.toUpperCase()}</strong>
+                            <strong>{comingSoon 
+                                ? text.toUpperCase() + " (COMING SOON)"
+                                : text.toUpperCase()}</strong>
                         </div>
                     </Grid>
                 </Grid>

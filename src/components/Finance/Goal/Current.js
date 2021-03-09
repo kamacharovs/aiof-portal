@@ -33,7 +33,7 @@ const CurrentGoals = props => {
 
     if (goals && goals.length > 0) {
         const goalsTrip = goals.filter(function (x) { return x.type.toUpperCase() === TRIP; })
-        //const goalsHome = goals.filter(function (x) { return x.type.toUpperCase() === BUYAHOME; })
+        const goalsHome = goals.filter(function (x) { return x.type.toUpperCase() === BUYAHOME; })
 
         return (
             <React.Fragment>
@@ -43,6 +43,8 @@ const CurrentGoals = props => {
                     </div>
 
                     <CurrentGoalsTrip goalsTrip={goalsTrip} />
+
+                    <CurrentGoalsHome goalsHome={goalsHome} />
 
                     <InProgressBar inProgressGoals={props.inProgressGoals} />
                 </SquarePaper>
@@ -55,7 +57,7 @@ const CurrentGoals = props => {
                     <div style={{ color: DefaultDarkTeal }}>
                         <h3><strong>Current</strong></h3>
                     </div>
-                    You don't have any current goals. Try setting new ones below
+                    You don't have any current goals. Try adding new ones below
                 </SquarePaper>
             </React.Fragment>
         );
@@ -102,9 +104,9 @@ const CurrentGoalsTrip = props => {
                                     </Grid>
 
                                     <Grid item xs>
-                                        <br/>
+                                        <br />
                                     </Grid>
-                                    
+
                                     <Grid item xs>
                                         Flight: ${numberWithCommas(Math.round(g.flight || 0))}
                                     </Grid>
@@ -122,6 +124,62 @@ const CurrentGoalsTrip = props => {
                                     </Grid>
                                     <Grid item xs>
                                         Other: ${numberWithCommas(Math.round(g.other || 0))}
+                                    </Grid>
+                                </Grid>
+                            </SquarePaper>
+                        </Grid>
+                    );
+                })};
+            </Grid>
+        );
+    } else {
+        return null;
+    }
+}
+
+const CurrentGoalsHome = props => {
+    const goals = props.goalsHome;
+
+    if (goals && goals.length > 0) {
+        const classes = useStyles();
+
+        return (
+            <Grid container spacing={1}>
+                {goals.map(g => {
+                    return (
+                        <Grid key={g.publicKey} item xs>
+                            <SquarePaper variant="outlined" square>
+                                <Grid container spacing={0} direction="column" justify="center" alignItems="center">
+                                    <Grid item xs>
+                                        <h6><strong>{g.name}</strong></h6>
+                                    </Grid>
+                                    <Grid item xs>
+                                        <div className={classes.teal}>
+                                            ${numberWithCommas(Math.round(g.currentAmount || 0))}/{numberWithCommas(Math.round(g.amount || 0))} | ${numberWithCommas(Math.round(g.monthlyContribution || 0))}/month
+                                        </div>
+                                    </Grid>
+                                    <Grid item xs>
+                                        <div className={classes.teal}>
+                                            ${numberWithCommas(Math.round(g.homeValue || 0))}
+                                        </div>
+                                    </Grid>
+                                    <Grid item xs>
+                                        <div className={classes.teal}>
+                                            {new Date(g.plannedDate).toLocaleDateString()} | {g.projectedDate ? new Date(g.projectedDate).toLocaleDateString() : "No projected date"}
+                                        </div>
+                                    </Grid>
+
+                                    <Grid item xs>
+                                        {Math.round((g.mortgageRate || 0) * 100)}% mortgage rate
+                                    </Grid>
+                                    <Grid item xs>
+                                        {Math.round((g.percentDownPayment || 0) * 100)}% down payment
+                                    </Grid>
+                                    <Grid item xs>
+                                        ${Math.round(g.annualInsurance || 0)} annual insurance
+                                    </Grid>
+                                    <Grid item xs>
+                                        {Math.round((g.annualPropertyTax || 0) * 100)}% annual property tax
                                     </Grid>
                                 </Grid>
                             </SquarePaper>
