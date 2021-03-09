@@ -7,7 +7,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
 
-import { SquarePaper, InPaper, DefaultRedColor, DefaultGreenColor, DefaultHrColor } from '../../../style/mui';
+import { SquarePaper, AiofCircularProgress, DefaultDarkTeal } from '../../../style/mui';
 
 import AddGoals from './Add';
 
@@ -27,23 +27,15 @@ const useStyles = makeStyles((theme) => ({
     root: {
         display: 'flex',
     },
-    green: {
-        color: DefaultGreenColor,
-        margin: '0rem',
-        padding: '0rem'
-    },
-    red: {
-        color: DefaultRedColor,
-        margin: '0rem',
-        padding: '0rem'
-    }
 }));
 
 const GoalOverview = props => {
     return (
         <React.Fragment>
             <SquarePaper variant="outlined" square>
-                <h5><strong>Goals</strong></h5>
+                <div style={{ color: DefaultDarkTeal }}>
+                    <h2><strong>Goals</strong></h2>
+                </div>
                 <p>
                     Setting short-term, mid-term, and long-term financial goals is an important step toward becoming financially secure. 
                     If you aren’t working toward anything specific, you’re likely to spend more than you should. 
@@ -70,6 +62,7 @@ const CurrentGoals = props => {
             <React.Fragment>
                 <SquarePaper variant="outlined" square>
                     You don't have any current goals. Try setting new ones below
+                    <AiofCircularProgress />
                 </SquarePaper>
             </React.Fragment>
         );

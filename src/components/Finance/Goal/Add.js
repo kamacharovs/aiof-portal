@@ -92,29 +92,31 @@ const AddGoals = props => {
     return (
         <React.Fragment>
             <SquarePaper variant="outlined" square>
-                <h5><strong>Add a Goal</strong></h5>
+                <div style={{ color: DefaultDarkTeal }}>
+                    <h3><strong>Add a Goal</strong></h3>
+                </div>
                 Pick one of the following types to add
 
                 <Grid container spacing={1} className={classes.root}>
                     <Grid item sm>
-                        <GoalPaper text={"Generic"} handleValue={handleShowGeneric} 
+                        <GoalPaper text={"Generic"} handleValue={handleShowGeneric}
                             icon={<MonetizationOnOutlinedIcon style={{ fontSize: size, color: DefaultDarkTeal }} />} />
                     </Grid>
 
                     <Grid item sm>
-                        <GoalPaper text={"Go on a trip"} handleValue={handleShowTrip} 
+                        <GoalPaper text={"Go on a trip"} handleValue={handleShowTrip}
                             icon={<WbSunnyOutlinedIcon style={{ fontSize: size, color: DefaultDarkTeal }} />} />
                     </Grid>
 
                     <Grid item sm>
-                        <GoalPaper text={"Buy a home"} handleValue={handleShowHome} 
+                        <GoalPaper text={"Buy a home"} handleValue={handleShowHome}
                             icon={<HomeOutlinedIcon style={{ fontSize: size, color: DefaultDarkTeal }} />} />
                     </Grid>
                 </Grid>
 
                 <Grid container spacing={1} className={classes.root}>
                     <Grid item sm={4}>
-                        <GoalPaper text={"Buy a car"} handleValue={handleShowHome} 
+                        <GoalPaper text={"Buy a car"} handleValue={handleShowHome}
                             icon={<DirectionsCarOutlinedIcon style={{ fontSize: size, color: DefaultDarkTeal }} />} />
                     </Grid>
                 </Grid>
@@ -188,7 +190,9 @@ const AddTripGoal = props => {
                 <SquarePaper variant="outlined" square>
                     <Grid container spacing={1}>
                         <Grid item sm>
-                            <h5><strong>Trip</strong></h5>
+                            <div style={{ color: DefaultDarkTeal }}>
+                                <h5><strong>Trip</strong></h5>
+                            </div>
                         </Grid>
                     </Grid>
 

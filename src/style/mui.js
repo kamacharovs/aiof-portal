@@ -4,6 +4,7 @@ import { withStyles, makeStyles, styled } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import LinearProgress from '@material-ui/core/LinearProgress';
+import CircularProgress from '@material-ui/core/CircularProgress';
 import Button from '@material-ui/core/Button';
 
 import { ThinText } from '../style/common';
@@ -69,6 +70,12 @@ export const AiofLinearProgress = withStyles({
     backgroundColor: DefaultColor
   }
 })(LinearProgress)
+
+export const AiofCircularProgress = withStyles({
+  root: {
+    color: DefaultColor
+  }
+})(CircularProgress)
 
 export const SecondaryButton = styled(Button)({
   background: DefaultDarkTeal,
