@@ -97,6 +97,8 @@ const Liability = {
 }
 
 const Goal = {
+  all: () =>
+    requests.get('/goal/all'),
   types: () =>
     requests.get('/goal/types'),
   tripTypes: () =>

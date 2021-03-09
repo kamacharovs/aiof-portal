@@ -8,6 +8,7 @@ import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
 
 import { SquarePaper, AiofCircularProgress, DefaultDarkTeal } from '../../../style/mui';
+import { GOALS } from '../../../constants/actionTypes';
 
 import AddGoals from './Add';
 
@@ -21,6 +22,8 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
+    onAll: () =>
+        dispatch({ type: GOALS, payload: agent.Goal.all() }),
 });
 
 const useStyles = makeStyles((theme) => ({
@@ -71,6 +74,12 @@ const CurrentGoals = props => {
 
 const GoalMainView = props => {
     const classes = useStyles();
+
+    useEffect(() => {
+        if (props.goals) {
+            props.onAll();
+        }
+    }, []);
 
     return (
         <React.Fragment>            
