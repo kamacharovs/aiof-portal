@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import agent from '../../../agent';
 import 'date-fns';
@@ -20,7 +20,7 @@ import WbSunnyOutlinedIcon from '@material-ui/icons/WbSunnyOutlined';
 import DirectionsCarOutlinedIcon from '@material-ui/icons/DirectionsCarOutlined';
 
 import { SquarePaper, DefaultDarkTeal, DefaultRedColor, DefaultGreenColor } from '../../../style/mui';
-import { GOAL_ADD } from '../../../constants/actionTypes';
+import { GOAL_TRIP_TYPES, GOAL_ADD } from '../../../constants/actionTypes';
 
 
 const mapStateToProps = state => ({
@@ -28,11 +28,15 @@ const mapStateToProps = state => ({
     appName: state.common.appName,
     currentUser: state.common.currentUser,
     inProgress: state.finance.inProgress,
+    inProgressGoalTripTypes: state.finance.inProgressGoalTripTypes,
     inProgressAddGoal: state.finance.inProgressAddGoal,
+    goalTripTypes: state.finance.goalTripTypes,
     goals: state.finance.goals
 });
 
 const mapDispatchToProps = dispatch => ({
+    onTripTypes: () =>
+        dispatch({ type: GOAL_TRIP_TYPES, payload: agent.Goal.tripTypes() }),
     onAdd: (payload) =>
         dispatch({ type: GOAL_ADD, payload: agent.Goal.add(payload) }),
 });
@@ -79,12 +83,18 @@ const AddGoals = props => {
         setShowBuyAHome(!showBuyAHome);
     }
 
+    useEffect(() => {
+        if (props.goalTripTypes) {
+            props.onTripTypes();
+        }
+    }, []);
+
     return (
         <React.Fragment>
             <SquarePaper variant="outlined" square>
                 <h5><strong>Add a Goal</strong></h5>
-                <hr />
                 Pick one of the following types to add
+
                 <Grid container spacing={1} className={classes.root}>
                     <Grid item sm>
                         <GoalPaper text={"Generic"} handleValue={handleShowGeneric} 
@@ -178,15 +188,7 @@ const AddTripGoal = props => {
                 <SquarePaper variant="outlined" square>
                     <Grid container spacing={1}>
                         <Grid item sm>
-                            <strong>Trip</strong>
-                            <br />
-                            You can check which of the following your trip has and input the appropriate amount
-                        </Grid>
-                    </Grid>
-
-                    <Grid container spacing={1}>
-                        <Grid item sm>
-                            <hr />
+                            <h5><strong>Trip</strong></h5>
                         </Grid>
                     </Grid>
 

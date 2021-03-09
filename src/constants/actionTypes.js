@@ -45,6 +45,8 @@ export const ASSET_TYPES = 'ASSET_TYPES';
 export const LIABILITY_ADD = 'LIABILITY_ADD';
 export const LIABILITY_TYPES = 'LIABILITY_TYPES';
 export const GOALS = 'GOALS';
+export const GOAL_TYPES = 'GOAL_TYPES';
+export const GOAL_TRIP_TYPES = 'GOAL_TRIP_TYPES';
 export const GOAL_ADD = 'GOAL_ADD';
 
 export const PROFILE_PAGE_LOADED = 'PROFILE_PAGE_LOADED';

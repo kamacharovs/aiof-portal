@@ -8,7 +8,6 @@ import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
 
 import { SquarePaper, InPaper, DefaultRedColor, DefaultGreenColor, DefaultHrColor } from '../../../style/mui';
-import { RETIREMENT_COMMON_INVESTMENTS } from '../../../constants/actionTypes';
 
 import AddGoals from './Add';
 
@@ -45,7 +44,6 @@ const GoalOverview = props => {
         <React.Fragment>
             <SquarePaper variant="outlined" square>
                 <h5><strong>Goals</strong></h5>
-                <hr/>
                 <p>
                     Setting short-term, mid-term, and long-term financial goals is an important step toward becoming financially secure. 
                     If you aren’t working toward anything specific, you’re likely to spend more than you should. 
