@@ -23,7 +23,7 @@ import DirectionsCarOutlinedIcon from '@material-ui/icons/DirectionsCarOutlined'
 
 import { SquarePaper, DefaultDarkTeal, AlternateButton, DefaultRedColor, DefaultGreenColor } from '../../../style/mui';
 import { GOAL_TRIP_TYPES, GOAL_ADD } from '../../../constants/actionTypes';
-import { GENERIC } from '../../../constants/goals';
+import { GENERIC, TRIP } from '../../../constants/goals';
 
 
 const mapStateToProps = state => ({
@@ -152,7 +152,6 @@ const GoalPaper = ({ text, handleValue, icon, comingSoon }) => {
 
 const AddGenericGoal = props => {
     if (props.showGeneric) {
-        const classes = useStyles();
         const [name, setName] = useState("");
         const [amount, setAmount] = useState(1000);
         const [currentAmount, setCurrentAmount] = useState(100);
@@ -278,7 +277,15 @@ const AddGenericGoal = props => {
 const AddTripGoal = props => {
     if (props.showTrip) {
         const classes = useStyles();
+        const types = props.goalTripTypes || [];
+
+        const [name, setName] = useState("");
+        const [amount, setAmount] = useState("");
+        const [currentAmount, setCurrentAmount] = useState("");
+        const [monthlyContribution, setMonthlyContribution] = useState("");
+        const [plannedDate, setPlannedDate] = useState(new Date());
         const [destination, setDestination] = useState("");
+        const [type, setType] = useState(types[0]);
         const [duration, setDuration] = useState(7);
         const [travelers, setTravelers] = useState(2);
         const [hasFlight, setHasFlight] = useState(true);
@@ -294,95 +301,214 @@ const AddTripGoal = props => {
         const [hasOther, setHasOther] = useState(false);
         const [other, setOther] = useState(0);
 
-        const types = props.goalTripTypes || [];
-        const [type, setType] = useState(types[0]);
+        const isAddEnabled = name !== ""
+            && plannedDate !== null
+            && destination !== ""
+            && type !== "";
 
         const handleSetValue = (e, setValue) => {
             setValue(e.target.value);
+        }
+        const handlePlannedDate = (date) => {
+            setPlannedDate(date);
+        }
+
+        const onAdd = (ev) => {
+            ev.preventDefault();
+
+            let payload = {
+                name: "test",
+                type: TRIP.toLowerCase(),
+                amount: Number(150) || 0,
+                currentAmount: Number(0) || 0,
+                monthlyContribution: Number(10) || 0,
+                plannedDate: new Date() || null,
+                destination: destination,
+                tripType: type,
+                duration: Number(duration),
+                travelers: Number(travelers),
+                flight: Number(flight),
+                hotel: Number(hotel),
+                car: Number(car),
+                food: Number(food),
+                activities: Number(activities),
+                other: Number(other),
+            }
+
+            props.onAdd(payload);
         }
 
         return (
             <React.Fragment>
                 <SquarePaper variant="outlined" square>
-                    <Grid container spacing={1}>
-                        <Grid item sm>
-                            <div style={{ color: DefaultDarkTeal }}>
-                                <h5><strong>Trip</strong></h5>
-                            </div>
-                        </Grid>
-                    </Grid>
-
-                    <Grid container spacing={3}>
-                        <Grid item sm>
-                            <TextField label="Destination"
-                                placeholder="Bahamas"
-                                value={destination}
-                                onChange={e => handleSetValue(e, setDestination)}
-                                helperText="The name of your destination"
-                            />
+                    <form noValidate autoComplete="off" onSubmit={onAdd}>
+                        <Grid container spacing={1}>
+                            <Grid item sm>
+                                <div style={{ color: DefaultDarkTeal }}>
+                                    <h5><strong>Trip</strong></h5>
+                                </div>
+                            </Grid>
                         </Grid>
 
-                        <Grid item sm>
-                            <FormControl className={classes.select}>
-                                <InputLabel id="type-name-label">Type</InputLabel>
-                                <Select
-                                    required
-                                    labelId="type-name-label"
-                                    id="type-name-select"
-                                    value={type}
-                                    onChange={e => setType(e.target.value)}
-                                >
-                                    {
-                                        types.map(type => {
-                                            return (
-                                                <MenuItem key={type} value={type}>{type}</MenuItem>
-                                            );
-                                        })
-                                    }
-                                </Select>
-                            </FormControl>
+                        <Grid container spacing={3}>
+                            <Grid item sm>
+                                Let's start by filling out some generic details about your goal trip
+                            </Grid>
                         </Grid>
-                    </Grid>
-
-                    <Grid container spacing={3}>
-                        <Grid item sm>
-                            <TextField label="Duration"
-                                value={duration}
-                                onChange={e => handleSetValue(e, setDuration)}
-                                helperText="The number of days of your duration"
-                            />
+                        <Grid container spacing={3}>
+                            <Grid item sm>
+                                <TextField 
+                                    required 
+                                    label="Name"
+                                    value={name}
+                                    onChange={e => handleSetValue(e, setName)}
+                                />
+                            </Grid>
                         </Grid>
 
-                        <Grid item sm>
-                            <TextField label="Travelers"
-                                value={travelers}
-                                onChange={e => handleSetValue(e, setTravelers)}
-                                helperText="The number of travelers in your trip"
-                            />
+                        <Grid container spacing={3}>
+                            <Grid item sm>
+                                <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                                    <KeyboardDatePicker
+                                        required 
+                                        disableToolbar
+                                        variant="inline"
+                                        format="MM/dd/yyyy"
+                                        margin="normal"
+                                        label="Planned date"
+                                        value={plannedDate}
+                                        onChange={handlePlannedDate}
+                                        KeyboardButtonProps={{
+                                            'aria-label': 'planned date',
+                                        }}
+                                    />
+                                </MuiPickersUtilsProvider>
+                            </Grid>
                         </Grid>
-                    </Grid>
 
-                    <Grid container spacing={1}>
-                        <Grid item sm>
-                            <hr />
+                        <Grid container spacing={3}>
+                            <Grid item sm>
+                                <br/>
+                                The next 3 fields are optional. However, it is highly recommended that you put at least the monthly contribution
+                                towards your goal, even if it's an estimate. This will help us better calculate how this goal will impact your finances
+                            </Grid>
                         </Grid>
-                    </Grid>
+                        <Grid container spacing={3}>
+                            <Grid item sm>
+                                <TextField 
+                                    label="Amount"
+                                    value={amount}
+                                    onChange={e => handleSetValue(e, setAmount)}
+                                    InputProps={{
+                                        startAdornment: <InputAdornment position="start">$</InputAdornment>
+                                    }}
+                                />
+                            </Grid>
 
-                    <Grid container spacing={1}>
-                        <Grid item sm>
-                            This breakdown of separate categories will help you better calculate and manage your goal.<br />
-                            If you don't have specific amounts, it is always best to overestimate<br /><br />
-                            <b><i>Note: </i></b>the prices below are <i>per traveler</i>
+                            <Grid item sm>
+                                <TextField 
+                                    label="Current amount"
+                                    value={currentAmount}
+                                    onChange={e => handleSetValue(e, setCurrentAmount)}
+                                    InputProps={{
+                                        startAdornment: <InputAdornment position="start">$</InputAdornment>
+                                    }}
+                                />
+                            </Grid>
+
+                            <Grid item sm>
+                                <TextField label="Monthly contribution"
+                                    value={monthlyContribution}
+                                    onChange={e => handleSetValue(e, setMonthlyContribution)}
+                                    InputProps={{
+                                        startAdornment: <InputAdornment position="start">$</InputAdornment>
+                                    }}
+                                />
+                            </Grid>
                         </Grid>
-                    </Grid>
 
-                    <YesNoSwitch title="Flight" hasValue={hasFlight} setHasValue={setHasFlight} value={flight} setValue={setFlight} setHandleValue={handleSetValue} />
-                    <YesNoSwitch title="Hotel" hasValue={hasHotel} setHasValue={setHasHotel} value={hotel} setValue={setHotel} setHandleValue={handleSetValue} />
-                    <YesNoSwitch title="Car" hasValue={hasCar} setHasValue={setHasCar} value={car} setValue={setCar} setHandleValue={handleSetValue} />
-                    <YesNoSwitch title="Food" hasValue={hasFood} setHasValue={setHasFood} value={food} setValue={setFood} setHandleValue={handleSetValue} />
-                    <YesNoSwitch title="Activities" hasValue={hasActivities} setHasValue={setHasActivities} value={activities} setValue={setActivities} setHandleValue={handleSetValue} />
-                    <YesNoSwitch title="Other" hasValue={hasOther} setHasValue={setHasOther} value={other} setValue={setOther} setHandleValue={handleSetValue} />
+                        <Grid container spacing={3}>
+                            <Grid item sm>
+                                <br/>
+                                Lastly, we have your trip specific details such as destination, type, duraction, travelers and a breakdown of each potential spending category
+                            </Grid>
+                        </Grid>
+                        <Grid container spacing={3}>
+                            <Grid item sm={4}>
+                                <TextField 
+                                    required 
+                                    label="Destination"
+                                    placeholder="Bahamas"
+                                    value={destination}
+                                    onChange={e => handleSetValue(e, setDestination)}
+                                    helperText="The name of your destination"
+                                />
+                            </Grid>
 
+                            <Grid item sm={4}>
+                                <FormControl className={classes.select}>
+                                    <InputLabel id="type-name-label">Type</InputLabel>
+                                    <Select
+                                        required
+                                        labelId="type-name-label"
+                                        id="type-name-select"
+                                        value={type}
+                                        onChange={e => setType(e.target.value)}
+                                    >
+                                        {
+                                            types.map(type => {
+                                                return (
+                                                    <MenuItem key={type} value={type}>{type}</MenuItem>
+                                                );
+                                            })
+                                        }
+                                    </Select>
+                                </FormControl>
+                            </Grid>
+                        </Grid>
+
+                        <Grid container spacing={3}>
+                            <Grid item sm={4}>
+                                <TextField label="Duration"
+                                    value={duration}
+                                    onChange={e => handleSetValue(e, setDuration)}
+                                    helperText="The number of days of your duration"
+                                />
+                            </Grid>
+
+                            <Grid item sm={4}>
+                                <TextField label="Travelers"
+                                    value={travelers}
+                                    onChange={e => handleSetValue(e, setTravelers)}
+                                    helperText="The number of travelers in your trip"
+                                />
+                            </Grid>
+                        </Grid>
+
+                        <Grid container spacing={1}>
+                            <Grid item sm>
+                                <br/>
+                                This breakdown of separate categories will help you better calculate and manage your goal.<br />
+                                If you don't have specific amounts, it is always best to overestimate<br /><br />
+                                <b><i>Note: </i></b>the prices below are <i>per traveler</i>
+                            </Grid>
+                        </Grid>
+
+                        <YesNoSwitch title="Flight" hasValue={hasFlight} setHasValue={setHasFlight} value={flight} setValue={setFlight} setHandleValue={handleSetValue} />
+                        <YesNoSwitch title="Hotel" hasValue={hasHotel} setHasValue={setHasHotel} value={hotel} setValue={setHotel} setHandleValue={handleSetValue} />
+                        <YesNoSwitch title="Car" hasValue={hasCar} setHasValue={setHasCar} value={car} setValue={setCar} setHandleValue={handleSetValue} />
+                        <YesNoSwitch title="Food" hasValue={hasFood} setHasValue={setHasFood} value={food} setValue={setFood} setHandleValue={handleSetValue} />
+                        <YesNoSwitch title="Activities" hasValue={hasActivities} setHasValue={setHasActivities} value={activities} setValue={setActivities} setHandleValue={handleSetValue} />
+                        <YesNoSwitch title="Other" hasValue={hasOther} setHasValue={setHasOther} value={other} setValue={setOther} setHandleValue={handleSetValue} />
+
+                        <Grid container spacing={3}>
+                            <Grid item sm>
+                                <AlternateButton type="submit" variant="contained" disabled={!isAddEnabled} >
+                                    Add
+                                </AlternateButton>
+                            </Grid>
+                        </Grid>
+                    </form>
                 </SquarePaper>
             </React.Fragment>
         );
