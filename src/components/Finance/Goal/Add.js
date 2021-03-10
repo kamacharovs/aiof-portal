@@ -13,6 +13,8 @@ import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
+import DateFnsUtils from '@date-io/date-fns';
+import { MuiPickersUtilsProvider, KeyboardDatePicker } from '@material-ui/pickers';
 
 import HomeOutlinedIcon from '@material-ui/icons/HomeOutlined';
 import MonetizationOnOutlinedIcon from '@material-ui/icons/MonetizationOnOutlined';
@@ -100,8 +102,7 @@ const AddGoals = props => {
                 <Grid container spacing={1} className={classes.root}>
                     <Grid item sm>
                         <GoalPaper text={"Generic"} handleValue={handleShowGeneric}
-                            icon={<MonetizationOnOutlinedIcon style={{ fontSize: size, color: DefaultDarkTeal }} />} 
-                            comingSoon={true} />
+                            icon={<MonetizationOnOutlinedIcon style={{ fontSize: size, color: DefaultDarkTeal }} />} />
                     </Grid>
 
                     <Grid item sm>
@@ -111,7 +112,7 @@ const AddGoals = props => {
 
                     <Grid item sm>
                         <GoalPaper text={"Buy a home"} handleValue={handleShowHome}
-                            icon={<HomeOutlinedIcon style={{ fontSize: size, color: DefaultDarkTeal }} />} 
+                            icon={<HomeOutlinedIcon style={{ fontSize: size, color: DefaultDarkTeal }} />}
                             comingSoon={true} />
                     </Grid>
                 </Grid>
@@ -125,6 +126,7 @@ const AddGoals = props => {
                 </Grid>
             </SquarePaper>
 
+            <AddGenericGoal showGeneric={showGeneric} />
             <AddTripGoal showTrip={showTrip} goalTripTypes={props.goalTripTypes} />
         </React.Fragment>
     );
@@ -140,7 +142,7 @@ const GoalPaper = ({ text, handleValue, icon, comingSoon }) => {
                     </Grid>
                     <Grid item sm>
                         <div style={{ color: DefaultDarkTeal }}>
-                            <strong>{comingSoon 
+                            <strong>{comingSoon
                                 ? text.toUpperCase() + " (COMING SOON)"
                                 : text.toUpperCase()}</strong>
                         </div>
@@ -152,9 +154,94 @@ const GoalPaper = ({ text, handleValue, icon, comingSoon }) => {
 }
 
 const AddGenericGoal = props => {
-    if (props.showBase) {
+    if (props.showGeneric) {
         const classes = useStyles();
+        const [name, setName] = useState("");
+        const [amount, setAmount] = useState(1000);
+        const [currentAmount, setCurrentAmount] = useState(100);
+        const [monthlyContribution, setMonthlyContribution] = useState(150);
+        const [plannedDate, setPlannedDate] = useState(new Date());
 
+        const handleSetValue = (e, setValue) => {
+            setValue(e.target.value);
+        }
+        const handlePlannedDate = (date) => {
+            setPlannedDate(date);
+        }
+
+        return (
+            <React.Fragment>
+                <SquarePaper variant="outlined" square>
+                    <Grid container spacing={1}>
+                        <Grid item sm>
+                            <div style={{ color: DefaultDarkTeal }}>
+                                <h5><strong>Generic</strong></h5>
+                            </div>
+                        </Grid>
+                    </Grid>
+
+                    <Grid container spacing={3}>
+                        <Grid item sm>
+                            <TextField label="Name"
+                                value={name}
+                                onChange={e => handleSetValue(e, setName)}
+                            />
+                        </Grid>
+                    </Grid>
+
+                    <Grid container spacing={3}>
+                        <Grid item sm>
+                            <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                                <KeyboardDatePicker
+                                    disableToolbar
+                                    variant="inline"
+                                    format="MM/dd/yyyy"
+                                    margin="normal"
+                                    label="Planned date"
+                                    value={plannedDate}
+                                    onChange={handlePlannedDate}
+                                    KeyboardButtonProps={{
+                                        'aria-label': 'planned date',
+                                    }}
+                                />
+                            </MuiPickersUtilsProvider>
+                        </Grid>
+                    </Grid>
+
+                    <Grid container spacing={3}>
+                        <Grid item sm>
+                            <TextField label="Amount"
+                                value={amount}
+                                onChange={e => handleSetValue(e, setAmount)}
+                                InputProps={{
+                                    startAdornment: <InputAdornment position="start">$</InputAdornment>
+                                }}
+                            />
+                        </Grid>
+
+                        <Grid item sm>
+                            <TextField label="Current amount"
+                                value={currentAmount}
+                                onChange={e => handleSetValue(e, setCurrentAmount)}
+                                InputProps={{
+                                    startAdornment: <InputAdornment position="start">$</InputAdornment>
+                                }}
+                            />
+                        </Grid>
+
+                        <Grid item sm>
+                            <TextField label="Monthly contribution"
+                                value={monthlyContribution}
+                                onChange={e => handleSetValue(e, setMonthlyContribution)}
+                                InputProps={{
+                                    startAdornment: <InputAdornment position="start">$</InputAdornment>
+                                }}
+                            />
+                        </Grid>
+                    </Grid>
+                </SquarePaper>
+            </React.Fragment>
+        );
     } else {
         return null;
     }
@@ -179,8 +266,8 @@ const AddTripGoal = props => {
         const [hasOther, setHasOther] = useState(false);
         const [other, setOther] = useState(0);
 
-        const [type, setType] = useState("Romance");
         const types = props.goalTripTypes || [];
+        const [type, setType] = useState(types[0]);
 
         const handleSetValue = (e, setValue) => {
             setValue(e.target.value);

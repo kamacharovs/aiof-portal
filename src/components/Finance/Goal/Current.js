@@ -155,12 +155,12 @@ const CurrentGoalsHome = props => {
                                     </Grid>
                                     <Grid item xs>
                                         <div className={classes.teal}>
-                                            ${numberWithCommas(Math.round(g.currentAmount || 0))}/{numberWithCommas(Math.round(g.amount || 0))} | ${numberWithCommas(Math.round(g.monthlyContribution || 0))}/month
+                                            ${numberWithCommas((g.currentAmount || 0).toFixed(2))}/{numberWithCommas((g.amount || 0).toFixed(2))} | ${numberWithCommas((g.monthlyContribution || 0).toFixed(2))}/month
                                         </div>
                                     </Grid>
                                     <Grid item xs>
                                         <div className={classes.teal}>
-                                            ${numberWithCommas(Math.round(g.homeValue || 0))}
+                                            ${numberWithCommas((g.homeValue || 0).toFixed(2))}
                                         </div>
                                     </Grid>
                                     <Grid item xs>
@@ -170,16 +170,16 @@ const CurrentGoalsHome = props => {
                                     </Grid>
 
                                     <Grid item xs>
-                                        {Math.round((g.mortgageRate || 0) * 100)}% mortgage rate
+                                        {((g.mortgageRate || 0) * 100).toFixed(3)}% mortgage rate
                                     </Grid>
                                     <Grid item xs>
-                                        {Math.round((g.percentDownPayment || 0) * 100)}% down payment
+                                        {((g.percentDownPayment || 0) * 100).toFixed(3)}% down payment
                                     </Grid>
                                     <Grid item xs>
-                                        ${Math.round(g.annualInsurance || 0)} annual insurance
+                                        ${(g.annualInsurance || 0).toFixed(2)} annual insurance
                                     </Grid>
                                     <Grid item xs>
-                                        {Math.round((g.annualPropertyTax || 0) * 100)}% annual property tax
+                                        {((g.annualPropertyTax || 0) * 100).toFixed(3)}% annual property tax
                                     </Grid>
                                 </Grid>
                             </SquarePaper>
