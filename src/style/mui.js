@@ -43,6 +43,13 @@ export const commonStyles = makeStyles({
   },
   inBodyPaperSubTitle: {
     fontSize: '16px !important',
+  },
+  verticalHeader: {
+    fontSize: '1rem', 
+    letterSpacing: '0.000125rem',
+    padding: '0',
+    margin: '0',
+    color: DefaultAlternateColor
   }
 });
 
@@ -152,5 +159,43 @@ export const InBodyPaper = props => {
         </Grid>
       </InBodyPaperInternal>
     </React.Fragment>
+  );
+}
+
+
+/*
+Vertical layouts
+*/
+export const VerticalTextField = ({ header, textField }) => {
+  const classes = commonStyles();
+
+  return (
+    <Grid container spacing={1} direction="column" justify="flex-start" alignItems="flex-start">
+      <Grid item sm>
+        <div className={classes.verticalHeader}>
+          <strong>{header}</strong>
+        </div>
+      </Grid>
+      <Grid item sm>
+        {textField}
+      </Grid>
+    </Grid>
+  );
+}
+
+export const VerticalSelect = ({ header, select }) => {
+  const classes = commonStyles();
+
+  return (
+    <Grid container spacing={1} direction="column" justify="flex-start" alignItems="flex-start">
+      <Grid item sm>
+        <div className={classes.verticalHeader}>
+          <strong>{header}</strong>
+        </div>
+      </Grid>
+      <Grid item sm>
+        {select}
+      </Grid>
+    </Grid>
   );
 }
