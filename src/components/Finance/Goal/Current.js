@@ -5,7 +5,8 @@ import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 
 import { numberWithCommas } from '../Common';
-import { SquarePaper, AiofCircularProgress, DefaultDarkTeal, DefaultGreenColor } from '../../../style/mui';
+import { SquarePaper, FullPaper, AiofCircularProgress, 
+    DefaultDarkTeal, DefaultGreenColor, DefaultPaperMargin } from '../../../style/mui';
 import { TRIP, BUYAHOME } from '../../../constants/goals';
 
 
@@ -31,6 +32,15 @@ const useStyles = makeStyles((theme) => ({
         margin: '0rem',
         padding: '0rem',
         paddingBottom: '0.25rem',
+    },
+    overview: {
+        backgroundColor: 'rgb(245, 247, 249)',
+        color: 'rgb(90, 100, 116)',
+        fontSize: '1rem',
+        minHeight: '64px',
+        transitionProperty: 'background-color',
+        transitionDuration: '250ms',
+        width: '100%',
     }
 }));
 
@@ -43,17 +53,15 @@ const CurrentGoals = props => {
 
         return (
             <React.Fragment>
-                <SquarePaper variant="outlined" square>
-                    <div style={{ color: DefaultDarkTeal }}>
-                        <h3><strong>Current</strong></h3>
-                    </div>
+                <FullPaper variant="outlined" square>
+                    <CurrentGoalsOverview goals={goals} inProgressGoals={props.inProgressGoals} />
 
                     <CurrentGoalsTrip goalsTrip={goalsTrip} inProgressGoals={props.inProgressGoals} />
 
                     <CurrentGoalsHome goalsHome={goalsHome} inProgressGoals={props.inProgressGoals} />
 
                     <InProgressBar inProgressGoals={props.inProgressGoals} />
-                </SquarePaper>
+                </FullPaper>
             </React.Fragment>
         );
     } else {
@@ -70,6 +78,19 @@ const CurrentGoals = props => {
     }
 }
 
+const CurrentGoalsOverview = props => {
+    const classes = useStyles();
+    const totalGoals = props.goals.length || 0;
+
+    return (
+        <Grid container spacing={0} justify="center" alignItems="center" className={classes.overview}>
+            <Grid item xs align="center">
+                <strong>{totalGoals} total goals</strong>
+            </Grid>
+        </Grid>
+    );
+}
+
 const CurrentGoalsTrip = props => {
     const goals = props.goalsTrip;
     const inProgressGoals = props.inProgressGoals;
@@ -78,11 +99,11 @@ const CurrentGoalsTrip = props => {
         const classes = useStyles();
 
         return (
-            <Grid container spacing={1}>
+            <Grid container spacing={0}>
                 {goals.map(g => {
                     return (
                         <Grid key={g.publicKey} item xs>
-                            <SquarePaper variant="outlined" square>
+                            <SquarePaper variant="outlined" square style={{ margin: DefaultPaperMargin }}>
                                 <Grid container spacing={0} direction="column" justify="center" alignItems="center">
                                     <Grid item xs>
                                         <h6><strong>{g.name}</strong></h6>
@@ -152,11 +173,11 @@ const CurrentGoalsHome = props => {
         const classes = useStyles();
 
         return (
-            <Grid container spacing={1}>
+            <Grid container spacing={0}>
                 {goals.map(g => {
                     return (
                         <Grid key={g.publicKey} item xs>
-                            <SquarePaper variant="outlined" square>
+                            <SquarePaper variant="outlined" square style={{ margin: DefaultPaperMargin }}>
                                 <Grid container spacing={0} direction="column" justify="center" alignItems="center">
                                     <Grid item xs>
                                         <h6><strong>{g.name}</strong></h6>

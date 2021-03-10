@@ -23,6 +23,10 @@ export const DefaultHrColor = '#ebebeb';
 export const DefaultDarkTeal = '#137a8f';
 export const DefaultWhite = '#ffffff';
 
+export const DefaultPaperPadding = '1.5rem';
+export const DefaultPaperMargin = '1rem';
+export const DefaultPaperFontSize = '.8125rem';
+
 
 export const commonStyles = makeStyles({
   p: {
@@ -54,14 +58,25 @@ export const commonStyles = makeStyles({
 });
 
 export const AiofPaper = styled(Paper)({
-  padding: '1rem',
-  marginTop: '1rem',
-  fontSize: '.8125rem',
+  padding: DefaultPaperPadding,
+  marginTop: DefaultPaperMargin,
+  fontSize: DefaultPaperFontSize,
 });
 export const SquarePaper = styled(Paper)({
-  padding: '1.5rem',
-  marginTop: '1rem',
-  fontSize: '.8125rem',
+  padding: DefaultPaperPadding,
+  marginTop: DefaultPaperMargin,
+  fontSize: DefaultPaperFontSize,
+})
+export const FullPaper = styled(Paper)({
+  paddingLeft: 0,
+  paddingTop: 0,
+  paddingRight: 0,
+  paddingBottom: DefaultPaperPadding,
+  marginLeft: 0,
+  marginTop: DefaultPaperMargin,
+  marginRight: 0,
+  marginBottom: DefaultPaperMargin,
+  fontSize: DefaultPaperFontSize,
 })
 
 export const LoginPaper = styled(Paper)({

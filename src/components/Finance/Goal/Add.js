@@ -114,10 +114,8 @@ const AddGoals = props => {
                             icon={<HomeOutlinedIcon style={{ fontSize: size, color: DefaultDarkTeal }} />}
                             comingSoon={true} />
                     </Grid>
-                </Grid>
 
-                <Grid container spacing={1} className={classes.root}>
-                    <Grid item sm={4}>
+                    <Grid item sm>
                         <GoalPaper text={"Buy a car"} handleValue={handleShowHome}
                             icon={<DirectionsCarOutlinedIcon style={{ fontSize: size, color: DefaultDarkTeal }} />}
                             comingSoon={true} />
