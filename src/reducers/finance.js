@@ -48,7 +48,6 @@ export default (state = {}, action) => {
         return {
           ...state,
           inProgressGoals: true,
-          goalAdded: false,
         }
       } else if (action.subtype === GOAL_TYPES) {
         return {
@@ -64,7 +63,6 @@ export default (state = {}, action) => {
         return {
           ...state,
           inProgressAddGoal: true,
-          goalAdded: false,
         }
       } else {
         return { 
@@ -107,7 +105,7 @@ export default (state = {}, action) => {
       return {
         ...state,
         inProgressAddGoal: false,
-        goalAdded: true,
+        goalAdded: action.error ? null : action.payload
       }
     case ANALYTICS_ANALYZE:
       return {
