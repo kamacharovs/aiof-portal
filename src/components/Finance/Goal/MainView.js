@@ -17,9 +17,9 @@ import AddGoals from './Add';
 const mapStateToProps = state => ({
     ...state.finance,
     appName: state.common.appName,
-    currentUser: state.common.currentUser,
     inProgressGoals: state.finance.inProgressGoals,
-    goals: state.finance.goals
+    goals: state.finance.goals,
+    goalAdded: state.finance.goalAdded,
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -60,6 +60,12 @@ const GoalMainView = props => {
             props.onAll();
         }
     }, []);
+
+    useEffect(() => {
+        if (props.goals) {
+            props.onAll();
+        }
+    }, [props.goalAdded]);
 
     return (
         <React.Fragment>

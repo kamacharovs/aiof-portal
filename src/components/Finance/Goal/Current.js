@@ -1,4 +1,5 @@
 import React from 'react';
+import { connect } from 'react-redux';
 
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
@@ -7,6 +8,11 @@ import { numberWithCommas } from '../Common';
 import { SquarePaper, AiofCircularProgress, DefaultDarkTeal, DefaultGreenColor } from '../../../style/mui';
 import { TRIP, BUYAHOME } from '../../../constants/goals';
 
+
+const mapStateToProps = state => ({
+    ...state.finance,
+    inProgressGoals: state.finance.inProgressGoals,
+});
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -42,9 +48,9 @@ const CurrentGoals = props => {
                         <h3><strong>Current</strong></h3>
                     </div>
 
-                    <CurrentGoalsTrip goalsTrip={goalsTrip} />
+                    <CurrentGoalsTrip goalsTrip={goalsTrip} inProgressGoals={props.inProgressGoals} />
 
-                    <CurrentGoalsHome goalsHome={goalsHome} />
+                    <CurrentGoalsHome goalsHome={goalsHome} inProgressGoals={props.inProgressGoals} />
 
                     <InProgressBar inProgressGoals={props.inProgressGoals} />
                 </SquarePaper>
@@ -66,8 +72,9 @@ const CurrentGoals = props => {
 
 const CurrentGoalsTrip = props => {
     const goals = props.goalsTrip;
+    const inProgressGoals = props.inProgressGoals;
 
-    if (goals && goals.length > 0) {
+    if (goals && goals.length > 0 && inProgressGoals === false) {
         const classes = useStyles();
 
         return (
@@ -129,7 +136,7 @@ const CurrentGoalsTrip = props => {
                             </SquarePaper>
                         </Grid>
                     );
-                })};
+                })}
             </Grid>
         );
     } else {
@@ -139,8 +146,9 @@ const CurrentGoalsTrip = props => {
 
 const CurrentGoalsHome = props => {
     const goals = props.goalsHome;
+    const inProgressGoals = props.inProgressGoals;
 
-    if (goals && goals.length > 0) {
+    if (goals && goals.length > 0 && inProgressGoals === false) {
         const classes = useStyles();
 
         return (
@@ -185,7 +193,7 @@ const CurrentGoalsHome = props => {
                             </SquarePaper>
                         </Grid>
                     );
-                })};
+                })}
             </Grid>
         );
     } else {
@@ -196,7 +204,12 @@ const CurrentGoalsHome = props => {
 const InProgressBar = props => {
     if (props.inProgressGoals) {
         return (
-            <AiofCircularProgress />
+            <Grid container spacing={0} direction="column" justify="center" alignItems="center">
+                <Grid item xs>
+                    <AiofCircularProgress />
+                </Grid>
+            </Grid>
+
         );
     }
     else {
@@ -204,4 +217,4 @@ const InProgressBar = props => {
     }
 }
 
-export default CurrentGoals;
+export default connect(mapStateToProps, null)(CurrentGoals);

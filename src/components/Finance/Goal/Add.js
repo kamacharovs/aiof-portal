@@ -21,19 +21,16 @@ import MonetizationOnOutlinedIcon from '@material-ui/icons/MonetizationOnOutline
 import WbSunnyOutlinedIcon from '@material-ui/icons/WbSunnyOutlined';
 import DirectionsCarOutlinedIcon from '@material-ui/icons/DirectionsCarOutlined';
 
-import { SquarePaper, DefaultDarkTeal, DefaultRedColor, DefaultGreenColor } from '../../../style/mui';
+import { SquarePaper, DefaultDarkTeal, AlternateButton, DefaultRedColor, DefaultGreenColor } from '../../../style/mui';
 import { GOAL_TRIP_TYPES, GOAL_ADD } from '../../../constants/actionTypes';
+import { GENERIC } from '../../../constants/goals';
 
 
 const mapStateToProps = state => ({
     ...state.finance,
-    appName: state.common.appName,
-    currentUser: state.common.currentUser,
-    inProgress: state.finance.inProgress,
     inProgressGoalTripTypes: state.finance.inProgressGoalTripTypes,
     inProgressAddGoal: state.finance.inProgressAddGoal,
     goalTripTypes: state.finance.goalTripTypes,
-    goals: state.finance.goals
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -126,8 +123,8 @@ const AddGoals = props => {
                 </Grid>
             </SquarePaper>
 
-            <AddGenericGoal showGeneric={showGeneric} />
-            <AddTripGoal showTrip={showTrip} goalTripTypes={props.goalTripTypes} />
+            <AddGenericGoal showGeneric={showGeneric} onAdd={props.onAdd} />
+            <AddTripGoal showTrip={showTrip} goalTripTypes={props.goalTripTypes} onAdd={props.onAdd} />
         </React.Fragment>
     );
 }
@@ -162,6 +159,12 @@ const AddGenericGoal = props => {
         const [monthlyContribution, setMonthlyContribution] = useState(150);
         const [plannedDate, setPlannedDate] = useState(new Date());
 
+        const isAddEnabled = name !== ""
+            && amount !== null && amount >= 0
+            && currentAmount !== null && currentAmount >= 0
+            && monthlyContribution !== null && monthlyContribution > 0
+            && plannedDate !== null;
+
         const handleSetValue = (e, setValue) => {
             setValue(e.target.value);
         }
@@ -169,76 +172,101 @@ const AddGenericGoal = props => {
             setPlannedDate(date);
         }
 
+        const onAdd = (ev) => {
+            ev.preventDefault();
+
+            let payload = {
+                name: name,
+                type: GENERIC.toLowerCase(),
+                amount: Number(amount) || 0,
+                currentAmount: Number(currentAmount) || 0,
+                monthlyContribution: Number(monthlyContribution) || 0,
+                plannedDate: plannedDate || null,
+            }
+
+            props.onAdd(payload);
+        }
+
         return (
             <React.Fragment>
                 <SquarePaper variant="outlined" square>
-                    <Grid container spacing={1}>
-                        <Grid item sm>
-                            <div style={{ color: DefaultDarkTeal }}>
-                                <h5><strong>Generic</strong></h5>
-                            </div>
+                    <form noValidate autoComplete="off" onSubmit={onAdd}>
+                        <Grid container spacing={1}>
+                            <Grid item sm>
+                                <div style={{ color: DefaultDarkTeal }}>
+                                    <h5><strong>Generic</strong></h5>
+                                </div>
+                            </Grid>
                         </Grid>
-                    </Grid>
 
-                    <Grid container spacing={3}>
-                        <Grid item sm>
-                            <TextField label="Name"
-                                value={name}
-                                onChange={e => handleSetValue(e, setName)}
-                            />
+                        <Grid container spacing={3}>
+                            <Grid item sm>
+                                <TextField label="Name"
+                                    value={name}
+                                    onChange={e => handleSetValue(e, setName)}
+                                />
+                            </Grid>
                         </Grid>
-                    </Grid>
 
-                    <Grid container spacing={3}>
-                        <Grid item sm>
-                            <MuiPickersUtilsProvider utils={DateFnsUtils}>
-                                <KeyboardDatePicker
-                                    disableToolbar
-                                    variant="inline"
-                                    format="MM/dd/yyyy"
-                                    margin="normal"
-                                    label="Planned date"
-                                    value={plannedDate}
-                                    onChange={handlePlannedDate}
-                                    KeyboardButtonProps={{
-                                        'aria-label': 'planned date',
+                        <Grid container spacing={3}>
+                            <Grid item sm>
+                                <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                                    <KeyboardDatePicker
+                                        disableToolbar
+                                        variant="inline"
+                                        format="MM/dd/yyyy"
+                                        margin="normal"
+                                        label="Planned date"
+                                        value={plannedDate}
+                                        onChange={handlePlannedDate}
+                                        KeyboardButtonProps={{
+                                            'aria-label': 'planned date',
+                                        }}
+                                    />
+                                </MuiPickersUtilsProvider>
+                            </Grid>
+                        </Grid>
+
+                        <Grid container spacing={3}>
+                            <Grid item sm>
+                                <TextField label="Amount"
+                                    value={amount}
+                                    onChange={e => handleSetValue(e, setAmount)}
+                                    InputProps={{
+                                        startAdornment: <InputAdornment position="start">$</InputAdornment>
                                     }}
                                 />
-                            </MuiPickersUtilsProvider>
-                        </Grid>
-                    </Grid>
+                            </Grid>
 
-                    <Grid container spacing={3}>
-                        <Grid item sm>
-                            <TextField label="Amount"
-                                value={amount}
-                                onChange={e => handleSetValue(e, setAmount)}
-                                InputProps={{
-                                    startAdornment: <InputAdornment position="start">$</InputAdornment>
-                                }}
-                            />
-                        </Grid>
+                            <Grid item sm>
+                                <TextField label="Current amount"
+                                    value={currentAmount}
+                                    onChange={e => handleSetValue(e, setCurrentAmount)}
+                                    InputProps={{
+                                        startAdornment: <InputAdornment position="start">$</InputAdornment>
+                                    }}
+                                />
+                            </Grid>
 
-                        <Grid item sm>
-                            <TextField label="Current amount"
-                                value={currentAmount}
-                                onChange={e => handleSetValue(e, setCurrentAmount)}
-                                InputProps={{
-                                    startAdornment: <InputAdornment position="start">$</InputAdornment>
-                                }}
-                            />
+                            <Grid item sm>
+                                <TextField label="Monthly contribution"
+                                    value={monthlyContribution}
+                                    onChange={e => handleSetValue(e, setMonthlyContribution)}
+                                    InputProps={{
+                                        startAdornment: <InputAdornment position="start">$</InputAdornment>
+                                    }}
+                                />
+                            </Grid>
                         </Grid>
 
-                        <Grid item sm>
-                            <TextField label="Monthly contribution"
-                                value={monthlyContribution}
-                                onChange={e => handleSetValue(e, setMonthlyContribution)}
-                                InputProps={{
-                                    startAdornment: <InputAdornment position="start">$</InputAdornment>
-                                }}
-                            />
+                        <Grid container spacing={3}>
+                            <Grid item sm>
+                                <AlternateButton type="submit" variant="contained" disabled={!isAddEnabled} >
+                                    Add
+                                </AlternateButton>
+                            </Grid>
                         </Grid>
-                    </Grid>
+                    </form>
                 </SquarePaper>
             </React.Fragment>
         );

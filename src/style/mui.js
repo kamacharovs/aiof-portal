@@ -16,6 +16,9 @@ export const DefaultRedColor = "#b21f00";
 export const DefaultGreenColor = 'green';
 export const DefaultWhiteColor = '#fafafa';
 export const DefaultAlternateColor = "#137a8f";
+export const DefaultAlternateColor2 = "#00989c";
+export const DefaultAlternateColor3 = "#22b59b";
+export const DefaultAlternateLinearGradient = "linear-gradient(45deg, #137a8f 90%, #00989c 30%)"
 export const DefaultHrColor = '#ebebeb';
 export const DefaultDarkTeal = '#137a8f';
 export const DefaultWhite = '#ffffff';
@@ -77,9 +80,12 @@ export const AiofCircularProgress = withStyles({
   }
 })(CircularProgress)
 
-export const SecondaryButton = styled(Button)({
-  background: DefaultDarkTeal,
+export const AlternateButton = styled(Button)({
+  background: DefaultAlternateColor,
   color: DefaultWhite,
+  '&:hover': {
+    background: DefaultAlternateColor2
+  }
 });
 
 const InPaperInternal = styled(Paper)({
