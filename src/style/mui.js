@@ -101,6 +101,11 @@ export const AiofCircularProgress = withStyles({
     color: DefaultColor
   }
 })(CircularProgress)
+export const AlternateCircularProgress = withStyles({
+  root: {
+    color: DefaultAlternateColor
+  }
+})(CircularProgress)
 
 export const AlternateButton = styled(Button)({
   background: DefaultAlternateColor,

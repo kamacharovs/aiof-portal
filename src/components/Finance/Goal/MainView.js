@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useRef, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
 import agent from '../../../agent';
@@ -54,6 +54,11 @@ const GoalOverview = props => {
 
 const GoalMainView = props => {
     const classes = useStyles();
+    const currentGoalsRef = useRef();
+
+    const scrollToCurrentGoals = () => {
+        currentGoalsRef.current.scrollIntoView({ block: "end", behavior: "smooth" })
+    }
 
     useEffect(() => {
         if (!props.goals) {
@@ -82,13 +87,15 @@ const GoalMainView = props => {
 
                 <Grid container spacing={1} className={classes.root}>
                     <Grid item xs>
-                        <CurrentGoals goals={props.goals} />
+                        <div ref={currentGoalsRef}>
+                            <CurrentGoals goals={props.goals} />
+                        </div>
                     </Grid>
                 </Grid>
 
                 <Grid container spacing={1} className={classes.root}>
                     <Grid item xs>
-                        <AddGoals />
+                        <AddGoals scrollToCurrentGoals={scrollToCurrentGoals} />
                     </Grid>
                 </Grid>
             </Container>

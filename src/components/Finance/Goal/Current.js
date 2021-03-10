@@ -5,7 +5,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 
 import { numberWithCommas } from '../Common';
-import { SquarePaper, FullPaper, AiofCircularProgress, 
+import { SquarePaper, FullPaper, AlternateCircularProgress, 
     DefaultDarkTeal, DefaultGreenColor, DefaultPaperMargin } from '../../../style/mui';
 import { TRIP, BUYAHOME } from '../../../constants/goals';
 
@@ -45,9 +45,9 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const CurrentGoals = props => {
-    const goals = props.goals;
+    const goals = props.goals || [];
 
-    if (goals && goals.length > 0) {
+    if (goals) {
         const goalsTrip = goals.filter(function (x) { return x.type.toUpperCase() === TRIP; })
         const goalsHome = goals.filter(function (x) { return x.type.toUpperCase() === BUYAHOME; })
 
@@ -62,17 +62,6 @@ const CurrentGoals = props => {
 
                     <InProgressBar inProgressGoals={props.inProgressGoals} />
                 </FullPaper>
-            </React.Fragment>
-        );
-    } else {
-        return (
-            <React.Fragment>
-                <SquarePaper variant="outlined" square>
-                    <div style={{ color: DefaultDarkTeal }}>
-                        <h3><strong>Current</strong></h3>
-                    </div>
-                    You don't have any current goals. Try adding new ones below
-                </SquarePaper>
             </React.Fragment>
         );
     }
@@ -226,11 +215,11 @@ const InProgressBar = props => {
     if (props.inProgressGoals) {
         return (
             <Grid container spacing={0} direction="column" justify="center" alignItems="center">
-                <Grid item xs>
-                    <AiofCircularProgress />
+                <Grid item xs align="center">
+                    <br />
+                    <AlternateCircularProgress />
                 </Grid>
             </Grid>
-
         );
     }
     else {

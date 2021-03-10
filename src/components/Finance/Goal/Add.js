@@ -123,8 +123,18 @@ const AddGoals = props => {
                 </Grid>
             </SquarePaper>
 
-            <AddGenericGoal showGeneric={showGeneric} onAdd={props.onAdd} />
-            <AddTripGoal showTrip={showTrip} goalTripTypes={props.goalTripTypes} onAdd={props.onAdd} />
+            <AddGenericGoal 
+                showGeneric={showGeneric} 
+                handleShowGeneric={handleShowGeneric} 
+                onAdd={props.onAdd}
+                scrollToCurrentGoals={props.scrollToCurrentGoals} />
+
+            <AddTripGoal 
+                showTrip={showTrip} 
+                handleShowTrip={handleShowTrip} 
+                goalTripTypes={props.goalTripTypes} 
+                onAdd={props.onAdd}
+                scrollToCurrentGoals={props.scrollToCurrentGoals} />
         </React.Fragment>
     );
 }
@@ -184,6 +194,8 @@ const AddGenericGoal = props => {
             }
 
             props.onAdd(payload);
+            props.handleShowGeneric();
+            props.scrollToCurrentGoals();
         }
 
         return (
@@ -336,6 +348,8 @@ const AddTripGoal = props => {
             }
 
             props.onAdd(payload);
+            props.handleShowTrip();
+            props.scrollToCurrentGoals();
         }
 
         return (
