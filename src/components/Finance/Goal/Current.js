@@ -1,18 +1,30 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import agent from '../../../agent';
 
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
+import IconButton from '@material-ui/core/IconButton';
+import DeleteIcon from '@material-ui/icons/Delete';
 
 import { numberWithCommas } from '../Common';
-import { SquarePaper, FullPaper, AlternateCircularProgress, 
-    DefaultDarkTeal, DefaultGreenColor, DefaultPaperMargin } from '../../../style/mui';
+import {
+    SquarePaper, FullPaper, AlternateCircularProgress,
+    DefaultDarkTeal, DefaultGreenColor, DefaultPaperMargin
+} from '../../../style/mui';
+import { GOAL_DELETE } from '../../../constants/actionTypes';
 import { TRIP, BUYAHOME } from '../../../constants/goals';
 
 
 const mapStateToProps = state => ({
     ...state.finance,
     inProgressGoals: state.finance.inProgressGoals,
+    inProgressDeleteGoal: state.finance.inProgressDeleteGoal,
+});
+
+const mapDispatchToProps = dispatch => ({
+    onDelete: (id) =>
+        dispatch({ type: GOAL_DELETE, payload: agent.Goal.delete(id) }),
 });
 
 const useStyles = makeStyles((theme) => ({
@@ -37,10 +49,28 @@ const useStyles = makeStyles((theme) => ({
         backgroundColor: 'rgb(245, 247, 249)',
         color: 'rgb(90, 100, 116)',
         fontSize: '1rem',
-        minHeight: '64px',
+        minHeight: '4rem',
         transitionProperty: 'background-color',
         transitionDuration: '250ms',
         width: '100%',
+    },
+    currentGoalFullPaper: {
+        margin: DefaultPaperMargin,
+        paddingBottom: 0,
+        paddingLeft: 0,
+        paddingRight: 0,
+        paddingTop: '0.5rem'
+    },
+    currentGoalfooter: {
+        backgroundColor: 'rgb(245, 247, 249)',
+        color: 'rgb(90, 100, 116)',
+        minHeight: '2rem',
+        padding: '0.5rem',
+        marginTop: '0.25rem',
+        width: '100%',
+    },
+    deleteIconButton: {
+        padding: 0
     }
 }));
 
@@ -51,16 +81,25 @@ const CurrentGoals = props => {
         const goalsTrip = goals.filter(function (x) { return x.type.toUpperCase() === TRIP; })
         const goalsHome = goals.filter(function (x) { return x.type.toUpperCase() === BUYAHOME; })
 
+        const handleOnDelete = (id) => {
+            props.onDelete(id);
+        }
+
         return (
             <React.Fragment>
                 <FullPaper variant="outlined" square>
                     <CurrentGoalsOverview goals={goals} inProgressGoals={props.inProgressGoals} />
 
-                    <CurrentGoalsTrip goalsTrip={goalsTrip} inProgressGoals={props.inProgressGoals} />
+                    <CurrentGoalsTrip 
+                        goalsTrip={goalsTrip} 
+                        inProgressGoals={props.inProgressGoals} 
+                        onDelete={handleOnDelete} />
 
                     <CurrentGoalsHome goalsHome={goalsHome} inProgressGoals={props.inProgressGoals} />
 
-                    <InProgressBar inProgressGoals={props.inProgressGoals} />
+                    <InProgressBar 
+                        inProgressGoals={props.inProgressGoals} 
+                        inProgressDeleteGoal={props.inProgressDeleteGoal} />
                 </FullPaper>
             </React.Fragment>
         );
@@ -72,7 +111,12 @@ const CurrentGoalsOverview = props => {
     const totalGoals = props.goals.length || 0;
 
     return (
-        <Grid container spacing={0} justify="center" alignItems="center" className={classes.overview}>
+        <Grid
+            container
+            spacing={0}
+            justify="center"
+            alignItems="center"
+            className={classes.overview}>
             <Grid item xs align="center">
                 <strong>{totalGoals} total goals</strong>
             </Grid>
@@ -92,8 +136,16 @@ const CurrentGoalsTrip = props => {
                 {goals.map(g => {
                     return (
                         <Grid key={g.publicKey} item xs={4}>
-                            <SquarePaper variant="outlined" square style={{ margin: DefaultPaperMargin }}>
-                                <Grid container spacing={0} direction="column" justify="center" alignItems="center">
+                            <FullPaper
+                                variant="outlined"
+                                square
+                                className={classes.currentGoalFullPaper}>
+                                <Grid container 
+                                    key={g.id}
+                                    spacing={0} 
+                                    direction="column" 
+                                    justify="center" 
+                                    alignItems="center">
                                     <Grid item xs>
                                         <h6><strong>{g.name}</strong></h6>
                                     </Grid>
@@ -143,7 +195,20 @@ const CurrentGoalsTrip = props => {
                                         Other: ${numberWithCommas(Math.round(g.other || 0))}
                                     </Grid>
                                 </Grid>
-                            </SquarePaper>
+                                <Grid
+                                    container
+                                    direction="row"
+                                    justify="flex-end"
+                                    alignItems="flex-end"
+                                    className={classes.currentGoalfooter}>
+                                    <IconButton 
+                                        aria-label="delete" 
+                                        className={classes.deleteIconButton}
+                                        onClick={e => props.onDelete(g.id)}>
+                                        <DeleteIcon  style={{ fontSize: '20', color: DefaultDarkTeal }} />
+                                    </IconButton>
+                                </Grid>
+                            </FullPaper>
                         </Grid>
                     );
                 })}
@@ -212,7 +277,7 @@ const CurrentGoalsHome = props => {
 }
 
 const InProgressBar = props => {
-    if (props.inProgressGoals) {
+    if (props.inProgressGoals || props.inProgressDeleteGoal) {
         return (
             <Grid container spacing={0} direction="column" justify="center" alignItems="center">
                 <Grid item xs align="center">
@@ -227,4 +292,4 @@ const InProgressBar = props => {
     }
 }
 
-export default connect(mapStateToProps, null)(CurrentGoals);
+export default connect(mapStateToProps, mapDispatchToProps)(CurrentGoals);

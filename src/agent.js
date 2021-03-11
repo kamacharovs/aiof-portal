@@ -104,6 +104,8 @@ const Goal = {
     requests.get('/goal/trip/types'),
   add: goal =>
     requests.post('/goal', goal),
+  delete: (id) =>
+    requests.del(`/goal/${id}`),
 }
 
 const Utility = {

@@ -11,6 +11,7 @@ import {
   GOAL_TYPES,
   GOAL_TRIP_TYPES,
   GOAL_ADD,
+  GOAL_DELETE,
   ANALYTICS_ANALYZE,
 } from '../constants/actionTypes';
 
@@ -44,27 +45,12 @@ export default (state = {}, action) => {
           ...state,
           inProgress: true
         }
-      } else if (action.subtype === GOALS) {
-        return {
-          ...state,
-          inProgressGoals: true,
-        }
-      } else if (action.subtype === GOAL_TYPES) {
-        return {
-          ...state,
-          inProgressGoalTypes: true,
-        }
-      } else if (action.subtype === GOAL_TRIP_TYPES) {
-        return {
-          ...state,
-          inProgressGoalTripTypes: true,
-        }
-      } else if (action.subtype === GOAL_ADD) {
-        return {
-          ...state,
-          inProgressAddGoal: true,
-        }
-      } else {
+      } else if (action.subtype === GOALS) { return { ...state, inProgressGoals: true, }
+      } else if (action.subtype === GOAL_TYPES) { return { ...state, inProgressGoalTypes: true, }
+      } else if (action.subtype === GOAL_TRIP_TYPES) { return { ...state, inProgressGoalTripTypes: true, }
+      } else if (action.subtype === GOAL_ADD) { return { ...state, inProgressAddGoal: true, }
+      } else if (action.subType === GOAL_DELETE) { return { ...state, inProgressDeleteGoal: true, }}
+      else {
         return { 
           ...state 
         }
@@ -93,7 +79,8 @@ export default (state = {}, action) => {
       return {
         ...state,
         inProgressGoals: false,
-        goals: action.error ? null : action.payload
+        goals: action.error ? null : action.payload,
+        goalDeleted: false,
       }
     case GOAL_TRIP_TYPES:
       return {
@@ -105,7 +92,13 @@ export default (state = {}, action) => {
       return {
         ...state,
         inProgressAddGoal: false,
-        goalAdded: action.error ? null : action.payload
+        goalAdded: action.error ? null : action.payload,
+      }
+    case GOAL_DELETE:
+      return {
+        ...state,
+        inProgressDeleteGoal: false,
+        goalDeleted: action.error ? null : true,
       }
     case ANALYTICS_ANALYZE:
       return {

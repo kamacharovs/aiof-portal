@@ -21,6 +21,7 @@ const mapStateToProps = state => ({
     inProgressGoals: state.finance.inProgressGoals,
     goals: state.finance.goals,
     goalAdded: state.finance.goalAdded,
+    goalDeleted: state.finance.goalDeleted,
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -76,6 +77,12 @@ const GoalMainView = props => {
             }
         }, [props.goalAdded]);
 
+        useEffect(() => {
+            if (props.goals && props.goalDeleted === true) {
+                props.onAll();
+            }
+        }, [props.goalDeleted]);
+
         return (
             <React.Fragment>
                 <Helmet>
@@ -107,7 +114,7 @@ const GoalMainView = props => {
         );
     } else {
         props.onRedirectLogin();
-        
+
         return null;
     }
 }

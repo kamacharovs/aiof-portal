@@ -49,6 +49,7 @@ export const GOALS = 'GOALS';
 export const GOAL_TYPES = 'GOAL_TYPES';
 export const GOAL_TRIP_TYPES = 'GOAL_TRIP_TYPES';
 export const GOAL_ADD = 'GOAL_ADD';
+export const GOAL_DELETE = 'GOAL_DELETE';
 
 export const PROFILE_PAGE_LOADED = 'PROFILE_PAGE_LOADED';
 export const PROFILE_PAGE_UNLOADED = 'PROFILE_PAGE_UNLOADED';
