@@ -57,6 +57,7 @@ export const commonStyles = makeStyles({
     color: DefaultAlternateColor
   },
   verticalHeaderRequired: {
+    fontSize: '0.75rem',
     color: DefaultRedColor,
     padding: '0',
     marginLeft: '2px',
@@ -202,11 +203,11 @@ export const VerticalTextField = ({ header, textField, required }) => {
     <Grid container spacing={1} direction="column" justify="flex-start" alignItems="flex-start">
       <Grid item sm>
         <div style={{ display: "flex" }}>
-          <Typography variant="p" className={classes.verticalHeader} noWrap>
+          <Typography variant="h6" className={classes.verticalHeader} noWrap>
             <strong>{header}</strong>
           </Typography>
 
-          <Typography variant="p" className={classes.verticalHeaderRequired} noWrap>
+          <Typography variant="h6" className={classes.verticalHeaderRequired} noWrap>
             {required ? "*" : null}
           </Typography>
         </div>
@@ -225,11 +226,11 @@ export const VerticalSelect = ({ header, select, required }) => {
     <Grid container spacing={1} direction="column" justify="flex-start" alignItems="flex-start">
       <Grid item sm>
       <div style={{ display: "flex" }}>
-          <Typography variant="p" className={classes.verticalHeader} noWrap>
+          <Typography variant="h6" className={classes.verticalHeader} noWrap>
             <strong>{header}</strong>
           </Typography>
 
-          <Typography variant="p" className={classes.verticalHeaderRequired} noWrap>
+          <Typography variant="h6" className={classes.verticalHeaderRequired} noWrap>
             {required ? "*" : null}
           </Typography>
         </div>

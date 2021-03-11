@@ -123,16 +123,16 @@ const AddGoals = props => {
                 </Grid>
             </SquarePaper>
 
-            <AddGenericGoal 
-                showGeneric={showGeneric} 
-                handleShowGeneric={handleShowGeneric} 
+            <AddGenericGoal
+                showGeneric={showGeneric}
+                handleShowGeneric={handleShowGeneric}
                 onAdd={props.onAdd}
                 scrollToCurrentGoals={props.scrollToCurrentGoals} />
 
-            <AddTripGoal 
-                showTrip={showTrip} 
-                handleShowTrip={handleShowTrip} 
-                goalTripTypes={props.goalTripTypes} 
+            <AddTripGoal
+                showTrip={showTrip}
+                handleShowTrip={handleShowTrip}
+                goalTripTypes={props.goalTripTypes}
                 onAdd={props.onAdd}
                 scrollToCurrentGoals={props.scrollToCurrentGoals}
                 inProgressAddGoal={props.inProgressAddGoal} />
@@ -163,11 +163,14 @@ const GoalPaper = ({ text, handleValue, icon, comingSoon }) => {
 
 const AddGenericGoal = props => {
     if (props.showGeneric) {
+        const date = new Date();
+        const defaultPlannedDate = new Date(date.setMonth(date.getMonth() + 3));
+
         const [name, setName] = useState("");
         const [amount, setAmount] = useState(1000);
         const [currentAmount, setCurrentAmount] = useState(100);
         const [monthlyContribution, setMonthlyContribution] = useState(150);
-        const [plannedDate, setPlannedDate] = useState(new Date());
+        const [plannedDate, setPlannedDate] = useState(defaultPlannedDate);
 
         const isAddEnabled = name !== ""
             && amount !== null && amount >= 0
@@ -213,61 +216,90 @@ const AddGenericGoal = props => {
 
                         <Grid container spacing={3}>
                             <Grid item sm>
-                                <TextField label="Name"
-                                    value={name}
-                                    onChange={e => handleSetValue(e, setName)}
-                                />
+                                Just fill out the details below
+                            </Grid>
+                        </Grid>
+                        <Grid container spacing={3}>
+                            <Grid item sm>
+                                <VerticalTextField
+                                    header={"What is the name of this goal?"}
+                                    required
+                                    textField={
+                                        <TextField
+                                            required
+                                            placeholder="Save money"
+                                            value={name}
+                                            onChange={e => handleSetValue(e, setName)}
+                                        />
+                                    } />
                             </Grid>
                         </Grid>
 
                         <Grid container spacing={3}>
                             <Grid item sm>
-                                <MuiPickersUtilsProvider utils={DateFnsUtils}>
-                                    <KeyboardDatePicker
-                                        disableToolbar
-                                        variant="inline"
-                                        format="MM/dd/yyyy"
-                                        margin="normal"
-                                        label="Planned date"
-                                        value={plannedDate}
-                                        onChange={handlePlannedDate}
-                                        KeyboardButtonProps={{
-                                            'aria-label': 'planned date',
-                                        }}
-                                    />
-                                </MuiPickersUtilsProvider>
+                                <VerticalTextField
+                                    header={"What is the planned date for this goal?"}
+                                    required
+                                    textField={
+                                        <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                                            <KeyboardDatePicker
+                                                required
+                                                disableToolbar
+                                                variant="inline"
+                                                format="MM/dd/yyyy"
+                                                margin="normal"
+                                                value={plannedDate}
+                                                onChange={handlePlannedDate}
+                                                KeyboardButtonProps={{
+                                                    'aria-label': 'planned date',
+                                                }}
+                                            />
+                                        </MuiPickersUtilsProvider>
+                                    } />
                             </Grid>
                         </Grid>
 
                         <Grid container spacing={3}>
                             <Grid item sm>
-                                <TextField label="Amount"
-                                    value={amount}
-                                    onChange={e => handleSetValue(e, setAmount)}
-                                    InputProps={{
-                                        startAdornment: <InputAdornment position="start">$</InputAdornment>
-                                    }}
-                                />
+                                <VerticalTextField
+                                    header={"What will be the final amount towards this goal?"}
+                                    textField={
+                                        <TextField
+                                            value={amount}
+                                            onChange={e => handleSetValue(e, setAmount)}
+                                            InputProps={{
+                                                startAdornment: <InputAdornment position="start">$</InputAdornment>
+                                            }}
+                                        />
+                                    } />
                             </Grid>
 
                             <Grid item sm>
-                                <TextField label="Current amount"
-                                    value={currentAmount}
-                                    onChange={e => handleSetValue(e, setCurrentAmount)}
-                                    InputProps={{
-                                        startAdornment: <InputAdornment position="start">$</InputAdornment>
-                                    }}
-                                />
+                                <VerticalTextField
+                                    header={"What is your current amount towards this goal?"}
+                                    textField={
+                                        <TextField
+                                            value={currentAmount}
+                                            onChange={e => handleSetValue(e, setCurrentAmount)}
+                                            InputProps={{
+                                                startAdornment: <InputAdornment position="start">$</InputAdornment>
+                                            }}
+                                        />
+                                    } />
                             </Grid>
 
                             <Grid item sm>
-                                <TextField label="Monthly contribution"
-                                    value={monthlyContribution}
-                                    onChange={e => handleSetValue(e, setMonthlyContribution)}
-                                    InputProps={{
-                                        startAdornment: <InputAdornment position="start">$</InputAdornment>
-                                    }}
-                                />
+                                <VerticalTextField
+                                    header={"What will your monthly contribution be towards this goal?"}
+                                    textField={
+                                        <TextField
+                                            value={monthlyContribution}
+                                            onChange={e => handleSetValue(e, setMonthlyContribution)}
+                                            InputProps={{
+                                                startAdornment: <InputAdornment position="start">$</InputAdornment>
+                                            }}
+                                        />
+                                    } />
                             </Grid>
                         </Grid>
 
@@ -290,13 +322,15 @@ const AddGenericGoal = props => {
 const AddTripGoal = props => {
     if (props.showTrip) {
         const classes = useStyles();
-        const types = props.goalTripTypes || [];
+        const types = props.goalTripTypes || [];   
+        const date = new Date();
+        const defaultPlannedDate = new Date(date.setMonth(date.getMonth() + 6));
 
         const [name, setName] = useState("");
         const [amount, setAmount] = useState("");
         const [currentAmount, setCurrentAmount] = useState("");
         const [monthlyContribution, setMonthlyContribution] = useState("");
-        const [plannedDate, setPlannedDate] = useState(new Date());
+        const [plannedDate, setPlannedDate] = useState();
         const [destination, setDestination] = useState("");
         const [type, setType] = useState(types[0]);
         const [duration, setDuration] = useState(7);
@@ -368,7 +402,7 @@ const AddTripGoal = props => {
 
                         <Grid container spacing={3}>
                             <Grid item sm>
-                                Let's start by filling out some generic details about your goal trip
+                                Let's start by filling out some generic details
                             </Grid>
                         </Grid>
                         <Grid container spacing={3}>
@@ -413,9 +447,9 @@ const AddTripGoal = props => {
 
                         <Grid container spacing={3}>
                             <Grid item sm>
-                                <br/><br/>
-                                Let's get into more spcific details.<br/> If you don't know the total amount, then you can skip the final amount and use
-                                the specific categories below to calculate your total 
+                                <br /><br />
+                                Let's get into more spcific details.<br /> If you don't know the total amount, then you can skip the final amount and use
+                                the specific categories below to calculate your total
                             </Grid>
                         </Grid>
                         <Grid container spacing={3}>
@@ -529,7 +563,7 @@ const AddTripGoal = props => {
 
                         <Grid container spacing={1}>
                             <Grid item sm>
-                                <br /><br/>
+                                <br /><br />
                                 This breakdown of separate categories will help you better calculate and manage your goal.<br />
                                 If you don't have specific amounts, it is always best to overestimate<br /><br />
                                 <b><i>Note: </i></b>the prices below are <i>per traveler</i>
