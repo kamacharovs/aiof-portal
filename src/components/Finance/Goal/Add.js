@@ -134,7 +134,8 @@ const AddGoals = props => {
                 handleShowTrip={handleShowTrip} 
                 goalTripTypes={props.goalTripTypes} 
                 onAdd={props.onAdd}
-                scrollToCurrentGoals={props.scrollToCurrentGoals} />
+                scrollToCurrentGoals={props.scrollToCurrentGoals}
+                inProgressAddGoal={props.inProgressAddGoal} />
         </React.Fragment>
     );
 }
@@ -317,6 +318,7 @@ const AddTripGoal = props => {
             && plannedDate !== null
             && destination !== ""
             && type !== "";
+        const inProgressAddGoal = props.inProgressAddGoal;
 
         const handleSetValue = (e, setValue) => {
             setValue(e.target.value);
@@ -373,6 +375,7 @@ const AddTripGoal = props => {
                             <Grid item sm>
                                 <VerticalTextField
                                     header={"What is the name of this goal?"}
+                                    required
                                     textField={
                                         <TextField
                                             required
@@ -388,6 +391,7 @@ const AddTripGoal = props => {
                             <Grid item sm>
                                 <VerticalTextField
                                     header={"What is the planned date for this goal?"}
+                                    required
                                     textField={
                                         <MuiPickersUtilsProvider utils={DateFnsUtils}>
                                             <KeyboardDatePicker
@@ -462,6 +466,7 @@ const AddTripGoal = props => {
                             <Grid item sm={4}>
                                 <VerticalTextField
                                     header={"Where are you going on this trip?"}
+                                    required
                                     textField={
                                         <TextField
                                             required
@@ -476,6 +481,7 @@ const AddTripGoal = props => {
                                 <FormControl className={classes.select}>
                                     <VerticalSelect
                                         header={"What is the type of this trip?"}
+                                        required
                                         select={<Select
                                             required
                                             value={type}
@@ -539,7 +545,7 @@ const AddTripGoal = props => {
 
                         <Grid container spacing={3}>
                             <Grid item sm>
-                                <AlternateButton type="submit" variant="contained" disabled={!isAddEnabled} >
+                                <AlternateButton type="submit" variant="contained" disabled={!isAddEnabled && !inProgressAddGoal} >
                                     Add
                                 </AlternateButton>
                             </Grid>

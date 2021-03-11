@@ -6,6 +6,7 @@ import Paper from '@material-ui/core/Paper';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Button from '@material-ui/core/Button';
+import Typography from '@material-ui/core/Typography';
 
 import { ThinText } from '../style/common';
 
@@ -49,11 +50,19 @@ export const commonStyles = makeStyles({
     fontSize: '16px !important',
   },
   verticalHeader: {
-    fontSize: '1rem', 
+    fontSize: '0.75rem',
     letterSpacing: '0.000125rem',
     padding: '0',
     margin: '0',
     color: DefaultAlternateColor
+  },
+  verticalHeaderRequired: {
+    color: DefaultRedColor,
+    padding: '0',
+    marginLeft: '2px',
+    marginRight: '0',
+    marginTop: '0',
+    marginBottom: '0',
   }
 });
 
@@ -186,14 +195,20 @@ export const InBodyPaper = props => {
 /*
 Vertical layouts
 */
-export const VerticalTextField = ({ header, textField }) => {
+export const VerticalTextField = ({ header, textField, required }) => {
   const classes = commonStyles();
 
   return (
     <Grid container spacing={1} direction="column" justify="flex-start" alignItems="flex-start">
       <Grid item sm>
-        <div className={classes.verticalHeader}>
-          <strong>{header}</strong>
+        <div style={{ display: "flex" }}>
+          <Typography variant="p" className={classes.verticalHeader} noWrap>
+            <strong>{header}</strong>
+          </Typography>
+
+          <Typography variant="p" className={classes.verticalHeaderRequired} noWrap>
+            {required ? "*" : null}
+          </Typography>
         </div>
       </Grid>
       <Grid item sm>
@@ -203,14 +218,20 @@ export const VerticalTextField = ({ header, textField }) => {
   );
 }
 
-export const VerticalSelect = ({ header, select }) => {
+export const VerticalSelect = ({ header, select, required }) => {
   const classes = commonStyles();
 
   return (
     <Grid container spacing={1} direction="column" justify="flex-start" alignItems="flex-start">
       <Grid item sm>
-        <div className={classes.verticalHeader}>
-          <strong>{header}</strong>
+      <div style={{ display: "flex" }}>
+          <Typography variant="p" className={classes.verticalHeader} noWrap>
+            <strong>{header}</strong>
+          </Typography>
+
+          <Typography variant="p" className={classes.verticalHeaderRequired} noWrap>
+            {required ? "*" : null}
+          </Typography>
         </div>
       </Grid>
       <Grid item sm>
