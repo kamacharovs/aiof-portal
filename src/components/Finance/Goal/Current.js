@@ -8,12 +8,9 @@ import IconButton from '@material-ui/core/IconButton';
 import DeleteIcon from '@material-ui/icons/Delete';
 
 import { numberWithCommas } from '../Common';
-import {
-    SquarePaper, FullPaper, AlternateCircularProgress,
-    DefaultDarkTeal, DefaultGreenColor, DefaultPaperMargin
-} from '../../../style/mui';
+import { FullPaper, AlternateCircularProgress, DefaultDarkTeal, DefaultGreenColor, DefaultPaperMargin } from '../../../style/mui';
 import { GOAL_DELETE } from '../../../constants/actionTypes';
-import { TRIP, BUYAHOME } from '../../../constants/goals';
+import { GENERIC, TRIP, BUYAHOME } from '../../../constants/goals';
 
 
 const mapStateToProps = state => ({
@@ -78,6 +75,7 @@ const CurrentGoals = props => {
     const goals = props.goals || [];
 
     if (goals) {
+        const goalsGeneric = goals.filter(function (x) { return x.type.toUpperCase() === GENERIC; })
         const goalsTrip = goals.filter(function (x) { return x.type.toUpperCase() === TRIP; })
         const goalsHome = goals.filter(function (x) { return x.type.toUpperCase() === BUYAHOME; })
 
@@ -90,15 +88,26 @@ const CurrentGoals = props => {
                 <FullPaper variant="outlined" square>
                     <CurrentGoalsOverview goals={goals} inProgressGoals={props.inProgressGoals} />
 
-                    <CurrentGoalsTrip 
-                        goalsTrip={goalsTrip} 
-                        inProgressGoals={props.inProgressGoals} 
+                    <CurrentGoalsDynamic
+                        goals={goalsGeneric}
+                        inProgressGoals={props.inProgressGoals}
+                        goalsType={GENERIC}
                         onDelete={handleOnDelete} />
 
-                    <CurrentGoalsHome goalsHome={goalsHome} inProgressGoals={props.inProgressGoals} />
+                    <CurrentGoalsDynamic
+                        goals={goalsTrip}
+                        inProgressGoals={props.inProgressGoals}
+                        goalsType={TRIP}
+                        onDelete={handleOnDelete} />
 
-                    <InProgressBar 
-                        inProgressGoals={props.inProgressGoals} 
+                    <CurrentGoalsDynamic
+                        goals={goalsHome}
+                        inProgressGoals={props.inProgressGoals}
+                        goalsType={BUYAHOME}
+                        onDelete={handleOnDelete} />
+
+                    <InProgressBar
+                        inProgressGoals={props.inProgressGoals}
                         inProgressDeleteGoal={props.inProgressDeleteGoal} />
                 </FullPaper>
             </React.Fragment>
@@ -124,8 +133,9 @@ const CurrentGoalsOverview = props => {
     );
 }
 
-const CurrentGoalsTrip = props => {
-    const goals = props.goalsTrip;
+const CurrentGoalsDynamic = props => {
+    const goals = props.goals;
+    const goalsType = props.goalsType;
     const inProgressGoals = props.inProgressGoals;
 
     if (goals && goals.length > 0 && inProgressGoals === false) {
@@ -140,11 +150,11 @@ const CurrentGoalsTrip = props => {
                                 variant="outlined"
                                 square
                                 className={classes.currentGoalFullPaper}>
-                                <Grid container 
+                                <Grid container
                                     key={g.id}
-                                    spacing={0} 
-                                    direction="column" 
-                                    justify="center" 
+                                    spacing={0}
+                                    direction="column"
+                                    justify="center"
                                     alignItems="center">
                                     <Grid item xs>
                                         <h6><strong>{g.name}</strong></h6>
@@ -154,46 +164,79 @@ const CurrentGoalsTrip = props => {
                                             ${numberWithCommas(Math.round(g.currentAmount || 0))}/{numberWithCommas(Math.round(g.amount || 0))} | ${numberWithCommas(Math.round(g.monthlyContribution || 0))}/month
                                         </div>
                                     </Grid>
-                                    <Grid item xs>
-                                        <div className={classes.teal}>
-                                            {g.destination} | {g.tripType}
-                                        </div>
-                                    </Grid>
+
+                                    {goalsType === TRIP &&
+                                        <Grid item xs>
+                                            <div className={classes.teal}>
+                                                {g.destination} | {g.tripType}
+                                            </div>
+                                        </Grid>
+                                    }
+
+                                    {goalsType === BUYAHOME &&
+                                        <Grid item xs>
+                                            <div className={classes.teal}>
+                                                ${numberWithCommas((g.homeValue || 0).toFixed(2))}
+                                            </div>
+                                        </Grid>
+                                    }
+
                                     <Grid item xs>
                                         <div className={classes.teal}>
                                             {new Date(g.plannedDate).toLocaleDateString()} | {g.projectedDate ? new Date(g.projectedDate).toLocaleDateString() : "No projected date"}
                                         </div>
                                     </Grid>
 
-                                    <Grid item xs>
-                                        {g.duration || 0} days
-                                    </Grid>
-                                    <Grid item xs>
-                                        {g.travelers || 0} travelers
-                                    </Grid>
+                                    {goalsType === TRIP &&
+                                        <React.Fragment>
+                                            <Grid item xs>
+                                                {g.duration || 0} days
+                                            </Grid>
+                                            <Grid item xs>
+                                                {g.travelers || 0} travelers
+                                            </Grid>
 
-                                    <Grid item xs>
-                                        <br />
-                                    </Grid>
+                                            <Grid item xs>
+                                                <br />
+                                            </Grid>
 
-                                    <Grid item xs>
-                                        Flight: ${numberWithCommas(Math.round(g.flight || 0))}
-                                    </Grid>
-                                    <Grid item xs>
-                                        Hotel: ${numberWithCommas(Math.round(g.hotel || 0))}
-                                    </Grid>
-                                    <Grid item xs>
-                                        Car: ${numberWithCommas(Math.round(g.car || 0))}
-                                    </Grid>
-                                    <Grid item xs>
-                                        Food: ${numberWithCommas(Math.round(g.food || 0))}
-                                    </Grid>
-                                    <Grid item xs>
-                                        Activities: ${numberWithCommas(Math.round(g.activities || 0))}
-                                    </Grid>
-                                    <Grid item xs>
-                                        Other: ${numberWithCommas(Math.round(g.other || 0))}
-                                    </Grid>
+                                            <Grid item xs>
+                                                Flight: ${numberWithCommas(Math.round(g.flight || 0))}
+                                            </Grid>
+                                            <Grid item xs>
+                                                Hotel: ${numberWithCommas(Math.round(g.hotel || 0))}
+                                            </Grid>
+                                            <Grid item xs>
+                                                Car: ${numberWithCommas(Math.round(g.car || 0))}
+                                            </Grid>
+                                            <Grid item xs>
+                                                Food: ${numberWithCommas(Math.round(g.food || 0))}
+                                            </Grid>
+                                            <Grid item xs>
+                                                Activities: ${numberWithCommas(Math.round(g.activities || 0))}
+                                            </Grid>
+                                            <Grid item xs>
+                                                Other: ${numberWithCommas(Math.round(g.other || 0))}
+                                            </Grid>
+                                        </React.Fragment>
+                                    }
+
+                                    {goalsType === BUYAHOME &&
+                                        <React.Fragment>
+                                            <Grid item xs>
+                                                {((g.mortgageRate || 0) * 100).toFixed(3)}% mortgage rate
+                                            </Grid>
+                                            <Grid item xs>
+                                                {((g.percentDownPayment || 0) * 100).toFixed(3)}% down payment
+                                            </Grid>
+                                            <Grid item xs>
+                                                ${(g.annualInsurance || 0).toFixed(2)} annual insurance
+                                            </Grid>
+                                            <Grid item xs>
+                                                {((g.annualPropertyTax || 0) * 100).toFixed(3)}% annual property tax
+                                            </Grid>
+                                        </React.Fragment>
+                                        }
                                 </Grid>
                                 <Grid
                                     container
@@ -201,71 +244,14 @@ const CurrentGoalsTrip = props => {
                                     justify="flex-end"
                                     alignItems="flex-end"
                                     className={classes.currentGoalfooter}>
-                                    <IconButton 
-                                        aria-label="delete" 
+                                    <IconButton
+                                        aria-label="delete"
                                         className={classes.deleteIconButton}
                                         onClick={e => props.onDelete(g.id)}>
-                                        <DeleteIcon  style={{ fontSize: '20', color: DefaultDarkTeal }} />
+                                        <DeleteIcon style={{ fontSize: '20', color: DefaultDarkTeal }} />
                                     </IconButton>
                                 </Grid>
                             </FullPaper>
-                        </Grid>
-                    );
-                })}
-            </Grid>
-        );
-    } else {
-        return null;
-    }
-}
-
-const CurrentGoalsHome = props => {
-    const goals = props.goalsHome;
-    const inProgressGoals = props.inProgressGoals;
-
-    if (goals && goals.length > 0 && inProgressGoals === false) {
-        const classes = useStyles();
-
-        return (
-            <Grid container spacing={0}>
-                {goals.map(g => {
-                    return (
-                        <Grid key={g.publicKey} item xs={4}>
-                            <SquarePaper variant="outlined" square style={{ margin: DefaultPaperMargin }}>
-                                <Grid container spacing={0} direction="column" justify="center" alignItems="center">
-                                    <Grid item xs>
-                                        <h6><strong>{g.name}</strong></h6>
-                                    </Grid>
-                                    <Grid item xs>
-                                        <div className={classes.teal}>
-                                            ${numberWithCommas((g.currentAmount || 0).toFixed(2))}/{numberWithCommas((g.amount || 0).toFixed(2))} | ${numberWithCommas((g.monthlyContribution || 0).toFixed(2))}/month
-                                        </div>
-                                    </Grid>
-                                    <Grid item xs>
-                                        <div className={classes.teal}>
-                                            ${numberWithCommas((g.homeValue || 0).toFixed(2))}
-                                        </div>
-                                    </Grid>
-                                    <Grid item xs>
-                                        <div className={classes.teal}>
-                                            {new Date(g.plannedDate).toLocaleDateString()} | {g.projectedDate ? new Date(g.projectedDate).toLocaleDateString() : "No projected date"}
-                                        </div>
-                                    </Grid>
-
-                                    <Grid item xs>
-                                        {((g.mortgageRate || 0) * 100).toFixed(3)}% mortgage rate
-                                    </Grid>
-                                    <Grid item xs>
-                                        {((g.percentDownPayment || 0) * 100).toFixed(3)}% down payment
-                                    </Grid>
-                                    <Grid item xs>
-                                        ${(g.annualInsurance || 0).toFixed(2)} annual insurance
-                                    </Grid>
-                                    <Grid item xs>
-                                        {((g.annualPropertyTax || 0) * 100).toFixed(3)}% annual property tax
-                                    </Grid>
-                                </Grid>
-                            </SquarePaper>
                         </Grid>
                     );
                 })}
