@@ -1,6 +1,7 @@
 export const APP_LOAD = 'APP_LOAD';
 export const REDIRECT = 'REDIRECT';
 export const REDIRECT_HOME = 'REDIRECT_HOME';
+export const REDIRECT_LOGIN = 'REDIRECT_LOGIN';
 export const ARTICLE_SUBMITTED = 'ARTICLE_SUBMITTED';
 export const SETTINGS_SAVED = 'SETTINGS_SAVED';
 export const DELETE_ARTICLE = 'DELETE_ARTICLE';

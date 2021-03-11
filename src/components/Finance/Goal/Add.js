@@ -64,7 +64,7 @@ const useStyles = makeStyles((theme) => ({
 const AddGoals = props => {
     const classes = useStyles();
     const size = '70';
-    const [showGeneric, setShowGeneric] = useState(false);
+    const [showGeneric, setShowGeneric] = useState(true);
     const [showTrip, setShowTrip] = useState(false);
     const [showBuyAHome, setShowBuyAHome] = useState(false);
 
@@ -330,7 +330,7 @@ const AddTripGoal = props => {
         const [amount, setAmount] = useState("");
         const [currentAmount, setCurrentAmount] = useState("");
         const [monthlyContribution, setMonthlyContribution] = useState("");
-        const [plannedDate, setPlannedDate] = useState();
+        const [plannedDate, setPlannedDate] = useState(defaultPlannedDate);
         const [destination, setDestination] = useState("");
         const [type, setType] = useState(types[0]);
         const [duration, setDuration] = useState(7);

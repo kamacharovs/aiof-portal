@@ -8,7 +8,7 @@ import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
 
 import { SquarePaper, DefaultDarkTeal } from '../../../style/mui';
-import { GOALS } from '../../../constants/actionTypes';
+import { REDIRECT_LOGIN, GOALS } from '../../../constants/actionTypes';
 
 import CurrentGoals from './Current';
 import AddGoals from './Add';
@@ -17,6 +17,7 @@ import AddGoals from './Add';
 const mapStateToProps = state => ({
     ...state.finance,
     appName: state.common.appName,
+    currentUser: state.common.currentUser,
     inProgressGoals: state.finance.inProgressGoals,
     goals: state.finance.goals,
     goalAdded: state.finance.goalAdded,
@@ -25,6 +26,8 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
     onAll: () =>
         dispatch({ type: GOALS, payload: agent.Goal.all() }),
+    onRedirectLogin: () =>
+        dispatch({ type: REDIRECT_LOGIN, }),
 });
 
 const useStyles = makeStyles((theme) => ({
@@ -53,54 +56,60 @@ const GoalOverview = props => {
 }
 
 const GoalMainView = props => {
-    const classes = useStyles();
-    const currentGoalsRef = useRef();
+    if (props.currentUser) {
+        const classes = useStyles();
+        const currentGoalsRef = useRef();
 
-    const scrollToCurrentGoals = () => {
-        currentGoalsRef.current.scrollIntoView({ block: "end", behavior: "smooth" })
+        const scrollToCurrentGoals = () => {
+            currentGoalsRef.current.scrollIntoView({ block: "end", behavior: "smooth" })
+        }
+
+        useEffect(() => {
+            if (!props.goals) {
+                props.onAll();
+            }
+        }, []);
+
+        useEffect(() => {
+            if (props.goals) {
+                props.onAll();
+            }
+        }, [props.goalAdded]);
+
+        return (
+            <React.Fragment>
+                <Helmet>
+                    <title>{props.appName} | Finance | Goals</title>
+                </Helmet>
+
+                <Container maxWidth="xl">
+                    <Grid container spacing={1} className={classes.root}>
+                        <Grid item xs>
+                            <GoalOverview />
+                        </Grid>
+                    </Grid>
+
+                    <Grid container spacing={1} className={classes.root}>
+                        <Grid item xs>
+                            <div ref={currentGoalsRef}>
+                                <CurrentGoals goals={props.goals} />
+                            </div>
+                        </Grid>
+                    </Grid>
+
+                    <Grid container spacing={1} className={classes.root}>
+                        <Grid item xs>
+                            <AddGoals scrollToCurrentGoals={scrollToCurrentGoals} />
+                        </Grid>
+                    </Grid>
+                </Container>
+            </React.Fragment>
+        );
+    } else {
+        props.onRedirectLogin();
+        
+        return null;
     }
-
-    useEffect(() => {
-        if (!props.goals) {
-            props.onAll();
-        }
-    }, []);
-
-    useEffect(() => {
-        if (props.goals) {
-            props.onAll();
-        }
-    }, [props.goalAdded]);
-
-    return (
-        <React.Fragment>
-            <Helmet>
-                <title>{props.appName} | Finance | Goals</title>
-            </Helmet>
-
-            <Container maxWidth="xl">
-                <Grid container spacing={1} className={classes.root}>
-                    <Grid item xs>
-                        <GoalOverview />
-                    </Grid>
-                </Grid>
-
-                <Grid container spacing={1} className={classes.root}>
-                    <Grid item xs>
-                        <div ref={currentGoalsRef}>
-                            <CurrentGoals goals={props.goals} />
-                        </div>
-                    </Grid>
-                </Grid>
-
-                <Grid container spacing={1} className={classes.root}>
-                    <Grid item xs>
-                        <AddGoals scrollToCurrentGoals={scrollToCurrentGoals} />
-                    </Grid>
-                </Grid>
-            </Container>
-        </React.Fragment>
-    );
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(GoalMainView);

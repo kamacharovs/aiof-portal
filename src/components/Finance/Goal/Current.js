@@ -91,7 +91,7 @@ const CurrentGoalsTrip = props => {
             <Grid container spacing={0}>
                 {goals.map(g => {
                     return (
-                        <Grid key={g.publicKey} item xs>
+                        <Grid key={g.publicKey} item xs={4}>
                             <SquarePaper variant="outlined" square style={{ margin: DefaultPaperMargin }}>
                                 <Grid container spacing={0} direction="column" justify="center" alignItems="center">
                                     <Grid item xs>
@@ -165,7 +165,7 @@ const CurrentGoalsHome = props => {
             <Grid container spacing={0}>
                 {goals.map(g => {
                     return (
-                        <Grid key={g.publicKey} item xs>
+                        <Grid key={g.publicKey} item xs={4}>
                             <SquarePaper variant="outlined" square style={{ margin: DefaultPaperMargin }}>
                                 <Grid container spacing={0} direction="column" justify="center" alignItems="center">
                                     <Grid item xs>
