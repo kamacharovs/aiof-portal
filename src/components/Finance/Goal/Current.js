@@ -15,7 +15,7 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { numberWithCommas } from '../Common';
 import { FullPaper, AlternateCircularProgress, DefaultDarkTeal, DefaultGreenColor, DefaultPaperMargin } from '../../../style/mui';
 import { GOAL_DELETE } from '../../../constants/actionTypes';
-import { GENERIC, TRIP, BUYAHOME } from '../../../constants/goals';
+import { GENERIC, TRIP, BUYAHOME, GOAL_TYPE_MAPPING } from '../../../constants/goals';
 
 
 const mapStateToProps = state => ({
@@ -51,13 +51,16 @@ const useStyles = makeStyles((theme) => ({
         width: '100%',
     },
     accordionHeading: {
+        color: DefaultDarkTeal,
         font: 'inherit',
+        fontWeight: 900,
         flexBasis: '95%',
         flexShrink: 0,
     },
     accordionHeadingSecondaryHeading: {
-        font: 'inherit',
         color: theme.palette.text.secondary,
+        font: 'inherit',
+        fontWeight: 900,
     },
     overview: {
         backgroundColor: 'rgb(245, 247, 249)',
@@ -144,7 +147,7 @@ const CurrentGoalsOverview = props => {
             alignItems="center"
             className={classes.overview}>
             <Grid item xs align="center">
-                <strong>{totalGoals} total goals</strong>
+                <strong>{totalGoals} total {totalGoals === 1 ? "goal" : "goals"}</strong>
             </Grid>
         </Grid>
     );
@@ -153,6 +156,7 @@ const CurrentGoalsOverview = props => {
 const CurrentGoalsDynamic = props => {
     const goals = props.goals;
     const goalsType = props.goalsType;
+    const goalsTypeMapped = GOAL_TYPE_MAPPING[goalsType];
     const goalsSize = props.goals.length;
     const inProgressGoals = props.inProgressGoals;
 
@@ -160,13 +164,15 @@ const CurrentGoalsDynamic = props => {
         const classes = useStyles();
 
         return (
-            <Accordion square>
+            <Accordion 
+                square
+                defaultExpanded={goalsType === GENERIC ? true : false}>
                 <AccordionSummary
                     expandIcon={<ExpandMoreIcon />}
                     aria-controls="panel1a-content"
                     id="panel1a-header"
                 >
-                    <Typography className={classes.accordionHeading}>{goalsType}</Typography>
+                    <Typography className={classes.accordionHeading}>{goalsTypeMapped}</Typography>
                     <Typography className={classes.accordionHeadingSecondaryHeading}>{goalsSize}</Typography>
                 </AccordionSummary>
                 <AccordionDetails>
