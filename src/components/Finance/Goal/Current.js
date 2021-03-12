@@ -98,6 +98,7 @@ const CurrentGoals = props => {
         const goalsGeneric = goals.filter(function (x) { return x.type.toUpperCase() === GENERIC; })
         const goalsTrip = goals.filter(function (x) { return x.type.toUpperCase() === TRIP; })
         const goalsHome = goals.filter(function (x) { return x.type.toUpperCase() === BUYAHOME; })
+        const totalGoals = goalsGeneric.length + goalsTrip.length + goalsHome.length;
 
         const handleOnDelete = (id) => {
             props.onDelete(id);
@@ -106,7 +107,9 @@ const CurrentGoals = props => {
         return (
             <React.Fragment>
                 <FullPaper variant="outlined" square>
-                    <CurrentGoalsOverview goals={goals} inProgressGoals={props.inProgressGoals} />
+                    <CurrentGoalsOverview 
+                        totalGoals={totalGoals} 
+                        inProgressGoals={props.inProgressGoals} />
 
                     <CurrentGoalsDynamic
                         goals={goalsGeneric}
@@ -137,7 +140,7 @@ const CurrentGoals = props => {
 
 const CurrentGoalsOverview = props => {
     const classes = useStyles();
-    const totalGoals = props.goals.length || 0;
+    const totalGoals = props.totalGoals || 0;
 
     return (
         <Grid
