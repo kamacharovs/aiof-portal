@@ -22,6 +22,7 @@ const mapStateToProps = state => ({
     inProgressGoals: state.finance.inProgressGoals,
     goals: state.finance.goals,
     goalAdded: state.finance.goalAdded,
+    goalAddedCode: state.finance.goalAddedCode,
     goalDeleted: state.finance.goalDeleted,
 });
 
@@ -77,9 +78,10 @@ const GoalMainView = props => {
                 props.onAll();
 
                 const goalAdded = props.goalAdded;
-                if (goalAdded) {
+                const code = props.goalAddedCode;
+                if (goalAdded && code === 200) {
                     toast.success(`Successfully added ${goalAdded.type} goal '${goalAdded.name}'`);
-                } else {
+                } else if (goalAdded === null && code === 400) {
                     toast.error(`Something went wrong when trying to add goal. Please try again or contact site administrator`);
                 }
             }

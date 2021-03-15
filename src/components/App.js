@@ -85,7 +85,7 @@ class App extends React.Component {
             currentUser={this.props.currentUser} />
 
           <AiofToastContainer
-            position="top-right"
+            position="top-center"
             autoClose={4000}
             hideProgressBar={false}
             newestOnTop={false}

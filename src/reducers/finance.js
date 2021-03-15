@@ -81,6 +81,7 @@ export default (state = {}, action) => {
         inProgressGoals: false,
         goals: action.error ? null : action.payload,
         goalDeleted: false,
+        goalAddedCode: null,
       }
     case GOAL_TRIP_TYPES:
       return {
@@ -93,6 +94,7 @@ export default (state = {}, action) => {
         ...state,
         inProgressAddGoal: false,
         goalAdded: action.error ? null : action.payload,
+        goalAddedCode: action.error ? action.payload.code : 200,
       }
     case GOAL_DELETE:
       return {

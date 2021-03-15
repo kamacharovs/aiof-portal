@@ -335,9 +335,9 @@ const AddTripGoal = props => {
         const [type, setType] = useState("");
         const [duration, setDuration] = useState(7);
         const [travelers, setTravelers] = useState(2);
-        const [hasFlight, setHasFlight] = useState(true);
+        const [hasFlight, setHasFlight] = useState(false);
         const [flight, setFlight] = useState(0);
-        const [hasHotel, setHasHotel] = useState(true);
+        const [hasHotel, setHasHotel] = useState(false);
         const [hotel, setHotel] = useState(0);
         const [hasCar, setHasCar] = useState(false);
         const [car, setCar] = useState(0);

@@ -32,8 +32,8 @@ const useStyles = makeStyles((theme) => ({
         flexGrow: 1
     },
     userButton: {
-      color: DefaultColor,
-      textTransform: 'capitalize',
+        color: DefaultColor,
+        textTransform: 'capitalize',
     },
 }));
 
@@ -112,12 +112,28 @@ const ProfileMenu = props => {
                             Account management
                         </ListSubheader>
                     }>
-                    <ListItem button onClick={handleClose} component={Link} to={`/@${props.currentUser.firstName.toLowerCase()}.${props.currentUser.lastName.toLowerCase()}`}>
+                    <ListItem
+                        button
+                        onClick={handleClose}
+                        component={Link}
+                        to={`/@${props.currentUser.firstName.toLowerCase()}.${props.currentUser.lastName.toLowerCase()}`}>
                         <ListItemText primary="Profile" />
                     </ListItem>
 
-                    <ListItem button onClick={handleClose} component={Link} to={`/@${props.currentUser.firstName.toLowerCase()}.${props.currentUser.lastName.toLowerCase()}/finance`}>
+                    <ListItem
+                        button
+                        onClick={handleClose}
+                        component={Link}
+                        to={`/@${props.currentUser.firstName.toLowerCase()}.${props.currentUser.lastName.toLowerCase()}/finance`}>
                         <ListItemText primary="Finances" />
+                    </ListItem>
+
+                    <ListItem
+                        button
+                        onClick={handleClose}
+                        component={Link}
+                        to={`/@${props.currentUser.firstName.toLowerCase()}.${props.currentUser.lastName.toLowerCase()}/finance/goals`}>
+                        <ListItemText primary="Goals" />
                     </ListItem>
                 </List>
 
