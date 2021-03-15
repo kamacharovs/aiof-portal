@@ -76,7 +76,12 @@ const GoalMainView = props => {
             if (props.goals) {
                 props.onAll();
 
-                toast.success(`Successfully added goal '${props.goalAdded.name}'`)
+                const goalAdded = props.goalAdded;
+                if (goalAdded) {
+                    toast.success(`Successfully added ${goalAdded.type} goal '${goalAdded.name}'`);
+                } else {
+                    toast.error(`Something went wrong when trying to add goal. Please try again or contact site administrator`);
+                }
             }
         }, [props.goalAdded]);
 

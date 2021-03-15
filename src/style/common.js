@@ -3,10 +3,9 @@ import { Link } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 import "react-toastify/dist/ReactToastify.css";
 
-import { DefaultGreenColor } from './mui';
+import { DefaultGreenColor, DefaultRedColor } from './mui';
 
 export const DefaultColor = "#5cb85c";
-export const DefaultRedColor = "#b21f00";
 export const DefaultAlternateColor = "#137a8f";
 
 export const GreenP = styled.p`
@@ -236,7 +235,9 @@ export const AiofToastContainer = styled(ToastContainer).attrs({
 })`
   .Toastify__toast-container {}
   .Toastify__toast {}
-  .Toastify__toast--error {}
+  .Toastify__toast--error {
+    background-color: ${DefaultRedColor}
+  }
   .Toastify__toast--warning {}
   .Toastify__toast--success {
     background-color: ${DefaultGreenColor}
