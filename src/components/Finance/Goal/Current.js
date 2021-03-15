@@ -167,9 +167,7 @@ const CurrentGoalsDynamic = props => {
         const classes = useStyles();
 
         return (
-            <Accordion 
-                square
-                defaultExpanded={goalsType === GENERIC ? true : false}>
+            <Accordion square>
                 <AccordionSummary
                     expandIcon={<ExpandMoreIcon />}
                     aria-controls="panel1a-content"

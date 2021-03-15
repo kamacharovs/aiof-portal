@@ -332,7 +332,7 @@ const AddTripGoal = props => {
         const [monthlyContribution, setMonthlyContribution] = useState("");
         const [plannedDate, setPlannedDate] = useState(defaultPlannedDate);
         const [destination, setDestination] = useState("");
-        const [type, setType] = useState(types[0]);
+        const [type, setType] = useState("");
         const [duration, setDuration] = useState(7);
         const [travelers, setTravelers] = useState(2);
         const [hasFlight, setHasFlight] = useState(true);
@@ -448,7 +448,7 @@ const AddTripGoal = props => {
                         <Grid container spacing={3}>
                             <Grid item sm>
                                 <br /><br />
-                                Let's get into more spcific details.<br /> If you don't know the total amount, then you can skip the final amount and use
+                                Let's get into more spcific details<br /> If you don't know the total amount, then you can skip the final amount and use
                                 the specific categories below to calculate your total
                             </Grid>
                         </Grid>
@@ -516,15 +516,16 @@ const AddTripGoal = props => {
                                     <VerticalSelect
                                         header={"What is the type of this trip?"}
                                         required
-                                        select={<Select
+                                        select={
+                                        <Select
                                             required
                                             value={type}
                                             onChange={e => setType(e.target.value)}
                                         >
                                             {
-                                                types.map(type => {
+                                                types.map(t => {
                                                     return (
-                                                        <MenuItem key={type} value={type}>{type}</MenuItem>
+                                                        <MenuItem key={t} value={t}>{t}</MenuItem>
                                                     );
                                                 })
                                             }
@@ -564,7 +565,7 @@ const AddTripGoal = props => {
                         <Grid container spacing={1}>
                             <Grid item sm>
                                 <br /><br />
-                                This breakdown of separate categories will help you better calculate and manage your goal.<br />
+                                This breakdown of separate categories will help you better calculate and manage your goal<br />
                                 If you don't have specific amounts, it is always best to overestimate<br /><br />
                                 <b><i>Note: </i></b>the prices below are <i>per traveler</i>
                             </Grid>
