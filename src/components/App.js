@@ -34,6 +34,7 @@ import PrivacyPolicy from '../components/Documents/PrivacyPolicy';
 
 import { APP_LOAD, REDIRECT } from '../constants/actionTypes';
 import { ACCESS_TOKEN, USER } from '../constants/common';
+import { AiofToastContainer } from '../style/common';
 
 
 const mapStateToProps = state => {
@@ -78,9 +79,23 @@ class App extends React.Component {
             <meta charSet="utf-8" />
             <meta name="description" content={this.props.appDescription} />
           </Helmet>
+
           <Header
             appName={this.props.appName}
             currentUser={this.props.currentUser} />
+
+          <AiofToastContainer
+            position="top-right"
+            autoClose={4000}
+            hideProgressBar={false}
+            newestOnTop={false}
+            closeOnClick
+            rtl={false}
+            pauseOnFocusLoss
+            draggable
+            pauseOnHover
+          />
+
           <Switch>
             <Route exact path="/" component={Home} />
             <Route exact path="/login" component={Login} />
@@ -101,6 +116,7 @@ class App extends React.Component {
             <Route exact path="/terms-and-conditions" component={TermsAndConditions} />
             <Route exact path="/privacy-policy" component={PrivacyPolicy} />
           </Switch>
+
           <Footer
             appName={this.props.appName}
             currentUser={this.props.currentUser} />

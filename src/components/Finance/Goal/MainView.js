@@ -2,6 +2,7 @@ import React, { useRef, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
 import agent from '../../../agent';
+import { toast } from "react-toastify";
 
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
@@ -74,6 +75,8 @@ const GoalMainView = props => {
         useEffect(() => {
             if (props.goals) {
                 props.onAll();
+
+                toast.success(`Successfully added goal '${props.goalAdded.name}'`)
             }
         }, [props.goalAdded]);
 
