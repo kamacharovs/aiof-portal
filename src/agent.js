@@ -102,6 +102,8 @@ const Goal = {
     requests.get('/goal/types'),
   tripTypes: () =>
     requests.get('/goal/trip/types'),
+  collegeTypes: () =>
+    requests.get('/goal/college/types'),
   add: goal =>
     requests.post('/goal', goal),
   delete: (id) =>

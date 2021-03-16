@@ -10,6 +10,7 @@ import {
   GOALS,
   GOAL_TYPES,
   GOAL_TRIP_TYPES,
+  GOAL_COLLEGE_TYPES,
   GOAL_ADD,
   GOAL_DELETE,
   ANALYTICS_ANALYZE,
@@ -48,6 +49,7 @@ export default (state = {}, action) => {
       } else if (action.subtype === GOALS) { return { ...state, inProgressGoals: true, }
       } else if (action.subtype === GOAL_TYPES) { return { ...state, inProgressGoalTypes: true, }
       } else if (action.subtype === GOAL_TRIP_TYPES) { return { ...state, inProgressGoalTripTypes: true, }
+      } else if (action.subType === GOAL_COLLEGE_TYPES) { return { ...state, inProgressGoalCollegeTypes: true }
       } else if (action.subtype === GOAL_ADD) { return { ...state, inProgressAddGoal: true, }
       } else if (action.subType === GOAL_DELETE) { return { ...state, inProgressDeleteGoal: true, }}
       else {
@@ -87,7 +89,13 @@ export default (state = {}, action) => {
       return {
         ...state,
         inProgressGoalTripTypes: false,
-        goalTripTypes: action.error ? null : action.payload
+        goalTripTypes: action.error ? null : action.payload,
+      }
+    case GOAL_COLLEGE_TYPES:
+      return {
+        ...state,
+        inProgressGoalCollegeTypes: false,
+        goalCollegeTypes: action.error ? null : action.payload,
       }
     case GOAL_ADD:
       return {

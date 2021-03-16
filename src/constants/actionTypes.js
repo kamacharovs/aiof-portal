@@ -48,6 +48,7 @@ export const LIABILITY_TYPES = 'LIABILITY_TYPES';
 export const GOALS = 'GOALS';
 export const GOAL_TYPES = 'GOAL_TYPES';
 export const GOAL_TRIP_TYPES = 'GOAL_TRIP_TYPES';
+export const GOAL_COLLEGE_TYPES = 'GOAL_COLLEGE_TYPES';
 export const GOAL_ADD = 'GOAL_ADD';
 export const GOAL_DELETE = 'GOAL_DELETE';
 

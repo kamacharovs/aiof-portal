@@ -19,12 +19,13 @@ import HomeOutlinedIcon from '@material-ui/icons/HomeOutlined';
 import MonetizationOnOutlinedIcon from '@material-ui/icons/MonetizationOnOutlined';
 import WbSunnyOutlinedIcon from '@material-ui/icons/WbSunnyOutlined';
 import DirectionsCarOutlinedIcon from '@material-ui/icons/DirectionsCarOutlined';
+import SchoolOutlinedIcon from '@material-ui/icons/SchoolOutlined';
 
 import {
     SquarePaper, AlternateButton, VerticalTextField, VerticalSelect,
     DefaultDarkTeal, DefaultRedColor, DefaultGreenColor
 } from '../../../style/mui';
-import { GOAL_TRIP_TYPES, GOAL_ADD } from '../../../constants/actionTypes';
+import { GOAL_TRIP_TYPES, GOAL_COLLEGE_TYPES, GOAL_ADD } from '../../../constants/actionTypes';
 import { GENERIC, TRIP } from '../../../constants/goals';
 
 
@@ -33,11 +34,14 @@ const mapStateToProps = state => ({
     inProgressGoalTripTypes: state.finance.inProgressGoalTripTypes,
     inProgressAddGoal: state.finance.inProgressAddGoal,
     goalTripTypes: state.finance.goalTripTypes,
+    goalCollegeTypes: state.finance.goalCollegeTypes,
 });
 
 const mapDispatchToProps = dispatch => ({
     onTripTypes: () =>
         dispatch({ type: GOAL_TRIP_TYPES, payload: agent.Goal.tripTypes() }),
+    onCollegeTypes: () =>
+        dispatch({ type: GOAL_COLLEGE_TYPES, payload: agent.Goal.collegeTypes() }),
     onAdd: (payload) =>
         dispatch({ type: GOAL_ADD, payload: agent.Goal.add(payload) }),
 });
@@ -67,26 +71,41 @@ const AddGoals = props => {
     const [showGeneric, setShowGeneric] = useState(true);
     const [showTrip, setShowTrip] = useState(false);
     const [showBuyAHome, setShowBuyAHome] = useState(false);
+    const [showSaveForCollege, setShowSaveForCollege] = useState(false);
 
     const handleShowGeneric = () => {
         setShowGeneric(!showGeneric);
         setShowTrip(false);
         setShowBuyAHome(false);
+        setShowSaveForCollege(false);
     }
     const handleShowTrip = () => {
         setShowGeneric(false);
         setShowTrip(!showTrip);
         setShowBuyAHome(false);
+        setShowSaveForCollege(false);
     }
     const handleShowHome = () => {
         setShowGeneric(false);
         setShowTrip(false);
         setShowBuyAHome(!showBuyAHome);
+        setShowSaveForCollege(false);
+    }
+    const handleShowCollege = () => {
+        setShowGeneric(false);
+        setShowTrip(false);
+        setShowBuyAHome(false);
+        setShowSaveForCollege(!showSaveForCollege);
     }
 
     useEffect(() => {
         if (!props.goalTripTypes) {
             props.onTripTypes();
+        }
+    }, []);
+    useEffect(() => {
+        if (!props.goalCollegeTypes) {
+            props.onCollegeTypes();
         }
     }, []);
 
@@ -118,6 +137,13 @@ const AddGoals = props => {
                     <Grid item sm>
                         <GoalPaper text={"Buy a car"} handleValue={handleShowHome}
                             icon={<DirectionsCarOutlinedIcon style={{ fontSize: size, color: DefaultDarkTeal }} />}
+                            comingSoon={true} />
+                    </Grid>
+                </Grid>
+                <Grid container spacing={1} className={classes.root}>
+                    <Grid item sm={3}>
+                        <GoalPaper text={"Save for college"} handleValue={handleShowCollege}
+                            icon={<SchoolOutlinedIcon style={{ fontSize: size, color: DefaultDarkTeal }} />}
                             comingSoon={true} />
                     </Grid>
                 </Grid>
