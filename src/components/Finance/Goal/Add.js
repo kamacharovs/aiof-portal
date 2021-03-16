@@ -28,6 +28,8 @@ import {
 import { GOAL_TRIP_TYPES, GOAL_COLLEGE_TYPES, GOAL_ADD } from '../../../constants/actionTypes';
 import { GENERIC, TRIP } from '../../../constants/goals';
 
+import { AddSaveForCollege } from './AddSaveForCollege';
+
 
 const mapStateToProps = state => ({
     ...state.finance,
@@ -91,7 +93,7 @@ const AddGoals = props => {
         setShowBuyAHome(!showBuyAHome);
         setShowSaveForCollege(false);
     }
-    const handleShowCollege = () => {
+    const handleShowSaveForCollege = () => {
         setShowGeneric(false);
         setShowTrip(false);
         setShowBuyAHome(false);
@@ -142,7 +144,7 @@ const AddGoals = props => {
                 </Grid>
                 <Grid container spacing={1} className={classes.root}>
                     <Grid item sm={3}>
-                        <GoalPaper text={"Save for college"} handleValue={handleShowCollege}
+                        <GoalPaper text={"Save for college"} handleValue={handleShowSaveForCollege}
                             icon={<SchoolOutlinedIcon style={{ fontSize: size, color: DefaultDarkTeal }} />}
                             comingSoon={true} />
                     </Grid>
@@ -159,6 +161,14 @@ const AddGoals = props => {
                 showTrip={showTrip}
                 handleShowTrip={handleShowTrip}
                 goalTripTypes={props.goalTripTypes}
+                onAdd={props.onAdd}
+                scrollToCurrentGoals={props.scrollToCurrentGoals}
+                inProgressAddGoal={props.inProgressAddGoal} />
+
+            <AddSaveForCollege
+                showSaveForCollege={showSaveForCollege}
+                handleShowSaveForCollege={handleShowSaveForCollege}
+                goalCollegeTypes={props.goalCollegeTypes}
                 onAdd={props.onAdd}
                 scrollToCurrentGoals={props.scrollToCurrentGoals}
                 inProgressAddGoal={props.inProgressAddGoal} />
