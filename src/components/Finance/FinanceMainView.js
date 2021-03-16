@@ -762,7 +762,6 @@ const FinanceMainView = props => {
                                                 liabilities={props.liabilities}
                                                 goals={props.goals}
                                                 subscriptions={props.subscriptions}
-                                                currentUser={props.currentUser}
                                                 onLoad={props.onLoad} />
                                     }
                                 </Grid>
