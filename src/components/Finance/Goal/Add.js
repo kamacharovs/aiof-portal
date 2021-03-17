@@ -27,7 +27,8 @@ import {
     DefaultDarkTeal, DefaultRedColor, DefaultGreenColor
 } from '../../../style/mui';
 import { GOAL_TRIP_TYPES, GOAL_COLLEGE_TYPES, GOAL_ADD } from '../../../constants/actionTypes';
-import { GENERIC, TRIP, SAVEFORCOLLEGE } from '../../../constants/goals';
+import { GENERIC, TRIP, SAVEFORCOLLEGE,
+    GOAL_TRIP_TYPES_MAPPING, GOAL_COLLEGE_TYPE_MAPPING } from '../../../constants/goals';
 
 
 const mapStateToProps = state => ({
@@ -559,7 +560,7 @@ const AddTripGoal = props => {
                                                 {
                                                     types.map(t => {
                                                         return (
-                                                            <MenuItem key={t} value={t}>{t}</MenuItem>
+                                                            <MenuItem key={t} value={t}>{GOAL_TRIP_TYPES_MAPPING[t.toUpperCase()]}</MenuItem>
                                                         );
                                                     })
                                                 }
@@ -823,7 +824,7 @@ const AddSaveForCollege = props => {
                                                 {
                                                     types.map(t => {
                                                         return (
-                                                            <MenuItem key={t} value={t}>{t}</MenuItem>
+                                                            <MenuItem key={t} value={t}>{GOAL_COLLEGE_TYPE_MAPPING[t.toUpperCase()]}</MenuItem>
                                                         );
                                                     })
                                                 }

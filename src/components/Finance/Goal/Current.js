@@ -15,7 +15,8 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { numberWithCommas } from '../Common';
 import { FullPaper, AlternateCircularProgress, DefaultDarkTeal, DefaultGreenColor, DefaultPaperMargin } from '../../../style/mui';
 import { GOAL_DELETE } from '../../../constants/actionTypes';
-import { GENERIC, TRIP, BUYAHOME, GOAL_TYPE_MAPPING } from '../../../constants/goals';
+import { GENERIC, TRIP, BUYAHOME, SAVEFORCOLLEGE, 
+    GOAL_TYPE_MAPPING, GOAL_TRIP_TYPES_MAPPING, GOAL_COLLEGE_TYPE_MAPPING } from '../../../constants/goals';
 
 
 const mapStateToProps = state => ({
@@ -95,10 +96,15 @@ const CurrentGoals = props => {
     const goals = props.goals || [];
 
     if (goals) {
-        const goalsGeneric = goals.filter(function (x) { return x.type.toUpperCase() === GENERIC; })
-        const goalsTrip = goals.filter(function (x) { return x.type.toUpperCase() === TRIP; })
-        const goalsHome = goals.filter(function (x) { return x.type.toUpperCase() === BUYAHOME; })
-        const totalGoals = goalsGeneric.length + goalsTrip.length + goalsHome.length;
+        const goalsGeneric = goals.filter(function (x) { return x.type.toUpperCase() === GENERIC; });
+        const goalsTrip = goals.filter(function (x) { return x.type.toUpperCase() === TRIP; });
+        const goalsHome = goals.filter(function (x) { return x.type.toUpperCase() === BUYAHOME; });
+        const goalsSaveForCollege = goals.filter(function (x) { return x.type.toUpperCase() === SAVEFORCOLLEGE; });
+
+        const totalGoals = goalsGeneric.length 
+            + goalsTrip.length 
+            + goalsHome.length
+            + goalsSaveForCollege.length;
 
         const handleOnDelete = (id) => {
             props.onDelete(id);
@@ -127,6 +133,12 @@ const CurrentGoals = props => {
                         goals={goalsHome}
                         inProgressGoals={props.inProgressGoals}
                         goalsType={BUYAHOME}
+                        onDelete={handleOnDelete} />
+
+                    <CurrentGoalsDynamic
+                        goals={goalsSaveForCollege}
+                        inProgressGoals={props.inProgressGoals}
+                        goalsType={SAVEFORCOLLEGE}
                         onDelete={handleOnDelete} />
 
                     <InProgressBar
@@ -203,7 +215,7 @@ const CurrentGoalsDynamic = props => {
                                             {goalsType === TRIP &&
                                                 <Grid item xs>
                                                     <div className={classes.teal}>
-                                                        {g.destination} | {g.tripType}
+                                                        {g.destination} | {GOAL_TRIP_TYPES_MAPPING[g.tripType.toUpperCase()]}
                                                     </div>
                                                 </Grid>
                                             }
@@ -269,6 +281,35 @@ const CurrentGoalsDynamic = props => {
                                                     </Grid>
                                                     <Grid item xs>
                                                         {((g.annualPropertyTax || 0) * 100).toFixed(3)}% annual property tax
+                                                    </Grid>
+                                                </React.Fragment>
+                                            }
+
+                                            {goalsType === SAVEFORCOLLEGE &&
+                                                <React.Fragment>
+                                                    <Grid item xs>
+                                                        <br />
+                                                    </Grid>
+                                                    <Grid item xs>
+                                                        {g.collegeName}
+                                                    </Grid>
+                                                    <Grid item xs>
+                                                        {GOAL_COLLEGE_TYPE_MAPPING[g.collegeType.toUpperCase()]}
+                                                    </Grid>
+                                                    <Grid item xs>
+                                                        ${numberWithCommas(Math.round(g.costPerYear || 0))}/year
+                                                    </Grid>
+                                                    <Grid item xs>
+                                                        <br />
+                                                    </Grid>
+                                                    <Grid item xs>
+                                                        The student is currently <strong>{g.studentAge}</strong> years old
+                                                    </Grid>
+                                                    <Grid item xs>
+                                                        and will be attending this college for <strong>{g.years}</strong>
+                                                    </Grid>
+                                                    <Grid item xs>
+                                                        once they reach the age of <strong>{g.beginningCollegeAge}</strong>
                                                     </Grid>
                                                 </React.Fragment>
                                             }
