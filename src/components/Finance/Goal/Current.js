@@ -209,7 +209,7 @@ const CurrentGoalsDynamic = props => {
                                             <Grid item xs>
                                                 <div className={classes.teal}>
                                                     ${numberWithCommas(Math.round(g.currentAmount || 0))}/{numberWithCommas(Math.round(g.amount || 0))} | ${numberWithCommas(Math.round(g.monthlyContribution || 0))}/month
-                                                    </div>
+                                                </div>
                                             </Grid>
 
                                             {goalsType === TRIP &&
