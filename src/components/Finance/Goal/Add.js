@@ -27,8 +27,10 @@ import {
     DefaultDarkTeal, DefaultRedColor, DefaultGreenColor
 } from '../../../style/mui';
 import { GOAL_TRIP_TYPES, GOAL_COLLEGE_TYPES, GOAL_ADD } from '../../../constants/actionTypes';
-import { GENERIC, TRIP, SAVEFORCOLLEGE,
-    GOAL_TRIP_TYPES_MAPPING, GOAL_COLLEGE_TYPE_MAPPING } from '../../../constants/goals';
+import {
+    GENERIC, TRIP, SAVEFORCOLLEGE,
+    GOAL_TRIP_TYPES_MAPPING, GOAL_COLLEGE_TYPE_MAPPING
+} from '../../../constants/goals';
 
 
 const mapStateToProps = state => ({
@@ -120,32 +122,32 @@ const AddGoals = props => {
                 Pick one of the following goal types to add
 
                 <Grid container spacing={1} className={classes.root}>
-                    <Grid item sm>
+                    <Grid item sm={3}>
                         <GoalPaper text={"Generic"} handleValue={handleShowGeneric}
                             icon={<MonetizationOnOutlinedIcon style={{ fontSize: size, color: DefaultDarkTeal }} />} />
                     </Grid>
 
-                    <Grid item sm>
+                    <Grid item sm={3}>
                         <GoalPaper text={"Go on a trip"} handleValue={handleShowTrip}
                             icon={<WbSunnyOutlinedIcon style={{ fontSize: size, color: DefaultDarkTeal }} />} />
                     </Grid>
 
-                    <Grid item sm>
+                    <Grid item sm={3}>
+                        <GoalPaper text={"Save for college"} handleValue={handleShowSaveForCollege}
+                            icon={<SchoolOutlinedIcon style={{ fontSize: size, color: DefaultDarkTeal }} />} />
+                    </Grid>
+                </Grid>
+                <Grid container spacing={1} className={classes.root}>
+                    <Grid item sm={3}>
                         <GoalPaper text={"Buy a home"} handleValue={handleShowHome}
                             icon={<HomeOutlinedIcon style={{ fontSize: size, color: DefaultDarkTeal }} />}
                             comingSoon={true} />
                     </Grid>
 
-                    <Grid item sm>
+                    <Grid item sm={3}>
                         <GoalPaper text={"Buy a car"} handleValue={handleShowHome}
                             icon={<DirectionsCarOutlinedIcon style={{ fontSize: size, color: DefaultDarkTeal }} />}
                             comingSoon={true} />
-                    </Grid>
-                </Grid>
-                <Grid container spacing={1} className={classes.root}>
-                    <Grid item sm={3}>
-                        <GoalPaper text={"Save for college"} handleValue={handleShowSaveForCollege}
-                            icon={<SchoolOutlinedIcon style={{ fontSize: size, color: DefaultDarkTeal }} />} />
                     </Grid>
                 </Grid>
             </SquarePaper>
@@ -208,10 +210,11 @@ const AddGenericGoal = props => {
         const [plannedDate, setPlannedDate] = useState(defaultPlannedDate);
 
         const isAddEnabled = name !== ""
-            && amount !== null && amount >= 0
-            && currentAmount !== null && currentAmount >= 0
-            && monthlyContribution !== null && monthlyContribution > 0
+            && isNumber(amount)
+            && isNumber(currentAmount)
+            && isNumber(monthlyContribution)
             && plannedDate !== null;
+        const inProgressAddGoal = props.inProgressAddGoal;
 
         const handleSetValue = (e, setValue) => {
             setValue(e.target.value);
@@ -298,9 +301,11 @@ const AddGenericGoal = props => {
                             <Grid item sm>
                                 <VerticalTextField
                                     header={"What will be the final amount towards this goal?"}
+                                    required
                                     textField={
                                         <TextField
                                             value={amount}
+                                            required
                                             onChange={e => handleSetValue(e, setAmount)}
                                             InputProps={{
                                                 startAdornment: <InputAdornment position="start">$</InputAdornment>
@@ -312,9 +317,11 @@ const AddGenericGoal = props => {
                             <Grid item sm>
                                 <VerticalTextField
                                     header={"What is your current amount towards this goal?"}
+                                    required
                                     textField={
                                         <TextField
                                             value={currentAmount}
+                                            required
                                             onChange={e => handleSetValue(e, setCurrentAmount)}
                                             InputProps={{
                                                 startAdornment: <InputAdornment position="start">$</InputAdornment>
@@ -326,9 +333,11 @@ const AddGenericGoal = props => {
                             <Grid item sm>
                                 <VerticalTextField
                                     header={"What will your monthly contribution be towards this goal?"}
+                                    required
                                     textField={
                                         <TextField
                                             value={monthlyContribution}
+                                            required
                                             onChange={e => handleSetValue(e, setMonthlyContribution)}
                                             InputProps={{
                                                 startAdornment: <InputAdornment position="start">$</InputAdornment>
@@ -340,7 +349,7 @@ const AddGenericGoal = props => {
 
                         <Grid container spacing={3}>
                             <Grid item sm>
-                                <AlternateButton type="submit" variant="contained" disabled={!isAddEnabled} >
+                                <AlternateButton type="submit" variant="contained" disabled={!isAddEnabled && !inProgressAddGoal} >
                                     Add
                                 </AlternateButton>
                             </Grid>
@@ -384,6 +393,8 @@ const AddTripGoal = props => {
         const [other, setOther] = useState(0);
 
         const isAddEnabled = name !== ""
+            && isNumber(currentAmount)
+            && isNumber(monthlyContribution)
             && plannedDate !== null
             && destination !== ""
             && type !== "";
@@ -505,9 +516,11 @@ const AddTripGoal = props => {
                             <Grid item sm={4}>
                                 <VerticalTextField
                                     header={"What is your current amount towards this goal?"}
+                                    required
                                     textField={
                                         <TextField
                                             value={currentAmount}
+                                            required
                                             onChange={e => handleSetValue(e, setCurrentAmount)}
                                             InputProps={{
                                                 startAdornment: <InputAdornment position="start">$</InputAdornment>
@@ -519,9 +532,11 @@ const AddTripGoal = props => {
                             <Grid item sm={4}>
                                 <VerticalTextField
                                     header={"What will your monthly contribution be towards this goal?"}
+                                    required
                                     textField={
                                         <TextField
                                             value={monthlyContribution}
+                                            required
                                             onChange={e => handleSetValue(e, setMonthlyContribution)}
                                             InputProps={{
                                                 startAdornment: <InputAdornment position="start">$</InputAdornment>
