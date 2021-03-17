@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import agent from '../../../agent';
 import 'date-fns';
+import { isNumber } from '../Common';
 
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
@@ -26,9 +27,7 @@ import {
     DefaultDarkTeal, DefaultRedColor, DefaultGreenColor
 } from '../../../style/mui';
 import { GOAL_TRIP_TYPES, GOAL_COLLEGE_TYPES, GOAL_ADD } from '../../../constants/actionTypes';
-import { GENERIC, TRIP } from '../../../constants/goals';
-
-import { AddSaveForCollege } from './AddSaveForCollege';
+import { GENERIC, TRIP, SAVEFORCOLLEGE } from '../../../constants/goals';
 
 
 const mapStateToProps = state => ({
@@ -145,8 +144,7 @@ const AddGoals = props => {
                 <Grid container spacing={1} className={classes.root}>
                     <Grid item sm={3}>
                         <GoalPaper text={"Save for college"} handleValue={handleShowSaveForCollege}
-                            icon={<SchoolOutlinedIcon style={{ fontSize: size, color: DefaultDarkTeal }} />}
-                            comingSoon={true} />
+                            icon={<SchoolOutlinedIcon style={{ fontSize: size, color: DefaultDarkTeal }} />} />
                     </Grid>
                 </Grid>
             </SquarePaper>
@@ -358,7 +356,7 @@ const AddGenericGoal = props => {
 const AddTripGoal = props => {
     if (props.showTrip) {
         const classes = useStyles();
-        const types = props.goalTripTypes || [];   
+        const types = props.goalTripTypes || [];
         const date = new Date();
         const defaultPlannedDate = new Date(date.setMonth(date.getMonth() + 6));
 
@@ -442,7 +440,7 @@ const AddTripGoal = props => {
                             </Grid>
                         </Grid>
                         <Grid container spacing={3}>
-                            <Grid item sm>
+                            <Grid item sm={4}>
                                 <VerticalTextField
                                     header={"What is the name of this goal?"}
                                     required
@@ -458,7 +456,7 @@ const AddTripGoal = props => {
                         </Grid>
 
                         <Grid container spacing={3}>
-                            <Grid item sm>
+                            <Grid item sm={4}>
                                 <VerticalTextField
                                     header={"What is the planned date for this goal?"}
                                     required
@@ -484,12 +482,12 @@ const AddTripGoal = props => {
                         <Grid container spacing={3}>
                             <Grid item sm>
                                 <br /><br />
-                                Let's get into more spcific details<br /> If you don't know the total amount, then you can skip the final amount and use
+                                Let's get into more spcific details. If you don't know the total amount, then you can skip the final amount and use
                                 the specific categories below to calculate your total
                             </Grid>
                         </Grid>
                         <Grid container spacing={3}>
-                            <Grid item sm>
+                            <Grid item sm={4}>
                                 <VerticalTextField
                                     header={"What will be the final amount towards this goal?"}
                                     textField={
@@ -503,7 +501,7 @@ const AddTripGoal = props => {
                                     } />
                             </Grid>
 
-                            <Grid item sm>
+                            <Grid item sm={4}>
                                 <VerticalTextField
                                     header={"What is your current amount towards this goal?"}
                                     textField={
@@ -517,7 +515,7 @@ const AddTripGoal = props => {
                                     } />
                             </Grid>
 
-                            <Grid item sm>
+                            <Grid item sm={4}>
                                 <VerticalTextField
                                     header={"What will your monthly contribution be towards this goal?"}
                                     textField={
@@ -553,19 +551,19 @@ const AddTripGoal = props => {
                                         header={"What is the type of this trip?"}
                                         required
                                         select={
-                                        <Select
-                                            required
-                                            value={type}
-                                            onChange={e => setType(e.target.value)}
-                                        >
-                                            {
-                                                types.map(t => {
-                                                    return (
-                                                        <MenuItem key={t} value={t}>{t}</MenuItem>
-                                                    );
-                                                })
-                                            }
-                                        </Select>}
+                                            <Select
+                                                required
+                                                value={type}
+                                                onChange={e => setType(e.target.value)}
+                                            >
+                                                {
+                                                    types.map(t => {
+                                                        return (
+                                                            <MenuItem key={t} value={t}>{t}</MenuItem>
+                                                        );
+                                                    })
+                                                }
+                                            </Select>}
                                     />
                                 </FormControl>
                             </Grid>
@@ -601,7 +599,7 @@ const AddTripGoal = props => {
                         <Grid container spacing={1}>
                             <Grid item sm>
                                 <br /><br />
-                                This breakdown of separate categories will help you better calculate and manage your goal<br />
+                                This breakdown of separate categories will help you better calculate and manage your goal.
                                 If you don't have specific amounts, it is always best to overestimate<br /><br />
                                 <b><i>Note: </i></b>the prices below are <i>per traveler</i>
                             </Grid>
@@ -613,6 +611,312 @@ const AddTripGoal = props => {
                         <YesNoSwitch title="Food" hasValue={hasFood} setHasValue={setHasFood} value={food} setValue={setFood} setHandleValue={handleSetValue} />
                         <YesNoSwitch title="Activities" hasValue={hasActivities} setHasValue={setHasActivities} value={activities} setValue={setActivities} setHandleValue={handleSetValue} />
                         <YesNoSwitch title="Other" hasValue={hasOther} setHasValue={setHasOther} value={other} setValue={setOther} setHandleValue={handleSetValue} />
+
+                        <Grid container spacing={3}>
+                            <Grid item sm>
+                                <AlternateButton type="submit" variant="contained" disabled={!isAddEnabled && !inProgressAddGoal} >
+                                    Add
+                                </AlternateButton>
+                            </Grid>
+                        </Grid>
+                    </form>
+                </SquarePaper>
+            </React.Fragment>
+        );
+    } else {
+        return null;
+    }
+}
+
+const AddSaveForCollege = props => {
+    if (props.showSaveForCollege) {
+        const classes = useStyles();
+        const date = new Date();
+        const types = props.goalCollegeTypes || [];
+        const defaultPlannedDate = new Date(date.setMonth(date.getMonth() + 12 * 8));
+
+        const [name, setName] = useState("");
+        const [amount, setAmount] = useState("");
+        const [currentAmount, setCurrentAmount] = useState(0);
+        const [monthlyContribution, setMonthlyContribution] = useState(250);
+        const [plannedDate, setPlannedDate] = useState(defaultPlannedDate);
+        const [type, setType] = useState("");
+        const [costPerYear, setCostPerYear] = useState(15000);
+        const [studentAge, setStudentAge] = useState(10);
+        const [years, setYears] = useState(4);
+        const [collegeName, setCollegeName] = useState("");
+        const [annualCostIncrease, setAnnualCostIncrease] = useState(4);
+        const [beginningCollegeAge, setBeginningCollegeAge] = useState(18);
+
+        const isAddEnabled = name !== ""
+            && isNumber(currentAmount)
+            && isNumber(monthlyContribution)
+            && plannedDate !== null
+            && type !== ""
+            && isNumber(costPerYear)
+            && isNumber(studentAge)
+            && isNumber(years)
+            && collegeName !== "";
+        const inProgressAddGoal = props.inProgressAddGoal;
+
+        const handleSetValue = (e, setValue) => {
+            setValue(e.target.value);
+        }
+        const handlePlannedDate = (date) => {
+            setPlannedDate(date);
+        }
+
+        const onAdd = (ev) => {
+            ev.preventDefault();
+
+            let payload = {
+                name: name,
+                type: SAVEFORCOLLEGE.toLowerCase(),
+                amount: Number(amount) || null,
+                currentAmount: Number(currentAmount) || null,
+                monthlyContribution: Number(monthlyContribution) || null,
+                plannedDate: plannedDate || null,
+                collegeType: type,
+                costPerYear: Number(costPerYear),
+                studentAge: Number(studentAge),
+                years: Number(years),
+                collegeName: collegeName || null,
+                annualCostIncrease: Number(annualCostIncrease) / 100 || null,
+                beginningCollegeAge: Number(beginningCollegeAge) || null,
+            }
+
+            props.onAdd(payload);
+            props.handleShowSaveForCollege();
+            props.scrollToCurrentGoals();
+        }
+
+        return (
+            <React.Fragment>
+                <SquarePaper variant="outlined" square>
+                    <form noValidate autoComplete="off" onSubmit={onAdd}>
+                        <Grid container spacing={1}>
+                            <Grid item sm>
+                                <div style={{ color: DefaultDarkTeal }}>
+                                    <h4><strong>Save for college</strong></h4>
+                                </div>
+                            </Grid>
+                        </Grid>
+
+                        <Grid container spacing={3}>
+                            <Grid item sm>
+                                Let's start by filling out some generic details
+                            </Grid>
+                        </Grid>
+                        <Grid container spacing={3}>
+                            <Grid item sm={4}>
+                                <VerticalTextField
+                                    header={"What is the name of this goal?"}
+                                    required
+                                    textField={
+                                        <TextField
+                                            required
+                                            placeholder="Save for college"
+                                            value={name}
+                                            onChange={e => handleSetValue(e, setName)}
+                                        />
+                                    } />
+                            </Grid>
+                        </Grid>
+
+                        <Grid container spacing={3}>
+                            <Grid item sm={4}>
+                                <VerticalTextField
+                                    header={"What is the planned date for this goal?"}
+                                    required
+                                    textField={
+                                        <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                                            <KeyboardDatePicker
+                                                required
+                                                disableToolbar
+                                                variant="inline"
+                                                format="MM/dd/yyyy"
+                                                margin="normal"
+                                                value={plannedDate}
+                                                onChange={handlePlannedDate}
+                                                KeyboardButtonProps={{
+                                                    'aria-label': 'planned date',
+                                                }}
+                                            />
+                                        </MuiPickersUtilsProvider>
+                                    } />
+                            </Grid>
+                        </Grid>
+
+                        <Grid container spacing={3}>
+                            <Grid item sm>
+                                <br />
+                                Let's get into more spcific details. If you don't know the total amount, then you can skip the final amount and we can
+                                calculate the amount for you
+                            </Grid>
+                        </Grid>
+                        <Grid container spacing={3}>
+                            <Grid item sm={4}>
+                                <VerticalTextField
+                                    header={"What will be the final amount towards this goal?"}
+                                    textField={
+                                        <TextField
+                                            value={amount}
+                                            onChange={e => handleSetValue(e, setAmount)}
+                                            InputProps={{
+                                                startAdornment: <InputAdornment position="start">$</InputAdornment>
+                                            }}
+                                        />
+                                    } />
+                            </Grid>
+
+                            <Grid item sm={4}>
+                                <VerticalTextField
+                                    header={"What is your current amount towards this goal?"}
+                                    required
+                                    textField={
+                                        <TextField
+                                            value={currentAmount}
+                                            required
+                                            onChange={e => handleSetValue(e, setCurrentAmount)}
+                                            InputProps={{
+                                                startAdornment: <InputAdornment position="start">$</InputAdornment>
+                                            }}
+                                        />
+                                    } />
+                            </Grid>
+
+                            <Grid item sm={4}>
+                                <VerticalTextField
+                                    header={"What will your monthly contribution be towards this goal?"}
+                                    required
+                                    textField={
+                                        <TextField
+                                            value={monthlyContribution}
+                                            required
+                                            onChange={e => handleSetValue(e, setMonthlyContribution)}
+                                            InputProps={{
+                                                startAdornment: <InputAdornment position="start">$</InputAdornment>
+                                            }}
+                                        />
+                                    } />
+                            </Grid>
+                        </Grid>
+
+                        <Grid container spacing={3}>
+                            <Grid item sm>
+                                <br />
+                                Finally, let's gather details about the college and student
+                            </Grid>
+                        </Grid>
+                        <Grid container spacing={3}>
+                            <Grid item sm={4}>
+                                <FormControl className={classes.select}>
+                                    <VerticalSelect
+                                        header={"What is the type of the college?"}
+                                        required
+                                        select={
+                                            <Select
+                                                required
+                                                value={type}
+                                                onChange={e => setType(e.target.value)}
+                                            >
+                                                {
+                                                    types.map(t => {
+                                                        return (
+                                                            <MenuItem key={t} value={t}>{t}</MenuItem>
+                                                        );
+                                                    })
+                                                }
+                                            </Select>}
+                                    />
+                                </FormControl>
+                            </Grid>
+
+                            <Grid item sm={4}>
+                                <VerticalTextField
+                                    header={"What is the cost per year?"}
+                                    required
+                                    textField={
+                                        <TextField
+                                            required
+                                            value={costPerYear}
+                                            onChange={e => handleSetValue(e, setCostPerYear)}
+                                        />
+                                    } />
+                            </Grid>
+                        </Grid>
+
+                        <Grid container spacing={3}>
+                            <Grid item sm={4}>
+                                <VerticalTextField
+                                    header={"What is the student's age?"}
+                                    required
+                                    textField={
+                                        <TextField
+                                            required
+                                            value={studentAge}
+                                            onChange={e => handleSetValue(e, setStudentAge)}
+                                        />
+                                    } />
+                            </Grid>
+
+                            <Grid item sm={4}>
+                                <VerticalTextField
+                                    header={"How many years is the student attending college for?"}
+                                    required
+                                    textField={
+                                        <TextField
+                                            required
+                                            value={years}
+                                            onChange={e => handleSetValue(e, setYears)}
+                                        />
+                                    } />
+                            </Grid>
+                        </Grid>
+
+                        <Grid container spacing={3}>
+                            <Grid item sm>
+                                <VerticalTextField
+                                    header={"What is the name of this college?"}
+                                    required
+                                    textField={
+                                        <TextField
+                                            required
+                                            value={collegeName}
+                                            onChange={e => handleSetValue(e, setCollegeName)}
+                                        />
+                                    } />
+                            </Grid>
+
+                            <Grid item sm>
+                                <VerticalTextField
+                                    header={"What is the annual cost of tuition increase?"}
+                                    required
+                                    textField={
+                                        <TextField
+                                            required
+                                            value={annualCostIncrease}
+                                            onChange={e => handleSetValue(e, setAnnualCostIncrease)}
+                                            InputProps={{
+                                                startAdornment: <InputAdornment position="start">%</InputAdornment>
+                                            }}
+                                        />
+                                    } />
+                            </Grid>
+
+                            <Grid item sm>
+                                <VerticalTextField
+                                    header={"At what age is the student starting college?"}
+                                    required
+                                    textField={
+                                        <TextField
+                                            required
+                                            value={beginningCollegeAge}
+                                            onChange={e => handleSetValue(e, setBeginningCollegeAge)}
+                                        />
+                                    } />
+                            </Grid>
+                        </Grid>
 
                         <Grid container spacing={3}>
                             <Grid item sm>
