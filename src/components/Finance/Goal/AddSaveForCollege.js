@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-
 import { connect } from 'react-redux';
 import agent from '../../../agent';
 import 'date-fns';
@@ -8,8 +7,6 @@ import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
 import InputAdornment from '@material-ui/core/InputAdornment';
-import Switch from '@material-ui/core/Switch';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
@@ -23,7 +20,7 @@ import Typography from '@material-ui/core/Typography';
 
 import {
     SquarePaper, AlternateButton, VerticalTextField, VerticalSelect,
-    DefaultDarkTeal, DefaultRedColor, DefaultGreenColor
+    DefaultDarkTeal
 } from '../../../style/mui';
 
 
@@ -31,42 +28,54 @@ const useStyles = makeStyles((theme) => ({
     root: {
         width: '100%',
     },
-    backButton: {
+    button: {
         marginRight: theme.spacing(1),
     },
     instructions: {
         marginTop: theme.spacing(1),
         marginBottom: theme.spacing(1),
     },
+    select: {
+        minWidth: 'flex',
+    },
 }));
 
 function getSteps() {
     return [
         'Generic details',
-        'Create an ad group',
-        'Create an ad'
+        'Cost, age and years',
+        'College name, tuition increase and beginning age'
     ];
 }
 
-function getStepContent(stepIndex) {
+function getStepContent(props, stepIndex) {
+    const classes = useStyles();
+    const date = new Date();
+    const types = props.goalCollegeTypes || [];
+    const defaultPlannedDate = new Date(date.setMonth(date.getMonth() + 3));
+
+    const [name, setName] = useState("");
+    const [amount, setAmount] = useState(1000);
+    const [currentAmount, setCurrentAmount] = useState(100);
+    const [monthlyContribution, setMonthlyContribution] = useState(150);
+    const [plannedDate, setPlannedDate] = useState(defaultPlannedDate);
+    const [type, setType] = useState("");
+    const [costPerYear, setCostPerYear] = useState(15000);
+    const [studentAge, setStudentAge] = useState(10);
+    const [years, setYears] = useState(4);
+    const [collegeName, setCollegeName] = useState("");
+    const [annualCostIncrease, setAnnualCostIncrease] = useState(0.04);
+    const [beginningCollegeAge, setBeginningCollegeAge] = useState(18);
+
+    const handleSetValue = (e, setValue) => {
+        setValue(e.target.value);
+    }
+    const handlePlannedDate = (date) => {
+        setPlannedDate(date);
+    }
+
     switch (stepIndex) {
         case 0:
-            const date = new Date();
-            const defaultPlannedDate = new Date(date.setMonth(date.getMonth() + 3));
-
-            const [name, setName] = useState("");
-            const [amount, setAmount] = useState(1000);
-            const [currentAmount, setCurrentAmount] = useState(100);
-            const [monthlyContribution, setMonthlyContribution] = useState(150);
-            const [plannedDate, setPlannedDate] = useState(defaultPlannedDate);
-
-            const handleSetValue = (e, setValue) => {
-                setValue(e.target.value);
-            }
-            const handlePlannedDate = (date) => {
-                setPlannedDate(date);
-            }
-
             return (
                 <React.Fragment>
                     <Grid container spacing={3}>
@@ -155,9 +164,116 @@ function getStepContent(stepIndex) {
                 </React.Fragment>
             );
         case 1:
-            return 'What is an ad group anyways?';
+            return (
+                <React.Fragment>
+                    <Grid container spacing={3}>
+                        <FormControl className={classes.select}>
+                            <VerticalSelect
+                                header={"What is the type of the college?"}
+                                required
+                                select={
+                                    <Select
+                                        required
+                                        value={type}
+                                        onChange={e => setType(e.target.value)}
+                                    >
+                                        {
+                                            types.map(t => {
+                                                return (
+                                                    <MenuItem key={t} value={t}>{t}</MenuItem>
+                                                );
+                                            })
+                                        }
+                                    </Select>}
+                            />
+                        </FormControl>
+
+                        <Grid item sm>
+                            <VerticalTextField
+                                header={"What is the cost per year?"}
+                                required
+                                textField={
+                                    <TextField
+                                        required
+                                        value={costPerYear}
+                                        onChange={e => handleSetValue(e, setCostPerYear)}
+                                    />
+                                } />
+                        </Grid>
+
+                        <Grid item sm>
+                            <VerticalTextField
+                                header={"What is the student's age?"}
+                                required
+                                textField={
+                                    <TextField
+                                        required
+                                        value={studentAge}
+                                        onChange={e => handleSetValue(e, setStudentAge)}
+                                    />
+                                } />
+                        </Grid>
+
+                        <Grid item sm>
+                            <VerticalTextField
+                                header={"How many years is the student attending college for?"}
+                                required
+                                textField={
+                                    <TextField
+                                        required
+                                        value={years}
+                                        onChange={e => handleSetValue(e, setYears)}
+                                    />
+                                } />
+                        </Grid>
+                    </Grid>
+                </React.Fragment>
+            );
         case 2:
-            return 'This is the bit I really care about!';
+            return (
+                <React.Fragment>
+                    <Grid container spacing={3}>
+                        <Grid item sm>
+                            <VerticalTextField
+                                header={"What is the name of this college?"}
+                                required
+                                textField={
+                                    <TextField
+                                        required
+                                        value={collegeName}
+                                        onChange={e => handleSetValue(e, setCollegeName)}
+                                    />
+                                } />
+                        </Grid>
+
+                        <Grid item sm>
+                            <VerticalTextField
+                                header={"What is the annual cost of tuition increase?"}
+                                required
+                                textField={
+                                    <TextField
+                                        required
+                                        value={annualCostIncrease}
+                                        onChange={e => handleSetValue(e, setAnnualCostIncrease)}
+                                    />
+                                } />
+                        </Grid>
+
+                        <Grid item sm>
+                            <VerticalTextField
+                                header={"At what age is the student starting college?"}
+                                required
+                                textField={
+                                    <TextField
+                                        required
+                                        value={beginningCollegeAge}
+                                        onChange={e => handleSetValue(e, setBeginningCollegeAge)}
+                                    />
+                                } />
+                        </Grid>
+                    </Grid>
+                </React.Fragment>
+            );
         default:
             return 'Unknown stepIndex';
     }
@@ -210,19 +326,19 @@ export const AddSaveForCollege = props => {
                                 </div>
                             ) : (
                                 <div>
-                                    {getStepContent(activeStep)}
+                                    {getStepContent(props, activeStep)}
                                     <div>
                                         <Button
                                             disabled={activeStep === 0}
                                             onClick={handleBack}
-                                            className={classes.backButton}
+                                            className={classes.button}
                                         >
                                             Back
                                         </Button>
                                         <Button
                                             onClick={handleNext}
-                                            className={classes.backButton}>
-                                            {activeStep === steps.length - 1 ? 'Finish' : 'Next'}
+                                            className={classes.button}>
+                                            {activeStep === steps.length - 1 ? 'Add' : 'Next'}
                                         </Button>
                                     </div>
                                 </div>
