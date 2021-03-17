@@ -306,7 +306,7 @@ const CurrentGoalsDynamic = props => {
                                                         The student is currently <strong>{g.studentAge}</strong> years old
                                                     </Grid>
                                                     <Grid item xs>
-                                                        and will be attending this college for <strong>{g.years}</strong>
+                                                        and will be attending this college for <strong>{g.years}</strong> years
                                                     </Grid>
                                                     <Grid item xs>
                                                         once they reach the age of <strong>{g.beginningCollegeAge}</strong>

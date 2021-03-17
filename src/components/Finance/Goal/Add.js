@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import agent from '../../../agent';
 import 'date-fns';
@@ -29,7 +29,7 @@ import {
 import { GOAL_TRIP_TYPES, GOAL_COLLEGE_TYPES, GOAL_ADD } from '../../../constants/actionTypes';
 import {
     GENERIC, TRIP, SAVEFORCOLLEGE,
-    GOAL_TRIP_TYPES_MAPPING, GOAL_COLLEGE_TYPE_MAPPING, BUYAHOME
+    GOAL_TRIP_TYPES_MAPPING, GOAL_COLLEGE_TYPE_MAPPING
 } from '../../../constants/goals';
 
 
@@ -71,11 +71,6 @@ const useStyles = makeStyles((theme) => ({
 
 const AddGoals = props => {
     const classes = useStyles();
-    const addGenericRef = useRef();
-    const addTripRef = useRef();
-    const addBuyAHome = useRef();
-    const addSaveForCollegeRef = useRef();
-
     const size = '70';
     const [showGeneric, setShowGeneric] = useState(true);
     const [showTrip, setShowTrip] = useState(false);
@@ -87,47 +82,24 @@ const AddGoals = props => {
         setShowTrip(false);
         setShowBuyAHome(false);
         setShowSaveForCollege(false);
-        scrollTo(GENERIC);
     }
     const handleShowTrip = () => {
         setShowGeneric(false);
         setShowTrip(!showTrip);
         setShowBuyAHome(false);
         setShowSaveForCollege(false);
-        scrollTo(TRIP);
     }
     const handleShowHome = () => {
         setShowGeneric(false);
         setShowTrip(false);
         setShowBuyAHome(!showBuyAHome);
         setShowSaveForCollege(false);
-        scrollTo(BUYAHOME);
     }
     const handleShowSaveForCollege = () => {
         setShowGeneric(false);
         setShowTrip(false);
         setShowBuyAHome(false);
         setShowSaveForCollege(!showSaveForCollege);
-        scrollTo(SAVEFORCOLLEGE);
-    }
-
-    const scrollTo = (type) => {
-        switch (type) {
-            case GENERIC:
-                addGenericRef.current.scrollIntoView({ block: "end", behavior: "smooth" });
-                return;
-            case TRIP:
-                addTripRef.current.scrollIntoView({ block: "end", behavior: "smooth" });
-                return;
-            case BUYAHOME:
-                addBuyAHome.current.scrollIntoView({ block: "end", behavior: "smooth" });
-                return;
-            case SAVEFORCOLLEGE:
-                addSaveForCollegeRef.current.scrollIntoView({ block: "end", behavior: "smooth" });
-                return;
-            default:
-                return;
-        }
     }
 
     useEffect(() => {
@@ -180,14 +152,12 @@ const AddGoals = props => {
                 </Grid>
             </SquarePaper>
 
-            <div ref={addGenericRef} />
             <AddGenericGoal
                 showGeneric={showGeneric}
                 handleShowGeneric={handleShowGeneric}
                 onAdd={props.onAdd}
                 scrollToCurrentGoals={props.scrollToCurrentGoals} />
 
-            <div ref={addTripRef} />
             <AddTripGoal
                 showTrip={showTrip}
                 handleShowTrip={handleShowTrip}
@@ -196,7 +166,6 @@ const AddGoals = props => {
                 scrollToCurrentGoals={props.scrollToCurrentGoals}
                 inProgressAddGoal={props.inProgressAddGoal} />
 
-            <div ref={addSaveForCollegeRef} />
             <AddSaveForCollege
                 showSaveForCollege={showSaveForCollege}
                 handleShowSaveForCollege={handleShowSaveForCollege}

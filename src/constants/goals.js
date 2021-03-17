@@ -35,13 +35,13 @@ export const GOAL_TRIP_TYPES_MAPPING = {
 }
 
 export const PUBLICINSTATE = 'PUBLICINSTATE';
-export const PUBLICOUTSTATE = 'PUBLICOUTSTATE';
+export const PUBLICOUTOFSTATE = 'PUBLICOUTOFSTATE';
 export const PRIVATE = 'PRIVATE';
 export const COMMUNITY = 'COMMUNITY';
 
 export const GOAL_COLLEGE_TYPE_MAPPING = {
     PUBLICINSTATE: "Public in state",
-    PUBLICOUTSTATE: "Public out of state",
+    PUBLICOUTOFSTATE: "Public out of state",
     PRIVATE: "Private",
     COMMUNITY: "Community",
 }
