@@ -9,6 +9,7 @@ import { HOME_PAGE_LOADED, HOME_PAGE_UNLOADED } from '../../constants/actionType
 const mapStateToProps = state => ({
   ...state.home,
   appName: state.common.appName,
+  appFullName: state.common.appFullName,
   token: state.common.token
 });
 
@@ -30,7 +31,10 @@ const Home = props => {
           <title>{props.appName} | Home</title>
         </Helmet>
 
-        <Banner token={props.token} appName={props.appName} />
+        <Banner 
+          token={props.token} 
+          appName={props.appName}
+          appFullName={props.appFullName} />
         
         <MainView />
       </React.Fragment>

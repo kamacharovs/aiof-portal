@@ -8,5 +8,5 @@ export const formatDate = (dateString) => {
 }
 
 export const isNumber = value => {
-  return value.match(/^[0-9]+$/) != null;
+  return /^-?\d+$/.test(value);
 }

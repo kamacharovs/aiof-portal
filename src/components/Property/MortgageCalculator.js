@@ -23,7 +23,6 @@ import { HOUSE_MORTGAGE_CALCULATOR } from '../../constants/actionTypes';
 const mapStateToProps = state => ({
     ...state.property,
     appName: state.common.appName,
-    currentUser: state.common.currentUser,
     inProgress: state.property.inProgress,
     data: state.property.mortgageCalculatorData,
     breakdown: state.property.mortgageCalculatorBreakdown,

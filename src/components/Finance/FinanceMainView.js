@@ -11,6 +11,7 @@ import { RectSkeleton } from '../Common/Sekeleton';
 import House from '../../style/icons/House_4.svg';
 import { numberWithCommas, formatDate } from './Common';
 import { FINANCE_PAGE_LOADED, ANALYTICS_ANALYZE, UTILITY_USEFUL_DOCUMENTATION_BY_PAGE } from '../../constants/actionTypes';
+import { GOAL_TYPE_MAPPING } from '../../constants/goals';
 
 import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
@@ -311,22 +312,19 @@ const GoalsPreview = props => {
         return (
             <React.Fragment>
                 <Grid container spacing={3} className={classes.root}>
-                    <Grid item xs={2}>
+                    <Grid item xs>
                         <b>Name</b>
                     </Grid>
-                    <Grid item xs={2}>
+                    <Grid item xs>
                         <b>Type</b>
                     </Grid>
-                    <Grid item xs={2}>
+                    <Grid item xs>
                         <b>Planned date</b>
                     </Grid>
-                    <Grid item xs={2}>
-                        <b>Frequency</b>
-                    </Grid>
-                    <Grid item xs={2}>
+                    <Grid item xs>
                         <b>Goal</b>
                     </Grid>
-                    <Grid item xs={2}>
+                    <Grid item xs>
                         <b>Current amount</b>
                     </Grid>
                 </Grid>
@@ -334,32 +332,27 @@ const GoalsPreview = props => {
                     goals.map(goal => {
                         return (
                             <Grid key={goal.publicKey} container spacing={3} className={classes.root}>
-                                <Grid item xs={2}>
+                                <Grid item xs>
                                     {goal.name}
                                     <hr className={classes.hr} />
                                 </Grid>
 
-                                <Grid item xs={2}>
-                                    {goal.typeName}
+                                <Grid item xs>
+                                    {GOAL_TYPE_MAPPING[goal.type.toUpperCase()]}
                                     <hr className={classes.hr} />
                                 </Grid>
 
-                                <Grid item xs={2}>
+                                <Grid item xs>
                                     {formatDate(goal.plannedDate)}
                                     <hr className={classes.hr} />
                                 </Grid>
 
-                                <Grid item xs={2}>
-                                    {goal.contributionFrequencyName}
-                                    <hr className={classes.hr} />
-                                </Grid>
-
-                                <Grid item xs={2}>
+                                <Grid item xs>
                                     <p className={classes.green}>${numberWithCommas(goal.amount)}</p>
                                     <hr className={classes.hr} />
                                 </Grid>
 
-                                <Grid item xs={2}>
+                                <Grid item xs>
                                     <p className={classes.green}>${numberWithCommas(goal.currentAmount)}</p>
                                     <hr className={classes.hr} />
                                 </Grid>
@@ -367,6 +360,14 @@ const GoalsPreview = props => {
                         );
                     })
                 }
+
+                <Grid container spacing={3} className={classes.root}>
+                    <Grid item xs>
+                        <CoolLink to={`/@${props.currentUser.firstName.toLowerCase()}.${props.currentUser.lastName.toLowerCase()}/finance/goals`}>
+                            A more detailed view of your goals can be found in your profile's Goals page
+                        </CoolLink>
+                    </Grid>
+                </Grid>
             </React.Fragment>
         );
     }
@@ -533,7 +534,9 @@ const MainTabs = props => {
                 <LiabilitiesPreview liabilities={props.liabilities} currentUser={props.currentUser} onLoad={props.onLoad} />
             </TabPanel>
             <TabPanel value={value} index={2}>
-                <GoalsPreview goals={props.goals} />
+                <GoalsPreview
+                    goals={props.goals}
+                    currentUser={props.currentUser} />
             </TabPanel>
             <TabPanel value={value} index={3}>
                 <SubscriptionsPreview subscriptions={props.subscriptions} />
@@ -652,7 +655,7 @@ const AnalyzeView = props => {
                                             ? props.analyze.analytics.cashToCcRatio + "%"
                                             : props.analyze.analytics.ccToCashRatio + "%"
                                     } />
-                              </Grid>
+                            </Grid>
                         }
 
                         {props.analyze.analytics.debtToIncomeRatio === null || Number(props.analyze.analytics.debtToIncomeRatio) === 0
@@ -661,7 +664,7 @@ const AnalyzeView = props => {
                                 <InPaper
                                     title={"Debt to income ratio"}
                                     body={numberWithCommas(props.analyze.analytics.debtToIncomeRatio * 100) + "%"} />
-                              </Grid>
+                            </Grid>
                         }
                     </Grid>
                 </React.Fragment>
@@ -754,11 +757,11 @@ const FinanceMainView = props => {
                                         props.inProgress
                                             ? <RectSkeleton height={400} />
                                             : <MainTabs
+                                                currentUser={props.currentUser}
                                                 assets={props.assets}
                                                 liabilities={props.liabilities}
-                                                goals={props.goals}
+                                                goals={props.goalsBase}
                                                 subscriptions={props.subscriptions}
-                                                currentUser={props.currentUser}
                                                 onLoad={props.onLoad} />
                                     }
                                 </Grid>

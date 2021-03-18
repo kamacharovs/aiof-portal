@@ -17,6 +17,7 @@ import Profile from '../components/Profile';
 import FinanceMainView from '../components/Finance/FinanceMainView';
 import AssetBreakdown from '../components/Finance/AssetBreakdown';
 import LiabilityEditor from '../components/Finance/LiabilityEditor';
+import GoalMainView from '../components/Finance/Goal/MainView';
 
 import TimeToFi from '../components/FI/TimeToFi';
 import AddedTime from '../components/FI/AddedTime';
@@ -33,6 +34,7 @@ import PrivacyPolicy from '../components/Documents/PrivacyPolicy';
 
 import { APP_LOAD, REDIRECT } from '../constants/actionTypes';
 import { ACCESS_TOKEN, USER } from '../constants/common';
+import { AiofToastContainer } from '../style/common';
 
 
 const mapStateToProps = state => {
@@ -77,9 +79,23 @@ class App extends React.Component {
             <meta charSet="utf-8" />
             <meta name="description" content={this.props.appDescription} />
           </Helmet>
+
           <Header
             appName={this.props.appName}
             currentUser={this.props.currentUser} />
+
+          <AiofToastContainer
+            position="top-center"
+            autoClose={4000}
+            hideProgressBar={false}
+            newestOnTop={false}
+            closeOnClick
+            rtl={false}
+            pauseOnFocusLoss
+            draggable
+            pauseOnHover
+          />
+
           <Switch>
             <Route exact path="/" component={Home} />
             <Route exact path="/login" component={Login} />
@@ -87,6 +103,7 @@ class App extends React.Component {
             <Route exact path="/profile/update" component={ProfileStepper} />
             <Route exact path="/@:firstName.:lastName/finance" component={FinanceMainView} />
             <Route exact path="/@:firstName.:lastName/finance/liability" component={LiabilityEditor} />
+            <Route exact path="/@:firstName.:lastName/finance/goals" component={GoalMainView} />
             <Route exact path="/@:firstName.:lastName" component={Profile} />
             <Route exact path="/fi/added/time" component={AddedTime} />
             <Route exact path="/fi/time" component={TimeToFi} />
@@ -99,6 +116,7 @@ class App extends React.Component {
             <Route exact path="/terms-and-conditions" component={TermsAndConditions} />
             <Route exact path="/privacy-policy" component={PrivacyPolicy} />
           </Switch>
+
           <Footer
             appName={this.props.appName}
             currentUser={this.props.currentUser} />

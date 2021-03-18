@@ -1,8 +1,11 @@
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
+import { ToastContainer } from 'react-toastify';
+import "react-toastify/dist/ReactToastify.css";
+
+import { DefaultGreenColor, DefaultRedColor } from './mui';
 
 export const DefaultColor = "#5cb85c";
-export const DefaultRedColor = "#b21f00";
 export const DefaultAlternateColor = "#137a8f";
 
 export const GreenP = styled.p`
@@ -225,4 +228,20 @@ export const AiofBanner = styled.div`
 
 export const ThinText = styled.p`
   font-weight: 100;
+`;
+
+export const AiofToastContainer = styled(ToastContainer).attrs({
+  // custom props
+})`
+  .Toastify__toast-container {}
+  .Toastify__toast {}
+  .Toastify__toast--error {
+    background-color: ${DefaultRedColor}
+  }
+  .Toastify__toast--warning {}
+  .Toastify__toast--success {
+    background-color: ${DefaultGreenColor}
+  }
+  .Toastify__toast-body {}
+  .Toastify__progress-bar {}
 `;
