@@ -29,7 +29,7 @@ import {
 import { GOAL_TRIP_TYPES, GOAL_COLLEGE_TYPES, GOAL_ADD } from '../../../constants/actionTypes';
 import {
     GENERIC, TRIP, SAVEFORCOLLEGE,
-    GOAL_TRIP_TYPES_MAPPING, GOAL_COLLEGE_TYPE_MAPPING
+    GOAL_TRIP_TYPES_MAPPING, GOAL_COLLEGE_TYPE_MAPPING, BUYAHOME
 } from '../../../constants/goals';
 
 
@@ -75,30 +75,42 @@ const AddGoals = props => {
     const [showGeneric, setShowGeneric] = useState(true);
     const [showTrip, setShowTrip] = useState(false);
     const [showBuyAHome, setShowBuyAHome] = useState(false);
+    const [showBuyACar, setShowBuyACar] = useState(false);
     const [showSaveForCollege, setShowSaveForCollege] = useState(false);
 
     const handleShowGeneric = () => {
         setShowGeneric(!showGeneric);
         setShowTrip(false);
         setShowBuyAHome(false);
+        setShowBuyACar(false);
         setShowSaveForCollege(false);
     }
     const handleShowTrip = () => {
         setShowGeneric(false);
         setShowTrip(!showTrip);
         setShowBuyAHome(false);
+        setShowBuyACar(false);
         setShowSaveForCollege(false);
     }
     const handleShowHome = () => {
         setShowGeneric(false);
         setShowTrip(false);
         setShowBuyAHome(!showBuyAHome);
+        setShowBuyACar(false);
+        setShowSaveForCollege(false);
+    }
+    const handleShowBuyACar = () => {
+        setShowGeneric(false);
+        setShowTrip(false);
+        setShowBuyAHome(false);
+        setShowBuyACar(false);
         setShowSaveForCollege(false);
     }
     const handleShowSaveForCollege = () => {
         setShowGeneric(false);
         setShowTrip(false);
         setShowBuyAHome(false);
+        setShowBuyACar(false);
         setShowSaveForCollege(!showSaveForCollege);
     }
 
@@ -131,6 +143,11 @@ const AddGoals = props => {
                         <GoalPaper text={"Go on a trip"} handleValue={handleShowTrip}
                             icon={<WbSunnyOutlinedIcon style={{ fontSize: size, color: DefaultDarkTeal }} />} />
                     </Grid>
+                    
+                    <Grid item sm={3}>
+                        <GoalPaper text={"Buy a home"} handleValue={handleShowHome}
+                            icon={<HomeOutlinedIcon style={{ fontSize: size, color: DefaultDarkTeal }} />}  />
+                    </Grid>
 
                     <Grid item sm={3}>
                         <GoalPaper text={"Save for college"} handleValue={handleShowSaveForCollege}
@@ -139,13 +156,7 @@ const AddGoals = props => {
                 </Grid>
                 <Grid container spacing={1} className={classes.root}>
                     <Grid item sm={3}>
-                        <GoalPaper text={"Buy a home"} handleValue={handleShowHome}
-                            icon={<HomeOutlinedIcon style={{ fontSize: size, color: DefaultDarkTeal }} />}
-                            comingSoon={true} />
-                    </Grid>
-
-                    <Grid item sm={3}>
-                        <GoalPaper text={"Buy a car"} handleValue={handleShowHome}
+                        <GoalPaper text={"Buy a car"} handleValue={handleShowBuyACar}
                             icon={<DirectionsCarOutlinedIcon style={{ fontSize: size, color: DefaultDarkTeal }} />}
                             comingSoon={true} />
                     </Grid>
@@ -165,6 +176,16 @@ const AddGoals = props => {
                 onAdd={props.onAdd}
                 scrollToCurrentGoals={props.scrollToCurrentGoals}
                 inProgressAddGoal={props.inProgressAddGoal} />
+
+            <AddHomeGoal
+                showBuyAHome={showBuyAHome}
+                handleShowHome={handleShowHome}
+                onAdd={props.onAdd}
+                scrollToCurrentGoals={props.scrollToCurrentGoals}
+                inProgressAddGoal={props.inProgressAddGoal} />
+
+            <AddBuyACarGoal
+                showBuyACar={showBuyACar} />
 
             <AddSaveForCollege
                 showSaveForCollege={showSaveForCollege}
@@ -644,12 +665,282 @@ const AddTripGoal = props => {
     }
 }
 
+const AddHomeGoal = props => {
+    if (props.showBuyAHome) {
+        const date = new Date();
+        const defaultPlannedDate = new Date(date.setMonth(date.getMonth() + 2 * 12));
+
+        const [name, setName] = useState("");
+        const [amount, setAmount] = useState("");
+        const [currentAmount, setCurrentAmount] = useState(5000);
+        const [monthlyContribution, setMonthlyContribution] = useState(750);
+        const [plannedDate, setPlannedDate] = useState(defaultPlannedDate);
+
+        const [homeValue, setHomeValue] = useState(300000);
+        const [mortgageRate, setMortgageRate] = useState(3);
+        const [percentDownPayment, setPercentDownPayment] = useState(10);
+        const [annualInsurance, setAnnualInsurance] = useState(500);
+        const [annualPropertyTax, setAnnualPropertyTax] = useState(1);
+
+        const isAddEnabled = name !== ""
+            && isNumber(currentAmount)
+            && isNumber(monthlyContribution)
+            && plannedDate !== null
+            && isNumber(homeValue)
+            && isNumber(percentDownPayment);
+        const inProgressAddGoal = props.inProgressAddGoal;
+
+        const handleSetValue = (e, setValue) => {
+            setValue(e.target.value);
+        }
+        const handlePlannedDate = (date) => {
+            setPlannedDate(date);
+        }
+
+        const onAdd = (ev) => {
+            ev.preventDefault();
+
+            let payload = {
+                name: name,
+                type: BUYAHOME.toLowerCase(),
+                amount: Number(amount) || null,
+                currentAmount: Number(currentAmount) || null,
+                monthlyContribution: Number(monthlyContribution) || null,
+                plannedDate: plannedDate || null,
+                homeValue: Number(homeValue) || null,
+                mortgageRate: Number(mortgageRate / 100) || null,
+                percentDownPayment: Number(percentDownPayment / 100) || null,
+                annualInsurance: Number(annualInsurance) || null,
+                annualPropertyTax: Number(annualPropertyTax / 100) || null
+            }
+
+            props.onAdd(payload);
+            props.handleShowHome();
+            props.scrollToCurrentGoals();
+        }
+
+        return (
+            <React.Fragment>
+                <SquarePaper variant="outlined" square>
+                    <form noValidate autoComplete="off" onSubmit={onAdd}>
+                        <Grid container spacing={1}>
+                            <Grid item sm>
+                                <div style={{ color: DefaultDarkTeal }}>
+                                    <h4><strong>Save for a home</strong></h4>
+                                </div>
+                            </Grid>
+                        </Grid>
+
+                        <Grid container spacing={3}>
+                            <Grid item sm>
+                                Let's start by filling out some generic details
+                            </Grid>
+                        </Grid>
+                        <Grid container spacing={3}>
+                            <Grid item sm={4}>
+                                <VerticalTextField
+                                    header={"What is the name of this goal?"}
+                                    required
+                                    textField={
+                                        <TextField
+                                            required
+                                            placeholder="Save for a home"
+                                            value={name}
+                                            onChange={e => handleSetValue(e, setName)}
+                                        />
+                                    } />
+                            </Grid>
+                        </Grid>
+
+                        <Grid container spacing={3}>
+                            <Grid item sm={4}>
+                                <VerticalTextField
+                                    header={"What is the planned date for this goal?"}
+                                    required
+                                    textField={
+                                        <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                                            <KeyboardDatePicker
+                                                required
+                                                disableToolbar
+                                                variant="inline"
+                                                format="MM/dd/yyyy"
+                                                margin="normal"
+                                                value={plannedDate}
+                                                onChange={handlePlannedDate}
+                                                KeyboardButtonProps={{
+                                                    'aria-label': 'planned date',
+                                                }}
+                                            />
+                                        </MuiPickersUtilsProvider>
+                                    } />
+                            </Grid>
+                        </Grid>
+
+                        <Grid container spacing={3}>
+                            <Grid item sm>
+                                <br /><br />
+                                Let's get into more spcific details. If you don't know the total amount, then you can skip it and
+                                fill out the 'Home value', 'Mortgage downpayment'
+                            </Grid>
+                        </Grid>
+                        <Grid container spacing={3}>
+                            <Grid item sm={4}>
+                                <VerticalTextField
+                                    header={"What will be the final amount towards this goal?"}
+                                    textField={
+                                        <TextField
+                                            value={amount}
+                                            onChange={e => handleSetValue(e, setAmount)}
+                                            InputProps={{
+                                                startAdornment: <InputAdornment position="start">$</InputAdornment>
+                                            }}
+                                        />
+                                    } />
+                            </Grid>
+
+                            <Grid item sm={4}>
+                                <VerticalTextField
+                                    header={"What is your current amount towards this goal?"}
+                                    required
+                                    textField={
+                                        <TextField
+                                            value={currentAmount}
+                                            required
+                                            onChange={e => handleSetValue(e, setCurrentAmount)}
+                                            InputProps={{
+                                                startAdornment: <InputAdornment position="start">$</InputAdornment>
+                                            }}
+                                        />
+                                    } />
+                            </Grid>
+
+                            <Grid item sm={4}>
+                                <VerticalTextField
+                                    header={"What will your monthly contribution be towards this goal?"}
+                                    required
+                                    textField={
+                                        <TextField
+                                            value={monthlyContribution}
+                                            required
+                                            onChange={e => handleSetValue(e, setMonthlyContribution)}
+                                            InputProps={{
+                                                startAdornment: <InputAdornment position="start">$</InputAdornment>
+                                            }}
+                                        />
+                                    } />
+                            </Grid>
+                        </Grid>
+
+                        <Grid container spacing={3}>
+                            <Grid item sm={4}>
+                                <VerticalTextField
+                                    header={"What is the home value?"}
+                                    required
+                                    textField={
+                                        <TextField
+                                            required
+                                            value={homeValue}
+                                            onChange={e => handleSetValue(e, setHomeValue)}
+                                            InputProps={{
+                                                startAdornment: <InputAdornment position="start">$</InputAdornment>
+                                            }}
+                                        />
+                                    } />
+                            </Grid>
+
+                            <Grid item sm={4}>
+                                <VerticalTextField
+                                    header={"What is the mortgage rate?"}
+                                    required
+                                    textField={
+                                        <TextField
+                                            required
+                                            value={mortgageRate}
+                                            onChange={e => handleSetValue(e, setMortgageRate)}
+                                            InputProps={{
+                                                startAdornment: <InputAdornment position="start">%</InputAdornment>
+                                            }}
+                                        />
+                                    } />
+                            </Grid>
+
+                            <Grid item sm={4}>
+                                <VerticalTextField
+                                    header={"What is the down payment?"}
+                                    required
+                                    textField={
+                                        <TextField
+                                            required
+                                            value={percentDownPayment}
+                                            onChange={e => handleSetValue(e, setPercentDownPayment)}
+                                            InputProps={{
+                                                startAdornment: <InputAdornment position="start">%</InputAdornment>
+                                            }}
+                                        />
+                                    } />
+                            </Grid>
+                        </Grid>
+
+                        <Grid container spacing={3}>
+                            <Grid item sm={4}>
+                                <VerticalTextField
+                                    header={"What will be the annual insurance?"}
+                                    textField={
+                                        <TextField
+                                            value={annualInsurance}
+                                            onChange={e => handleSetValue(e, setAnnualInsurance)}
+                                            InputProps={{
+                                                startAdornment: <InputAdornment position="start">$</InputAdornment>
+                                            }}
+                                        />
+                                    } />
+                            </Grid>
+
+                            <Grid item sm={4}>
+                                <VerticalTextField
+                                    header={"What will be the annual property tax?"}
+                                    textField={
+                                        <TextField
+                                            value={annualPropertyTax}
+                                            onChange={e => handleSetValue(e, setAnnualPropertyTax)}
+                                            InputProps={{
+                                                startAdornment: <InputAdornment position="start">%</InputAdornment>
+                                            }}
+                                        />
+                                    } />
+                            </Grid>
+                        </Grid>
+
+                        <Grid container spacing={3}>
+                            <Grid item sm>
+                                <AlternateButton type="submit" variant="contained" disabled={!isAddEnabled && !inProgressAddGoal} >
+                                    Add
+                                </AlternateButton>
+                            </Grid>
+                        </Grid>
+                    </form>
+                </SquarePaper>
+            </React.Fragment >
+        );
+    } else {
+        return null;
+    }
+}
+
+const AddBuyACarGoal = props => {
+    if (props.showBuyACar) {
+        return null;
+    } else {
+        return null;
+    }
+}
+
 const AddSaveForCollege = props => {
     if (props.showSaveForCollege) {
         const classes = useStyles();
         const date = new Date();
         const types = props.goalCollegeTypes || [];
-        const defaultPlannedDate = new Date(date.setMonth(date.getMonth() + 12 * 8));
+        const defaultPlannedDate = new Date(date.setMonth(date.getMonth() + 8 * 12));
 
         const [name, setName] = useState("");
         const [amount, setAmount] = useState("");
@@ -697,7 +988,7 @@ const AddSaveForCollege = props => {
                 studentAge: Number(studentAge),
                 years: Number(years),
                 collegeName: collegeName || null,
-                annualCostIncrease: Number(annualCostIncrease) / 100 || null,
+                annualCostIncrease: Number(annualCostIncrease / 100) || null,
                 beginningCollegeAge: Number(beginningCollegeAge) || null,
             }
 
