@@ -25,7 +25,7 @@ export default (state = {}, action) => {
         profile: action.payload.profile,
         assets: action.payload.assets,
         liabilities: action.payload.liabilities,
-        goals: action.payload.goals,
+        goalsBase: action.payload.goals,
         subscriptions: action.payload.subscriptions,
       }
     case FINANCE_PAGE_UNLOADED:

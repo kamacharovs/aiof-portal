@@ -760,7 +760,7 @@ const FinanceMainView = props => {
                                                 currentUser={props.currentUser}
                                                 assets={props.assets}
                                                 liabilities={props.liabilities}
-                                                goals={props.goals}
+                                                goals={props.goalsBase}
                                                 subscriptions={props.subscriptions}
                                                 onLoad={props.onLoad} />
                                     }
