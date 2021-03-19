@@ -227,8 +227,7 @@ const CommonInvestments = props => {
                                         onChange={e => onNegativeChange(e, errorFourOhOneKMonthlyContributionsText, setErrorFourOhOneKMonthlyContributionsText, setFourOhOneKMonthlyContributions)}
                                         helperText={errorFourOhOneKMonthlyContributionsText}
                                         InputProps={{
-                                            startAdornment: <InputAdornment position="start">$</InputAdornment>,
-                                            shrink: true
+                                            startAdornment: <InputAdornment position="start">$</InputAdornment>
                                         }} />
                                 </div>
                             </Grid>
@@ -262,8 +261,7 @@ const CommonInvestments = props => {
                                         onChange={e => onNegativeChange(e, errorRothIraMonthlyContributionsText, setErrorRothIraMonthlyContributionsText, setRothIraMonthlyContributions)}
                                         helperText={errorRothIraMonthlyContributionsText}
                                         InputProps={{
-                                            startAdornment: <InputAdornment position="start">$</InputAdornment>,
-                                            shrink: true
+                                            startAdornment: <InputAdornment position="start">$</InputAdornment>
                                         }} />
                                 </div>
                             </Grid>
@@ -297,8 +295,7 @@ const CommonInvestments = props => {
                                         onChange={e => onNegativeChange(e, errorBrokerageMonthlyContributionsText, setErrorBrokerageMonthlyContributionsText, setBrokerageMonthlyContributions)}
                                         helperText={errorBrokerageMonthlyContributionsText}
                                         InputProps={{
-                                            startAdornment: <InputAdornment position="start">$</InputAdornment>,
-                                            shrink: true
+                                            startAdornment: <InputAdornment position="start">$</InputAdornment>
                                         }} />
                                 </div>
                             </Grid>

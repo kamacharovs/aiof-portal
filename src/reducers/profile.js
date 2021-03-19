@@ -6,6 +6,7 @@ import {
   PROFILE_UPSERT_USER_PROFILE,
   PROFILE_STEPPER_PAGE_LOADED,
   PROFILE_GET_OPTIONS,
+  USER_DEPENDENTS,
   UPDATE_FIELD_PROFILE,
 } from '../constants/actionTypes';
 
@@ -31,7 +32,7 @@ export default (state = {}, action) => {
           ...state, 
           inProgress: true
         };
-      }
+      } else if (action.subtype === USER_DEPENDENTS) return { ...state, inProgressDependents: true, }
       else {
         return { 
           ...state
@@ -52,7 +53,13 @@ export default (state = {}, action) => {
     case PROFILE_PAGE_UNLOADED:
       return {};
     case UPDATE_FIELD_PROFILE:
-        return { ...state, [action.key]: action.value };
+      return { ...state, [action.key]: action.value };
+    case USER_DEPENDENTS:
+      return {
+        ...state,
+        dependents: action.error ? null : action.payload,
+        inProgressDependents: false,
+      }
     default:
       return state;
   }

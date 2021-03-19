@@ -30,7 +30,7 @@ const mapDispatchToProps = dispatch => ({
     onAll: () =>
         dispatch({ type: GOALS, payload: agent.Goal.all() }),
     onRedirectLogin: () =>
-        dispatch({ type: REDIRECT_LOGIN, }),
+        dispatch({ type: REDIRECT_LOGIN }),
 });
 
 const useStyles = makeStyles((theme) => ({
@@ -124,7 +124,6 @@ const GoalMainView = props => {
         );
     } else {
         props.onRedirectLogin();
-
         return null;
     }
 }

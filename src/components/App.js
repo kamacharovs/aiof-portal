@@ -101,6 +101,7 @@ class App extends React.Component {
             <Route exact path="/@:firstName.:lastName/finance/liability" component={LiabilityEditor} />
             <Route exact path="/@:firstName.:lastName/finance/goals" component={GoalMainView} />
             <Route exact path="/@:firstName.:lastName" component={Profile} />
+            <Route exact path="/profile" component={ProfileMainView} />
             <Route exact path="/fi/added/time" component={AddedTime} />
             <Route exact path="/fi/time" component={TimeToFi} />
             <Route exact path="/fi/compound/interest" component={CompoundInterest} />
