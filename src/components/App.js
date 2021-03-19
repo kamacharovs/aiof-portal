@@ -14,24 +14,20 @@ import Login from '../components/Login';
 import Register from '../components/Register';
 import ProfileStepper from '../components/ProfileStepper';
 import Profile from '../components/Profile';
+import ProfileMainView from '../components/Profile/MainView';
 import FinanceMainView from '../components/Finance/FinanceMainView';
 import AssetBreakdown from '../components/Finance/AssetBreakdown';
 import LiabilityEditor from '../components/Finance/LiabilityEditor';
 import GoalMainView from '../components/Finance/Goal/MainView';
-
 import TimeToFi from '../components/FI/TimeToFi';
 import AddedTime from '../components/FI/AddedTime';
 import CompoundInterest from '../components/FI/CompoundInterest';
 import Bmi from '../components/FI/Bmi';
 import SavingsRateStepper from '../components/FI/ReSavingsRate';
-
 import MortgageCalculator from './Property/MortgageCalculator';
-
 import CommonInvestments from './Retirement/CommonInvestments';
-
 import TermsAndConditions from '../components/Documents/TermsAndConditions';
 import PrivacyPolicy from '../components/Documents/PrivacyPolicy';
-
 import { APP_LOAD, REDIRECT } from '../constants/actionTypes';
 import { ACCESS_TOKEN, USER } from '../constants/common';
 import { AiofToastContainer } from '../style/common';
