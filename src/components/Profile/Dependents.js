@@ -2,6 +2,7 @@ import React from 'react';
 
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
+import Avatar from '@material-ui/core/Avatar';
 
 import { FullPaper, AlternateCircularProgress } from '../../style/mui';
 
@@ -30,6 +31,16 @@ const Dependents = props => {
                     <CurrentDependentsOverview
                         totalDependents={totalDependents} />
 
+                    {
+                        dependents.map(d => {
+                            return (
+                                <DependentView
+                                    key={d.publicKey}
+                                    dependent={d} />
+                            );
+                        })
+                    }
+
                     <InProgressBar
                         inProgressDependents={props.inProgressDependents} />
                 </FullPaper>
@@ -56,6 +67,22 @@ const CurrentDependentsOverview = props => {
             </Grid>
         </Grid>
     );
+}
+
+const DependentView = props => {
+    const dependent = props.dependent;
+
+    if (dependent) {
+        return (
+            <React.Fragment>
+                <Avatar>
+                    {dependent.firstName[0]}{dependent.lastName[0]}
+                </Avatar>
+            </React.Fragment>
+        );
+    } else {
+        return null;
+    }
 }
 
 const InProgressBar = props => {
