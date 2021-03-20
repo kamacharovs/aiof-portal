@@ -6,10 +6,14 @@ import agent from '../../agent';
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Container from '@material-ui/core/Container';
+import Tabs from '@material-ui/core/Tabs';
+import Tab from '@material-ui/core/Tab';
 
 import { SquarePaper } from '../../style/mui';
-import { REDIRECT_LOGIN, PROFILE_GET_USER_PROFILE, PROFILE_UPSERT_USER_PROFILE, PROFILE_GET_OPTIONS, 
-    USER_DEPENDENTS, USER_DEPENDENT_DELETE } from '../../constants/actionTypes';
+import {
+    REDIRECT_LOGIN, PROFILE_GET_USER_PROFILE, PROFILE_UPSERT_USER_PROFILE, PROFILE_GET_OPTIONS,
+    USER_DEPENDENTS, USER_DEPENDENT_DELETE
+} from '../../constants/actionTypes';
 import Dependents from './Dependents';
 
 
@@ -43,6 +47,11 @@ const mapDispatchToProps = dispatch => ({
 
 const ProfileMainView = props => {
     if (props.currentUser) {
+        const [tab, setTab] = useState(0);
+
+        const handleTabChange = (e, newTab) => {
+            setTab(newTab);
+        };
 
         useEffect(() => {
             props.onProfile();
@@ -68,7 +77,30 @@ const ProfileMainView = props => {
 
                 <Container maxWidth="xl">
                     <SquarePaper variant="outlined" square>
-
+                    <Grid container spacing={3}>
+                        <Grid item sm={2}>
+                            <Tabs
+                                orientation="vertical"
+                                variant="scrollable"
+                                value={tab}
+                                onChange={handleTabChange}
+                                aria-label="Vertical tabs example"
+                                //className={classes.tabs}
+                            >
+                                <Tab label="Profile" />
+                                <Tab label="Dependents" />
+                            </Tabs>
+                        </Grid>
+                        <Grid item sm>
+                            {tab === 1 && (
+                                <Dependents
+                                    dependents={props.dependents}
+                                    handleOnDelete={handleOnDelete}
+                                    inProgressDependents={props.inProgressDependents}
+                                    inProgressDependentDelete={props.inProgressDependentDelete} />
+                            )}
+                        </Grid>
+                    </Grid>
                     </SquarePaper>
 
                     <Dependents
