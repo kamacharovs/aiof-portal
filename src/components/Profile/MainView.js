@@ -8,7 +8,8 @@ import Grid from '@material-ui/core/Grid';
 import Container from '@material-ui/core/Container';
 
 import { SquarePaper } from '../../style/mui';
-import { REDIRECT_LOGIN, PROFILE_GET_USER_PROFILE, PROFILE_UPSERT_USER_PROFILE, PROFILE_GET_OPTIONS, USER_DEPENDENTS } from '../../constants/actionTypes';
+import { REDIRECT_LOGIN, PROFILE_GET_USER_PROFILE, PROFILE_UPSERT_USER_PROFILE, PROFILE_GET_OPTIONS, 
+    USER_DEPENDENTS, USER_DEPENDENT_DELETE } from '../../constants/actionTypes';
 import Dependents from './Dependents';
 
 
@@ -21,6 +22,8 @@ const mapStateToProps = state => ({
     options: state.profile.options,
     inProgressDependents: state.profile.inProgressDependents,
     dependents: state.profile.dependents,
+    inProgressDependentDelete: state.profile.inProgressDependentDelete,
+    dependentDeleted: state.profile.dependentDeleted,
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -34,6 +37,8 @@ const mapDispatchToProps = dispatch => ({
         dispatch({ type: PROFILE_UPSERT_USER_PROFILE, payload: agent.User.profileUpsert(payload) }),
     onDependents: () =>
         dispatch({ type: USER_DEPENDENTS, payload: agent.User.dependents() }),
+    onDependentDelete: (id) =>
+        dispatch({ type: USER_DEPENDENT_DELETE, payload: agent.User.dependentDelete(id) }),
 });
 
 const ProfileMainView = props => {
@@ -44,6 +49,16 @@ const ProfileMainView = props => {
             props.onProfileOptions();
             props.onDependents();
         }, []);
+
+        useEffect(() => {
+            if (props.dependents && props.dependentDeleted === true) {
+                props.onDependents();
+            }
+        }, [props.dependentDeleted]);
+
+        const handleOnDelete = (id) => {
+            props.onDependentDelete(id);
+        }
 
         return (
             <React.Fragment>
@@ -58,7 +73,9 @@ const ProfileMainView = props => {
 
                     <Dependents
                         dependents={props.dependents}
-                        inProgressDependents={props.inProgressDependents} />
+                        handleOnDelete={handleOnDelete}
+                        inProgressDependents={props.inProgressDependents}
+                        inProgressDependentDelete={props.inProgressDependentDelete} />
                 </Container>
             </React.Fragment>
         );

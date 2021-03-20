@@ -67,6 +67,8 @@ const User = {
     requests.put(`/user/profile`, payload),
   dependents: () =>
     requests.get(`/user/dependents`),
+  dependentDelete: (id) =>
+    requests.del(`/user/dependent/${id}`),
 }
 const UserProfile = {
   get: email =>
