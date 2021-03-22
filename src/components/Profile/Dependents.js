@@ -172,14 +172,6 @@ const AddDependent = props => {
             <React.Fragment>
                 <SquarePaper variant="outlined" square>
                     <form noValidate autoComplete="off" onSubmit={onAdd}>
-                        <Grid container spacing={1}>
-                            <Grid item sm>
-                                <div style={{ color: DefaultDarkTeal }}>
-                                    <h4><strong>Add</strong></h4>
-                                </div>
-                            </Grid>
-                        </Grid>
-
                         <Grid container spacing={3}>
                             <Grid item sm>
                                 <VerticalTextField
@@ -212,11 +204,6 @@ const AddDependent = props => {
 
                         <Grid container spacing={3}>
                             <Grid item sm>
-                                <br />
-                            </Grid>
-                        </Grid>
-                        <Grid container spacing={3}>
-                            <Grid item sm>
                                 <VerticalTextField
                                     header={"What is the age of your dependent?"}
                                     required
@@ -243,11 +230,6 @@ const AddDependent = props => {
                             </Grid>
                         </Grid>
 
-                        <Grid container spacing={3}>
-                            <Grid item sm>
-                                <br />
-                            </Grid>
-                        </Grid>
                         <Grid container spacing={3}>
                             <Grid item sm>
                                 <VerticalTextField

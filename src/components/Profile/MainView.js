@@ -64,6 +64,12 @@ const ProfileMainView = props => {
         }, []);
 
         useEffect(() => {
+            if (props.dependents) {
+                props.onDependents();
+            }
+        }, [props.dependentAdded]);
+
+        useEffect(() => {
             if (props.dependents && props.dependentDeleted === true) {
                 props.onDependents();
             }
