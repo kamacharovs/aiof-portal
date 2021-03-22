@@ -2,7 +2,7 @@ version: "3.7"
 
 services:
   aiofdata:
-    image: aiof-data:latest
+    image: gkama/aiof-data:latest
     container_name: aiof-data
     ports:
       - 5433:5432
@@ -22,14 +22,8 @@ services:
       ASPNETCORE_ENVIRONMENT: Development
       Data__PostgreSQL: Server=aiofdata;Port=5432;Database=aiof;User Id=aiof;Password=aiofiscool;
   
-  aiofmetadata:
-    image: gkama/aiof-metadata:latest
-    container_name: aiof-metadata
-    ports:
-      - 8002:80
-
   aiofapi:
-    image: aiof-api:latest
+    image: gkama/aiof-api:latest
     container_name: aiof-api
     depends_on:
       - aiofdata
@@ -39,3 +33,9 @@ services:
     environment:
       ASPNETCORE_ENVIRONMENT: Development
       Data__PostgreSQL: Server=aiofdata;Port=5432;Database=aiof;User Id=aiof;Password=aiofiscool;
+
+  aiofmetadata:
+    image: gkama/aiof-metadata:latest
+    container_name: aiof-metadata
+    ports:
+      - 8002:80
