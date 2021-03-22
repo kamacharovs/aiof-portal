@@ -7,6 +7,7 @@ import {
   PROFILE_STEPPER_PAGE_LOADED,
   PROFILE_GET_OPTIONS,
   USER_DEPENDENTS,
+  USER_DEPENDENT_ADD,
   USER_DEPENDENT_DELETE,
   UPDATE_FIELD_PROFILE,
 } from '../constants/actionTypes';
@@ -34,6 +35,7 @@ export default (state = {}, action) => {
           inProgress: true
         };
       } else if (action.subtype === USER_DEPENDENTS) { return { ...state, inProgressDependents: true, }
+      } else if (action.subtype === USER_DEPENDENT_ADD) { return { ...state, inProgressDependentAdd: true, }
       } else if (action.subtype === USER_DEPENDENT_DELETE) { return { ...state, inProgressDependentDelete: true }
       } else {
         return { 
@@ -61,6 +63,12 @@ export default (state = {}, action) => {
         ...state,
         dependents: action.error ? null : action.payload,
         inProgressDependents: false,
+      }
+    case USER_DEPENDENT_ADD:
+      return {
+        ...state,
+        dependentAdded: action.error ? null : action.payload,
+        inProgressDependentAdd: false,
       }
     case USER_DEPENDENT_DELETE:
       return {

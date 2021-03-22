@@ -67,6 +67,8 @@ const User = {
     requests.put(`/user/profile`, payload),
   dependents: () =>
     requests.get(`/user/dependents`),
+  dependentAdd: (payload) =>
+    requests.post(`/user/dependent`, payload),
   dependentDelete: (id) =>
     requests.del(`/user/dependent/${id}`),
 }
