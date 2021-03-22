@@ -57,6 +57,9 @@ const Dependents = props => {
                                             key={d.publicKey}
                                             dependent={d}
                                             onDelete={props.handleOnDelete}
+                                            inProgressDependents={props.inProgressDependents}
+                                            inProgressDependentRelationships={props.inProgressDependentRelationships}
+                                            inProgressDependentAdd={props.inProgressDependentAdd}
                                             inProgressDependentDelete={props.inProgressDependentDelete} />
                                     );
                                 })
@@ -73,6 +76,7 @@ const Dependents = props => {
 
                         <InProgressBar
                             inProgressDependents={props.inProgressDependents}
+                            inProgressDependentRelationships={props.inProgressDependentRelationships}
                             inProgressDependentAdd={props.inProgressDependentAdd}
                             inProgressDependentDelete={props.inProgressDependentDelete} />
                     </SquarePaper>
@@ -94,20 +98,24 @@ const CurrentDependentsOverview = props => {
 
 const DependentView = props => {
     const dependent = props.dependent;
+    const inProgressDependents = props.inProgressDependents;
+    const inProgressDependentRelationships = props.inProgressDependentRelationships;
+    const inProgressDependentAdd = props.inProgressDependentAdd;
     const inProgressDependentDelete = props.inProgressDependentDelete;
 
-    if (dependent && !inProgressDependentDelete) {
+    if (dependent && !inProgressDependents && !inProgressDependentAdd 
+        && !inProgressDependentDelete && !inProgressDependentRelationships) {
         const classes = useStyles();
 
         return (
             <SquarePaper variant="outlined" square>
                 <Grid container>
-                    <Grid item sm={1}>
+                    <Grid item sm={2}>
                         <Avatar className={classes.avatar}>
                             {dependent.firstName[0]}{dependent.lastName[0]}
                         </Avatar>
                     </Grid>
-                    <Grid item sm={10}>
+                    <Grid item sm={9}>
                         <Grid container
                             spacing={0}
                             direction="column">
@@ -144,7 +152,7 @@ const AddDependent = props => {
     const inProgressDependentAdd = props.inProgressDependentAdd;
     const inProgressDependentDelete = props.inProgressDependentDelete;
 
-    if (!props.inProgressDependents && !inProgressDependentAdd 
+    if (!inProgressDependents && !inProgressDependentAdd 
         && !inProgressDependentDelete && !inProgressDependentRelationships) {
         const dependentRelationships = props.dependentRelationships;
         const [firstName, setFirstName] = useState("");
@@ -297,7 +305,8 @@ const AddDependent = props => {
 }
 
 const InProgressBar = props => {
-    if (props.inProgressDependents || props.inProgressDependentAdd || props.inProgressDependentDelete) {
+    if (props.inProgressDependents || props.inProgressDependentRelationships 
+        || props.inProgressDependentAdd || props.inProgressDependentDelete) {
         return (
             <Grid
                 container
@@ -306,7 +315,6 @@ const InProgressBar = props => {
                 justify="center"
                 alignItems="center">
                 <Grid item xs align="center">
-                    <br />
                     <AlternateCircularProgress />
                 </Grid>
             </Grid>
