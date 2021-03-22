@@ -13,7 +13,6 @@ import Home from '../components/Home';
 import Login from '../components/Login';
 import Register from '../components/Register';
 import ProfileStepper from '../components/ProfileStepper';
-import Profile from '../components/Profile';
 import ProfileMainView from '../components/Profile/MainView';
 import FinanceMainView from '../components/Finance/FinanceMainView';
 import AssetBreakdown from '../components/Finance/AssetBreakdown';
@@ -97,10 +96,9 @@ class App extends React.Component {
             <Route exact path="/login" component={Login} />
             <Route exact path="/register" component={Register} />
             <Route exact path="/profile/update" component={ProfileStepper} />
-            <Route exact path="/@:firstName.:lastName/finance" component={FinanceMainView} />
-            <Route exact path="/@:firstName.:lastName/finance/liability" component={LiabilityEditor} />
-            <Route exact path="/@:firstName.:lastName/finance/goals" component={GoalMainView} />
-            <Route exact path="/@:firstName.:lastName" component={Profile} />
+            <Route exact path="/finance" component={FinanceMainView} />
+            <Route exact path="/finance/liability" component={LiabilityEditor} />
+            <Route exact path="/finance/goals" component={GoalMainView} />
             <Route exact path="/profile" component={ProfileMainView} />
             <Route exact path="/fi/added/time" component={AddedTime} />
             <Route exact path="/fi/time" component={TimeToFi} />

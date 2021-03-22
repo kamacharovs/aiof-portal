@@ -363,7 +363,7 @@ const GoalsPreview = props => {
 
                 <Grid container spacing={3} className={classes.root}>
                     <Grid item xs>
-                        <CoolLink to={`/@${props.currentUser.firstName.toLowerCase()}.${props.currentUser.lastName.toLowerCase()}/finance/goals`}>
+                        <CoolLink to={`/finance/goals`}>
                             A more detailed view of your goals can be found in your profile's Goals page
                         </CoolLink>
                     </Grid>
