@@ -8,10 +8,12 @@ import IconButton from '@material-ui/core/IconButton';
 import DeleteIcon from '@material-ui/icons/Delete';
 import TextField from '@material-ui/core/TextField';
 import InputAdornment from '@material-ui/core/InputAdornment';
+import Select from '@material-ui/core/Select';
+import MenuItem from '@material-ui/core/MenuItem';
 
 import { isNumber, numberWithCommas } from '../Finance/Common';
 import {
-    SquarePaper, AlternateCircularProgress, VerticalTextField,
+    SquarePaper, AlternateCircularProgress, VerticalTextField, VerticalSelect,
     AlternateButton, DefaultDarkTeal, DefaultPaperPadding
 } from '../../style/mui';
 
@@ -26,7 +28,10 @@ const useStyles = makeStyles((theme) => ({
     },
     deleteIconButton: {
         padding: 0
-    }
+    },
+    select: {
+        minWidth: 'flex',
+    },
 }));
 
 const Dependents = props => {
@@ -35,6 +40,7 @@ const Dependents = props => {
     if (props.dependents) {
         const classes = useStyles();
         const totalDependents = dependents.length || 0;
+        const dependentRelationships = props.dependentRelationships || [];
 
         return (
             <React.Fragment>
@@ -58,8 +64,10 @@ const Dependents = props => {
                         </div>
 
                         <AddDependent
+                            dependentRelationships={dependentRelationships}
                             onAdd={props.handleOnAdd}
                             inProgressDependents={props.inProgressDependents}
+                            inProgressDependentRelationships={props.inProgressDependentRelationships}
                             inProgressDependentAdd={props.inProgressDependentAdd}
                             inProgressDependentDelete={props.inProgressDependentDelete} />
 
@@ -132,10 +140,13 @@ const DependentView = props => {
 
 const AddDependent = props => {
     const inProgressDependents = props.inProgressDependents;
+    const inProgressDependentRelationships = props.inProgressDependentRelationships;
     const inProgressDependentAdd = props.inProgressDependentAdd;
     const inProgressDependentDelete = props.inProgressDependentDelete;
 
-    if (!props.inProgressDependents && !inProgressDependentAdd && !inProgressDependentDelete) {
+    if (!props.inProgressDependents && !inProgressDependentAdd 
+        && !inProgressDependentDelete && !inProgressDependentRelationships) {
+        const dependentRelationships = props.dependentRelationships;
         const [firstName, setFirstName] = useState("");
         const [lastName, setLastName] = useState("");
         const [age, setAge] = useState(10);
@@ -249,17 +260,23 @@ const AddDependent = props => {
                             </Grid>
 
                             <Grid item sm>
-                                <VerticalTextField
+                                <VerticalSelect
                                     header={"What is your dependent's relationship to you?"}
                                     required
-                                    textField={
-                                        <TextField
+                                    select={
+                                        <Select
                                             required
-                                            placeholder="Son"
                                             value={userRelationship}
                                             onChange={e => handleSetValue(e, setUserRelationship)}
-                                        />
-                                    } />
+                                        >
+                                            {
+                                                dependentRelationships.map(dr => {
+                                                    return (
+                                                        <MenuItem key={dr} value={dr}>{dr}</MenuItem>
+                                                    );
+                                                })
+                                            }
+                                        </Select>} />
                             </Grid>
                         </Grid>
 

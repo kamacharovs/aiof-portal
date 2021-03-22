@@ -11,7 +11,7 @@ import Tab from '@material-ui/core/Tab';
 import { SquarePaper } from '../../style/mui';
 import {
     REDIRECT_LOGIN, PROFILE_GET_USER_PROFILE, PROFILE_UPSERT_USER_PROFILE, PROFILE_GET_OPTIONS,
-    USER_DEPENDENTS, USER_DEPENDENT_ADD, USER_DEPENDENT_DELETE
+    USER_DEPENDENTS, USER_DEPENDENT_RELATIONSHIPS, USER_DEPENDENT_ADD, USER_DEPENDENT_DELETE
 } from '../../constants/actionTypes';
 import Dependents from './Dependents';
 import Profile from './Profile';
@@ -26,6 +26,8 @@ const mapStateToProps = state => ({
     options: state.profile.options,
     inProgressDependents: state.profile.inProgressDependents,
     dependents: state.profile.dependents,
+    inProgressDependentRelationships: state.profile.inProgressDependentRelationships,
+    dependentRelationships: state.profile.dependentRelationships,
     inProgressDependentAdd: state.profile.inProgressDependentAdd,
     dependentAdded: state.profile.dependentAdded,
     inProgressDependentDelete: state.profile.inProgressDependentDelete,
@@ -43,6 +45,8 @@ const mapDispatchToProps = dispatch => ({
         dispatch({ type: PROFILE_UPSERT_USER_PROFILE, payload: agent.User.profileUpsert(payload) }),
     onDependents: () =>
         dispatch({ type: USER_DEPENDENTS, payload: agent.User.dependents() }),
+    onDependentRelationships: () =>
+        dispatch({ type: USER_DEPENDENT_RELATIONSHIPS, payload: agent.User.dependentRelationships() }),
     onDependentAdd: (payload) => 
         dispatch({ type: USER_DEPENDENT_ADD, payload: agent.User.dependentAdd(payload) }),
     onDependentDelete: (id) =>
@@ -61,6 +65,7 @@ const ProfileMainView = props => {
             props.onProfile();
             props.onProfileOptions();
             props.onDependents();
+            props.onDependentRelationships();
         }, []);
 
         useEffect(() => {
@@ -94,9 +99,11 @@ const ProfileMainView = props => {
                 inProgress={props.inProgress} />,
             1: <Dependents
                 dependents={props.dependents}
+                dependentRelationships={props.dependentRelationships}
                 handleOnAdd={handleOnDependentAdd}
                 handleOnDelete={handleOnDependentDelete}
                 inProgressDependents={props.inProgressDependents}
+                inProgressDependentRelationships={props.inProgressDependentRelationships}
                 inProgressDependentAdd={props.inProgressDependentAdd}
                 inProgressDependentDelete={props.inProgressDependentDelete} />
         }
