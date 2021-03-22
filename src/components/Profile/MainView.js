@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
 import agent from '../../agent';
 
-import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Container from '@material-ui/core/Container';
 import Tabs from '@material-ui/core/Tabs';
@@ -15,6 +14,7 @@ import {
     USER_DEPENDENTS, USER_DEPENDENT_DELETE
 } from '../../constants/actionTypes';
 import Dependents from './Dependents';
+import Profile from './Profile';
 
 
 const mapStateToProps = state => ({
@@ -68,6 +68,23 @@ const ProfileMainView = props => {
         const handleOnDelete = (id) => {
             props.onDependentDelete(id);
         }
+        const handleOnProfileUpsert = (payload) => {
+            props.onProfileUpsert(payload);
+        }
+
+        const tabs = {
+            0: <Profile
+                currentUser={props.currentUser}
+                profile={props.profile}
+                options={props.options}
+                onProfileUpsert={handleOnProfileUpsert}
+                inProgress={props.inProgress} />,
+            1: <Dependents
+                dependents={props.dependents}
+                handleOnDelete={handleOnDelete}
+                inProgressDependents={props.inProgressDependents}
+                inProgressDependentDelete={props.inProgressDependentDelete} />
+        }
 
         return (
             <React.Fragment>
@@ -77,37 +94,24 @@ const ProfileMainView = props => {
 
                 <Container maxWidth="xl">
                     <SquarePaper variant="outlined" square>
-                    <Grid container spacing={3}>
-                        <Grid item sm={2}>
-                            <Tabs
-                                orientation="vertical"
-                                variant="scrollable"
-                                value={tab}
-                                onChange={handleTabChange}
-                                aria-label="Vertical tabs example"
-                                //className={classes.tabs}
-                            >
-                                <Tab label="Profile" />
-                                <Tab label="Dependents" />
-                            </Tabs>
+                        <Grid container spacing={3}>
+                            <Grid item sm={2} style={{ paddingRight: 0 }}>
+                                <Tabs
+                                    orientation="vertical"
+                                    variant="scrollable"
+                                    value={tab}
+                                    onChange={handleTabChange}
+                                    aria-label="profile tabs"
+                                >
+                                    <Tab label="Profile" />
+                                    <Tab label="Dependents" />
+                                </Tabs>
+                            </Grid>
+                            <Grid item sm style={{ paddingLeft: 1 }}>
+                                {tabs[tab] || null}
+                            </Grid>
                         </Grid>
-                        <Grid item sm>
-                            {tab === 1 && (
-                                <Dependents
-                                    dependents={props.dependents}
-                                    handleOnDelete={handleOnDelete}
-                                    inProgressDependents={props.inProgressDependents}
-                                    inProgressDependentDelete={props.inProgressDependentDelete} />
-                            )}
-                        </Grid>
-                    </Grid>
                     </SquarePaper>
-
-                    <Dependents
-                        dependents={props.dependents}
-                        handleOnDelete={handleOnDelete}
-                        inProgressDependents={props.inProgressDependents}
-                        inProgressDependentDelete={props.inProgressDependentDelete} />
                 </Container>
             </React.Fragment>
         );
@@ -116,5 +120,7 @@ const ProfileMainView = props => {
         return null;
     }
 }
+
+
 
 export default connect(mapStateToProps, mapDispatchToProps)(ProfileMainView);

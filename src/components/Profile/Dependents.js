@@ -2,27 +2,16 @@ import React from 'react';
 
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
+import Container from '@material-ui/core/Container';
 import Avatar from '@material-ui/core/Avatar';
 import IconButton from '@material-ui/core/IconButton';
 import DeleteIcon from '@material-ui/icons/Delete';
 
 import { numberWithCommas } from '../Finance/Common';
-import {
-    SquarePaper, FullPaper, AlternateCircularProgress,
-    DefaultDarkTeal, DefaultPaperPadding
-} from '../../style/mui';
+import { SquarePaper, AlternateCircularProgress, DefaultDarkTeal, DefaultPaperPadding } from '../../style/mui';
 
 
 const useStyles = makeStyles((theme) => ({
-    overview: {
-        backgroundColor: 'rgb(245, 247, 249)',
-        color: 'rgb(90, 100, 116)',
-        fontSize: '1rem',
-        minHeight: '4rem',
-        transitionProperty: 'background-color',
-        transitionDuration: '250ms',
-        width: '100%',
-    },
     avatar: {
         color: 'white',
         backgroundColor: DefaultDarkTeal,
@@ -44,7 +33,8 @@ const Dependents = props => {
 
         return (
             <React.Fragment>
-                <FullPaper variant="outlined" square>
+                <Container maxWidth="xl">
+                <SquarePaper variant="outlined" square>
                     <CurrentDependentsOverview
                         totalDependents={totalDependents} />
 
@@ -65,7 +55,8 @@ const Dependents = props => {
                     <InProgressBar
                         inProgressDependents={props.inProgressDependents}
                         inProgressDependentDelete={props.inProgressDependentDelete} />
-                </FullPaper>
+                </SquarePaper>
+                </Container>
             </React.Fragment>
         );
     } else {
@@ -74,20 +65,10 @@ const Dependents = props => {
 }
 
 const CurrentDependentsOverview = props => {
-    const classes = useStyles();
     const totalDependents = props.totalDependents || 0;
 
     return (
-        <Grid
-            container
-            spacing={0}
-            justify="center"
-            alignItems="center"
-            className={classes.overview}>
-            <Grid item xs align="center">
-                <strong>{totalDependents} {totalDependents === 1 ? "dependent" : "dependents"}</strong>
-            </Grid>
-        </Grid>
+        <h3>{totalDependents} {totalDependents === 1 ? "dependent" : "dependents"}</h3> 
     );
 }
 
