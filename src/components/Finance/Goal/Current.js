@@ -11,12 +11,15 @@ import AccordionSummary from '@material-ui/core/AccordionSummary';
 import AccordionDetails from '@material-ui/core/AccordionDetails';
 import Typography from '@material-ui/core/Typography';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import Tooltip from '@material-ui/core/Tooltip';
 
 import { numberWithCommas } from '../Common';
 import { FullPaper, AlternateCircularProgress, DefaultDarkTeal, DefaultGreenColor, DefaultPaperMargin } from '../../../style/mui';
 import { GOAL_DELETE } from '../../../constants/actionTypes';
-import { GENERIC, TRIP, BUYAHOME, SAVEFORCOLLEGE, 
-    GOAL_TYPE_MAPPING, GOAL_TRIP_TYPES_MAPPING, GOAL_COLLEGE_TYPE_MAPPING } from '../../../constants/goals';
+import {
+    GENERIC, TRIP, BUYAHOME, SAVEFORCOLLEGE,
+    GOAL_TYPE_MAPPING, GOAL_TRIP_TYPES_MAPPING, GOAL_COLLEGE_TYPE_MAPPING
+} from '../../../constants/goals';
 
 
 const mapStateToProps = state => ({
@@ -101,8 +104,8 @@ const CurrentGoals = props => {
         const goalsHome = goals.filter(function (x) { return x.type.toUpperCase() === BUYAHOME; });
         const goalsSaveForCollege = goals.filter(function (x) { return x.type.toUpperCase() === SAVEFORCOLLEGE; });
 
-        const totalGoals = goalsGeneric.length 
-            + goalsTrip.length 
+        const totalGoals = goalsGeneric.length
+            + goalsTrip.length
             + goalsHome.length
             + goalsSaveForCollege.length;
 
@@ -113,8 +116,8 @@ const CurrentGoals = props => {
         return (
             <React.Fragment>
                 <FullPaper variant="outlined" square>
-                    <CurrentGoalsOverview 
-                        totalGoals={totalGoals} 
+                    <CurrentGoalsOverview
+                        totalGoals={totalGoals}
                         inProgressGoals={props.inProgressGoals} />
 
                     <CurrentGoalsDynamic
@@ -320,12 +323,14 @@ const CurrentGoalsDynamic = props => {
                                             justify="flex-end"
                                             alignItems="flex-end"
                                             className={classes.currentGoalfooter}>
-                                            <IconButton
-                                                aria-label="delete"
-                                                className={classes.deleteIconButton}
-                                                onClick={e => props.onDelete(g.id)}>
-                                                <DeleteIcon style={{ fontSize: '20', color: DefaultDarkTeal }} />
-                                            </IconButton>
+                                            <Tooltip title="Delete">
+                                                <IconButton
+                                                    aria-label="delete"
+                                                    className={classes.deleteIconButton}
+                                                    onClick={e => props.onDelete(g.id)}>
+                                                    <DeleteIcon style={{ fontSize: '20', color: DefaultDarkTeal }} />
+                                                </IconButton>
+                                            </Tooltip>
                                         </Grid>
                                     </FullPaper>
                                 </Grid>

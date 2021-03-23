@@ -10,11 +10,12 @@ import TextField from '@material-ui/core/TextField';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
+import Tooltip from '@material-ui/core/Tooltip';
 
 import { isNumber, numberWithCommas } from '../Finance/Common';
 import {
     SquarePaper, AlternateCircularProgress, VerticalTextField, VerticalSelect,
-    AlternateButton, DefaultDarkTeal, DefaultPaperPadding
+    AlternateButton, DefaultDarkTeal
 } from '../../style/mui';
 
 
@@ -22,9 +23,6 @@ const useStyles = makeStyles((theme) => ({
     avatar: {
         color: 'white',
         backgroundColor: DefaultDarkTeal,
-    },
-    view: {
-        padding: DefaultPaperPadding,
     },
     deleteIconButton: {
         padding: 0
@@ -38,48 +36,43 @@ const Dependents = props => {
     const dependents = props.dependents;
 
     if (props.dependents) {
-        const classes = useStyles();
         const totalDependents = dependents.length || 0;
         const dependentRelationships = props.dependentRelationships || [];
 
         return (
             <React.Fragment>
                 <Container maxWidth="xl">
-                    <SquarePaper variant="outlined" square>
-                        <CurrentDependentsOverview
-                            totalDependents={totalDependents} />
+                    <CurrentDependentsOverview
+                        totalDependents={totalDependents} />
 
-                        <div className={classes.view}>
-                            {
-                                dependents.map(d => {
-                                    return (
-                                        <DependentView
-                                            key={d.publicKey}
-                                            dependent={d}
-                                            onDelete={props.handleOnDelete}
-                                            inProgressDependents={props.inProgressDependents}
-                                            inProgressDependentRelationships={props.inProgressDependentRelationships}
-                                            inProgressDependentAdd={props.inProgressDependentAdd}
-                                            inProgressDependentDelete={props.inProgressDependentDelete} />
-                                    );
-                                })
-                            }
-                        </div>
+                    {
+                        dependents.map(d => {
+                            return (
+                                <DependentView
+                                    key={d.publicKey}
+                                    dependent={d}
+                                    onDelete={props.handleOnDelete}
+                                    inProgressDependents={props.inProgressDependents}
+                                    inProgressDependentRelationships={props.inProgressDependentRelationships}
+                                    inProgressDependentAdd={props.inProgressDependentAdd}
+                                    inProgressDependentDelete={props.inProgressDependentDelete} />
+                            );
+                        })
+                    }
 
-                        <AddDependent
-                            dependentRelationships={dependentRelationships}
-                            onAdd={props.handleOnAdd}
-                            inProgressDependents={props.inProgressDependents}
-                            inProgressDependentRelationships={props.inProgressDependentRelationships}
-                            inProgressDependentAdd={props.inProgressDependentAdd}
-                            inProgressDependentDelete={props.inProgressDependentDelete} />
+                    <AddDependent
+                        dependentRelationships={dependentRelationships}
+                        onAdd={props.handleOnAdd}
+                        inProgressDependents={props.inProgressDependents}
+                        inProgressDependentRelationships={props.inProgressDependentRelationships}
+                        inProgressDependentAdd={props.inProgressDependentAdd}
+                        inProgressDependentDelete={props.inProgressDependentDelete} />
 
-                        <InProgressBar
-                            inProgressDependents={props.inProgressDependents}
-                            inProgressDependentRelationships={props.inProgressDependentRelationships}
-                            inProgressDependentAdd={props.inProgressDependentAdd}
-                            inProgressDependentDelete={props.inProgressDependentDelete} />
-                    </SquarePaper>
+                    <InProgressBar
+                        inProgressDependents={props.inProgressDependents}
+                        inProgressDependentRelationships={props.inProgressDependentRelationships}
+                        inProgressDependentAdd={props.inProgressDependentAdd}
+                        inProgressDependentDelete={props.inProgressDependentDelete} />
                 </Container>
             </React.Fragment>
         );
@@ -92,7 +85,9 @@ const CurrentDependentsOverview = props => {
     const totalDependents = props.totalDependents || 0;
 
     return (
-        <h3>{totalDependents} {totalDependents === 1 ? "dependent" : "dependents"}</h3>
+        <SquarePaper variant="outlined" square>
+            <h3>{totalDependents} {totalDependents === 1 ? "dependent" : "dependents"}</h3>
+        </SquarePaper>
     );
 }
 
@@ -103,7 +98,7 @@ const DependentView = props => {
     const inProgressDependentAdd = props.inProgressDependentAdd;
     const inProgressDependentDelete = props.inProgressDependentDelete;
 
-    if (dependent && !inProgressDependents && !inProgressDependentAdd 
+    if (dependent && !inProgressDependents && !inProgressDependentAdd
         && !inProgressDependentDelete && !inProgressDependentRelationships) {
         const classes = useStyles();
 
@@ -131,12 +126,14 @@ const DependentView = props => {
                         </Grid>
                     </Grid>
                     <Grid item sm={1}>
-                        <IconButton
-                            aria-label="delete"
-                            className={classes.deleteIconButton}
-                            onClick={e => props.onDelete(dependent.id)}>
-                            <DeleteIcon style={{ fontSize: '20', color: DefaultDarkTeal }} />
-                        </IconButton>
+                        <Tooltip title="Delete">
+                            <IconButton
+                                aria-label="delete"
+                                className={classes.deleteIconButton}
+                                onClick={e => props.onDelete(dependent.id)}>
+                                <DeleteIcon style={{ fontSize: '20', color: DefaultDarkTeal }} />
+                            </IconButton>
+                        </Tooltip>
                     </Grid>
                 </Grid>
             </SquarePaper>
@@ -152,7 +149,7 @@ const AddDependent = props => {
     const inProgressDependentAdd = props.inProgressDependentAdd;
     const inProgressDependentDelete = props.inProgressDependentDelete;
 
-    if (!inProgressDependents && !inProgressDependentAdd 
+    if (!inProgressDependents && !inProgressDependentAdd
         && !inProgressDependentDelete && !inProgressDependentRelationships) {
         const dependentRelationships = props.dependentRelationships;
         const [firstName, setFirstName] = useState("");
@@ -305,7 +302,7 @@ const AddDependent = props => {
 }
 
 const InProgressBar = props => {
-    if (props.inProgressDependents || props.inProgressDependentRelationships 
+    if (props.inProgressDependents || props.inProgressDependentRelationships
         || props.inProgressDependentAdd || props.inProgressDependentDelete) {
         return (
             <Grid
@@ -314,7 +311,7 @@ const InProgressBar = props => {
                 direction="column"
                 justify="center"
                 alignItems="center">
-                <Grid item xs align="center">
+                <Grid item xs align="center" style={{ marginTop: "1rem" }}>
                     <AlternateCircularProgress />
                 </Grid>
             </Grid>

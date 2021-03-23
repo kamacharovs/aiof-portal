@@ -64,6 +64,7 @@ export default (state = {}, action) => {
       return {
         ...state,
         dependents: action.error ? null : action.payload,
+        dependentDeleted: false,
         inProgressDependents: false,
       }
     case USER_DEPENDENT_RELATIONSHIPS:
