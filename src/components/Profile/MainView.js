@@ -5,10 +5,8 @@ import agent from '../../agent';
 
 import Grid from '@material-ui/core/Grid';
 import Container from '@material-ui/core/Container';
-import Tabs from '@material-ui/core/Tabs';
-import Tab from '@material-ui/core/Tab';
 
-import { SquarePaper } from '../../style/mui';
+import { SquarePaper, AiofVerticalTabs, AiofVerticalTab } from '../../style/mui';
 import {
     REDIRECT_LOGIN, PROFILE_GET_USER_PROFILE, PROFILE_UPSERT_USER_PROFILE, PROFILE_GET_OPTIONS,
     USER_DEPENDENTS, USER_DEPENDENT_RELATIONSHIPS, USER_DEPENDENT_ADD, USER_DEPENDENT_DELETE
@@ -118,16 +116,17 @@ const ProfileMainView = props => {
                     <SquarePaper variant="outlined" square>
                         <Grid container spacing={3}>
                             <Grid item sm={2} style={{ paddingRight: 0 }}>
-                                <Tabs
+                                <AiofVerticalTabs
                                     orientation="vertical"
                                     variant="scrollable"
                                     value={tab}
                                     onChange={handleTabChange}
                                     aria-label="profile tabs"
+                                    stype={{ padding: 0 }}
                                 >
-                                    <Tab label="Profile" />
-                                    <Tab label="Dependents" />
-                                </Tabs>
+                                    <AiofVerticalTab label="Profile" />
+                                    <AiofVerticalTab label="Dependents" />
+                                </AiofVerticalTabs>
                             </Grid>
                             <Grid item sm style={{ paddingLeft: 1 }}>
                                 {tabs[tab] || null}
