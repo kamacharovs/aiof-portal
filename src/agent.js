@@ -64,7 +64,15 @@ const User = {
   profile: () =>
     requests.get(`/user/profile`),
   profileUpsert: (payload) =>
-    requests.put(`/user/profile`, payload)
+    requests.put(`/user/profile`, payload),
+  dependents: () =>
+    requests.get(`/user/dependents`),
+  dependentRelationships: () =>
+    requests.get(`/user/dependent/relationships`),
+  dependentAdd: (payload) =>
+    requests.post(`/user/dependent`, payload),
+  dependentDelete: (id) =>
+    requests.del(`/user/dependent/${id}`),
 }
 const UserProfile = {
   get: email =>

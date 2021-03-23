@@ -7,6 +7,8 @@ import LinearProgress from '@material-ui/core/LinearProgress';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
+import Tabs from '@material-ui/core/Tabs';
+import Tab from '@material-ui/core/Tab';
 
 import { ThinText } from '../style/common';
 
@@ -225,7 +227,7 @@ export const VerticalSelect = ({ header, select, required }) => {
   return (
     <Grid container spacing={1} direction="column" justify="flex-start" alignItems="flex-start">
       <Grid item sm>
-      <div style={{ display: "flex" }}>
+        <div style={{ display: "flex" }}>
           <Typography variant="h6" className={classes.verticalHeader} noWrap>
             <strong>{header}</strong>
           </Typography>
@@ -241,3 +243,35 @@ export const VerticalSelect = ({ header, select, required }) => {
     </Grid>
   );
 }
+
+
+/*
+Tabs
+*/
+export const AiofVerticalTabs = withStyles({
+  root: {
+    alignContent: 'left',
+    justifyContent: 'left',
+  },
+  indicator: {
+    backgroundColor: DefaultAlternateColor,
+  },
+})(Tabs);
+
+export const AiofVerticalTab = withStyles((theme) => ({
+  root: {
+    textTransform: 'none',
+    '&:hover': {
+      color: DefaultAlternateColor,
+      opacity: 1,
+    },
+    '&$selected': {
+      color: DefaultAlternateColor,
+      fontWeight: theme.typography.fontWeightMedium,
+    },
+    '&:focus': {
+      color: DefaultAlternateColor,
+    },
+  },
+  selected: {},
+}))((props) => <Tab {...props} />);

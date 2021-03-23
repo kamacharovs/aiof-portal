@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
-import agent from '../agent';
+import agent from '../../agent';
 
 import { makeStyles } from '@material-ui/core/styles';
 import Stepper from '@material-ui/core/Stepper';
@@ -17,8 +17,8 @@ import MenuItem from '@material-ui/core/MenuItem';
 import Select from '@material-ui/core/Select';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import FormControl from '@material-ui/core/FormControl';
-import { AiofPaper } from '../style/mui';
-import { PROFILE_STEPPER_PAGE_LOADED } from '../constants/actionTypes';
+import { SquarePaper } from '../../style/mui';
+import { PROFILE_STEPPER_PAGE_LOADED } from '../../constants/actionTypes';
 
 
 const mapStateToProps = state => ({
@@ -451,7 +451,7 @@ class ProfileStepper extends React.Component {
                             ))}
                         </Stepper>
                         <Container maxWidth="md">
-                            <AiofPaper elevation={3}>
+                            <SquarePaper variant="outlined" square>
                                 {this.state.activeStep === this.steps.length ? (
                                     <div>
                                         <p>Thank you for updating your profile. You can either save the changes by clicking on the 'Save' button below or reset your process by clicking the 'Reset' button</p>
@@ -459,27 +459,27 @@ class ProfileStepper extends React.Component {
                                         <Button onClick={this.handleSave}>Save</Button>
                                     </div>
                                 ) : (
+                                    <div>
+                                        <SquarePaper variant="outlined" square>
+                                            {this.getStepContent}
+                                        </SquarePaper>
+                                        <hr />
                                         <div>
-                                            <AiofPaper elevation={3}>
-                                                {this.getStepContent}
-                                            </AiofPaper>
-                                            <hr />
-                                            <div>
-                                                <Button
-                                                    disabled={this.state.activeStep === 0}
-                                                    onClick={this.handleBack}
-                                                    className={this.classes.backButton} >
-                                                    Back
+                                            <Button
+                                                disabled={this.state.activeStep === 0}
+                                                onClick={this.handleBack}
+                                                className={this.classes.backButton} >
+                                                Back
                                                 </Button>
-                                                <Button
-                                                    onClick={this.handleNext}
-                                                    className={this.classes.backButton} >
-                                                    {this.state.activeStep === this.steps.length - 1 ? 'Finish' : 'Next'}
-                                                </Button>
-                                            </div>
+                                            <Button
+                                                onClick={this.handleNext}
+                                                className={this.classes.backButton} >
+                                                {this.state.activeStep === this.steps.length - 1 ? 'Finish' : 'Next'}
+                                            </Button>
                                         </div>
-                                    )}
-                            </AiofPaper>
+                                    </div>
+                                )}
+                            </SquarePaper>
                         </Container>
                     </div>
                 </React.Fragment>

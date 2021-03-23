@@ -116,7 +116,7 @@ const ProfileMenu = props => {
                         button
                         onClick={handleClose}
                         component={Link}
-                        to={`/@${props.currentUser.firstName.toLowerCase()}.${props.currentUser.lastName.toLowerCase()}`}>
+                        to={`/profile`}>
                         <ListItemText primary="Profile" />
                     </ListItem>
 
@@ -124,7 +124,7 @@ const ProfileMenu = props => {
                         button
                         onClick={handleClose}
                         component={Link}
-                        to={`/@${props.currentUser.firstName.toLowerCase()}.${props.currentUser.lastName.toLowerCase()}/finance`}>
+                        to={`/finance`}>
                         <ListItemText primary="Finances" />
                     </ListItem>
 
@@ -132,7 +132,7 @@ const ProfileMenu = props => {
                         button
                         onClick={handleClose}
                         component={Link}
-                        to={`/@${props.currentUser.firstName.toLowerCase()}.${props.currentUser.lastName.toLowerCase()}/finance/goals`}>
+                        to={`/finance/goals`}>
                         <ListItemText primary="Goals" />
                     </ListItem>
                 </List>

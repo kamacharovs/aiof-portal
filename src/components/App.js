@@ -12,26 +12,21 @@ import Footer from '../components/Footer';
 import Home from '../components/Home';
 import Login from '../components/Login';
 import Register from '../components/Register';
-import ProfileStepper from '../components/ProfileStepper';
-import Profile from '../components/Profile';
+import ProfileStepper from './Profile/ProfileStepper';
+import ProfileMainView from '../components/Profile/MainView';
 import FinanceMainView from '../components/Finance/FinanceMainView';
 import AssetBreakdown from '../components/Finance/AssetBreakdown';
 import LiabilityEditor from '../components/Finance/LiabilityEditor';
 import GoalMainView from '../components/Finance/Goal/MainView';
-
 import TimeToFi from '../components/FI/TimeToFi';
 import AddedTime from '../components/FI/AddedTime';
 import CompoundInterest from '../components/FI/CompoundInterest';
 import Bmi from '../components/FI/Bmi';
 import SavingsRateStepper from '../components/FI/ReSavingsRate';
-
 import MortgageCalculator from './Property/MortgageCalculator';
-
 import CommonInvestments from './Retirement/CommonInvestments';
-
 import TermsAndConditions from '../components/Documents/TermsAndConditions';
 import PrivacyPolicy from '../components/Documents/PrivacyPolicy';
-
 import { APP_LOAD, REDIRECT } from '../constants/actionTypes';
 import { ACCESS_TOKEN, USER } from '../constants/common';
 import { AiofToastContainer } from '../style/common';
@@ -101,10 +96,10 @@ class App extends React.Component {
             <Route exact path="/login" component={Login} />
             <Route exact path="/register" component={Register} />
             <Route exact path="/profile/update" component={ProfileStepper} />
-            <Route exact path="/@:firstName.:lastName/finance" component={FinanceMainView} />
-            <Route exact path="/@:firstName.:lastName/finance/liability" component={LiabilityEditor} />
-            <Route exact path="/@:firstName.:lastName/finance/goals" component={GoalMainView} />
-            <Route exact path="/@:firstName.:lastName" component={Profile} />
+            <Route exact path="/finance" component={FinanceMainView} />
+            <Route exact path="/finance/liability" component={LiabilityEditor} />
+            <Route exact path="/finance/goals" component={GoalMainView} />
+            <Route exact path="/profile" component={ProfileMainView} />
             <Route exact path="/fi/added/time" component={AddedTime} />
             <Route exact path="/fi/time" component={TimeToFi} />
             <Route exact path="/fi/compound/interest" component={CompoundInterest} />

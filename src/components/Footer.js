@@ -37,8 +37,9 @@ const LoggedOutView = props => {
                 <CoolLink to="/privacy-policy" className="nav-link">Privacy Policy</CoolLink>
             </div>
         );
+    } else {
+        return null;
     }
-    return null;
 };
 
 const LoggedInView = props => {
@@ -49,8 +50,9 @@ const LoggedInView = props => {
                 <CoolLink to="/privacy-policy" className="nav-link">Privacy Policy</CoolLink>
             </div>
         );
+    } else {
+        return null;
     }
-    return null;
 };
 
 const Footer = props => {
