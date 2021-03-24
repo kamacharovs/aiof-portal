@@ -6,7 +6,6 @@ import fi from './reducers/fi';
 import finance from './reducers/finance';
 import home from './reducers/home';
 import profile from './reducers/profile';
-import settings from './reducers/settings';
 import property from './reducers/property';
 import retirement from './reducers/retirement';
 import utility from './reducers/utility';
@@ -18,7 +17,6 @@ export default combineReducers({
   finance,
   home,
   profile,
-  settings,
   property,
   retirement,
   utility,

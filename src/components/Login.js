@@ -14,30 +14,27 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import LockOpenIcon from '@material-ui/icons/LockOpen';
 import { CoolLink, RedP } from '../style/common';
 import { AiofLoader } from '../components/Common/Loader';
-import { LOGIN, LOGIN_GET_USER, REFRESH, UPDATE_FIELD_AUTH, LOGIN_PAGE_UNLOADED } from '../constants/actionTypes';
+import { LOGIN, LOGIN_GET_USER, REFRESH, REDIRECT_HOME, LOGIN_PAGE_UNLOADED } from '../constants/actionTypes';
 
 
 const mapStateToProps = state => ({
-  ...state.auth,
   appName: state.common.appName,
+  currentUser: state.common.currentUser,
   token: state.common.token,
   refreshToken: state.common.refreshToken,
-  inProgress: state.auth.inProgress,
+  inProgressLogin: state.auth.inProgressLogin,
+  inProgressRefresh: state.auth.inProgressRefresh,
 });
 
 const mapDispatchToProps = dispatch => ({
-  onChangeEmail: value =>
-    dispatch({ type: UPDATE_FIELD_AUTH, key: 'email', value }),
-  onChangePassword: value =>
-    dispatch({ type: UPDATE_FIELD_AUTH, key: 'password', value }),
-  onChangeRememberMe: (name, value) =>
-    dispatch({ type: UPDATE_FIELD_AUTH, key: 'rememberMe', value }),
   onSubmit: (email, password) =>
     dispatch({ type: LOGIN, payload: agent.Auth.login(email, password) }),
   onRefresh: () =>
     dispatch({ type: REFRESH, payload: agent.Auth.refresh() }),
   onGetUser: () =>
     dispatch({ type: LOGIN_GET_USER, payload: agent.Auth.getUser() }),
+  onRedirectHome: () =>
+    dispatch({ type: REDIRECT_HOME }),
   onUnload: () =>
     dispatch({ type: LOGIN_PAGE_UNLOADED })
 });
@@ -75,16 +72,19 @@ const Login = props => {
   };
 
   useEffect(() => {
-    if (email && password) {
+    if (email && password 
+      && props.inProgressLogin === false) {
       props.onRefresh();
     }
-  }, [props.token]);
+  }, [props.inProgressLogin]);
 
   useEffect(() => {
-    if (email && password) {
+    if (email && password 
+      && props.inProgressLogin === false
+      && props.inProgressRefresh === false) {
       props.onGetUser();
     }
-  }, [props.token, props.refreshToken]);
+  }, [props.inProgressLogin, props.inProgressRefresh]);
 
   return (
     <React.Fragment>

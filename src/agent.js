@@ -33,8 +33,10 @@ const requests = {
 const requestsAuth = {
   get: url =>
     superagent.get(`${API_AUTH_ROOT}${url}`).use(tokenPlugin).then(responseBody),
+  put: (url, body) =>
+    superagent.put(`${API_AUTH_ROOT}${url}`, body).use(tokenPlugin).then(responseBody),
   post: (url, body) =>
-    superagent.post(`${API_AUTH_ROOT}${url}`, body).then(responseBody)
+    superagent.post(`${API_AUTH_ROOT}${url}`, body).then(responseBody),
 }
 const requestsMetadata = {
   get: url =>
@@ -50,6 +52,8 @@ const Auth = {
     requestsAuth.post('/user', { firstName, lastName, email, password }),
   refresh: () =>
     requestsAuth.post('/auth/token', { refresh_token: refresh_token }),
+  resetPassword: (oldPassword, newPassword) =>
+    requestsAuth.put(`/user/password`, { oldPassword, newPassword } ),
   getUser: () =>
     requestsAuth.get(`/user`),
   getExpires: () =>
