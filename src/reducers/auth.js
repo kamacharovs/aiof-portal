@@ -16,7 +16,7 @@ export default (state = {}, action) => {
       } else if (action.subtype === REGISTER) { return { ...state, inProgressRegister: true }
       } else if (action.subtype === REFRESH) { return { ...state, inProgressRefresh: true }
       } else if (action.subtype === LOGIN_GET_USER) { return { ...state, inProgressGetUser: true }
-      } else if (action.subtype === PASSWORD_RESET) { return { ...state, inProgressPasswordReset: true } 
+      } else if (action.subtype === PASSWORD_RESET) { return { ...state, inProgressPasswordReset: true, passwordResetted: false, } 
       } else {
         return { 
           ...state 
@@ -51,6 +51,7 @@ export default (state = {}, action) => {
         ...state,
         inProgressPasswordReset: false,
         passwordResetError: action.error ? action.payload : null,
+        passwordResetted: true,
       }
     case LOGIN_PAGE_UNLOADED:
     case REGISTER_PAGE_UNLOADED:

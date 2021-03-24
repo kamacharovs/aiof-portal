@@ -170,8 +170,8 @@ const Login = props => {
 
               <Grid item xs={12}>
                 <Button type="submit" variant="contained" color="primary" fullWidth
-                  disabled={!isEnabled || props.inProgress}>
-                  <LoadingClip inProgress={props.inProgress} />&nbsp;&nbsp;Sign in
+                  disabled={!isEnabled || props.inProgressLogin}>
+                  <LoadingClip inProgress={props.inProgressLogin} />&nbsp;&nbsp;Sign in
                   </Button>
               </Grid>
 

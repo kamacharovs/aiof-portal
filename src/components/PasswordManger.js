@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
 import agent from '../agent';
+import { toast } from "react-toastify";
 
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
@@ -22,6 +23,7 @@ const mapStateToProps = state => ({
   currentUser: state.common.currentUser,
   inProgressPasswordReset: state.auth.inProgressPasswordReset,
   passwordResetError: state.auth.passwordResetError,
+  passwordResetted: state.auth.passwordResetted,
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -73,110 +75,125 @@ const PasswordMangement = props => {
     props.onPasswordReset(currentPassword, newPassword);
   };
 
-  return (
-    <React.Fragment>
-      <Helmet>
-        <title>{props.appName} | Password management</title>
-      </Helmet>
+  useEffect(() => {
+    if (isEnabled && props.passwordResetted) {
 
-      <Container maxWidth="sm">
-        <SquarePaper elevation={3} variant="outlined">
-          <Grid
-            container
-            spacing={3}
-            alignItems="center"
-            justify="center"
-            alignContent="center">
-            <Grid item xs>
-              <h1 className="text-center">Reset password</h1>
-              <p className="text-center">
-                <CoolLink to="/">
-                  Got here by mistake?
-                  </CoolLink>
-              </p>
-            </Grid>
-          </Grid>
+      const passwordResetted = props.passwordResetted;
+      const passwordResetError = props.passwordResetError;
+      if (passwordResetted && !passwordResetError) {
+        toast.success(`Successfully resetted password. Next time you login, please use your new password`);
+      }
+    }
+  }, [props.passwordResetted]);
 
-          <form className={classes.root} noValidate autoComplete="off" onSubmit={onPasswordReset}>
+  if (props.currentUser) {
+    return (
+      <React.Fragment>
+        <Helmet>
+          <title>{props.appName} | Password management</title>
+        </Helmet>
+
+        <Container maxWidth="sm">
+          <SquarePaper elevation={3} variant="outlined">
             <Grid
               container
               spacing={3}
               alignItems="center"
-              justify="center">
-              <Grid item xs={12}>
-                <div className="text-center text-muted">
-                  {props.appShortAccountDescription}
-                </div>
-                
-                <div className={`text-center ${classes.red}`}>
-                  {props.passwordResetError ? "Incorrect current password. Please try again" : null}
-                </div>
-              </Grid>
-
-              <Grid item xs={12}>
-                <TextField
-                  required
-                  fullWidth
-                  label="Current password"
-                  type="password"
-                  variant="outlined"
-                  value={currentPassword}
-                  onChange={e => setCurrentPassword(e.target.value)}
-                />
-              </Grid>
-
-              <Grid item xs={12}>
-                <TextField
-                  required
-                  fullWidth
-                  label="New password"
-                  type="password"
-                  variant="outlined"
-                  value={newPassword}
-                  onChange={e => updateNewPassword(e.target.value)}
-                />
-              </Grid>
-
-              <Grid item xs={12}>
-                <PasswordRuleChecker
-                  passwordHasNumber={newPasswordHasNumber}
-                  passwordHasUpperChar={newPasswordHasUpperChar}
-                  passwordHasLength={newPasswordHasMinimum8Maximum50} />
-              </Grid>
-
-              <Grid item xs={12}>
-                <TextField
-                  required
-                  fullWidth
-                  label="New password confirmation"
-                  type="password"
-                  variant="outlined"
-                  value={newPasswordConfirmation}
-                  onChange={e => setNewPasswordConfirmation(e.target.value)}
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <ConfirmationPasswordRuleChecker
-                  password={newPassword}
-                  confirmationPassword={newPasswordConfirmation} />
-              </Grid>
-
-              <Grid item xs={12}>
-                <Button
-                  type="submit"
-                  variant="contained"
-                  color="primary"
-                  fullWidth
-                  disabled={!isEnabled || props.inProgressPasswordReset} >
-                  <LoadingClip inProgress={props.inProgressPasswordReset} />&nbsp;&nbsp;Reset
-                </Button>
+              justify="center"
+              alignContent="center">
+              <Grid item xs>
+                <h1 className="text-center">Reset password</h1>
+                <p className="text-center">
+                  <CoolLink to="/">
+                    Got here by mistake?
+                  </CoolLink>
+                </p>
               </Grid>
             </Grid>
-          </form>
-        </SquarePaper>
-      </Container>
-    </React.Fragment>
-  );
+
+            <form className={classes.root} noValidate autoComplete="off" onSubmit={onPasswordReset}>
+              <Grid
+                container
+                spacing={3}
+                alignItems="center"
+                justify="center">
+                <Grid item xs={12}>
+                  <div className="text-center text-muted">
+                    {props.appShortAccountDescription}
+                  </div>
+
+                  <div className={`text-center ${classes.red}`}>
+                    {props.passwordResetError ? "Incorrect current password. Please try again" : null}
+                  </div>
+                </Grid>
+
+                <Grid item xs={12}>
+                  <TextField
+                    required
+                    fullWidth
+                    label="Current password"
+                    type="password"
+                    variant="outlined"
+                    value={currentPassword}
+                    onChange={e => setCurrentPassword(e.target.value)}
+                  />
+                </Grid>
+
+                <Grid item xs={12}>
+                  <TextField
+                    required
+                    fullWidth
+                    label="New password"
+                    type="password"
+                    variant="outlined"
+                    value={newPassword}
+                    onChange={e => updateNewPassword(e.target.value)}
+                  />
+                </Grid>
+
+                <Grid item xs={12}>
+                  <PasswordRuleChecker
+                    passwordHasNumber={newPasswordHasNumber}
+                    passwordHasUpperChar={newPasswordHasUpperChar}
+                    passwordHasLength={newPasswordHasMinimum8Maximum50} />
+                </Grid>
+
+                <Grid item xs={12}>
+                  <TextField
+                    required
+                    fullWidth
+                    label="New password confirmation"
+                    type="password"
+                    variant="outlined"
+                    value={newPasswordConfirmation}
+                    onChange={e => setNewPasswordConfirmation(e.target.value)}
+                  />
+                </Grid>
+                <Grid item xs={12}>
+                  <ConfirmationPasswordRuleChecker
+                    password={newPassword}
+                    confirmationPassword={newPasswordConfirmation} />
+                </Grid>
+
+                <Grid item xs={12}>
+                  <Button
+                    type="submit"
+                    variant="contained"
+                    color="primary"
+                    fullWidth
+                    disabled={!isEnabled || props.inProgressPasswordReset} >
+                    <LoadingClip inProgress={props.inProgressPasswordReset} />&nbsp;&nbsp;Reset
+                </Button>
+                </Grid>
+              </Grid>
+            </form>
+          </SquarePaper>
+        </Container>
+      </React.Fragment>
+    );
+  } else {
+    return null;
+  }
 }
 
 const LoadingClip = props => {
