@@ -13,7 +13,7 @@ import DateFnsUtils from '@date-io/date-fns';
 
 import { SquarePaper } from '../../style/mui';
 import { RectSkeleton } from '../Common/Sekeleton';
-import { formatDate } from '../Finance/Common';
+import { formatDate, getAge } from '../Finance/Common';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -84,6 +84,7 @@ const Profile = props => {
     }
     const handleDateOfBirthChange = date => {
         setDateOfBirth(date);
+        setAge(getAge(date));
         setIsUpdated(true);
     };
 
