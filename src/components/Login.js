@@ -159,7 +159,7 @@ const Login = props => {
                   control={
                     <Checkbox
                       checked={rememberMe}
-                      onChange={e => setRememberMe(e.target.value)}
+                      onChange={e => setRememberMe(!rememberMe)}
                       name="rememberMe"
                       color="primary"
                     />
