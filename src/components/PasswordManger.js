@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
 import agent from '../agent';
@@ -8,7 +8,6 @@ import Container from '@material-ui/core/Container';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
-import LockOpenIcon from '@material-ui/icons/LockOpen';
 
 import { PasswordRuleChecker, ConfirmationPasswordRuleChecker } from './Common/PasswordRuleChecker';
 import { SquarePaper, DefaultRedColor } from '../style/mui';
@@ -19,6 +18,7 @@ import { PASSWORD_RESET } from '../constants/actionTypes';
 
 const mapStateToProps = state => ({
   appName: state.common.appName,
+  appShortAccountDescription: state.common.appShortAccountDescription,
   currentUser: state.common.currentUser,
   inProgressPasswordReset: state.auth.inProgressPasswordReset,
   passwordResetError: state.auth.passwordResetError,
@@ -103,13 +103,15 @@ const PasswordMangement = props => {
               spacing={3}
               alignItems="center"
               justify="center">
-              <p className="text-center text-muted">
-                One account for everything finance
-              </p>
-
-              <div className={classes.red}>
-                {props.error ? "Invalid email or password. Please try again" : null}
-              </div>
+              <Grid item xs={12}>
+                <div className="text-center text-muted">
+                  {props.appShortAccountDescription}
+                </div>
+                
+                <div className={`text-center ${classes.red}`}>
+                  {props.passwordResetError ? "Incorrect current password. Please try again" : null}
+                </div>
+              </Grid>
 
               <Grid item xs={12}>
                 <TextField
@@ -160,10 +162,14 @@ const PasswordMangement = props => {
               </Grid>
 
               <Grid item xs={12}>
-                <Button type="submit" variant="contained" color="primary" fullWidth
-                  disabled={!isEnabled || props.inProgress}>
-                  <LoadingClip inProgress={props.inProgress} />&nbsp;&nbsp;Reset
-                  </Button>
+                <Button
+                  type="submit"
+                  variant="contained"
+                  color="primary"
+                  fullWidth
+                  disabled={!isEnabled || props.inProgressPasswordReset} >
+                  <LoadingClip inProgress={props.inProgressPasswordReset} />&nbsp;&nbsp;Reset
+                </Button>
               </Grid>
             </Grid>
           </form>
@@ -182,9 +188,7 @@ const LoadingClip = props => {
     );
   }
   else {
-    return (
-      <LockOpenIcon />
-    );
+    return null;
   }
 }
 

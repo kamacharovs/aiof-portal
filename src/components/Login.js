@@ -9,20 +9,23 @@ import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
 import Checkbox from '@material-ui/core/Checkbox';
-import { LoginPaper } from '../style/mui';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import LockOpenIcon from '@material-ui/icons/LockOpen';
-import { CoolLink, RedP } from '../style/common';
+
+import { LoginPaper, DefaultRedColor } from '../style/mui';
+import { CoolLink, } from '../style/common';
 import { AiofLoader } from '../components/Common/Loader';
 import { LOGIN, LOGIN_GET_USER, REFRESH, REDIRECT_HOME, LOGIN_PAGE_UNLOADED } from '../constants/actionTypes';
 
 
 const mapStateToProps = state => ({
   appName: state.common.appName,
+  appShortAccountDescription: state.common.appShortAccountDescription,
   currentUser: state.common.currentUser,
   token: state.common.token,
   refreshToken: state.common.refreshToken,
   inProgressLogin: state.auth.inProgressLogin,
+  loginError: state.auth.loginError,
   inProgressRefresh: state.auth.inProgressRefresh,
 });
 
@@ -56,7 +59,12 @@ const useStyles = makeStyles((theme) => ({
   },
   textField: {
     width: '25ch',
-  }
+  },
+  red: {
+    color: DefaultRedColor,
+    margin: '0rem',
+    padding: '0rem'
+  },
 }));
 
 const Login = props => {
@@ -72,16 +80,18 @@ const Login = props => {
   };
 
   useEffect(() => {
-    if (email && password 
-      && props.inProgressLogin === false) {
+    if (email && password
+      && props.inProgressLogin === false
+      && !props.loginError) {
       props.onRefresh();
     }
   }, [props.inProgressLogin]);
 
   useEffect(() => {
-    if (email && password 
+    if (email && password
       && props.inProgressLogin === false
-      && props.inProgressRefresh === false) {
+      && props.inProgressRefresh === false
+      && !props.loginError) {
       props.onGetUser();
     }
   }, [props.inProgressLogin, props.inProgressRefresh]);
@@ -106,13 +116,20 @@ const Login = props => {
           </Grid>
 
           <form className={classes.root} noValidate autoComplete="off" onSubmit={onSubmitForm(email, password)}>
-            <Grid container spacing={3} alignItems="center" justify="center">
-              <p className="text-center text-muted">
-                One account for everything finance
-                </p>
-              <RedP>
-                {props.error ? "Invalid email or password. Please try again" : null}
-              </RedP>
+            <Grid
+              container
+              spacing={3}
+              alignItems="center"
+              justify="center">
+              <Grid item xs={12}>
+                <div className="text-center text-muted">
+                  {props.appShortAccountDescription}
+                </div>
+
+                <div className={`text-center ${classes.red}`}>
+                  {props.loginError ? "Invalid email or password. Please try again" : null}
+                </div>
+              </Grid>
 
               <Grid item xs={12}>
                 <TextField

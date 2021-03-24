@@ -20,6 +20,7 @@ import { REGISTER, REGISTER_PAGE_UNLOADED } from '../constants/actionTypes';
 const mapStateToProps = state => ({
   ...state.auth,
   appName: state.common.appName,
+  appShortAccountDescription: state.common.appShortAccountDescription,
   inProgress: state.auth.inProgress,
 });
 
@@ -94,7 +95,7 @@ const Register = props => {
               <p className="text-center">
                 <CoolLink to="/login">
                   Have an account?
-            </CoolLink>
+                </CoolLink>
               </p>
             </Grid>
           </Grid>
@@ -102,7 +103,7 @@ const Register = props => {
           <form className={classes.root} noValidate autoComplete="off" onSubmit={onSubmitForm()}>
             <Grid container spacing={3} alignItems="center" justify="center">
               <p className="text-center text-muted">
-                One account for everything finance
+                {props.appShortAccountDescription}
               </p>
 
               <Grid item xs={12}>

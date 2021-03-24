@@ -149,7 +149,7 @@ const ProfileMenu = props => {
                         button
                         onClick={handleClose}
                         component={Link}
-                        to={`/password`}>
+                        to={`/manage/password`}>
                         <ListItemText primary="Password manager" />
                     </ListItem>
                     <ListItem
