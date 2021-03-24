@@ -14,7 +14,7 @@ import { PasswordRuleChecker, ConfirmationPasswordRuleChecker } from './Common/P
 import { SquarePaper, DefaultRedColor } from '../style/mui';
 import { CoolLink } from '../style/common';
 import { AiofLoader } from './Common/Loader';
-import { PASSWORD_RESET } from '../constants/actionTypes';
+import { PASSWORD_RESET, REDIRECT_HOME } from '../constants/actionTypes';
 
 
 const mapStateToProps = state => ({
@@ -29,6 +29,8 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   onPasswordReset: (oldPassword, newPassword) =>
     dispatch({ type: PASSWORD_RESET, payload: agent.Auth.resetPassword(oldPassword, newPassword) }),
+  onRedirectHome: () =>
+    dispatch({ type: REDIRECT_HOME }),
 });
 
 const useStyles = makeStyles((theme) => ({
@@ -83,6 +85,8 @@ const PasswordMangement = props => {
       if (passwordResetted && !passwordResetError) {
         toast.success(`Successfully resetted password. Next time you login, please use your new password`);
       }
+
+      props.onRedirectHome();
     }
   }, [props.passwordResetted]);
 
