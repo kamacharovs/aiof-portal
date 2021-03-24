@@ -20,10 +20,8 @@ import { PASSWORD_RESET } from '../constants/actionTypes';
 const mapStateToProps = state => ({
   appName: state.common.appName,
   currentUser: state.common.currentUser,
-  token: state.common.token,
-  refreshToken: state.common.refreshToken,
-  inProgressLogin: state.auth.inProgressLogin,
-  inProgressRefresh: state.auth.inProgressRefresh,
+  inProgressPasswordReset: state.auth.inProgressPasswordReset,
+  passwordResetError: state.auth.passwordResetError,
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -72,7 +70,7 @@ const PasswordMangement = props => {
   const onPasswordReset = (ev) => {
     ev.preventDefault();
 
-    props.onSubmit(currentPassword, newPassword);
+    props.onPasswordReset(currentPassword, newPassword);
   };
 
   return (

@@ -12,7 +12,7 @@ import Footer from '../components/Footer';
 import Home from '../components/Home';
 import Login from '../components/Login';
 import Register from '../components/Register';
-import PasswordMangement from '../components/PasswordMangement';
+import PasswordMangement from './PasswordManger';
 import ProfileStepper from './Profile/ProfileStepper';
 import ProfileMainView from '../components/Profile/MainView';
 import FinanceMainView from '../components/Finance/FinanceMainView';
