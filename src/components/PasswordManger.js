@@ -14,7 +14,7 @@ import { PasswordRuleChecker, ConfirmationPasswordRuleChecker } from './Common/P
 import { SquarePaper, DefaultRedColor } from '../style/mui';
 import { CoolLink } from '../style/common';
 import { AiofLoader } from './Common/Loader';
-import { PASSWORD_RESET, PASSWORD_RESET_UNAUTHENTICATED, REDIRECT_HOME } from '../constants/actionTypes';
+import { PASSWORD_RESET, PASSWORD_RESET_UNAUTHENTICATED, REDIRECT_HOME, REDIRECT_LOGIN } from '../constants/actionTypes';
 
 
 const mapStateToProps = state => ({
@@ -33,6 +33,8 @@ const mapDispatchToProps = dispatch => ({
     dispatch({ type: PASSWORD_RESET_UNAUTHENTICATED, payload: agent.Auth.resetPasswordUnauthenticated(email, oldPassword, newPassword) }),
   onRedirectHome: () =>
     dispatch({ type: REDIRECT_HOME }),
+  onRedirectLogin: () =>
+    dispatch({ type: REDIRECT_LOGIN }),
 });
 
 const useStyles = makeStyles((theme) => ({
@@ -54,6 +56,7 @@ const PasswordMangement = props => {
   const regexUpperChar = new RegExp("[A-Z]+");
   const regexLength = new RegExp(".{8,50}");
 
+  const authenticated = props.currentUser ? true : false;
   const [email, setEmail] = useState("");
   const [currentPassword, setCurrentPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
@@ -81,16 +84,15 @@ const PasswordMangement = props => {
   const onPasswordReset = (ev) => {
     ev.preventDefault();
 
-    if (email) {
-      props.onPasswordResetUnauthenticated(email, currentPassword, newPassword);
-    } else {
+    if (authenticated) {
       props.onPasswordReset(currentPassword, newPassword);
+    } else {
+      props.onPasswordResetUnauthenticated(email, currentPassword, newPassword);
     }
   };
 
   useEffect(() => {
-    if (!email && isEnabled && props.passwordResetted) {
-
+    if (authenticated && isEnabled && props.passwordResetted) {
       const passwordResetted = props.passwordResetted;
       const passwordResetError = props.passwordResetError;
       if (passwordResetted && !passwordResetError) {
@@ -98,13 +100,21 @@ const PasswordMangement = props => {
       }
 
       props.onRedirectHome();
+    } else if (!authenticated && isEnabledWithEmail && props.passwordResetted) {
+      const passwordResetted = props.passwordResetted;
+      const passwordResetError = props.passwordResetError;
+      if (passwordResetted && !passwordResetError) {
+        toast.success(`Successfully resetted password. Next time you login, please use your new password`);
+      }
+      
+      props.onRedirectLogin();
     }
   }, [props.passwordResetted]);
 
   return (
     <React.Fragment>
       <Helmet>
-        <title>{props.appName} | Password management</title>
+        <title>{props.appName} | Password manager</title>
       </Helmet>
 
       <Container maxWidth="sm">
@@ -118,9 +128,9 @@ const PasswordMangement = props => {
             <Grid item xs>
               <h1 className="text-center">Reset password</h1>
               <p className="text-center">
-                <CoolLink to="/">
+                <CoolLink to={!authenticated ? "/login" : "/"}>
                   Got here by mistake?
-                  </CoolLink>
+                </CoolLink>
               </p>
             </Grid>
           </Grid>
@@ -141,7 +151,7 @@ const PasswordMangement = props => {
                 </div>
               </Grid>
 
-              {!props.currentUser && 
+              {!authenticated && 
                 <Grid item xs={12}>
                   <TextField
                   required
