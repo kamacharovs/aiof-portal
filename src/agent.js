@@ -54,6 +54,8 @@ const Auth = {
     requestsAuth.post('/auth/token', { refresh_token: refresh_token }),
   resetPassword: (oldPassword, newPassword) =>
     requestsAuth.put(`/user/password`, { oldPassword, newPassword } ),
+  resetPasswordUnauthenticated: (email, oldPassword, newPassword) =>
+    requestsAuth.put(`/user/unauthenticated/password`, { email, oldPassword, newPassword }),
   getUser: () =>
     requestsAuth.get(`/user`),
   getExpires: () =>

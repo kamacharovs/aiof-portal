@@ -101,10 +101,16 @@ const Register = props => {
           </Grid>
 
           <form className={classes.root} noValidate autoComplete="off" onSubmit={onSubmitForm()}>
-            <Grid container spacing={3} alignItems="center" justify="center">
-              <p className="text-center text-muted">
-                {props.appShortAccountDescription}
-              </p>
+            <Grid 
+              container 
+              spacing={3} 
+              alignItems="center" 
+              justify="center">
+              <Grid item xs={12}>
+                <div className="text-center text-muted">
+                  {props.appShortAccountDescription}
+                </div>
+              </Grid>
 
               <Grid item xs={12}>
                 <TextField

@@ -14,7 +14,7 @@ import { PasswordRuleChecker, ConfirmationPasswordRuleChecker } from './Common/P
 import { SquarePaper, DefaultRedColor } from '../style/mui';
 import { CoolLink } from '../style/common';
 import { AiofLoader } from './Common/Loader';
-import { PASSWORD_RESET, REDIRECT_HOME } from '../constants/actionTypes';
+import { PASSWORD_RESET, PASSWORD_RESET_UNAUTHENTICATED, REDIRECT_HOME } from '../constants/actionTypes';
 
 
 const mapStateToProps = state => ({
@@ -29,6 +29,8 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   onPasswordReset: (oldPassword, newPassword) =>
     dispatch({ type: PASSWORD_RESET, payload: agent.Auth.resetPassword(oldPassword, newPassword) }),
+  onPasswordResetUnauthenticated: (email, oldPassword, newPassword) =>
+    dispatch({ type: PASSWORD_RESET_UNAUTHENTICATED, payload: agent.Auth.resetPasswordUnauthenticated(email, oldPassword, newPassword) }),
   onRedirectHome: () =>
     dispatch({ type: REDIRECT_HOME }),
 });
@@ -52,6 +54,7 @@ const PasswordMangement = props => {
   const regexUpperChar = new RegExp("[A-Z]+");
   const regexLength = new RegExp(".{8,50}");
 
+  const [email, setEmail] = useState("");
   const [currentPassword, setCurrentPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [newPasswordConfirmation, setNewPasswordConfirmation] = useState("");
@@ -61,6 +64,10 @@ const PasswordMangement = props => {
   const [newPasswordHasMinimum8Maximum50, setNewPasswordHasMinimum8Maximum50] = useState(false);
 
   const isEnabled = currentPassword
+    && newPassword
+    && newPassword === newPasswordConfirmation;
+  const isEnabledWithEmail = email
+    && currentPassword
     && newPassword
     && newPassword === newPasswordConfirmation;
 
@@ -74,11 +81,15 @@ const PasswordMangement = props => {
   const onPasswordReset = (ev) => {
     ev.preventDefault();
 
-    props.onPasswordReset(currentPassword, newPassword);
+    if (email) {
+      props.onPasswordResetUnauthenticated(email, currentPassword, newPassword);
+    } else {
+      props.onPasswordReset(currentPassword, newPassword);
+    }
   };
 
   useEffect(() => {
-    if (isEnabled && props.passwordResetted) {
+    if (!email && isEnabled && props.passwordResetted) {
 
       const passwordResetted = props.passwordResetted;
       const passwordResetError = props.passwordResetError;
@@ -90,114 +101,123 @@ const PasswordMangement = props => {
     }
   }, [props.passwordResetted]);
 
-  if (props.currentUser) {
-    return (
-      <React.Fragment>
-        <Helmet>
-          <title>{props.appName} | Password management</title>
-        </Helmet>
+  return (
+    <React.Fragment>
+      <Helmet>
+        <title>{props.appName} | Password management</title>
+      </Helmet>
 
-        <Container maxWidth="sm">
-          <SquarePaper elevation={3} variant="outlined">
+      <Container maxWidth="sm">
+        <SquarePaper elevation={3} variant="outlined">
+          <Grid
+            container
+            spacing={3}
+            alignItems="center"
+            justify="center"
+            alignContent="center">
+            <Grid item xs>
+              <h1 className="text-center">Reset password</h1>
+              <p className="text-center">
+                <CoolLink to="/">
+                  Got here by mistake?
+                  </CoolLink>
+              </p>
+            </Grid>
+          </Grid>
+
+          <form className={classes.root} noValidate autoComplete="off" onSubmit={onPasswordReset}>
             <Grid
               container
               spacing={3}
               alignItems="center"
-              justify="center"
-              alignContent="center">
-              <Grid item xs>
-                <h1 className="text-center">Reset password</h1>
-                <p className="text-center">
-                  <CoolLink to="/">
-                    Got here by mistake?
-                  </CoolLink>
-                </p>
+              justify="center">
+              <Grid item xs={12}>
+                <div className="text-center text-muted">
+                  {props.appShortAccountDescription}
+                </div>
+
+                <div className={`text-center ${classes.red}`}>
+                  {props.passwordResetError ? "Incorrect current password. Please try again" : null}
+                </div>
+              </Grid>
+
+              {!props.currentUser && 
+                <Grid item xs={12}>
+                  <TextField
+                  required
+                  fullWidth
+                  label="Email"
+                  variant="outlined"
+                  value={email}
+                  onChange={e => setEmail(e.target.value)}
+                />
+                </Grid>
+              }
+
+              <Grid item xs={12}>
+                <TextField
+                  required
+                  fullWidth
+                  label="Current password"
+                  type="password"
+                  variant="outlined"
+                  value={currentPassword}
+                  onChange={e => setCurrentPassword(e.target.value)}
+                />
+              </Grid>
+
+              <Grid item xs={12}>
+                <TextField
+                  required
+                  fullWidth
+                  label="New password"
+                  type="password"
+                  variant="outlined"
+                  value={newPassword}
+                  onChange={e => updateNewPassword(e.target.value)}
+                />
+              </Grid>
+
+              <Grid item xs={12}>
+                <PasswordRuleChecker
+                  passwordHasNumber={newPasswordHasNumber}
+                  passwordHasUpperChar={newPasswordHasUpperChar}
+                  passwordHasLength={newPasswordHasMinimum8Maximum50} />
+              </Grid>
+
+              <Grid item xs={12}>
+                <TextField
+                  required
+                  fullWidth
+                  label="New password confirmation"
+                  type="password"
+                  variant="outlined"
+                  value={newPasswordConfirmation}
+                  onChange={e => setNewPasswordConfirmation(e.target.value)}
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <ConfirmationPasswordRuleChecker
+                  password={newPassword}
+                  confirmationPassword={newPasswordConfirmation} />
+              </Grid>
+
+              <Grid item xs={12}>
+                <Button
+                  type="submit"
+                  variant="contained"
+                  color="primary"
+                  fullWidth
+                  disabled={email ? !isEnabledWithEmail : !isEnabled || props.inProgressPasswordReset} >
+                  <LoadingClip inProgress={props.inProgressPasswordReset} />&nbsp;&nbsp;Reset
+                </Button>
               </Grid>
             </Grid>
-
-            <form className={classes.root} noValidate autoComplete="off" onSubmit={onPasswordReset}>
-              <Grid
-                container
-                spacing={3}
-                alignItems="center"
-                justify="center">
-                <Grid item xs={12}>
-                  <div className="text-center text-muted">
-                    {props.appShortAccountDescription}
-                  </div>
-
-                  <div className={`text-center ${classes.red}`}>
-                    {props.passwordResetError ? "Incorrect current password. Please try again" : null}
-                  </div>
-                </Grid>
-
-                <Grid item xs={12}>
-                  <TextField
-                    required
-                    fullWidth
-                    label="Current password"
-                    type="password"
-                    variant="outlined"
-                    value={currentPassword}
-                    onChange={e => setCurrentPassword(e.target.value)}
-                  />
-                </Grid>
-
-                <Grid item xs={12}>
-                  <TextField
-                    required
-                    fullWidth
-                    label="New password"
-                    type="password"
-                    variant="outlined"
-                    value={newPassword}
-                    onChange={e => updateNewPassword(e.target.value)}
-                  />
-                </Grid>
-
-                <Grid item xs={12}>
-                  <PasswordRuleChecker
-                    passwordHasNumber={newPasswordHasNumber}
-                    passwordHasUpperChar={newPasswordHasUpperChar}
-                    passwordHasLength={newPasswordHasMinimum8Maximum50} />
-                </Grid>
-
-                <Grid item xs={12}>
-                  <TextField
-                    required
-                    fullWidth
-                    label="New password confirmation"
-                    type="password"
-                    variant="outlined"
-                    value={newPasswordConfirmation}
-                    onChange={e => setNewPasswordConfirmation(e.target.value)}
-                  />
-                </Grid>
-                <Grid item xs={12}>
-                  <ConfirmationPasswordRuleChecker
-                    password={newPassword}
-                    confirmationPassword={newPasswordConfirmation} />
-                </Grid>
-
-                <Grid item xs={12}>
-                  <Button
-                    type="submit"
-                    variant="contained"
-                    color="primary"
-                    fullWidth
-                    disabled={!isEnabled || props.inProgressPasswordReset} >
-                    <LoadingClip inProgress={props.inProgressPasswordReset} />&nbsp;&nbsp;Reset
-                </Button>
-                </Grid>
-              </Grid>
-            </form>
-          </SquarePaper>
-        </Container>
-      </React.Fragment>
-    );
-  } else {
-    return null;
-  }
+          </form>
+        </SquarePaper>
+      </Container>
+    </React.Fragment>
+  );
 }
 
 const LoadingClip = props => {
