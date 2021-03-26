@@ -8,32 +8,23 @@ import Container from '@material-ui/core/Container';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
-import Zoom from '@material-ui/core/Zoom';
 import LockOpenIcon from '@material-ui/icons/LockOpen';
-import CheckIcon from '@material-ui/icons/Check';
-import CloseIcon from '@material-ui/icons/Close';
 
+import { PasswordRuleChecker } from './Common/PasswordRuleChecker';
 import { LoginPaper } from '../style/mui';
 import { CoolLink } from '../style/common';
 import { AiofLoader } from '../components/Common/Loader';
-import { UPDATE_FIELD_AUTH, REGISTER, REGISTER_PAGE_UNLOADED } from '../constants/actionTypes';
+import { REGISTER, REGISTER_PAGE_UNLOADED } from '../constants/actionTypes';
 
 
 const mapStateToProps = state => ({
   ...state.auth,
   appName: state.common.appName,
+  appShortAccountDescription: state.common.appShortAccountDescription,
   inProgress: state.auth.inProgress,
 });
 
 const mapDispatchToProps = dispatch => ({
-  onChangeFirstName: value =>
-    dispatch({ type: UPDATE_FIELD_AUTH, key: 'firstName', value }),
-  onChangeLastName: value =>
-    dispatch({ type: UPDATE_FIELD_AUTH, key: 'lastName', value }),
-  onChangeEmail: value =>
-    dispatch({ type: UPDATE_FIELD_AUTH, key: 'email', value }),
-  onChangePassword: value =>
-    dispatch({ type: UPDATE_FIELD_AUTH, key: 'password', value }),
   onSubmit: (firstName, lastName, email, password) => {
     const payload = agent.Auth.register(firstName, lastName, email, password);
     dispatch({ type: REGISTER, payload })
@@ -56,10 +47,10 @@ const Register = props => {
   const regexUpperChar = new RegExp("[A-Z]+");
   const regexLength = new RegExp(".{8,50}");
 
-  const [firstName, setFirstName] = useState('');
-  const [lastName, setLastName] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
   const [passwordHasNumber, setPasswordHasNumber] = useState(false);
   const [passwordHasUpperChar, setPasswordHasUpperChar] = useState(false);
@@ -104,16 +95,22 @@ const Register = props => {
               <p className="text-center">
                 <CoolLink to="/login">
                   Have an account?
-            </CoolLink>
+                </CoolLink>
               </p>
             </Grid>
           </Grid>
 
           <form className={classes.root} noValidate autoComplete="off" onSubmit={onSubmitForm()}>
-            <Grid container spacing={3} alignItems="center" justify="center">
-              <p className="text-center text-muted">
-                One account for everything finance
-              </p>
+            <Grid 
+              container 
+              spacing={3} 
+              alignItems="center" 
+              justify="center">
+              <Grid item xs={12}>
+                <div className="text-center text-muted">
+                  {props.appShortAccountDescription}
+                </div>
+              </Grid>
 
               <Grid item xs={12}>
                 <TextField
@@ -181,79 +178,6 @@ const Register = props => {
 
         </LoginPaper>
       </Container>
-    </React.Fragment>
-  );
-}
-
-const PasswordRuleChecker = props => {
-  const timeout = 750;
-  const hasNumber = props.passwordHasNumber;
-  const hasUpperChar = props.passwordHasUpperChar;
-  const hasLength = props.passwordHasLength;
-
-  return (
-    <React.Fragment>
-      <Grid container spacing={3} alignItems="center" justify="center">
-        <Grid item xs={1}>
-          {hasNumber ?
-            <React.Fragment>
-              <Zoom in={hasNumber} timeout={timeout}>
-                <CheckIcon style={{ color: "green" }} />
-              </Zoom>
-            </React.Fragment>
-            :
-            <React.Fragment>
-              <Zoom in={!hasNumber} timeout={timeout}>
-                <CloseIcon style={{ color: "red" }} />
-              </Zoom>
-            </React.Fragment>
-          }
-        </Grid>
-        <Grid item xs>
-          Password must contain a number
-        </Grid>
-      </Grid>
-
-      <Grid container spacing={3} alignItems="center" justify="center">
-        <Grid item xs={1}>
-          {hasUpperChar ?
-            <React.Fragment>
-              <Zoom in={hasUpperChar} timeout={timeout}>
-                <CheckIcon style={{ color: "green" }} />
-              </Zoom>
-            </React.Fragment>
-            :
-            <React.Fragment>
-              <Zoom in={!hasUpperChar} timeout={timeout}>
-                <CloseIcon style={{ color: "red" }} />
-              </Zoom>
-            </React.Fragment>
-          }
-        </Grid>
-        <Grid item xs>
-          Password must have at least 1 upper case character
-        </Grid>
-      </Grid>
-
-      <Grid container spacing={3} alignItems="center" justify="center">
-        <Grid item xs={1}>
-          {hasLength ?
-            <React.Fragment>
-              <Zoom in={hasLength} timeout={timeout}>
-                <CheckIcon style={{ color: "green" }} />
-              </Zoom>
-            </React.Fragment>
-            : <React.Fragment>
-              <Zoom in={!hasLength} timeout={timeout}>
-                <CloseIcon style={{ color: "red" }} />
-              </Zoom>
-            </React.Fragment>
-          }
-        </Grid>
-        <Grid item xs>
-          Password must be between 8 and 50 characters long
-        </Grid>
-      </Grid>
     </React.Fragment>
   );
 }

@@ -9,35 +9,35 @@ import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
 import Checkbox from '@material-ui/core/Checkbox';
-import { LoginPaper } from '../style/mui';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import LockOpenIcon from '@material-ui/icons/LockOpen';
-import { CoolLink, RedP } from '../style/common';
+
+import { LoginPaper, DefaultRedColor } from '../style/mui';
+import { CoolLink, } from '../style/common';
 import { AiofLoader } from '../components/Common/Loader';
-import { LOGIN, LOGIN_GET_USER, REFRESH, UPDATE_FIELD_AUTH, LOGIN_PAGE_UNLOADED } from '../constants/actionTypes';
+import { LOGIN, LOGIN_GET_USER, REFRESH, REDIRECT_HOME, LOGIN_PAGE_UNLOADED } from '../constants/actionTypes';
 
 
 const mapStateToProps = state => ({
-  ...state.auth,
   appName: state.common.appName,
+  appShortAccountDescription: state.common.appShortAccountDescription,
+  currentUser: state.common.currentUser,
   token: state.common.token,
   refreshToken: state.common.refreshToken,
-  inProgress: state.auth.inProgress,
+  inProgressLogin: state.auth.inProgressLogin,
+  loginError: state.auth.loginError,
+  inProgressRefresh: state.auth.inProgressRefresh,
 });
 
 const mapDispatchToProps = dispatch => ({
-  onChangeEmail: value =>
-    dispatch({ type: UPDATE_FIELD_AUTH, key: 'email', value }),
-  onChangePassword: value =>
-    dispatch({ type: UPDATE_FIELD_AUTH, key: 'password', value }),
-  onChangeRememberMe: (name, value) =>
-    dispatch({ type: UPDATE_FIELD_AUTH, key: 'rememberMe', value }),
   onSubmit: (email, password) =>
     dispatch({ type: LOGIN, payload: agent.Auth.login(email, password) }),
   onRefresh: () =>
     dispatch({ type: REFRESH, payload: agent.Auth.refresh() }),
   onGetUser: () =>
     dispatch({ type: LOGIN_GET_USER, payload: agent.Auth.getUser() }),
+  onRedirectHome: () =>
+    dispatch({ type: REDIRECT_HOME }),
   onUnload: () =>
     dispatch({ type: LOGIN_PAGE_UNLOADED })
 });
@@ -59,7 +59,12 @@ const useStyles = makeStyles((theme) => ({
   },
   textField: {
     width: '25ch',
-  }
+  },
+  red: {
+    color: DefaultRedColor,
+    margin: '0rem',
+    padding: '0rem'
+  },
 }));
 
 const Login = props => {
@@ -75,16 +80,21 @@ const Login = props => {
   };
 
   useEffect(() => {
-    if (email && password) {
+    if (email && password
+      && props.inProgressLogin === false
+      && !props.loginError) {
       props.onRefresh();
     }
-  }, [props.token]);
+  }, [props.inProgressLogin]);
 
   useEffect(() => {
-    if (email && password) {
+    if (email && password
+      && props.inProgressLogin === false
+      && props.inProgressRefresh === false
+      && !props.loginError) {
       props.onGetUser();
     }
-  }, [props.token, props.refreshToken]);
+  }, [props.inProgressLogin, props.inProgressRefresh]);
 
   return (
     <React.Fragment>
@@ -106,13 +116,20 @@ const Login = props => {
           </Grid>
 
           <form className={classes.root} noValidate autoComplete="off" onSubmit={onSubmitForm(email, password)}>
-            <Grid container spacing={3} alignItems="center" justify="center">
-              <p className="text-center text-muted">
-                One account for everything finance
-                </p>
-              <RedP>
-                {props.error ? "Invalid email or password. Please try again" : null}
-              </RedP>
+            <Grid
+              container
+              spacing={3}
+              alignItems="center"
+              justify="center">
+              <Grid item xs={12}>
+                <div className="text-center text-muted">
+                  {props.appShortAccountDescription}
+                </div>
+
+                <div className={`text-center ${classes.red}`}>
+                  {props.loginError ? "Invalid email or password. Please try again" : null}
+                </div>
+              </Grid>
 
               <Grid item xs={12}>
                 <TextField
@@ -142,7 +159,7 @@ const Login = props => {
                   control={
                     <Checkbox
                       checked={rememberMe}
-                      onChange={e => setRememberMe(e.target.value)}
+                      onChange={e => setRememberMe(!rememberMe)}
                       name="rememberMe"
                       color="primary"
                     />
@@ -153,8 +170,8 @@ const Login = props => {
 
               <Grid item xs={12}>
                 <Button type="submit" variant="contained" color="primary" fullWidth
-                  disabled={!isEnabled || props.inProgress}>
-                  <LoadingClip inProgress={props.inProgress} />&nbsp;&nbsp;Sign in
+                  disabled={!isEnabled || props.inProgressLogin}>
+                  <LoadingClip inProgress={props.inProgressLogin} />&nbsp;&nbsp;Sign in
                   </Button>
               </Grid>
 

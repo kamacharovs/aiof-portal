@@ -139,8 +139,22 @@ const ProfileMenu = props => {
 
                 <Divider />
 
-                <List>
-                    <ListItem button onClick={props.onClickLogout}>
+                <List
+                    subheader={
+                        <ListSubheader component="div" id="nested-list-subheader">
+                            Other
+                    </ListSubheader>
+                    }>
+                    <ListItem
+                        button
+                        onClick={handleClose}
+                        component={Link}
+                        to={`/manage/password`}>
+                        <ListItemText primary="Password manager" />
+                    </ListItem>
+                    <ListItem
+                        button
+                        onClick={props.onClickLogout}>
                         <ListItemText primary="Logout" />
                     </ListItem>
                 </List>
