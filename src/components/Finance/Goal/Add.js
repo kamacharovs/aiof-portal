@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import agent from '../../../agent';
 import 'date-fns';
-import { isNumber } from '../Common';
 
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
@@ -31,6 +30,7 @@ import {
     GENERIC, TRIP, SAVEFORCOLLEGE,
     GOAL_TRIP_TYPES_MAPPING, GOAL_COLLEGE_TYPE_MAPPING, BUYAHOME
 } from '../../../constants/goals';
+import { isNumber } from '../Common';
 
 
 const mapStateToProps = state => ({

@@ -234,10 +234,18 @@ export const AiofToastContainer = styled(ToastContainer).attrs({
   // custom props
 })`
   width: 100%;
-  margin: 0;
+  margin: 0px;
+  padding: 0px;
+  font-size: 0.75rem;
 
-  .Toastify__toast-container {}
-  .Toastify__toast {}
+  .Toastify__toast-container {
+    position: fixed;
+    margin: 0px;
+  }
+  .Toastify__toast {
+    border-radius: 0px;
+    margin: 0px;
+  }
   .Toastify__toast--error {
     background-color: ${DefaultRedColor}
   }
