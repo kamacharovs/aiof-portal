@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
 import agent from '../agent';
-import { toast } from "react-toastify";
 
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
@@ -13,6 +12,7 @@ import Grid from '@material-ui/core/Grid';
 import { PasswordRuleChecker, ConfirmationPasswordRuleChecker } from './Common/PasswordRuleChecker';
 import { SquarePaper, DefaultRedColor } from '../style/mui';
 import { CoolLink } from '../style/common';
+import { success } from './Common/AiofToast';
 import { AiofLoader } from './Common/Loader';
 import { PASSWORD_RESET, PASSWORD_RESET_UNAUTHENTICATED, REDIRECT_HOME, REDIRECT_LOGIN } from '../constants/actionTypes';
 
@@ -96,7 +96,7 @@ const PasswordMangement = props => {
       const passwordResetted = props.passwordResetted;
       const passwordResetError = props.passwordResetError;
       if (passwordResetted && !passwordResetError) {
-        toast.success(`Successfully resetted password. Next time you login, please use your new password`);
+        success(`Successfully resetted password. Next time you login, please use your new password`);
       }
 
       props.onRedirectHome();
@@ -104,7 +104,7 @@ const PasswordMangement = props => {
       const passwordResetted = props.passwordResetted;
       const passwordResetError = props.passwordResetError;
       if (passwordResetted && !passwordResetError) {
-        toast.success(`Successfully resetted password. Next time you login, please use your new password`);
+        success(`Successfully resetted password. Next time you login, please use your new password`);
       }
       
       props.onRedirectLogin();

@@ -233,6 +233,9 @@ export const ThinText = styled.p`
 export const AiofToastContainer = styled(ToastContainer).attrs({
   // custom props
 })`
+  width: 100%;
+  margin: 0;
+
   .Toastify__toast-container {}
   .Toastify__toast {}
   .Toastify__toast--error {
