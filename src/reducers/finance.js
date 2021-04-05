@@ -49,7 +49,7 @@ export default (state = {}, action) => {
           inProgress: true
         }
       } else if (action.subtype === ASSETS) { return { ...state, inProgressAssets: true, }
-      } else if (action.subType === ASSET_DELETE) { return { ...state, inProgressDeleteAsset: true }
+      } else if (action.subType === ASSET_DELETE) { return { ...state, inProgressDeleteAsset: true, }
       } else if (action.subtype === GOALS) { return { ...state, inProgressGoals: true, }
       } else if (action.subtype === GOAL_TYPES) { return { ...state, inProgressGoalTypes: true, }
       } else if (action.subtype === GOAL_TRIP_TYPES) { return { ...state, inProgressGoalTripTypes: true, }
@@ -91,7 +91,6 @@ export default (state = {}, action) => {
       }
     case ASSET_DELETE:
       return {
-        ...state,
         ...state,
         inProgressDeleteAsset: false,
         assetDeleted: action.error ? null : true,

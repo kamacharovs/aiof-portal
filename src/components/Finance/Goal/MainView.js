@@ -19,7 +19,6 @@ const mapStateToProps = state => ({
     ...state.finance,
     appName: state.common.appName,
     currentUser: state.common.currentUser,
-    inProgressGoals: state.finance.inProgressGoals,
     goals: state.finance.goals,
     goalAdded: state.finance.goalAdded,
     goalAddedCode: state.finance.goalAddedCode,

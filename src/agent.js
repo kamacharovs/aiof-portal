@@ -116,7 +116,7 @@ const Asset = {
     requestsAsset.post(`/assets/snapshot`, snapshot),
   update: (id, asset) =>
     requestsAsset.put(`/assets/${id}`, asset),
-  del: (id) =>
+  delete: (id) =>
     requestsAsset.del(`/assets/${id}`),
 }
 

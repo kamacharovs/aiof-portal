@@ -7,7 +7,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
 
-import { SquarePaper, DefaultDarkTeal } from '../../../style/mui';
+import { DefaultAlternateColor } from '../../../style/mui';
 import { REDIRECT_LOGIN, ASSETS } from '../../../constants/actionTypes';
 
 import AssetOverview from './Overview';
@@ -65,7 +65,8 @@ const AssetMainView = props => {
                     <Grid container spacing={1} className={classes.root}>
                         <Grid item xs>
                             <div ref={currentAssetsRef}>
-                                <CurrentAssets assets={props.assets} />
+                                <CurrentAssets 
+                                    assets={props.assets} />
                             </div>
                         </Grid>
                     </Grid>
