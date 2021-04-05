@@ -104,18 +104,6 @@ const UserProfile = {
 }
 
 const Asset = {
-  add: asset =>
-    requests.post('/asset', asset),
-  update: (publicKey, asset) =>
-    requests.put(`/asset/${publicKey}`, asset),
-  delete: publicKey =>
-    requests.del(`/asset/${publicKey}`),
-  types: () =>
-    requests.get('/asset/types'),
-  breakdown: payload =>
-    requestsMetadata.post('/asset/breakdown', payload)
-}
-const AssetV2 = {
   get: (id) =>
     requestsAsset.get(`/assets/${id}`),
   all: () =>
@@ -196,7 +184,6 @@ export default {
   User,
   UserProfile,
   Asset,
-  AssetV2,
   Liability,
   Goal,
   Utility,

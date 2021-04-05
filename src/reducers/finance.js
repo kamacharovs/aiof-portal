@@ -2,9 +2,11 @@ import {
   ASYNC_START,
   FINANCE_PAGE_LOADED,
   FINANCE_PAGE_UNLOADED,
-  ASSET_BREAKDOWN,
-  ASSET_ADD,
+  ASSETS,
   ASSET_TYPES,
+  ASSET_ADD,
+  ASSET_DELETE,
+  ASSET_BREAKDOWN,
   LIABILITY_ADD,
   LIABILITY_TYPES,
   GOALS,
@@ -46,6 +48,8 @@ export default (state = {}, action) => {
           ...state,
           inProgress: true
         }
+      } else if (action.subtype === ASSETS) { return { ...state, inProgressAssets: true, }
+      } else if (action.subType === ASSET_DELETE) { return { ...state, inProgressDeleteAsset: true }
       } else if (action.subtype === GOALS) { return { ...state, inProgressGoals: true, }
       } else if (action.subtype === GOAL_TYPES) { return { ...state, inProgressGoalTypes: true, }
       } else if (action.subtype === GOAL_TRIP_TYPES) { return { ...state, inProgressGoalTripTypes: true, }
@@ -76,6 +80,21 @@ export default (state = {}, action) => {
       return {
         ...state,
         liabilityTypes: action.error ? null : action.payload
+      }
+    case ASSETS:
+      return {
+        ...state,
+        inProgressAssets: false,
+        assets: action.error ? null : action.payload,
+        assetDeleted: false,
+        assetAddedCode: null,
+      }
+    case ASSET_DELETE:
+      return {
+        ...state,
+        ...state,
+        inProgressDeleteAsset: false,
+        assetDeleted: action.error ? null : true,
       }
     case GOALS:
       return {
