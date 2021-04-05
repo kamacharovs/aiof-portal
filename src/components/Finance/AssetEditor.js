@@ -24,7 +24,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
     onAddAsset: asset =>
-        dispatch({ type: ASSET_ADD, payload: agent.Asset.add(asset) }),
+        dispatch({ type: ASSET_ADD, payload: agent.AssetV2.add(asset) }),
     onGetAssetTypes: () =>
         dispatch({ type: ASSET_TYPES, payload: agent.Asset.types() }),
 });

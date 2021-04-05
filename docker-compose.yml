@@ -17,7 +17,7 @@ services:
     depends_on:
       - aiofdata
     ports:
-      - 8001:80
+      - 8000:80
     environment: 
       ASPNETCORE_ENVIRONMENT: Development
       Data__PostgreSQL: Server=aiofdata;Port=5432;Database=aiof;User Id=aiof;Password=aiofiscool;
@@ -29,7 +29,19 @@ services:
       - aiofdata
       - aiofauth
     ports:
-      - 8000:80
+      - 8001:80
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+      Data__PostgreSQL: Server=aiofdata;Port=5432;Database=aiof;User Id=aiof;Password=aiofiscool;
+      
+  aiofasset:
+    image: gkama/aiof-asset:latest
+    container_name: aiof-asset
+    depends_on:
+      - aiofdata
+      - aiofauth
+    ports:
+      - 8003:80
     environment:
       ASPNETCORE_ENVIRONMENT: Development
       Data__PostgreSQL: Server=aiofdata;Port=5432;Database=aiof;User Id=aiof;Password=aiofiscool;
