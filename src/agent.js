@@ -116,8 +116,20 @@ const Asset = {
     requestsMetadata.post('/asset/breakdown', payload)
 }
 const AssetV2 = {
+  get: (id) =>
+    requestsAsset.get(`/assets/${id}`),
+  all: () =>
+    requestsAsset.get(`/assets`),
+  types: () =>
+    requestsAsset.get(`/assets/types`),
   add: asset =>
-    requestsAsset.post('/api', asset),
+    requestsAsset.post(`/assets`, asset),
+  addSnapshot: snapshot =>
+    requestsAsset.post(`/assets/snapshot`, snapshot),
+  update: (id, asset) =>
+    requestsAsset.put(`/assets/${id}`, asset),
+  del: (id) =>
+    requestsAsset.del(`/assets/${id}`),
 }
 
 const Liability = {
