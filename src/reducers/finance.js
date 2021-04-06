@@ -41,7 +41,6 @@ export default (state = {}, action) => {
     case ASYNC_START:
       if (action.subtype === ASSET_BREAKDOWN
         || action.subtype === FINANCE_PAGE_LOADED
-        || action.subtype === ASSET_ADD
         || action.subtype === LIABILITY_ADD
         || action.subtype === ANALYTICS_ANALYZE) {
         return { 
@@ -49,6 +48,8 @@ export default (state = {}, action) => {
           inProgress: true
         }
       } else if (action.subtype === ASSETS) { return { ...state, inProgressAssets: true, }
+      } else if (action.subtype === ASSET_TYPES) { return { ...state, inProgressAssetTypes: true, }
+      } else if (action.subtype === ASSET_ADD) { return { ...state, inProgressAddAsset: true, }
       } else if (action.subtype === ASSET_DELETE) { return { ...state, inProgressDeleteAsset: true, }
       } else if (action.subtype === GOALS) { return { ...state, inProgressGoals: true, }
       } else if (action.subtype === GOAL_TYPES) { return { ...state, inProgressGoalTypes: true, }
@@ -60,16 +61,6 @@ export default (state = {}, action) => {
         return { 
           ...state 
         }
-      }
-    case ASSET_ADD:
-      return {
-        ...state,
-        inProgress: false,
-      }
-    case ASSET_TYPES:
-      return {
-        ...state,
-        assetTypes: action.error ? null : action.payload
       }
     case LIABILITY_ADD:
       return {
@@ -89,6 +80,19 @@ export default (state = {}, action) => {
         assets: action.error ? null : action.payload,
         assetDeleted: false,
         assetAddedCode: null,
+      }
+    case ASSET_TYPES:
+      return {
+        ...state,
+        inProgressAssetTypes: false,
+        assetTypes: action.error ? null : action.payload,
+      }
+    case ASSET_ADD:
+      return {
+        ...state,
+        inProgressAddAsset: false,
+        assetAdded: action.error ? null : action.payload,
+        assetAddedCode: action.error ? action.payload.code : 200,
       }
     case ASSET_DELETE:
       return {

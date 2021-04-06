@@ -7,11 +7,12 @@ import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
 
-import { DefaultAlternateColor } from '../../../style/mui';
 import { REDIRECT_LOGIN, ASSETS } from '../../../constants/actionTypes';
 
 import AssetOverview from './Overview';
 import CurrentAssets from './Current';
+import AddAsset from './Add';
+import { success, error } from '../../Common/AiofToast';
 
 
 const mapStateToProps = state => ({
@@ -42,12 +43,27 @@ const AssetMainView = props => {
     if (props.currentUser) {
         const classes = useStyles();
         const currentAssetsRef = useRef();
+        const addAssetRef = useRef();
 
         useEffect(() => {
             if (!props.assets) {
                 props.onAll();
             }
         }, []);
+
+        useEffect(() => {
+            if (props.assets) {
+                props.onAll();
+
+                const assetAdded = props.assetAdded;
+                const code = props.assetAddedCode;
+                if (assetAdded && code === 200) {
+                    success(`Successfully added ${assetAdded.type} asset '${assetAdded.name}'`);
+                } else if (assetAdded === null && code === 400) {
+                    error(`Something went wrong when trying to add asset. Please try again or contact site administrator`);
+                }
+            }
+        }, [props.assetAdded]);
 
         useEffect(() => {
             if (props.assets && props.assetDeleted === true) {
@@ -73,6 +89,14 @@ const AssetMainView = props => {
                             <div ref={currentAssetsRef}>
                                 <CurrentAssets 
                                     assets={props.assets} />
+                            </div>
+                        </Grid>
+                    </Grid>
+
+                    <Grid container spacing={1} className={classes.root}>
+                        <Grid item xs>
+                            <div ref={addAssetRef}>
+                                <AddAsset />
                             </div>
                         </Grid>
                     </Grid>
