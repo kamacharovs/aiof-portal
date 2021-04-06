@@ -49,6 +49,12 @@ const AssetMainView = props => {
             }
         }, []);
 
+        useEffect(() => {
+            if (props.assets && props.assetDeleted === true) {
+                props.onAll();
+            }
+        }, [props.assetDeleted]);
+
         return (
             <React.Fragment>
                 <Helmet>

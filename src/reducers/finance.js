@@ -49,13 +49,13 @@ export default (state = {}, action) => {
           inProgress: true
         }
       } else if (action.subtype === ASSETS) { return { ...state, inProgressAssets: true, }
-      } else if (action.subType === ASSET_DELETE) { return { ...state, inProgressDeleteAsset: true, }
+      } else if (action.subtype === ASSET_DELETE) { return { ...state, inProgressDeleteAsset: true, }
       } else if (action.subtype === GOALS) { return { ...state, inProgressGoals: true, }
       } else if (action.subtype === GOAL_TYPES) { return { ...state, inProgressGoalTypes: true, }
       } else if (action.subtype === GOAL_TRIP_TYPES) { return { ...state, inProgressGoalTripTypes: true, }
-      } else if (action.subType === GOAL_COLLEGE_TYPES) { return { ...state, inProgressGoalCollegeTypes: true }
+      } else if (action.subtype === GOAL_COLLEGE_TYPES) { return { ...state, inProgressGoalCollegeTypes: true }
       } else if (action.subtype === GOAL_ADD) { return { ...state, inProgressAddGoal: true, }
-      } else if (action.subType === GOAL_DELETE) { return { ...state, inProgressDeleteGoal: true, }}
+      } else if (action.subtype === GOAL_DELETE) { return { ...state, inProgressDeleteGoal: true, }}
       else {
         return { 
           ...state 
@@ -85,6 +85,7 @@ export default (state = {}, action) => {
       return {
         ...state,
         inProgressAssets: false,
+        inProgressDeleteAsset: false,
         assets: action.error ? null : action.payload,
         assetDeleted: false,
         assetAddedCode: null,
