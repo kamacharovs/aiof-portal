@@ -199,7 +199,7 @@ const CurrentAssetSnapshotsChart = props => {
     const totalSnapshots = snapshots.length;
 
     if (snapshots && totalSnapshots > 3) {
-        const filteredSnapshots = snapshots.filter(function (s) { return s.Value !== null ;});
+        const filteredSnapshots = snapshots.reverse().filter(function (s) { return s.Value !== null ;});
         const snapshotsDates = filteredSnapshots.map(s => new Date(s.created).toLocaleDateString());
         const snapshotsValues = filteredSnapshots.map(s => s.value);
 
