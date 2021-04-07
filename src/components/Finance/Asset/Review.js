@@ -6,10 +6,15 @@ import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import DialogActions from '@material-ui/core/DialogActions';
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableCell from '@material-ui/core/TableCell';
+import TableContainer from '@material-ui/core/TableContainer';
+import TableHead from '@material-ui/core/TableHead';
+import TableRow from '@material-ui/core/TableRow';
 
 import { numberWithCommas } from '../Common';
 import { SquarePaper } from '../../../style/mui';
-import { HrFlat } from '../../../style/common';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -19,8 +24,8 @@ const useStyles = makeStyles((theme) => ({
     dialog: {
         padding: '1 rem'
     },
-    dialogSquarePaper: {
-        margin: '1 rem'
+    table: {
+        borderRadius: 0
     }
 }));
 
@@ -58,66 +63,45 @@ const ReviewAssetDialog = props => {
                 aria-labelledby="review-asset-dialog"
                 className={classes.dialog}>
                 <DialogTitle>Review <strong>{asset.name}</strong></DialogTitle>
-                {snapshots.length > 0 ?
-                    snapshots.map(s => {
-                        return (
-                            <SquarePaper
-                                key={s.publicKey}
-                                variant="outlined"
-                                square
-                                className={classes.dialogSquarePaper}>
-                                <Grid container spacing={0}>
-                                    <Grid item xs>
-                                        <b>Created on</b><br />
-                                        <HrFlat />
-                                    </Grid>
-                                    <Grid item xs>
-                                        <i>{new Date(s.created).toLocaleDateString()}</i><br />
-                                        <HrFlat />
-                                    </Grid>
-                                </Grid>
+                <SquarePaper
+                    variant="outlined"
+                    square
+                    className={classes.paper}>
+                    <Grid container spacing={0}>
+                        <Grid item xs>
+                            <h4><strong>Snapshots</strong></h4>
+                        </Grid>
+                    </Grid>
 
-                                <Grid container spacing={0}>
-                                    <Grid item xs>
-                                        <b>Name</b><br />
-                                        <HrFlat />
-                                    </Grid>
-                                    <Grid item xs>
-                                        {s.name === null ? "No change" : s.name}<br />
-                                        <HrFlat />
-                                    </Grid>
-                                </Grid>
-
-                                <Grid container spacing={0}>
-                                    <Grid item xs>
-                                        <b>Type</b><br />
-                                        <HrFlat />
-                                    </Grid>
-                                    <Grid item xs>
-                                        {s.typeName === null ? "No change" : s.typeName}<br />
-                                        <HrFlat />
-                                    </Grid>
-                                </Grid>
-
-                                <Grid container spacing={0}>
-                                    <Grid item xs>
-                                        <b>Value</b><br />
-                                        <HrFlat />
-                                    </Grid>
-                                    <Grid item xs>
-                                        {s.value === null ? "No change" : "$" + numberWithCommas((s.value || 0).toFixed(2))}<br />
-                                        <HrFlat />
-                                    </Grid>
-                                </Grid>
-                            </SquarePaper>
-                        );
-                    })
-                    : <SquarePaper
-                        variant="outlined"
-                        square
-                        className={classes.dialogSquarePaper}>
-                        There is no current history for this asset
-                    </SquarePaper>}
+                    <Grid container spacing={0}>
+                        <Grid item xs>
+                            <TableContainer className={classes.table}>
+                                <Table aria-label="snapshots table">
+                                    <TableHead>
+                                        <TableRow>
+                                            <TableCell><strong>Created on</strong></TableCell>
+                                            <TableCell align="right"><strong>Name</strong></TableCell>
+                                            <TableCell align="right"><strong>Type</strong></TableCell>
+                                            <TableCell align="right"><strong>Value</strong></TableCell>
+                                        </TableRow>
+                                    </TableHead>
+                                    <TableBody>
+                                        {snapshots.map(s => (
+                                            <TableRow key={s.publicKey}>
+                                                <TableCell component="th" scope="row">
+                                                    {new Date(s.created).toLocaleDateString()}
+                                                </TableCell>
+                                                <TableCell align="right">{s.name === null ? "No change" : s.name}</TableCell>
+                                                <TableCell align="right">{s.typeName === null ? "No change" : s.typeName}</TableCell>
+                                                <TableCell align="right">{s.value === null ? "No change" : "$" + numberWithCommas((s.value || 0).toFixed(2))}</TableCell>
+                                            </TableRow>
+                                        ))}
+                                    </TableBody>
+                                </Table>
+                            </TableContainer>
+                        </Grid>
+                    </Grid>
+                </SquarePaper>
                 <DialogActions>
                     <Button onClick={handleClose} color="primary">
                         Cancel
