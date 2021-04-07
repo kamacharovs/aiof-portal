@@ -23,6 +23,8 @@ const mapStateToProps = state => ({
     assets: state.finance.assets,
     assetAdded: state.finance.assetAdded,
     assetAddedCode: state.finance.assetAddedCode,
+    assetUpdated: state.finance.assetUpdated,
+    assetUpdatedCode: state.finance.assetUpdatedCode,
     assetDeleted: state.finance.assetDeleted,
 });
 
@@ -64,6 +66,20 @@ const AssetMainView = props => {
                 }
             }
         }, [props.assetAdded]);
+
+        useEffect(() => {
+            if (props.assets) {
+                props.onAll();
+
+                const assetUpdated = props.assetUpdated;
+                const code = props.assetUpdatedCode;
+                if (assetUpdated && code === 200) {
+                    success(`Successfully updated '${assetUpdated.typeName}' asset '${assetUpdated.name}'`);
+                } else if (assetUpdated === null && code === 400) {
+                    error(`Something went wrong when trying to add asset. Please try again or contact site administrator`);
+                }
+            }
+        }, [props.assetUpdated]);
 
         useEffect(() => {
             if (props.assets && props.assetDeleted === true) {

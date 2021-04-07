@@ -82,6 +82,7 @@ export default (state = {}, action) => {
         assets: action.error ? null : action.payload,
         assetDeleted: false,
         assetAddedCode: null,
+        assetUpdatedCode: null,
       }
     case ASSET_TYPES:
       return {

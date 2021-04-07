@@ -26,7 +26,7 @@ export function getAge(dateString) {
 /*
 Clean and object by removing any "null" values from the object
 */
-export function clean(obj) {
+export function fullClean(obj) {
   for (var propName in obj) {
     if (obj[propName] === null || obj[propName] === undefined
       || obj[propName] === "" || obj[propName] === 0) {

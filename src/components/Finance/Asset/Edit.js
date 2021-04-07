@@ -12,7 +12,7 @@ import Select from '@material-ui/core/Select';
 
 import { SquarePaper, AlternateButton, VerticalTextField, VerticalSelect, DefaultAlternateColor } from '../../../style/mui';
 import { ASSET_UPDATE } from '../../../constants/actionTypes';
-import { clean } from '../Common';
+import { fullClean } from '../Common';
 
 
 const mapStateToProps = state => ({
@@ -70,7 +70,7 @@ const EditAsset = props => {
         const onUpdate = (ev) => {
             ev.preventDefault();
     
-            let payload = clean({
+            let payload = fullClean({
                 name: newName,
                 typeName: newTypeName,
                 value: Number(newValue) || 0
