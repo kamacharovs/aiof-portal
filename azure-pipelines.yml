@@ -22,7 +22,22 @@ stages:
       inputs:
         containerRegistry: gkama-docker-cr
         repository: gkama/aiof-portal
-        command: buildAndPush
+        command: build
         Dockerfile: $(Build.SourcesDirectory)/Dockerfile
         tags: |
           $(tag)
+
+    - task: ArchiveFiles@2
+      inputs:
+        rootFolderOrFile: $(Build.SourcesDirectory)
+        includeRootFolder: false
+        archiveType: zip
+        archiveFile: $(Build.SourcesDirectory)/publish/aiof-portal-$(Build.BuildId).zip
+        replaceExistingArchive: false
+
+    - task: PublishBuildArtifacts@1
+      displayName: publish artifacts
+      inputs:
+        pathtoPublish: $(Build.SourcesDirectory)/publish/aiof-portal-$(Build.BuildId).zip
+        artifactName: aiof-portal
+        publishLocation: Container
