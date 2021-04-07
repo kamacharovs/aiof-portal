@@ -1,17 +1,20 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import agent from '../../../agent';
 
 import { Line } from 'react-chartjs-2'
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
+import Tooltip from '@material-ui/core/Tooltip';
 import IconButton from '@material-ui/core/IconButton';
 import DeleteIcon from '@material-ui/icons/Delete';
-import Tooltip from '@material-ui/core/Tooltip';
+import RateReviewIcon from '@material-ui/icons/RateReview';
 
 import { numberWithCommas } from '../Common';
 import { FullPaper, AlternateCircularProgress, DefaultGreenColor, DefaultAlternateColor, DefaultPaperMargin } from '../../../style/mui';
 import { ASSET_DELETE } from '../../../constants/actionTypes';
+
+import ReviewAsset from './Review';
 
 
 const mapStateToProps = state => ({
@@ -63,8 +66,9 @@ const useStyles = makeStyles((theme) => ({
         marginTop: '0.25rem',
         width: '100%',
     },
-    deleteIconButton: {
-        padding: 0
+    iconButton: {
+        padding: 0,
+        marginRight: '0.5rem',
     }
 }));
 
@@ -125,10 +129,22 @@ const CurrentAssetsDynamic = props => {
     const inProgressAssets = props.inProgressAssets;
     const inProgressDeleteAsset = props.inProgressDeleteAsset;
 
-    if (assets && assetsSize > 0 
+    if (assets && assetsSize > 0
         && inProgressAssets === false
         && inProgressDeleteAsset === false) {
         const classes = useStyles();
+
+        const [openReview, setOpenReview] = useState(false);
+        const [currentAsset, setCurrentAsset] = useState("");
+
+        const handleClose = () => {
+            setOpenReview(false);
+        };
+
+        const onReview = (asset) => {
+            setCurrentAsset(asset);
+            setOpenReview(true);
+        }
 
         return (
             <React.Fragment>
@@ -175,10 +191,19 @@ const CurrentAssetsDynamic = props => {
                                 justify="flex-end"
                                 alignItems="flex-end"
                                 className={classes.currentAssetfooter}>
+                                <Tooltip title="Review">
+                                    <IconButton
+                                        aria-label="review"
+                                        className={classes.iconButton}
+                                        onClick={e => onReview(a)}>
+                                        <RateReviewIcon style={{ fontSize: '20', color: DefaultAlternateColor }} />
+                                    </IconButton>
+                                </Tooltip>
+
                                 <Tooltip title="Delete">
                                     <IconButton
                                         aria-label="delete"
-                                        className={classes.deleteIconButton}
+                                        className={classes.iconButton}
                                         onClick={e => props.onDelete(a.id)}>
                                         <DeleteIcon style={{ fontSize: '20', color: DefaultAlternateColor }} />
                                     </IconButton>
@@ -187,6 +212,11 @@ const CurrentAssetsDynamic = props => {
                         </FullPaper>
                     );
                 })}
+
+                <ReviewAsset
+                    open={openReview}
+                    handleClose={handleClose}
+                    asset={currentAsset} />
             </React.Fragment>
         );
     } else {
@@ -199,16 +229,16 @@ const CurrentAssetSnapshotsChart = props => {
     const totalSnapshots = snapshots.length;
 
     if (snapshots && totalSnapshots > 3) {
-        const filteredSnapshots = snapshots.reverse().filter(function (s) { return s.Value !== null ;});
+        const filteredSnapshots = snapshots.filter(function (s) { return s.Value !== null; });
         const snapshotsDates = filteredSnapshots.map(s => new Date(s.created).toLocaleDateString());
         const snapshotsValues = filteredSnapshots.map(s => s.value);
 
         const data = {
-            labels: snapshotsDates,
+            labels: snapshotsDates.reverse(),
             datasets: [
                 {
                     label: 'Value',
-                    data: snapshotsValues,
+                    data: snapshotsValues.reverse(),
                     fill: false,
                     backgroundColor: DefaultAlternateColor,
                     borderColor: DefaultAlternateColor,
@@ -230,9 +260,9 @@ const CurrentAssetSnapshotsChart = props => {
         }
 
         return (
-            <Line 
-                data={data} 
-                height={200} 
+            <Line
+                data={data}
+                height={200}
                 options={options} />
         );
     } else {
