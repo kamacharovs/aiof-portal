@@ -11,9 +11,8 @@ import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 
 import { SquarePaper, AlternateButton, VerticalTextField, VerticalSelect, DefaultAlternateColor } from '../../../style/mui';
-import { ASSET_TYPES, ASSET_UPDATE } from '../../../constants/actionTypes';
-import { numberWithCommas } from '../Common';
-import { HrFlat } from '../../../style/common';
+import { ASSET_UPDATE } from '../../../constants/actionTypes';
+import { clean } from '../Common';
 
 
 const mapStateToProps = state => ({
@@ -71,11 +70,11 @@ const EditAsset = props => {
         const onUpdate = (ev) => {
             ev.preventDefault();
     
-            let payload = {
+            let payload = clean({
                 name: newName,
                 typeName: newTypeName,
                 value: Number(newValue) || 0
-            }
+            });
     
             props.onUpdate(id, payload);
         }
@@ -83,10 +82,6 @@ const EditAsset = props => {
         return (
             <React.Fragment>
                 <SquarePaper variant="outlined" square>
-                    <div style={{ color: DefaultAlternateColor }}>
-                        <h3><strong>Edit</strong></h3>
-                    </div>
-
                     <form noValidate autoComplete="off" onSubmit={onUpdate}>
                         <Grid container spacing={3}>
                             <Grid item sm>
@@ -134,7 +129,7 @@ const EditAsset = props => {
                                         <TextField
                                             value={newValue}
                                             onChange={e => handleSetGeneric(e, setNewValue)}
-                                            placeholder={currentValue}
+                                            placeholder={currentValue.toString()}
                                             InputProps={{
                                                 startAdornment: <InputAdornment position="start">$</InputAdornment>
                                             }}

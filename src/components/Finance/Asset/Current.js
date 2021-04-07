@@ -229,9 +229,9 @@ const CurrentAssetSnapshotsChart = props => {
     const totalSnapshots = snapshots.length;
 
     if (snapshots && totalSnapshots > 3) {
-        const filteredSnapshots = snapshots.filter(function (s) { return s.Value !== null; });
-        const snapshotsDates = filteredSnapshots.map(s => new Date(s.created).toLocaleDateString());
-        const snapshotsValues = filteredSnapshots.map(s => s.value);
+        var filteredSnapshots = snapshots.filter(function (s) { return s.value !== null; });
+        var snapshotsDates = filteredSnapshots.map(s => new Date(s.created).toLocaleDateString());
+        var snapshotsValues = filteredSnapshots.map(s => s.value);
 
         const data = {
             labels: snapshotsDates.reverse(),

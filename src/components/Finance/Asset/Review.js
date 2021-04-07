@@ -16,6 +16,8 @@ import TableRow from '@material-ui/core/TableRow';
 import { SquarePaper, DefaultGreenColor } from '../../../style/mui';
 import { numberWithCommas } from '../Common';
 
+import EditAsset from './Edit';
+
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -104,6 +106,25 @@ const ReviewAssetDialog = props => {
                                     </TableBody>
                                 </Table>
                             </TableContainer>
+                        </Grid>
+                    </Grid>
+
+                    <Grid container spacing={0}>
+                        <Grid item xs>
+                            <br/>
+                        </Grid>
+                    </Grid>
+
+                    <Grid container spacing={0}>
+                        <Grid item xs>
+                            <h4><strong>Edit your asset</strong></h4>
+                        </Grid>
+                    </Grid>
+
+                    <Grid container spacing={0}>
+                        <Grid item xs>
+                            <EditAsset
+                                asset={asset} />
                         </Grid>
                     </Grid>
                 </SquarePaper>

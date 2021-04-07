@@ -21,3 +21,17 @@ export function getAge(dateString) {
   }
   return age;
 }
+
+
+/*
+Clean and object by removing any "null" values from the object
+*/
+export function clean(obj) {
+  for (var propName in obj) {
+    if (obj[propName] === null || obj[propName] === undefined
+      || obj[propName] === "" || obj[propName] === 0) {
+      delete obj[propName];
+    }
+  }
+  return obj
+}
