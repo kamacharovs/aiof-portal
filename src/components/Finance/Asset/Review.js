@@ -13,7 +13,7 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 
-import { SquarePaper, DefaultGreenColor } from '../../../style/mui';
+import { SquarePaper, DefaultGreenColor, DefaultRedColor } from '../../../style/mui';
 import { numberWithCommas } from '../Common';
 
 import EditAsset from './Edit';
@@ -25,6 +25,11 @@ const useStyles = makeStyles((theme) => ({
     },
     green: {
         color: DefaultGreenColor,
+        margin: '0rem',
+        padding: '0rem'
+    },
+    red: {
+        color: DefaultRedColor,
         margin: '0rem',
         padding: '0rem'
     },
@@ -59,6 +64,7 @@ const ReviewAssetDialog = props => {
     const classes = useStyles();
 
     const { handleClose, open, asset, snapshots } = props;
+    const noChangeText = "No change";
 
     return (
         <React.Fragment>
@@ -90,6 +96,7 @@ const ReviewAssetDialog = props => {
                                             <TableCell align="right"><strong>Name</strong></TableCell>
                                             <TableCell align="right"><strong>Type</strong></TableCell>
                                             <TableCell align="right"><strong>Value</strong></TableCell>
+                                            <TableCell align="right"><strong>Value change</strong></TableCell>
                                         </TableRow>
                                     </TableHead>
                                     <TableBody>
@@ -98,9 +105,15 @@ const ReviewAssetDialog = props => {
                                                 <TableCell component="th" scope="row">
                                                     {new Date(s.created).toLocaleDateString()}
                                                 </TableCell>
-                                                <TableCell align="right">{s.name === null ? "No change" : s.name}</TableCell>
-                                                <TableCell align="right">{s.typeName === null ? "No change" : s.typeName}</TableCell>
-                                                <TableCell align="right">{s.value === null ? "No change" : <div className={classes.green}>${numberWithCommas((s.value || 0).toFixed(2))}</div>}</TableCell>
+                                                <TableCell align="right">{s.name === null ? noChangeText : s.name}</TableCell>
+                                                <TableCell align="right">{s.typeName === null ? noChangeText : s.typeName}</TableCell>
+                                                <TableCell align="right">{s.value === null ? noChangeText : <div className={classes.green}>${numberWithCommas((s.value || 0).toFixed(2))}</div>}</TableCell>
+                                                <TableCell align="right">{s.valueChange === null || s.valueChange === 0 ? noChangeText 
+                                                : s.valueChange >= 0
+                                                    ? <div className={classes.green}>${numberWithCommas((s.valueChange || 0).toFixed(2))}</div>
+                                                    : <div className={classes.red}>${numberWithCommas((s.valueChange || 0).toFixed(2))}</div>
+                                                }
+                                                </TableCell>
                                             </TableRow>
                                         ))}
                                     </TableBody>
