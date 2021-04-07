@@ -8,6 +8,7 @@ pool:
   vmImage: ubuntu-latest
 
 variables:
+  imageName: gkama/aiof-portal
   tag: latest
 
 stages:
@@ -21,7 +22,7 @@ stages:
       displayName: docker build and push
       inputs:
         containerRegistry: gkama-docker-cr
-        repository: gkama/aiof-portal
+        repository: $(image)
         command: build
         Dockerfile: $(Build.SourcesDirectory)/Dockerfile
         tags: |
@@ -31,16 +32,17 @@ stages:
       displayName: docker save
       inputs:
         containerRegistry: gkama-docker-cr
-        repository: gkama/aiof-portal
+        repository: $(image)
         command: save
-        arguments: --output $(Build.SourcesDirectory)/publish/aiof-portal-image.image.tar aiof-portal-image:$(tag)
+        arguments: --output $(Build.SourcesDirectory)/aiof-portal-image.image.tar $(image):$(tag)
 
     - task: ArchiveFiles@2
+      displayName: archive
       inputs:
         rootFolderOrFile: $(Build.SourcesDirectory)
         includeRootFolder: false
         archiveType: zip
-        archiveFile: $(Build.SourcesDirectory)/publish/aiof-portal-zip
+        archiveFile: $(Build.SourcesDirectory)/publish/aiof-portal-$(Build.BuildId).zip
         replaceExistingArchive: false
 
     - task: PublishBuildArtifacts@1
