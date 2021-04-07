@@ -27,12 +27,20 @@ stages:
         tags: |
           $(tag)
 
+    - task: Docker@2
+      displayName: docker save
+      inputs:
+        containerRegistry: gkama-docker-cr
+        repository: gkama/aiof-portal
+        command: save
+        arguments: --output $(Build.SourcesDirectory)/publish/aiof-portal-image.image.tar aiof-portal-image:$(tag)
+
     - task: ArchiveFiles@2
       inputs:
         rootFolderOrFile: $(Build.SourcesDirectory)
         includeRootFolder: false
         archiveType: zip
-        archiveFile: $(Build.SourcesDirectory)/publish/aiof-portal-$(Build.BuildId).zip
+        archiveFile: $(Build.SourcesDirectory)/publish/aiof-portal-zip
         replaceExistingArchive: false
 
     - task: PublishBuildArtifacts@1
