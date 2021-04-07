@@ -8,6 +8,7 @@ import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
 
 import { REDIRECT_LOGIN, ASSETS } from '../../../constants/actionTypes';
+import { StandardErrorMessage } from '../../../constants/messages';
 
 import AssetOverview from './Overview';
 import CurrentAssets from './Current';
@@ -62,7 +63,7 @@ const AssetMainView = props => {
                 if (assetAdded && code === 200) {
                     success(`Successfully added '${assetAdded.typeName}' asset '${assetAdded.name}'`);
                 } else if (assetAdded === null && code === 400) {
-                    error(`Something went wrong when trying to add asset. Please try again or contact site administrator`);
+                    error(StandardErrorMessage);
                 }
             }
         }, [props.assetAdded]);
@@ -76,7 +77,7 @@ const AssetMainView = props => {
                 if (assetUpdated && code === 200) {
                     success(`Successfully updated '${assetUpdated.typeName}' asset '${assetUpdated.name}'`);
                 } else if (assetUpdated === null && code === 400) {
-                    error(`Something went wrong when trying to add asset. Please try again or contact site administrator`);
+                    error(StandardErrorMessage);
                 }
             }
         }, [props.assetUpdated]);
