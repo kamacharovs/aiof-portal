@@ -5,6 +5,7 @@ import "react-toastify/dist/ReactToastify.css";
 
 import { DefaultGreenColor, DefaultRedColor } from './mui';
 
+
 export const DefaultColor = "#5cb85c";
 export const DefaultAlternateColor = "#137a8f";
 
@@ -37,6 +38,13 @@ export const HrPreview = styled.hr`
   margin-top: 0.25rem;
   color: #ebebeb;
   opacity: 90%;
+`;
+export const HrFlat = styled.hr`
+  width: 50% !important;
+  opacity: 0.5 !important;
+  padding: 0px !important;
+  padding-bottom: 2px !important;
+  margin: 0px !important;
 `;
 
 export const MutedH2 = styled.h2`

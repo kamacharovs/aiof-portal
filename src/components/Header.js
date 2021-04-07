@@ -132,6 +132,14 @@ const ProfileMenu = props => {
                         button
                         onClick={handleClose}
                         component={Link}
+                        to={`/finance/assets`}>
+                        <ListItemText primary="Assets" />
+                    </ListItem>
+
+                    <ListItem
+                        button
+                        onClick={handleClose}
+                        component={Link}
                         to={`/finance/goals`}>
                         <ListItemText primary="Goals" />
                     </ListItem>
