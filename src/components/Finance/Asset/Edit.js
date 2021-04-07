@@ -10,7 +10,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 
-import { SquarePaper, AlternateButton, VerticalTextField, VerticalSelect, DefaultAlternateColor } from '../../../style/mui';
+import { SquarePaper, AlternateButton, VerticalTextField, VerticalSelect } from '../../../style/mui';
 import { ASSET_UPDATE } from '../../../constants/actionTypes';
 import { fullClean } from '../Common';
 
