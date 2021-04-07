@@ -13,13 +13,18 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 
+import { SquarePaper, DefaultGreenColor } from '../../../style/mui';
 import { numberWithCommas } from '../Common';
-import { SquarePaper } from '../../../style/mui';
 
 
 const useStyles = makeStyles((theme) => ({
     root: {
         display: 'flex',
+    },
+    green: {
+        color: DefaultGreenColor,
+        margin: '0rem',
+        padding: '0rem'
     },
     dialog: {
         padding: '1 rem'
@@ -93,7 +98,7 @@ const ReviewAssetDialog = props => {
                                                 </TableCell>
                                                 <TableCell align="right">{s.name === null ? "No change" : s.name}</TableCell>
                                                 <TableCell align="right">{s.typeName === null ? "No change" : s.typeName}</TableCell>
-                                                <TableCell align="right">{s.value === null ? "No change" : "$" + numberWithCommas((s.value || 0).toFixed(2))}</TableCell>
+                                                <TableCell align="right">{s.value === null ? "No change" : <div className={classes.green}>${numberWithCommas((s.value || 0).toFixed(2))}</div>}</TableCell>
                                             </TableRow>
                                         ))}
                                     </TableBody>

@@ -58,7 +58,7 @@ const AssetMainView = props => {
                 const assetAdded = props.assetAdded;
                 const code = props.assetAddedCode;
                 if (assetAdded && code === 200) {
-                    success(`Successfully added ${assetAdded.type} asset '${assetAdded.name}'`);
+                    success(`Successfully added '${assetAdded.typeName}' asset '${assetAdded.name}'`);
                 } else if (assetAdded === null && code === 400) {
                     error(`Something went wrong when trying to add asset. Please try again or contact site administrator`);
                 }

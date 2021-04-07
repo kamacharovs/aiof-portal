@@ -10,7 +10,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 
-import { SquarePaper, AlternateButton, VerticalTextField, VerticalSelect, DefaultRedColor, DefaultGreenColor } from '../../../style/mui';
+import { SquarePaper, AlternateButton, VerticalTextField, VerticalSelect } from '../../../style/mui';
 import { ASSET_TYPES, ASSET_ADD } from '../../../constants/actionTypes';
 import { isNumber } from '../Common';
 import { DefaultAlternateColor } from '../../../style/common';
@@ -33,16 +33,6 @@ const mapDispatchToProps = dispatch => ({
 const useStyles = makeStyles((theme) => ({
     root: {
         display: 'flex',
-    },
-    green: {
-        color: DefaultGreenColor,
-        margin: '0rem',
-        padding: '0rem'
-    },
-    red: {
-        color: DefaultRedColor,
-        margin: '0rem',
-        padding: '0rem'
     },
     select: {
         minWidth: 'flex',
