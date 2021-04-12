@@ -130,7 +130,7 @@ const ReviewAssetDialog = props => {
 
                     <Grid container spacing={0}>
                         <Grid item xs>
-                            <h4><strong>Edit your asset</strong></h4>
+                            <h4><strong>Edit</strong></h4>
                         </Grid>
                     </Grid>
 
