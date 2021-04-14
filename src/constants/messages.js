@@ -1,0 +1,1 @@
+export const StandardErrorMessage = `Something went wrong. Please try again or contact site administrator`;

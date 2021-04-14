@@ -7,6 +7,7 @@ const superagent = superagentPromise(_superagent, global.Promise);
 const API_ROOT = config.apiUrl;
 const API_AUTH_ROOT = config.authUrl;
 const API_METADATA_ROOT = config.metadataUrl;
+const API_ASSET_ROOT = config.assetUrl;
 
 const responseBody = res => res.body;
 
@@ -30,6 +31,7 @@ const requests = {
   post: (url, body) =>
     superagent.post(`${API_ROOT}${url}`, body).use(tokenPlugin).then(responseBody)
 }
+
 const requestsAuth = {
   get: url =>
     superagent.get(`${API_AUTH_ROOT}${url}`).use(tokenPlugin).then(responseBody),
@@ -38,6 +40,18 @@ const requestsAuth = {
   post: (url, body) =>
     superagent.post(`${API_AUTH_ROOT}${url}`, body).then(responseBody),
 }
+
+const requestsAsset = {
+  get: url =>
+    superagent.get(`${API_ASSET_ROOT}${url}`).use(tokenPlugin).then(responseBody),
+  post: (url, body) =>
+    superagent.post(`${API_ASSET_ROOT}${url}`, body).use(tokenPlugin).then(responseBody),
+  put: (url, body) =>
+    superagent.put(`${API_ASSET_ROOT}${url}`, body).use(tokenPlugin).then(responseBody),
+  del: url =>
+    superagent.del(`${API_ASSET_ROOT}${url}`).use(tokenPlugin).then(responseBody),
+}
+
 const requestsMetadata = {
   get: url =>
     superagent.get(`${API_METADATA_ROOT}${url}`).use(tokenPlugin).then(responseBody),
@@ -90,16 +104,20 @@ const UserProfile = {
 }
 
 const Asset = {
-  add: asset =>
-    requests.post('/asset', asset),
-  update: (publicKey, asset) =>
-    requests.put(`/asset/${publicKey}`, asset),
-  delete: publicKey =>
-    requests.del(`/asset/${publicKey}`),
+  get: (id) =>
+    requestsAsset.get(`/assets/${id}`),
+  all: () =>
+    requestsAsset.get(`/assets`),
   types: () =>
-    requests.get('/asset/types'),
-  breakdown: payload =>
-    requestsMetadata.post('/asset/breakdown', payload)
+    requestsAsset.get(`/assets/types`),
+  add: asset =>
+    requestsAsset.post(`/assets`, asset),
+  addSnapshot: snapshot =>
+    requestsAsset.post(`/assets/snapshot`, snapshot),
+  update: (id, asset) =>
+    requestsAsset.put(`/assets/${id}`, asset),
+  delete: (id) =>
+    requestsAsset.del(`/assets/${id}`),
 }
 
 const Liability = {
