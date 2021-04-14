@@ -133,6 +133,7 @@ const Login = props => {
 
               <Grid item xs={12}>
                 <TextField
+                  id="login-email"
                   required
                   fullWidth
                   label="Email"
@@ -144,6 +145,7 @@ const Login = props => {
 
               <Grid item xs={12}>
                 <TextField
+                  id="login-password"
                   required
                   fullWidth
                   label="Password"
@@ -169,7 +171,12 @@ const Login = props => {
               </Grid>
 
               <Grid item xs={12}>
-                <Button type="submit" variant="contained" color="primary" fullWidth
+                <Button
+                  id="login-button" 
+                  type="submit"
+                  variant="contained"
+                  color="primary"
+                  fullWidth
                   disabled={!isEnabled || props.inProgressLogin}>
                   <LoadingClip inProgress={props.inProgressLogin} />&nbsp;&nbsp;Sign in
                   </Button>

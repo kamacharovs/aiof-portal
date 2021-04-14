@@ -1,0 +1,7 @@
+{
+    "baseUrl": "http://localhost:4100/",
+    "env": {
+        "email": "georgi.kamacharov@aiof.com",
+        "password": "pass1234"
+    }
+}

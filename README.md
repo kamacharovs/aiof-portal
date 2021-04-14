@@ -53,13 +53,13 @@ http://localhost:4100/
 
 Build it
 
-```powershell
+```ps
 docker build -t aiof-portal .
 ```
 
 Run it
 
-```powershell
+```ps
 docker run -it --rm -p 1337:80 aiof-portal
 ```
 
@@ -71,7 +71,7 @@ http://localhost:1337/
 
 (Optional) Clean up `<none>` images
 
-```powershell
+```ps
 docker rmi $(docker images -f “dangling=true” -q)
 ```
 
@@ -79,8 +79,22 @@ docker rmi $(docker images -f “dangling=true” -q)
 
 From the project root directory
 
-```powershell
+```ps
 docker-compose up
 ```
 
 Run the `npm` start script from above and follow the steps to go to `http://localhost:4100/`
+
+### Testing
+
+Automated tests are done via [Cypress](https://cypress.io)
+
+```ps
+.\node_modules\.bin\cypress open
+```
+
+or
+
+```ps
+npx cypress open
+```

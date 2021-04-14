@@ -4,6 +4,7 @@
   "private": true,
   "devDependencies": {
     "cross-env": "^5.1.4",
+    "cypress": "^7.1.0",
     "react-scripts": "1.1.1"
   },
   "dependencies": {
