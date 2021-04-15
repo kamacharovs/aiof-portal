@@ -108,7 +108,7 @@ const Login = props => {
             <Grid item xs={12}>
               <h1 className="text-center">Sign In</h1>
               <p className="text-center">
-                <CoolLink to="/register">
+                <CoolLink id="login-link-register" to="/register">
                   Need an account?
                   </CoolLink>
               </p>
@@ -184,7 +184,7 @@ const Login = props => {
 
               <Grid item xs={12}>
                 <p className="text-center text-muted">
-                  <i>By clicking Sign In, you agree to our <a href="/terms-and-conditions">Terms</a> and have read and acknowledge our <a href="/privacy-policy">US Privacy Statement</a>.</i>
+                  <i>By clicking Sign In, you agree to our <a id="login-link-terms-and-conditions" href="/terms-and-conditions">Terms</a> and have read and acknowledge our <a id="login-link-privacy-policy" href="/privacy-policy">US Privacy Statement</a>.</i>
                 </p>
               </Grid>
             </Grid>
