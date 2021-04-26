@@ -126,7 +126,7 @@ const Login = props => {
                   {props.appShortAccountDescription}
                 </div>
 
-                <div className={`text-center ${classes.red}`}>
+                <div id="login-error-message" className={`text-center ${classes.red}`}>
                   {props.loginError ? "Invalid email or password. Please try again" : null}
                 </div>
               </Grid>

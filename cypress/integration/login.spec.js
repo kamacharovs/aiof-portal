@@ -20,6 +20,44 @@ describe('Login', () => {
             .should('be.disabled')
     })
 
+    it('login fails invalid email', () => {
+        var invalidEmail = `${email}-invalid`
+
+        cy.get('#login-email')
+            .type(invalidEmail)
+            .should('have.value' , invalidEmail)
+
+        cy.get('#login-password')
+            .type(password)
+            .should('have.value' , password)
+
+        cy.get('#login-button')
+            .click()
+
+        cy.get('#login-error-message')
+            .contains('Invalid')
+            .contains('email')
+    })
+
+    it('login fails invalid password', () => {
+        var invalidPassword = `${password}-123`
+
+        cy.get('#login-email')
+            .type(email)
+            .should('have.value' , email)
+
+        cy.get('#login-password')
+            .type(invalidPassword)
+            .should('have.value' , invalidPassword)
+
+        cy.get('#login-button')
+            .click()
+
+        cy.get('#login-error-message')
+            .contains('Invalid')
+            .contains('password')
+    })
+
     it('navigate to registration is successful', () => {
         cy.get('#login-link-register')
             .click()
