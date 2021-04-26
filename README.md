@@ -98,3 +98,6 @@ or
 ```ps
 npx cypress open
 ```
+
+- [Commands](https://docs.cypress.io/api/commands/and)
+- [Assertions](https://docs.cypress.io/guides/references/assertions)
