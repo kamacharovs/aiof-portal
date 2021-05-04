@@ -7,7 +7,7 @@ const superagent = superagentPromise(_superagent, global.Promise);
 const API_ROOT = config.apiUrl;
 const API_AUTH_ROOT = config.authUrl;
 const API_METADATA_ROOT = config.metadataUrl;
-const API_ASSET_ROOT = config.assetUrl;
+const API_ASSET_ROOT = `${config.assetUrl}/${config.assetVersion}`;
 
 const responseBody = res => res.body;
 
