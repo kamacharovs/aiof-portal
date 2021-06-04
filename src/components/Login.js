@@ -108,7 +108,7 @@ const Login = props => {
             <Grid item xs={12}>
               <h1 className="text-center">Sign In</h1>
               <p className="text-center">
-                <CoolLink to="/register">
+                <CoolLink id="login-link-register" to="/register">
                   Need an account?
                   </CoolLink>
               </p>
@@ -126,13 +126,14 @@ const Login = props => {
                   {props.appShortAccountDescription}
                 </div>
 
-                <div className={`text-center ${classes.red}`}>
+                <div id="login-error-message" className={`text-center ${classes.red}`}>
                   {props.loginError ? "Invalid email or password. Please try again" : null}
                 </div>
               </Grid>
 
               <Grid item xs={12}>
                 <TextField
+                  id="login-email"
                   required
                   fullWidth
                   label="Email"
@@ -144,6 +145,7 @@ const Login = props => {
 
               <Grid item xs={12}>
                 <TextField
+                  id="login-password"
                   required
                   fullWidth
                   label="Password"
@@ -169,7 +171,12 @@ const Login = props => {
               </Grid>
 
               <Grid item xs={12}>
-                <Button type="submit" variant="contained" color="primary" fullWidth
+                <Button
+                  id="login-button" 
+                  type="submit"
+                  variant="contained"
+                  color="primary"
+                  fullWidth
                   disabled={!isEnabled || props.inProgressLogin}>
                   <LoadingClip inProgress={props.inProgressLogin} />&nbsp;&nbsp;Sign in
                   </Button>
@@ -177,7 +184,7 @@ const Login = props => {
 
               <Grid item xs={12}>
                 <p className="text-center text-muted">
-                  <i>By clicking Sign In, you agree to our <a href="/terms-and-conditions">Terms</a> and have read and acknowledge our <a href="/privacy-policy">US Privacy Statement</a>.</i>
+                  <i>By clicking Sign In, you agree to our <a id="login-link-terms-and-conditions" href="/terms-and-conditions">Terms</a> and have read and acknowledge our <a id="login-link-privacy-policy" href="/privacy-policy">US Privacy Statement</a>.</i>
                 </p>
               </Grid>
             </Grid>
