@@ -17,6 +17,7 @@ import {
     SquarePaper, AlternateCircularProgress, VerticalTextField, VerticalSelect,
     AlternateButton, DefaultDarkTeal
 } from '../../style/mui';
+import { RectSkeleton } from '../Common/Sekeleton';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -77,7 +78,26 @@ const Dependents = props => {
             </React.Fragment>
         );
     } else {
-        return null;
+        const inProgress = props.inProgressDependents
+            || props.inProgressDependentRelationships
+            || props.inProgressDependentAdd
+            || props.inProgressDependentDelete;
+            
+        return (
+            <React.Fragment>
+                <Container maxWidth="xl">
+                    {
+                        inProgress
+                            ? <React.Fragment>
+                                <RectSkeleton height={100} />
+                                <RectSkeleton height={400} />
+                                <RectSkeleton height={400} />
+                            </React.Fragment>
+                            : null
+                    }
+                </Container>
+            </React.Fragment>
+        );
     }
 }
 
@@ -154,7 +174,7 @@ const AddDependent = props => {
         const dependentRelationships = props.dependentRelationships;
         const [firstName, setFirstName] = useState("");
         const [lastName, setLastName] = useState("");
-        const [age, setAge] = useState(10);
+        const [age, setAge] = useState("");
         const [email, setEmail] = useState("");
         const [amountOfSupportProvided, setAmountOfSupportProvided] = useState("");
         const [userRelationship, setUserRelationship] = useState("");
