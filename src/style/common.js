@@ -6,11 +6,46 @@ import "react-toastify/dist/ReactToastify.css";
 import { DefaultGreenColor, DefaultRedColor } from './mui';
 
 
+/* Color palette
+  Default = White
+  Alt     = Roman Silver
+  Alt2    = Royal Blue Light
+  Alt3    = Beau Blue
+  Alt4    = Green Munsell
+  Alt5    = Oxford Blue
+  Alt6    = Independence
+  Alt7    = Slate Gray
+  Alt8    = International Orange Engineering
+*/
 export const ColorDefault = '#FFFFFF';
 export const ColorAlt = '#8792a2';
 export const ColorAlt2 = '#5469d4';
 export const ColorAlt3 = '#d6ecff'; 
 export const ColorAlt4 = '#1ea672';
+export const ColorAlt5 = '#1a1f36';
+export const ColorAlt6 = '#3c4257';
+export const ColorAlt7 = '#697386';
+export const ColorAlt8 = '#b21f00';
+
+export const H1Alt6 = styled.h1`
+  color: ${ColorAlt6};
+  font-size: 28px;
+  font-weight: 700;
+  line-height: 32px;
+`;
+export const H5Alt6 = styled.h5`
+  color: ${ColorAlt6};
+  font-size: 14px;
+  font-weight: 550;
+  line-height: 20px;
+`;
+
+export const PAlt7 = styled.p`
+  color: ${ColorAlt7};
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 16px;
+`;
 
 export const GreenP = styled.p`
    color: green;

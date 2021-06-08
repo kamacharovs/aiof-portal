@@ -1,18 +1,22 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
+import agent from '../../agent';
 
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
-import { SquarePaper } from '../../style/mui';
 
-import { ASSETS } from '../../../constants/actionTypes';
+import { AssetPaper, LiabilityPaper } from '../Common/Papers';
+import { SquarePaper, ColorAlt, ColorAlt2, ColorAlt5 } from '../../style/mui';
+import { H1Alt6 } from '../../style/common';
+import { ASSETS } from '../../constants/actionTypes';
 
 
 const mapStateToProps = state => ({
     ...state.finance,
     appName: state.common.appName,
-    currentUser: state.common.currentUser
+    currentUser: state.common.currentUser,
+    inProgressAssets: state.inProgressAssets,
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -31,21 +35,42 @@ const SnapshotView = props => {
         const classes = useStyles();
 
         useEffect(() => {
-            if (!props.finance.assets) {
+            if (!props.finance) {
                 props.onAssets();
             }
         }, []);
 
+        const assets = props.assets ? props.assets : [];
+        const assetsSum = assets.map(a => a.value)
+            .reduce((sum, current) => sum + current, 0);
+            
+        const liabilities = props.liabilities ? props.liabilities : [];
+        const liabilitiesSum = liabilities.map(a => a.value)
+            .reduce((sum, current) => sum + current, 0);
+
         return (
-            <Container maxWidth="xl">
+            <Container maxWidth="md">
                 <Grid container spacing={1} className={classes.root}>
-
-                    <Grid item xs={12}>
+                    <Grid item xs>
                         <SquarePaper variant="outlined" square>
-                            More to come...
-            </SquarePaper>
-                    </Grid>
+                            <Grid item xs>
+                                <H1Alt6>Overview</H1Alt6>
+                            </Grid>
 
+                            <Grid item xs>
+                                <AssetPaper
+                                    inProgress={props.inProgressAssets}
+                                    title={"Assets"}
+                                    totalAssetValue={assetsSum} />
+                            </Grid>
+                            <Grid item xs>
+                                <LiabilityPaper
+                                    inProgress={true}
+                                    title={"Liabilities"}
+                                    totalLiabilityValue={liabilitiesSum} />
+                            </Grid>
+                        </SquarePaper>
+                    </Grid>
                 </Grid>
             </Container>
         );

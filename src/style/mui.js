@@ -9,6 +9,7 @@ import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
+import ClipLoader from "react-spinners/ClipLoader";
 
 import { ThinText } from '../style/common';
 
@@ -32,12 +33,20 @@ export const DefaultWhite = '#ffffff';
   Alt2    = Royal Blue Light
   Alt3    = Beau Blue
   Alt4    = Green Munsell
+  Alt5    = Oxford Blue
+  Alt6    = Independence
+  Alt7    = Slate Gray
+  Alt8    = International Orange Engineering
 */
 export const ColorDefault = '#FFFFFF';
 export const ColorAlt = '#8792a2';
 export const ColorAlt2 = '#5469d4';
 export const ColorAlt3 = '#d6ecff'; 
 export const ColorAlt4 = '#1ea672';
+export const ColorAlt5 = '#1a1f36';
+export const ColorAlt6 = '#3c4257';
+export const ColorAlt7 = '#697386';
+export const ColorAlt8 = '#b21f00';
 
 export const DefaultPaperPadding = '1.5rem';
 export const DefaultPaperMargin = '1rem';
@@ -102,6 +111,14 @@ export const FullPaper = styled(Paper)({
   marginRight: 0,
   marginBottom: DefaultPaperMargin,
   fontSize: DefaultPaperFontSize,
+})
+export const BorderlessSquarePaper = styled(Paper)({
+  padding: '1rem',
+  //marginTop: DefaultPaperMargin,
+  fontSize: DefaultPaperFontSize,
+  borderLeft: 0,
+  borderRight: 0,
+  borderBottom: 0,
 })
 
 export const LoginPaper = styled(Paper)({
@@ -288,3 +305,27 @@ export const AiofVerticalTab = withStyles((theme) => ({
   },
   selected: {},
 }))((props) => <Tab {...props} />);
+
+
+/*
+Loaders
+*/
+export const Alt2Loader = props => {
+  const defaultSize = 50;
+
+  const inProgress = props.inProgress ? props.inProgress : false;
+  const size = props.size ? props.size : defaultSize;
+  const br = props.br ? props.br : false;
+  const color = props.color ? props.color : ColorAlt2;
+
+  return (
+      <div className="sweet-loading">
+          { br ? <br/> : null }
+          <ClipLoader
+              size={size}
+              color={color}
+              loading={inProgress}
+          />
+      </div>
+  );
+}
