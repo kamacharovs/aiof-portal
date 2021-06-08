@@ -26,6 +26,19 @@ export const DefaultHrColor = '#ebebeb';
 export const DefaultDarkTeal = '#137a8f';
 export const DefaultWhite = '#ffffff';
 
+/* Color palette
+  Default = White
+  Alt     = Roman Silver
+  Alt2    = Royal Blue Light
+  Alt3    = Beau Blue
+  Alt4    = Green Munsell
+*/
+export const ColorDefault = '#FFFFFF';
+export const ColorAlt = '#8792a2';
+export const ColorAlt2 = '#5469d4';
+export const ColorAlt3 = '#d6ecff'; 
+export const ColorAlt4 = '#1ea672';
+
 export const DefaultPaperPadding = '1.5rem';
 export const DefaultPaperMargin = '1rem';
 export const DefaultPaperFontSize = '.8125rem';

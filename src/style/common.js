@@ -6,8 +6,11 @@ import "react-toastify/dist/ReactToastify.css";
 import { DefaultGreenColor, DefaultRedColor } from './mui';
 
 
-export const DefaultColor = "#5cb85c";
-export const DefaultAlternateColor = "#137a8f";
+export const ColorDefault = '#FFFFFF';
+export const ColorAlt = '#8792a2';
+export const ColorAlt2 = '#5469d4';
+export const ColorAlt3 = '#d6ecff'; 
+export const ColorAlt4 = '#1ea672';
 
 export const GreenP = styled.p`
    color: green;
@@ -64,7 +67,7 @@ export const H1AssetPreview = styled.h1`
    text-transform: uppercase;
    font-size: 1rem;
    font-weight: 900;
-   color: ${DefaultColor}
+   color: ${ColorAlt4}
 `;
 export const H1LiabilityPreview = styled.h1`
    margin: 0 0 8px !important;
@@ -147,7 +150,7 @@ export const HeaderLink = styled(Link)`
   font-size: 1.5rem !important;
   padding-top: 0 !important;
   margin-right: 2rem !important;
-  color: ${DefaultColor} !important;
+  color: ${ColorAlt} !important;
   padding-bottom: 0rem;
   line-height: inherit;
   white-space: nowrap;
@@ -209,7 +212,7 @@ export const TinyPadding = styled.div`
 `;
 
 export const AiofBannerImage = styled.div`
-  background-color: ${DefaultColor};
+  background-color: ${ColorAlt4};
   position: absolute;
   top: 0;
   left: 0;
@@ -219,7 +222,7 @@ export const AiofBannerImage = styled.div`
   text-align: left;
 `;
 export const AiofBanner = styled.div`
-  background-color: ${DefaultColor};
+  background-color: ${ColorAlt4};
   padding: 3rem;
   padding-top: 10rem;
   margin-bottom: 1rem;

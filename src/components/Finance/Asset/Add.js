@@ -13,7 +13,7 @@ import Select from '@material-ui/core/Select';
 import { SquarePaper, AlternateButton, VerticalTextField, VerticalSelect } from '../../../style/mui';
 import { ASSET_TYPES, ASSET_ADD } from '../../../constants/actionTypes';
 import { isNumber } from '../Common';
-import { DefaultAlternateColor } from '../../../style/common';
+import { ColorAlt2 } from '../../../style/mui';
 
 
 const mapStateToProps = state => ({
@@ -77,7 +77,7 @@ const AddAsset = props => {
     return (
         <React.Fragment>
             <SquarePaper variant="outlined" square>
-                <div style={{ color: DefaultAlternateColor }}>
+                <div style={{ color: ColorAlt2 }}>
                     <h3><strong>Add</strong></h3>
                 </div>
 

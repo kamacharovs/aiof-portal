@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 
 import AppMenu from './AppMenu';
 import { HeaderLink, HeaderRightLink } from '../style/common';
-import { DefaultColor } from '../style/common';
+import { ColorDefault, ColorAlt } from '../style/mui';
 import { LOGOUT } from '../constants/actionTypes';
 
 import { makeStyles } from '@material-ui/core/styles';
@@ -26,13 +26,13 @@ const useStyles = makeStyles((theme) => ({
         marginBottom: '3.25rem'
     },
     header: {
-        backgroundColor: '#343a40'
+        backgroundColor: ColorDefault
     },
     app: {
         flexGrow: 1
     },
     userButton: {
-        color: DefaultColor,
+        color: ColorAlt,
         textTransform: 'capitalize',
     },
 }));
@@ -177,7 +177,7 @@ const Header = props => {
     return (
         <React.Fragment>
             <div className={classes.root}>
-                <AppBar position="fixed" className={classes.header}>
+                <AppBar position="fixed" elevation={0} className={classes.header}>
                     <Toolbar variant="dense">
                         <AppMenu currentUser={props.currentUser} />
 
