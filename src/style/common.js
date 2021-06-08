@@ -117,7 +117,7 @@ export const AltLink = styled(Link)`
   color: ${ColorAlt2};
   display: inline-block;
   font-size: 14px;
-  font-weight: 500;
+  font-weight: 550;
   line-height: 20px;
 
   &:hover {

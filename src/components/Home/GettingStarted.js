@@ -32,25 +32,16 @@ const GettingStartedView = props => {
                             <H1Alt6>Get started with {props.appName}</H1Alt6>
                         </Grid>
                     </Grid>
-                </SquarePaper>
-
-                <SquarePaper variant="outlined" square>
                     <Grid container spacing={0}>
                         <Grid item xs>
                             <RetirementCalculators />
                         </Grid>
                     </Grid>
-                </SquarePaper>
-
-                <SquarePaper variant="outlined" square>
                     <Grid container spacing={0}>
                         <Grid item xs>
                             <FinancialIndependenceCalculators />
                         </Grid>
                     </Grid>
-                </SquarePaper>
-
-                <SquarePaper variant="outlined" square>
                     <Grid container spacing={0}>
                         <Grid item xs>
                             <PropertyCalculators />
