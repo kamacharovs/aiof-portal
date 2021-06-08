@@ -7,19 +7,22 @@ import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
 
 import { AssetPaper, LiabilityPaper } from '../Common/Papers';
-import { SquarePaper, ColorAlt, ColorAlt2, ColorAlt5 } from '../../style/mui';
+import { SquarePaper } from '../../style/mui';
 import { H1Alt6 } from '../../style/common';
-import { ASSETS } from '../../constants/actionTypes';
+import { FINANCE, ASSETS } from '../../constants/actionTypes';
 
 
 const mapStateToProps = state => ({
     ...state.finance,
     appName: state.common.appName,
     currentUser: state.common.currentUser,
+    inProgress: state.inProgress,
     inProgressAssets: state.inProgressAssets,
 });
 
 const mapDispatchToProps = dispatch => ({
+    onFinance: () =>
+        dispatch({ type: FINANCE, payload: agent.User.get() }),
     onAssets: () =>
         dispatch({ type: ASSETS, payload: agent.Asset.all() }),
 });
@@ -36,7 +39,7 @@ const SnapshotView = props => {
 
         useEffect(() => {
             if (!props.finance) {
-                props.onAssets();
+                props.onFinance();
             }
         }, []);
 
@@ -46,6 +49,8 @@ const SnapshotView = props => {
             
         const liabilities = props.liabilities ? props.liabilities : [];
         const liabilitiesSum = liabilities.map(a => a.value)
+            .reduce((sum, current) => sum + current, 0);
+        const liabilitiesMonthlyPaymentSum = liabilities.map(a => a.monthlyPayment)
             .reduce((sum, current) => sum + current, 0);
 
         return (
@@ -59,15 +64,16 @@ const SnapshotView = props => {
 
                             <Grid item xs>
                                 <AssetPaper
-                                    inProgress={props.inProgressAssets}
+                                    inProgress={props.inProgress}
                                     title={"Assets"}
                                     totalAssetValue={assetsSum} />
                             </Grid>
                             <Grid item xs>
                                 <LiabilityPaper
-                                    inProgress={true}
+                                    inProgress={props.inProgress}
                                     title={"Liabilities"}
-                                    totalLiabilityValue={liabilitiesSum} />
+                                    totalValue={liabilitiesSum}
+                                    totalMonthlyPayment={liabilitiesMonthlyPaymentSum} />
                             </Grid>
                         </SquarePaper>
                     </Grid>

@@ -114,7 +114,6 @@ export const FullPaper = styled(Paper)({
 })
 export const BorderlessSquarePaper = styled(Paper)({
   padding: '1rem',
-  //marginTop: DefaultPaperMargin,
   fontSize: DefaultPaperFontSize,
   borderLeft: 0,
   borderRight: 0,
@@ -226,6 +225,14 @@ export const InBodyPaper = props => {
 
 
 /*
+Buttons
+*/
+export const AltButton = styled(Button)({
+  color: ColorAlt2
+})
+
+
+/*
 Vertical layouts
 */
 export const VerticalTextField = ({ header, textField, required }) => {
@@ -310,7 +317,7 @@ export const AiofVerticalTab = withStyles((theme) => ({
 /*
 Loaders
 */
-export const Alt2Loader = props => {
+export const AltLoader = props => {
   const defaultSize = 50;
 
   const inProgress = props.inProgress ? props.inProgress : false;

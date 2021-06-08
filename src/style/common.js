@@ -20,7 +20,7 @@ import { DefaultGreenColor, DefaultRedColor } from './mui';
 export const ColorDefault = '#FFFFFF';
 export const ColorAlt = '#8792a2';
 export const ColorAlt2 = '#5469d4';
-export const ColorAlt3 = '#d6ecff'; 
+export const ColorAlt3 = '#d6ecff';
 export const ColorAlt4 = '#1ea672';
 export const ColorAlt5 = '#1a1f36';
 export const ColorAlt6 = '#3c4257';
@@ -112,6 +112,27 @@ export const H1LiabilityPreview = styled.h1`
    color: ${DefaultRedColor}
 `;
 
+
+export const AltLink = styled(Link)`
+  color: ${ColorAlt2};
+  display: inline-block;
+  font-size: 14px;
+  font-weight: 550;
+  line-height: 20px;
+
+  &:hover {
+    text-decoration: none;
+    color: #00000;
+  }
+
+  &:focus, &:visited, &:link, &:active {
+    text-decoration: none;
+  }
+
+  &.outer {
+    display: block;
+  }
+`;
 
 export const CoolLink = styled(Link)`
   margin-bottom: 10px;

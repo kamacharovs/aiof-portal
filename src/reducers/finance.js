@@ -1,5 +1,6 @@
 import {
   ASYNC_START,
+  FINANCE,
   FINANCE_PAGE_LOADED,
   FINANCE_PAGE_UNLOADED,
   ASSETS,
@@ -21,6 +22,16 @@ import {
 
 export default (state = {}, action) => {
   switch (action.type) {
+    case FINANCE:
+        return {
+          ...state,
+          inProgress: false,
+          profile: action.payload.profile,
+          assets: action.payload.assets,
+          liabilities: action.payload.liabilities,
+          goalsBase: action.payload.goals,
+          subscriptions: action.payload.subscriptions,
+        }
     case FINANCE_PAGE_LOADED:
       return {
         ...state,
@@ -41,6 +52,7 @@ export default (state = {}, action) => {
       }
     case ASYNC_START:
       if (action.subtype === ASSET_BREAKDOWN
+        || action.subtype === FINANCE
         || action.subtype === FINANCE_PAGE_LOADED
         || action.subtype === LIABILITY_ADD
         || action.subtype === ANALYTICS_ANALYZE) {
