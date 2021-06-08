@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import agent from '../../agent';
 
 import { makeStyles } from '@material-ui/core/styles';
-import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
 
 import { AssetPaper, LiabilityPaper } from '../Common/Papers';
@@ -46,7 +45,7 @@ const SnapshotView = props => {
         const assets = props.assets ? props.assets : [];
         const assetsSum = assets.map(a => a.value)
             .reduce((sum, current) => sum + current, 0);
-            
+
         const liabilities = props.liabilities ? props.liabilities : [];
         const liabilitiesSum = liabilities.map(a => a.value)
             .reduce((sum, current) => sum + current, 0);
@@ -54,31 +53,29 @@ const SnapshotView = props => {
             .reduce((sum, current) => sum + current, 0);
 
         return (
-            <Container maxWidth="md">
+            <SquarePaper variant="outlined" square>
                 <Grid container spacing={1} className={classes.root}>
                     <Grid item xs>
-                        <SquarePaper variant="outlined" square>
-                            <Grid item xs>
-                                <H1Alt6>Overview</H1Alt6>
-                            </Grid>
+                        <Grid item xs>
+                            <H1Alt6>Overview</H1Alt6>
+                        </Grid>
 
-                            <Grid item xs>
-                                <AssetPaper
-                                    inProgress={props.inProgress}
-                                    title={"Assets"}
-                                    totalAssetValue={assetsSum} />
-                            </Grid>
-                            <Grid item xs>
-                                <LiabilityPaper
-                                    inProgress={props.inProgress}
-                                    title={"Liabilities"}
-                                    totalValue={liabilitiesSum}
-                                    totalMonthlyPayment={liabilitiesMonthlyPaymentSum} />
-                            </Grid>
-                        </SquarePaper>
+                        <Grid item xs>
+                            <AssetPaper
+                                inProgress={props.inProgress}
+                                title={"Assets"}
+                                totalAssetValue={assetsSum} />
+                        </Grid>
+                        <Grid item xs>
+                            <LiabilityPaper
+                                inProgress={props.inProgress}
+                                title={"Liabilities"}
+                                totalValue={liabilitiesSum}
+                                totalMonthlyPayment={liabilitiesMonthlyPaymentSum} />
+                        </Grid>
                     </Grid>
                 </Grid>
-            </Container>
+            </SquarePaper>
         );
     } else {
         return null;

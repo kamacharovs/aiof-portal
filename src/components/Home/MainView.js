@@ -6,12 +6,14 @@ import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
 
 import SnapshotView from './Snapshot';
+import GettingStartedView from './GettingStarted';
 
 
 const mapStateToProps = state => ({
   ...state.home,
   token: state.common.token,
-  currentUser: state.common.currentUser
+  currentUser: state.common.currentUser,
+  appName: state.common.appName,
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -35,6 +37,12 @@ const MainView = props => {
             currentUser={props.currentUser} />
         </Grid>
         
+        <Grid item xs={8}>
+          <GettingStartedView
+            currentUser={props.currentUser}
+            appName={props.appName} />
+        </Grid>
+
       </Grid>
     </Container>
   );

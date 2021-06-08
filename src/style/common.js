@@ -117,12 +117,16 @@ export const AltLink = styled(Link)`
   color: ${ColorAlt2};
   display: inline-block;
   font-size: 14px;
-  font-weight: 550;
+  font-weight: 500;
   line-height: 20px;
 
   &:hover {
     text-decoration: none;
     color: #00000;
+  }
+  &:hover::after {
+    width: 100%;
+    transition: width .3s;
   }
 
   &:focus, &:visited, &:link, &:active {
