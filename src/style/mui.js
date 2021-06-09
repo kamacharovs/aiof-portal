@@ -45,7 +45,7 @@ export const DefaultWhite = '#ffffff';
 export const ColorDefault = '#FFFFFF';
 export const ColorAlt = '#8792a2';
 export const ColorAlt2 = '#5469d4';
-export const ColorAlt3 = '#d6ecff'; 
+export const ColorAlt3 = '#d6ecff';
 export const ColorAlt4 = '#1ea672';
 export const ColorAlt5 = '#1a1f36';
 export const ColorAlt6 = '#3c4257';
@@ -331,14 +331,14 @@ export const AltLoader = props => {
   const color = props.color ? props.color : ColorAlt2;
 
   return (
-      <div className="sweet-loading">
-          { br ? <br/> : null }
-          <ClipLoader
-              size={size}
-              color={color}
-              loading={inProgress}
-          />
-      </div>
+    <div className="sweet-loading">
+      { br ? <br /> : null}
+      <ClipLoader
+        size={size}
+        color={color}
+        loading={inProgress}
+      />
+    </div>
   );
 }
 
@@ -350,7 +350,7 @@ export const AltCheckCircle = props => {
   const size = props.size ? props.size : 20;
 
   return (
-    <CheckCircleIcon 
+    <CheckCircleIcon
       style={{ color: ColorAlt4, fontSize: size }} />
   );
 }
@@ -359,7 +359,7 @@ export const AltClearIcon = props => {
   const size = props.size ? props.size : 20;
 
   return (
-    <ClearIcon 
+    <ClearIcon
       style={{ color: ColorAlt8, fontSize: size }} />
   );
 }
