@@ -44,7 +44,7 @@ export const AssetPaper = props => {
                         </Grid>
 
                         <Grid item xs={2}>
-                            <AltLink to={"/finance/assets"}>Add</AltLink>
+                            <AltLink to={"/finance/assets"}>View</AltLink>
                         </Grid>
                     </Grid>
                 </Grid>

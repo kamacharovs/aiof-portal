@@ -65,6 +65,7 @@ const ProfileCheckmark = props => {
 
     if (profile) {
         const profileComplete = profile.gender !== null
+                                && profile.occupation !== null
                                 && (profile.grossSalary !== null && profile.grossSalary !== 0)
                                 && profile.educationLevel !== null
                                 && profile.residentialStatus !== null;
@@ -93,6 +94,7 @@ const ProfileCheckmark = props => {
                 </Grid>
 
                 <ProfileCheckmarkDynamic fieldValue={profile.gender} fieldName={"Gender"} />
+                <ProfileCheckmarkDynamic fieldValue={profile.occupation} fieldName={"Occupation"} />
                 <ProfileCheckmarkDynamic fieldValue={profile.grossSalary} fieldName={"Gross salary"} />
                 <ProfileCheckmarkDynamic fieldValue={profile.educationLevel} fieldName={"Education level"} />
                 <ProfileCheckmarkDynamic fieldValue={profile.residentialStatus} fieldName={"Residential status"} />
