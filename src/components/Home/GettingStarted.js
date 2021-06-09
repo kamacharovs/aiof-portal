@@ -50,21 +50,7 @@ const GettingStartedView = props => {
                                 profile={props.profile} />
                         </Grid>
                     </Grid>
-
-                    <Grid container spacing={0}>
-                        <Grid item xs>
-                            <RetirementCalculators />
-                        </Grid>
-                        <Grid item xs>
-                            <FinancialIndependenceCalculators />
-                        </Grid>
-                    </Grid>
-
-                    <Grid container spacing={0}>
-                        <Grid item xs>
-                            <PropertyCalculators />
-                        </Grid>
-                    </Grid>
+                
                 </SquarePaper>
             </React.Fragment>
         );
@@ -79,7 +65,7 @@ const ProfileCheckmark = props => {
 
     if (profile) {
         const profileComplete = profile.gender !== null
-                                && profile.grossSalary !== null
+                                && (profile.grossSalary !== null && profile.grossSalary !== 0)
                                 && profile.educationLevel !== null
                                 && profile.residentialStatus !== null;
 
