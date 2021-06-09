@@ -121,3 +121,55 @@ export const LiabilityPaper = props => {
         </React.Fragment>
     );
 }
+
+export const GoalPaper = props => {
+    const classes = useStyles();
+    const title = props.title ? props.title : "Goals";
+    const footerTitle = props.footerTitle ? props.footerTitle : "Total goals";
+    const total = props.total && props.currentUser ? props.total : 0;
+    const totalmonthlyContribution =  props.totalmonthlyContribution && props.currentUser ? props.totalmonthlyContribution : 0;
+
+    return (
+        <React.Fragment>
+            <BorderlessSquarePaper variant="outlined" square>
+                <Grid item xs>
+                    <H5Alt6>{title}</H5Alt6>
+                </Grid>
+
+                <Grid item xs>
+                    {props.inProgress
+                        ? <AltLoader
+                            inProgress={props.inProgress}
+                            size={"24px"} />
+                        : 
+                        <div className={classes.green}>
+                            {total}
+                        </div>
+                    }
+                </Grid>
+                <Grid item xs>
+                    <PAlt7>
+                        {footerTitle}
+                    </PAlt7>
+                </Grid>
+
+                <Grid item xs>
+                    {props.inProgress
+                        ? <AltLoader
+                            inProgress={props.inProgress}
+                            size={"24px"} />
+                        :
+                        <div className={classes.green}>
+                            ${numberWithCommas(Math.round(totalmonthlyContribution * 100) / 100)}
+                        </div>
+                    }
+                </Grid>
+                <Grid item xs>
+                    <PAlt7>
+                        Total monthly contributions
+                    </PAlt7>
+                </Grid>
+            </BorderlessSquarePaper>
+        </React.Fragment>
+    );
+}

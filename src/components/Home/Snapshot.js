@@ -5,7 +5,7 @@ import agent from '../../agent';
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 
-import { AssetPaper, LiabilityPaper } from '../Common/Papers';
+import { AssetPaper, LiabilityPaper, GoalPaper } from '../Common/Papers';
 import { SquarePaper } from '../../style/mui';
 import { H1Alt6, PAlt7, AltLink } from '../../style/common';
 import { FINANCE, ASSETS } from '../../constants/actionTypes';
@@ -50,7 +50,12 @@ const SnapshotView = props => {
     const liabilities = props.liabilities ? props.liabilities : [];
     const liabilitiesSum = liabilities.map(a => a.value)
         .reduce((sum, current) => sum + current, 0);
-    const liabilitiesMonthlyPaymentSum = liabilities.map(a => a.monthlyPayment)
+    const liabilitiesMonthlyPaymentSum = liabilities.map(l => l.monthlyPayment)
+        .reduce((sum, current) => sum + current, 0);
+
+    const goals = props.goalsBase ? props.goalsBase : [];
+    const goalsTotal = goals.length;
+    const goalsMothlyContributionSum = goals.map(g => g.monthlyContribution)
         .reduce((sum, current) => sum + current, 0);
 
     return (
@@ -90,6 +95,14 @@ const SnapshotView = props => {
                             title={"Liabilities"}
                             totalValue={liabilitiesSum}
                             totalMonthlyPayment={liabilitiesMonthlyPaymentSum} />
+                    </Grid>
+                    <Grid item xs>
+                        <GoalPaper
+                            currentUser={props.currentUser}
+                            inProgress={props.inProgress}
+                            title={"Goals"}
+                            total={goalsTotal}
+                            totalmonthlyContribution={goalsMothlyContributionSum} />
                     </Grid>
                 </Grid>
             </Grid>
