@@ -10,7 +10,7 @@ import {
     BorderlessSquarePaper, SquarePaper, InBodyPaper, ColorAlt4, ColorAlt5, ColorAlt8,
     AltCheckCircle, AltClearIcon, AltChip
 } from '../../style/mui';
-import { H1Alt6, PAlt7, AltLink } from '../../style/common';
+import { H1Alt6, PAlt7, AltLink, CoolExternalLink } from '../../style/common';
 
 
 const mapStateToProps = state => ({
@@ -226,8 +226,14 @@ const Assets = props => {
                 <Grid item xs>
                     <br />
                     <PAlt7>
-                        A financial asset is a liquid asset that gets its value from a contractual right or ownership claim. 
+                        A financial asset is a liquid asset that gets its value from a contractual right or ownership claim.
                         Car, cash, house, bonds, investment, and stocks are all are examples of financial assets.
+                        <br/><br/>
+                        Unlike land, property, commodities, or other tangible physical assets, financial assets do not necessarily 
+                        have inherent physical worth or even a physical form. Rather, their value reflects factors of supply and 
+                        demand in the marketplace in which they trade, as well as the degree of risk they carry.
+                        <br/><br/> 
+                        <CoolExternalLink href="https://www.investopedia.com/terms/f/financialasset.asp" target="_blank">Source can be found here</CoolExternalLink>
                     </PAlt7>
                 </Grid>
             </Grid>
