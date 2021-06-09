@@ -15,7 +15,7 @@ import FormGroup from '@material-ui/core/FormGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 
 import { AssetPaper, LiabilityPaper, GoalPaper, DependentPaper } from '../Common/Papers';
-import { SquarePaper, AltButton, ColorAlt2, ColorAlt6 } from '../../style/mui';
+import { SquarePaper, AltCancelButton, ColorAlt2, ColorAlt6 } from '../../style/mui';
 import { H1Alt6, PAlt7, AltLink } from '../../style/common';
 import { FINANCE, ASSETS, SNAPSHOT_SETTING_UPDATE } from '../../constants/actionTypes';
 
@@ -297,9 +297,7 @@ export const SettingsButton = props => {
                         </FormGroup>
                 </DialogContent>
                 <DialogActions>
-                    <AltButton onClick={handleClose} autoFocus>
-                        Close
-                    </AltButton>
+                    <AltCancelButton onClick={handleClose} autoFocus />
                 </DialogActions>
             </Dialog>
         </React.Fragment>

@@ -6,6 +6,7 @@ import Paper from '@material-ui/core/Paper';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Button from '@material-ui/core/Button';
+import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
@@ -235,6 +236,16 @@ Buttons
 export const AltButton = styled(Button)({
   color: ColorAlt2
 })
+
+export const AltCancelButton = props => {
+  return (
+    <IconButton
+      style={{ color: ColorAlt2 }}
+      onClick={props.onClick}>
+        <ClearIcon />
+    </IconButton>
+  );
+}
 
 
 /*
