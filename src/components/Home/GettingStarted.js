@@ -40,7 +40,7 @@ const GettingStartedView = props => {
                 <SquarePaper variant="outlined" square>
                     <Grid container spacing={0}>
                         <Grid item xs>
-                            <H1Alt6>Get started with {props.appName}</H1Alt6>
+                            <H1Alt6>Getting started</H1Alt6>
                         </Grid>
                     </Grid>
 
