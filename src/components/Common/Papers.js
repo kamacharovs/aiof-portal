@@ -33,6 +33,7 @@ export const AssetPaper = props => {
     const classes = useStyles();
     const title = props.title ? props.title : "Asset balance";
     const footerTitle = props.footerTitle ? props.footerTitle : "Total asset value";
+    const totalAssets = props.totalAssets ? props.totalAssets : 0;
     const totalAssetValue = props.totalAssetValue && props.currentUser ? props.totalAssetValue : 0;
 
     return (
@@ -42,6 +43,7 @@ export const AssetPaper = props => {
                     <Grid container spacing={3}>
                         <Grid item xs={8}>
                             <H5Alt6>{title}</H5Alt6>
+                            <PAlt7>{totalAssets}</PAlt7>
                         </Grid>
 
                         <Grid item xs={2}>
@@ -176,7 +178,6 @@ export const GoalPaper = props => {
 }
 
 export const DependentPaper = props => {
-    const classes = useStyles();
     const title = props.title ? props.title : "Dependents";
     const footerTitle = props.footerTitle ? props.footerTitle : "Total dependents";
     const total = props.total && props.currentUser ? props.total : 0;

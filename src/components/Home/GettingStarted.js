@@ -21,6 +21,11 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
 });
 
+const completedLabel = "Completed";
+const incompleteLabel = "Incomplete";
+const completedColor = ColorAlt4;
+const incompleteColor = ColorAlt8;
+
 const useStyles = makeStyles((theme) => ({
     root: {
         display: 'flex',
@@ -52,6 +57,13 @@ const GettingStartedView = props => {
                                 <Grid item xs>
                                     <ProfileCheckmark
                                         profile={props.profile} />
+                                </Grid>
+                            </Grid>
+
+                            <Grid container spacing={0}>
+                                <Grid item xs>
+                                    <Assets
+                                        assets={props.assets} />
                                 </Grid>
                             </Grid>
                         </SquarePaper>
@@ -95,8 +107,8 @@ const ProfileCheckmark = props => {
                     <Grid item xs>
                         <div className={classes.heading}>
                             <AltLink to={"/profile"}>Update your profile {profileComplete === false
-                                ? <AltChip label={"Incomplete"} color={ColorAlt8} />
-                                : <AltChip label={"Completed"} color={ColorAlt4} />
+                                ? <AltChip label={incompleteLabel} color={incompleteColor} />
+                                : <AltChip label={completedLabel} color={completedColor} />
                             }</AltLink>
                         </div>
                     </Grid>
@@ -112,25 +124,16 @@ const ProfileCheckmark = props => {
                     </Grid>
                 </Grid>
 
-                <ProfileCheckmarkDynamic fieldValue={profile.gender} fieldName={"Gender"} />
-                <ProfileCheckmarkDynamic fieldValue={profile.occupation} fieldName={"Occupation"} />
-                <ProfileCheckmarkDynamic fieldValue={profile.grossSalary} fieldName={"Gross salary"} />
-                <ProfileCheckmarkDynamic fieldValue={profile.educationLevel} fieldName={"Education level"} />
-                <ProfileCheckmarkDynamic fieldValue={profile.residentialStatus} fieldName={"Residential status"} />
+                <CheckmarkDynamic fieldValue={profile.gender} fieldName={"Gender"} />
+                <CheckmarkDynamic fieldValue={profile.occupation} fieldName={"Occupation"} />
+                <CheckmarkDynamic fieldValue={profile.grossSalary} fieldName={"Gross salary"} />
+                <CheckmarkDynamic fieldValue={profile.educationLevel} fieldName={"Education level"} />
+                <CheckmarkDynamic fieldValue={profile.residentialStatus} fieldName={"Residential status"} />
             </BorderlessSquarePaper>
         );
     } else {
         return null;
     }
-}
-const ProfileCheckmarkDynamic = props => {
-    return (
-        <Grid container spacing={0}>
-            <Grid item xs>
-                {props.fieldValue ? <AltCheckCircle /> : <AltClearIcon />} {props.fieldName}
-            </Grid>
-        </Grid>
-    );
 }
 
 const FinancialIndependence = props => {
@@ -197,6 +200,50 @@ const Housing = props => {
                 </React.Fragment>
             }>
         </InBodyPaper>
+    );
+}
+
+const Assets = props => {
+    const classes = useStyles();
+    const assets = props.assets ? props.assets : [];
+    const assetsLength = assets.length;
+    const assetsComplete = assetsLength >= 2;
+
+    return (
+        <BorderlessSquarePaper variant="outlined" square>
+            <Grid container spacing={0}>
+                <Grid item xs>
+                    <div className={classes.heading}>
+                        <AltLink to={"/finance/assets"}>Add assets {assetsComplete === false
+                            ? <AltChip label={incompleteLabel} color={incompleteColor} />
+                            : <AltChip label={completedLabel} color={completedColor} />
+                        }</AltLink>
+                    </div>
+                </Grid>
+            </Grid>
+
+            <Grid container spacing={0}>
+                <Grid item xs>
+                    <br />
+                    <PAlt7>
+                        A financial asset is a liquid asset that gets its value from a contractual right or ownership claim. 
+                        Car, cash, house, bonds, investment, and stocks are all are examples of financial assets.
+                    </PAlt7>
+                </Grid>
+            </Grid>
+
+            <CheckmarkDynamic fieldValue={assetsComplete ? "completed" : null} fieldName={"At least 2 assets"} />
+        </BorderlessSquarePaper>
+    );
+}
+
+const CheckmarkDynamic = props => {
+    return (
+        <Grid container spacing={0}>
+            <Grid item xs>
+                {props.fieldValue ? <AltCheckCircle /> : <AltClearIcon />} {props.fieldName}
+            </Grid>
+        </Grid>
     );
 }
 

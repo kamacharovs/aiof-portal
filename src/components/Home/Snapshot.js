@@ -48,6 +48,7 @@ const SnapshotView = props => {
     const inProgressAssets = props.inProgressAssets;
 
     const assets = props.assets ? props.assets : [];
+    const assetsTotal = assets.length;
     const assetsSum = assets.map(a => a.value)
         .reduce((sum, current) => sum + current, 0);
 
@@ -90,6 +91,7 @@ const SnapshotView = props => {
                             currentUser={currentUser}
                             inProgress={inProgress && inProgressAssets}
                             title={"Assets"}
+                            totalAssets={assetsTotal}
                             totalAssetValue={assetsSum} />
 
                         <AssetsChart
