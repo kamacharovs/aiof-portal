@@ -50,10 +50,9 @@ export default (state = defaultState, action) => {
     case REDIRECT_LOGIN:
       return { ...state, redirectTo: '/login' }
     case LOGOUT:
-      return { 
+      return {
         ...state,
         redirectTo: '/login', 
-        token: null, 
         currentUser: null,
         expiresIn: null,
       };

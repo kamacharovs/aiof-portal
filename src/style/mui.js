@@ -40,6 +40,7 @@ export const DefaultWhite = '#ffffff';
   Alt6    = Independence
   Alt7    = Slate Gray
   Alt8    = International Orange Engineering
+  Alt9    = Metallic Seaweed
 */
 export const ColorDefault = '#FFFFFF';
 export const ColorAlt = '#8792a2';
@@ -50,6 +51,7 @@ export const ColorAlt5 = '#1a1f36';
 export const ColorAlt6 = '#3c4257';
 export const ColorAlt7 = '#697386';
 export const ColorAlt8 = '#b21f00';
+export const ColorAlt9 = '#137a8f';
 
 export const DefaultPaperPadding = '1.5rem';
 export const DefaultPaperMargin = '1rem';
@@ -65,7 +67,7 @@ export const commonStyles = makeStyles({
     fontSize: '24px !important',
   },
   inBodyPaperDiv: {
-    backgroundColor: DefaultDarkTeal,
+    backgroundColor: ColorAlt9,
     color: '#ffffff',
     padding: '.25rem',
   },
@@ -81,11 +83,11 @@ export const commonStyles = makeStyles({
     letterSpacing: '0.000125rem',
     padding: '0',
     margin: '0',
-    color: DefaultAlternateColor
+    color: ColorAlt9
   },
   verticalHeaderRequired: {
     fontSize: '0.75rem',
-    color: DefaultRedColor,
+    color: ColorAlt8,
     padding: '0',
     marginLeft: '2px',
     marginRight: '0',

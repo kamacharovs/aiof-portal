@@ -116,9 +116,10 @@ export const H1LiabilityPreview = styled.h1`
 export const AltLink = styled(Link)`
   color: ${ColorAlt2};
   display: inline-block;
-  font-size: 14px;
+  font-size: 12px;
   font-weight: 550;
   line-height: 20px;
+  padding: 0px;
 
   &:hover {
     text-decoration: none;

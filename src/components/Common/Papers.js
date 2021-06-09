@@ -32,7 +32,7 @@ export const AssetPaper = props => {
     const classes = useStyles();
     const title = props.title ? props.title : "Asset balance";
     const footerTitle = props.footerTitle ? props.footerTitle : "Total asset value";
-    const totalAssetValue = props.totalAssetValue ? props.totalAssetValue : 0;
+    const totalAssetValue = props.totalAssetValue && props.currentUser ? props.totalAssetValue : 0;
 
     return (
         <React.Fragment>
@@ -74,8 +74,8 @@ export const LiabilityPaper = props => {
     const classes = useStyles();
     const title = props.title ? props.title : "Liability balance";
     const footerTitle = props.footerTitle ? props.footerTitle : "Total liability value";
-    const totalValue = props.totalValue ? props.totalValue : 0;
-    const totalMonthlyPayment =  props.totalMonthlyPayment ? props.totalMonthlyPayment : 0;
+    const totalValue = props.totalValue && props.currentUser ? props.totalValue : 0;
+    const totalMonthlyPayment =  props.totalMonthlyPayment && props.currentUser ? props.totalMonthlyPayment : 0;
 
     return (
         <React.Fragment>

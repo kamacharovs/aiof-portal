@@ -179,14 +179,21 @@ const Header = props => {
             <div className={classes.root}>
                 <AppBar position="fixed" elevation={0} className={classes.header}>
                     <Toolbar variant="dense">
-                        <AppMenu currentUser={props.currentUser} />
+                        <AppMenu 
+                            currentUser={props.currentUser} />
 
                         <div className={classes.app}>
-                            <HomeView appName={props.appName.toLowerCase()} currentUser={props.currentUser} />
+                            <HomeView 
+                                appName={props.appName.toLowerCase()} 
+                                currentUser={props.currentUser} />
                         </div>
 
-                        <LoggedOutView currentUser={props.currentUser} />
-                        <LoggedInView currentUser={props.currentUser} onClickLogout={props.onClickLogout} />
+                        <LoggedOutView 
+                            currentUser={props.currentUser} />
+
+                        <LoggedInView 
+                            currentUser={props.currentUser} 
+                            onClickLogout={props.onClickLogout} />
                     </Toolbar>
                 </AppBar>
             </div>
