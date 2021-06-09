@@ -10,6 +10,9 @@ import Typography from '@material-ui/core/Typography';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import ClipLoader from "react-spinners/ClipLoader";
+import CheckCircleIcon from '@material-ui/icons/CheckCircle';
+import ClearIcon from '@material-ui/icons/Clear';
+import Chip from '@material-ui/core/Chip';
 
 import { ThinText } from '../style/common';
 
@@ -334,5 +337,41 @@ export const AltLoader = props => {
               loading={inProgress}
           />
       </div>
+  );
+}
+
+
+/*
+Icons
+*/
+export const AltCheckCircle = props => {
+  const size = props.size ? props.size : 20;
+
+  return (
+    <CheckCircleIcon 
+      style={{ color: ColorAlt4, fontSize: size }} />
+  );
+}
+
+export const AltClearIcon = props => {
+  const size = props.size ? props.size : 20;
+
+  return (
+    <ClearIcon 
+      style={{ color: ColorAlt8, fontSize: size }} />
+  );
+}
+
+
+/*
+Chips
+*/
+export const AltChip = props => {
+  return (
+    <Chip
+      size="small"
+      label={props.label}
+      color="primary"
+      style={{ backgroundColor: props.color }} />
   );
 }

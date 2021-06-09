@@ -39,6 +39,7 @@ const SnapshotView = props => {
         useEffect(() => {
             if (!props.finance) {
                 props.onFinance();
+                props.onAssets();
             }
         }, []);
 
@@ -62,9 +63,12 @@ const SnapshotView = props => {
 
                         <Grid item xs>
                             <AssetPaper
-                                inProgress={props.inProgress}
+                                inProgress={props.inProgress && props.inProgressAssets}
                                 title={"Assets"}
                                 totalAssetValue={assetsSum} />
+
+                            <AssetsChart 
+                                assets={assets} />
                         </Grid>
                         <Grid item xs>
                             <LiabilityPaper
@@ -81,5 +85,40 @@ const SnapshotView = props => {
         return null;
     }
 };
+
+const AssetsChart = props => {
+    if (props.assets) {
+        return (
+            <React.Fragment>
+                
+            </React.Fragment>
+        );
+    } else {
+        return null;
+    }
+}
+
+const assetSnapshotsAverage = (assets) => {
+    let totalSnapshot = 0;
+    for (var i = 0; i < assets.length; i++) {
+        let asset = assets[i];
+
+        if (asset.snapshots) {
+            let averageNegative = asset.snapshots
+                .filter(s => s.valueChange < 0)
+                .map(s => s.valueChange)
+                .reduce((sum, current) => sum + Number(current), 0) /
+                asset.snapshots.length;
+
+            let averagePositive = asset.snapshots
+                .filter(s => s.valueChange > 0)
+                .map(s => s.valueChange)
+                .reduce((sum, current) => sum + current, 0) /
+                asset.snapshots.length;
+                totalSnapshot += averagePositive + averageNegative
+        }
+    }
+    return totalSnapshot;
+}
 
 export default connect(mapStateToProps, mapDispatchToProps)(SnapshotView);
