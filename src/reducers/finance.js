@@ -31,6 +31,7 @@ export default (state = {}, action) => {
           liabilities: action.payload.liabilities,
           goalsBase: action.payload.goals,
           subscriptions: action.payload.subscriptions,
+          dependents: action.payload.dependents,
         }
     case FINANCE_PAGE_LOADED:
       return {

@@ -5,7 +5,7 @@ import agent from '../../agent';
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 
-import { AssetPaper, LiabilityPaper, GoalPaper } from '../Common/Papers';
+import { AssetPaper, LiabilityPaper, GoalPaper, DependentPaper } from '../Common/Papers';
 import { SquarePaper } from '../../style/mui';
 import { H1Alt6, PAlt7, AltLink } from '../../style/common';
 import { FINANCE, ASSETS } from '../../constants/actionTypes';
@@ -43,6 +43,10 @@ const SnapshotView = props => {
 
     const classes = useStyles();
 
+    const currentUser = props.currentUser;
+    const inProgress = props.inProgress;
+    const inProgressAssets = props.inProgressAssets;
+
     const assets = props.assets ? props.assets : [];
     const assetsSum = assets.map(a => a.value)
         .reduce((sum, current) => sum + current, 0);
@@ -57,6 +61,9 @@ const SnapshotView = props => {
     const goalsTotal = goals.length;
     const goalsMothlyContributionSum = goals.map(g => g.monthlyContribution)
         .reduce((sum, current) => sum + current, 0);
+
+    const dependents = props.dependents ? props.dependents : [];
+    const dependentsTotal = dependents.length;
 
     return (
         <SquarePaper variant="outlined" square>
@@ -80,8 +87,8 @@ const SnapshotView = props => {
 
                     <Grid item xs>
                         <AssetPaper
-                            currentUser={props.currentUser}
-                            inProgress={props.inProgress && props.inProgressAssets}
+                            currentUser={currentUser}
+                            inProgress={inProgress && inProgressAssets}
                             title={"Assets"}
                             totalAssetValue={assetsSum} />
 
@@ -90,19 +97,26 @@ const SnapshotView = props => {
                     </Grid>
                     <Grid item xs>
                         <LiabilityPaper
-                            currentUser={props.currentUser}
-                            inProgress={props.inProgress}
+                            currentUser={currentUser}
+                            inProgress={inProgress}
                             title={"Liabilities"}
                             totalValue={liabilitiesSum}
                             totalMonthlyPayment={liabilitiesMonthlyPaymentSum} />
                     </Grid>
                     <Grid item xs>
                         <GoalPaper
-                            currentUser={props.currentUser}
-                            inProgress={props.inProgress}
+                            currentUser={currentUser}
+                            inProgress={inProgress}
                             title={"Goals"}
                             total={goalsTotal}
                             totalmonthlyContribution={goalsMothlyContributionSum} />
+                    </Grid>
+                    <Grid item xs>
+                        <DependentPaper
+                            currentUser={currentUser}
+                            inProgress={inProgress}
+                            title={"Dependents"}
+                            total={dependentsTotal} />
                     </Grid>
                 </Grid>
             </Grid>
