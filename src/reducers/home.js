@@ -1,4 +1,7 @@
-import { HOME_PAGE_LOADED } from '../constants/actionTypes';
+import { 
+  HOME_PAGE_LOADED,
+  SNAPSHOT_SETTING_UPDATE } 
+from '../constants/actionTypes';
 
 export default (state = {}, action) => {
   switch (action.type) {
@@ -6,6 +9,14 @@ export default (state = {}, action) => {
       return {
         ...state
       };
+    case SNAPSHOT_SETTING_UPDATE:
+      return {
+        ...state,
+        settings: {
+          ...state.settings,
+          [action.field]: action.value
+        }
+      }
     default:
       return state;
   }

@@ -17,13 +17,15 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import { AssetPaper, LiabilityPaper, GoalPaper, DependentPaper } from '../Common/Papers';
 import { SquarePaper, AltButton, ColorAlt2, ColorAlt6 } from '../../style/mui';
 import { H1Alt6, PAlt7, AltLink } from '../../style/common';
-import { FINANCE, ASSETS } from '../../constants/actionTypes';
+import { FINANCE, ASSETS, SNAPSHOT_SETTING_UPDATE } from '../../constants/actionTypes';
 
 
 const mapStateToProps = state => ({
     ...state.finance,
+    ...state.home,
     appName: state.common.appName,
     currentUser: state.common.currentUser,
+    settings: state.home.settings,
     inProgress: state.inProgress,
     inProgressAssets: state.inProgressAssets,
 });
@@ -33,6 +35,8 @@ const mapDispatchToProps = dispatch => ({
         dispatch({ type: FINANCE, payload: agent.User.get() }),
     onAssets: () =>
         dispatch({ type: ASSETS, payload: agent.Asset.all() }),
+    onSettingsUpdate: (field, value) =>
+        dispatch({ type: SNAPSHOT_SETTING_UPDATE, field, value }),
 });
 
 const useStyles = makeStyles((theme) => ({
@@ -44,30 +48,56 @@ const useStyles = makeStyles((theme) => ({
 const SnapshotView = props => {
     const classes = useStyles();
 
-    const [showAssets, setShowAssets] = useState(true);
-    const [showLiabilities, setShowLiabilities] = useState(true);
-    const [showGoals, setShowGoals] = useState(true);
-    const [showDependentss, setShowDependentss] = useState(true);
+    const [showAssets, setShowAssets] = useState();
+    const [showLiabilities, setShowLiabilities] = useState();
+    const [showGoals, setShowGoals] = useState();
+    const [showDependentss, setShowDependentss] = useState();
+
+    const defaultShow = true;
+    useEffect(() => {
+        const stateShowAssets = props.settings ? (props.settings.showAssets === false ? props.settings.showAssets : defaultShow) : defaultShow;
+        const stateShowLiabilities = props.settings ? (props.settings.showLiabilities === false ? props.settings.showLiabilities : defaultShow) : defaultShow;
+        const stateShowGoals = props.settings ? (props.settings.showGoals === false ? props.settings.showGoals : defaultShow) : defaultShow;
+        const stateShowDependents = props.settings ? (props.settings.showDependents === false ? props.settings.showDependents : defaultShow) : defaultShow;
+
+        setShowAssets(stateShowAssets);
+        setShowLiabilities(stateShowLiabilities);
+        setShowGoals(stateShowGoals);
+        setShowDependentss(stateShowDependents);
+    }, []);
+
+    const handleSetShow = (showName, showValue, setShow) => {
+        setShow(showValue);
+        props.onSettingsUpdate(showName, showValue);
+    }
 
     let listOfSettings = [
         {
-            value: showAssets,
-            setValue: setShowAssets,
+            show: showAssets,
+            showName: "showAssets",
+            setShow: setShowAssets,
+            handleSetShow: handleSetShow,
             label: "Show Assets"
         },
         {
-            value: showLiabilities,
-            setValue: setShowLiabilities,
+            show: showLiabilities,
+            showName: "showLiabilities",
+            setShow: setShowLiabilities,
+            handleSetShow: handleSetShow,
             label: "Show Liabilities"
         },
         {
-            value: showGoals,
-            setValue: setShowGoals,
+            show: showGoals,
+            showName: "showGoals",
+            setShow: setShowGoals,
+            handleSetShow: handleSetShow,
             label: "Show Goals"
         },
         {
-            value: showDependentss,
-            setValue: setShowDependentss,
+            show: showDependentss,
+            showName: "showDependents",
+            setShow: setShowDependentss,
+            handleSetShow: handleSetShow,
             label: "Show Dependents"
         },
     ]
@@ -116,7 +146,8 @@ const SnapshotView = props => {
                                 {
                                     props.currentUser
                                         ? <SettingsButton
-                                            listOfSettings={listOfSettings} />
+                                            listOfSettings={listOfSettings}
+                                            onSettingsUpdate={props.onSettingsUpdate} />
                                         : null
                                 }
                             </Grid>
@@ -251,11 +282,11 @@ export const SettingsButton = props => {
                             {listOfSettings.map(s => {
                                 return (
                                     <FormControlLabel
-                                        key={s.label}
+                                        key={s.showName}
                                         control={
                                             <Checkbox
-                                                checked={s.value}
-                                                onChange={() => s.setValue(!s.value)}
+                                                checked={s.show}
+                                                onChange={() => s.handleSetShow(s.showName, !s.show, s.setShow)}
                                                 name={s.label}
                                                 style={{ color: ColorAlt2 }} />
                                             }
