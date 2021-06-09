@@ -713,11 +713,11 @@ const FinanceMainView = props => {
     }, []);
     useEffect(() => {
         if (props.currentUser && props.finance) {
-            if (props.finance.assets && props.finance.liabilities) {
-                props.onAnalyze(props.finance.assets, props.finance.liabilities);
+            if (props.finance.assetsBase && props.finance.liabilities) {
+                props.onAnalyze(props.finance.assetsBase, props.finance.liabilities);
             }
         }
-    }, [props.finance.assets, props.finance.liabilities]);
+    }, [props.finance.assetsBase, props.finance.liabilities]);
 
     return (
         <React.Fragment>
@@ -758,7 +758,7 @@ const FinanceMainView = props => {
                                             ? <RectSkeleton height={400} />
                                             : <MainTabs
                                                 currentUser={props.currentUser}
-                                                assets={props.assets}
+                                                assets={props.assetsBase}
                                                 liabilities={props.liabilities}
                                                 goals={props.goalsBase}
                                                 subscriptions={props.subscriptions}
@@ -774,7 +774,7 @@ const FinanceMainView = props => {
                                             ? <RectSkeleton height={400} />
                                             : <SquarePaper variant="outlined" square>
                                                 <AssetsLiabilitiesChart
-                                                    assets={props.assets}
+                                                    assets={props.assetsBase}
                                                     liabilities={props.liabilities} />
                                             </SquarePaper>
                                     }

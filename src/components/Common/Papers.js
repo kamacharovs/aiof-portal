@@ -84,7 +84,15 @@ export const LiabilityPaper = props => {
         <React.Fragment>
             <BorderlessSquarePaper variant="outlined" square>
                 <Grid item xs>
-                    <H5Alt6>{title}</H5Alt6>
+                    <Grid container spacing={3}>
+                        <Grid item xs={8}>
+                            <H5Alt6>{title}</H5Alt6>
+                        </Grid>
+
+                        <Grid item xs={2}>
+                            <AltLink to={"/finance"}>View</AltLink>
+                        </Grid>
+                    </Grid>
                 </Grid>
 
                 <Grid item xs>
@@ -136,7 +144,15 @@ export const GoalPaper = props => {
         <React.Fragment>
             <BorderlessSquarePaper variant="outlined" square>
                 <Grid item xs>
-                    <H5Alt6>{title}</H5Alt6>
+                    <Grid container spacing={3}>
+                        <Grid item xs={8}>
+                            <H5Alt6>{title}</H5Alt6>
+                        </Grid>
+
+                        <Grid item xs={2}>
+                            <AltLink to={"/finance/goals"}>View</AltLink>
+                        </Grid>
+                    </Grid>
                 </Grid>
 
                 <Grid item xs>

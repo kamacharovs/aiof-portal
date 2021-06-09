@@ -170,7 +170,7 @@ const CurrentAssetsDynamic = props => {
                                     </div>
                                 </Grid>
                                 <Grid item xs>
-                                    <div className={classes.alternate}>{a.type.name} {new Date(a.created).toLocaleDateString()}</div>
+                                    <div className={classes.alternate}>{a.typeName} {new Date(a.created).toLocaleDateString()}</div>
                                 </Grid>
 
                                 <Grid item xs>
