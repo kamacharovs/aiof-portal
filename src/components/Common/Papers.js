@@ -2,7 +2,9 @@ import React from 'react';
 
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
+import { Bar } from 'react-chartjs-2';
 
+import { assetSnapshotsAvgByMonth } from '../Common/Functions';
 import { numberWithCommas } from '../Finance/Common';
 import { BorderlessSquarePaper, AltLoader, ColorAlt4, ColorAlt8 } from '../../style/mui';
 import { H5Alt6, PAlt7, AltLink } from '../../style/common';
@@ -229,4 +231,8 @@ export const DependentPaper = props => {
             </BorderlessSquarePaper>
         </React.Fragment>
     );
+}
+
+export const AssetsLiabilitiesChartPaper = props => {
+    let data = assetSnapshotsAvgByMonth(props.assets);
 }

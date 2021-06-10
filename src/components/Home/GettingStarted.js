@@ -26,7 +26,6 @@ const completedLabel = "Completed";
 const incompleteLabel = "Incomplete";
 const completedColor = ColorAlt4;
 const incompleteColor = ColorAlt8;
-
 const useStyles = makeStyles((theme) => ({
     root: {
         display: 'flex',

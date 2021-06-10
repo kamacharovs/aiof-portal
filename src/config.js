@@ -6,7 +6,7 @@ const Config = {
     assetVersion: process.env.REACT_APP_API_ASSET_VERSION,
 
     /*
-    Getting started
+    Home.Getting started
         Minimum assets
         Minimum liabilities
         Minimum goals

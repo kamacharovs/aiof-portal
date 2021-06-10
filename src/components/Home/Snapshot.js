@@ -177,9 +177,6 @@ const SnapshotView = props => {
                                 total={assetsTotal}
                                 totalValue={assetsSum} />
                             : null}
-
-                        <AssetsChart
-                            assets={assets} />
                     </Grid>
                     <Grid item xs>
                         {showLiabilities
@@ -216,41 +213,6 @@ const SnapshotView = props => {
         </SquarePaper>
     );
 };
-
-const AssetsChart = props => {
-    if (props.assets) {
-        return (
-            <React.Fragment>
-
-            </React.Fragment>
-        );
-    } else {
-        return null;
-    }
-}
-
-const assetSnapshotsAverage = (assets) => {
-    let totalSnapshot = 0;
-    for (var i = 0; i < assets.length; i++) {
-        let asset = assets[i];
-
-        if (asset.snapshots) {
-            let averageNegative = asset.snapshots
-                .filter(s => s.valueChange < 0)
-                .map(s => s.valueChange)
-                .reduce((sum, current) => sum + Number(current), 0) /
-                asset.snapshots.length;
-
-            let averagePositive = asset.snapshots
-                .filter(s => s.valueChange > 0)
-                .map(s => s.valueChange)
-                .reduce((sum, current) => sum + current, 0) /
-                asset.snapshots.length;
-            totalSnapshot += averagePositive + averageNegative
-        }
-    }
-    return totalSnapshot;
-}
 
 export const SettingsButton = props => {
     const [open, setOpen] = useState(false);
