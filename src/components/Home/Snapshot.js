@@ -26,8 +26,8 @@ const mapStateToProps = state => ({
     appName: state.common.appName,
     currentUser: state.common.currentUser,
     settings: state.home.settings,
-    inProgress: state.inProgress,
-    inProgressAssets: state.inProgressAssets,
+    inProgress: state.finance.inProgress,
+    inProgressAssets: state.finance.inProgressAssets,
 });
 
 const mapDispatchToProps = dispatch => ({
