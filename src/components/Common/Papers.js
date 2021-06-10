@@ -15,14 +15,14 @@ const useStyles = makeStyles((theme) => ({
     },
     green: {
         color: ColorAlt4,
-        fontSize: '1rem',
+        fontSize: '1.25rem',
         margin: '0rem',
         padding: '0rem',
         paddingBottom: '0.25rem',
     },
     red: {
         color: ColorAlt8,
-        fontSize: '1rem',
+        fontSize: '1.25rem',
         margin: '0rem',
         padding: '0rem',
         paddingBottom: '0.25rem',
@@ -33,8 +33,8 @@ export const AssetPaper = props => {
     const classes = useStyles();
     const title = props.title ? props.title : "Asset balance";
     const footerTitle = props.footerTitle ? props.footerTitle : "Total asset value";
-    const totalAssets = props.totalAssets ? props.totalAssets : 0;
-    const totalAssetValue = props.totalAssetValue && props.currentUser ? props.totalAssetValue : 0;
+    const total = props.total ? props.total : 0;
+    const totalValue = props.totalValue && props.currentUser ? props.totalValue : 0;
 
     return (
         <React.Fragment>
@@ -42,11 +42,10 @@ export const AssetPaper = props => {
                 <Grid item xs>
                     <Grid container spacing={3}>
                         <Grid item xs={8}>
-                            <H5Alt6>{title}</H5Alt6>
-                            <PAlt7>{totalAssets}</PAlt7>
+                            <H5Alt6>{title} ({total})</H5Alt6>
                         </Grid>
 
-                        <Grid item xs={2}>
+                        <Grid item xs={4}>
                             <AltLink to={"/finance/assets"}>View</AltLink>
                         </Grid>
                     </Grid>
@@ -58,7 +57,7 @@ export const AssetPaper = props => {
                             inProgress={props.inProgress}
                             size={defaultClipSize} />
                         : <div className={classes.green}>
-                            ${numberWithCommas(Math.round(totalAssetValue * 100) / 100)}
+                            ${numberWithCommas(Math.round(totalValue * 100) / 100)}
                         </div>
                     }
                 </Grid>
@@ -77,6 +76,7 @@ export const LiabilityPaper = props => {
     const classes = useStyles();
     const title = props.title ? props.title : "Liability balance";
     const footerTitle = props.footerTitle ? props.footerTitle : "Total liability value";
+    const total = props.total ? props.total : 0;
     const totalValue = props.totalValue && props.currentUser ? props.totalValue : 0;
     const totalMonthlyPayment = props.totalMonthlyPayment && props.currentUser ? props.totalMonthlyPayment : 0;
 
@@ -86,10 +86,10 @@ export const LiabilityPaper = props => {
                 <Grid item xs>
                     <Grid container spacing={3}>
                         <Grid item xs={8}>
-                            <H5Alt6>{title}</H5Alt6>
+                            <H5Alt6>{title} ({total})</H5Alt6>
                         </Grid>
 
-                        <Grid item xs={2}>
+                        <Grid item xs={4}>
                             <AltLink to={"/finance"}>View</AltLink>
                         </Grid>
                     </Grid>

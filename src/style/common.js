@@ -38,6 +38,8 @@ export const H5Alt6 = styled.h5`
   font-size: 14px;
   font-weight: 550;
   line-height: 20px;
+
+  margin-bottom: 6px;
 `;
 
 export const PAlt7 = styled.p`

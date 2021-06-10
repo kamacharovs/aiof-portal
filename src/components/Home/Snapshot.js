@@ -112,6 +112,7 @@ const SnapshotView = props => {
         .reduce((sum, current) => sum + current, 0);
 
     const liabilities = props.liabilities ? props.liabilities : [];
+    const liabilitiesTotal = liabilities.length;
     const liabilitiesSum = liabilities.map(a => a.value)
         .reduce((sum, current) => sum + current, 0);
     const liabilitiesMonthlyPaymentSum = liabilities.map(l => l.monthlyPayment)
@@ -173,8 +174,8 @@ const SnapshotView = props => {
                                 currentUser={currentUser}
                                 inProgress={inProgress || inProgressAssets}
                                 title={"Assets"}
-                                totalAssets={assetsTotal}
-                                totalAssetValue={assetsSum} />
+                                total={assetsTotal}
+                                totalValue={assetsSum} />
                             : null}
 
                         <AssetsChart
@@ -186,6 +187,7 @@ const SnapshotView = props => {
                                 currentUser={currentUser}
                                 inProgress={inProgress}
                                 title={"Liabilities"}
+                                total={liabilitiesTotal}
                                 totalValue={liabilitiesSum}
                                 totalMonthlyPayment={liabilitiesMonthlyPaymentSum} />
                             : null}
