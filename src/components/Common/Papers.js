@@ -243,7 +243,7 @@ export const AssetsLiabilitiesChartPaper = props => {
             labels: assetsLabels,
             datasets: [
               {
-                label: 'Avg assets value by month',
+                label: `Avg assets value by month (${new Date().getFullYear()})`,
                 data: assetsAvgs,
                 fill: false,
                 backgroundColor: ColorAlt2,
@@ -264,7 +264,9 @@ export const AssetsLiabilitiesChartPaper = props => {
             },
           };
 
-        return <Line data={data} options={options} />;
+        return <Line 
+            data={data} 
+            options={options} />;
     } else {
         return null;
     }
