@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import config from '../../config';
 
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
@@ -64,6 +65,13 @@ const GettingStartedView = props => {
                                 <Grid item xs>
                                     <Assets
                                         assets={props.assets} />
+                                </Grid>
+                            </Grid>
+
+                            <Grid container spacing={0}>
+                                <Grid item xs>
+                                    <Liabilities
+                                        liabilities={props.liabilities} />
                                 </Grid>
                             </Grid>
                         </SquarePaper>
@@ -207,7 +215,8 @@ const Assets = props => {
     const classes = useStyles();
     const assets = props.assets ? props.assets : [];
     const assetsLength = assets.length;
-    const assetsComplete = assetsLength >= 2;
+    const assetsMinimum = config.gettingStartedMinimumAssets;
+    const assetsComplete = assetsLength >= assetsMinimum;
 
     return (
         <BorderlessSquarePaper variant="outlined" square>
@@ -238,7 +247,45 @@ const Assets = props => {
                 </Grid>
             </Grid>
 
-            <CheckmarkDynamic fieldValue={assetsComplete ? "completed" : null} fieldName={"At least 2 assets"} />
+            <CheckmarkDynamic fieldValue={assetsComplete ? "completed" : null} fieldName={`At least ${assetsMinimum} assets`} />
+        </BorderlessSquarePaper>
+    );
+}
+
+const Liabilities = props => {
+    const classes = useStyles();
+    const liabilities = props.liabilities ? props.liabilities : [];
+    const liabilitiesLength = liabilities.length;
+    const liabilitiesMinimum = config.gettingStartedMinimumLiabilities;
+    const liabilitiesComplete = liabilitiesLength >= liabilitiesMinimum;
+
+    return (
+        <BorderlessSquarePaper variant="outlined" square>
+            <Grid container spacing={0}>
+                <Grid item xs>
+                    <div className={classes.heading}>
+                        <AltLink to={"/finance"}>Add liabilities {liabilitiesComplete === false
+                            ? <AltChip label={incompleteLabel} color={incompleteColor} />
+                            : <AltChip label={completedLabel} color={completedColor} />
+                        }</AltLink>
+                    </div>
+                </Grid>
+            </Grid>
+
+            <Grid container spacing={0}>
+                <Grid item xs>
+                    <br />
+                    <PAlt7>
+                        A liability is something a person or company owes, usually a sum of money. Liabilities are settled over time 
+                        through the transfer of economic benefits including money, goods, or services. Recorded on the right side of the balance sheet, 
+                        liabilities include loans, accounts payable, mortgages, deferred revenues, bonds, warranties, and accrued expenses.
+                        <br/><br/>
+                        <CoolExternalLink href="https://www.investopedia.com/terms/l/liability.asp" target="_blank">Source can be found here</CoolExternalLink>
+                    </PAlt7>
+                </Grid>
+            </Grid>
+
+            <CheckmarkDynamic fieldValue={liabilitiesComplete ? "completed" : null} fieldName={`At least ${liabilitiesMinimum} ${liabilitiesMinimum > 1 ? "liabilities" : "liability"}`} />
         </BorderlessSquarePaper>
     );
 }

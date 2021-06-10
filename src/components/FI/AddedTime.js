@@ -173,7 +173,7 @@ const AddedTimeResults = props => {
                         {
                             props.addedTime.years.map(year => {
                                 return (
-                                    <Grid container spacing={1}>
+                                    <Grid container spacing={1} key={year.interest}>
                                         <Grid item xs>
                                             <InPaper title={"Interest"}
                                                 body={<div className={classes.green}>{year.interest}%</div>} />
