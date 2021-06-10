@@ -171,7 +171,7 @@ const SnapshotView = props => {
                         {showAssets
                             ? <AssetPaper
                                 currentUser={currentUser}
-                                inProgress={inProgress && inProgressAssets}
+                                inProgress={inProgress || inProgressAssets}
                                 title={"Assets"}
                                 totalAssets={assetsTotal}
                                 totalAssetValue={assetsSum} />
