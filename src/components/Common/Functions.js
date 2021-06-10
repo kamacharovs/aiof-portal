@@ -1,29 +1,41 @@
-
 export function assetSnapshotsAvgByMonth(assets) {
-    let byMonth = [];
+    var byMonth = [];
+    var oneYearAgo = new Date();
+    oneYearAgo.setFullYear(oneYearAgo.getFullYear() - 1);
 
     // Get all unique months going back a year
     for (var i = 0; i < assets.length; i++) {
-        let asset = assets[i];
-        if (asset.snapshots) {
-            for (var j = 0; j < asset.snapshots; j++) {
-                let snapshot = asset.snapshots[j];
-                let month = new Date(snapshot.created).getMonth();
+        var asset = assets[i];
 
-                if (!byMonth.map(x => x.month).includes(month)) {
-                    byMonth.push({
-                         month: month,
-                         values: [
-                            snapshot.valueChange
-                         ]
-                    })
-                } else {
-                    byMonth.filter(m => m.month === month)[0]
-                            .values.push(snapshot.valueChange);
-                }
+        for (var j = 0; j < asset.snapshots.length; j++) {
+            var snapshot = asset.snapshots.filter(s => new Date(s.created).getFullYear() <= oneYearAgo)[j];
+            var month = new Date(snapshot.created).getMonth() + 1;
+
+            if (!byMonth.map(x => x.month).includes(month)) {
+                byMonth.push({
+                    month: month,
+                    values: [
+                        snapshot.valueChange
+                    ],
+                    avg: 0,
+                })
+            } else {
+                // eslint-disable-next-line
+                var existingMonth = byMonth.filter(m => m.month === month)[0];
+                existingMonth.values.push(snapshot.valueChange);
             }
         }
     }
 
-    return byMonth;
+    // Calculate average
+    for (var k = 0; k < byMonth.length; k++) {
+        var avgMonth = byMonth[k];
+        var valuesLength = avgMonth.values.length;
+        var valuesTotal = avgMonth.values.map(v => v)
+                                      .reduce((sum, current) => sum + current, 0);
+
+        avgMonth.avg = valuesTotal / valuesLength;
+    }
+
+    return byMonth.sort().reverse();
 }

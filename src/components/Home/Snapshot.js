@@ -14,7 +14,7 @@ import Checkbox from '@material-ui/core/Checkbox';
 import FormGroup from '@material-ui/core/FormGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 
-import { AssetPaper, LiabilityPaper, GoalPaper, DependentPaper } from '../Common/Papers';
+import { AssetPaper, LiabilityPaper, GoalPaper, DependentPaper, AssetsLiabilitiesChartPaper } from '../Common/Papers';
 import { SquarePaper, AltCancelButton, ColorAlt2, ColorAlt6 } from '../../style/mui';
 import { H1Alt6, PAlt7, AltLink } from '../../style/common';
 import { FINANCE, ASSETS, SNAPSHOT_SETTING_UPDATE } from '../../constants/actionTypes';
@@ -172,7 +172,7 @@ const SnapshotView = props => {
                         {showAssets
                             ? <AssetPaper
                                 currentUser={currentUser}
-                                inProgress={inProgress || inProgressAssets}
+                                inProgress={inProgressAssets}
                                 title={"Assets"}
                                 total={assetsTotal}
                                 totalValue={assetsSum} />
@@ -208,6 +208,10 @@ const SnapshotView = props => {
                                 total={dependentsTotal} />
                             : null}
                     </Grid>
+
+                    <AssetsLiabilitiesChartPaper
+                        inProgress={inProgressAssets}
+                        assets={assets} />
                 </Grid>
             </Grid>
         </SquarePaper>

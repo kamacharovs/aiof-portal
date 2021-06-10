@@ -2,11 +2,11 @@ import React from 'react';
 
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
-import { Bar } from 'react-chartjs-2';
+import { Line } from 'react-chartjs-2';
 
 import { assetSnapshotsAvgByMonth } from '../Common/Functions';
 import { numberWithCommas } from '../Finance/Common';
-import { BorderlessSquarePaper, AltLoader, ColorAlt4, ColorAlt8 } from '../../style/mui';
+import { BorderlessSquarePaper, AltLoader, ColorAlt2, ColorAlt4, ColorAlt8 } from '../../style/mui';
 import { H5Alt6, PAlt7, AltLink } from '../../style/common';
 
 
@@ -234,5 +234,38 @@ export const DependentPaper = props => {
 }
 
 export const AssetsLiabilitiesChartPaper = props => {
-    let data = assetSnapshotsAvgByMonth(props.assets);
+    if (props.assets && props.assets.length > 0) {
+        var assetsData = assetSnapshotsAvgByMonth(props.assets);
+        var assetsLabels = assetsData.map(a => a.month);
+        var assetsAvgs = assetsData.map(a => a.avg);
+
+        const data = {
+            labels: assetsLabels,
+            datasets: [
+              {
+                label: 'Avg assets value by month',
+                data: assetsAvgs,
+                fill: false,
+                backgroundColor: ColorAlt2,
+                borderColor: ColorAlt2,
+              },
+            ],
+          };
+
+          const options = {
+            scales: {
+              yAxes: [
+                {
+                  ticks: {
+                    beginAtZero: true,
+                  },
+                },
+              ],
+            },
+          };
+
+        return <Line data={data} options={options} />;
+    } else {
+        return null;
+    }
 }
