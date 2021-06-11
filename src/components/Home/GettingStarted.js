@@ -47,30 +47,37 @@ const GettingStartedView = props => {
                 <Grid container spacing={1}>
                     <Grid item xs>
                         <SquarePaper variant="outlined" square>
-                            <Grid container spacing={0}>
+                            <Grid container>
                                 <Grid item xs>
                                     <H1Alt6>Getting started</H1Alt6>
                                 </Grid>
                             </Grid>
 
-                            <Grid container spacing={0}>
+                            <Grid container>
                                 <Grid item xs>
                                     <ProfileCheckmark
                                         profile={props.profile} />
                                 </Grid>
                             </Grid>
 
-                            <Grid container spacing={0}>
+                            <Grid container>
                                 <Grid item xs>
                                     <Assets
                                         assets={props.assets} />
                                 </Grid>
                             </Grid>
 
-                            <Grid container spacing={0}>
+                            <Grid container>
                                 <Grid item xs>
                                     <Liabilities
                                         liabilities={props.liabilities} />
+                                </Grid>
+                            </Grid>
+
+                            <Grid container>
+                                <Grid item xs>
+                                    <Goals
+                                        goals={props.goalsBase} />
                                 </Grid>
                             </Grid>
                         </SquarePaper>
@@ -285,6 +292,46 @@ const Liabilities = props => {
             </Grid>
 
             <CheckmarkDynamic fieldValue={liabilitiesComplete ? "completed" : null} fieldName={`At least ${liabilitiesMinimum} ${liabilitiesMinimum > 1 ? "liabilities" : "liability"}`} />
+        </BorderlessSquarePaper>
+    );
+}
+
+const Goals = props => {
+    const classes = useStyles();
+    const goals = props.goals ? props.goals : [];
+    const goalsLength = goals.length;
+    const goalsMinimum = config.gettingStartedMinimumGoals;
+    const goalsComplete = goalsLength >= goalsMinimum;
+
+    return (
+        <BorderlessSquarePaper variant="outlined" square>
+            <Grid container spacing={0}>
+                <Grid item xs>
+                    <div className={classes.heading}>
+                        <AltLink to={"/finance/goals"}>Add goals {goalsComplete === false
+                            ? <AltChip label={incompleteLabel} color={incompleteColor} />
+                            : <AltChip label={completedLabel} color={completedColor} />
+                        }</AltLink>
+                    </div>
+                </Grid>
+            </Grid>
+
+            <Grid container spacing={0}>
+                <Grid item xs>
+                    <br />
+                    <PAlt7>
+                        How to set financial goals for your future? Setting short-term, midterm, and long-term financial goals is an important step toward 
+                        becoming financially secure. If you aren’t working toward anything specific, you’re likely to spend more than you should. 
+                        You’ll then come up short when you need money for unexpected bills, not to mention when you want to retire. 
+                        You might get stuck in a vicious cycle of credit card debt and feel like you never have enough cash to get properly insured, 
+                        leaving you more vulnerable than you need to be to handle some of life’s major risks.
+                        <br/><br/>
+                        <CoolExternalLink href="https://www.investopedia.com/articles/personal-finance/100516/setting-financial-goals/" target="_blank">Source can be found here</CoolExternalLink>
+                    </PAlt7>
+                </Grid>
+            </Grid>
+
+            <CheckmarkDynamic fieldValue={goalsComplete ? "completed" : null} fieldName={`At least ${goalsMinimum} ${goalsMinimum > 1 ? "goals" : "goal"}`} />
         </BorderlessSquarePaper>
     );
 }
