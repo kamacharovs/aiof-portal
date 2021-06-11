@@ -155,13 +155,13 @@ const SnapshotView = props => {
                         </Grid>
                         <Grid container>
                             <PAlt7>
-                                Below is a snapshot of  your current assets and liabilities.
+                                Below is a snapshot of  your current assets and liabilities
                                 {props.currentUser
                                     ? null
                                     : <React.Fragment>
                                         <br /><br />
                                         There is a limited number of functionality you can take advantage of when not logged in. This included.
-                                        You need to <AltLink to="/login">login</AltLink> in order to update your assets, liabilities.
+                                        You need to <AltLink to="/login">login</AltLink> in order to update your assets, liabilities
                                     </React.Fragment>
                                 }
                             </PAlt7>
