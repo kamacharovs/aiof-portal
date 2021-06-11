@@ -112,7 +112,7 @@ const ProfileMainView = props => {
                     <title>{props.appName} | Profile</title>
                 </Helmet>
 
-                <Container maxWidth="xl">
+                <Container maxWidth="md">
                     <SquarePaper variant="outlined" square>
                         <Grid container spacing={3}>
                             <Grid item sm={2} style={{ paddingRight: 0 }}>

@@ -8,14 +8,18 @@ import Grid from '@material-ui/core/Grid';
 import BannerView from './Banner';
 import SnapshotView from './Snapshot';
 import GettingStartedView from './GettingStarted';
-import { AssetsAndLiabilitiesTotalChartPaper } from '../Common/Papers';
+import StatisticsView from './Statistics';
 
 
 const mapStateToProps = state => ({
   ...state.home,
+  ...state.finance,
   appName: state.common.appName,
   appFullName: state.common.appFullName,
   currentUser: state.common.currentUser,
+  assets: state.finance.assets,
+  liabilities: state.finance.liabilities,
+  goals: state.finance.goalsBase,
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -50,6 +54,13 @@ const MainView = props => {
             <GettingStartedView
               currentUser={props.currentUser}
               appName={props.appName} />
+          </Grid>
+
+          <Grid container className={classes.root}>
+            <StatisticsView
+              currentUser={props.currentUser}
+              assets={props.assets}
+              liabilities={props.liabilities} />
           </Grid>
         </Grid>
       </Grid>

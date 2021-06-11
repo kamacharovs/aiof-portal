@@ -14,9 +14,9 @@ import Checkbox from '@material-ui/core/Checkbox';
 import FormGroup from '@material-ui/core/FormGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 
-import { AssetPaper, LiabilityPaper, GoalPaper, DependentPaper, AssetsAndLiabilitiesTotalChartPaper } from '../Common/Papers';
-import { SquarePaper, AltCancelButton, ColorAlt2, ColorAlt6 } from '../../style/mui';
-import { H1Alt6, PAlt7, AltLink } from '../../style/common';
+import { AssetPaper, LiabilityPaper, GoalPaper, DependentPaper, AssetsSnapshotsChartPaper } from '../Common/Papers';
+import { SquarePaper, BorderlessSquarePaper, AltCancelButton, ColorAlt2, ColorAlt6 } from '../../style/mui';
+import { H1Alt6, H5Alt6, PAlt7, AltLink } from '../../style/common';
 import { FINANCE, ASSETS, SNAPSHOT_SETTING_UPDATE } from '../../constants/actionTypes';
 
 
@@ -156,7 +156,7 @@ const SnapshotView = props => {
                             </Grid>
                             <Grid container>
                                 <PAlt7>
-                                    Below is a snapshot of  your current assets and liabilities
+                                    Below is a snapshot of  your current financial well being
                                     {props.currentUser
                                         ? null
                                         : <React.Fragment>
@@ -213,18 +213,14 @@ const SnapshotView = props => {
                 </Grid>
             </SquarePaper>
 
-            {currentUser
-                ? <SquarePaper variant="outlined" square>
-                    <AssetsAndLiabilitiesTotalChartPaper
-                        assets={assets}
-                        liabilities={liabilities} />
-                </SquarePaper>
-            : null}
+            <AssetsAvgChart
+                currentUser={currentUser}
+                assets={assets} />
         </React.Fragment>
     );
 };
 
-export const SettingsButton = props => {
+const SettingsButton = props => {
     const [open, setOpen] = useState(false);
 
     const listOfSettings = props.listOfSettings;
@@ -276,6 +272,42 @@ export const SettingsButton = props => {
             </Dialog>
         </React.Fragment>
     );
+}
+
+const AssetsAvgChart = props => {
+    if (props.currentUser
+        && props.assets
+        && props.assets.length > 0) {
+        return (
+            <React.Fragment>
+                <SquarePaper variant="outlined" square>
+                    <Grid container>
+                        <Grid item xs>
+                            <H5Alt6>Your assets average value</H5Alt6>
+                            <PAlt7>
+                                This chart shows your assets' average changes by each month in the current year.
+                                These changes can be either positive or negative.
+                                <br /><br />
+                                If there are months not shown in the chart, then that means that your assets' value
+                                didn't change that month.
+                            </PAlt7>
+                        </Grid>
+                    </Grid>
+
+                    <BorderlessSquarePaper variant="outlined" square>
+                        <Grid container>
+                            <Grid item xs={10}>
+                                <AssetsSnapshotsChartPaper
+                                    assets={props.assets} />
+                            </Grid>
+                        </Grid>
+                    </BorderlessSquarePaper>
+                </SquarePaper>
+            </React.Fragment>
+        );
+    } else {
+        return null;
+    }
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(SnapshotView);

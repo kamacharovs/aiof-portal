@@ -7,7 +7,7 @@ import { Bar, Line } from 'react-chartjs-2';
 import { assetSnapshotsAvgByMonth } from '../Common/Functions';
 import { numberWithCommas } from '../Finance/Common';
 import { BorderlessSquarePaper, AltLoader, ColorAlt2, ColorAlt4, ColorAlt8 } from '../../style/mui';
-import { H1Alt6, H5Alt6, PAlt7, AltLink } from '../../style/common';
+import { H5Alt6, PAlt7, AltLink } from '../../style/common';
 
 
 const defaultClipSize = "24px";
@@ -233,8 +233,9 @@ export const DependentPaper = props => {
     );
 }
 
-export const AssetsLiabilitiesChartPaper = props => {
-    if (props.assets && props.assets.length > 0) {
+export const AssetsSnapshotsChartPaper = props => {
+    if (props.assets 
+        && props.assets.length > 0) {
         var assetsData = assetSnapshotsAvgByMonth(props.assets);
         var assetsLabels = assetsData.map(a => a.month);
         var assetsAvgs = assetsData.map(a => a.avg);
@@ -245,7 +246,7 @@ export const AssetsLiabilitiesChartPaper = props => {
                 {
                     label: `Avg assets value by month (${new Date().getFullYear()})`,
                     data: assetsAvgs,
-                    fill: false,
+                    fill: true,
                     backgroundColor: ColorAlt2,
                     borderColor: ColorAlt2,
                 },
@@ -322,22 +323,22 @@ export const AssetsAndLiabilitiesTotalChartPaper = props => {
 
         return (
             <React.Fragment>
-                <Grid container>
-                    <Grid item xs>
-                        <H5Alt6>{title}</H5Alt6>
+                <BorderlessSquarePaper variant="outlined" square>
+                    <Grid container>
+                        <Grid item xs>
+                            <H5Alt6>{title}</H5Alt6>
+                        </Grid>
                     </Grid>
-                </Grid>
-                <Grid container>
-                    <Grid item xs={6}>
-                        <BorderlessSquarePaper variant="outlined" square>
+                    <Grid container>
+                        <Grid item xs>
                             <Bar
                                 data={data || []}
-	                            height={200}
+                                height={200}
                                 options={options}
                             />
-                        </BorderlessSquarePaper>
+                        </Grid>
                     </Grid>
-                </Grid>
+                </BorderlessSquarePaper>
             </React.Fragment>
         );
     } else {
