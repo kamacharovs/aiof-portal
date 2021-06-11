@@ -8,6 +8,7 @@ import Grid from '@material-ui/core/Grid';
 import BannerView from './Banner';
 import SnapshotView from './Snapshot';
 import GettingStartedView from './GettingStarted';
+import { AssetsAndLiabilitiesTotalChartPaper } from '../Common/Papers';
 
 
 const mapStateToProps = state => ({

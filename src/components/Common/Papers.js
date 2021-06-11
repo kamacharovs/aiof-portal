@@ -2,12 +2,12 @@ import React from 'react';
 
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
-import { Line } from 'react-chartjs-2';
+import { Bar, Line } from 'react-chartjs-2';
 
 import { assetSnapshotsAvgByMonth } from '../Common/Functions';
 import { numberWithCommas } from '../Finance/Common';
 import { BorderlessSquarePaper, AltLoader, ColorAlt2, ColorAlt4, ColorAlt8 } from '../../style/mui';
-import { H5Alt6, PAlt7, AltLink } from '../../style/common';
+import { H1Alt6, H5Alt6, PAlt7, AltLink } from '../../style/common';
 
 
 const defaultClipSize = "24px";
@@ -242,31 +242,104 @@ export const AssetsLiabilitiesChartPaper = props => {
         const data = {
             labels: assetsLabels,
             datasets: [
-              {
-                label: `Avg assets value by month (${new Date().getFullYear()})`,
-                data: assetsAvgs,
-                fill: false,
-                backgroundColor: ColorAlt2,
-                borderColor: ColorAlt2,
-              },
-            ],
-          };
-
-          const options = {
-            scales: {
-              yAxes: [
                 {
-                  ticks: {
-                    beginAtZero: true,
-                  },
+                    label: `Avg assets value by month (${new Date().getFullYear()})`,
+                    data: assetsAvgs,
+                    fill: false,
+                    backgroundColor: ColorAlt2,
+                    borderColor: ColorAlt2,
                 },
-              ],
-            },
-          };
+            ],
+        };
 
-        return <Line 
-            data={data} 
+        const options = {
+            scales: {
+                yAxes: [
+                    {
+                        ticks: {
+                            beginAtZero: true,
+                        },
+                    },
+                ],
+            },
+        };
+
+        return <Line
+            data={data}
             options={options} />;
+    } else {
+        return null;
+    }
+}
+
+export const AssetsAndLiabilitiesTotalChartPaper = props => {
+    if (props.assets
+        && props.assets.length > 0
+        && props.liabilities
+        && props.liabilities.length > 0) {
+        const title = props.title ? props.title : "Assets vs. Liabilities";
+        const assetsSum = props.assets.map(a => a.value)
+            .reduce((sum, current) => sum + current, 0);
+        const liabilitiesSum = props.liabilities.map(a => a.value)
+            .reduce((sum, current) => sum + current, 0);
+
+        const data = {
+            labels: [],
+            datasets: [
+                {
+                    label: "Assets",
+                    backgroundColor: ColorAlt4,
+                    hoverBackgroundColor: ColorAlt4,
+                    data: [assetsSum]
+                },
+                {
+                    label: "Liabilities",
+                    backgroundColor: ColorAlt8,
+                    hoverBackgroundColor: ColorAlt8,
+                    data: [liabilitiesSum]
+                }
+            ]
+        }
+        const options = {
+            maintainAspectRatio: false,
+            scales: {
+                xAxes: [
+                    {
+                        ticks: {
+                            beginAtZero: false,
+                        },
+                    },
+                ],
+                yAxes: [
+                    {
+                        ticks: {
+                            beginAtZero: false,
+                        },
+                    },
+                ]
+            }
+        }
+
+        return (
+            <React.Fragment>
+                <Grid container>
+                    <Grid item xs>
+                        <H5Alt6>{title}</H5Alt6>
+                    </Grid>
+                </Grid>
+                <Grid container>
+                    <Grid item xs={6}>
+                        <BorderlessSquarePaper variant="outlined" square>
+                            <Bar
+                                data={data || []}
+	                            height={200}
+                                options={options}
+                            />
+                        </BorderlessSquarePaper>
+                    </Grid>
+                </Grid>
+            </React.Fragment>
+        );
     } else {
         return null;
     }

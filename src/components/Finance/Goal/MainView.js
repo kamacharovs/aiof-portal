@@ -98,7 +98,7 @@ const GoalMainView = props => {
                     <title>{props.appName} | Finance | Goals</title>
                 </Helmet>
 
-                <Container maxWidth="xl">
+                <Container maxWidth="md">
                     <Grid container spacing={1} className={classes.root}>
                         <Grid item xs>
                             <GoalOverview />

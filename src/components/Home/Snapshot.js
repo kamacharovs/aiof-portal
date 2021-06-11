@@ -14,7 +14,7 @@ import Checkbox from '@material-ui/core/Checkbox';
 import FormGroup from '@material-ui/core/FormGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 
-import { AssetPaper, LiabilityPaper, GoalPaper, DependentPaper } from '../Common/Papers';
+import { AssetPaper, LiabilityPaper, GoalPaper, DependentPaper, AssetsAndLiabilitiesTotalChartPaper } from '../Common/Papers';
 import { SquarePaper, AltCancelButton, ColorAlt2, ColorAlt6 } from '../../style/mui';
 import { H1Alt6, PAlt7, AltLink } from '../../style/common';
 import { FINANCE, ASSETS, SNAPSHOT_SETTING_UPDATE } from '../../constants/actionTypes';
@@ -135,82 +135,92 @@ const SnapshotView = props => {
     }, []);
 
     return (
-        <SquarePaper variant="outlined" square>
-            <Grid container spacing={1} className={classes.root}>
-                <Grid item xs>
+        <React.Fragment>
+            <SquarePaper variant="outlined" square>
+                <Grid container spacing={1} className={classes.root}>
                     <Grid item xs>
-                        <Grid container>
-                            <Grid item xs={10}>
-                                <H1Alt6>Overview</H1Alt6>
+                        <Grid item xs>
+                            <Grid container>
+                                <Grid item xs={10}>
+                                    <H1Alt6>Overview</H1Alt6>
+                                </Grid>
+                                <Grid item xs={2}>
+                                    {
+                                        props.currentUser
+                                            ? <SettingsButton
+                                                listOfSettings={listOfSettings}
+                                                onSettingsUpdate={props.onSettingsUpdate} />
+                                            : null
+                                    }
+                                </Grid>
                             </Grid>
-                            <Grid item xs={2}>
-                                {
-                                    props.currentUser
-                                        ? <SettingsButton
-                                            listOfSettings={listOfSettings}
-                                            onSettingsUpdate={props.onSettingsUpdate} />
-                                        : null
-                                }
+                            <Grid container>
+                                <PAlt7>
+                                    Below is a snapshot of  your current assets and liabilities
+                                    {props.currentUser
+                                        ? null
+                                        : <React.Fragment>
+                                            <br /><br />
+                                            There is a limited number of functionality you can take advantage of when not logged in. This included.
+                                            You need to <AltLink to="/login">login</AltLink> in order to update your assets, liabilities
+                                        </React.Fragment>
+                                    }
+                                </PAlt7>
                             </Grid>
                         </Grid>
-                        <Grid container>
-                            <PAlt7>
-                                Below is a snapshot of  your current assets and liabilities
-                                {props.currentUser
-                                    ? null
-                                    : <React.Fragment>
-                                        <br /><br />
-                                        There is a limited number of functionality you can take advantage of when not logged in. This included.
-                                        You need to <AltLink to="/login">login</AltLink> in order to update your assets, liabilities
-                                    </React.Fragment>
-                                }
-                            </PAlt7>
-                        </Grid>
-                    </Grid>
 
-                    <Grid item xs>
-                        {showAssets
-                            ? <AssetPaper
-                                currentUser={currentUser}
-                                inProgress={inProgressAssets}
-                                title={"Assets"}
-                                total={assetsTotal}
-                                totalValue={assetsSum} />
-                            : null}
-                    </Grid>
-                    <Grid item xs>
-                        {showLiabilities
-                            ? <LiabilityPaper
-                                currentUser={currentUser}
-                                inProgress={inProgress}
-                                title={"Liabilities"}
-                                total={liabilitiesTotal}
-                                totalValue={liabilitiesSum}
-                                totalMonthlyPayment={liabilitiesMonthlyPaymentSum} />
-                            : null}
-                    </Grid>
-                    <Grid item xs>
-                        {showGoals
-                            ? <GoalPaper
-                                currentUser={currentUser}
-                                inProgress={inProgress}
-                                title={"Goals"}
-                                total={goalsTotal}
-                                totalmonthlyContribution={goalsMothlyContributionSum} />
-                            : null}
-                    </Grid>
-                    <Grid item xs>
-                        {showDependentss
-                            ? <DependentPaper
-                                currentUser={currentUser}
-                                inProgress={inProgress}
-                                title={"Dependents"}
-                                total={dependentsTotal} />
-                            : null}
+                        <Grid item xs>
+                            {showAssets
+                                ? <AssetPaper
+                                    currentUser={currentUser}
+                                    inProgress={inProgressAssets}
+                                    title={"Assets"}
+                                    total={assetsTotal}
+                                    totalValue={assetsSum} />
+                                : null}
+                        </Grid>
+                        <Grid item xs>
+                            {showLiabilities
+                                ? <LiabilityPaper
+                                    currentUser={currentUser}
+                                    inProgress={inProgress}
+                                    title={"Liabilities"}
+                                    total={liabilitiesTotal}
+                                    totalValue={liabilitiesSum}
+                                    totalMonthlyPayment={liabilitiesMonthlyPaymentSum} />
+                                : null}
+                        </Grid>
+                        <Grid item xs>
+                            {showGoals
+                                ? <GoalPaper
+                                    currentUser={currentUser}
+                                    inProgress={inProgress}
+                                    title={"Goals"}
+                                    total={goalsTotal}
+                                    totalmonthlyContribution={goalsMothlyContributionSum} />
+                                : null}
+                        </Grid>
+                        <Grid item xs>
+                            {showDependentss
+                                ? <DependentPaper
+                                    currentUser={currentUser}
+                                    inProgress={inProgress}
+                                    title={"Dependents"}
+                                    total={dependentsTotal} />
+                                : null}
+                        </Grid>
                     </Grid>
                 </Grid>
-            </Grid>
-        </SquarePaper>
+            </SquarePaper>
+
+            {currentUser
+                ? <SquarePaper variant="outlined" square>
+                    <AssetsAndLiabilitiesTotalChartPaper
+                        assets={assets}
+                        liabilities={liabilities} />
+                </SquarePaper>
+            : null}
+        </React.Fragment>
     );
 };
 
@@ -242,23 +252,23 @@ export const SettingsButton = props => {
                 <DialogTitle>
                 </DialogTitle>
                 <DialogContent>
-                        <FormGroup>
-                            {listOfSettings.map(s => {
-                                return (
-                                    <FormControlLabel
-                                        key={s.showName}
-                                        control={
-                                            <Checkbox
-                                                checked={s.show}
-                                                onChange={() => s.handleSetShow(s.showName, !s.show, s.setShow)}
-                                                name={s.label}
-                                                style={{ color: ColorAlt2 }} />
-                                            }
-                                        label={s.label}
-                                    />
-                                );
-                            })}
-                        </FormGroup>
+                    <FormGroup>
+                        {listOfSettings.map(s => {
+                            return (
+                                <FormControlLabel
+                                    key={s.showName}
+                                    control={
+                                        <Checkbox
+                                            checked={s.show}
+                                            onChange={() => s.handleSetShow(s.showName, !s.show, s.setShow)}
+                                            name={s.label}
+                                            style={{ color: ColorAlt2 }} />
+                                    }
+                                    label={s.label}
+                                />
+                            );
+                        })}
+                    </FormGroup>
                 </DialogContent>
                 <DialogActions>
                     <AltCancelButton onClick={handleClose} autoFocus />
