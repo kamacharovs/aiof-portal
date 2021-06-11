@@ -215,6 +215,7 @@ const SnapshotView = props => {
 
             <AssetsAvgChart
                 currentUser={currentUser}
+                inProgressAssets={inProgressAssets}
                 assets={assets} />
         </React.Fragment>
     );
@@ -297,8 +298,10 @@ const AssetsAvgChart = props => {
                     <BorderlessSquarePaper variant="outlined" square>
                         <Grid container>
                             <Grid item xs={10}>
-                                <AssetsSnapshotsChartPaper
-                                    assets={props.assets} />
+                                {props.inProgressAssets === false ?
+                                    <AssetsSnapshotsChartPaper
+                                        assets={props.assets} />
+                                : null}
                             </Grid>
                         </Grid>
                     </BorderlessSquarePaper>

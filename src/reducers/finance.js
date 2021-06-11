@@ -38,7 +38,7 @@ export default (state = {}, action) => {
         ...state,
         inProgress: false,
         profile: action.payload.profile,
-        assets: action.payload.assets,
+        assetsBase: action.payload.assets,
         liabilities: action.payload.liabilities,
         goalsBase: action.payload.goals,
         subscriptions: action.payload.subscriptions,
