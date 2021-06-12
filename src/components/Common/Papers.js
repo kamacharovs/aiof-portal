@@ -306,14 +306,14 @@ export const AssetsAndLiabilitiesTotalChartPaper = props => {
                 xAxes: [
                     {
                         ticks: {
-                            beginAtZero: false,
+                            beginAtZero: true,
                         },
                     },
                 ],
                 yAxes: [
                     {
                         ticks: {
-                            beginAtZero: false,
+                            beginAtZero: true,
                         },
                     },
                 ]
