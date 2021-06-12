@@ -13,11 +13,12 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import Checkbox from '@material-ui/core/Checkbox';
 import FormGroup from '@material-ui/core/FormGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Tooltip from '@material-ui/core/Tooltip';
 
 import { AssetPaper, LiabilityPaper, GoalPaper, DependentPaper, AssetsSnapshotsChartPaper } from '../Common/Papers';
 import { SquarePaper, BorderlessSquarePaper, AltCancelButton, ColorAlt2, ColorAlt6 } from '../../style/mui';
 import { H1Alt6, H5Alt6, PAlt7, AltLink } from '../../style/common';
-import { FINANCE, ASSETS, SNAPSHOT_SETTING_UPDATE } from '../../constants/actionTypes';
+import { FINANCE, ASSETS, HOME_SNAPSHOT_SETTING_UPDATE } from '../../constants/actionTypes';
 
 
 const mapStateToProps = state => ({
@@ -36,7 +37,7 @@ const mapDispatchToProps = dispatch => ({
     onAssets: () =>
         dispatch({ type: ASSETS, payload: agent.Asset.all() }),
     onSettingsUpdate: (field, value) =>
-        dispatch({ type: SNAPSHOT_SETTING_UPDATE, field, value }),
+        dispatch({ type: HOME_SNAPSHOT_SETTING_UPDATE, field, value }),
 });
 
 const useStyles = makeStyles((theme) => ({
@@ -236,11 +237,13 @@ const SettingsButton = props => {
 
     return (
         <React.Fragment>
-            <IconButton
-                style={{ color: ColorAlt6 }}
-                onClick={handleClickOpen}>
-                <SettingsIcon />
-            </IconButton>
+            <Tooltip title="Settings">
+                <IconButton
+                    style={{ color: ColorAlt6 }}
+                    onClick={handleClickOpen}>
+                    <SettingsIcon />
+                </IconButton>
+            </Tooltip>
 
             <Dialog
                 open={open}
@@ -286,11 +289,11 @@ const AssetsAvgChart = props => {
                         <Grid item xs>
                             <H5Alt6>Your assets average value</H5Alt6>
                             <PAlt7>
-                                This chart shows your assets' average changes by each month in the current year.
-                                These changes can be either positive or negative.
+                                This chart shows your assets' average changes by each month in the past 1 year.
+                                These changes can be either positive or negative
                                 <br /><br />
                                 If there are months not shown in the chart, then that means that your assets' value
-                                didn't change that month.
+                                didn't change that month
                             </PAlt7>
                         </Grid>
                     </Grid>
@@ -301,7 +304,7 @@ const AssetsAvgChart = props => {
                                 {props.inProgressAssets === false ?
                                     <AssetsSnapshotsChartPaper
                                         assets={props.assets} />
-                                : null}
+                                    : null}
                             </Grid>
                         </Grid>
                     </BorderlessSquarePaper>

@@ -36,6 +36,6 @@ export function assetSnapshotsAvgByMonth(assets) {
 
         avgMonth.avg = valuesTotal / valuesLength;
     }
-    
+
     return byMonth.sort().reverse();
 }

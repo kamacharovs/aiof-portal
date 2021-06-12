@@ -38,7 +38,7 @@ const StatisticsView = props => {
                             </Grid>
 
                             <Grid container>
-                                <Grid item xs={6}>
+                                <Grid item xs={4}>
                                     <AssetsAndLiabilitiesTotalChartPaper
                                         assets={props.assets}
                                         liabilities={props.liabilities} />

@@ -278,7 +278,6 @@ export const AssetsAndLiabilitiesTotalChartPaper = props => {
         && props.assets.length > 0
         && props.liabilities
         && props.liabilities.length > 0) {
-        const title = props.title ? props.title : "Assets vs. Liabilities";
         const assetsSum = props.assets.map(a => a.value)
             .reduce((sum, current) => sum + current, 0);
         const liabilitiesSum = props.liabilities.map(a => a.value)
@@ -326,14 +325,9 @@ export const AssetsAndLiabilitiesTotalChartPaper = props => {
                 <BorderlessSquarePaper variant="outlined" square>
                     <Grid container>
                         <Grid item xs>
-                            <H5Alt6>{title}</H5Alt6>
-                        </Grid>
-                    </Grid>
-                    <Grid container>
-                        <Grid item xs>
                             <Bar
                                 data={data || []}
-                                height={200}
+                                height={300}
                                 options={options}
                             />
                         </Grid>
