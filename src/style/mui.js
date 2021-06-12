@@ -14,6 +14,7 @@ import ClipLoader from "react-spinners/ClipLoader";
 import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 import ClearIcon from '@material-ui/icons/Clear';
 import Chip from '@material-ui/core/Chip';
+import Tooltip from '@material-ui/core/Tooltip';
 
 import { ThinText } from '../style/common';
 
@@ -239,11 +240,13 @@ export const AltButton = styled(Button)({
 
 export const AltCancelButton = props => {
   return (
-    <IconButton
-      style={{ color: ColorAlt2 }}
-      onClick={props.onClick}>
+    <Tooltip title="Cancel">
+      <IconButton
+        style={{ color: ColorAlt2 }}
+        onClick={props.onClick}>
         <ClearIcon />
-    </IconButton>
+      </IconButton>
+    </Tooltip>
   );
 }
 
@@ -343,7 +346,7 @@ export const AltLoader = props => {
 
   return (
     <div className="sweet-loading">
-      { br ? <br /> : null}
+      {br ? <br /> : null}
       <ClipLoader
         size={size}
         color={color}

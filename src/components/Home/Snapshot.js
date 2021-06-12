@@ -142,17 +142,20 @@ const SnapshotView = props => {
                     <Grid item xs>
                         <Grid item xs>
                             <Grid container>
-                                <Grid item xs={10}>
+                                <Grid item xs>
                                     <H1Alt6>Overview</H1Alt6>
                                 </Grid>
-                                <Grid item xs={2}>
-                                    {
-                                        props.currentUser
-                                            ? <SettingsButton
-                                                listOfSettings={listOfSettings}
-                                                onSettingsUpdate={props.onSettingsUpdate} />
-                                            : null
-                                    }
+
+                                <Grid item xs>
+                                    <Grid container justify="flex-end">
+                                        {
+                                            props.currentUser
+                                                ? <SettingsButton
+                                                    listOfSettings={listOfSettings}
+                                                    onSettingsUpdate={props.onSettingsUpdate} />
+                                                : null
+                                        }
+                                    </Grid>
                                 </Grid>
                             </Grid>
                             <Grid container>
