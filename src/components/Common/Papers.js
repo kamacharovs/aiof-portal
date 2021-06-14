@@ -43,12 +43,14 @@ export const AssetPaper = props => {
             <BorderlessSquarePaper variant="outlined" square>
                 <Grid item xs>
                     <Grid container spacing={3}>
-                        <Grid item xs={8}>
+                        <Grid item xs>
                             <H5Alt6>{title} ({total})</H5Alt6>
                         </Grid>
 
-                        <Grid item xs={4}>
-                            <AltLink to={"/finance/assets"}>View</AltLink>
+                        <Grid item xs>
+                            <Grid container justify="flex-end">
+                                <AltLink to={"/finance/assets"}>View</AltLink>
+                            </Grid>
                         </Grid>
                     </Grid>
                 </Grid>
@@ -87,12 +89,14 @@ export const LiabilityPaper = props => {
             <BorderlessSquarePaper variant="outlined" square>
                 <Grid item xs>
                     <Grid container spacing={3}>
-                        <Grid item xs={8}>
+                        <Grid item xs>
                             <H5Alt6>{title} ({total})</H5Alt6>
                         </Grid>
 
-                        <Grid item xs={4}>
-                            <AltLink to={"/finance"}>View</AltLink>
+                        <Grid item xs>
+                            <Grid container justify="flex-end">
+                                <AltLink to={"/finance"}>View</AltLink>
+                            </Grid>
                         </Grid>
                     </Grid>
                 </Grid>
@@ -147,12 +151,14 @@ export const GoalPaper = props => {
             <BorderlessSquarePaper variant="outlined" square>
                 <Grid item xs>
                     <Grid container spacing={3}>
-                        <Grid item xs={8}>
+                        <Grid item xs>
                             <H5Alt6>{title}</H5Alt6>
                         </Grid>
 
-                        <Grid item xs={2}>
-                            <AltLink to={"/finance/goals"}>View</AltLink>
+                        <Grid item xs>
+                            <Grid container justify="flex-end">
+                                <AltLink to={"/finance/goals"}>View</AltLink>
+                            </Grid>
                         </Grid>
                     </Grid>
                 </Grid>
@@ -205,12 +211,14 @@ export const DependentPaper = props => {
             <BorderlessSquarePaper variant="outlined" square>
                 <Grid item xs>
                     <Grid container spacing={3}>
-                        <Grid item xs={8}>
+                        <Grid item xs>
                             <H5Alt6>{title}</H5Alt6>
                         </Grid>
 
-                        <Grid item xs={2}>
-                            <AltLink to={"/profile"}>View</AltLink>
+                        <Grid item xs>
+                            <Grid container justify="flex-end">
+                                <AltLink to={"/profile"}>View</AltLink>
+                            </Grid>
                         </Grid>
                     </Grid>
                 </Grid>
@@ -234,7 +242,7 @@ export const DependentPaper = props => {
 }
 
 export const AssetsSnapshotsChartPaper = props => {
-    if (props.assets 
+    if (props.assets
         && props.assets.length > 0) {
         var assetsData = assetSnapshotsAvgByMonth(props.assets);
         var assetsLabels = assetsData.map(a => a.month);
