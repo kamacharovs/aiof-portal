@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { withStyles, makeStyles, styled } from '@material-ui/core/styles';
+import { withStyles, makeStyles, styled, createMuiTheme } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import LinearProgress from '@material-ui/core/LinearProgress';
@@ -59,6 +59,29 @@ export const DefaultPaperPadding = '1.5rem';
 export const DefaultPaperMargin = '1rem';
 export const DefaultPaperFontSize = '.8125rem';
 
+
+export const theme = createMuiTheme({
+  palette: {
+    primary: {
+      main: '#5469d4',
+    },
+    secondary: {
+      main: '#d6ecff',
+    },
+    error: {
+      main: '#b21f00',
+    },
+    success: {
+      main: '#1ea672'
+    }
+  },
+  h1: {
+    color: '#697386',
+    fontSize: '28px',
+    fontWeight: '700',
+    lineHeight: '32px',
+  },
+});
 
 export const commonStyles = makeStyles({
   p: {

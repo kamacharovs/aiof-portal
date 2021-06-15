@@ -16,14 +16,14 @@ const useStyles = makeStyles((theme) => ({
         display: 'flex'
     },
     green: {
-        color: ColorAlt4,
+        color: theme.palette.success.main,
         fontSize: '1.25rem',
         margin: '0rem',
         padding: '0rem',
         paddingBottom: '0.25rem',
     },
     red: {
-        color: ColorAlt8,
+        color: theme.palette.error.main,
         fontSize: '1.25rem',
         margin: '0rem',
         padding: '0rem',
