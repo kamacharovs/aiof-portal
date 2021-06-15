@@ -43,3 +43,25 @@ export function assetSnapshotsAvgByMonth(assets) {
 export function round(value) {
     return Math.round(value * 100) / 100;
 }
+
+export function federalTax() {
+    return 0.3;
+}
+export function stateTax(state) {
+    var tax = 0.05;
+
+    if (!state) {
+        return tax;
+    }
+
+    switch (state.toLowerCase()) {
+        case "nc":
+            tax = 0.0525;
+            break;
+        default:
+            tax = 0.05;
+            break;
+    }
+
+    return tax;
+}

@@ -95,6 +95,12 @@ export const commonStyles = makeStyles({
     marginRight: '0',
     marginTop: '0',
     marginBottom: '0',
+  },
+  altText: {
+    color: ColorAlt7,
+    fontSize: '12px',
+    fontWeight: '400',
+    lineHeight: '16px',
   }
 });
 
@@ -251,6 +257,21 @@ export const AltCancelButton = props => {
         <ClearIcon />
       </IconButton>
     </Tooltip>
+  );
+}
+
+export const AltTextButton = props => {
+  return (
+    <Button
+      variant="text"
+      size="small"
+      onClick={props.onClick}
+      style={{
+        color: ColorAlt2,
+        textTransform: "none"
+      }}>
+      {props.text}
+    </Button>
   );
 }
 
