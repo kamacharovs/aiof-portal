@@ -15,7 +15,10 @@ import FormGroup from '@material-ui/core/FormGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Tooltip from '@material-ui/core/Tooltip';
 
-import { AssetPaper, LiabilityPaper, GoalPaper, DependentPaper, AssetsSnapshotsChartPaper } from '../Common/Papers';
+import {
+    AssetPaper, LiabilityPaper, GoalPaper, DependentPaper,
+    AssetsSnapshotsChartPaper, AssetsAndLiabilitiesTotalChartPaper
+} from '../Common/Papers';
 import { SquarePaper, BorderlessSquarePaper, AltCancelButton, ColorAlt2, ColorAlt6 } from '../../style/mui';
 import { H1Alt6, H5Alt6, PAlt7, AltLink } from '../../style/common';
 import { FINANCE, ASSETS, HOME_SNAPSHOT_SETTING_UPDATE } from '../../constants/actionTypes';
@@ -217,10 +220,10 @@ const SnapshotView = props => {
                 </Grid>
             </SquarePaper>
 
-            <AssetsAvgChart
+            <AssetsAndLiabilitiesChart
                 currentUser={currentUser}
-                inProgressAssets={inProgressAssets}
-                assets={assets} />
+                assets={assets}
+                liabilities={liabilities} />
         </React.Fragment>
     );
 };
@@ -279,6 +282,40 @@ const SettingsButton = props => {
             </Dialog>
         </React.Fragment>
     );
+}
+
+const AssetsAndLiabilitiesChart = props => {
+    if (props.currentUser
+        && props.assets
+        && props.liabilities) {
+        return (
+            <React.Fragment>
+                <SquarePaper variant="outlined" square>
+                    <Grid container>
+                        <Grid item xs>
+                            <H5Alt6>Your assets vs. liabilities</H5Alt6>
+                            <PAlt7>
+                                This chart shows your total assets' value versus your total liabilities' value. This can be
+                                helpful in order to grasp at your financial well being from a high level overview
+                                <br /><br />
+
+                            </PAlt7>
+                        </Grid>
+                    </Grid>
+
+                    <Grid container>
+                        <Grid item xs={6}>
+                            <AssetsAndLiabilitiesTotalChartPaper
+                                assets={props.assets}
+                                liabilities={props.liabilities} />
+                        </Grid>
+                    </Grid>
+                </SquarePaper>
+            </React.Fragment>
+        );
+    } else {
+        return null;
+    }
 }
 
 const AssetsAvgChart = props => {

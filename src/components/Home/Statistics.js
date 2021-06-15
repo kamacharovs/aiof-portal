@@ -4,20 +4,30 @@ import { connect } from 'react-redux';
 import Grid from '@material-ui/core/Grid';
 
 import { SquarePaper } from '../../style/mui';
-import { H1Alt6, PAlt7 } from '../../style/common';
-import { AssetsAndLiabilitiesTotalChartPaper } from '../Common/Papers';
+import { H1Alt6, H5Alt6, PAlt7, AltLink } from '../../style/common';
+import { MonthlyIncomeSpendingChartPaper } from '../Common/Papers';
 
 
 const mapStateToProps = state => ({
+    ...state.finance,
+    profile: state.finance.profile,
 });
 
 const mapDispatchToProps = dispatch => ({
 });
 
 const StatisticsView = props => {
+    const currentUser = props.currentUser;
+    const assets = props.assets;
+    const liabilities = props.liabilities;
+
     if (props.currentUser
-        && props.assets && props.assets.length > 0
-        && props.liabilities && props.liabilities.length > 0) {
+        && assets
+        && liabilities) {
+        const profileGrossSalary = props.profile ? props.profile.grossSalary || 0 : 0;
+        const liabilitiesMonthlySpending = liabilities.map(l => l.monthlyPayment)
+            .reduce((sum, current) => sum + current, 0);
+
         return (
             <React.Fragment>
                 <Grid container spacing={1}>
@@ -37,15 +47,47 @@ const StatisticsView = props => {
                                 </Grid>
                             </Grid>
 
-                            <Grid container>
-                                <Grid item xs={4}>
-                                    <AssetsAndLiabilitiesTotalChartPaper
-                                        assets={props.assets}
-                                        liabilities={props.liabilities} />
+                            <Grid container spacing={3}>
+                                <Grid item xs>
+                                    <MonthlyIncomeSpendingChart
+                                        currentUser={currentUser}
+                                        grossSalary={profileGrossSalary}
+                                        monthlySpending={liabilitiesMonthlySpending} />
                                 </Grid>
                             </Grid>
-
                         </SquarePaper>
+                    </Grid>
+                </Grid>
+            </React.Fragment>
+        );
+    } else {
+        return null;
+    }
+}
+
+const MonthlyIncomeSpendingChart = props => {
+    if (props.currentUser
+        && props.grossSalary
+        && props.monthlySpending) {
+        return (
+            <React.Fragment>
+                <Grid container>
+                    <Grid item xs>
+                        <H5Alt6>Your monthly income vs. monthly spending</H5Alt6>
+                        <PAlt7>
+                            This chart shows your total monthly income versus your total monthly spending.
+                            <br /><br />
+                            Be sure to update your <AltLink to={"/profile"}>profile</AltLink> gross salary
+                            and your <AltLink to={"/finance"}>liabilities</AltLink> in order to effectively leverage this chart.
+                        </PAlt7>
+                    </Grid>
+                </Grid>
+
+                <Grid container>
+                    <Grid item xs={4}>
+                        <MonthlyIncomeSpendingChartPaper
+                            grossSalary={props.grossSalary}
+                            monthlySpending={props.monthlySpending} />
                     </Grid>
                 </Grid>
             </React.Fragment>

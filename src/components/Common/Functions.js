@@ -39,3 +39,7 @@ export function assetSnapshotsAvgByMonth(assets) {
 
     return byMonth.sort().reverse();
 }
+
+export function round(value) {
+    return Math.round(value * 100) / 100;
+}

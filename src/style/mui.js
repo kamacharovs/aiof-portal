@@ -235,7 +235,11 @@ export const InBodyPaper = props => {
 Buttons
 */
 export const AltButton = styled(Button)({
-  color: ColorAlt2
+  background: ColorAlt2,
+  color: ColorDefault,
+  '&:hover': {
+    background: ColorAlt2
+  }
 })
 
 export const AltCancelButton = props => {

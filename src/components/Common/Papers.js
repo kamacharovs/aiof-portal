@@ -4,7 +4,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import { Bar, Line } from 'react-chartjs-2';
 
-import { assetSnapshotsAvgByMonth } from '../Common/Functions';
+import { assetSnapshotsAvgByMonth, round } from '../Common/Functions';
 import { numberWithCommas } from '../Finance/Common';
 import { BorderlessSquarePaper, AltLoader, ColorAlt2, ColorAlt4, ColorAlt8 } from '../../style/mui';
 import { H5Alt6, PAlt7, AltLink } from '../../style/common';
@@ -283,41 +283,82 @@ export const AssetsSnapshotsChartPaper = props => {
 
 export const AssetsAndLiabilitiesTotalChartPaper = props => {
     if (props.assets
-        && props.assets.length > 0
-        && props.liabilities
-        && props.liabilities.length > 0) {
+        && props.liabilities) {
         const assetsSum = props.assets.map(a => a.value)
             .reduce((sum, current) => sum + current, 0);
         const liabilitiesSum = props.liabilities.map(a => a.value)
             .reduce((sum, current) => sum + current, 0);
 
+            const data = {
+                labels: ["Assets", "Liabilities"],
+                datasets: [
+                    {
+                        backgroundColor: [ColorAlt4, ColorAlt8],
+                        hoverBackgroundColor: [ColorAlt4, ColorAlt8],
+                        data: [assetsSum, liabilitiesSum]
+                    }
+                ]
+            }
+            const options = {
+                maintainAspectRatio: false,
+                legend: {
+                    display: false
+                },
+                scales: {
+                    yAxes: [
+                        {
+                            ticks: {
+                                beginAtZero: true,
+                            },
+                        },
+                    ]
+                }
+            }
+
+        return (
+            <React.Fragment>
+                <BorderlessSquarePaper variant="outlined" square>
+                    <Grid container>
+                        <Grid item xs>
+                            <Bar
+                                data={data || []}
+                                height={300}
+                                options={options}
+                            />
+                        </Grid>
+                    </Grid>
+                </BorderlessSquarePaper>
+            </React.Fragment>
+        );
+    } else {
+        return null;
+    }
+}
+
+export const MonthlyIncomeSpendingChartPaper = props => {
+    const grossSalary = props.grossSalary;
+    const monthlySpending = props.monthlySpending;
+
+    if (grossSalary
+        && monthlySpending) {
+        const monthlyIncome = round(grossSalary / 12);
+
         const data = {
-            labels: [],
+            labels: ["Monthly income", "Monthly spending"],
             datasets: [
                 {
-                    label: "Assets",
-                    backgroundColor: ColorAlt4,
-                    hoverBackgroundColor: ColorAlt4,
-                    data: [assetsSum]
-                },
-                {
-                    label: "Liabilities",
-                    backgroundColor: ColorAlt8,
-                    hoverBackgroundColor: ColorAlt8,
-                    data: [liabilitiesSum]
+                    backgroundColor: [ColorAlt4, ColorAlt8],
+                    hoverBackgroundColor: [ColorAlt4, ColorAlt8],
+                    data: [monthlyIncome, monthlySpending]
                 }
             ]
         }
         const options = {
             maintainAspectRatio: false,
+            legend: {
+                display: false
+            },
             scales: {
-                xAxes: [
-                    {
-                        ticks: {
-                            beginAtZero: true,
-                        },
-                    },
-                ],
                 yAxes: [
                     {
                         ticks: {
