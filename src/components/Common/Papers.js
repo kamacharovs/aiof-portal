@@ -1,12 +1,12 @@
 import React from 'react';
 
-import { makeStyles } from '@material-ui/core/styles';
+import { useTheme, makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import { Bar, Line } from 'react-chartjs-2';
 
 import { assetSnapshotsAvgByMonth } from '../Common/Functions';
 import { numberWithCommas } from '../Finance/Common';
-import { BorderlessSquarePaper, AltLoader, ColorAlt2, ColorAlt4, ColorAlt8 } from '../../style/mui';
+import { BorderlessSquarePaper, AltLoader } from '../../style/mui';
 import { H5Alt6, PAlt7, AltLink } from '../../style/common';
 
 
@@ -33,6 +33,7 @@ const useStyles = makeStyles((theme) => ({
 
 export const AssetPaper = props => {
     const classes = useStyles();
+
     const title = props.title ? props.title : "Asset balance";
     const footerTitle = props.footerTitle ? props.footerTitle : "Total asset value";
     const total = props.total ? props.total : 0;
@@ -244,6 +245,8 @@ export const DependentPaper = props => {
 export const AssetsSnapshotsChartPaper = props => {
     if (props.assets
         && props.assets.length > 0) {
+        const theme = useTheme();
+
         var assetsData = assetSnapshotsAvgByMonth(props.assets);
         var assetsLabels = assetsData.map(a => a.month);
         var assetsAvgs = assetsData.map(a => a.avg);
@@ -255,8 +258,8 @@ export const AssetsSnapshotsChartPaper = props => {
                     label: `Avg assets value by month (${new Date().getFullYear()})`,
                     data: assetsAvgs,
                     fill: true,
-                    backgroundColor: ColorAlt2,
-                    borderColor: ColorAlt2,
+                    backgroundColor: theme.palette.primary.main,
+                    borderColor: theme.palette.primary.main,
                 },
             ],
         };
@@ -284,6 +287,8 @@ export const AssetsSnapshotsChartPaper = props => {
 export const AssetsAndLiabilitiesTotalChartPaper = props => {
     if (props.assets
         && props.liabilities) {
+        const theme = useTheme();
+
         const assetsSum = props.assets.map(a => a.value)
             .reduce((sum, current) => sum + current, 0);
         const liabilitiesSum = props.liabilities.map(a => a.value)
@@ -293,8 +298,8 @@ export const AssetsAndLiabilitiesTotalChartPaper = props => {
             labels: ["Assets", "Liabilities"],
             datasets: [
                 {
-                    backgroundColor: [ColorAlt4, ColorAlt8],
-                    hoverBackgroundColor: [ColorAlt4, ColorAlt8],
+                    backgroundColor: [theme.palette.success.main, theme.palette.error.main],
+                    hoverBackgroundColor: [theme.palette.success.main, theme.palette.error.main],
                     data: [assetsSum, liabilitiesSum]
                 }
             ]
@@ -336,6 +341,8 @@ export const AssetsAndLiabilitiesTotalChartPaper = props => {
 }
 
 export const MonthlyIncomeSpendingChartPaper = props => {
+    const theme = useTheme();
+
     const monthlyIncome = props.monthlyIncome || 0;
     const monthlySpending = props.monthlySpending || 0;
 
@@ -343,8 +350,7 @@ export const MonthlyIncomeSpendingChartPaper = props => {
         labels: ["Monthly income", "Monthly spending"],
         datasets: [
             {
-                backgroundColor: [ColorAlt4, ColorAlt8],
-                hoverBackgroundColor: [ColorAlt4, ColorAlt8],
+                backgroundColor: [theme.palette.success.main, theme.palette.error.main],
                 data: [monthlyIncome, monthlySpending]
             }
         ]

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import config from '../../config';
 
-import { makeStyles } from '@material-ui/core/styles';
+import { useTheme, makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import IconButton from '@material-ui/core/IconButton';
 import Tooltip from '@material-ui/core/Tooltip';
@@ -12,7 +12,7 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import House from '../../style/icons/House_4.svg';
 import Calculator from '../../style/icons/Calculator.svg';
 import {
-    BorderlessSquarePaper, SquarePaper, InBodyPaper, ColorAlt4, ColorAlt5, ColorAlt8,
+    BorderlessSquarePaper, SquarePaper, InBodyPaper, ColorAlt5,
     AltCheckCircle, AltClearIcon, AltChip
 } from '../../style/mui';
 import { H1Alt6, PAlt7, AltLink, CoolExternalLink } from '../../style/common';
@@ -32,8 +32,6 @@ const mapDispatchToProps = dispatch => ({
 
 const completedLabel = "Completed";
 const incompleteLabel = "Incomplete";
-const completedColor = ColorAlt4;
-const incompleteColor = ColorAlt8;
 const useStyles = makeStyles((theme) => ({
     root: {
         display: 'flex',
@@ -45,7 +43,7 @@ const useStyles = makeStyles((theme) => ({
         fontWeight: 900,
         flexBasis: '95%',
         flexShrink: 0,
-    }
+    },
 }));
 
 const GettingStartedView = props => {
@@ -154,6 +152,8 @@ const GettingStartedView = props => {
 
 const ProfileCheckmark = props => {
     const classes = useStyles();
+    const theme = useTheme();
+
     const profile = props.profile;
 
     if (profile) {
@@ -169,8 +169,8 @@ const ProfileCheckmark = props => {
                     <Grid item xs>
                         <div className={classes.heading}>
                             <AltLink to={"/profile"}>Update your profile {profileComplete === false
-                                ? <AltChip label={incompleteLabel} color={incompleteColor} />
-                                : <AltChip label={completedLabel} color={completedColor} />
+                                ? <AltChip label={incompleteLabel} color={theme.palette.error.main} />
+                                : <AltChip label={completedLabel} color={theme.palette.success.main} />
                             }</AltLink>
                         </div>
                     </Grid>
@@ -282,6 +282,8 @@ const Housing = props => {
 
 const Assets = props => {
     const classes = useStyles();
+    const theme = useTheme();
+
     const assets = props.assets ? props.assets : [];
     const assetsLength = assets.length;
     const assetsMinimum = config.gettingStartedMinimumAssets;
@@ -293,8 +295,8 @@ const Assets = props => {
                 <Grid item xs>
                     <div className={classes.heading}>
                         <AltLink to={"/finance/assets"}>Add assets {assetsComplete === false
-                            ? <AltChip label={incompleteLabel} color={incompleteColor} />
-                            : <AltChip label={completedLabel} color={completedColor} />
+                            ? <AltChip label={incompleteLabel} color={theme.palette.error.main} />
+                            : <AltChip label={completedLabel} color={theme.palette.success.main} />
                         }</AltLink>
                     </div>
                 </Grid>
@@ -337,6 +339,8 @@ const Assets = props => {
 
 const Liabilities = props => {
     const classes = useStyles();
+    const theme = useTheme();
+
     const liabilities = props.liabilities ? props.liabilities : [];
     const liabilitiesLength = liabilities.length;
     const liabilitiesMinimum = config.gettingStartedMinimumLiabilities;
@@ -348,8 +352,8 @@ const Liabilities = props => {
                 <Grid item xs>
                     <div className={classes.heading}>
                         <AltLink to={"/finance"}>Add liabilities {liabilitiesComplete === false
-                            ? <AltChip label={incompleteLabel} color={incompleteColor} />
-                            : <AltChip label={completedLabel} color={completedColor} />
+                            ? <AltChip label={incompleteLabel} color={theme.palette.error.main} />
+                            : <AltChip label={completedLabel} color={theme.palette.success.main} />
                         }</AltLink>
                     </div>
                 </Grid>
@@ -389,6 +393,8 @@ const Liabilities = props => {
 
 const Goals = props => {
     const classes = useStyles();
+    const theme = useTheme();
+
     const goals = props.goals ? props.goals : [];
     const goalsLength = goals.length;
     const goalsMinimum = config.gettingStartedMinimumGoals;
@@ -400,8 +406,8 @@ const Goals = props => {
                 <Grid item xs>
                     <div className={classes.heading}>
                         <AltLink to={"/finance/goals"}>Add goals {goalsComplete === false
-                            ? <AltChip label={incompleteLabel} color={incompleteColor} />
-                            : <AltChip label={completedLabel} color={completedColor} />
+                            ? <AltChip label={incompleteLabel} color={theme.palette.error.main} />
+                            : <AltChip label={completedLabel} color={theme.palette.success.main} />
                         }</AltLink>
                     </div>
                 </Grid>

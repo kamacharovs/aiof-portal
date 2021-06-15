@@ -70,9 +70,15 @@ export const theme = createMuiTheme({
     },
     error: {
       main: '#b21f00',
+      light: '#d07866',
     },
     success: {
-      main: '#1ea672'
+      main: '#1ea672',
+      light: '#78c9aa',
+    },
+    text: {
+      main: '#697386',
+      header: '#3c4257',
     }
   },
   h1: {
