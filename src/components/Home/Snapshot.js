@@ -319,6 +319,7 @@ const AssetsAndLiabilitiesChart = props => {
     }
 }
 
+// eslint-disable-next-line
 const AssetsAvgChart = props => {
     if (props.currentUser
         && props.assets
