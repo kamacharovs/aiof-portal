@@ -44,7 +44,7 @@ const GoalOverview = props => {
     return (
         <React.Fragment>
             <SquarePaper variant="outlined" square>
-                <div style={{ color: theme.palette.secondary.main }}>
+                <div style={{ color: theme.palette.secondary.dark }}>
                     <h2><strong>Goals</strong></h2>
                 </div>
                 <p>
