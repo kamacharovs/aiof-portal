@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import agent from '../../agent';
 
-import { makeStyles } from '@material-ui/core/styles';
+import { useTheme, makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import IconButton from '@material-ui/core/IconButton';
 import SettingsIcon from '@material-ui/icons/Settings';
@@ -19,7 +19,7 @@ import {
     AssetPaper, LiabilityPaper, GoalPaper, DependentPaper,
     AssetsSnapshotsChartPaper, AssetsAndLiabilitiesTotalChartPaper
 } from '../Common/Papers';
-import { SquarePaper, BorderlessSquarePaper, AltCancelButton, ColorAlt2, ColorAlt6 } from '../../style/mui';
+import { SquarePaper, BorderlessSquarePaper, AltCancelButton } from '../../style/mui';
 import { H1Alt6, H5Alt6, PAlt7, AltLink } from '../../style/common';
 import { FINANCE, ASSETS, HOME_SNAPSHOT_SETTING_UPDATE } from '../../constants/actionTypes';
 
@@ -46,7 +46,7 @@ const mapDispatchToProps = dispatch => ({
 const useStyles = makeStyles((theme) => ({
     root: {
         display: 'flex',
-    }
+    },
 }));
 
 const SnapshotView = props => {
@@ -229,6 +229,7 @@ const SnapshotView = props => {
 };
 
 const SettingsButton = props => {
+    const theme = useTheme();
     const [open, setOpen] = useState(false);
 
     const listOfSettings = props.listOfSettings;
@@ -245,7 +246,7 @@ const SettingsButton = props => {
         <React.Fragment>
             <Tooltip title="Settings">
                 <IconButton
-                    style={{ color: ColorAlt6 }}
+                    style={{ color: theme.palette.text.header }}
                     onClick={handleClickOpen}>
                     <SettingsIcon />
                 </IconButton>
@@ -268,7 +269,7 @@ const SettingsButton = props => {
                                             checked={s.show}
                                             onChange={() => s.handleSetShow(s.showName, !s.show, s.setShow)}
                                             name={s.label}
-                                            style={{ color: ColorAlt2 }} />
+                                            style={{ color: theme.palette.primary.main }} />
                                     }
                                     label={s.label}
                                 />

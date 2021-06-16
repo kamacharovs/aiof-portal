@@ -12,7 +12,7 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import House from '../../style/icons/House_4.svg';
 import Calculator from '../../style/icons/Calculator.svg';
 import {
-    BorderlessSquarePaper, SquarePaper, InBodyPaper, ColorAlt5,
+    BorderlessSquarePaper, SquarePaper, InBodyPaper,
     AltCheckCircle, AltClearIcon, AltChip
 } from '../../style/mui';
 import { H1Alt6, PAlt7, AltLink, CoolExternalLink } from '../../style/common';
@@ -38,7 +38,7 @@ const useStyles = makeStyles((theme) => ({
     },
     heading: {
         fontSize: '14px',
-        color: ColorAlt5,
+        color: theme.palette.primary.dark,
         font: 'inherit',
         fontWeight: 900,
         flexBasis: '95%',
@@ -458,10 +458,12 @@ const CheckmarkDynamic = props => {
 }
 
 const ShowDynamic = props => {
+    const theme = useTheme();
+
     return (
         <Tooltip title={props.show === true ? "Hide" : "Show"}>
             <IconButton
-                style={{ color: ColorAlt5, padding: "0px" }}
+                style={{ color: theme.palette.primary.dark, padding: "0px" }}
                 onClick={() => props.handleSetShow(props.showName, !props.show, props.setShow)}>
                 {props.show === true
                     ? <ExpandLessIcon />

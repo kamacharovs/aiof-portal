@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { withStyles, makeStyles, styled, createMuiTheme } from '@material-ui/core/styles';
+import { withStyles, makeStyles, styled, useTheme, createMuiTheme } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import LinearProgress from '@material-ui/core/LinearProgress';
@@ -64,9 +64,11 @@ export const theme = createMuiTheme({
   palette: {
     primary: {
       main: '#5469d4',
+      dark: '#1a1f36',
     },
     secondary: {
       main: '#d6ecff',
+      dark: '#137a8f',
     },
     error: {
       main: '#b21f00',
@@ -79,6 +81,7 @@ export const theme = createMuiTheme({
     text: {
       main: '#697386',
       header: '#3c4257',
+      default: '#ffffff',
     }
   },
   h1: {
@@ -89,7 +92,7 @@ export const theme = createMuiTheme({
   },
 });
 
-export const commonStyles = makeStyles({
+export const commonStyles = makeStyles((theme) => ({
   p: {
     margin: '0rem',
     padding: '0rem',
@@ -98,7 +101,7 @@ export const commonStyles = makeStyles({
     fontSize: '24px !important',
   },
   inBodyPaperDiv: {
-    backgroundColor: ColorAlt9,
+    backgroundColor: theme.palette.secondary.dark,
     color: '#ffffff',
     padding: '.25rem',
   },
@@ -114,11 +117,11 @@ export const commonStyles = makeStyles({
     letterSpacing: '0.000125rem',
     padding: '0',
     margin: '0',
-    color: ColorAlt9
+    color: theme.palette.secondary.dark
   },
   verticalHeaderRequired: {
     fontSize: '0.75rem',
-    color: ColorAlt8,
+    color: theme.palette.error.main,
     padding: '0',
     marginLeft: '2px',
     marginRight: '0',
@@ -126,12 +129,12 @@ export const commonStyles = makeStyles({
     marginBottom: '0',
   },
   altText: {
-    color: ColorAlt7,
+    color: theme.palette.text.main,
     fontSize: '12px',
     fontWeight: '400',
     lineHeight: '16px',
   }
-});
+}));
 
 export const AiofPaper = styled(Paper)({
   padding: DefaultPaperPadding,
@@ -269,19 +272,21 @@ export const InBodyPaper = props => {
 /*
 Buttons
 */
-export const AltButton = styled(Button)({
-  background: ColorAlt2,
-  color: ColorDefault,
+export const AltButton = styled(Button)((theme) => ({
+  background: theme.palette.primary.main,
+  color: theme.palette.text.default,
   '&:hover': {
-    background: ColorAlt2
+    background: theme.palette.primary.main
   }
-})
+}))
 
 export const AltCancelButton = props => {
+  const theme = useTheme();
+
   return (
     <Tooltip title="Cancel">
       <IconButton
-        style={{ color: ColorAlt2 }}
+        style={{ color: theme.palette.primary.main }}
         onClick={props.onClick}>
         <ClearIcon />
       </IconButton>
@@ -290,13 +295,15 @@ export const AltCancelButton = props => {
 }
 
 export const AltTextButton = props => {
+  const theme = useTheme();
+
   return (
     <Button
       variant="text"
       size="small"
       onClick={props.onClick}
       style={{
-        color: ColorAlt2,
+        color: theme.palette.primary.main,
         textTransform: "none"
       }}>
       {props.text}
