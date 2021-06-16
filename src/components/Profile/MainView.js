@@ -13,6 +13,7 @@ import {
 } from '../../constants/actionTypes';
 import Dependents from './Dependents';
 import Profile from './Profile';
+import AddressView from './Address';
 
 
 const mapStateToProps = state => ({
@@ -95,7 +96,9 @@ const ProfileMainView = props => {
                 options={props.options}
                 onProfileUpsert={handleOnProfileUpsert}
                 inProgress={props.inProgress} />,
-            1: <Dependents
+            1: <AddressView
+                />,
+            2: <Dependents
                 dependents={props.dependents}
                 dependentRelationships={props.dependentRelationships}
                 handleOnAdd={handleOnDependentAdd}
@@ -125,6 +128,7 @@ const ProfileMainView = props => {
                                     stype={{ padding: 0 }}
                                 >
                                     <AiofVerticalTab label="Profile" />
+                                    <AiofVerticalTab label="Address" />
                                     <AiofVerticalTab label="Dependents" />
                                 </AiofVerticalTabs>
                             </Grid>

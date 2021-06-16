@@ -6,6 +6,7 @@ import {
   PROFILE_UPSERT_USER_PROFILE,
   PROFILE_STEPPER_PAGE_LOADED,
   PROFILE_GET_OPTIONS,
+  PROFILE_UPSERT_ADDRESS,
   USER_DEPENDENTS,
   USER_DEPENDENT_RELATIONSHIPS,
   USER_DEPENDENT_ADD,
@@ -31,16 +32,22 @@ export default (state = {}, action) => {
       if (action.subtype === PROFILE_GET_USER_PROFILE
         || action.subtype === PROFILE_UPSERT_USER_PROFILE
         || action.subtype === PROFILE_GET_OPTIONS) {
-        return { 
-          ...state, 
+        return {
+          ...state,
           inProgress: true
         };
-      } else if (action.subtype === USER_DEPENDENT_RELATIONSHIPS) { return { ...state, inProgressDependentRelationships: true, }
-      } else if (action.subtype === USER_DEPENDENTS) { return { ...state, inProgressDependents: true, }
-      } else if (action.subtype === USER_DEPENDENT_ADD) { return { ...state, inProgressDependentAdd: true, }
-      } else if (action.subtype === USER_DEPENDENT_DELETE) { return { ...state, inProgressDependentDelete: true }
+      } else if (action.subtype === USER_DEPENDENT_RELATIONSHIPS) {
+        return { ...state, inProgressDependentRelationships: true, }
+      } else if (action.subtype === USER_DEPENDENTS) {
+        return { ...state, inProgressDependents: true, }
+      } else if (action.subtype === USER_DEPENDENT_ADD) {
+        return { ...state, inProgressDependentAdd: true, }
+      } else if (action.subtype === USER_DEPENDENT_DELETE) {
+        return { ...state, inProgressDependentDelete: true }
+      } else if (action.subtype === PROFILE_UPSERT_ADDRESS) {
+        return { ...state, inProgressAddressUpsert: true }
       } else {
-        return { 
+        return {
           ...state
         }
       }
@@ -84,6 +91,15 @@ export default (state = {}, action) => {
         ...state,
         dependentDeleted: action.error ? null : true,
         inProgressDependentDelete: false,
+      }
+    case PROFILE_UPSERT_ADDRESS:
+      return {
+        ...state,
+        inProgressAddressUpsert: false,
+        profile: {
+          ...state.profile,
+          physicalAddress: action.payload,
+        }
       }
     default:
       return state;

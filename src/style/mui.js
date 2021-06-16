@@ -272,14 +272,6 @@ export const InBodyPaper = props => {
 /*
 Buttons
 */
-export const AltButton = styled(Button)((theme) => ({
-  background: theme.palette.primary.main,
-  color: theme.palette.text.default,
-  '&:hover': {
-    background: theme.palette.primary.main
-  }
-}))
-
 export const AltCancelButton = props => {
   const theme = useTheme();
 

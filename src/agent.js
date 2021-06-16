@@ -85,6 +85,8 @@ const User = {
     requests.get(`/user/profile`),
   profileUpsert: (payload) =>
     requests.put(`/user/profile`, payload),
+  profilePhysicalAddressUpsert: (payload) =>
+    requests.put(`/user/profile/physical/address`, payload),
   dependents: () =>
     requests.get(`/user/dependents`),
   dependentRelationships: () =>
