@@ -151,7 +151,7 @@ const MonthlyIncomeSpendingChart = props => {
                 </Grid>
 
                 <Grid container>
-                    <Grid item xs={4}>
+                    <Grid item xs={3}>
                         <MonthlyIncomeSpendingChartPaper
                             monthlyIncome={props.monthlyIncome}
                             monthlySpending={props.monthlySpending} />

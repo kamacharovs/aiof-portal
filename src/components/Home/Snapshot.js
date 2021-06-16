@@ -304,7 +304,7 @@ const AssetsAndLiabilitiesChart = props => {
                     </Grid>
 
                     <Grid container>
-                        <Grid item xs={6}>
+                        <Grid item xs>
                             <AssetsAndLiabilitiesTotalChartPaper
                                 assets={props.assets}
                                 liabilities={props.liabilities} />

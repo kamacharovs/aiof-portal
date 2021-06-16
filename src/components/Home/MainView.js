@@ -37,12 +37,12 @@ const MainView = props => {
   return (
     <Container maxWidth="xl">
       <Grid container spacing={1} className={classes.root}>
-        <Grid item xs={4}>
+        <Grid item xs={2}>
           <SnapshotView
             currentUser={props.currentUser} />
         </Grid>
 
-        <Grid item xs={8}>
+        <Grid item xs={10}>
           <Grid container className={classes.root}>
             <BannerView
               currentUser={props.currentUser}
