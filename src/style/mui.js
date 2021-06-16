@@ -2,8 +2,9 @@ import React from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
+import "react-toastify/dist/ReactToastify.css";
 
-import { withStyles, makeStyles, useTheme, createMuiTheme } from '@material-ui/core/styles';
+import { withStyles, makeStyles, useTheme, withTheme, createMuiTheme } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import LinearProgress from '@material-ui/core/LinearProgress';
@@ -63,12 +64,17 @@ export const DefaultPaperFontSize = '.8125rem';
 
 export const theme = createMuiTheme({
   palette: {
+    common: {
+      black: '#000',
+      white: '#fff'
+    },
     primary: {
       main: '#5469d4',
       dark: '#1a1f36',
     },
     secondary: {
       main: '#d6ecff',
+      light: '#00989c',
       dark: '#137a8f',
     },
     error: {
@@ -83,6 +89,11 @@ export const theme = createMuiTheme({
       main: '#697386',
       header: '#3c4257',
       default: '#ffffff',
+      primary: '#000',
+    },
+    background: {
+      paper: '#fff',
+      default: '#fafafa',
     }
   },
   typography: {
@@ -95,13 +106,10 @@ export const theme = createMuiTheme({
       fontWeight: '700',
       lineHeight: '32px',
       marginBottom: '8px',
+    },
+    button: {
+      textTransform: 'none'
     }
-  },
-  h1: {
-    color: '#697386',
-    fontSize: '28px',
-    fontWeight: '700',
-    lineHeight: '32px',
   },
 });
 
@@ -207,13 +215,13 @@ export const AlternateCircularProgress = withStyles({
   }
 })(CircularProgress)
 
-export const AlternateButton = styled(Button)({
-  background: DefaultAlternateColor,
-  color: DefaultWhite,
+export const AlternateButton = withTheme(styled(Button)({
+  background: props => props.theme.palette.secondary.dark,
+  color: props => props.theme.palette.common.white,
   '&:hover': {
-    background: DefaultAlternateColor2
+    background: props => props.theme.palette.secondary.light
   }
-});
+}));
 
 const InPaperInternal = styled(Paper)({
   padding: '1rem',
@@ -463,27 +471,21 @@ export const AltChip = props => {
 /*
 Good old styled
 */
-export const H1Alt6 = styled.h1`
-  color: ${ColorAlt6};
-  font-size: 28px;
-  font-weight: 700;
-  line-height: 32px;
-`;
-export const H5Alt6 = styled.h5`
-  color: ${ColorAlt6};
+export const H5Alt6 = withTheme(styled.h5`
+  color: ${props => props.theme.palette.text.header};
   font-size: 14px;
   font-weight: 550;
   line-height: 20px;
 
   margin-bottom: 6px;
-`;
+`);
 
-export const PAlt7 = styled.p`
-  color: ${ColorAlt7};
+export const PAlt7 = withTheme(styled.p`
+  color: ${props => props.theme.palette.text.main};
   font-size: 12px;
   font-weight: 400;
   line-height: 16px;
-`;
+`);
 
 export const GreenP = styled.p`
    color: green;
@@ -495,10 +497,6 @@ export const RedP = styled.p`
    margin: 0rem;
    padding: 0rem;
 `;
-
-export const test = styled(Paper)({
-
-})
 
 export const CustomHr = styled.hr`
   width: 90%;
@@ -539,24 +537,24 @@ export const H1Preview = styled.h1`
    font-size: 1rem;
    font-weight: 900;
 `;
-export const H1AssetPreview = styled.h1`
+export const H1AssetPreview = withTheme(styled.h1`
    margin: 0 0 8px !important;
    text-transform: uppercase;
    font-size: 1rem;
    font-weight: 900;
-   color: ${ColorAlt4}
-`;
-export const H1LiabilityPreview = styled.h1`
+   color: ${props => props.theme.palette.success.main}
+`);
+export const H1LiabilityPreview = withTheme(styled.h1`
    margin: 0 0 8px !important;
    text-transform: uppercase;
    font-size: 1rem;
    font-weight: 900;
-   color: ${DefaultRedColor}
-`;
+   color: ${props => props.theme.palette.error.main}
+`);
 
 
-export const AltLink = styled(Link)`
-  color: ${ColorAlt2};
+export const AltLink = withTheme(styled(Link)`
+  color: ${props => props.theme.palette.primary.main};
   display: inline-block;
   font-size: 12px;
   font-weight: 550;
@@ -579,7 +577,7 @@ export const AltLink = styled(Link)`
   &.outer {
     display: block;
   }
-`;
+`);
 
 export const CoolLink = styled(Link)`
   margin-bottom: 10px;
@@ -744,9 +742,7 @@ export const ThinText = styled.p`
   font-weight: 100;
 `;
 
-export const AiofToastContainer = styled(ToastContainer).attrs({
-  // custom props
-})`
+export const AiofToastContainer = withTheme(styled(ToastContainer)`
   width: 100%;
   margin: 0px;
   padding: 0px;
@@ -761,12 +757,12 @@ export const AiofToastContainer = styled(ToastContainer).attrs({
     margin: 0px;
   }
   .Toastify__toast--error {
-    background-color: ${DefaultRedColor}
+    background-color: ${props => props.theme.palette.error.main}
   }
   .Toastify__toast--warning {}
   .Toastify__toast--success {
-    background-color: ${DefaultGreenColor}
+    background-color: ${props => props.theme.palette.success.main}
   }
   .Toastify__toast-body {}
   .Toastify__progress-bar {}
-`;
+`);

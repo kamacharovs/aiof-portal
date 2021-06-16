@@ -119,7 +119,7 @@ const AddedTime = props => {
                             </Grid>
 
                             <Grid item xs={12}>
-                                <Button type="submit" variant="contained" color="primary" className={classes.button} >
+                                <Button type="submit" variant="contained" color="primary" >
                                     Calculate
                                 </Button>
                             </Grid>

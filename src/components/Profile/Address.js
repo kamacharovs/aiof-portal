@@ -4,11 +4,10 @@ import { connect } from 'react-redux';
 import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
-import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 
 import { RectSkeleton } from '../Common/Sekeleton';
-import { commonStyles, SquarePaper } from '../../style/mui';
+import { AlternateButton, commonStyles, SquarePaper } from '../../style/mui';
 import { PROFILE_UPSERT_ADDRESS } from '../../constants/actionTypes';
 import agent from '../../agent';
 
@@ -168,13 +167,12 @@ const AddressView = props => {
                         <SquarePaper variant="outlined" square>
                             <Grid container spacing={3}>
                                 <Grid item xs>
-                                    <Button
+                                    <AlternateButton
                                         type="submit"
-                                        color="primary"
-                                        variant="outlined"
+                                        variant="contained"
                                         disabled={!isUpdated}>
                                         Update
-                                    </Button>
+                                    </AlternateButton>
                                 </Grid>
                             </Grid>
                         </SquarePaper>
