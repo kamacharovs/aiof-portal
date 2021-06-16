@@ -1,7 +1,6 @@
 import React from 'react';
 
-import { CoolLink } from '../style/common';
-import { DefaultWhiteColor } from '../style/mui';
+import { DefaultWhiteColor, CoolLink } from '../style/mui';
 
 import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';

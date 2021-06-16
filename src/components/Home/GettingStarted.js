@@ -6,6 +6,7 @@ import { useTheme, makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import IconButton from '@material-ui/core/IconButton';
 import Tooltip from '@material-ui/core/Tooltip';
+import Typography from '@material-ui/core/Typography';
 import ExpandLessIcon from '@material-ui/icons/ExpandLess';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 
@@ -13,9 +14,9 @@ import House from '../../style/icons/House_4.svg';
 import Calculator from '../../style/icons/Calculator.svg';
 import {
     BorderlessSquarePaper, SquarePaper, InBodyPaper,
-    AltCheckCircle, AltClearIcon, AltChip
+    AltCheckCircle, AltClearIcon, AltChip,
+    PAlt7, AltLink, CoolExternalLink 
 } from '../../style/mui';
-import { H1Alt6, PAlt7, AltLink, CoolExternalLink } from '../../style/common';
 import { HOME_GETTING_STARTED_UPDATE } from '../../constants/actionTypes';
 
 
@@ -79,7 +80,7 @@ const GettingStartedView = props => {
                         <SquarePaper variant="outlined" square>
                             <Grid container>
                                 <Grid item xs>
-                                    <H1Alt6>Getting started</H1Alt6>
+                                <Typography variant="h1">Getting started</Typography>
                                 </Grid>
                             </Grid>
 

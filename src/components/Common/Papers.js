@@ -6,8 +6,7 @@ import { Bar, Line } from 'react-chartjs-2';
 
 import { assetSnapshotsAvgByMonth } from '../Common/Functions';
 import { numberWithCommas } from '../Finance/Common';
-import { BorderlessSquarePaper, AltLoader } from '../../style/mui';
-import { H5Alt6, PAlt7, AltLink } from '../../style/common';
+import { BorderlessSquarePaper, AltLoader, H5Alt6, PAlt7, AltLink } from '../../style/mui';
 
 
 const defaultClipSize = "24px";

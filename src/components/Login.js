@@ -12,9 +12,8 @@ import Checkbox from '@material-ui/core/Checkbox';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import LockOpenIcon from '@material-ui/icons/LockOpen';
 
-import { LoginPaper, DefaultRedColor } from '../style/mui';
-import { CoolLink, } from '../style/common';
-import { AiofLoader } from '../components/Common/Loader';
+import { LoginPaper, DefaultRedColor, CoolLink } from '../style/mui';
+import { AiofLoader, } from '../components/Common/Loader';
 import { LOGIN, LOGIN_GET_USER, REFRESH, REDIRECT_HOME, LOGIN_PAGE_UNLOADED } from '../constants/actionTypes';
 
 

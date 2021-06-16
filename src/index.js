@@ -12,6 +12,7 @@ import { ThemeProvider } from '@material-ui/core/styles';
 import App from './components/App';
 import { theme } from './style/mui';
 
+
 ReactDOM.render((
   <Provider store={store}>
     <ConnectedRouter history={history}>

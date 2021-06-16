@@ -5,9 +5,9 @@ import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
+import Typography from '@material-ui/core/Typography';
 
 import { RectSkeleton } from '../Common/Sekeleton';
-import { H1Alt6 } from '../../style/common';
 import { commonStyles, SquarePaper } from '../../style/mui';
 import { PROFILE_UPSERT_ADDRESS } from '../../constants/actionTypes';
 import agent from '../../agent';
@@ -75,7 +75,7 @@ const AddressView = props => {
                         <SquarePaper variant="outlined" square>
                             <Grid container spacing={3}>
                                 <Grid item xs>
-                                    <H1Alt6>Physical address</H1Alt6>
+                                <Typography variant="h1">Physical address</Typography>
                                     <div className={classes.altText}>
                                         {physicalAddress ?
                                             <React.Fragment>

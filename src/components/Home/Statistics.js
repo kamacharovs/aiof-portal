@@ -2,10 +2,10 @@ import React, { useState } from 'react';
 import { connect } from 'react-redux';
 
 import Grid from '@material-ui/core/Grid';
+import Typography from '@material-ui/core/Typography';
 
 import { round, federalTax, stateTax } from '../Common/Functions';
-import { commonStyles, SquarePaper, AltTextButton } from '../../style/mui';
-import { H1Alt6, H5Alt6, PAlt7, AltLink } from '../../style/common';
+import { commonStyles, SquarePaper, AltTextButton, H5Alt6, PAlt7, AltLink  } from '../../style/mui';
 import { MonthlyIncomeSpendingChartPaper } from '../Common/Papers';
 
 
@@ -53,7 +53,7 @@ const StatisticsView = props => {
                         <SquarePaper variant="outlined" square>
                             <Grid container>
                                 <Grid item xs>
-                                    <H1Alt6>Statistics</H1Alt6>
+                                    <Typography variant="h1">Statistics</Typography>
                                 </Grid>
                             </Grid>
                             <Grid container>

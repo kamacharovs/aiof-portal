@@ -3,8 +3,7 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import AppMenu from './AppMenu';
-import { HeaderLink, HeaderRightLink } from '../style/common';
-import { ColorDefault, ColorAlt } from '../style/mui';
+import { ColorDefault, ColorAlt, HeaderLink, HeaderRightLink } from '../style/mui';
 import { LOGOUT } from '../constants/actionTypes';
 
 import { makeStyles } from '@material-ui/core/styles';

@@ -11,8 +11,7 @@ import Grid from '@material-ui/core/Grid';
 import LockOpenIcon from '@material-ui/icons/LockOpen';
 
 import { PasswordRuleChecker } from './Common/PasswordRuleChecker';
-import { LoginPaper } from '../style/mui';
-import { CoolLink } from '../style/common';
+import { LoginPaper, CoolLink } from '../style/mui';
 import { AiofLoader } from '../components/Common/Loader';
 import { REGISTER, REGISTER_PAGE_UNLOADED } from '../constants/actionTypes';
 

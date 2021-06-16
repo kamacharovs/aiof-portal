@@ -5,8 +5,7 @@ import agent from '../../agent';
 
 import { Overview } from './Overview';
 import { Bar } from 'react-chartjs-2';
-import { SquarePaper, InPaper, DefaultRedColor, DefaultGreenColor, DefaultHrColor } from '../../style/mui';
-import { CoolExternalLink, CoolLink } from '../../style/common';
+import { SquarePaper, InPaper, DefaultRedColor, DefaultGreenColor, DefaultHrColor, CoolExternalLink, CoolLink } from '../../style/mui';
 import { RectSkeleton } from '../Common/Sekeleton';
 import House from '../../style/icons/House_4.svg';
 import { numberWithCommas, formatDate } from './Common';

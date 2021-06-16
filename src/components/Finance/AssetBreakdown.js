@@ -13,8 +13,7 @@ import AttachMoneyIcon from '@material-ui/icons/AttachMoney';
 import ArrowUpwardIcon from '@material-ui/icons/ArrowUpward';
 import TrendingUpIcon from '@material-ui/icons/TrendingUp';
 import { numberWithCommas } from '../Finance/Common';
-import { ThinText } from '../../style/common';
-import { SquarePaper, InPaper, AiofLinearProgress, DefaultRedColor, DefaultGreenColor } from '../../style/mui';
+import { SquarePaper, InPaper, AiofLinearProgress, DefaultRedColor, DefaultGreenColor, ThinText } from '../../style/mui';
 import { ASSET_BREAKDOWN, REDIRECT_HOME } from '../../constants/actionTypes';
 
 

@@ -11,13 +11,13 @@ import InputAdornment from '@material-ui/core/InputAdornment';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 import Tooltip from '@material-ui/core/Tooltip';
+import Typography from '@material-ui/core/Typography';
 
 import { isNumber, numberWithCommas } from '../Finance/Common';
 import {
     SquarePaper, AlternateCircularProgress, VerticalTextField, VerticalSelect,
     AlternateButton, DefaultDarkTeal
 } from '../../style/mui';
-import { H1Alt6 } from '../../style/common';
 import { RectSkeleton } from '../Common/Sekeleton';
 
 
@@ -83,7 +83,7 @@ const Dependents = props => {
             || props.inProgressDependentRelationships
             || props.inProgressDependentAdd
             || props.inProgressDependentDelete;
-            
+
         return (
             <React.Fragment>
                 <Container maxWidth="xl">
@@ -107,7 +107,7 @@ const CurrentDependentsOverview = props => {
 
     return (
         <SquarePaper variant="outlined" square>
-            <H1Alt6>{totalDependents} {totalDependents === 1 ? "dependent" : "dependents"}</H1Alt6>
+            <Typography variant="h1">{totalDependents} {totalDependents === 1 ? "dependent" : "dependents"}</Typography>
         </SquarePaper>
     );
 }

@@ -14,13 +14,13 @@ import Checkbox from '@material-ui/core/Checkbox';
 import FormGroup from '@material-ui/core/FormGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Tooltip from '@material-ui/core/Tooltip';
+import Typography from '@material-ui/core/Typography';
 
 import {
     AssetPaper, LiabilityPaper, GoalPaper, DependentPaper,
     AssetsSnapshotsChartPaper, AssetsAndLiabilitiesTotalChartPaper
 } from '../Common/Papers';
-import { SquarePaper, BorderlessSquarePaper, AltCancelButton } from '../../style/mui';
-import { H1Alt6, H5Alt6, PAlt7, AltLink } from '../../style/common';
+import { SquarePaper, BorderlessSquarePaper, AltCancelButton, H5Alt6, PAlt7, AltLink } from '../../style/mui';
 import { FINANCE, ASSETS, HOME_SNAPSHOT_SETTING_UPDATE } from '../../constants/actionTypes';
 
 
@@ -146,7 +146,7 @@ const SnapshotView = props => {
                         <Grid item xs>
                             <Grid container>
                                 <Grid item xs>
-                                    <H1Alt6>Overview</H1Alt6>
+                                    <Typography variant="h1">Overview</Typography>
                                 </Grid>
 
                                 <Grid item xs>

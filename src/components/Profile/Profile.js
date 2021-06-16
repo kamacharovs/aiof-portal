@@ -8,11 +8,11 @@ import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import MenuItem from '@material-ui/core/MenuItem';
 import Select from '@material-ui/core/Select';
+import Typography from '@material-ui/core/Typography';
 import { MuiPickersUtilsProvider, KeyboardDatePicker } from '@material-ui/pickers';
 import DateFnsUtils from '@date-io/date-fns';
 
-import { SquarePaper } from '../../style/mui';
-import { H1Alt6, PAlt7 } from '../../style/common';
+import { SquarePaper, PAlt7 } from '../../style/mui';
 import { RectSkeleton } from '../Common/Sekeleton';
 import { formatDate, getAge } from '../Finance/Common';
 
@@ -141,7 +141,7 @@ const Profile = props => {
                                         ? <RectSkeleton height={100} />
                                         :
                                         <SquarePaper variant="outlined" square>
-                                            <H1Alt6>{props.currentUser.lastName + ", " + props.currentUser.firstName}</H1Alt6>
+                                            <Typography variant="h1">{props.currentUser.lastName + ", " + props.currentUser.firstName}</Typography>
                                             <PAlt7 className={classes.tinyMutedText}>{formatDate(props.currentUser.created)}</PAlt7>
                                             <PAlt7 className={classes.tinyMutedText}>{props.currentUser.email}</PAlt7>
                                             <br />

@@ -11,8 +11,7 @@ import Grid from '@material-ui/core/Grid';
 import InputAdornment from '@material-ui/core/InputAdornment';
 
 import { numberWithCommas } from '../Finance/Common';
-import { AiofLinearProgress, InPaper, SquarePaper, DefaultRedColor, DefaultGreenColor } from '../../style/mui';
-import { ThinText } from '../../style/common';
+import { AiofLinearProgress, InPaper, SquarePaper, DefaultRedColor, DefaultGreenColor, ThinText } from '../../style/mui';
 import { RETIREMENT_PAGE_LOADED, RETIREMENT_COMMON_INVESTMENTS } from '../../constants/actionTypes';
 
 
