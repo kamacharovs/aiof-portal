@@ -29,8 +29,6 @@ import DirectionsRunIcon from '@material-ui/icons/DirectionsRun';
 import BeachAccessIcon from '@material-ui/icons/BeachAccess';
 import MoneyIcon from '@material-ui/icons/Money';
 
-import { ColorAlt } from '../style/mui';
-
 
 const mapStateToProps = state => {
   return {
@@ -47,7 +45,7 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
   },
   button: {
-    color: ColorAlt
+    color: theme.palette.secondary.dark
   },
   drawer: {
     width: drawerWidth,

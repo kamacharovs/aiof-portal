@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles, useTheme } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Container from '@material-ui/core/Container';
 import Avatar from '@material-ui/core/Avatar';
@@ -16,7 +16,7 @@ import Typography from '@material-ui/core/Typography';
 import { isNumber, numberWithCommas } from '../Finance/Common';
 import {
     SquarePaper, AlternateCircularProgress, VerticalTextField, VerticalSelect,
-    AlternateButton, DefaultDarkTeal
+    AlternateButton
 } from '../../style/mui';
 import { RectSkeleton } from '../Common/Sekeleton';
 
@@ -24,7 +24,7 @@ import { RectSkeleton } from '../Common/Sekeleton';
 const useStyles = makeStyles((theme) => ({
     avatar: {
         color: 'white',
-        backgroundColor: DefaultDarkTeal,
+        backgroundColor: theme.palette.secondary.dark,
     },
     deleteIconButton: {
         padding: 0
@@ -113,6 +113,7 @@ const CurrentDependentsOverview = props => {
 }
 
 const DependentView = props => {
+    const theme = useTheme();
     const dependent = props.dependent;
     const inProgressDependents = props.inProgressDependents;
     const inProgressDependentRelationships = props.inProgressDependentRelationships;
@@ -152,7 +153,7 @@ const DependentView = props => {
                                 aria-label="delete"
                                 className={classes.deleteIconButton}
                                 onClick={e => props.onDelete(dependent.id)}>
-                                <DeleteIcon style={{ fontSize: '20', color: DefaultDarkTeal }} />
+                                <DeleteIcon style={{ fontSize: '20', color: theme.palette.secondary.dark }} />
                             </IconButton>
                         </Tooltip>
                     </Grid>

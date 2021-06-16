@@ -13,7 +13,6 @@ import Select from '@material-ui/core/Select';
 import { SquarePaper, AlternateButton, VerticalTextField, VerticalSelect } from '../../../style/mui';
 import { ASSET_TYPES, ASSET_ADD } from '../../../constants/actionTypes';
 import { isNumber } from '../Common';
-import { ColorAlt9 } from '../../../style/mui';
 
 
 const mapStateToProps = state => ({
@@ -37,6 +36,7 @@ const useStyles = makeStyles((theme) => ({
     select: {
         minWidth: 'flex',
     },
+    secondary: theme.palette.secondary.main
 }));
 
 const AddAsset = props => {
@@ -77,7 +77,7 @@ const AddAsset = props => {
     return (
         <React.Fragment>
             <SquarePaper variant="outlined" square>
-                <div style={{ color: ColorAlt9 }}>
+                <div style={{ color: classes.secondary }}>
                     <h3><strong>Add</strong></h3>
                 </div>
 

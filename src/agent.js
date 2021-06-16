@@ -120,6 +120,8 @@ const Asset = {
     requestsAsset.put(`/assets/${id}`, asset),
   delete: (id) =>
     requestsAsset.del(`/assets/${id}`),
+  breakdown: (payload) =>
+    requestsMetadata.post(`/asset/breakdown`, payload),
 }
 
 const Liability = {

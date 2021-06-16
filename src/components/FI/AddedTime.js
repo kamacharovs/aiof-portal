@@ -10,7 +10,7 @@ import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
 import AttachMoneyIcon from '@material-ui/icons/AttachMoney';
 import { numberWithCommas } from '../Finance/Common';
-import { SquarePaper, InPaper, AiofLinearProgress, DefaultRedColor, DefaultGreenColor, ThinText } from '../../style/mui';
+import { SquarePaper, InPaper, AiofLinearProgress, ThinText } from '../../style/mui';
 import { FI_PAGE_LOADED, FI_ADDED_TIME } from '../../constants/actionTypes';
 
 
@@ -43,12 +43,12 @@ const useStyles = makeStyles((theme) => ({
         width: '25ch',
     },
     green: {
-        color: DefaultGreenColor,
+        color: theme.palette.success.main,
         margin: '0rem',
         padding: '0rem'
     },
     red: {
-        color: DefaultRedColor,
+        color: theme.palette.error.main,
         margin: '0rem',
         padding: '0rem'
     },

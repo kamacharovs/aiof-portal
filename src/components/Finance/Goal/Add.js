@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import agent from '../../../agent';
 import 'date-fns';
 
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles, useTheme } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
 import InputAdornment from '@material-ui/core/InputAdornment';
@@ -21,10 +21,7 @@ import WbSunnyOutlinedIcon from '@material-ui/icons/WbSunnyOutlined';
 import DirectionsCarOutlinedIcon from '@material-ui/icons/DirectionsCarOutlined';
 import SchoolOutlinedIcon from '@material-ui/icons/SchoolOutlined';
 
-import {
-    SquarePaper, AlternateButton, VerticalTextField, VerticalSelect,
-    DefaultDarkTeal, DefaultRedColor, DefaultGreenColor
-} from '../../../style/mui';
+import { SquarePaper, AlternateButton, VerticalTextField, VerticalSelect } from '../../../style/mui';
 import { GOAL_TRIP_TYPES, GOAL_COLLEGE_TYPES, GOAL_ADD } from '../../../constants/actionTypes';
 import {
     GENERIC, TRIP, SAVEFORCOLLEGE,
@@ -55,12 +52,12 @@ const useStyles = makeStyles((theme) => ({
         display: 'flex',
     },
     green: {
-        color: DefaultGreenColor,
+        color: theme.palette.success.main,
         margin: '0rem',
         padding: '0rem'
     },
     red: {
-        color: DefaultRedColor,
+        color: theme.palette.error.main,
         margin: '0rem',
         padding: '0rem'
     },
@@ -71,6 +68,7 @@ const useStyles = makeStyles((theme) => ({
 
 const AddGoals = props => {
     const classes = useStyles();
+    const theme = useTheme();
     const size = '70';
     const [showGeneric, setShowGeneric] = useState(true);
     const [showTrip, setShowTrip] = useState(false);
@@ -128,7 +126,7 @@ const AddGoals = props => {
     return (
         <React.Fragment>
             <SquarePaper variant="outlined" square>
-                <div style={{ color: DefaultDarkTeal }}>
+                <div style={{ color: theme.palette.secondary.dark }}>
                     <h3><strong>Add</strong></h3>
                 </div>
                 Pick one of the following goal types to add
@@ -136,28 +134,28 @@ const AddGoals = props => {
                 <Grid container spacing={1} className={classes.root}>
                     <Grid item sm={3}>
                         <GoalPaper text={"Generic"} handleValue={handleShowGeneric}
-                            icon={<MonetizationOnOutlinedIcon style={{ fontSize: size, color: DefaultDarkTeal }} />} />
+                            icon={<MonetizationOnOutlinedIcon style={{ fontSize: size, color: theme.palette.secondary.dark }} />} />
                     </Grid>
 
                     <Grid item sm={3}>
                         <GoalPaper text={"Go on a trip"} handleValue={handleShowTrip}
-                            icon={<WbSunnyOutlinedIcon style={{ fontSize: size, color: DefaultDarkTeal }} />} />
+                            icon={<WbSunnyOutlinedIcon style={{ fontSize: size, color: theme.palette.secondary.dark }} />} />
                     </Grid>
                     
                     <Grid item sm={3}>
                         <GoalPaper text={"Buy a home"} handleValue={handleShowHome}
-                            icon={<HomeOutlinedIcon style={{ fontSize: size, color: DefaultDarkTeal }} />}  />
+                            icon={<HomeOutlinedIcon style={{ fontSize: size, color: theme.palette.secondary.dark }} />}  />
                     </Grid>
 
                     <Grid item sm={3}>
                         <GoalPaper text={"Save for college"} handleValue={handleShowSaveForCollege}
-                            icon={<SchoolOutlinedIcon style={{ fontSize: size, color: DefaultDarkTeal }} />} />
+                            icon={<SchoolOutlinedIcon style={{ fontSize: size, color: theme.palette.secondary.dark }} />} />
                     </Grid>
                 </Grid>
                 <Grid container spacing={1} className={classes.root}>
                     <Grid item sm={3}>
                         <GoalPaper text={"Buy a car"} handleValue={handleShowBuyACar}
-                            icon={<DirectionsCarOutlinedIcon style={{ fontSize: size, color: DefaultDarkTeal }} />}
+                            icon={<DirectionsCarOutlinedIcon style={{ fontSize: size, color: theme.palette.secondary.dark }} />}
                             comingSoon={true} />
                     </Grid>
                 </Grid>
@@ -199,6 +197,8 @@ const AddGoals = props => {
 }
 
 const GoalPaper = ({ text, handleValue, icon, comingSoon }) => {
+    const theme = useTheme();
+
     return (
         <React.Fragment>
             <SquarePaper variant="outlined" square onClick={handleValue}>
@@ -207,7 +207,7 @@ const GoalPaper = ({ text, handleValue, icon, comingSoon }) => {
                         {icon}
                     </Grid>
                     <Grid item sm>
-                        <div style={{ color: DefaultDarkTeal }}>
+                        <div style={{ color: theme.palette.secondary.dark }}>
                             <strong>{comingSoon
                                 ? text.toUpperCase() + " (COMING SOON)"
                                 : text.toUpperCase()}</strong>
@@ -221,6 +221,7 @@ const GoalPaper = ({ text, handleValue, icon, comingSoon }) => {
 
 const AddGenericGoal = props => {
     if (props.showGeneric) {
+        const theme = useTheme();
         const date = new Date();
         const defaultPlannedDate = new Date(date.setMonth(date.getMonth() + 3));
 
@@ -267,7 +268,7 @@ const AddGenericGoal = props => {
                     <form noValidate autoComplete="off" onSubmit={onAdd}>
                         <Grid container spacing={1}>
                             <Grid item sm>
-                                <div style={{ color: DefaultDarkTeal }}>
+                                <div style={{ color: theme.palette.secondary.dark }}>
                                     <h4><strong>Generic</strong></h4>
                                 </div>
                             </Grid>
@@ -387,6 +388,7 @@ const AddGenericGoal = props => {
 const AddTripGoal = props => {
     if (props.showTrip) {
         const classes = useStyles();
+        const theme = useTheme();
         const types = props.goalTripTypes || [];
         const date = new Date();
         const defaultPlannedDate = new Date(date.setMonth(date.getMonth() + 6));
@@ -461,7 +463,7 @@ const AddTripGoal = props => {
                     <form noValidate autoComplete="off" onSubmit={onAdd}>
                         <Grid container spacing={1}>
                             <Grid item sm>
-                                <div style={{ color: DefaultDarkTeal }}>
+                                <div style={{ color: theme.palette.secondary.dark }}>
                                     <h4><strong>Trip</strong></h4>
                                 </div>
                             </Grid>
@@ -667,6 +669,7 @@ const AddTripGoal = props => {
 
 const AddHomeGoal = props => {
     if (props.showBuyAHome) {
+        const theme = useTheme();
         const date = new Date();
         const defaultPlannedDate = new Date(date.setMonth(date.getMonth() + 2 * 12));
 
@@ -725,7 +728,7 @@ const AddHomeGoal = props => {
                     <form noValidate autoComplete="off" onSubmit={onAdd}>
                         <Grid container spacing={1}>
                             <Grid item sm>
-                                <div style={{ color: DefaultDarkTeal }}>
+                                <div style={{ color: theme.palette.secondary.dark }}>
                                     <h4><strong>Save for a home</strong></h4>
                                 </div>
                             </Grid>
@@ -938,6 +941,7 @@ const AddBuyACarGoal = props => {
 const AddSaveForCollege = props => {
     if (props.showSaveForCollege) {
         const classes = useStyles();
+        const theme = useTheme();
         const date = new Date();
         const types = props.goalCollegeTypes || [];
         const defaultPlannedDate = new Date(date.setMonth(date.getMonth() + 8 * 12));
@@ -1003,7 +1007,7 @@ const AddSaveForCollege = props => {
                     <form noValidate autoComplete="off" onSubmit={onAdd}>
                         <Grid container spacing={1}>
                             <Grid item sm>
-                                <div style={{ color: DefaultDarkTeal }}>
+                                <div style={{ color: theme.palette.secondary.dark }}>
                                     <h4><strong>Save for college</strong></h4>
                                 </div>
                             </Grid>

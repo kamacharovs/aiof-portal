@@ -22,46 +22,22 @@ import Tooltip from '@material-ui/core/Tooltip';
 
 
 export const DefaultFont = 'Montserrat';
-export const DefaultColor = '#5cb85c';
-export const DefaultRedColor = "#b21f00";
-export const DefaultGreenColor = 'green';
-export const DefaultWhiteColor = '#fafafa';
-export const DefaultAlternateColor = "#137a8f";
-export const DefaultAlternateColor2 = "#00989c";
-export const DefaultAlternateColor3 = "#22b59b";
-export const DefaultAlternateLinearGradient = "linear-gradient(45deg, #137a8f 90%, #00989c 30%)"
-export const DefaultHrColor = '#ebebeb';
-export const DefaultDarkTeal = '#137a8f';
-export const DefaultWhite = '#ffffff';
-
-/* Color palette
-  Default = White
-  Alt     = Roman Silver
-  Alt2    = Royal Blue Light
-  Alt3    = Beau Blue
-  Alt4    = Green Munsell
-  Alt5    = Oxford Blue
-  Alt6    = Independence
-  Alt7    = Slate Gray
-  Alt8    = International Orange Engineering
-  Alt9    = Metallic Seaweed
-*/
-export const ColorDefault = '#FFFFFF';
-export const ColorAlt = '#8792a2';
-export const ColorAlt2 = '#5469d4';
-export const ColorAlt3 = '#d6ecff';
-export const ColorAlt4 = '#1ea672';
-export const ColorAlt5 = '#1a1f36';
-export const ColorAlt6 = '#3c4257';
-export const ColorAlt7 = '#697386';
-export const ColorAlt8 = '#b21f00';
-export const ColorAlt9 = '#137a8f';
-
 export const DefaultPaperPadding = '1.5rem';
 export const DefaultPaperMargin = '1rem';
 export const DefaultPaperFontSize = '.8125rem';
 
-
+/* Color palette
+  Default = White
+  8792a2     = Roman Silver
+  5469d4    = Royal Blue Light
+  d6ecff    = Beau Blue
+  1ea672    = Green Munsell
+  1a1f36    = Oxford Blue
+  3c4257    = Independence
+  697386    = Slate Gray
+  b21f00    = International Orange Engineering
+  137a8f    = Metallic Seaweed
+*/
 export const theme = createMuiTheme({
   palette: {
     common: {
@@ -87,6 +63,7 @@ export const theme = createMuiTheme({
     },
     text: {
       main: '#697386',
+      alt: '#8792a2',
       header: '#3c4257',
       default: '#ffffff',
       primary: '#000',
@@ -94,11 +71,14 @@ export const theme = createMuiTheme({
     background: {
       paper: '#fff',
       default: '#fafafa',
+    },
+    grey: {
+      hr: '#ebebeb',
     }
   },
   typography: {
     fontFamily: [
-      'Montserrat'
+      DefaultFont
     ].join(','),
     h1: {
       color: '#3c4257',
@@ -193,27 +173,27 @@ export const LoginPaper = styled(Paper)({
   fontSize: '.8125rem'
 });
 
-export const AiofLinearProgress = withStyles({
+export const AiofLinearProgress = withStyles((theme) => ({
   root: {
     width: '100%',
     marginTop: '1rem',
     backgroundColor: 'transparent',
   },
   barColorPrimary: {
-    backgroundColor: DefaultColor
+    backgroundColor: theme.palette.primary.main
   }
-})(LinearProgress)
+}))(LinearProgress)
 
-export const AiofCircularProgress = withStyles({
+export const AiofCircularProgress = withStyles((theme) => ({
   root: {
-    color: DefaultColor
+    color: theme.palette.primary.main
   }
-})(CircularProgress)
-export const AlternateCircularProgress = withStyles({
+}))(CircularProgress)
+export const AlternateCircularProgress = withStyles((theme) => ({
   root: {
-    color: DefaultAlternateColor
+    color: theme.palette.primary.main
   }
-})(CircularProgress)
+}))(CircularProgress)
 
 export const AlternateButton = withTheme(styled(Button)({
   background: props => props.theme.palette.secondary.dark,
@@ -379,29 +359,29 @@ export const VerticalSelect = ({ header, select, required }) => {
 /*
 Tabs
 */
-export const AiofVerticalTabs = withStyles({
+export const AiofVerticalTabs = withStyles((theme) => ({
   root: {
     alignContent: 'left',
     justifyContent: 'left',
   },
   indicator: {
-    backgroundColor: DefaultAlternateColor,
+    backgroundColor: theme.palette.secondary.dark,
   },
-})(Tabs);
+}))(Tabs);
 
 export const AiofVerticalTab = withStyles((theme) => ({
   root: {
     textTransform: 'none',
     '&:hover': {
-      color: DefaultAlternateColor,
+      color: theme.palette.secondary.dark,
       opacity: 1,
     },
     '&$selected': {
-      color: DefaultAlternateColor,
+      color: theme.palette.secondary.dark,
       fontWeight: theme.typography.fontWeightMedium,
     },
     '&:focus': {
-      color: DefaultAlternateColor,
+      color: theme.palette.secondary.dark,
     },
   },
   selected: {},
@@ -412,12 +392,13 @@ export const AiofVerticalTab = withStyles((theme) => ({
 Loaders
 */
 export const AltLoader = props => {
+  const theme = useTheme();
   const defaultSize = 50;
 
   const inProgress = props.inProgress ? props.inProgress : false;
   const size = props.size ? props.size : defaultSize;
   const br = props.br ? props.br : false;
-  const color = props.color ? props.color : ColorAlt2;
+  const color = props.color ? props.color : theme.palette.primary.main;
 
   return (
     <div className="sweet-loading">
@@ -436,20 +417,22 @@ export const AltLoader = props => {
 Icons
 */
 export const AltCheckCircle = props => {
+  const theme = useTheme();
   const size = props.size ? props.size : 20;
 
   return (
     <CheckCircleIcon
-      style={{ color: ColorAlt4, fontSize: size }} />
+      style={{ color: theme.palette.success.main, fontSize: size }} />
   );
 }
 
 export const AltClearIcon = props => {
+  const theme = useTheme();
   const size = props.size ? props.size : 20;
 
   return (
     <ClearIcon
-      style={{ color: ColorAlt8, fontSize: size }} />
+      style={{ color: theme.palette.error.main, fontSize: size }} />
   );
 }
 
@@ -646,12 +629,12 @@ export const CoolExternalLink = styled.a`
   }
 `;
 
-export const HeaderLink = styled(Link)`
+export const HeaderLink = withTheme(styled(Link)`
   font-family: titillium web,sans-serif;
   font-size: 1.5rem !important;
   padding-top: 0 !important;
   margin-right: 2rem !important;
-  color: ${ColorAlt} !important;
+  color: ${props => props.theme.palette.text.alt} !important;
   padding-bottom: 0rem;
   line-height: inherit;
   white-space: nowrap;
@@ -665,10 +648,10 @@ export const HeaderLink = styled(Link)`
   &:focus, &:visited, &:link, &:active {
     text-decoration: none;
   }
-`;
-export const HeaderRightLink = styled(HeaderLink)`
+`);
+export const HeaderRightLink = withTheme(styled(HeaderLink)`
   font-size: 1.25rem !important;
-`;
+`);
 
 export const RoundBorderBox = styled.div`
   background: #fff;
@@ -712,8 +695,8 @@ export const TinyPadding = styled.div`
   padding: 0.25rem;
 `;
 
-export const AiofBannerImage = styled.div`
-  background-color: ${ColorAlt4};
+export const AiofBannerImage = withTheme(styled.div`
+  background-color: ${props => props.theme.palette.success.main};
   position: absolute;
   top: 0;
   left: 0;
@@ -721,9 +704,9 @@ export const AiofBannerImage = styled.div`
   height: 128px;
   z-index: 1;
   text-align: left;
-`;
-export const AiofBanner = styled.div`
-  background-color: ${ColorAlt4};
+`);
+export const AiofBanner = withTheme(styled.div`
+  background-color: ${props => props.theme.palette.success.main};
   padding: 3rem;
   padding-top: 10rem;
   margin-bottom: 1rem;
@@ -736,7 +719,7 @@ export const AiofBanner = styled.div`
   right: 0;
   height: 300px;
   z-index: 2;
-`;
+`);
 
 export const ThinText = styled.p`
   font-weight: 100;

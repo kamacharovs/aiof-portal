@@ -6,18 +6,16 @@ import Zoom from '@material-ui/core/Zoom';
 import CheckIcon from '@material-ui/icons/Check';
 import CloseIcon from '@material-ui/icons/Close';
 
-import { DefaultGreenColor, DefaultRedColor } from '../../style/mui';
-
 
 const timeout = 750;
 const useStyles = makeStyles((theme) => ({
     green: {
-        color: DefaultGreenColor,
+        color: theme.palette.success.main,
         margin: '0rem',
         padding: '0rem'
     },
     red: {
-        color: DefaultRedColor,
+        color: theme.palette.error.main,
         margin: '0rem',
         padding: '0rem'
     },

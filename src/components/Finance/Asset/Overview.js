@@ -1,13 +1,17 @@
 import React from 'react';
 
-import { SquarePaper, DefaultAlternateColor } from '../../../style/mui';
+import { useTheme } from '@material-ui/core/styles';
+
+import { SquarePaper } from '../../../style/mui';
 
 
 const AssetOverview = props => {
+    const theme = useTheme();
+
     return (
         <React.Fragment>
             <SquarePaper variant="outlined" square>
-                <div style={{ color: DefaultAlternateColor }}>
+                <div style={{ color: theme.palette.secondary.dark }}>
                     <h2><strong>Assets</strong></h2>
                 </div>
                 <p>

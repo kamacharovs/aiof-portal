@@ -5,7 +5,7 @@ import agent from '../../agent';
 
 import { Overview } from './Overview';
 import { Bar } from 'react-chartjs-2';
-import { SquarePaper, InPaper, DefaultRedColor, DefaultGreenColor, DefaultHrColor, CoolExternalLink, CoolLink } from '../../style/mui';
+import { SquarePaper, InPaper, CoolExternalLink, CoolLink } from '../../style/mui';
 import { RectSkeleton } from '../Common/Sekeleton';
 import House from '../../style/icons/House_4.svg';
 import { numberWithCommas, formatDate } from './Common';
@@ -63,16 +63,16 @@ const useStyles = makeStyles((theme) => ({
     hr: {
         borderTop: '1px solid',
         marginTop: '0.25rem',
-        color: DefaultHrColor,
+        color: theme.palette.grey.hr,
         opacity: '90%'
     },
     green: {
-        color: DefaultGreenColor,
+        color: theme.palette.success.main,
         margin: '0rem',
         padding: '0rem'
     },
     red: {
-        color: DefaultRedColor,
+        color: theme.palette.error.main,
         margin: '0rem',
         padding: '0rem'
     }

@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import AppMenu from './AppMenu';
-import { ColorDefault, ColorAlt, HeaderLink, HeaderRightLink } from '../style/mui';
+import { HeaderLink, HeaderRightLink } from '../style/mui';
 import { LOGOUT } from '../constants/actionTypes';
 
 import { makeStyles } from '@material-ui/core/styles';
@@ -25,13 +25,13 @@ const useStyles = makeStyles((theme) => ({
         marginBottom: '3.25rem'
     },
     header: {
-        backgroundColor: ColorDefault
+        backgroundColor: theme.palette.background.paper,
     },
     app: {
         flexGrow: 1
     },
     userButton: {
-        color: ColorAlt,
+        color: theme.palette.secondary.dark,
         textTransform: 'capitalize',
     },
 }));
