@@ -144,8 +144,8 @@ const MonthlyIncomeSpendingChart = props => {
                         <PAlt7>
                             This chart shows your total monthly income versus your total monthly spending
                             <br /><br />
-                            Be sure to update your <AltLink to={"/profile"}>profile</AltLink> gross salary
-                            and your <AltLink to={"/finance"}>liabilities</AltLink> in order to effectively leverage this chart
+                            Be sure to update your <AltLink to={"/profile"}>profile</AltLink> gross salary and physical address,
+                            as well as your <AltLink to={"/finance"}>liabilities</AltLink> in order to effectively leverage this chart
                         </PAlt7>
                     </Grid>
                 </Grid>

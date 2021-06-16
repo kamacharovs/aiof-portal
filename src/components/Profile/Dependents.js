@@ -17,6 +17,7 @@ import {
     SquarePaper, AlternateCircularProgress, VerticalTextField, VerticalSelect,
     AlternateButton, DefaultDarkTeal
 } from '../../style/mui';
+import { H1Alt6 } from '../../style/common';
 import { RectSkeleton } from '../Common/Sekeleton';
 
 
@@ -106,7 +107,7 @@ const CurrentDependentsOverview = props => {
 
     return (
         <SquarePaper variant="outlined" square>
-            <h3>{totalDependents} {totalDependents === 1 ? "dependent" : "dependents"}</h3>
+            <H1Alt6>{totalDependents} {totalDependents === 1 ? "dependent" : "dependents"}</H1Alt6>
         </SquarePaper>
     );
 }

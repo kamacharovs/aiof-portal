@@ -161,7 +161,8 @@ const ProfileCheckmark = props => {
             && profile.occupation !== null
             && (profile.grossSalary !== null && profile.grossSalary !== 0)
             && profile.educationLevel !== null
-            && profile.residentialStatus !== null;
+            && profile.residentialStatus !== null
+            && profile.physicalAddress !== null;
 
         return (
             <BorderlessSquarePaper variant="outlined" square>
@@ -204,6 +205,7 @@ const ProfileCheckmark = props => {
                         <CheckmarkDynamic fieldValue={profile.grossSalary} fieldName={"Gross salary"} />
                         <CheckmarkDynamic fieldValue={profile.educationLevel} fieldName={"Education level"} />
                         <CheckmarkDynamic fieldValue={profile.residentialStatus} fieldName={"Residential status"} />
+                        <CheckmarkDynamic fieldValue={profile.physicalAddress} fieldName={"Physical address"} />
                     </React.Fragment>
                     : null}
             </BorderlessSquarePaper>

@@ -12,6 +12,7 @@ import { MuiPickersUtilsProvider, KeyboardDatePicker } from '@material-ui/picker
 import DateFnsUtils from '@date-io/date-fns';
 
 import { SquarePaper } from '../../style/mui';
+import { H1Alt6, PAlt7 } from '../../style/common';
 import { RectSkeleton } from '../Common/Sekeleton';
 import { formatDate, getAge } from '../Finance/Common';
 
@@ -140,13 +141,13 @@ const Profile = props => {
                                         ? <RectSkeleton height={100} />
                                         :
                                         <SquarePaper variant="outlined" square>
-                                            <h3>{props.currentUser.lastName + ", " + props.currentUser.firstName}</h3>
-                                            <p className={classes.tinyMutedText}>{formatDate(props.currentUser.created)}</p>
-                                            <p className={classes.tinyMutedText}>{props.currentUser.email}</p>
+                                            <H1Alt6>{props.currentUser.lastName + ", " + props.currentUser.firstName}</H1Alt6>
+                                            <PAlt7 className={classes.tinyMutedText}>{formatDate(props.currentUser.created)}</PAlt7>
+                                            <PAlt7 className={classes.tinyMutedText}>{props.currentUser.email}</PAlt7>
                                             <br />
-                                            <p className={classes.mutedText}>
+                                            <PAlt7>
                                                 Tell us about yourself so we can improve the financial advice we provide
-                                            </p>
+                                            </PAlt7>
                                         </SquarePaper>
                                 }
                             </Grid>
