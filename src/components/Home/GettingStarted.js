@@ -25,6 +25,8 @@ const mapStateToProps = state => ({
     ...state.finance,
     ...state.home,
     profile: state.finance.profile,
+    inProgress: state.finance.inProgress,
+    inProgressAssets: state.finance.inProgressAssets,
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -52,6 +54,22 @@ const GettingStartedView = props => {
         const [showAddAssets, setShowAddAssets] = useState();
         const [showAddLiabilities, setShowAddLiabilities] = useState();
         const [showAddGoals, setShowAddGoals] = useState();
+        
+        var inProgress = props.inProgress;
+        var inProgressAssets = props.inProgressAssets;
+        var profile = props.profile;
+        var profileComplete = false;
+        
+        useEffect(() => {
+            if (profile) {
+                profileComplete = profile.gender !== null
+                    && profile.occupation !== null
+                    && (profile.grossSalary !== null && profile.grossSalary !== 0)
+                    && profile.educationLevel !== null
+                    && profile.residentialStatus !== null
+                    && profile.physicalAddress !== null;
+            }
+        }, [profile])
 
         const defaultShow = true;
 
@@ -86,7 +104,8 @@ const GettingStartedView = props => {
                             <Grid container>
                                 <Grid item xs>
                                     <ProfileCheckmark
-                                        profile={props.profile}
+                                        inProgress={inProgress}
+                                        profile={profile}
                                         showUpdateProfile={showUpdateProfile}
                                         showName={"showUpdateProfile"}
                                         setShowUpdateProfile={setShowUpdateProfile}
@@ -97,6 +116,7 @@ const GettingStartedView = props => {
                             <Grid container>
                                 <Grid item xs>
                                     <Assets
+                                        inProgress={inProgress && inProgressAssets}
                                         assets={props.assets}
                                         showAddAssets={showAddAssets}
                                         showName={"showAddAssets"}
@@ -108,6 +128,7 @@ const GettingStartedView = props => {
                             <Grid container>
                                 <Grid item xs>
                                     <Liabilities
+                                        inProgress={inProgress}
                                         liabilities={props.liabilities}
                                         showAddLiabilities={showAddLiabilities}
                                         showName={"showAddLiabilities"}
@@ -119,6 +140,7 @@ const GettingStartedView = props => {
                             <Grid container>
                                 <Grid item xs>
                                     <Goals
+                                        inProgress={inProgress}
                                         goals={props.goalsBase}
                                         showAddGoals={showAddGoals}
                                         showName={"showAddGoals"}
@@ -169,8 +191,8 @@ const ProfileCheckmark = props => {
                     <Grid item xs>
                         <div className={classes.heading}>
                             <AltLink to={"/profile"}>Update your profile {profileComplete === false
-                                ? <IncompleteChip />
-                                : <CompletedChip />
+                                ? <IncompleteChip inProgress={props.inProgress} />
+                                : <CompletedChip inProgress={props.inProgress} />
                             }</AltLink>
                         </div>
                     </Grid>
@@ -295,8 +317,8 @@ const Assets = props => {
                 <Grid item xs>
                     <div className={classes.heading}>
                         <AltLink to={"/finance/assets"}>Add assets {assetsComplete === false
-                            ? <IncompleteChip />
-                            : <CompletedChip />
+                            ? <IncompleteChip inProgress={props.inProgress} />
+                            : <CompletedChip inProgress={props.inProgress} />
                         }</AltLink>
                     </div>
                 </Grid>
@@ -351,8 +373,8 @@ const Liabilities = props => {
                 <Grid item xs>
                     <div className={classes.heading}>
                         <AltLink to={"/finance"}>Add liabilities {liabilitiesComplete === false
-                            ? <IncompleteChip />
-                            : <CompletedChip />
+                            ? <IncompleteChip inProgress={props.inProgress} />
+                            : <CompletedChip inProgress={props.inProgress} />
                         }</AltLink>
                     </div>
                 </Grid>
@@ -404,8 +426,8 @@ const Goals = props => {
                 <Grid item xs>
                     <div className={classes.heading}>
                         <AltLink to={"/finance/goals"}>Add goals {goalsComplete === false
-                            ? <IncompleteChip />
-                            : <CompletedChip />
+                            ? <IncompleteChip inProgress={props.inProgress} />
+                            : <CompletedChip inProgress={props.inProgress} />
                         }</AltLink>
                     </div>
                 </Grid>
