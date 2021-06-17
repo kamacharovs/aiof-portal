@@ -10,8 +10,7 @@ export const CompletedChip = () => {
     return (
         <BaseChip
             label={"Completed"}
-            color={theme.palette.success.main}
-        />
+            color={theme.palette.success.main} />
     );
 }
 
@@ -21,8 +20,7 @@ export const IncompleteChip = () => {
     return (
         <BaseChip
             label={"Incomplete"}
-            color={theme.palette.error.main}
-        />
+            color={theme.palette.error.main} />
     );
 }
 
