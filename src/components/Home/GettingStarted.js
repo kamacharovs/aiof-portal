@@ -58,23 +58,20 @@ const GettingStartedView = props => {
         var inProgress = props.inProgress;
         var inProgressAssets = props.inProgressAssets;
         var profile = props.profile;
-        var profileComplete = false;
-        
-        useEffect(() => {
-            if (profile) {
-                profileComplete = profile.gender !== null
-                    && profile.occupation !== null
-                    && (profile.grossSalary !== null && profile.grossSalary !== 0)
-                    && profile.educationLevel !== null
-                    && profile.residentialStatus !== null
-                    && profile.physicalAddress !== null;
-            }
-        }, [profile])
+        var profileComplete = profile
+            ? profile.gender !== null
+                && profile.occupation !== null
+                && (profile.grossSalary !== null && profile.grossSalary !== 0)
+                && profile.educationLevel !== null
+                && profile.residentialStatus !== null
+                && profile.physicalAddress !== null
+            : false;
 
         const defaultShow = true;
+        const defaultShowUpdateProfile = !profileComplete;
 
         useEffect(() => {
-            const stateShowUpdateProfile = props.settings ? (props.settings.showUpdateProfile === false ? props.settings.showUpdateProfile : defaultShow) : defaultShow;
+            const stateShowUpdateProfile = props.settings ? (props.settings.showUpdateProfile === true ? props.settings.showUpdateProfile : defaultShowUpdateProfile) : defaultShowUpdateProfile;
             const stateShowAddAssets = props.settings ? (props.settings.showAddAssets === false ? props.settings.showAddAssets : defaultShow) : defaultShow;
             const stateShowAddLiabilities = props.settings ? (props.settings.showAddLiabilities === false ? props.settings.showAddLiabilities : defaultShow) : defaultShow;
             const stateShowAddGoals = props.settings ? (props.settings.showAddGoals === false ? props.settings.showAddGoals : defaultShow) : defaultShow;
