@@ -17,7 +17,6 @@ import Tab from '@material-ui/core/Tab';
 import ClipLoader from "react-spinners/ClipLoader";
 import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 import ClearIcon from '@material-ui/icons/Clear';
-import Chip from '@material-ui/core/Chip';
 import Tooltip from '@material-ui/core/Tooltip';
 
 
@@ -433,20 +432,6 @@ export const AltClearIcon = props => {
   return (
     <ClearIcon
       style={{ color: theme.palette.error.main, fontSize: size }} />
-  );
-}
-
-
-/*
-Chips
-*/
-export const AltChip = props => {
-  return (
-    <Chip
-      size="small"
-      label={props.label}
-      color="primary"
-      style={{ backgroundColor: props.color }} />
   );
 }
 

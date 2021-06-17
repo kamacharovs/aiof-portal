@@ -14,9 +14,10 @@ import House from '../../style/icons/House_4.svg';
 import Calculator from '../../style/icons/Calculator.svg';
 import {
     BorderlessSquarePaper, SquarePaper, InBodyPaper,
-    AltCheckCircle, AltClearIcon, AltChip,
+    AltCheckCircle, AltClearIcon,
     PAlt7, AltLink, CoolExternalLink 
 } from '../../style/mui';
+import { CompletedChip, IncompleteChip } from '../../style/chips';
 import { HOME_GETTING_STARTED_UPDATE } from '../../constants/actionTypes';
 
 
@@ -31,8 +32,6 @@ const mapDispatchToProps = dispatch => ({
         dispatch({ type: HOME_GETTING_STARTED_UPDATE, field, value }),
 });
 
-const completedLabel = "Completed";
-const incompleteLabel = "Incomplete";
 const useStyles = makeStyles((theme) => ({
     root: {
         display: 'flex',
@@ -153,7 +152,6 @@ const GettingStartedView = props => {
 
 const ProfileCheckmark = props => {
     const classes = useStyles();
-    const theme = useTheme();
 
     const profile = props.profile;
 
@@ -171,8 +169,8 @@ const ProfileCheckmark = props => {
                     <Grid item xs>
                         <div className={classes.heading}>
                             <AltLink to={"/profile"}>Update your profile {profileComplete === false
-                                ? <AltChip label={incompleteLabel} color={theme.palette.error.main} />
-                                : <AltChip label={completedLabel} color={theme.palette.success.main} />
+                                ? <IncompleteChip />
+                                : <CompletedChip />
                             }</AltLink>
                         </div>
                     </Grid>
@@ -285,7 +283,6 @@ const Housing = props => {
 
 const Assets = props => {
     const classes = useStyles();
-    const theme = useTheme();
 
     const assets = props.assets ? props.assets : [];
     const assetsLength = assets.length;
@@ -298,8 +295,8 @@ const Assets = props => {
                 <Grid item xs>
                     <div className={classes.heading}>
                         <AltLink to={"/finance/assets"}>Add assets {assetsComplete === false
-                            ? <AltChip label={incompleteLabel} color={theme.palette.error.main} />
-                            : <AltChip label={completedLabel} color={theme.palette.success.main} />
+                            ? <IncompleteChip />
+                            : <CompletedChip />
                         }</AltLink>
                     </div>
                 </Grid>
@@ -342,7 +339,6 @@ const Assets = props => {
 
 const Liabilities = props => {
     const classes = useStyles();
-    const theme = useTheme();
 
     const liabilities = props.liabilities ? props.liabilities : [];
     const liabilitiesLength = liabilities.length;
@@ -355,8 +351,8 @@ const Liabilities = props => {
                 <Grid item xs>
                     <div className={classes.heading}>
                         <AltLink to={"/finance"}>Add liabilities {liabilitiesComplete === false
-                            ? <AltChip label={incompleteLabel} color={theme.palette.error.main} />
-                            : <AltChip label={completedLabel} color={theme.palette.success.main} />
+                            ? <IncompleteChip />
+                            : <CompletedChip />
                         }</AltLink>
                     </div>
                 </Grid>
@@ -396,7 +392,6 @@ const Liabilities = props => {
 
 const Goals = props => {
     const classes = useStyles();
-    const theme = useTheme();
 
     const goals = props.goals ? props.goals : [];
     const goalsLength = goals.length;
@@ -409,8 +404,8 @@ const Goals = props => {
                 <Grid item xs>
                     <div className={classes.heading}>
                         <AltLink to={"/finance/goals"}>Add goals {goalsComplete === false
-                            ? <AltChip label={incompleteLabel} color={theme.palette.error.main} />
-                            : <AltChip label={completedLabel} color={theme.palette.success.main} />
+                            ? <IncompleteChip />
+                            : <CompletedChip />
                         }</AltLink>
                     </div>
                 </Grid>
