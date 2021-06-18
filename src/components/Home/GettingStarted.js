@@ -55,10 +55,11 @@ const GettingStartedView = props => {
         const [showAddLiabilities, setShowAddLiabilities] = useState();
         const [showAddGoals, setShowAddGoals] = useState();
         
-        var inProgress = props.inProgress;
-        var inProgressAssets = props.inProgressAssets;
-        var profile = props.profile;
-        var profileComplete = profile
+        const inProgress = props.inProgress;
+        const inProgressAssets = props.inProgressAssets;
+
+        const profile = props.profile;
+        const profileComplete = profile
             ? profile.gender !== null
                 && profile.occupation !== null
                 && (profile.grossSalary !== null && profile.grossSalary !== 0)
@@ -67,14 +68,31 @@ const GettingStartedView = props => {
                 && profile.physicalAddress !== null
             : false;
 
-        const defaultShow = true;
+        const assets = props.assets || [];
+        const assetsLength = assets.length;
+        const assetsMinimum = config.gettingStartedMinimumAssets;
+        const assetsComplete = assetsLength >= assetsMinimum;
+
+        const liabilities = props.liabilities || [];
+        const liabilitiesLength = liabilities.length;
+        const liabilitiesMinimum = config.gettingStartedMinimumLiabilities;
+        const liabilitiesComplete = liabilitiesLength >= liabilitiesMinimum;
+
+        const goals = props.goalsBase || [];
+        const goalsLength = goals.length;
+        const goalsMinimum = config.gettingStartedMinimumGoals;
+        const goalsComplete = goalsLength >= goalsMinimum;
+
         const defaultShowUpdateProfile = !profileComplete;
+        const defaultShowAddAssets = !assetsComplete;
+        const defaultShowAddLiabilities = !liabilitiesComplete;
+        const defaultShowAddGoals = !goalsComplete;
 
         useEffect(() => {
-            const stateShowUpdateProfile = props.settings ? (props.settings.showUpdateProfile === true ? props.settings.showUpdateProfile : defaultShowUpdateProfile) : defaultShowUpdateProfile;
-            const stateShowAddAssets = props.settings ? (props.settings.showAddAssets === false ? props.settings.showAddAssets : defaultShow) : defaultShow;
-            const stateShowAddLiabilities = props.settings ? (props.settings.showAddLiabilities === false ? props.settings.showAddLiabilities : defaultShow) : defaultShow;
-            const stateShowAddGoals = props.settings ? (props.settings.showAddGoals === false ? props.settings.showAddGoals : defaultShow) : defaultShow;
+            const stateShowUpdateProfile = props.settings ? (props.settings.showUpdateProfile ? props.settings.showUpdateProfile : defaultShowUpdateProfile) : defaultShowUpdateProfile;
+            const stateShowAddAssets = props.settings ? (props.settings.showAddAssets ? props.settings.showAddAssets : defaultShowAddAssets) : defaultShowAddAssets;
+            const stateShowAddLiabilities = props.settings ? (props.settings.showAddLiabilities ? props.settings.showAddLiabilities : defaultShowAddLiabilities) : defaultShowAddLiabilities;
+            const stateShowAddGoals = props.settings ? (props.settings.showAddGoals ? props.settings.showAddGoals : defaultShowAddGoals) : defaultShowAddGoals;
 
             setShowUpdateProfile(stateShowUpdateProfile);
             setShowAddAssets(stateShowAddAssets);
@@ -103,6 +121,7 @@ const GettingStartedView = props => {
                                     <ProfileCheckmark
                                         inProgress={inProgress}
                                         profile={profile}
+                                        profileComplete={profileComplete}
                                         showUpdateProfile={showUpdateProfile}
                                         showName={"showUpdateProfile"}
                                         setShowUpdateProfile={setShowUpdateProfile}
@@ -115,6 +134,8 @@ const GettingStartedView = props => {
                                     <Assets
                                         inProgress={inProgress && inProgressAssets}
                                         assets={props.assets}
+                                        assetsComplete={assetsComplete}
+                                        assetsMinimum={assetsMinimum}
                                         showAddAssets={showAddAssets}
                                         showName={"showAddAssets"}
                                         setShowAddAssets={setShowAddAssets}
@@ -127,6 +148,8 @@ const GettingStartedView = props => {
                                     <Liabilities
                                         inProgress={inProgress}
                                         liabilities={props.liabilities}
+                                        liabilitiesComplete={liabilitiesComplete}
+                                        liabilitiesMinimum={liabilitiesMinimum}
                                         showAddLiabilities={showAddLiabilities}
                                         showName={"showAddLiabilities"}
                                         setShowAddLiabilities={setShowAddLiabilities}
@@ -139,6 +162,8 @@ const GettingStartedView = props => {
                                     <Goals
                                         inProgress={inProgress}
                                         goals={props.goalsBase}
+                                        goalsComplete={goalsComplete}
+                                        goalsMinimum={goalsMinimum}
                                         showAddGoals={showAddGoals}
                                         showName={"showAddGoals"}
                                         setShowAddGoals={setShowAddGoals}
@@ -175,12 +200,7 @@ const ProfileCheckmark = props => {
     const profile = props.profile;
 
     if (profile) {
-        const profileComplete = profile.gender !== null
-            && profile.occupation !== null
-            && (profile.grossSalary !== null && profile.grossSalary !== 0)
-            && profile.educationLevel !== null
-            && profile.residentialStatus !== null
-            && profile.physicalAddress !== null;
+        const profileComplete = props.profileComplete;
 
         return (
             <BorderlessSquarePaper variant="outlined" square>
@@ -303,10 +323,8 @@ const Housing = props => {
 const Assets = props => {
     const classes = useStyles();
 
-    const assets = props.assets ? props.assets : [];
-    const assetsLength = assets.length;
-    const assetsMinimum = config.gettingStartedMinimumAssets;
-    const assetsComplete = assetsLength >= assetsMinimum;
+    const assetsMinimum = props.assetsMinimum;
+    const assetsComplete = props.assetsComplete;
 
     return (
         <BorderlessSquarePaper variant="outlined" square>
@@ -359,10 +377,8 @@ const Assets = props => {
 const Liabilities = props => {
     const classes = useStyles();
 
-    const liabilities = props.liabilities ? props.liabilities : [];
-    const liabilitiesLength = liabilities.length;
-    const liabilitiesMinimum = config.gettingStartedMinimumLiabilities;
-    const liabilitiesComplete = liabilitiesLength >= liabilitiesMinimum;
+    const liabilitiesMinimum = props.liabilitiesMinimum;
+    const liabilitiesComplete = props.liabilitiesComplete;
 
     return (
         <BorderlessSquarePaper variant="outlined" square>
@@ -412,10 +428,8 @@ const Liabilities = props => {
 const Goals = props => {
     const classes = useStyles();
 
-    const goals = props.goals ? props.goals : [];
-    const goalsLength = goals.length;
-    const goalsMinimum = config.gettingStartedMinimumGoals;
-    const goalsComplete = goalsLength >= goalsMinimum;
+    const goalsMinimum = props.goalsMinimum;
+    const goalsComplete = props.goalsComplete;
 
     return (
         <BorderlessSquarePaper variant="outlined" square>
