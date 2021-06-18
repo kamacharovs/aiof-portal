@@ -57,6 +57,7 @@ const GettingStartedView = props => {
         
         const inProgress = props.inProgress;
         const inProgressAssets = props.inProgressAssets;
+        const settings = props.settings;
 
         const profile = props.profile;
         const profileComplete = profile
@@ -82,28 +83,26 @@ const GettingStartedView = props => {
         const goalsLength = goals.length;
         const goalsMinimum = config.gettingStartedMinimumGoals;
         const goalsComplete = goalsLength >= goalsMinimum;
-
-        const defaultShowUpdateProfile = !profileComplete;
-        const defaultShowAddAssets = !assetsComplete;
-        const defaultShowAddLiabilities = !liabilitiesComplete;
-        const defaultShowAddGoals = !goalsComplete;
-
-        useEffect(() => {
-            const stateShowUpdateProfile = props.settings ? (props.settings.showUpdateProfile ? props.settings.showUpdateProfile : defaultShowUpdateProfile) : defaultShowUpdateProfile;
-            const stateShowAddAssets = props.settings ? (props.settings.showAddAssets ? props.settings.showAddAssets : defaultShowAddAssets) : defaultShowAddAssets;
-            const stateShowAddLiabilities = props.settings ? (props.settings.showAddLiabilities ? props.settings.showAddLiabilities : defaultShowAddLiabilities) : defaultShowAddLiabilities;
-            const stateShowAddGoals = props.settings ? (props.settings.showAddGoals ? props.settings.showAddGoals : defaultShowAddGoals) : defaultShowAddGoals;
-
-            setShowUpdateProfile(stateShowUpdateProfile);
-            setShowAddAssets(stateShowAddAssets);
-            setShowAddLiabilities(stateShowAddLiabilities);
-            setShowAddGoals(stateShowAddGoals);
-        }, []);
-
+        
         const handleSetShow = (showName, showValue, setShow) => {
             setShow(showValue);
             props.onGettingStartedShowUpdate(showName, showValue);
         }
+
+        useEffect(() => {
+            var stateShowUpdateProfile = getShow(inProgress, settings, "showUpdateProfile", profileComplete);
+            var stateShowAddLiabilities = getShow(inProgress, settings, "showAddLiabilities", liabilitiesComplete);
+            var stateShowAddGoals = getShow(inProgress, settings, "showAddGoals", goalsComplete);
+
+            setShowUpdateProfile(stateShowUpdateProfile);
+            setShowAddLiabilities(stateShowAddLiabilities);
+            setShowAddGoals(stateShowAddGoals);
+        }, [props.inProgress]);
+        
+        useEffect(() => {
+            var stateShowAddAssets = getShow(inProgressAssets, settings, "showAddAssets", assetsComplete);    
+            setShowAddAssets(stateShowAddAssets);
+        }, [props.inProgressAssets])
 
         return (
             <React.Fragment>
@@ -502,6 +501,14 @@ const ShowDynamic = props => {
             </IconButton>
         </Tooltip>
     );
+}
+
+function getShow(inProgress, settings, area, areaComplete) {
+    if (inProgress === true || inProgress === undefined) { return false; }
+    else if (settings && settings[area] !== null) { return settings[area]; }
+    else {
+        return !areaComplete;
+    }
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(GettingStartedView);
