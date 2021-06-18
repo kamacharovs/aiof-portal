@@ -1,8 +1,9 @@
 import React from 'react';
+import { Bar, Line } from 'react-chartjs-2';
 
 import { useTheme, makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
-import { Bar, Line } from 'react-chartjs-2';
+import Typography from '@material-ui/core/Typography';
 
 import { assetSnapshotsAvgByMonth } from '../Common/Functions';
 import { numberWithCommas } from '../Finance/Common';
@@ -228,7 +229,7 @@ export const DependentPaper = props => {
                         ? <AltLoader
                             inProgress={props.inProgress}
                             size={defaultClipSize} />
-                        : total
+                        : <Typography variant="h3">{total}</Typography>
                     }
                 </Grid>
                 <Grid item xs>

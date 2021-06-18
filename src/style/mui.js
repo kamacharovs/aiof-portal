@@ -86,6 +86,13 @@ export const theme = createMuiTheme({
       lineHeight: '32px',
       marginBottom: '8px',
     },
+    h3: {
+      color: '#3c4257',
+      fontSize: '18px',
+      fontWeight: '400',
+      lineHeight: '32px',
+      marginBottom: '0',
+    },
     button: {
       textTransform: 'none'
     }
