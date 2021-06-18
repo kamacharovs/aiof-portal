@@ -462,6 +462,15 @@ export const PAlt7 = withTheme(styled.p`
   line-height: 16px;
 `);
 
+export const SecondaryDarkh2 = withTheme(styled.h2`
+  color: ${props => props.theme.palette.secondary.dark};
+  font-weight: 700;
+`);
+export const SecondaryDarkh3 = withTheme(styled.h3`
+  color: ${props => props.theme.palette.secondary.dark};
+  font-weight: 700;
+`);
+
 export const GreenP = styled.p`
    color: green;
    margin: 0rem;

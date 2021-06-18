@@ -1,19 +1,13 @@
 import React from 'react';
 
-import { useTheme } from '@material-ui/core/styles';
-
-import { SquarePaper } from '../../../style/mui';
+import { SquarePaper, SecondaryDarkh2 } from '../../../style/mui';
 
 
 const AssetOverview = props => {
-    const theme = useTheme();
-
     return (
         <React.Fragment>
             <SquarePaper variant="outlined" square>
-                <div style={{ color: theme.palette.secondary.dark }}>
-                    <h2><strong>Assets</strong></h2>
-                </div>
+                <SecondaryDarkh2>Assets</SecondaryDarkh2>
                 <p>
                     A financial asset is a liquid asset that gets its value from a contractual right or ownership claim.
                     Cash, stocks, bonds, mutual funds, and bank deposits are all are examples of financial assets.

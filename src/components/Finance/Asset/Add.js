@@ -10,7 +10,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 
-import { SquarePaper, AlternateButton, VerticalTextField, VerticalSelect } from '../../../style/mui';
+import { SquarePaper, AlternateButton, VerticalTextField, VerticalSelect, SecondaryDarkh3 } from '../../../style/mui';
 import { ASSET_TYPES, ASSET_ADD } from '../../../constants/actionTypes';
 import { isNumber } from '../Common';
 
@@ -35,8 +35,7 @@ const useStyles = makeStyles((theme) => ({
     },
     select: {
         minWidth: 'flex',
-    },
-    secondary: theme.palette.secondary.main
+    }
 }));
 
 const AddAsset = props => {
@@ -77,9 +76,7 @@ const AddAsset = props => {
     return (
         <React.Fragment>
             <SquarePaper variant="outlined" square>
-                <div style={{ color: classes.secondary }}>
-                    <h3><strong>Add</strong></h3>
-                </div>
+                <SecondaryDarkh3>Add</SecondaryDarkh3>
 
                 <form noValidate autoComplete="off" onSubmit={onAdd}>
                     <Grid container spacing={3}>
