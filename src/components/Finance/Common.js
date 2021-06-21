@@ -8,7 +8,8 @@ export const formatDate = (dateString) => {
 }
 
 export const isNumber = value => {
-  return /^-?\d+$/.test(value);
+  if (!value) { return false; }
+  return !isNaN(value);
 }
 
 export function getAge(dateString) {
