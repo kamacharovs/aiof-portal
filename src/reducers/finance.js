@@ -55,8 +55,7 @@ export default (state = {}, action) => {
       if (action.subtype === ASSET_BREAKDOWN
         || action.subtype === FINANCE
         || action.subtype === FINANCE_PAGE_LOADED
-        || action.subtype === LIABILITY_ADD
-        || action.subtype === ANALYTICS_ANALYZE) {
+        || action.subtype === LIABILITY_ADD) {
         return { 
           ...state,
           inProgress: true
@@ -71,7 +70,8 @@ export default (state = {}, action) => {
       } else if (action.subtype === GOAL_TRIP_TYPES) { return { ...state, inProgressGoalTripTypes: true, }
       } else if (action.subtype === GOAL_COLLEGE_TYPES) { return { ...state, inProgressGoalCollegeTypes: true }
       } else if (action.subtype === GOAL_ADD) { return { ...state, inProgressAddGoal: true, }
-      } else if (action.subtype === GOAL_DELETE) { return { ...state, inProgressDeleteGoal: true, }}
+      } else if (action.subtype === GOAL_DELETE) { return { ...state, inProgressDeleteGoal: true, }
+      } else if (action.subtype === ANALYTICS_ANALYZE) { return { ...state, inProgressAnalyticsAnalyze: true }}
       else {
         return { 
           ...state 
@@ -159,7 +159,7 @@ export default (state = {}, action) => {
     case ANALYTICS_ANALYZE:
       return {
         ...state,
-        inProgress: false,
+        inProgressAnalyticsAnalyze: false,
         analyze: action.error ? null : action.payload
       }
     default:

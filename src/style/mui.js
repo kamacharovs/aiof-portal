@@ -93,6 +93,12 @@ export const theme = createMuiTheme({
       lineHeight: '32px',
       marginBottom: '0',
     },
+    body1: {
+      color: '#697386',
+      fontSize: '12px',
+      fontWeight: '400',
+      lineHeight: '16px',
+    },
     button: {
       textTransform: 'none'
     }
@@ -101,6 +107,16 @@ export const theme = createMuiTheme({
 
 
 export const commonStyles = makeStyles((theme) => ({
+  green: {
+    color: theme.palette.success.main,
+    margin: '0rem',
+    padding: '0rem'
+  },
+  red: {
+    color: theme.palette.error.main,
+    margin: '0rem',
+    padding: '0rem'
+  },
   p: {
     margin: '0rem',
     padding: '0rem',

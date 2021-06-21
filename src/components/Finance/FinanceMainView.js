@@ -4,11 +4,11 @@ import { Helmet } from 'react-helmet';
 import agent from '../../agent';
 
 import { Overview } from './Overview';
-import { SquarePaper, InPaper, CoolExternalLink, CoolLink } from '../../style/mui';
+import { SquarePaper, CoolExternalLink, CoolLink } from '../../style/mui';
 import { RectSkeleton } from '../Common/Sekeleton';
 import House from '../../style/icons/House_4.svg';
 import { numberWithCommas, formatDate } from './Common';
-import { FINANCE_PAGE_LOADED, ANALYTICS_ANALYZE, UTILITY_USEFUL_DOCUMENTATION_BY_PAGE } from '../../constants/actionTypes';
+import { FINANCE_PAGE_LOADED, UTILITY_USEFUL_DOCUMENTATION_BY_PAGE } from '../../constants/actionTypes';
 import { GOAL_TYPE_MAPPING } from '../../constants/goals';
 
 import PropTypes from 'prop-types';
@@ -40,8 +40,6 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
     onLoad: () =>
         dispatch({ type: FINANCE_PAGE_LOADED, payload: agent.User.get() }),
-    onAnalyze: (assets, liabilities) =>
-        dispatch({ type: ANALYTICS_ANALYZE, payload: agent.Analytics.analyze({ assets, liabilities }) }),
     onUsefulDocumentations: () =>
         dispatch({ type: UTILITY_USEFUL_DOCUMENTATION_BY_PAGE, payload: agent.Utility.usefulDocumentationByPage("finance") }),
 });
@@ -535,74 +533,6 @@ LiabilityAddDialog.propTypes = {
     open: PropTypes.bool.isRequired,
 };
 
-const AnalyzeView = props => {
-    const classes = useStyles();
-
-    return (
-        <React.Fragment>
-            <h4>
-                <strong>Analytics</strong>
-            </h4>
-
-            {props.analyze ?
-                <React.Fragment>
-                    <Grid container spacing={1}>
-                        <Grid item xs={4}>
-                            <InPaper
-                                title={"Assets total"}
-                                body={<div className={classes.green}>${numberWithCommas(props.analyze.assetsTotal)}</div>} />
-                        </Grid>
-
-                        <Grid item xs={4}>
-                            <InPaper
-                                title={"Liabilities total"}
-                                body={<div className={classes.red}>${numberWithCommas(props.analyze.liabilitiesTotal)}</div>} />
-                        </Grid>
-
-                        <Grid item xs={4}>
-                            <InPaper
-                                title={"Assets to liabilities difference"}
-                                body={props.analyze.analytics.diff > 0
-                                    ? <div className={classes.green}>${numberWithCommas(props.analyze.analytics.diff)}</div>
-                                    : <div className={classes.red}>${numberWithCommas(props.analyze.analytics.diff)}</div>} />
-                        </Grid>
-
-
-                    </Grid>
-
-                    <Grid container spacing={1}>
-                        {props.analyze.analytics.cashToCcRatio === null && props.analyze.analytics.ccToCashRatio === null
-                            ? null
-                            : <Grid item xs={4}>
-                                <InPaper
-                                    title={
-                                        props.analyze.analytics.cashToCcRatio !== null
-                                            ? "Cash to credit card ratio"
-                                            : "Credit card to cash ratio"
-                                    }
-                                    body={
-                                        props.analyze.analytics.cashToCcRatio !== null
-                                            ? props.analyze.analytics.cashToCcRatio + "%"
-                                            : props.analyze.analytics.ccToCashRatio + "%"
-                                    } />
-                            </Grid>
-                        }
-
-                        {props.analyze.analytics.debtToIncomeRatio === null || Number(props.analyze.analytics.debtToIncomeRatio) === 0
-                            ? null
-                            : <Grid item xs={4}>
-                                <InPaper
-                                    title={"Debt to income ratio"}
-                                    body={numberWithCommas(props.analyze.analytics.debtToIncomeRatio * 100) + "%"} />
-                            </Grid>
-                        }
-                    </Grid>
-                </React.Fragment>
-                : "Please add more information in order to run Analytics. Such as at least one Asset and Liability"}
-        </React.Fragment>
-    );
-}
-
 const UsefulDocumentation = props => {
     const docs = props.usefulDocumentations ? props.usefulDocumentations : [];
 
@@ -641,13 +571,6 @@ const FinanceMainView = props => {
             props.onUsefulDocumentations();
         }
     }, []);
-    useEffect(() => {
-        if (props.currentUser && props.finance) {
-            if (props.finance.assetsBase && props.finance.liabilities) {
-                props.onAnalyze(props.finance.assetsBase, props.finance.liabilities);
-            }
-        }
-    }, [props.finance.assetsBase, props.finance.liabilities]);
 
     return (
         <React.Fragment>
@@ -693,18 +616,6 @@ const FinanceMainView = props => {
                                                 goals={props.goalsBase}
                                                 subscriptions={props.subscriptions}
                                                 onLoad={props.onLoad} />
-                                    }
-                                </Grid>
-                            </Grid>
-
-                            <Grid container spacing={3} className={classes.root}>
-                                <Grid item xs>
-                                    {
-                                        props.inProgress
-                                            ? <RectSkeleton />
-                                            : <SquarePaper variant="outlined" square>
-                                                <AnalyzeView analyze={props.analyze} />
-                                            </SquarePaper>
                                     }
                                 </Grid>
                             </Grid>

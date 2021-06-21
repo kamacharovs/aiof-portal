@@ -9,6 +9,7 @@ import BannerView from './Banner';
 import SnapshotView from './Snapshot';
 import GettingStartedView from './GettingStarted';
 import StatisticsView from './Statistics';
+import AnalyzeView from './Analyze';
 
 
 const mapStateToProps = state => ({
@@ -17,6 +18,7 @@ const mapStateToProps = state => ({
   appName: state.common.appName,
   appFullName: state.common.appFullName,
   currentUser: state.common.currentUser,
+  profile: state.finance.profile,
   assets: state.finance.assets,
   liabilities: state.finance.liabilities,
   goals: state.finance.goalsBase,
@@ -61,6 +63,13 @@ const MainView = props => {
               currentUser={props.currentUser}
               assets={props.assets}
               liabilities={props.liabilities} />
+          </Grid>
+
+          <Grid container>
+            <AnalyzeView
+              assets={props.assets}
+              liabilities={props.liabilities}
+              grossSalary={props.profile ? props.profile.grossSalary : null} />
           </Grid>
         </Grid>
       </Grid>
