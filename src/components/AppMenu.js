@@ -45,7 +45,7 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
   },
   button: {
-    color: theme.palette.secondary.dark
+    color: theme.palette.text.alt
   },
   drawer: {
     width: drawerWidth,

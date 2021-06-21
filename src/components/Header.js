@@ -31,7 +31,7 @@ const useStyles = makeStyles((theme) => ({
         flexGrow: 1
     },
     userButton: {
-        color: theme.palette.secondary.dark,
+        color: theme.palette.text.alt,
         textTransform: 'capitalize',
     },
 }));
@@ -95,7 +95,11 @@ const ProfileMenu = props => {
 
     return (
         <React.Fragment>
-            <Button className={classes.userButton} aria-controls="user-menu" aria-haspopup="true" onClick={handleClick}>
+            <Button 
+                className={classes.userButton} 
+                aria-controls="user-menu" 
+                aria-haspopup="true" 
+                onClick={handleClick}>
                 {props.lastName}, {props.firstName} <ExpandMore />
             </Button>
             <Menu
