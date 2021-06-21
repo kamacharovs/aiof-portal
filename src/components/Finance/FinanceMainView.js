@@ -4,7 +4,6 @@ import { Helmet } from 'react-helmet';
 import agent from '../../agent';
 
 import { Overview } from './Overview';
-import { Bar } from 'react-chartjs-2';
 import { SquarePaper, InPaper, CoolExternalLink, CoolLink } from '../../style/mui';
 import { RectSkeleton } from '../Common/Sekeleton';
 import House from '../../style/icons/House_4.svg';
@@ -439,74 +438,6 @@ const SubscriptionsPreview = props => {
     }
 }
 
-const AssetsLiabilitiesChart = props => {
-    const assets = props.assets ? props.assets : [];
-    const liabilities = props.liabilities ? props.liabilities : [];
-
-    if ((!assets && assets.length === 0)
-        || (!liabilities && liabilities.length === 0)) {
-        return null;
-    }
-
-    const title = 'Assets vs. Liabilities';
-    const assetsSum = props.totalAssets
-        ? props.totalAssets
-        : assets.map(a => a.value)
-            .reduce((sum, current) => sum + current, 0);
-    const liabilitiesSum = props.totalLiabilities
-        ? props.totalLiabilities
-        : liabilities.map(a => a.value)
-            .reduce((sum, current) => sum + current, 0);
-
-    const state = {
-        labels: [],
-        datasets: [
-            {
-                label: 'Assets',
-                backgroundColor: '#2FDE00',
-                hoverBackgroundColor: '#2FDE00',
-                data: [assetsSum]
-            },
-            {
-                label: 'Liabilities',
-                backgroundColor: '#B21F00',
-                hoverBackgroundColor: '#B21F00',
-                data: [liabilitiesSum]
-            }
-        ]
-    }
-    const options = {
-        title: {
-            display: true,
-            text: title,
-            fontSize: 20
-        },
-        scales: {
-            xAxes: [
-                {
-                    ticks: {
-                        beginAtZero: true,
-                    },
-                },
-            ],
-            yAxes: [
-                {
-                    ticks: {
-                        beginAtZero: true,
-                    },
-                },
-            ]
-        }
-    }
-
-    return (
-        <Bar
-            data={state || []}
-            options={options}
-        />
-    );
-}
-
 const MainTabs = props => {
     const [value, setValue] = React.useState(0);
 
@@ -762,20 +693,6 @@ const FinanceMainView = props => {
                                                 goals={props.goalsBase}
                                                 subscriptions={props.subscriptions}
                                                 onLoad={props.onLoad} />
-                                    }
-                                </Grid>
-                            </Grid>
-
-                            <Grid container spacing={3} className={classes.root}>
-                                <Grid item xs>
-                                    {
-                                        props.inProgress
-                                            ? <RectSkeleton height={400} />
-                                            : <SquarePaper variant="outlined" square>
-                                                <AssetsLiabilitiesChart
-                                                    assets={props.assetsBase}
-                                                    liabilities={props.liabilities} />
-                                            </SquarePaper>
                                     }
                                 </Grid>
                             </Grid>
