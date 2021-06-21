@@ -4,7 +4,6 @@ import 'date-fns';
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Container from '@material-ui/core/Container';
-import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import MenuItem from '@material-ui/core/MenuItem';
 import Select from '@material-ui/core/Select';
@@ -12,7 +11,7 @@ import Typography from '@material-ui/core/Typography';
 import { MuiPickersUtilsProvider, KeyboardDatePicker } from '@material-ui/pickers';
 import DateFnsUtils from '@date-io/date-fns';
 
-import { SquarePaper, PAlt7 } from '../../style/mui';
+import { SquarePaper, AlternateButton, PAlt7 } from '../../style/mui';
 import { RectSkeleton } from '../Common/Sekeleton';
 import { formatDate, getAge } from '../Finance/Common';
 
@@ -437,9 +436,12 @@ const Profile = props => {
                                         <SquarePaper variant="outlined" square>
                                             <Grid container spacing={2} className={classes.root}>
                                                 <Grid item xs={6}>
-                                                    <Button variant="outlined" color="primary" disabled={!isUpdated} onClick={handleUpdate}>
+                                                    <AlternateButton 
+                                                        variant="contained" 
+                                                        disabled={!isUpdated} 
+                                                        onClick={handleUpdate}>
                                                         Update
-                                                    </Button>
+                                                    </AlternateButton>
                                                 </Grid>
 
                                                 <Grid item xs={6}>
