@@ -5,8 +5,8 @@ import agent from '../../agent';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 
-import { SquarePaper, PAlt7, InPaper, commonStyles } from '../../style/mui';
-import { numberWithCommas, formatDate } from '../Finance/Common';
+import { SquarePaper, TextMain, InPaper, commonStyles } from '../../style/mui';
+import { numberWithCommas } from '../Finance/Common';
 import { ANALYTICS_ANALYZE } from '../../constants/actionTypes';
 
 
@@ -60,74 +60,89 @@ const AnalyzeView = props => {
 
                             <Grid container spacing={1}>
                                 <Grid item xs>
-                                    <Typography variant="body1">
+                                    <TextMain>
                                         Look at your analytics about you current <b>Assets</b> and <b>Liabilities</b>.
-                                        This includes some common financial benefits such as debt to income ratio.
-                                    </Typography>
+                                        This includes some common financial benefits such as debt to income ratio, credit card
+                                        debt to income ratio, and more.
+                                    </TextMain>
                                 </Grid>
                             </Grid>
 
                             {analyze ?
-                                <React.Fragment>
-                                    <Grid container spacing={1}>
-                                        <Grid item xs={4}>
-                                            <InPaper
-                                                title={"Assets total"}
-                                                body={<div className={classes.green}>${numberWithCommas(analyze.assetsTotal)}</div>} />
-                                        </Grid>
-
-                                        <Grid item xs={4}>
-                                            <InPaper
-                                                title={"Liabilities total"}
-                                                body={<div className={classes.red}>${numberWithCommas(analyze.liabilitiesTotal)}</div>} />
-                                        </Grid>
-
-                                        <Grid item xs={4}>
-                                            <InPaper
-                                                title={"Assets to liabilities difference"}
-                                                body={analytics.diff > 0
-                                                    ? <div className={classes.green}>${numberWithCommas(analytics.diff)}</div>
-                                                    : <div className={classes.red}>${numberWithCommas(analytics.diff)}</div>} />
-                                        </Grid>
-
-
+                                <Grid container spacing={1}>
+                                    <Grid item xs>
+                                        <InPaper
+                                            title={"Assets to liabilities difference"}
+                                            body={analytics.diff > 0
+                                                ? <div className={classes.green}>${numberWithCommas(analytics.diff)}</div>
+                                                : <div className={classes.red}>${numberWithCommas(analytics.diff)}</div>} />
                                     </Grid>
 
-                                    <Grid container spacing={1}>
-                                        {analytics.cashToCcRatio === null && analytics.ccToCashRatio === null
-                                            ? null
-                                            : <Grid item xs={4}>
-                                                <InPaper
-                                                    title={
-                                                        analytics.cashToCcRatio !== null
-                                                            ? "Cash to credit card ratio"
-                                                            : "Credit card to cash ratio"
-                                                    }
-                                                    body={
-                                                        analytics.cashToCcRatio !== null
-                                                            ? analytics.cashToCcRatio + "%"
-                                                            : analytics.ccToCashRatio + "%"
-                                                    } />
-                                            </Grid>
-                                        }
+                                    {analytics.debtToIncomeRatio === null || Number(analytics.debtToIncomeRatio) === 0
+                                        ? null
+                                        : <Grid item xs>
+                                            <RatioAnalyze
+                                                title={"Debt to income ratio"}
+                                                ratio={analytics.debtToIncomeRatio} />
+                                        </Grid>
+                                    }
 
-                                        {analytics.debtToIncomeRatio === null || Number(analytics.debtToIncomeRatio) === 0
-                                            ? null
-                                            : <Grid item xs={4}>
-                                                <InPaper
-                                                    title={"Debt to income ratio"}
-                                                    body={numberWithCommas(analytics.debtToIncomeRatio) + "%"} />
-                                            </Grid>
-                                        }
-                                    </Grid>
-                                </React.Fragment>
-                                : <PAlt7>
+                                    {analytics.cashToCcRatio === null && analytics.ccToCashRatio === null
+                                        ? null
+                                        : <Grid item xs>
+                                            <RatioAnalyze
+                                                title={
+                                                    analytics.cashToCcRatio !== null
+                                                        ? "Cash to credit card ratio"
+                                                        : "Credit card to cash ratio"
+                                                }
+                                                ratio={
+                                                    analytics.cashToCcRatio !== null
+                                                        ? analytics.cashToCcRatio
+                                                        : analytics.ccToCashRatio
+                                                } />
+                                        </Grid>
+                                    }
+                                </Grid>
+
+                                : <TextMain>
                                     Please add more information in order to run Analytics. Such as at least one Asset and Liability
-                                </PAlt7>}
+                                </TextMain>}
                         </SquarePaper>
                     </Grid>
                 </Grid>
             </React.Fragment>
+        );
+    } else {
+        return null;
+    }
+}
+
+const RatioAnalyze = props => {
+    const ratio = props.ratio;
+
+    if (ratio) {
+        const classes = commonStyles();
+        const low = ratio >= 0 && ratio <= 35;
+        const middle = ratio > 35 && ratio <= 49;
+        const high = ratio > 49 && ratio <= 100;
+
+        const title = props.title;
+        const value = numberWithCommas(ratio) + "%";
+        var color = classes.green;
+
+        if (low) {
+            color = classes.green;
+        } else if (middle) {
+            color = classes.warning;
+        } else if (high) {
+            color = classes.red;
+        }
+
+        return (
+            <InPaper
+                title={title}
+                body={<div className={color}>{value}</div>} />
         );
     } else {
         return null;

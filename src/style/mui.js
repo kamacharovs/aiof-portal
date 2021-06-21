@@ -93,7 +93,7 @@ export const theme = createMuiTheme({
       lineHeight: '32px',
       marginBottom: '0',
     },
-    body1: {
+    body3: {
       color: '#697386',
       fontSize: '12px',
       fontWeight: '400',
@@ -114,6 +114,11 @@ export const commonStyles = makeStyles((theme) => ({
   },
   red: {
     color: theme.palette.error.main,
+    margin: '0rem',
+    padding: '0rem'
+  },
+  warning: {
+    color: theme.palette.error.light,
     margin: '0rem',
     padding: '0rem'
   },
@@ -241,9 +246,7 @@ export const InPaper = props => {
       <InPaperInternal variant="outlined" square>
         <Grid container spacing={1}>
           <Grid item xs>
-            <div>
               {props.title}
-            </div>
           </Grid>
         </Grid>
 
@@ -472,6 +475,13 @@ export const H5Alt6 = withTheme(styled.h5`
 `);
 
 export const PAlt7 = withTheme(styled.p`
+  color: ${props => props.theme.palette.text.main};
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 16px;
+`);
+
+export const TextMain = withTheme(styled.p`
   color: ${props => props.theme.palette.text.main};
   font-size: 12px;
   font-weight: 400;
