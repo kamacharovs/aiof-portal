@@ -15,7 +15,7 @@ import Calculator from '../../style/icons/Calculator.svg';
 import {
     BorderlessSquarePaper, SquarePaper, InBodyPaper,
     AltCheckCircle, AltClearIcon,
-    PAlt7, AltLink, CoolExternalLink 
+    PAlt7, AltLink, CoolExternalLink
 } from '../../style/mui';
 import { CompletedChip, IncompleteChip } from '../../style/chips';
 import { HOME_GETTING_STARTED_UPDATE } from '../../constants/actionTypes';
@@ -54,7 +54,7 @@ const GettingStartedView = props => {
         const [showAddAssets, setShowAddAssets] = useState();
         const [showAddLiabilities, setShowAddLiabilities] = useState();
         const [showAddGoals, setShowAddGoals] = useState();
-        
+
         const inProgress = props.inProgress;
         const inProgressAssets = props.inProgressAssets;
         const settings = props.settings;
@@ -62,11 +62,11 @@ const GettingStartedView = props => {
         const profile = props.profile;
         const profileComplete = profile
             ? profile.gender !== null
-                && profile.occupation !== null
-                && (profile.grossSalary !== null && profile.grossSalary !== 0)
-                && profile.educationLevel !== null
-                && profile.residentialStatus !== null
-                && profile.physicalAddress !== null
+            && profile.occupation !== null
+            && (profile.grossSalary !== null && profile.grossSalary !== 0)
+            && profile.educationLevel !== null
+            && profile.residentialStatus !== null
+            && profile.physicalAddress !== null
             : false;
 
         const assets = props.assets || [];
@@ -83,7 +83,7 @@ const GettingStartedView = props => {
         const goalsLength = goals.length;
         const goalsMinimum = config.gettingStartedMinimumGoals;
         const goalsComplete = goalsLength >= goalsMinimum;
-        
+
         const handleSetShow = (showName, showValue, setShow) => {
             setShow(showValue);
             props.onGettingStartedShowUpdate(showName, showValue);
@@ -98,9 +98,9 @@ const GettingStartedView = props => {
             setShowAddLiabilities(stateShowAddLiabilities);
             setShowAddGoals(stateShowAddGoals);
         }, [props.inProgress]);
-        
+
         useEffect(() => {
-            var stateShowAddAssets = getShow(inProgressAssets, settings, "showAddAssets", assetsComplete);    
+            var stateShowAddAssets = getShow(inProgressAssets, settings, "showAddAssets", assetsComplete);
             setShowAddAssets(stateShowAddAssets);
         }, [props.inProgressAssets])
 
@@ -111,7 +111,7 @@ const GettingStartedView = props => {
                         <SquarePaper variant="outlined" square>
                             <Grid container>
                                 <Grid item xs>
-                                <Typography variant="h1">Getting started</Typography>
+                                    <Typography variant="h1">Getting started</Typography>
                                 </Grid>
                             </Grid>
 
@@ -197,59 +197,54 @@ const ProfileCheckmark = props => {
     const classes = useStyles();
 
     const profile = props.profile;
+    const profileComplete = props.profileComplete;
 
-    if (profile) {
-        const profileComplete = props.profileComplete;
-
-        return (
-            <BorderlessSquarePaper variant="outlined" square>
-                <Grid container spacing={0}>
-                    <Grid item xs>
-                        <div className={classes.heading}>
-                            <AltLink to={"/profile"}>Update your profile {profileComplete === false
-                                ? <IncompleteChip inProgress={props.inProgress} />
-                                : <CompletedChip inProgress={props.inProgress} />
-                            }</AltLink>
-                        </div>
-                    </Grid>
-
-                    <Grid item xs>
-                        <Grid container justify="flex-end">
-                            <ShowDynamic
-                                show={props.showUpdateProfile}
-                                showName={props.showName}
-                                setShow={props.setShowUpdateProfile}
-                                handleSetShow={props.handleSetShow} />
-                        </Grid>
-                    </Grid>
+    return (
+        <BorderlessSquarePaper variant="outlined" square>
+            <Grid container spacing={0}>
+                <Grid item xs>
+                    <div className={classes.heading}>
+                        <AltLink to={"/profile"}>Update your profile {profileComplete === false
+                            ? <IncompleteChip inProgress={props.inProgress} />
+                            : <CompletedChip inProgress={props.inProgress} />
+                        }</AltLink>
+                    </div>
                 </Grid>
 
-                {props.showUpdateProfile
-                    ? <React.Fragment>
-                        <Grid container spacing={0}>
-                            <Grid item xs>
-                                <br />
-                                <PAlt7>
-                                    Filling out your finanial profile will help us get a better understanding of your financial state and
-                                    will enhance the accuracy of your results and recommendations. You can find your profile under your name
-                                    on the top right corner or by clicking on the header above
-                                </PAlt7>
-                            </Grid>
-                        </Grid>
+                <Grid item xs>
+                    <Grid container justify="flex-end">
+                        <ShowDynamic
+                            show={props.showUpdateProfile}
+                            showName={props.showName}
+                            setShow={props.setShowUpdateProfile}
+                            handleSetShow={props.handleSetShow} />
+                    </Grid>
+                </Grid>
+            </Grid>
 
-                        <CheckmarkDynamic fieldValue={profile.gender} fieldName={"Gender"} />
-                        <CheckmarkDynamic fieldValue={profile.occupation} fieldName={"Occupation"} />
-                        <CheckmarkDynamic fieldValue={profile.grossSalary} fieldName={"Gross salary"} />
-                        <CheckmarkDynamic fieldValue={profile.educationLevel} fieldName={"Education level"} />
-                        <CheckmarkDynamic fieldValue={profile.residentialStatus} fieldName={"Residential status"} />
-                        <CheckmarkDynamic fieldValue={profile.physicalAddress} fieldName={"Physical address"} />
-                    </React.Fragment>
-                    : null}
-            </BorderlessSquarePaper>
-        );
-    } else {
-        return null;
-    }
+            {props.showUpdateProfile
+                ? <React.Fragment>
+                    <Grid container spacing={0}>
+                        <Grid item xs>
+                            <br />
+                            <PAlt7>
+                                Filling out your finanial profile will help us get a better understanding of your financial state and
+                                will enhance the accuracy of your results and recommendations. You can find your profile under your name
+                                on the top right corner or by clicking on the header above
+                            </PAlt7>
+                        </Grid>
+                    </Grid>
+
+                    <CheckmarkDynamic fieldValue={profile.gender} fieldName={"Gender"} />
+                    <CheckmarkDynamic fieldValue={profile.occupation} fieldName={"Occupation"} />
+                    <CheckmarkDynamic fieldValue={profile.grossSalary} fieldName={"Gross salary"} />
+                    <CheckmarkDynamic fieldValue={profile.educationLevel} fieldName={"Education level"} />
+                    <CheckmarkDynamic fieldValue={profile.residentialStatus} fieldName={"Residential status"} />
+                    <CheckmarkDynamic fieldValue={profile.physicalAddress} fieldName={"Physical address"} />
+                </React.Fragment>
+                : null}
+        </BorderlessSquarePaper>
+    );
 }
 
 const FinancialIndependence = props => {
