@@ -69,42 +69,57 @@ const AnalyzeView = props => {
                             </Grid>
 
                             {analyze ?
-                                <Grid container spacing={1}>
-                                    <Grid item xs>
-                                        <InPaper
-                                            title={"Assets to liabilities difference"}
-                                            body={analytics.diff > 0
-                                                ? <div className={classes.green}>${numberWithCommas(analytics.diff)}</div>
-                                                : <div className={classes.red}>${numberWithCommas(analytics.diff)}</div>} />
+                                <React.Fragment>
+                                    <Grid container spacing={1}>
+                                        <Grid item xs>
+                                            <InPaper
+                                                title={"Assets mean"}
+                                                body={<div className={classes.green}>${numberWithCommas(analyze.assetsMean)}</div>} />
+                                        </Grid>
+
+                                        <Grid item xs>
+                                            <InPaper
+                                                title={"Liabilities mean"}
+                                                body={<div className={classes.red}>${numberWithCommas(analyze.liabilitiesMean)}</div>} />
+                                        </Grid>
                                     </Grid>
 
-                                    {analytics.debtToIncomeRatio === null || Number(analytics.debtToIncomeRatio) === 0
-                                        ? null
-                                        : <Grid item xs>
-                                            <RatioAnalyze
-                                                title={"Debt to income ratio"}
-                                                ratio={analytics.debtToIncomeRatio} />
+                                    <Grid container spacing={1}>
+                                        <Grid item xs>
+                                            <InPaper
+                                                title={"Assets to liabilities difference"}
+                                                body={analytics.diff > 0
+                                                    ? <div className={classes.green}>${numberWithCommas(analytics.diff)}</div>
+                                                    : <div className={classes.red}>${numberWithCommas(analytics.diff)}</div>} />
                                         </Grid>
-                                    }
 
-                                    {analytics.cashToCcRatio === null && analytics.ccToCashRatio === null
-                                        ? null
-                                        : <Grid item xs>
-                                            <RatioAnalyze
-                                                title={
-                                                    analytics.cashToCcRatio !== null
-                                                        ? "Cash to credit card ratio"
-                                                        : "Credit card to cash ratio"
-                                                }
-                                                ratio={
-                                                    analytics.cashToCcRatio !== null
-                                                        ? analytics.cashToCcRatio
-                                                        : analytics.ccToCashRatio
-                                                } />
-                                        </Grid>
-                                    }
-                                </Grid>
+                                        {analytics.debtToIncomeRatio === null || Number(analytics.debtToIncomeRatio) === 0
+                                            ? null
+                                            : <Grid item xs>
+                                                <RatioAnalyze
+                                                    title={"Debt to income ratio"}
+                                                    ratio={analytics.debtToIncomeRatio} />
+                                            </Grid>
+                                        }
 
+                                        {analytics.cashToCcRatio === null && analytics.ccToCashRatio === null
+                                            ? null
+                                            : <Grid item xs>
+                                                <RatioAnalyze
+                                                    title={
+                                                        analytics.cashToCcRatio !== null
+                                                            ? "Cash to credit card ratio"
+                                                            : "Credit card to cash ratio"
+                                                    }
+                                                    ratio={
+                                                        analytics.cashToCcRatio !== null
+                                                            ? analytics.cashToCcRatio
+                                                            : analytics.ccToCashRatio
+                                                    } />
+                                            </Grid>
+                                        }
+                                    </Grid>
+                                </React.Fragment>
                                 : <TextMain>
                                     Please add more information in order to run Analytics. Such as at least one Asset and Liability
                                 </TextMain>}

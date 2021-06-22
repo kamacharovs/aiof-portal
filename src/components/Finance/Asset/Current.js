@@ -53,10 +53,10 @@ const useStyles = makeStyles((theme) => ({
     },
     currentAssetFullPaper: {
         margin: DefaultPaperMargin,
-        paddingBottom: 0,
+        paddingBottom: '0 !important',
         paddingLeft: 0,
         paddingRight: 0,
-        paddingTop: '0.5rem'
+        paddingTop: '0.5rem !important'
     },
     currentAssetfooter: {
         backgroundColor: 'rgb(245, 247, 249)',
