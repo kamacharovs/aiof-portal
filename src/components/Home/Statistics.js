@@ -5,7 +5,7 @@ import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 
 import { round, federalTax, stateTax } from '../Common/Functions';
-import { commonStyles, SquarePaper, AltTextButton, H5Alt6, PAlt7, AltLink  } from '../../style/mui';
+import { commonStyles, SquarePaper, AltTextButton, H5Alt6, TextMain, AltLink  } from '../../style/mui';
 import { MonthlyIncomeSpendingChartPaper } from '../Common/Papers';
 
 
@@ -58,9 +58,9 @@ const StatisticsView = props => {
                             </Grid>
                             <Grid container>
                                 <Grid item xs>
-                                    <PAlt7>
+                                    <TextMain>
                                         Look at your financial statistics below
-                                    </PAlt7>
+                                    </TextMain>
                                 </Grid>
                             </Grid>
 
@@ -141,12 +141,11 @@ const MonthlyIncomeSpendingChart = props => {
                 <Grid container>
                     <Grid item xs>
                         <H5Alt6>Your monthly income vs. monthly spending</H5Alt6>
-                        <PAlt7>
-                            This chart shows your total monthly income versus your total monthly spending
-                            <br /><br />
+                        <TextMain>
+                            This chart shows your total monthly income versus your total monthly spending.
                             Be sure to update your <AltLink to={"/profile"}>profile</AltLink> gross salary and physical address,
                             as well as your <AltLink to={"/finance"}>liabilities</AltLink> in order to effectively leverage this chart
-                        </PAlt7>
+                        </TextMain>
                     </Grid>
                 </Grid>
 

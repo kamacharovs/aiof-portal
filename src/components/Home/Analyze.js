@@ -39,7 +39,7 @@ const AnalyzeView = props => {
                 props.liabilities,
                 props.grossSalary)
         }
-    }, [props.assets, props.liabilities, props.grossSalary]);
+    }, []);
 
     if (currentUser
         && assets
@@ -58,12 +58,18 @@ const AnalyzeView = props => {
                                 </Grid>
                             </Grid>
 
-                            <Grid container spacing={1}>
+                            <Grid container>
                                 <Grid item xs>
                                     <TextMain>
-                                        Look at your analytics about you current <b>Assets</b> and <b>Liabilities</b>.
-                                        This includes some common financial benefits such as debt to income ratio, credit card
-                                        debt to income ratio, and more.
+                                        Look at your analytics about your current <b>Assets</b> and <b>Liabilities</b>
+                                    </TextMain>
+                                </Grid>
+                            </Grid>
+
+                            <Grid container>
+                                <Grid item xs>
+                                    <TextMain>
+                                        This includes some common financial benefits such as debt to income ratio, credit card debt to income ratio, and more.
                                     </TextMain>
                                 </Grid>
                             </Grid>
@@ -140,7 +146,7 @@ const RatioAnalyze = props => {
         const classes = commonStyles();
         const low = ratio >= 0 && ratio <= 35;
         const middle = ratio > 35 && ratio <= 49;
-        const high = ratio > 49 && ratio <= 100;
+        const high = ratio > 49;
 
         const title = props.title;
         const value = numberWithCommas(ratio) + "%";
