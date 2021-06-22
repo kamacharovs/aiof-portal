@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles, useTheme } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Container from '@material-ui/core/Container';
 import Avatar from '@material-ui/core/Avatar';
@@ -11,11 +11,12 @@ import InputAdornment from '@material-ui/core/InputAdornment';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 import Tooltip from '@material-ui/core/Tooltip';
+import Typography from '@material-ui/core/Typography';
 
 import { isNumber, numberWithCommas } from '../Finance/Common';
 import {
     SquarePaper, AlternateCircularProgress, VerticalTextField, VerticalSelect,
-    AlternateButton, DefaultDarkTeal
+    AlternateButton
 } from '../../style/mui';
 import { RectSkeleton } from '../Common/Sekeleton';
 
@@ -23,7 +24,7 @@ import { RectSkeleton } from '../Common/Sekeleton';
 const useStyles = makeStyles((theme) => ({
     avatar: {
         color: 'white',
-        backgroundColor: DefaultDarkTeal,
+        backgroundColor: theme.palette.secondary.dark,
     },
     deleteIconButton: {
         padding: 0
@@ -82,7 +83,7 @@ const Dependents = props => {
             || props.inProgressDependentRelationships
             || props.inProgressDependentAdd
             || props.inProgressDependentDelete;
-            
+
         return (
             <React.Fragment>
                 <Container maxWidth="xl">
@@ -106,12 +107,13 @@ const CurrentDependentsOverview = props => {
 
     return (
         <SquarePaper variant="outlined" square>
-            <h3>{totalDependents} {totalDependents === 1 ? "dependent" : "dependents"}</h3>
+            <Typography variant="h1">{totalDependents} {totalDependents === 1 ? "dependent" : "dependents"}</Typography>
         </SquarePaper>
     );
 }
 
 const DependentView = props => {
+    const theme = useTheme();
     const dependent = props.dependent;
     const inProgressDependents = props.inProgressDependents;
     const inProgressDependentRelationships = props.inProgressDependentRelationships;
@@ -151,7 +153,7 @@ const DependentView = props => {
                                 aria-label="delete"
                                 className={classes.deleteIconButton}
                                 onClick={e => props.onDelete(dependent.id)}>
-                                <DeleteIcon style={{ fontSize: '20', color: DefaultDarkTeal }} />
+                                <DeleteIcon style={{ fontSize: '20', color: theme.palette.secondary.dark }} />
                             </IconButton>
                         </Tooltip>
                     </Grid>

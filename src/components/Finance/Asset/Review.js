@@ -13,7 +13,7 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 
-import { SquarePaper, DefaultGreenColor, DefaultRedColor } from '../../../style/mui';
+import { SquarePaper } from '../../../style/mui';
 import { numberWithCommas } from '../Common';
 
 import EditAsset from './Edit';
@@ -24,12 +24,12 @@ const useStyles = makeStyles((theme) => ({
         display: 'flex',
     },
     green: {
-        color: DefaultGreenColor,
+        color: theme.palette.success.main,
         margin: '0rem',
         padding: '0rem'
     },
     red: {
-        color: DefaultRedColor,
+        color: theme.palette.error.main,
         margin: '0rem',
         padding: '0rem'
     },

@@ -15,7 +15,7 @@ import AttachMoneyIcon from '@material-ui/icons/AttachMoney';
 import ArrowUpwardIcon from '@material-ui/icons/ArrowUpward';
 
 import { numberWithCommas } from '../Finance/Common';
-import { SquarePaper, DefaultHrColor, AiofLinearProgress, DefaultRedColor, DefaultGreenColor } from '../../style/mui';
+import { SquarePaper, AiofLinearProgress, } from '../../style/mui';
 import { FI_COAST_FIRE, FI_COAST_FIRE_RESET } from '../../constants/actionTypes';
 
 
@@ -55,16 +55,16 @@ const useStyles = makeStyles((theme) => ({
     hr: {
         borderTop: '1px solid',
         marginTop: '0.25rem',
-        color: DefaultHrColor,
+        color: theme.palette.grey.hr,
         opacity: '90%'
     },
     green: {
-        color: DefaultGreenColor,
+        color: theme.palette.success.main,
         margin: '0rem',
         padding: '0rem'
     },
     red: {
-        color: DefaultRedColor,
+        color: theme.palette.error.main,
         margin: '0rem',
         padding: '0rem'
     },

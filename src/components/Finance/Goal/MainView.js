@@ -3,11 +3,11 @@ import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
 import agent from '../../../agent';
 
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles, useTheme } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
 
-import { SquarePaper, DefaultDarkTeal } from '../../../style/mui';
+import { SquarePaper } from '../../../style/mui';
 import { REDIRECT_LOGIN, GOALS } from '../../../constants/actionTypes';
 
 import CurrentGoals from './Current';
@@ -39,10 +39,12 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const GoalOverview = props => {
+    const theme = useTheme();
+    
     return (
         <React.Fragment>
             <SquarePaper variant="outlined" square>
-                <div style={{ color: DefaultDarkTeal }}>
+                <div style={{ color: theme.palette.secondary.dark }}>
                     <h2><strong>Goals</strong></h2>
                 </div>
                 <p>
@@ -98,7 +100,7 @@ const GoalMainView = props => {
                     <title>{props.appName} | Finance | Goals</title>
                 </Helmet>
 
-                <Container maxWidth="xl">
+                <Container maxWidth="md">
                     <Grid container spacing={1} className={classes.root}>
                         <Grid item xs>
                             <GoalOverview />

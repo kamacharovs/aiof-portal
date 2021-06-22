@@ -1,11 +1,11 @@
-name: build
+name: release
 
 on:
-  pull_request:
+  push:
     branches: [ master ]
-
+    
 jobs:
-  build:
+  release:
     runs-on: ubuntu-latest
     steps:
     - name: checkout
@@ -25,5 +25,5 @@ jobs:
       with:
         context: .
         file: ./Dockerfile
-        push: false
+        push: true
         tags: gkama/aiof-portal:latest

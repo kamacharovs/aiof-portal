@@ -11,8 +11,7 @@ import Button from '@material-ui/core/Button';
 import AttachMoneyIcon from '@material-ui/icons/AttachMoney';
 import ArrowUpwardIcon from '@material-ui/icons/ArrowUpward';
 import { numberWithCommas } from '../Finance/Common';
-import { ThinText } from '../../style/common';
-import { SquarePaper, InPaper, AiofLinearProgress, DefaultRedColor, DefaultGreenColor } from '../../style/mui';
+import { SquarePaper, InPaper, AiofLinearProgress, ThinText } from '../../style/mui';
 import { FI_PAGE_LOADED, FI_TIME_TO_FI } from '../../constants/actionTypes';
 
 
@@ -45,12 +44,12 @@ const useStyles = makeStyles((theme) => ({
     width: '25ch',
   },
   green: {
-    color: DefaultGreenColor,
+    color: theme.palette.success.main,
     margin: '0rem',
     padding: '0rem'
   },
   red: {
-    color: DefaultRedColor,
+    color: theme.palette.error.main,
     margin: '0rem',
     padding: '0rem'
   },

@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import agent from '../../../agent';
 
 import { Line } from 'react-chartjs-2'
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles, useTheme } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Tooltip from '@material-ui/core/Tooltip';
 import IconButton from '@material-ui/core/IconButton';
@@ -11,7 +11,7 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import RateReviewIcon from '@material-ui/icons/RateReview';
 
 import { numberWithCommas } from '../Common';
-import { FullPaper, AlternateCircularProgress, DefaultGreenColor, DefaultAlternateColor, DefaultPaperMargin } from '../../../style/mui';
+import { FullPaper, AlternateCircularProgress, DefaultPaperMargin } from '../../../style/mui';
 import { ASSET_DELETE } from '../../../constants/actionTypes';
 
 import ReviewAsset from './Review';
@@ -33,14 +33,14 @@ const useStyles = makeStyles((theme) => ({
         display: 'flex',
     },
     green: {
-        color: DefaultGreenColor,
+        color: theme.palette.success.main,
         fontSize: '1rem',
         margin: '0rem',
         padding: '0rem',
         paddingBottom: '0.25rem',
     },
     alternate: {
-        color: DefaultAlternateColor,
+        color: theme.palette.secondary.dark,
     },
     overview: {
         backgroundColor: 'rgb(245, 247, 249)',
@@ -53,10 +53,10 @@ const useStyles = makeStyles((theme) => ({
     },
     currentAssetFullPaper: {
         margin: DefaultPaperMargin,
-        paddingBottom: 0,
+        paddingBottom: '0 !important',
         paddingLeft: 0,
         paddingRight: 0,
-        paddingTop: '0.5rem'
+        paddingTop: '0.5rem !important'
     },
     currentAssetfooter: {
         backgroundColor: 'rgb(245, 247, 249)',
@@ -124,6 +124,7 @@ const CurrentAssetsOverview = props => {
 }
 
 const CurrentAssetsDynamic = props => {
+    const theme = useTheme();
     const assets = props.assets;
     const assetsSize = assets.length;
     const inProgressAssets = props.inProgressAssets;
@@ -170,7 +171,7 @@ const CurrentAssetsDynamic = props => {
                                     </div>
                                 </Grid>
                                 <Grid item xs>
-                                    <div className={classes.alternate}>{a.type.name} {new Date(a.created).toLocaleDateString()}</div>
+                                    <div className={classes.alternate}>{a.typeName} {new Date(a.created).toLocaleDateString()}</div>
                                 </Grid>
 
                                 <Grid item xs>
@@ -196,7 +197,7 @@ const CurrentAssetsDynamic = props => {
                                         aria-label="review"
                                         className={classes.iconButton}
                                         onClick={e => onReview(a)}>
-                                        <RateReviewIcon style={{ fontSize: '20', color: DefaultAlternateColor }} />
+                                        <RateReviewIcon style={{ fontSize: '20', color: theme.palette.secondary.dark }} />
                                     </IconButton>
                                 </Tooltip>
 
@@ -205,7 +206,7 @@ const CurrentAssetsDynamic = props => {
                                         aria-label="delete"
                                         className={classes.iconButton}
                                         onClick={e => props.onDelete(a.id)}>
-                                        <DeleteIcon style={{ fontSize: '20', color: DefaultAlternateColor }} />
+                                        <DeleteIcon style={{ fontSize: '20', color: theme.palette.secondary.dark }} />
                                     </IconButton>
                                 </Tooltip>
                             </Grid>
@@ -225,6 +226,7 @@ const CurrentAssetsDynamic = props => {
 }
 
 const CurrentAssetSnapshotsChart = props => {
+    const theme = useTheme();
     const snapshots = props.snapshots || [];
     const totalSnapshots = snapshots.length;
 
@@ -240,8 +242,8 @@ const CurrentAssetSnapshotsChart = props => {
                     label: 'Value',
                     data: snapshotsValues.reverse(),
                     fill: false,
-                    backgroundColor: DefaultAlternateColor,
-                    borderColor: DefaultAlternateColor,
+                    backgroundColor: theme.palette.secondary.dark,
+                    borderColor: theme.palette.secondary.dark,
                 },
             ],
         }

@@ -5,7 +5,7 @@ import config from './config';
 const superagent = superagentPromise(_superagent, global.Promise);
 
 const API_ROOT = config.apiUrl;
-const API_AUTH_ROOT = config.authUrl;
+const API_AUTH_ROOT = `${config.authUrl}/${config.authVersion}`;
 const API_METADATA_ROOT = config.metadataUrl;
 const API_ASSET_ROOT = `${config.assetUrl}/${config.assetVersion}`;
 
@@ -85,6 +85,8 @@ const User = {
     requests.get(`/user/profile`),
   profileUpsert: (payload) =>
     requests.put(`/user/profile`, payload),
+  profilePhysicalAddressUpsert: (payload) =>
+    requests.put(`/user/profile/physical/address`, payload),
   dependents: () =>
     requests.get(`/user/dependents`),
   dependentRelationships: () =>
@@ -118,6 +120,8 @@ const Asset = {
     requestsAsset.put(`/assets/${id}`, asset),
   delete: (id) =>
     requestsAsset.del(`/assets/${id}`),
+  breakdown: (payload) =>
+    requestsMetadata.post(`/asset/breakdown`, payload),
 }
 
 const Liability = {

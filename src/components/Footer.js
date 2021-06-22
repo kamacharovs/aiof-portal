@@ -1,7 +1,6 @@
 import React from 'react';
 
-import { CoolLink } from '../style/common';
-import { DefaultWhiteColor } from '../style/mui';
+import { CoolLink } from '../style/mui';
 
 import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
@@ -15,7 +14,7 @@ const useStyles = makeStyles((theme) => ({
     appBar: {
         top: 'auto',
         bottom: 0,
-        background: DefaultWhiteColor,
+        background: theme.palette.text.default,
         fontSize: '12px',
         color: 'black'
     }

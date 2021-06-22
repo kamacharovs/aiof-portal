@@ -45,7 +45,7 @@ export default (state = {}, action) => {
       return {
         ...state,
         inProgressGetUser: false,
-        getUerError: action.error ? action.payload : null,
+        getUserError: action.error ? action.payload : null,
       }
     case PASSWORD_RESET:
     case PASSWORD_RESET_UNAUTHENTICATED:

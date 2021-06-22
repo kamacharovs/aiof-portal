@@ -4,13 +4,11 @@ import { Helmet } from 'react-helmet';
 import agent from '../../agent';
 
 import { Overview } from './Overview';
-import { Bar } from 'react-chartjs-2';
-import { SquarePaper, InPaper, DefaultRedColor, DefaultGreenColor, DefaultHrColor } from '../../style/mui';
-import { CoolExternalLink, CoolLink } from '../../style/common';
+import { SquarePaper, CoolExternalLink, CoolLink } from '../../style/mui';
 import { RectSkeleton } from '../Common/Sekeleton';
 import House from '../../style/icons/House_4.svg';
 import { numberWithCommas, formatDate } from './Common';
-import { FINANCE_PAGE_LOADED, ANALYTICS_ANALYZE, UTILITY_USEFUL_DOCUMENTATION_BY_PAGE } from '../../constants/actionTypes';
+import { FINANCE_PAGE_LOADED, UTILITY_USEFUL_DOCUMENTATION_BY_PAGE } from '../../constants/actionTypes';
 import { GOAL_TYPE_MAPPING } from '../../constants/goals';
 
 import PropTypes from 'prop-types';
@@ -42,8 +40,6 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
     onLoad: () =>
         dispatch({ type: FINANCE_PAGE_LOADED, payload: agent.User.get() }),
-    onAnalyze: (assets, liabilities) =>
-        dispatch({ type: ANALYTICS_ANALYZE, payload: agent.Analytics.analyze({ assets, liabilities }) }),
     onUsefulDocumentations: () =>
         dispatch({ type: UTILITY_USEFUL_DOCUMENTATION_BY_PAGE, payload: agent.Utility.usefulDocumentationByPage("finance") }),
 });
@@ -64,16 +60,16 @@ const useStyles = makeStyles((theme) => ({
     hr: {
         borderTop: '1px solid',
         marginTop: '0.25rem',
-        color: DefaultHrColor,
+        color: theme.palette.grey.hr,
         opacity: '90%'
     },
     green: {
-        color: DefaultGreenColor,
+        color: theme.palette.success.main,
         margin: '0rem',
         padding: '0rem'
     },
     red: {
-        color: DefaultRedColor,
+        color: theme.palette.error.main,
         margin: '0rem',
         padding: '0rem'
     }
@@ -440,74 +436,6 @@ const SubscriptionsPreview = props => {
     }
 }
 
-const AssetsLiabilitiesChart = props => {
-    const assets = props.assets ? props.assets : [];
-    const liabilities = props.liabilities ? props.liabilities : [];
-
-    if ((!assets && assets.length === 0)
-        || (!liabilities && liabilities.length === 0)) {
-        return null;
-    }
-
-    const title = 'Assets vs. Liabilities';
-    const assetsSum = props.totalAssets
-        ? props.totalAssets
-        : assets.map(a => a.value)
-            .reduce((sum, current) => sum + current, 0);
-    const liabilitiesSum = props.totalLiabilities
-        ? props.totalLiabilities
-        : liabilities.map(a => a.value)
-            .reduce((sum, current) => sum + current, 0);
-
-    const state = {
-        labels: [],
-        datasets: [
-            {
-                label: 'Assets',
-                backgroundColor: '#2FDE00',
-                hoverBackgroundColor: '#2FDE00',
-                data: [assetsSum]
-            },
-            {
-                label: 'Liabilities',
-                backgroundColor: '#B21F00',
-                hoverBackgroundColor: '#B21F00',
-                data: [liabilitiesSum]
-            }
-        ]
-    }
-    const options = {
-        title: {
-            display: true,
-            text: title,
-            fontSize: 20
-        },
-        scales: {
-            xAxes: [
-                {
-                    ticks: {
-                        beginAtZero: true,
-                    },
-                },
-            ],
-            yAxes: [
-                {
-                    ticks: {
-                        beginAtZero: true,
-                    },
-                },
-            ]
-        }
-    }
-
-    return (
-        <Bar
-            data={state || []}
-            options={options}
-        />
-    );
-}
-
 const MainTabs = props => {
     const [value, setValue] = React.useState(0);
 
@@ -605,74 +533,6 @@ LiabilityAddDialog.propTypes = {
     open: PropTypes.bool.isRequired,
 };
 
-const AnalyzeView = props => {
-    const classes = useStyles();
-
-    return (
-        <React.Fragment>
-            <h4>
-                <strong>Analytics</strong>
-            </h4>
-
-            {props.analyze ?
-                <React.Fragment>
-                    <Grid container spacing={1}>
-                        <Grid item xs={4}>
-                            <InPaper
-                                title={"Assets total"}
-                                body={<div className={classes.green}>${numberWithCommas(props.analyze.assetsTotal)}</div>} />
-                        </Grid>
-
-                        <Grid item xs={4}>
-                            <InPaper
-                                title={"Liabilities total"}
-                                body={<div className={classes.red}>${numberWithCommas(props.analyze.liabilitiesTotal)}</div>} />
-                        </Grid>
-
-                        <Grid item xs={4}>
-                            <InPaper
-                                title={"Assets to liabilities difference"}
-                                body={props.analyze.analytics.diff > 0
-                                    ? <div className={classes.green}>${numberWithCommas(props.analyze.analytics.diff)}</div>
-                                    : <div className={classes.red}>${numberWithCommas(props.analyze.analytics.diff)}</div>} />
-                        </Grid>
-
-
-                    </Grid>
-
-                    <Grid container spacing={1}>
-                        {props.analyze.analytics.cashToCcRatio === null && props.analyze.analytics.ccToCashRatio === null
-                            ? null
-                            : <Grid item xs={4}>
-                                <InPaper
-                                    title={
-                                        props.analyze.analytics.cashToCcRatio !== null
-                                            ? "Cash to credit card ratio"
-                                            : "Credit card to cash ratio"
-                                    }
-                                    body={
-                                        props.analyze.analytics.cashToCcRatio !== null
-                                            ? props.analyze.analytics.cashToCcRatio + "%"
-                                            : props.analyze.analytics.ccToCashRatio + "%"
-                                    } />
-                            </Grid>
-                        }
-
-                        {props.analyze.analytics.debtToIncomeRatio === null || Number(props.analyze.analytics.debtToIncomeRatio) === 0
-                            ? null
-                            : <Grid item xs={4}>
-                                <InPaper
-                                    title={"Debt to income ratio"}
-                                    body={numberWithCommas(props.analyze.analytics.debtToIncomeRatio * 100) + "%"} />
-                            </Grid>
-                        }
-                    </Grid>
-                </React.Fragment>
-                : "Please add more information in order to run Analytics. Such as at least one Asset and Liability"}
-        </React.Fragment>
-    );
-}
-
 const UsefulDocumentation = props => {
     const docs = props.usefulDocumentations ? props.usefulDocumentations : [];
 
@@ -711,13 +571,6 @@ const FinanceMainView = props => {
             props.onUsefulDocumentations();
         }
     }, []);
-    useEffect(() => {
-        if (props.currentUser && props.finance) {
-            if (props.finance.assets && props.finance.liabilities) {
-                props.onAnalyze(props.finance.assets, props.finance.liabilities);
-            }
-        }
-    }, [props.finance.assets, props.finance.liabilities]);
 
     return (
         <React.Fragment>
@@ -758,37 +611,11 @@ const FinanceMainView = props => {
                                             ? <RectSkeleton height={400} />
                                             : <MainTabs
                                                 currentUser={props.currentUser}
-                                                assets={props.assets}
+                                                assets={props.assetsBase}
                                                 liabilities={props.liabilities}
                                                 goals={props.goalsBase}
                                                 subscriptions={props.subscriptions}
                                                 onLoad={props.onLoad} />
-                                    }
-                                </Grid>
-                            </Grid>
-
-                            <Grid container spacing={3} className={classes.root}>
-                                <Grid item xs>
-                                    {
-                                        props.inProgress
-                                            ? <RectSkeleton height={400} />
-                                            : <SquarePaper variant="outlined" square>
-                                                <AssetsLiabilitiesChart
-                                                    assets={props.assets}
-                                                    liabilities={props.liabilities} />
-                                            </SquarePaper>
-                                    }
-                                </Grid>
-                            </Grid>
-
-                            <Grid container spacing={3} className={classes.root}>
-                                <Grid item xs>
-                                    {
-                                        props.inProgress
-                                            ? <RectSkeleton />
-                                            : <SquarePaper variant="outlined" square>
-                                                <AnalyzeView analyze={props.analyze} />
-                                            </SquarePaper>
                                     }
                                 </Grid>
                             </Grid>

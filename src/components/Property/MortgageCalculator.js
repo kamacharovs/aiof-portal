@@ -15,8 +15,7 @@ import { MuiPickersUtilsProvider, KeyboardDatePicker } from '@material-ui/picker
 import { numberWithCommas } from '../Finance/Common';
 import { Line, Bar } from 'react-chartjs-2';
 
-import { AiofLinearProgress, InPaper, SquarePaper, DefaultRedColor, DefaultGreenColor } from '../../style/mui';
-import { ThinText } from '../../style/common';
+import { AiofLinearProgress, InPaper, SquarePaper, ThinText } from '../../style/mui';
 import { HOUSE_MORTGAGE_CALCULATOR } from '../../constants/actionTypes';
 
 
@@ -41,12 +40,12 @@ const useStyles = makeStyles((theme) => ({
         margin: theme.spacing(1),
     },
     green: {
-        color: DefaultGreenColor,
+        color: theme.palette.success.main,
         margin: '0rem',
         padding: '0rem'
     },
     red: {
-        color: DefaultRedColor,
+        color: theme.palette.error.dark,
         margin: '0rem',
         padding: '0rem'
     }

@@ -4,14 +4,14 @@ import 'date-fns';
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Container from '@material-ui/core/Container';
-import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import MenuItem from '@material-ui/core/MenuItem';
 import Select from '@material-ui/core/Select';
+import Typography from '@material-ui/core/Typography';
 import { MuiPickersUtilsProvider, KeyboardDatePicker } from '@material-ui/pickers';
 import DateFnsUtils from '@date-io/date-fns';
 
-import { SquarePaper } from '../../style/mui';
+import { SquarePaper, AlternateButton, PAlt7 } from '../../style/mui';
 import { RectSkeleton } from '../Common/Sekeleton';
 import { formatDate, getAge } from '../Finance/Common';
 
@@ -140,13 +140,13 @@ const Profile = props => {
                                         ? <RectSkeleton height={100} />
                                         :
                                         <SquarePaper variant="outlined" square>
-                                            <h3>{props.currentUser.lastName + ", " + props.currentUser.firstName}</h3>
-                                            <p className={classes.tinyMutedText}>{formatDate(props.currentUser.created)}</p>
-                                            <p className={classes.tinyMutedText}>{props.currentUser.email}</p>
+                                            <Typography variant="h1">{props.currentUser.lastName + ", " + props.currentUser.firstName}</Typography>
+                                            <PAlt7 className={classes.tinyMutedText}>{formatDate(props.currentUser.created)}</PAlt7>
+                                            <PAlt7 className={classes.tinyMutedText}>{props.currentUser.email}</PAlt7>
                                             <br />
-                                            <p className={classes.mutedText}>
+                                            <PAlt7>
                                                 Tell us about yourself so we can improve the financial advice we provide
-                                            </p>
+                                            </PAlt7>
                                         </SquarePaper>
                                 }
                             </Grid>
@@ -436,9 +436,12 @@ const Profile = props => {
                                         <SquarePaper variant="outlined" square>
                                             <Grid container spacing={2} className={classes.root}>
                                                 <Grid item xs={6}>
-                                                    <Button variant="outlined" color="primary" disabled={!isUpdated} onClick={handleUpdate}>
+                                                    <AlternateButton 
+                                                        variant="contained" 
+                                                        disabled={!isUpdated} 
+                                                        onClick={handleUpdate}>
                                                         Update
-                                                    </Button>
+                                                    </AlternateButton>
                                                 </Grid>
 
                                                 <Grid item xs={6}>

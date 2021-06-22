@@ -10,8 +10,7 @@ import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
 import AttachMoneyIcon from '@material-ui/icons/AttachMoney';
 import { numberWithCommas } from '../Finance/Common';
-import { ThinText } from '../../style/common';
-import { SquarePaper, InPaper, AiofLinearProgress, DefaultRedColor, DefaultGreenColor } from '../../style/mui';
+import { SquarePaper, InPaper, AiofLinearProgress, ThinText } from '../../style/mui';
 import { FI_PAGE_LOADED, FI_ADDED_TIME } from '../../constants/actionTypes';
 
 
@@ -44,12 +43,12 @@ const useStyles = makeStyles((theme) => ({
         width: '25ch',
     },
     green: {
-        color: DefaultGreenColor,
+        color: theme.palette.success.main,
         margin: '0rem',
         padding: '0rem'
     },
     red: {
-        color: DefaultRedColor,
+        color: theme.palette.error.main,
         margin: '0rem',
         padding: '0rem'
     },
@@ -120,7 +119,7 @@ const AddedTime = props => {
                             </Grid>
 
                             <Grid item xs={12}>
-                                <Button type="submit" variant="contained" color="primary" className={classes.button} >
+                                <Button type="submit" variant="contained" color="primary" >
                                     Calculate
                                 </Button>
                             </Grid>
@@ -173,7 +172,7 @@ const AddedTimeResults = props => {
                         {
                             props.addedTime.years.map(year => {
                                 return (
-                                    <Grid container spacing={1}>
+                                    <Grid container spacing={1} key={year.interest}>
                                         <Grid item xs>
                                             <InPaper title={"Interest"}
                                                 body={<div className={classes.green}>{year.interest}%</div>} />

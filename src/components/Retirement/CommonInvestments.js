@@ -11,8 +11,7 @@ import Grid from '@material-ui/core/Grid';
 import InputAdornment from '@material-ui/core/InputAdornment';
 
 import { numberWithCommas } from '../Finance/Common';
-import { AiofLinearProgress, InPaper, SquarePaper, DefaultRedColor, DefaultGreenColor } from '../../style/mui';
-import { ThinText } from '../../style/common';
+import { AiofLinearProgress, InPaper, SquarePaper, ThinText } from '../../style/mui';
 import { RETIREMENT_PAGE_LOADED, RETIREMENT_COMMON_INVESTMENTS } from '../../constants/actionTypes';
 
 
@@ -40,12 +39,12 @@ const useStyles = makeStyles((theme) => ({
         maxWidth: '100%',
     },
     green: {
-        color: DefaultGreenColor,
+        color: theme.palette.success.main,
         margin: '0rem',
         padding: '0rem'
     },
     red: {
-        color: DefaultRedColor,
+        color: theme.palette.error.main,
         margin: '0rem',
         padding: '0rem'
     },

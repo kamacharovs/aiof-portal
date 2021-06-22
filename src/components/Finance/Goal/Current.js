@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import agent from '../../../agent';
 
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles, useTheme } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import IconButton from '@material-ui/core/IconButton';
 import DeleteIcon from '@material-ui/icons/Delete';
@@ -14,7 +14,7 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import Tooltip from '@material-ui/core/Tooltip';
 
 import { numberWithCommas } from '../Common';
-import { FullPaper, AlternateCircularProgress, DefaultDarkTeal, DefaultGreenColor, DefaultPaperMargin } from '../../../style/mui';
+import { FullPaper, AlternateCircularProgress, DefaultPaperMargin } from '../../../style/mui';
 import { GOAL_DELETE } from '../../../constants/actionTypes';
 import {
     GENERIC, TRIP, BUYAHOME, SAVEFORCOLLEGE,
@@ -38,14 +38,14 @@ const useStyles = makeStyles((theme) => ({
         display: 'flex',
     },
     green: {
-        color: DefaultGreenColor,
+        color: theme.palette.success.main,
         fontSize: '1rem',
         margin: '0rem',
         padding: '0rem',
         paddingBottom: '0.25rem',
     },
     teal: {
-        color: DefaultDarkTeal,
+        color: theme.palette.secondary.dark,
         fontSize: '0.9rem',
         margin: '0rem',
         padding: '0rem',
@@ -55,7 +55,7 @@ const useStyles = makeStyles((theme) => ({
         width: '100%',
     },
     accordionHeading: {
-        color: DefaultDarkTeal,
+        color: theme.palette.secondary.dark,
         font: 'inherit',
         fontWeight: 900,
         flexBasis: '95%',
@@ -77,10 +77,10 @@ const useStyles = makeStyles((theme) => ({
     },
     currentGoalFullPaper: {
         margin: DefaultPaperMargin,
-        paddingBottom: 0,
-        paddingLeft: 0,
-        paddingRight: 0,
-        paddingTop: '0.5rem'
+        paddingBottom: '0 !important',
+        paddingLeft: '0 !important',
+        paddingRight: '0 !important',
+        paddingTop: '0.5rem !important'
     },
     currentGoalfooter: {
         backgroundColor: 'rgb(245, 247, 249)',
@@ -96,6 +96,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const CurrentGoals = props => {
+    const theme = useTheme();
     const goals = props.goals || [];
 
     if (goals) {
@@ -121,24 +122,28 @@ const CurrentGoals = props => {
                         inProgressGoals={props.inProgressGoals} />
 
                     <CurrentGoalsDynamic
+                        theme={theme}
                         goals={goalsGeneric}
                         inProgressGoals={props.inProgressGoals}
                         goalsType={GENERIC}
                         onDelete={handleOnDelete} />
 
                     <CurrentGoalsDynamic
+                        theme={theme}
                         goals={goalsTrip}
                         inProgressGoals={props.inProgressGoals}
                         goalsType={TRIP}
                         onDelete={handleOnDelete} />
 
                     <CurrentGoalsDynamic
+                        theme={theme}
                         goals={goalsHome}
                         inProgressGoals={props.inProgressGoals}
                         goalsType={BUYAHOME}
                         onDelete={handleOnDelete} />
 
                     <CurrentGoalsDynamic
+                        theme={theme}
                         goals={goalsSaveForCollege}
                         inProgressGoals={props.inProgressGoals}
                         goalsType={SAVEFORCOLLEGE}
@@ -328,7 +333,7 @@ const CurrentGoalsDynamic = props => {
                                                     aria-label="delete"
                                                     className={classes.deleteIconButton}
                                                     onClick={e => props.onDelete(g.id)}>
-                                                    <DeleteIcon style={{ fontSize: '20', color: DefaultDarkTeal }} />
+                                                    <DeleteIcon style={{ fontSize: '20', color: props.theme.palette.secondary.dark }} />
                                                 </IconButton>
                                             </Tooltip>
                                         </Grid>

@@ -4,13 +4,24 @@ import { connect } from 'react-redux';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
-import { SquarePaper } from '../../style/mui';
+
+import BannerView from './Banner';
+import SnapshotView from './Snapshot';
+import GettingStartedView from './GettingStarted';
+import StatisticsView from './Statistics';
+import AnalyzeView from './Analyze';
 
 
 const mapStateToProps = state => ({
   ...state.home,
-  token: state.common.token,
-  currentUser: state.common.currentUser
+  ...state.finance,
+  appName: state.common.appName,
+  appFullName: state.common.appFullName,
+  currentUser: state.common.currentUser,
+  profile: state.finance.profile,
+  assets: state.finance.assets,
+  liabilities: state.finance.liabilities,
+  goals: state.finance.goalsBase,
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -28,13 +39,39 @@ const MainView = props => {
   return (
     <Container maxWidth="xl">
       <Grid container spacing={1} className={classes.root}>
-
-        <Grid item xs={12}>
-          <SquarePaper variant="outlined" square>
-            More to come...
-          </SquarePaper>
+        <Grid item xs={3}>
+          <SnapshotView
+            currentUser={props.currentUser} />
         </Grid>
-        
+
+        <Grid item xs={9}>
+          <Grid container className={classes.root}>
+            <BannerView
+              currentUser={props.currentUser}
+              appName={props.appName}
+              appFullName={props.appFullName} />
+          </Grid>
+
+          <Grid container className={classes.root}>
+            <GettingStartedView
+              currentUser={props.currentUser}
+              appName={props.appName} />
+          </Grid>
+
+          <Grid container className={classes.root}>
+            <StatisticsView
+              currentUser={props.currentUser}
+              assets={props.assets}
+              liabilities={props.liabilities} />
+          </Grid>
+
+          <Grid container>
+            <AnalyzeView
+              assets={props.assets}
+              liabilities={props.liabilities}
+              grossSalary={props.profile ? props.profile.grossSalary : null} />
+          </Grid>
+        </Grid>
       </Grid>
     </Container>
   );

@@ -1,5 +1,6 @@
 import {
   ASYNC_START,
+  FINANCE,
   FINANCE_PAGE_LOADED,
   FINANCE_PAGE_UNLOADED,
   ASSETS,
@@ -21,12 +22,23 @@ import {
 
 export default (state = {}, action) => {
   switch (action.type) {
+    case FINANCE:
+        return {
+          ...state,
+          inProgress: false,
+          profile: action.payload.profile,
+          assetsBase: action.payload.assets,
+          liabilities: action.payload.liabilities,
+          goalsBase: action.payload.goals,
+          subscriptions: action.payload.subscriptions,
+          dependents: action.payload.dependents,
+        }
     case FINANCE_PAGE_LOADED:
       return {
         ...state,
         inProgress: false,
         profile: action.payload.profile,
-        assets: action.payload.assets,
+        assetsBase: action.payload.assets,
         liabilities: action.payload.liabilities,
         goalsBase: action.payload.goals,
         subscriptions: action.payload.subscriptions,
@@ -41,9 +53,9 @@ export default (state = {}, action) => {
       }
     case ASYNC_START:
       if (action.subtype === ASSET_BREAKDOWN
+        || action.subtype === FINANCE
         || action.subtype === FINANCE_PAGE_LOADED
-        || action.subtype === LIABILITY_ADD
-        || action.subtype === ANALYTICS_ANALYZE) {
+        || action.subtype === LIABILITY_ADD) {
         return { 
           ...state,
           inProgress: true
@@ -58,7 +70,8 @@ export default (state = {}, action) => {
       } else if (action.subtype === GOAL_TRIP_TYPES) { return { ...state, inProgressGoalTripTypes: true, }
       } else if (action.subtype === GOAL_COLLEGE_TYPES) { return { ...state, inProgressGoalCollegeTypes: true }
       } else if (action.subtype === GOAL_ADD) { return { ...state, inProgressAddGoal: true, }
-      } else if (action.subtype === GOAL_DELETE) { return { ...state, inProgressDeleteGoal: true, }}
+      } else if (action.subtype === GOAL_DELETE) { return { ...state, inProgressDeleteGoal: true, }
+      } else if (action.subtype === ANALYTICS_ANALYZE) { return { ...state, inProgressAnalyticsAnalyze: true }}
       else {
         return { 
           ...state 
@@ -146,7 +159,7 @@ export default (state = {}, action) => {
     case ANALYTICS_ANALYZE:
       return {
         ...state,
-        inProgress: false,
+        inProgressAnalyticsAnalyze: false,
         analyze: action.error ? null : action.payload
       }
     default:

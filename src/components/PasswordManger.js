@@ -10,8 +10,7 @@ import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
 
 import { PasswordRuleChecker, ConfirmationPasswordRuleChecker } from './Common/PasswordRuleChecker';
-import { SquarePaper, DefaultRedColor } from '../style/mui';
-import { CoolLink } from '../style/common';
+import { SquarePaper, CoolLink, } from '../style/mui';
 import { success } from './Common/AiofToast';
 import { AiofLoader } from './Common/Loader';
 import { PASSWORD_RESET, PASSWORD_RESET_UNAUTHENTICATED, REDIRECT_HOME, REDIRECT_LOGIN } from '../constants/actionTypes';
@@ -43,7 +42,7 @@ const useStyles = makeStyles((theme) => ({
     flexWrap: 'wrap',
   },
   red: {
-    color: DefaultRedColor,
+    color: theme.palette.error.main,
     margin: '0rem',
     padding: '0rem'
   },

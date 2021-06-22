@@ -3,8 +3,7 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import AppMenu from './AppMenu';
-import { HeaderLink, HeaderRightLink } from '../style/common';
-import { DefaultColor } from '../style/common';
+import { HeaderLink, HeaderRightLink } from '../style/mui';
 import { LOGOUT } from '../constants/actionTypes';
 
 import { makeStyles } from '@material-ui/core/styles';
@@ -26,13 +25,13 @@ const useStyles = makeStyles((theme) => ({
         marginBottom: '3.25rem'
     },
     header: {
-        backgroundColor: '#343a40'
+        backgroundColor: theme.palette.background.paper,
     },
     app: {
         flexGrow: 1
     },
     userButton: {
-        color: DefaultColor,
+        color: theme.palette.text.alt,
         textTransform: 'capitalize',
     },
 }));
@@ -96,7 +95,11 @@ const ProfileMenu = props => {
 
     return (
         <React.Fragment>
-            <Button className={classes.userButton} aria-controls="user-menu" aria-haspopup="true" onClick={handleClick}>
+            <Button 
+                className={classes.userButton} 
+                aria-controls="user-menu" 
+                aria-haspopup="true" 
+                onClick={handleClick}>
                 {props.lastName}, {props.firstName} <ExpandMore />
             </Button>
             <Menu
@@ -177,16 +180,23 @@ const Header = props => {
     return (
         <React.Fragment>
             <div className={classes.root}>
-                <AppBar position="fixed" className={classes.header}>
+                <AppBar position="fixed" elevation={0} className={classes.header}>
                     <Toolbar variant="dense">
-                        <AppMenu currentUser={props.currentUser} />
+                        <AppMenu 
+                            currentUser={props.currentUser} />
 
                         <div className={classes.app}>
-                            <HomeView appName={props.appName.toLowerCase()} currentUser={props.currentUser} />
+                            <HomeView 
+                                appName={props.appName.toLowerCase()} 
+                                currentUser={props.currentUser} />
                         </div>
 
-                        <LoggedOutView currentUser={props.currentUser} />
-                        <LoggedInView currentUser={props.currentUser} onClickLogout={props.onClickLogout} />
+                        <LoggedOutView 
+                            currentUser={props.currentUser} />
+
+                        <LoggedInView 
+                            currentUser={props.currentUser} 
+                            onClickLogout={props.onClickLogout} />
                     </Toolbar>
                 </AppBar>
             </div>

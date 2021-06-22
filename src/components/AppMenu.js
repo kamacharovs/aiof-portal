@@ -29,8 +29,6 @@ import DirectionsRunIcon from '@material-ui/icons/DirectionsRun';
 import BeachAccessIcon from '@material-ui/icons/BeachAccess';
 import MoneyIcon from '@material-ui/icons/Money';
 
-import { DefaultColor } from '../style/common';
-
 
 const mapStateToProps = state => {
   return {
@@ -47,7 +45,7 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
   },
   button: {
-    color: DefaultColor
+    color: theme.palette.text.alt
   },
   drawer: {
     width: drawerWidth,

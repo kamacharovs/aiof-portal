@@ -13,8 +13,7 @@ import AttachMoneyIcon from '@material-ui/icons/AttachMoney';
 import ArrowUpwardIcon from '@material-ui/icons/ArrowUpward';
 import TrendingUpIcon from '@material-ui/icons/TrendingUp';
 import { numberWithCommas } from '../Finance/Common';
-import { ThinText } from '../../style/common';
-import { SquarePaper, InPaper, AiofLinearProgress, DefaultRedColor, DefaultGreenColor } from '../../style/mui';
+import { SquarePaper, InPaper, AiofLinearProgress, ThinText } from '../../style/mui';
 import { ASSET_BREAKDOWN, REDIRECT_HOME } from '../../constants/actionTypes';
 
 
@@ -27,7 +26,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-    onSubmit: assetBreakdown =>
+    onSubmit: (assetBreakdown) =>
         dispatch({ type: ASSET_BREAKDOWN, payload: agent.Asset.breakdown(assetBreakdown) }),
     onRedirectHome: () =>
         dispatch({ type: REDIRECT_HOME })
@@ -35,12 +34,12 @@ const mapDispatchToProps = dispatch => ({
 
 const useStyles = makeStyles((theme) => ({
     green: {
-        color: DefaultGreenColor,
+        color: theme.palette.success.main,
         margin: '0rem',
         padding: '0rem'
     },
     red: {
-        color: DefaultRedColor,
+        color: theme.palette.error.main,
         margin: '0rem',
         padding: '0rem'
     }
