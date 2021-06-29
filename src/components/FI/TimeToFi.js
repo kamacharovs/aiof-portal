@@ -5,12 +5,11 @@ import agent from '../../agent';
 
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
-import TextField from '@material-ui/core/TextField';
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
-import AttachMoneyIcon from '@material-ui/icons/AttachMoney';
-import ArrowUpwardIcon from '@material-ui/icons/ArrowUpward';
 import { numberWithCommas } from '../Finance/Common';
+import { TextFieldInputAdornment, TextFieldMoneyInputAdornment } from '../Common/Inputs';
+
 import { SquarePaper, InPaper, AiofLinearProgress, ThinText } from '../../style/mui';
 import { FI_PAGE_LOADED, FI_TIME_TO_FI } from '../../constants/actionTypes';
 
@@ -39,9 +38,6 @@ const useStyles = makeStyles((theme) => ({
   },
   withoutLabel: {
     marginTop: theme.spacing(3),
-  },
-  textField: {
-    width: '25ch',
   },
   green: {
     color: theme.palette.success.main,
@@ -96,69 +92,41 @@ const TimeToFi = props => {
           <form className={classes.root} noValidate autoComplete="off" onSubmit={onSubmitForm}>
             <Grid container spacing={3}>
               <Grid item xs={6}>
-                <div className={classes.margin}>
-                  <Grid container spacing={1} alignItems="flex-end">
-                    <Grid item>
-                      <AttachMoneyIcon />
-                    </Grid>
-                    <Grid item>
-                      <TextField id="input-with-icon-grid" label="Starting amount"
-                        value={startingAmount}
-                        onChange={e => setStartingAmount(e.target.value)} />
-                    </Grid>
-                  </Grid>
-                </div>
+                <TextFieldMoneyInputAdornment
+                  id="input-with-icon-grid"
+                  label="Starting amount"
+                  value={startingAmount}
+                  onChange={e => setStartingAmount(e.target.value)} />
               </Grid>
 
               <Grid item xs={6}>
-                <div className={classes.margin}>
-                  <Grid container spacing={1} alignItems="flex-end">
-                    <Grid item>
-                      <AttachMoneyIcon />
-                    </Grid>
-                    <Grid item>
-                      <TextField id="input-with-icon-grid" label="Monthly investment"
-                        value={monthlyInvestment}
-                        onChange={e => setMonthlyInvestment(e.target.value)} />
-                    </Grid>
-                  </Grid>
-                </div>
+                <TextFieldMoneyInputAdornment
+                  id="input-with-icon-grid"
+                  label="Monthly investment"
+                  value={monthlyInvestment}
+                  onChange={e => setMonthlyInvestment(e.target.value)} />
               </Grid>
 
               <Grid item xs={6}>
-                <div className={classes.margin}>
-                  <Grid container spacing={1} alignItems="flex-end">
-                    <Grid item>
-                      <ArrowUpwardIcon />
-                    </Grid>
-                    <Grid item>
-                      <TextField id="input-with-icon-grid" label="Years expenses"
-                        value={desiredYearsExpensesForFi}
-                        onChange={e => setDesiredYearsExpensesForFi(e.target.value)} />
-                    </Grid>
-                  </Grid>
-                </div>
+                <TextFieldInputAdornment
+                  id="input-with-icon-grid"
+                  label="Years expenses"
+                  value={desiredYearsExpensesForFi}
+                  onChange={e => setDesiredYearsExpensesForFi(e.target.value)} />
               </Grid>
 
               <Grid item xs={6}>
-                <div className={classes.margin}>
-                  <Grid container spacing={1} alignItems="flex-end">
-                    <Grid item>
-                      <AttachMoneyIcon />
-                    </Grid>
-                    <Grid item>
-                      <TextField id="input-with-icon-grid" label="Annual spending"
-                        value={desiredAnnualSpending}
-                        onChange={e => setDesiredAnnualSpending(e.target.value)} />
-                    </Grid>
-                  </Grid>
-                </div>
+                <TextFieldMoneyInputAdornment
+                  id="input-with-icon-grid"
+                  label="Annual spending"
+                  value={desiredAnnualSpending}
+                  onChange={e => setDesiredAnnualSpending(e.target.value)} />
               </Grid>
 
               <Grid item xs={12}>
                 <Button type="submit" variant="contained" color="primary" className={classes.button} >
                   Calculate
-              </Button>
+                </Button>
               </Grid>
             </Grid>
           </form>
