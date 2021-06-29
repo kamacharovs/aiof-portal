@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
 import agent from '../../agent';
@@ -6,14 +6,13 @@ import { Line } from 'react-chartjs-2';
 
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
-import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
-import AttachMoneyIcon from '@material-ui/icons/AttachMoney';
-import ArrowUpwardIcon from '@material-ui/icons/ArrowUpward';
-import TrendingUpIcon from '@material-ui/icons/TrendingUp';
+import Typography from '@material-ui/core/Typography';
+
+import { TextFieldInputAdornment, TextFieldMoneyInputAdornment, TextFieldPercInputAdornment } from '../Common/Inputs';
 import { numberWithCommas } from '../Finance/Common';
-import { SquarePaper, InPaper, AiofLinearProgress, ThinText } from '../../style/mui';
+import { SquarePaper, InPaper, AiofLinearProgress, TextMain } from '../../style/mui';
 import { ASSET_BREAKDOWN, REDIRECT_HOME } from '../../constants/actionTypes';
 
 
@@ -33,6 +32,10 @@ const mapDispatchToProps = dispatch => ({
 });
 
 const useStyles = makeStyles((theme) => ({
+    root: {
+        display: 'flex',
+        flexWrap: 'wrap',
+    },
     green: {
         color: theme.palette.success.main,
         margin: '0rem',
@@ -46,221 +49,124 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-class AssetBreakdown extends React.Component {
-    constructor() {
-        super();
+const AssetBreakdown = props => {
+    const classes = useStyles();
 
-        this.state = {
-            value: 15000,
-            contribution: 500,
-            interest: 8,
-            hysInterest: 1.75,
-            years: 25,
-            investmentFees: 0,
-            taxDrag: 0,
-        };
+    const [value, setValue] = useState(15000);
+    const [contribution, setContribution] = useState(500);
+    const [interest, setInterest] = useState(8);
+    const [hysInterest, setHysInterest] = useState(1.75);
+    const [years, setYears] = useState(25);
+    const [investmentFees, setInvestmentFees] = useState(0);
+    const [taxDrag, setTaxDrag] = useState(0);
 
-        this.classes = makeStyles((theme) => ({
-            root: {
-                display: 'flex',
-                flexWrap: 'wrap',
-            },
-            margin: {
-                margin: theme.spacing(1),
-            },
-            withoutLabel: {
-                marginTop: theme.spacing(3),
-            },
-            p: {
-                padding: '0rem',
-                margin: '0rem',
-            },
-            textField: {
-                width: '25ch',
-            },
-        }));
+    const submitForm = ev => {
+        ev.preventDefault();
 
-        this.updateState = field => ev => {
-            const state = this.state;
-            const newState = Object.assign({}, state, { [field]: ev.target.value });
-            this.setState(newState);
-        };
+        var assetBreakdown = {};
 
-        this.submitForm = ev => {
-            ev.preventDefault();
+        assetBreakdown.value = value ? Number(value) : null;
+        assetBreakdown.contribution = contribution ? Number(contribution) : null;
+        assetBreakdown.interest = interest ? Number(interest) : null;
+        assetBreakdown.hysInterest = hysInterest ? Number(hysInterest) : null;
+        assetBreakdown.years = years ? Number(years) : null;
+        assetBreakdown.investmentFees = investmentFees ? Number(investmentFees) : 0;
+        assetBreakdown.taxDrag = taxDrag ? Number(taxDrag) : 0;
 
-            const assetBreakdown = Object.assign({}, this.state);
+        props.onSubmit(assetBreakdown);
+    };
 
-            assetBreakdown.value = assetBreakdown.value ? Number(assetBreakdown.value) : null;
-            assetBreakdown.contribution = assetBreakdown.contribution ? Number(assetBreakdown.contribution) : null;
-            assetBreakdown.interest = assetBreakdown.interest ? Number(assetBreakdown.interest) : null;
-            assetBreakdown.hysInterest = assetBreakdown.hysInterest ? Number(assetBreakdown.hysInterest) : null;
-            assetBreakdown.years = assetBreakdown.years ? Number(assetBreakdown.years) : null;
-            assetBreakdown.investmentFees = assetBreakdown.investmentFees ? Number(assetBreakdown.investmentFees) : 0;
-            assetBreakdown.taxDrag = assetBreakdown.taxDrag ? Number(assetBreakdown.taxDrag) : 0;
-
-            this.props.onSubmit(assetBreakdown);
-        };
-    }
-
-    componentDidMount() {
-        if (!this.props.currentUser) {
-            this.props.onRedirectHome();
+    useEffect(() => {
+        if (!props.currentUser) {
+            props.onRedirectHome();
         }
 
-        if (this.props.assetBreakdown) {
-            this.setState({
-                value: this.props.assetBreakdown.value,
-                contribution: this.props.assetBreakdown.contribution,
-                interest: this.props.assetBreakdown.interest,
-                hysInterest: this.props.assetBreakdown.hysInterest,
-                years: this.props.assetBreakdown.years,
-                investmentFees: this.props.assetBreakdown.investmentFees,
-                taxDrag: this.props.assetBreakdown.taxDrag,
-            });
+        if (props.assetBreakdown) {
+            setValue(props.assetBreakdown.value);
+            setContribution(props.assetBreakdown.contribution);
+            setInterest(props.assetBreakdown.interest);
+            setHysInterest(props.assetBreakdown.hysInterest);
+            setYears(props.assetBreakdown.years);
+            setInvestmentFees(props.assetBreakdown.investmentFees);
+            setTaxDrag(props.assetBreakdown.taxDrag);
         }
-    }
+    }, []);
 
-    render() {
-        return (
-            <React.Fragment>
-                <Helmet>
-                    <title>{this.props.appName} | Asset breakdown</title>
-                </Helmet>
+    return (
+        <React.Fragment>
+            <Helmet>
+                <title>{props.appName} | Asset breakdown</title>
+            </Helmet>
 
-                <Container maxWidth="sm">
-                    <SquarePaper variant="outlined" square>
-                        <form className={this.classes.root} noValidate autoComplete="off" onSubmit={this.submitForm}>
-                            <Grid container spacing={3}>
-
-                                <Grid item xs={6}>
-                                    <div className={this.classes.margin}>
-                                        <Grid container spacing={1} alignItems="flex-end">
-                                            <Grid item>
-                                                <AttachMoneyIcon />
-                                            </Grid>
-                                            <Grid item>
-                                                <TextField label="Value"
-                                                    value={this.state.value}
-                                                    onChange={this.updateState('value')} />
-                                            </Grid>
-                                        </Grid>
-                                    </div>
-                                </Grid>
-
-                                <Grid item xs={6}>
-                                    <div className={this.classes.margin}>
-                                        <Grid container spacing={1} alignItems="flex-end">
-                                            <Grid item>
-                                                <AttachMoneyIcon />
-                                            </Grid>
-                                            <Grid item>
-                                                <TextField label="Contribution"
-                                                    value={this.state.contribution}
-                                                    onChange={this.updateState('contribution')} />
-                                            </Grid>
-                                        </Grid>
-                                    </div>
-                                </Grid>
-
-                                <Grid item xs={6}>
-                                    <div className={this.classes.margin}>
-                                        <Grid container spacing={1} alignItems="flex-end">
-                                            <Grid item>
-                                                <TrendingUpIcon />
-                                            </Grid>
-                                            <Grid item>
-                                                <TextField label="Interest"
-                                                    value={this.state.interest}
-                                                    onChange={this.updateState('interest')} />
-                                            </Grid>
-                                        </Grid>
-                                    </div>
-                                </Grid>
-
-                                <Grid item xs={6}>
-                                    <div className={this.classes.margin}>
-                                        <Grid container spacing={1} alignItems="flex-end">
-                                            <Grid item>
-                                                <TrendingUpIcon />
-                                            </Grid>
-                                            <Grid item>
-                                                <TextField label="HYS interest"
-                                                    value={this.state.hysInterest}
-                                                    onChange={this.updateState('hysInterest')} />
-                                            </Grid>
-                                        </Grid>
-                                    </div>
-                                </Grid>
+            <Container maxWidth="sm">
+                <SquarePaper variant="outlined" square>
+                    <form className={classes.root} noValidate autoComplete="off" onSubmit={submitForm}>
+                        <Grid container spacing={3}>
+                            <Grid item xs={6}>
+                                <TextFieldMoneyInputAdornment
+                                    label="Value"
+                                    value={value}
+                                    onChange={e => setValue(e.target.value)} />
                             </Grid>
 
-                            <Grid container spacing={3}>
-                                <Grid item xs={6}>
-                                    <div className={this.classes.margin}>
-                                        <Grid container spacing={1} alignItems="flex-end">
-                                            <Grid item>
-                                                <ArrowUpwardIcon />
-                                            </Grid>
-                                            <Grid item>
-                                                <TextField label="Years"
-                                                    value={this.state.years}
-                                                    onChange={this.updateState('years')} />
-                                            </Grid>
-                                        </Grid>
-                                    </div>
-                                </Grid>
+                            <Grid item xs={6}>
+                                <TextFieldMoneyInputAdornment
+                                    label="Contribution"
+                                    value={contribution}
+                                    onChange={e => setContribution(e.target.value)} />
                             </Grid>
 
-                            <Grid container spacing={3}>
-                                <Grid item xs={6}>
-                                    <div className={this.classes.margin}>
-                                        <Grid container spacing={1} alignItems="flex-end">
-                                            <Grid item>
-                                                <TrendingUpIcon />
-                                            </Grid>
-                                            <Grid item>
-                                                <TextField label="Tax drag"
-                                                    value={this.state.taxDrag}
-                                                    onChange={this.updateState('taxDrag')} />
-                                            </Grid>
-                                        </Grid>
-                                    </div>
-                                </Grid>
-
-                                <Grid item xs={6}>
-                                    <div className={this.classes.margin}>
-                                        <Grid container spacing={1} alignItems="flex-end">
-                                            <Grid item>
-                                                <TrendingUpIcon />
-                                            </Grid>
-                                            <Grid item>
-                                                <TextField label="Investment fees"
-                                                    value={this.state.investmentFees}
-                                                    onChange={this.updateState('investmentFees')} />
-                                            </Grid>
-                                        </Grid>
-                                    </div>
-                                </Grid>
+                            <Grid item xs={6}>
+                                <TextFieldPercInputAdornment
+                                    label="Interest"
+                                    value={interest}
+                                    onChange={e => setInterest(e.target.value)} />
                             </Grid>
 
-                            <Grid container spacing={3}>
-                                <Grid item xs={12}>
-                                    <Button type="submit" variant="contained" color="primary" className={this.classes.button} >
-                                        Calculate
-                                    </Button>
-                                </Grid>
+                            <Grid item xs={6}>
+                                <TextFieldPercInputAdornment
+                                    label="HYS interest"
+                                    value={hysInterest}
+                                    onChange={e => setHysInterest(e.target.value)} />
                             </Grid>
-                        </form>
-                    </SquarePaper>
 
-                    <AssetBreakdownResults assetBreakdown={this.props.assetBreakdown} inProgress={this.props.inProgress} />
+                            <Grid item xs={6}>
+                                <TextFieldInputAdornment
+                                    label="Years"
+                                    value={years}
+                                    onChange={e => setYears(e.target.value)} />
+                            </Grid>
 
-                </Container>
-            </React.Fragment>
-        );
-    }
+                            <Grid item xs={6}>
+                                <TextFieldPercInputAdornment
+                                    label="Tax drag"
+                                    value={taxDrag}
+                                    onChange={e => setTaxDrag(e.target.value)} />
+                            </Grid>
+
+                            <Grid item xs={6}>
+                                <TextFieldPercInputAdornment label="Investment fees"
+                                    value={investmentFees}
+                                    onChange={e => setInvestmentFees(e.target.value)} />
+                            </Grid>
+
+                            <Grid item xs={12}>
+                                <Button type="submit" variant="contained" color="primary" className={classes.button} >
+                                    Calculate
+                                </Button>
+                            </Grid>
+                        </Grid>
+                    </form>
+                </SquarePaper>
+
+                <AssetBreakdownResults
+                    assetBreakdown={props.assetBreakdown}
+                    inProgress={props.inProgress} />
+
+            </Container>
+        </React.Fragment>
+    );
 }
-
 
 const AssetBreakdownResults = props => {
     if (props.assetBreakdown) {
@@ -270,14 +176,14 @@ const AssetBreakdownResults = props => {
             <React.Fragment>
                 <SquarePaper variant="outlined" square>
                     <Grid container spacing={1}>
-                        <h4>
-                            <strong>Your results</strong>
-                        </h4>
+                        <Typography variant="h1">
+                            Your results
+                        </Typography>
                     </Grid>
                     <Grid container spacing={1}>
-                        <ThinText>
+                        <TextMain>
                             Based on what you have entered into the form, we have calculated the following results:
-                        </ThinText>
+                        </TextMain>
                     </Grid>
 
                     <Grid container spacing={1}>
@@ -401,44 +307,42 @@ const AssetBreakdownResults = props => {
     }
 }
 
+const AssetBreakdownChart = props => {
+    if (props.breakdown) {
+        const years = props.breakdown.map(x => x.year)
+        const values = props.breakdown.map(x => x.value)
+        const data = {
+            labels: years,
+            datasets: [
+                {
+                    label: props.title,
+                    fill: false,
+                    lineTension: 0.1,
+                    backgroundColor: 'rgba(75,192,192,0.4)',
+                    borderColor: 'rgba(75,192,192,1)',
+                    borderCapStyle: 'butt',
+                    borderDash: [],
+                    borderDashOffset: 0.0,
+                    borderJoinStyle: 'miter',
+                    pointBorderColor: 'rgba(75,192,192,1)',
+                    pointBackgroundColor: '#fff',
+                    pointBorderWidth: 1,
+                    pointHoverRadius: 5,
+                    pointHoverBackgroundColor: 'rgba(75,192,192,1)',
+                    pointHoverBorderColor: 'rgba(220,220,220,1)',
+                    pointHoverBorderWidth: 2,
+                    pointRadius: 1,
+                    pointHitRadius: 10,
+                    data: values
+                }
+            ]
+        };
 
-class AssetBreakdownChart extends React.Component {
-    render() {
-        if (this.props.breakdown) {
-            const years = this.props.breakdown.map(x => x.year)
-            const values = this.props.breakdown.map(x => x.value)
-            const data = {
-                labels: years,
-                datasets: [
-                    {
-                        label: this.props.title,
-                        fill: false,
-                        lineTension: 0.1,
-                        backgroundColor: 'rgba(75,192,192,0.4)',
-                        borderColor: 'rgba(75,192,192,1)',
-                        borderCapStyle: 'butt',
-                        borderDash: [],
-                        borderDashOffset: 0.0,
-                        borderJoinStyle: 'miter',
-                        pointBorderColor: 'rgba(75,192,192,1)',
-                        pointBackgroundColor: '#fff',
-                        pointBorderWidth: 1,
-                        pointHoverRadius: 5,
-                        pointHoverBackgroundColor: 'rgba(75,192,192,1)',
-                        pointHoverBorderColor: 'rgba(220,220,220,1)',
-                        pointHoverBorderWidth: 2,
-                        pointRadius: 1,
-                        pointHitRadius: 10,
-                        data: values
-                    }
-                ]
-            };
-
-            return (
-                <Line data={data} />
-            );
-        }
-        return null
+        return (
+            <Line data={data} />
+        );
+    } else {
+        return null;
     }
 }
 
