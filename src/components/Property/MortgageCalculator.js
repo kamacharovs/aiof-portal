@@ -152,16 +152,34 @@ const MortgageCalculator = props => {
 
             <Container maxWidth="md">
                 <SquarePaper variant="outlined" square>
+                    <Grid container>
+                        <Grid item xs>
+                            <Typography variant="h1">
+                                Mortgage calculator
+                            </Typography>
+                        </Grid>
+                    </Grid>
+
+                    <Grid container>
+                        <Grid item xs>
+                            <TextMain>
+                                Your mortgage payment information
+                            </TextMain>
+                        </Grid>
+                    </Grid>
+                </SquarePaper>
+
+                <SquarePaper variant="outlined" square>
                     <form className={classes.root} noValidate autoComplete="off" onSubmit={onCalculate}>
                         <Grid container spacing={3}>
                             <Grid item xs>
                                 General details
-                        </Grid>
+                            </Grid>
                         </Grid>
                         <Grid container spacing={3}>
                             <Grid item xs={4}>
                                 <div className={classes.margin}>
-                                    <TextFieldMoneyInputAdornment 
+                                    <TextFieldMoneyInputAdornment
                                         id="property-value"
                                         label="Property value"
                                         error={errorPropertyText === "" ? false : true}
@@ -173,7 +191,7 @@ const MortgageCalculator = props => {
 
                             <Grid item xs={4}>
                                 <div className={classes.margin}>
-                                    <TextFieldMoneyInputAdornment 
+                                    <TextFieldMoneyInputAdornment
                                         id="down-payment"
                                         label="Down payment"
                                         error={errorDownPaymentText === "" ? false : true}
@@ -185,7 +203,7 @@ const MortgageCalculator = props => {
 
                             <Grid item xs={4}>
                                 <div className={classes.margin}>
-                                    <TextFieldPercInputAdornment 
+                                    <TextFieldPercInputAdornment
                                         id="interest-rate"
                                         label="Interest rate"
                                         error={errorInterestRateText === "" ? false : true}
@@ -199,7 +217,7 @@ const MortgageCalculator = props => {
                         <Grid container spacing={3}>
                             <Grid item xs={4}>
                                 <div className={classes.margin}>
-                                    <TextFieldInputAdornment 
+                                    <TextFieldInputAdornment
                                         id="loan-term-years"
                                         label="Loan term years"
                                         error={errorLoanTermYearsText === "" ? false : true}
@@ -231,13 +249,13 @@ const MortgageCalculator = props => {
                         <Grid container spacing={3}>
                             <Grid item xs>
                                 <br />
-                            Additional details
-                        </Grid>
+                                Additional details
+                            </Grid>
                         </Grid>
                         <Grid container spacing={3}>
                             <Grid item xs={4}>
                                 <div className={classes.margin}>
-                                    <TextFieldPercInputAdornment 
+                                    <TextFieldPercInputAdornment
                                         id="pmi"
                                         label="PMI"
                                         error={errorPmiText === "" ? false : true}
@@ -249,7 +267,7 @@ const MortgageCalculator = props => {
 
                             <Grid item xs={4}>
                                 <div className={classes.margin}>
-                                    <TextFieldMoneyInputAdornment 
+                                    <TextFieldMoneyInputAdornment
                                         id="property-insurance"
                                         label="Property insurance"
                                         error={errorPropertyInsuranceText === "" ? false : true}
@@ -261,7 +279,7 @@ const MortgageCalculator = props => {
 
                             <Grid item xs={4}>
                                 <div className={classes.margin}>
-                                    <TextFieldMoneyInputAdornment 
+                                    <TextFieldMoneyInputAdornment
                                         id="monthly-hoa"
                                         label="Monthly HOA"
                                         error={errorMonthlyHoaText === "" ? false : true}
@@ -274,12 +292,12 @@ const MortgageCalculator = props => {
 
                         <Grid container spacing={3}>
                             <Grid item xs>
-                                <Button 
+                                <Button
                                     id="calculate-button"
-                                    type="submit" 
-                                    variant="contained" 
-                                    color="primary" 
-                                    className={classes.button} 
+                                    type="submit"
+                                    variant="contained"
+                                    color="primary"
+                                    className={classes.button}
                                     disabled={!isCalculateEnabled} >
                                     Calculate
                                 </Button>
@@ -413,44 +431,44 @@ const MortgageCalculatorResult = props => {
 
                     <Grid container spacing={1}>
                         <Grid item xs={4}>
-                            <InPaper title={"Monthly payment"} 
-                            body={numberWithCommas(payment)} 
-                            prefix={"$"}/>
+                            <InPaper title={"Monthly payment"}
+                                body={numberWithCommas(payment)}
+                                prefix={"$"} />
                         </Grid>
 
                         <Grid item xs={4}>
-                            <InPaper title={"Loan amount"} 
-                            body={numberWithCommas(loanAmount)} 
-                            prefix={"$"}/>
+                            <InPaper title={"Loan amount"}
+                                body={numberWithCommas(loanAmount)}
+                                prefix={"$"} />
                         </Grid>
                     </Grid>
 
                     <Grid container spacing={1}>
                         <Grid item xs>
-                            <InPaper title={"Total principal paid"} 
+                            <InPaper title={"Total principal paid"}
                                 body={<div className={classes.green}>${numberWithCommas(Math.round(totalPrincipalPaid))}</div>} />
                         </Grid>
 
                         <Grid item xs>
-                            <InPaper title={"Total interest paid"} 
+                            <InPaper title={"Total interest paid"}
                                 body={<div className={classes.red}>${numberWithCommas(Math.round(totalInterestPaid))}</div>} />
                         </Grid>
 
                         <Grid item xs>
-                            <InPaper title={"Total paid"} 
-                            body={numberWithCommas(Math.round(totalPrincipalPaid + totalInterestPaid))} 
-                            prefix={"$"}/>
+                            <InPaper title={"Total paid"}
+                                body={numberWithCommas(Math.round(totalPrincipalPaid + totalInterestPaid))}
+                                prefix={"$"} />
                         </Grid>
                     </Grid>
 
                     <Grid container spacing={1}>
                         <Grid item xs={4}>
-                            <InPaper title={"Start date"} 
+                            <InPaper title={"Start date"}
                                 body={new Date(first.paymentDate).toLocaleDateString()} />
                         </Grid>
 
                         <Grid item xs={4}>
-                            <InPaper title={"End date"} 
+                            <InPaper title={"End date"}
                                 body={new Date(last.paymentDate).toLocaleDateString()} />
                         </Grid>
                     </Grid>
