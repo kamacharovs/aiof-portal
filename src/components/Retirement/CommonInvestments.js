@@ -5,13 +5,13 @@ import agent from '../../agent';
 
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
-import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
-import InputAdornment from '@material-ui/core/InputAdornment';
+import Typography from '@material-ui/core/Typography';
 
+import { TextFieldInputAdornment, TextFieldMoneyInputAdornment, TextFieldPercInputAdornment } from '../Common/Inputs';
 import { numberWithCommas } from '../Finance/Common';
-import { AiofLinearProgress, InPaper, SquarePaper, ThinText } from '../../style/mui';
+import { AiofLinearProgress, InPaper, SquarePaper, TextMain } from '../../style/mui';
 import { RETIREMENT_PAGE_LOADED, RETIREMENT_COMMON_INVESTMENTS } from '../../constants/actionTypes';
 
 
@@ -146,7 +146,21 @@ const CommonInvestments = props => {
 
             <Container maxWidth="md">
                 <SquarePaper variant="outlined" square>
-                    <h5><strong>Common investments calculator</strong></h5>
+                    <Grid container>
+                        <Grid item xs>
+                            <Typography variant="h1">
+                                Common investments calculator
+                            </Typography>
+                        </Grid>
+                    </Grid>
+
+                    <Grid container>
+                        <Grid item xs>
+                            <TextMain>
+                                Your common investment information
+                            </TextMain>
+                        </Grid>
+                    </Grid>
                 </SquarePaper>
 
                 <SquarePaper variant="outlined" square>
@@ -154,20 +168,19 @@ const CommonInvestments = props => {
                         <Grid container spacing={3}>
                             <Grid item xs={4}>
                                 <div className={classes.margin}>
-                                    <TextField label="Interest"
+                                    <TextFieldPercInputAdornment 
+                                        label="Interest"
                                         error={errorInterestText === "" ? false : true}
                                         value={interest}
                                         onChange={e => onPercentageChange(e, errorInterestText, setErrorInterestText, setInterest)}
-                                        helperText={errorInterestText}
-                                        InputProps={{
-                                            startAdornment: <InputAdornment position="start">%</InputAdornment>
-                                        }} />
+                                        helperText={errorInterestText}/>
                                 </div>
                             </Grid>
 
                             <Grid item xs={4}>
                                 <div className={classes.margin}>
-                                    <TextField label="Start year"
+                                    <TextFieldInputAdornment 
+                                        label="Start year"
                                         error={errorStartYearText === "" ? false : true}
                                         value={startYear}
                                         onChange={e => onNegativeChange(e, errorStartYearText, setErrorStartYearText, setStartYear)}
@@ -177,7 +190,8 @@ const CommonInvestments = props => {
 
                             <Grid item xs={4}>
                                 <div className={classes.margin}>
-                                    <TextField label="End year"
+                                    <TextFieldInputAdornment 
+                                        label="End year"
                                         error={errorEndYearText === "" ? false : true}
                                         value={endYear}
                                         onChange={e => onNegativeChange(e, errorEndYearText, setErrorEndYearText, setEndYear)}
@@ -189,7 +203,8 @@ const CommonInvestments = props => {
                         <Grid container spacing={3}>
                             <Grid item xs={4}>
                                 <div className={classes.margin}>
-                                    <TextField label="Compounding periods"
+                                    <TextFieldInputAdornment 
+                                        label="Compounding periods"
                                         error={errorCompoundingPeriodsText === "" ? false : true}
                                         value={compoundingPeriods}
                                         onChange={e => onNegativeChange(e, errorCompoundingPeriodsText, setErrorCompoundingPeriodsText, setCompoundingPeriods)}
@@ -207,27 +222,23 @@ const CommonInvestments = props => {
                         <Grid container spacing={3}>
                             <Grid item xs={4}>
                                 <div className={classes.margin}>
-                                    <TextField label="Starting amount"
+                                    <TextFieldMoneyInputAdornment 
+                                        label="Starting amount"
                                         error={errorFourOhOneKStartingAmountText === "" ? false : true}
                                         value={fourOhOneKStartingAmount}
                                         onChange={e => onNegativeChange(e, errorFourOhOneKStartingAmountText, setErrorFourOhOneKStartingAmountText, setFourOhOneKStartingAmount)}
-                                        helperText={errorFourOhOneKStartingAmountText}
-                                        InputProps={{
-                                            startAdornment: <InputAdornment position="start">$</InputAdornment>
-                                        }} />
+                                        helperText={errorFourOhOneKStartingAmountText} />
                                 </div>
                             </Grid>
 
                             <Grid item xs={4}>
                                 <div className={classes.margin}>
-                                    <TextField label="Monthly contribution"
+                                    <TextFieldMoneyInputAdornment 
+                                        label="Monthly contribution"
                                         error={errorFourOhOneKMonthlyContributionsText === "" ? false : true}
                                         value={fourOhOneKMonthlyContributions}
                                         onChange={e => onNegativeChange(e, errorFourOhOneKMonthlyContributionsText, setErrorFourOhOneKMonthlyContributionsText, setFourOhOneKMonthlyContributions)}
-                                        helperText={errorFourOhOneKMonthlyContributionsText}
-                                        InputProps={{
-                                            startAdornment: <InputAdornment position="start">$</InputAdornment>
-                                        }} />
+                                        helperText={errorFourOhOneKMonthlyContributionsText} />
                                 </div>
                             </Grid>
                         </Grid>
@@ -241,27 +252,23 @@ const CommonInvestments = props => {
                         <Grid container spacing={3}>
                             <Grid item xs={4}>
                                 <div className={classes.margin}>
-                                    <TextField label="Starting amount"
+                                    <TextFieldMoneyInputAdornment 
+                                        label="Starting amount"
                                         error={errorRothIraStartingAmountText === "" ? false : true}
                                         value={rothIraStartingAmount}
                                         onChange={e => onNegativeChange(e, errorRothIraStartingAmountText, setErrorRothIraStartingAmountText, setRothIraStartingAmount)}
-                                        helperText={errorRothIraStartingAmountText}
-                                        InputProps={{
-                                            startAdornment: <InputAdornment position="start">$</InputAdornment>
-                                        }} />
+                                        helperText={errorRothIraStartingAmountText} />
                                 </div>
                             </Grid>
 
                             <Grid item xs={4}>
                                 <div className={classes.margin}>
-                                    <TextField label="Monthly contribution"
+                                    <TextFieldMoneyInputAdornment 
+                                        label="Monthly contribution"
                                         error={errorRothIraMonthlyContributionsText === "" ? false : true}
                                         value={rothIraMonthlyContributions}
                                         onChange={e => onNegativeChange(e, errorRothIraMonthlyContributionsText, setErrorRothIraMonthlyContributionsText, setRothIraMonthlyContributions)}
-                                        helperText={errorRothIraMonthlyContributionsText}
-                                        InputProps={{
-                                            startAdornment: <InputAdornment position="start">$</InputAdornment>
-                                        }} />
+                                        helperText={errorRothIraMonthlyContributionsText} />
                                 </div>
                             </Grid>
                         </Grid>
@@ -275,27 +282,23 @@ const CommonInvestments = props => {
                         <Grid container spacing={3}>
                             <Grid item xs={4}>
                                 <div className={classes.margin}>
-                                    <TextField label="Starting amount"
+                                    <TextFieldMoneyInputAdornment 
+                                        label="Starting amount"
                                         error={errorBrokerageStartingAmountText === "" ? false : true}
                                         value={brokerageStartingAmount}
                                         onChange={e => onNegativeChange(e, errorBrokerageStartingAmountText, setErrorBrokerageStartingAmountText, setBrokerageStartingAmount)}
-                                        helperText={errorBrokerageStartingAmountText}
-                                        InputProps={{
-                                            startAdornment: <InputAdornment position="start">$</InputAdornment>
-                                        }} />
+                                        helperText={errorBrokerageStartingAmountText} />
                                 </div>
                             </Grid>
 
                             <Grid item xs={4}>
                                 <div className={classes.margin}>
-                                    <TextField label="Monthly contribution"
+                                    <TextFieldMoneyInputAdornment 
+                                        label="Monthly contribution"
                                         error={errorBrokerageMonthlyContributionsText === "" ? false : true}
                                         value={brokerageMonthlyContributions}
                                         onChange={e => onNegativeChange(e, errorBrokerageMonthlyContributionsText, setErrorBrokerageMonthlyContributionsText, setBrokerageMonthlyContributions)}
-                                        helperText={errorBrokerageMonthlyContributionsText}
-                                        InputProps={{
-                                            startAdornment: <InputAdornment position="start">$</InputAdornment>
-                                        }} />
+                                        helperText={errorBrokerageMonthlyContributionsText} />
                                 </div>
                             </Grid>
                         </Grid>
@@ -330,12 +333,14 @@ const CommonInvestmentsResult = props => {
             <React.Fragment>
                 <SquarePaper variant="outlined" square>
                     <Grid container spacing={1}>
-                        <h4>
-                            <strong>Your results</strong>
-                        </h4>
+                        <Typography variant="h1">
+                            Your results
+                        </Typography>
                     </Grid>
                     <Grid container spacing={1}>
-                        <ThinText>Based on what you have entered into the form, we have calculated the following results</ThinText>
+                        <TextMain>
+                            Based on what you have entered into the form, we have calculated the following results
+                        </TextMain>
                     </Grid>
 
                     <Grid container spacing={1}>

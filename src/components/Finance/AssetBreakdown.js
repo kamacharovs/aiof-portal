@@ -100,6 +100,24 @@ const AssetBreakdown = props => {
 
             <Container maxWidth="sm">
                 <SquarePaper variant="outlined" square>
+                    <Grid container>
+                        <Grid item xs>
+                            <Typography variant="h1">
+                                Asset breakdown calculator
+                            </Typography>
+                        </Grid>
+                    </Grid>
+
+                    <Grid container>
+                        <Grid item xs>
+                            <TextMain>
+                                Your asset breakdown information
+                            </TextMain>
+                        </Grid>
+                    </Grid>
+                </SquarePaper>
+
+                <SquarePaper variant="outlined" square>
                     <form className={classes.root} noValidate autoComplete="off" onSubmit={submitForm}>
                         <Grid container spacing={3}>
                             <Grid item xs={6}>

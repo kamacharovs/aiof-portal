@@ -2,15 +2,16 @@ import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
 import agent from '../../agent';
-import { FI_PAGE_LOADED, FI_BMI_IMPERIAL, FI_BMI_METRIC } from '../../constants/actionTypes';
 
-import { SquarePaper, InPaper, AiofLinearProgress } from '../../style/mui';
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Container from '@material-ui/core/Container';
-import TextField from '@material-ui/core/TextField';
-import InputAdornment from '@material-ui/core/InputAdornment';
 import Button from '@material-ui/core/Button';
+import Typography from '@material-ui/core/Typography';
+
+import { TextFieldInputAdornment } from '../Common/Inputs';
+import { SquarePaper, InPaper, AiofLinearProgress, TextMain } from '../../style/mui';
+import { FI_PAGE_LOADED, FI_BMI_IMPERIAL, FI_BMI_METRIC } from '../../constants/actionTypes';
 
 
 const mapStateToProps = state => ({
@@ -93,22 +94,40 @@ const Bmi = (props) => {
 
             <Container maxWidth="sm">
                 <SquarePaper variant="outlined" square>
+                    <Grid container>
+                        <Grid item xs>
+                            <Typography variant="h1">
+                                BMI calculator
+                            </Typography>
+                        </Grid>
+                    </Grid>
+
+                    <Grid container>
+                        <Grid item xs>
+                            <TextMain>
+                                Your BMI information
+                            </TextMain>
+                        </Grid>
+                    </Grid>
+                </SquarePaper>
+
+                <SquarePaper variant="outlined" square>
                     <form className={classes.root} noValidate autoComplete="off" onSubmit={submitImperial}>
                         <Grid container spacing={3}>
                             <Grid item xs={4}>
                                 <div className={classes.margin}>
-                                    <TextField label="Weight"
+                                    <TextFieldInputAdornment
+                                        label="Weight"
                                         value={imperialWeight}
                                         onChange={e => setImperialWeight(e.target.value)}
-                                        InputProps={{
-                                            startAdornment: <InputAdornment position="start">lbs</InputAdornment>
-                                        }} />
+                                        adornmentValue={"lbs"} />
                                 </div>
                             </Grid>
 
                             <Grid item xs={4}>
                                 <div className={classes.margin}>
-                                    <TextField label="Feet"
+                                    <TextFieldInputAdornment
+                                        label="Feet"
                                         value={imperialFeet}
                                         onChange={e => setImperialFeet(e.target.value)} />
                                 </div>
@@ -116,7 +135,8 @@ const Bmi = (props) => {
 
                             <Grid item xs={4}>
                                 <div className={classes.margin}>
-                                    <TextField label="Inches"
+                                    <TextFieldInputAdornment
+                                        label="Inches"
                                         value={imperialInches}
                                         onChange={e => setImperialInches(e.target.value)} />
                                 </div>
@@ -138,23 +158,21 @@ const Bmi = (props) => {
                         <Grid container spacing={3}>
                             <Grid item xs={6}>
                                 <div className={classes.margin}>
-                                    <TextField label="Weight"
+                                    <TextFieldInputAdornment
+                                        label="Weight"
                                         value={metricWeight}
                                         onChange={e => setMetricWeight(e.target.value)}
-                                        InputProps={{
-                                            startAdornment: <InputAdornment position="start">kgs</InputAdornment>
-                                        }} />
+                                        adornmentValue={"kgs"} />
                                 </div>
                             </Grid>
 
                             <Grid item xs={6}>
                                 <div className={classes.margin}>
-                                    <TextField label="Height"
+                                    <TextFieldInputAdornment
+                                        label="Height"
                                         value={metricHeight}
                                         onChange={e => setMetricHeight(e.target.value)}
-                                        InputProps={{
-                                            startAdornment: <InputAdornment position="start">cms</InputAdornment>
-                                        }} />
+                                        adornmentValue={"cms"} />
                                 </div>
                             </Grid>
 

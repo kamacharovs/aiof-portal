@@ -11,7 +11,8 @@ export const TextFieldInputAdornment = props => {
                 error={props.error}
                 value={props.value}
                 onChange={props.onChange}
-                helperText={props.helperText} />
+                helperText={props.helperText}
+                adornmentValue={props.adornmentValue} />
 }
 
 export const TextFieldMoneyInputAdornment = props => {

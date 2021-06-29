@@ -11,7 +11,7 @@ import Typography from '@material-ui/core/Typography';
 
 import { TextFieldMoneyInputAdornment } from '../Common/Inputs';
 import { numberWithCommas } from '../Finance/Common';
-import { SquarePaper, InPaper, AiofLinearProgress, ThinText } from '../../style/mui';
+import { SquarePaper, InPaper, AiofLinearProgress, TextMain } from '../../style/mui';
 import { FI_PAGE_LOADED, FI_ADDED_TIME } from '../../constants/actionTypes';
 
 
@@ -87,6 +87,24 @@ const AddedTime = props => {
 
             <Container maxWidth="sm">
                 <SquarePaper variant="outlined" square>
+                    <Grid container>
+                        <Grid item xs>
+                            <Typography variant="h1">
+                                Added time calculator
+                            </Typography>
+                        </Grid>
+                    </Grid>
+
+                    <Grid container>
+                        <Grid item xs>
+                            <TextMain>
+                                Your added time to FI (financial independence) information
+                            </TextMain>
+                        </Grid>
+                    </Grid>
+                </SquarePaper>
+
+                <SquarePaper variant="outlined" square>
                     <form className={classes.root} noValidate autoComplete="off" onSubmit={onSubmitForm}>
                         <Grid container spacing={3}>
                             <Grid item xs={6}>
@@ -131,7 +149,7 @@ const AddedTimeResults = props => {
                         </Typography>
                     </Grid>
                     <Grid container spacing={1}>
-                        <ThinText>Based on what you have entered into the form, we have calculated the following results</ThinText>
+                        <TextMain>Based on what you have entered into the form, we have calculated the following results</TextMain>
                     </Grid>
 
                     <Grid container spacing={1}>
@@ -149,7 +167,7 @@ const AddedTimeResults = props => {
 
                 <SquarePaper variant="outlined" square>
                     <Grid container spacing={1}>
-                        <ThinText>Time added to reach FI (Financial Independence) based on interests</ThinText>
+                        <TextMain>Time added to reach FI (Financial Independence) based on interests</TextMain>
                     </Grid>
 
                     <Grid container spacing={1}>

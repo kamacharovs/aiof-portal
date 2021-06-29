@@ -11,7 +11,7 @@ import Typography from '@material-ui/core/Typography';
 
 import { TextFieldInputAdornment, TextFieldMoneyInputAdornment } from '../Common/Inputs';
 import { numberWithCommas } from '../Finance/Common';
-import { SquarePaper, InPaper, AiofLinearProgress, ThinText } from '../../style/mui';
+import { SquarePaper, InPaper, AiofLinearProgress, TextMain } from '../../style/mui';
 import { FI_PAGE_LOADED, FI_TIME_TO_FI } from '../../constants/actionTypes';
 
 
@@ -90,6 +90,24 @@ const TimeToFi = props => {
 
       <Container maxWidth="sm">
         <SquarePaper variant="outlined" square>
+          <Grid container>
+            <Grid item xs>
+              <Typography variant="h1">
+                Time to FI calculator
+              </Typography>
+            </Grid>
+          </Grid>
+
+          <Grid container>
+            <Grid item xs>
+              <TextMain>
+                Your time to FI (financial independence) information
+              </TextMain>
+            </Grid>
+          </Grid>
+        </SquarePaper>
+
+        <SquarePaper variant="outlined" square>
           <form className={classes.root} noValidate autoComplete="off" onSubmit={onSubmitForm}>
             <Grid container spacing={3}>
               <Grid item xs={6}>
@@ -153,7 +171,9 @@ const TimeToFiResults = props => {
             </Typography>
           </Grid>
           <Grid container spacing={1}>
-            <ThinText>Based on what you have entered into the form, we have calculated the following results</ThinText>
+            <TextMain>
+              Based on what you have entered into the form, we have calculated the following results
+            </TextMain>
           </Grid>
 
           <Grid container spacing={1}>
@@ -195,7 +215,9 @@ const TimeToFiResults = props => {
 
         <SquarePaper variant="outlined" square>
           <Grid container spacing={1}>
-            <ThinText>Time to reach FI (Financial Independence) based on interests</ThinText>
+            <TextMain>
+              Time to reach FI (Financial Independence) based on interests
+            </TextMain>
           </Grid>
 
           <Grid container spacing={1}>
