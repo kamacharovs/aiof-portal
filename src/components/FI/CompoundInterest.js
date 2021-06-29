@@ -123,6 +123,7 @@ const CompoundInterest = props => {
               <Grid item xs={6}>
                 <div className={classes.margin}>
                   <TextFieldMoneyInputAdornment
+                    id="starting-amount"
                     label="Starting amount"
                     value={startingAmount}
                     onChange={e => setStartingAmount(e.target.value)} />
@@ -132,6 +133,7 @@ const CompoundInterest = props => {
               <Grid item xs={6}>
                 <div className={classes.margin}>
                   <TextFieldMoneyInputAdornment
+                    id="monthly-investment"
                     label="Monthly investment"
                     value={monthlyInvestment}
                     onChange={e => setMonthlyInvestment(e.target.value)} />
@@ -141,6 +143,7 @@ const CompoundInterest = props => {
               <Grid item xs={6}>
                 <div className={classes.margin}>
                   <TextFieldPercInputAdornment
+                    id="interest"
                     label="Interest"
                     value={interest}
                     onChange={e => setInterest(e.target.value)} />
@@ -150,6 +153,7 @@ const CompoundInterest = props => {
               <Grid item xs={6}>
                 <div className={classes.margin}>
                   <TextFieldInputAdornment
+                    id="years"
                     label="Years"
                     value={numberOfYears}
                     onChange={e => setNumberOfYears(e.target.value)} />
@@ -159,6 +163,7 @@ const CompoundInterest = props => {
               <Grid item xs={6}>
                 <div className={classes.margin}>
                   <TextFieldPercInputAdornment
+                    id="investment-fees"
                     label="Investment Fees"
                     value={investmentFees}
                     onChange={e => setInvestmentFees(e.target.value)} />
@@ -168,6 +173,7 @@ const CompoundInterest = props => {
               <Grid item xs={6}>
                 <div className={classes.margin}>
                   <TextFieldPercInputAdornment
+                    id="tax-drag"
                     label="Tax Drag"
                     value={taxDrag}
                     onChange={e => setTaxDrag(e.target.value)} />
@@ -175,7 +181,12 @@ const CompoundInterest = props => {
               </Grid>
 
               <Grid item xs={12}>
-                <Button type="submit" variant="contained" color="primary" className={classes.button} >
+                <Button 
+                  id="calculate-button"
+                  type="submit" 
+                  variant="contained" 
+                  color="primary" 
+                  className={classes.button} >
                   Calculate
                 </Button>
               </Grid>

@@ -109,19 +109,26 @@ const AddedTime = props => {
                         <Grid container spacing={3}>
                             <Grid item xs={6}>
                                 <TextFieldMoneyInputAdornment
+                                    id="monthly-investment"
                                     label="Monthly investment"
                                     value={monthlyInvestment}
                                     onChange={e => setMonthlyInvestment(e.target.value)} />
                             </Grid>
 
                             <Grid item xs={6}>
-                                <TextFieldMoneyInputAdornment label="Additional expense"
+                                <TextFieldMoneyInputAdornment 
+                                    id="additional-expense"
+                                    label="Additional expense"
                                     value={totalAdditionalExpense}
                                     onChange={e => setTotalAdditionalExpense(e.target.value)} />
                             </Grid>
 
                             <Grid item xs={12}>
-                                <Button type="submit" variant="contained" color="primary" >
+                                <Button 
+                                    id="calculate-button"
+                                    type="submit" 
+                                    variant="contained" 
+                                    color="primary" >
                                     Calculate
                                 </Button>
                             </Grid>
