@@ -5,10 +5,11 @@ import agent from '../../agent';
 
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
-import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
-import AttachMoneyIcon from '@material-ui/icons/AttachMoney';
+import Typography from '@material-ui/core/Typography';
+
+import { TextFieldMoneyInputAdornment } from '../Common/Inputs';
 import { numberWithCommas } from '../Finance/Common';
 import { SquarePaper, InPaper, AiofLinearProgress, ThinText } from '../../style/mui';
 import { FI_PAGE_LOADED, FI_ADDED_TIME } from '../../constants/actionTypes';
@@ -89,33 +90,16 @@ const AddedTime = props => {
                     <form className={classes.root} noValidate autoComplete="off" onSubmit={onSubmitForm}>
                         <Grid container spacing={3}>
                             <Grid item xs={6}>
-                                <div className={classes.margin}>
-                                    <Grid container spacing={1} alignItems="flex-end">
-                                        <Grid item>
-                                            <AttachMoneyIcon />
-                                        </Grid>
-                                        <Grid item>
-                                            <TextField label="Monthly investment"
-                                                value={monthlyInvestment}
-                                                onChange={e => setMonthlyInvestment(e.target.value)} />
-                                        </Grid>
-                                    </Grid>
-                                </div>
+                                <TextFieldMoneyInputAdornment
+                                    label="Monthly investment"
+                                    value={monthlyInvestment}
+                                    onChange={e => setMonthlyInvestment(e.target.value)} />
                             </Grid>
 
                             <Grid item xs={6}>
-                                <div className={classes.margin}>
-                                    <Grid container spacing={1} alignItems="flex-end">
-                                        <Grid item>
-                                            <AttachMoneyIcon />
-                                        </Grid>
-                                        <Grid item>
-                                            <TextField label="Additional expense"
-                                                value={totalAdditionalExpense}
-                                                onChange={e => setTotalAdditionalExpense(e.target.value)} />
-                                        </Grid>
-                                    </Grid>
-                                </div>
+                                <TextFieldMoneyInputAdornment label="Additional expense"
+                                    value={totalAdditionalExpense}
+                                    onChange={e => setTotalAdditionalExpense(e.target.value)} />
                             </Grid>
 
                             <Grid item xs={12}>
@@ -142,9 +126,9 @@ const AddedTimeResults = props => {
             <React.Fragment>
                 <SquarePaper variant="outlined" square>
                     <Grid container spacing={1}>
-                        <h4>
-                            <strong>Your results</strong>
-                        </h4>
+                        <Typography variant="h1">
+                            Your results
+                        </Typography>
                     </Grid>
                     <Grid container spacing={1}>
                         <ThinText>Based on what you have entered into the form, we have calculated the following results</ThinText>

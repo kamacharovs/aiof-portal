@@ -7,9 +7,10 @@ import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
-import { numberWithCommas } from '../Finance/Common';
-import { TextFieldInputAdornment, TextFieldMoneyInputAdornment } from '../Common/Inputs';
+import Typography from '@material-ui/core/Typography';
 
+import { TextFieldInputAdornment, TextFieldMoneyInputAdornment } from '../Common/Inputs';
+import { numberWithCommas } from '../Finance/Common';
 import { SquarePaper, InPaper, AiofLinearProgress, ThinText } from '../../style/mui';
 import { FI_PAGE_LOADED, FI_TIME_TO_FI } from '../../constants/actionTypes';
 
@@ -147,9 +148,9 @@ const TimeToFiResults = props => {
       <React.Fragment>
         <SquarePaper variant="outlined" square>
           <Grid container spacing={1}>
-            <h4>
-              <strong>Your results</strong>
-            </h4>
+            <Typography variant="h1">
+              Your results
+            </Typography>
           </Grid>
           <Grid container spacing={1}>
             <ThinText>Based on what you have entered into the form, we have calculated the following results</ThinText>
