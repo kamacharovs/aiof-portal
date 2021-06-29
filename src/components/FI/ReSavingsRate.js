@@ -11,9 +11,8 @@ import Stepper from '@material-ui/core/Stepper';
 import Step from '@material-ui/core/Step';
 import StepLabel from '@material-ui/core/StepLabel';
 import Button from '@material-ui/core/Button';
-import AttachMoneyIcon from '@material-ui/icons/AttachMoney';
-import ArrowUpwardIcon from '@material-ui/icons/ArrowUpward';
 
+import { TextFieldInputAdornment, TextFieldMoneyInputAdornment, TextFieldPercInputAdornment } from '../Common/Inputs';
 import { numberWithCommas } from '../Finance/Common';
 import { SquarePaper, AiofLinearProgress, } from '../../style/mui';
 import { FI_COAST_FIRE, FI_COAST_FIRE_RESET } from '../../constants/actionTypes';
@@ -46,9 +45,6 @@ const useStyles = makeStyles((theme) => ({
         paddingBottom: '3px',
         width: '50%',
     },
-    margin: {
-        margin: theme.spacing(1),
-    },
     resize: {
         fontSize: '.8125rem'
     },
@@ -80,92 +76,54 @@ const CoastFireDescription = () => {
             <i>Financial Independence / Retire Early</i><br /><br />
             <p>
                 Contrary to popular belief, the term <strong>Coast FIRE</strong> does not refer to achieving financial independence or early retirement while living on the coast.
-            <br /><br />
-            Rather, <strong>Coast FIRE</strong> is defined as having enough money invested at an early enough age that you no longer need to invest any more to achieve financial independence by age 65 (or whatever age you define as a retirement age).
-            <br /><br />
-            For example, suppose we define financial independence as having 25 times your annual expenses saved up. So, if you spend $40,000 per year then you need $1 million to be financially independent.
-            <br /><br />
-            Following a <strong>Coast FIRE</strong> approach, if you could save $182,000 by age 30 and simply not touch that money for 35 years, then it would eventually grow to $1 million by age 65 assuming a 5% annual rate of return after inflation.
-            <br /><br />
-            This is a simple example of <strong>Coast FIRE</strong>. Once you hit $182k in investments by age 30, you can simply “coast” to financial independence over the next 35 years without contributing any more of your savings to investments
-            because you already have enough money invested and enough time on your side to let your investments grow to $1 million by age 65.
-            <br />
+                <br /><br />
+                Rather, <strong>Coast FIRE</strong> is defined as having enough money invested at an early enough age that you no longer need to invest any more to achieve financial independence by age 65 (or whatever age you define as a retirement age).
+                <br /><br />
+                For example, suppose we define financial independence as having 25 times your annual expenses saved up. So, if you spend $40,000 per year then you need $1 million to be financially independent.
+                <br /><br />
+                Following a <strong>Coast FIRE</strong> approach, if you could save $182,000 by age 30 and simply not touch that money for 35 years, then it would eventually grow to $1 million by age 65 assuming a 5% annual rate of return after inflation.
+                <br /><br />
+                This is a simple example of <strong>Coast FIRE</strong>. Once you hit $182k in investments by age 30, you can simply “coast” to financial independence over the next 35 years without contributing any more of your savings to investments
+                because you already have enough money invested and enough time on your side to let your investments grow to $1 million by age 65.
+                <br />
             </p>
         </React.Fragment>
     );
 }
 
-
-const SavingsRateInputs = (props) => {
-    const classes = useStyles();
-
+const SavingsRateInputs = props => {
     return (
         <React.Fragment>
             <Grid container spacing={3}>
                 <Grid item xs>
-                    <div className={classes.margin}>
-                        <Grid container spacing={1} alignItems="flex-end">
-                            <Grid item>
-                                <ArrowUpwardIcon />
-                            </Grid>
-                            <Grid item>
-                                <TextField label="Initial interest rate"
-                                    value={props.initialInterestRate}
-                                    onChange={e => props.setInitialInterestRate(e.target.value)} />
-                            </Grid>
-                        </Grid>
-                    </div>
+                    <TextFieldPercInputAdornment
+                        label="Initial interest rate"
+                        value={props.initialInterestRate}
+                        onChange={e => props.setInitialInterestRate(e.target.value)} />
                 </Grid>
             </Grid>
 
             <Grid container spacing={3}>
                 <Grid item xs>
-                    <div className={classes.margin}>
-                        <Grid container spacing={1} alignItems="flex-end">
-                            <Grid item>
-                                <ArrowUpwardIcon />
-                            </Grid>
-                            <Grid item>
-                                <TextField label="Start age"
-                                    value={props.startAge}
-                                    onChange={e => props.setStartAge(e.target.value)} />
-                            </Grid>
-                        </Grid>
-                    </div>
+                    <TextFieldInputAdornment label="Start age"
+                        value={props.startAge}
+                        onChange={e => props.setStartAge(e.target.value)} />
                 </Grid>
             </Grid>
 
             <Grid container spacing={3}>
                 <Grid item xs>
-                    <div className={classes.margin}>
-                        <Grid container spacing={1} alignItems="flex-end">
-                            <Grid item>
-                                <ArrowUpwardIcon />
-                            </Grid>
-                            <Grid item>
-                                <TextField label="End age"
-                                    value={props.endAge}
-                                    onChange={e => props.setEndAge(e.target.value)} />
-                            </Grid>
-                        </Grid>
-                    </div>
+                    <TextFieldInputAdornment label="End age"
+                        value={props.endAge}
+                        onChange={e => props.setEndAge(e.target.value)} />
                 </Grid>
             </Grid>
 
             <Grid container spacing={3}>
                 <Grid item xs>
-                    <div className={classes.margin}>
-                        <Grid container spacing={1} alignItems="flex-end">
-                            <Grid item>
-                                <AttachMoneyIcon />
-                            </Grid>
-                            <Grid item>
-                                <TextField label="Current balance"
-                                    value={props.currentBalance}
-                                    onChange={e => props.setCurrentBalance(e.target.value)} />
-                            </Grid>
-                        </Grid>
-                    </div>
+                    <TextFieldMoneyInputAdornment label="Current balance"
+                        value={props.currentBalance}
+                        onChange={e => props.setCurrentBalance(e.target.value)} />
                 </Grid>
             </Grid>
         </React.Fragment>
@@ -351,7 +309,7 @@ const FinalStepContent = props => {
                 </Grid>
 
                 <Grid item xs>
-                    <br/>
+                    <br />
                 </Grid>
 
                 <Grid item xs>
@@ -362,7 +320,7 @@ const FinalStepContent = props => {
                 </Grid>
 
                 <Grid item xs>
-                    <br/>
+                    <br />
                 </Grid>
 
                 <Grid item xs>
@@ -373,7 +331,7 @@ const FinalStepContent = props => {
                 </Grid>
 
                 <Grid item xs>
-                    <br/>
+                    <br />
                 </Grid>
 
                 <Grid item xs>
@@ -384,7 +342,7 @@ const FinalStepContent = props => {
                 </Grid>
 
                 <Grid item xs>
-                    <br/>
+                    <br />
                 </Grid>
 
                 <Grid item xs>
@@ -395,7 +353,7 @@ const FinalStepContent = props => {
                 </Grid>
 
                 <Grid item xs>
-                    <br/>
+                    <br />
                 </Grid>
             </Grid>
         </React.Fragment>
@@ -572,41 +530,41 @@ const SavingsRateStepper = props => {
                                         endAge={endAge} />
 
                                     <hr className={classes.hr} />
-                                    <Button 
+                                    <Button
                                         onClick={handleReset}
                                         className={classes.backButton}>
                                         Reset
                                     </Button>
-                                    <Button 
-                                        variant="contained" 
-                                        color="primary" 
+                                    <Button
+                                        variant="contained"
+                                        color="primary"
                                         onClick={handleCalculate}>
                                         Calculate
                                     </Button>
                                 </div>
                             ) : (
+                                <div>
+                                    <StepContent
+                                        stepIndex={activeStep}
+                                        startAge={startAge} setStartAge={setStartAge}
+                                        endAge={endAge} setEndAge={setEndAge}
+                                        initialInterestRate={initialInterestRate} setInitialInterestRate={setInitialInterestRate}
+                                        currentBalance={currentBalance} setCurrentBalance={setCurrentBalance}
+                                        savingsRateList={savingsRateList} setSavingsRateList={setSavingsRateList} />
                                     <div>
-                                        <StepContent
-                                            stepIndex={activeStep}
-                                            startAge={startAge} setStartAge={setStartAge}
-                                            endAge={endAge} setEndAge={setEndAge}
-                                            initialInterestRate={initialInterestRate} setInitialInterestRate={setInitialInterestRate}
-                                            currentBalance={currentBalance} setCurrentBalance={setCurrentBalance}
-                                            savingsRateList={savingsRateList} setSavingsRateList={setSavingsRateList} />
-                                        <div>
-                                            <hr className={classes.hr} />
-                                            <Button
-                                                disabled={activeStep === 0}
-                                                onClick={handleBack}
-                                                className={classes.backButton}>
-                                                Back
-                                            </Button>
-                                            <Button variant="contained" color="primary" onClick={handleNext}>
-                                                {activeStep === steps.length - 1 ? 'Finish' : 'Next'}
-                                            </Button>
-                                        </div>
+                                        <hr className={classes.hr} />
+                                        <Button
+                                            disabled={activeStep === 0}
+                                            onClick={handleBack}
+                                            className={classes.backButton}>
+                                            Back
+                                        </Button>
+                                        <Button variant="contained" color="primary" onClick={handleNext}>
+                                            {activeStep === steps.length - 1 ? 'Finish' : 'Next'}
+                                        </Button>
                                     </div>
-                                )}
+                                </div>
+                            )}
                         </div>
                     </div>
                 </SquarePaper>
