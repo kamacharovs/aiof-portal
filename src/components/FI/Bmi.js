@@ -117,6 +117,7 @@ const Bmi = (props) => {
                             <Grid item xs={4}>
                                 <div className={classes.margin}>
                                     <TextFieldInputAdornment
+                                        id="imperial-weight"
                                         label="Weight"
                                         value={imperialWeight}
                                         onChange={e => setImperialWeight(e.target.value)}
@@ -127,6 +128,7 @@ const Bmi = (props) => {
                             <Grid item xs={4}>
                                 <div className={classes.margin}>
                                     <TextFieldInputAdornment
+                                        id="imperial-feet"
                                         label="Feet"
                                         value={imperialFeet}
                                         onChange={e => setImperialFeet(e.target.value)} />
@@ -136,6 +138,7 @@ const Bmi = (props) => {
                             <Grid item xs={4}>
                                 <div className={classes.margin}>
                                     <TextFieldInputAdornment
+                                        id="imperial-inches"
                                         label="Inches"
                                         value={imperialInches}
                                         onChange={e => setImperialInches(e.target.value)} />
@@ -143,7 +146,12 @@ const Bmi = (props) => {
                             </Grid>
 
                             <Grid item xs={12}>
-                                <Button type="submit" variant="contained" color="primary" className={classes.button} >
+                                <Button 
+                                    id="imperial-calculate-button"
+                                    type="submit" 
+                                    variant="contained" 
+                                    color="primary" 
+                                    className={classes.button} >
                                     Calculate
                                 </Button>
                             </Grid>
@@ -159,6 +167,7 @@ const Bmi = (props) => {
                             <Grid item xs={6}>
                                 <div className={classes.margin}>
                                     <TextFieldInputAdornment
+                                        id="metric-weight"
                                         label="Weight"
                                         value={metricWeight}
                                         onChange={e => setMetricWeight(e.target.value)}
@@ -169,6 +178,7 @@ const Bmi = (props) => {
                             <Grid item xs={6}>
                                 <div className={classes.margin}>
                                     <TextFieldInputAdornment
+                                        id="metric-height"
                                         label="Height"
                                         value={metricHeight}
                                         onChange={e => setMetricHeight(e.target.value)}
@@ -177,7 +187,12 @@ const Bmi = (props) => {
                             </Grid>
 
                             <Grid item xs={12}>
-                                <Button type="submit" variant="contained" color="primary" className={classes.button} >
+                                <Button 
+                                    id="metric-calculate-button"
+                                    type="submit" 
+                                    variant="contained" 
+                                    color="primary" 
+                                    className={classes.button} >
                                     Calculate
                                 </Button>
                             </Grid>

@@ -112,7 +112,7 @@ const TimeToFi = props => {
             <Grid container spacing={3}>
               <Grid item xs={6}>
                 <TextFieldMoneyInputAdornment
-                  id="input-with-icon-grid"
+                  id="starting-amount"
                   label="Starting amount"
                   value={startingAmount}
                   onChange={e => setStartingAmount(e.target.value)} />
@@ -120,7 +120,7 @@ const TimeToFi = props => {
 
               <Grid item xs={6}>
                 <TextFieldMoneyInputAdornment
-                  id="input-with-icon-grid"
+                  id="monthly-investment"
                   label="Monthly investment"
                   value={monthlyInvestment}
                   onChange={e => setMonthlyInvestment(e.target.value)} />
@@ -128,7 +128,7 @@ const TimeToFi = props => {
 
               <Grid item xs={6}>
                 <TextFieldInputAdornment
-                  id="input-with-icon-grid"
+                  id="years-expenses"
                   label="Years expenses"
                   value={desiredYearsExpensesForFi}
                   onChange={e => setDesiredYearsExpensesForFi(e.target.value)} />
@@ -136,14 +136,19 @@ const TimeToFi = props => {
 
               <Grid item xs={6}>
                 <TextFieldMoneyInputAdornment
-                  id="input-with-icon-grid"
+                  id="annual-spending"
                   label="Annual spending"
                   value={desiredAnnualSpending}
                   onChange={e => setDesiredAnnualSpending(e.target.value)} />
               </Grid>
 
               <Grid item xs={12}>
-                <Button type="submit" variant="contained" color="primary" className={classes.button} >
+                <Button 
+                  id="calculate-button"
+                  type="submit" 
+                  variant="contained" 
+                  color="primary" 
+                  className={classes.button} >
                   Calculate
                 </Button>
               </Grid>

@@ -1,4 +1,10 @@
 context("Calculators", () => {
+    // FI Time
+    var timeStartingAmount = 800000;
+    var timeMonthlyInvestment = 5000;
+    var timeYearsExpenses = 25;
+    var timeAnnualSpending = 100000;
+
     // FI Added time
     var monthlyInvestment = 50000;
     var additionalExpense = 85000;
@@ -10,6 +16,13 @@ context("Calculators", () => {
     var ciYears = 25
     var ciInvestmentFees = 0.5;
     var ciTaxDrag = 0.5;
+
+    // FI BMI
+    var bmiImperialWeight = 165;
+    var bmiImperialFeet = 6;
+    var bmiImperialInches = 0;
+    var bmiMetricWeight = 75;
+    var bmiMetricHeight = 183;
 
     // Mortgage calculator
     var defaultPropertyValue = 300000;
@@ -23,6 +36,39 @@ context("Calculators", () => {
 
     // FI (Financial Independence)
     context("FI", () => {
+        // Time
+        describe("Time", () => {
+            beforeEach(() => {
+                cy.visit("/fi/time")
+            })
+
+            it("successful", () => {
+                cy.get("#starting-amount")
+                    .clear()
+                    .type(timeStartingAmount)
+                    .should("have.value", timeStartingAmount)
+
+                cy.get("#monthly-investment")
+                    .clear()
+                    .type(timeMonthlyInvestment)
+                    .should("have.value", timeMonthlyInvestment)
+
+                cy.get("#years-expenses")
+                    .clear()
+                    .type(timeYearsExpenses)
+                    .should("have.value", timeYearsExpenses)
+
+                cy.get("#annual-spending")
+                    .clear()
+                    .type(timeAnnualSpending)
+                    .should("have.value", timeAnnualSpending)
+
+                cy.get("#calculate-button")
+                    .should("be.enabled")
+                    .click()
+            })
+        })
+
         // Added time
         describe("Added time", () => {
             beforeEach(() => {
@@ -82,8 +128,52 @@ context("Calculators", () => {
                     .clear()
                     .type(ciTaxDrag)
                     .should("have.value", ciTaxDrag)
-                    
+
                 cy.get("#calculate-button")
+                    .should("be.enabled")
+                    .click()
+            })
+        })
+
+        // BMI
+        describe("BMI", () => {
+            beforeEach(() => {
+                cy.visit("/fi/bmi")
+            })
+
+            it("successful imperial", () => {
+                cy.get("#imperial-weight")
+                    .clear()
+                    .type(bmiImperialWeight)
+                    .should("have.value", bmiImperialWeight)
+
+                cy.get("#imperial-feet")
+                    .clear()
+                    .type(bmiImperialFeet)
+                    .should("have.value", bmiImperialFeet)
+
+                cy.get("#imperial-inches")
+                    .clear()
+                    .type(bmiImperialInches)
+                    .should("have.value", bmiImperialInches)
+
+                cy.get("#imperial-calculate-button")
+                    .should("be.enabled")
+                    .click()
+            })
+
+            it("successful metric", () => {
+                cy.get("#metric-weight")
+                    .clear()
+                    .type(bmiMetricWeight)
+                    .should("have.value", bmiMetricWeight)
+
+                cy.get("#metric-height")
+                    .clear()
+                    .type(bmiMetricHeight)
+                    .should("have.value", bmiMetricHeight)
+
+                cy.get("#metric-calculate-button")
                     .should("be.enabled")
                     .click()
             })
