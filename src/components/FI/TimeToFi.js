@@ -5,13 +5,13 @@ import agent from '../../agent';
 
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
-import TextField from '@material-ui/core/TextField';
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
-import AttachMoneyIcon from '@material-ui/icons/AttachMoney';
-import ArrowUpwardIcon from '@material-ui/icons/ArrowUpward';
+import Typography from '@material-ui/core/Typography';
+
+import { TextFieldInputAdornment, TextFieldMoneyInputAdornment } from '../Common/Inputs';
 import { numberWithCommas } from '../Finance/Common';
-import { SquarePaper, InPaper, AiofLinearProgress, ThinText } from '../../style/mui';
+import { SquarePaper, InPaper, AiofLinearProgress, TextMain } from '../../style/mui';
 import { FI_PAGE_LOADED, FI_TIME_TO_FI } from '../../constants/actionTypes';
 
 
@@ -39,9 +39,6 @@ const useStyles = makeStyles((theme) => ({
   },
   withoutLabel: {
     marginTop: theme.spacing(3),
-  },
-  textField: {
-    width: '25ch',
   },
   green: {
     color: theme.palette.success.main,
@@ -93,72 +90,67 @@ const TimeToFi = props => {
 
       <Container maxWidth="sm">
         <SquarePaper variant="outlined" square>
+          <Grid container>
+            <Grid item xs>
+              <Typography variant="h1">
+                Time to FI calculator
+              </Typography>
+            </Grid>
+          </Grid>
+
+          <Grid container>
+            <Grid item xs>
+              <TextMain>
+                Your time to FI (financial independence) information
+              </TextMain>
+            </Grid>
+          </Grid>
+        </SquarePaper>
+
+        <SquarePaper variant="outlined" square>
           <form className={classes.root} noValidate autoComplete="off" onSubmit={onSubmitForm}>
             <Grid container spacing={3}>
               <Grid item xs={6}>
-                <div className={classes.margin}>
-                  <Grid container spacing={1} alignItems="flex-end">
-                    <Grid item>
-                      <AttachMoneyIcon />
-                    </Grid>
-                    <Grid item>
-                      <TextField id="input-with-icon-grid" label="Starting amount"
-                        value={startingAmount}
-                        onChange={e => setStartingAmount(e.target.value)} />
-                    </Grid>
-                  </Grid>
-                </div>
+                <TextFieldMoneyInputAdornment
+                  id="starting-amount"
+                  label="Starting amount"
+                  value={startingAmount}
+                  onChange={e => setStartingAmount(e.target.value)} />
               </Grid>
 
               <Grid item xs={6}>
-                <div className={classes.margin}>
-                  <Grid container spacing={1} alignItems="flex-end">
-                    <Grid item>
-                      <AttachMoneyIcon />
-                    </Grid>
-                    <Grid item>
-                      <TextField id="input-with-icon-grid" label="Monthly investment"
-                        value={monthlyInvestment}
-                        onChange={e => setMonthlyInvestment(e.target.value)} />
-                    </Grid>
-                  </Grid>
-                </div>
+                <TextFieldMoneyInputAdornment
+                  id="monthly-investment"
+                  label="Monthly investment"
+                  value={monthlyInvestment}
+                  onChange={e => setMonthlyInvestment(e.target.value)} />
               </Grid>
 
               <Grid item xs={6}>
-                <div className={classes.margin}>
-                  <Grid container spacing={1} alignItems="flex-end">
-                    <Grid item>
-                      <ArrowUpwardIcon />
-                    </Grid>
-                    <Grid item>
-                      <TextField id="input-with-icon-grid" label="Years expenses"
-                        value={desiredYearsExpensesForFi}
-                        onChange={e => setDesiredYearsExpensesForFi(e.target.value)} />
-                    </Grid>
-                  </Grid>
-                </div>
+                <TextFieldInputAdornment
+                  id="years-expenses"
+                  label="Years expenses"
+                  value={desiredYearsExpensesForFi}
+                  onChange={e => setDesiredYearsExpensesForFi(e.target.value)} />
               </Grid>
 
               <Grid item xs={6}>
-                <div className={classes.margin}>
-                  <Grid container spacing={1} alignItems="flex-end">
-                    <Grid item>
-                      <AttachMoneyIcon />
-                    </Grid>
-                    <Grid item>
-                      <TextField id="input-with-icon-grid" label="Annual spending"
-                        value={desiredAnnualSpending}
-                        onChange={e => setDesiredAnnualSpending(e.target.value)} />
-                    </Grid>
-                  </Grid>
-                </div>
+                <TextFieldMoneyInputAdornment
+                  id="annual-spending"
+                  label="Annual spending"
+                  value={desiredAnnualSpending}
+                  onChange={e => setDesiredAnnualSpending(e.target.value)} />
               </Grid>
 
               <Grid item xs={12}>
-                <Button type="submit" variant="contained" color="primary" className={classes.button} >
+                <Button 
+                  id="calculate-button"
+                  type="submit" 
+                  variant="contained" 
+                  color="primary" 
+                  className={classes.button} >
                   Calculate
-              </Button>
+                </Button>
               </Grid>
             </Grid>
           </form>
@@ -179,12 +171,14 @@ const TimeToFiResults = props => {
       <React.Fragment>
         <SquarePaper variant="outlined" square>
           <Grid container spacing={1}>
-            <h4>
-              <strong>Your results</strong>
-            </h4>
+            <Typography variant="h1">
+              Your results
+            </Typography>
           </Grid>
           <Grid container spacing={1}>
-            <ThinText>Based on what you have entered into the form, we have calculated the following results</ThinText>
+            <TextMain>
+              Based on what you have entered into the form, we have calculated the following results
+            </TextMain>
           </Grid>
 
           <Grid container spacing={1}>
@@ -226,7 +220,9 @@ const TimeToFiResults = props => {
 
         <SquarePaper variant="outlined" square>
           <Grid container spacing={1}>
-            <ThinText>Time to reach FI (Financial Independence) based on interests</ThinText>
+            <TextMain>
+              Time to reach FI (Financial Independence) based on interests
+            </TextMain>
           </Grid>
 
           <Grid container spacing={1}>

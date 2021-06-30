@@ -5,12 +5,13 @@ import agent from '../../agent';
 
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
-import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
-import InputAdornment from '@material-ui/core/InputAdornment';
+import Typography from '@material-ui/core/Typography';
+
+import { TextFieldInputAdornment, TextFieldMoneyInputAdornment, TextFieldPercInputAdornment } from '../Common/Inputs';
 import { numberWithCommas } from '../Finance/Common';
-import { SquarePaper, InPaper, AiofLinearProgress, ThinText } from '../../style/mui';
+import { SquarePaper, InPaper, AiofLinearProgress, TextMain } from '../../style/mui';
 import { FI_PAGE_LOADED, FI_COMPOUND_INTEREST } from '../../constants/actionTypes';
 
 
@@ -96,46 +97,64 @@ const CompoundInterest = props => {
       <Helmet>
         <title>{props.appName} | Compound interest</title>
       </Helmet>
+
       <Container maxWidth="sm">
+        <SquarePaper variant="outlined" square>
+          <Grid container>
+            <Grid item xs>
+              <Typography variant="h1">
+                Compound interest calculator
+              </Typography>
+            </Grid>
+          </Grid>
+
+          <Grid container>
+            <Grid item xs>
+              <TextMain>
+                Your compound interest information
+              </TextMain>
+            </Grid>
+          </Grid>
+        </SquarePaper>
+
         <SquarePaper variant="outlined" square>
           <form className={classes.root} noValidate autoComplete="off" onSubmit={onSubmitForm()}>
             <Grid container spacing={3}>
               <Grid item xs={6}>
                 <div className={classes.margin}>
-                  <TextField label="Starting amount"
+                  <TextFieldMoneyInputAdornment
+                    id="starting-amount"
+                    label="Starting amount"
                     value={startingAmount}
-                    onChange={e => setStartingAmount(e.target.value)}
-                    InputProps={{
-                      startAdornment: <InputAdornment position="start">$</InputAdornment>
-                    }} />
+                    onChange={e => setStartingAmount(e.target.value)} />
                 </div>
               </Grid>
 
               <Grid item xs={6}>
                 <div className={classes.margin}>
-                  <TextField label="Monthly investment"
+                  <TextFieldMoneyInputAdornment
+                    id="monthly-investment"
+                    label="Monthly investment"
                     value={monthlyInvestment}
-                    onChange={e => setMonthlyInvestment(e.target.value)}
-                    InputProps={{
-                      startAdornment: <InputAdornment position="start">$</InputAdornment>
-                    }} />
+                    onChange={e => setMonthlyInvestment(e.target.value)} />
                 </div>
               </Grid>
 
               <Grid item xs={6}>
                 <div className={classes.margin}>
-                  <TextField label="Interest"
+                  <TextFieldPercInputAdornment
+                    id="interest"
+                    label="Interest"
                     value={interest}
-                    onChange={e => setInterest(e.target.value)}
-                    InputProps={{
-                      startAdornment: <InputAdornment position="start">%</InputAdornment>
-                    }} />
+                    onChange={e => setInterest(e.target.value)} />
                 </div>
               </Grid>
 
               <Grid item xs={6}>
                 <div className={classes.margin}>
-                  <TextField label="Years"
+                  <TextFieldInputAdornment
+                    id="years"
+                    label="Years"
                     value={numberOfYears}
                     onChange={e => setNumberOfYears(e.target.value)} />
                 </div>
@@ -143,30 +162,33 @@ const CompoundInterest = props => {
 
               <Grid item xs={6}>
                 <div className={classes.margin}>
-                  <TextField label="Investment Fees"
+                  <TextFieldPercInputAdornment
+                    id="investment-fees"
+                    label="Investment Fees"
                     value={investmentFees}
-                    onChange={e => setInvestmentFees(e.target.value)}
-                    InputProps={{
-                      startAdornment: <InputAdornment position="start">%</InputAdornment>
-                    }} />
+                    onChange={e => setInvestmentFees(e.target.value)} />
                 </div>
               </Grid>
 
               <Grid item xs={6}>
                 <div className={classes.margin}>
-                  <TextField label="Tax Drag"
+                  <TextFieldPercInputAdornment
+                    id="tax-drag"
+                    label="Tax Drag"
                     value={taxDrag}
-                    onChange={e => setTaxDrag(e.target.value)}
-                    InputProps={{
-                      startAdornment: <InputAdornment position="start">%</InputAdornment>
-                    }} />
+                    onChange={e => setTaxDrag(e.target.value)} />
                 </div>
               </Grid>
 
               <Grid item xs={12}>
-                <Button type="submit" variant="contained" color="primary" className={classes.button} >
+                <Button 
+                  id="calculate-button"
+                  type="submit" 
+                  variant="contained" 
+                  color="primary" 
+                  className={classes.button} >
                   Calculate
-              </Button>
+                </Button>
               </Grid>
             </Grid>
           </form>
@@ -188,12 +210,14 @@ const CompoundInterestResults = props => {
       <React.Fragment>
         <SquarePaper variant="outlined" square>
           <Grid container spacing={1}>
-            <h4>
-              <strong>Your results</strong>
-            </h4>
+            <Typography variant="h1">
+              Your results
+            </Typography>
           </Grid>
           <Grid container spacing={1}>
-            <ThinText>Based on what you have entered into the form, we have calculated the following results</ThinText>
+            <TextMain>
+              Based on what you have entered into the form, we have calculated the following results
+            </TextMain>
           </Grid>
 
           <Grid container spacing={1}>

@@ -2,20 +2,20 @@ import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
 import agent from '../../agent';
+import { Line, Bar } from 'react-chartjs-2';
 import 'date-fns';
 
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
-import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
-import InputAdornment from '@material-ui/core/InputAdornment';
 import DateFnsUtils from '@date-io/date-fns';
 import { MuiPickersUtilsProvider, KeyboardDatePicker } from '@material-ui/pickers';
-import { numberWithCommas } from '../Finance/Common';
-import { Line, Bar } from 'react-chartjs-2';
+import Typography from '@material-ui/core/Typography';
 
-import { AiofLinearProgress, InPaper, SquarePaper, ThinText } from '../../style/mui';
+import { TextFieldInputAdornment, TextFieldMoneyInputAdornment, TextFieldPercInputAdornment } from '../Common/Inputs';
+import { numberWithCommas } from '../Finance/Common';
+import { AiofLinearProgress, InPaper, SquarePaper, TextMain } from '../../style/mui';
 import { HOUSE_MORTGAGE_CALCULATOR } from '../../constants/actionTypes';
 
 
@@ -152,49 +152,64 @@ const MortgageCalculator = props => {
 
             <Container maxWidth="md">
                 <SquarePaper variant="outlined" square>
+                    <Grid container>
+                        <Grid item xs>
+                            <Typography variant="h1">
+                                Mortgage calculator
+                            </Typography>
+                        </Grid>
+                    </Grid>
+
+                    <Grid container>
+                        <Grid item xs>
+                            <TextMain>
+                                Your mortgage payment information
+                            </TextMain>
+                        </Grid>
+                    </Grid>
+                </SquarePaper>
+
+                <SquarePaper variant="outlined" square>
                     <form className={classes.root} noValidate autoComplete="off" onSubmit={onCalculate}>
                         <Grid container spacing={3}>
                             <Grid item xs>
                                 General details
-                        </Grid>
+                            </Grid>
                         </Grid>
                         <Grid container spacing={3}>
                             <Grid item xs={4}>
                                 <div className={classes.margin}>
-                                    <TextField label="Property value"
+                                    <TextFieldMoneyInputAdornment
+                                        id="property-value"
+                                        label="Property value"
                                         error={errorPropertyText === "" ? false : true}
                                         value={propertyValue}
                                         onChange={e => onNegativeChange(e, errorPropertyText, setErrorPropertyText, setPropertyValue)}
-                                        helperText={errorPropertyText}
-                                        InputProps={{
-                                            startAdornment: <InputAdornment position="start">$</InputAdornment>
-                                        }} />
+                                        helperText={errorPropertyText} />
                                 </div>
                             </Grid>
 
                             <Grid item xs={4}>
                                 <div className={classes.margin}>
-                                    <TextField label="Down payment"
+                                    <TextFieldMoneyInputAdornment
+                                        id="down-payment"
+                                        label="Down payment"
                                         error={errorDownPaymentText === "" ? false : true}
                                         value={downPayment}
                                         onChange={e => onNegativeChange(e, errorDownPaymentText, setErrorDownPaymentText, setDownPayment)}
-                                        helperText={errorDownPaymentText}
-                                        InputProps={{
-                                            startAdornment: <InputAdornment position="start">$</InputAdornment>
-                                        }} />
+                                        helperText={errorDownPaymentText} />
                                 </div>
                             </Grid>
 
                             <Grid item xs={4}>
                                 <div className={classes.margin}>
-                                    <TextField label="Interest rate"
+                                    <TextFieldPercInputAdornment
+                                        id="interest-rate"
+                                        label="Interest rate"
                                         error={errorInterestRateText === "" ? false : true}
                                         value={interestRate}
                                         onChange={e => onPercentageChange(e, errorInterestRateText, setErrorInterestRateText, setInterestRate)}
-                                        helperText={errorInterestRateText}
-                                        InputProps={{
-                                            startAdornment: <InputAdornment position="start">%</InputAdornment>
-                                        }} />
+                                        helperText={errorInterestRateText} />
                                 </div>
                             </Grid>
                         </Grid>
@@ -202,7 +217,9 @@ const MortgageCalculator = props => {
                         <Grid container spacing={3}>
                             <Grid item xs={4}>
                                 <div className={classes.margin}>
-                                    <TextField label="Loan term years"
+                                    <TextFieldInputAdornment
+                                        id="loan-term-years"
+                                        label="Loan term years"
                                         error={errorLoanTermYearsText === "" ? false : true}
                                         value={loanTermYears}
                                         helperText={errorLoanTermYearsText}
@@ -213,6 +230,7 @@ const MortgageCalculator = props => {
                             <Grid item xs={4}>
                                 <MuiPickersUtilsProvider utils={DateFnsUtils}>
                                     <KeyboardDatePicker
+                                        id="start-date"
                                         disableToolbar
                                         variant="inline"
                                         format="MM/dd/yyyy"
@@ -231,53 +249,56 @@ const MortgageCalculator = props => {
                         <Grid container spacing={3}>
                             <Grid item xs>
                                 <br />
-                            Additional details
-                        </Grid>
+                                Additional details
+                            </Grid>
                         </Grid>
                         <Grid container spacing={3}>
                             <Grid item xs={4}>
                                 <div className={classes.margin}>
-                                    <TextField label="PMI"
+                                    <TextFieldPercInputAdornment
+                                        id="pmi"
+                                        label="PMI"
                                         error={errorPmiText === "" ? false : true}
                                         value={pmi}
                                         onChange={e => onPercentageChange(e, errorPmiText, setErrorPmiText, setPmi)}
-                                        helperText={errorPmiText}
-                                        InputProps={{
-                                            startAdornment: <InputAdornment position="start">%</InputAdornment>
-                                        }} />
+                                        helperText={errorPmiText} />
                                 </div>
                             </Grid>
 
                             <Grid item xs={4}>
                                 <div className={classes.margin}>
-                                    <TextField label="Property insurance"
+                                    <TextFieldMoneyInputAdornment
+                                        id="property-insurance"
+                                        label="Property insurance"
                                         error={errorPropertyInsuranceText === "" ? false : true}
                                         value={propertyInsurance}
                                         onChange={e => onNegativeChange(e, errorPropertyInsuranceText, setErrorPropertyInsuranceText, setPropertyInsurance)}
-                                        helperText={errorPropertyInsuranceText}
-                                        InputProps={{
-                                            startAdornment: <InputAdornment position="start">$</InputAdornment>
-                                        }} />
+                                        helperText={errorPropertyInsuranceText} />
                                 </div>
                             </Grid>
 
                             <Grid item xs={4}>
                                 <div className={classes.margin}>
-                                    <TextField label="Monthly HOA"
+                                    <TextFieldMoneyInputAdornment
+                                        id="monthly-hoa"
+                                        label="Monthly HOA"
                                         error={errorMonthlyHoaText === "" ? false : true}
                                         value={monthlyHoa}
                                         onChange={e => onNegativeChange(e, errorMonthlyHoaText, setErrorMonthlyHoaText, setMonthlyHoa)}
-                                        helperText={errorMonthlyHoaText}
-                                        InputProps={{
-                                            startAdornment: <InputAdornment position="start">$</InputAdornment>
-                                        }} />
+                                        helperText={errorMonthlyHoaText} />
                                 </div>
                             </Grid>
                         </Grid>
 
                         <Grid container spacing={3}>
                             <Grid item xs>
-                                <Button type="submit" variant="contained" color="primary" className={classes.button} disabled={!isCalculateEnabled} >
+                                <Button
+                                    id="calculate-button"
+                                    type="submit"
+                                    variant="contained"
+                                    color="primary"
+                                    className={classes.button}
+                                    disabled={!isCalculateEnabled} >
                                     Calculate
                                 </Button>
                             </Grid>
@@ -400,54 +421,54 @@ const MortgageCalculatorResult = props => {
             <React.Fragment>
                 <SquarePaper variant="outlined" square>
                     <Grid container spacing={1}>
-                        <h4>
-                            <strong>Your results</strong>
-                        </h4>
+                        <Typography variant="h1">
+                            Your results
+                        </Typography>
                     </Grid>
                     <Grid container spacing={1}>
-                        <ThinText>Based on what you have entered into the form, we have calculated the following results</ThinText>
+                        <TextMain>Based on what you have entered into the form, we have calculated the following results</TextMain>
                     </Grid>
 
                     <Grid container spacing={1}>
                         <Grid item xs={4}>
-                            <InPaper title={"Monthly payment"} 
-                            body={numberWithCommas(payment)} 
-                            prefix={"$"}/>
+                            <InPaper title={"Monthly payment"}
+                                body={numberWithCommas(payment)}
+                                prefix={"$"} />
                         </Grid>
 
                         <Grid item xs={4}>
-                            <InPaper title={"Loan amount"} 
-                            body={numberWithCommas(loanAmount)} 
-                            prefix={"$"}/>
+                            <InPaper title={"Loan amount"}
+                                body={numberWithCommas(loanAmount)}
+                                prefix={"$"} />
                         </Grid>
                     </Grid>
 
                     <Grid container spacing={1}>
                         <Grid item xs>
-                            <InPaper title={"Total principal paid"} 
+                            <InPaper title={"Total principal paid"}
                                 body={<div className={classes.green}>${numberWithCommas(Math.round(totalPrincipalPaid))}</div>} />
                         </Grid>
 
                         <Grid item xs>
-                            <InPaper title={"Total interest paid"} 
+                            <InPaper title={"Total interest paid"}
                                 body={<div className={classes.red}>${numberWithCommas(Math.round(totalInterestPaid))}</div>} />
                         </Grid>
 
                         <Grid item xs>
-                            <InPaper title={"Total paid"} 
-                            body={numberWithCommas(Math.round(totalPrincipalPaid + totalInterestPaid))} 
-                            prefix={"$"}/>
+                            <InPaper title={"Total paid"}
+                                body={numberWithCommas(Math.round(totalPrincipalPaid + totalInterestPaid))}
+                                prefix={"$"} />
                         </Grid>
                     </Grid>
 
                     <Grid container spacing={1}>
                         <Grid item xs={4}>
-                            <InPaper title={"Start date"} 
+                            <InPaper title={"Start date"}
                                 body={new Date(first.paymentDate).toLocaleDateString()} />
                         </Grid>
 
                         <Grid item xs={4}>
-                            <InPaper title={"End date"} 
+                            <InPaper title={"End date"}
                                 body={new Date(last.paymentDate).toLocaleDateString()} />
                         </Grid>
                     </Grid>
