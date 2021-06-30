@@ -169,6 +169,7 @@ const CommonInvestments = props => {
                             <Grid item xs={4}>
                                 <div className={classes.margin}>
                                     <TextFieldPercInputAdornment 
+                                        id="interest"
                                         label="Interest"
                                         error={errorInterestText === "" ? false : true}
                                         value={interest}
@@ -180,6 +181,7 @@ const CommonInvestments = props => {
                             <Grid item xs={4}>
                                 <div className={classes.margin}>
                                     <TextFieldInputAdornment 
+                                        id="start-year"
                                         label="Start year"
                                         error={errorStartYearText === "" ? false : true}
                                         value={startYear}
@@ -191,6 +193,7 @@ const CommonInvestments = props => {
                             <Grid item xs={4}>
                                 <div className={classes.margin}>
                                     <TextFieldInputAdornment 
+                                        id="end-year"
                                         label="End year"
                                         error={errorEndYearText === "" ? false : true}
                                         value={endYear}
@@ -204,6 +207,7 @@ const CommonInvestments = props => {
                             <Grid item xs={4}>
                                 <div className={classes.margin}>
                                     <TextFieldInputAdornment 
+                                        id="compounding-periods"
                                         label="Compounding periods"
                                         error={errorCompoundingPeriodsText === "" ? false : true}
                                         value={compoundingPeriods}
@@ -223,6 +227,7 @@ const CommonInvestments = props => {
                             <Grid item xs={4}>
                                 <div className={classes.margin}>
                                     <TextFieldMoneyInputAdornment 
+                                        id="401k-starting-amount"
                                         label="Starting amount"
                                         error={errorFourOhOneKStartingAmountText === "" ? false : true}
                                         value={fourOhOneKStartingAmount}
@@ -234,6 +239,7 @@ const CommonInvestments = props => {
                             <Grid item xs={4}>
                                 <div className={classes.margin}>
                                     <TextFieldMoneyInputAdornment 
+                                        id="401k-monthly-contribution"
                                         label="Monthly contribution"
                                         error={errorFourOhOneKMonthlyContributionsText === "" ? false : true}
                                         value={fourOhOneKMonthlyContributions}
@@ -253,6 +259,7 @@ const CommonInvestments = props => {
                             <Grid item xs={4}>
                                 <div className={classes.margin}>
                                     <TextFieldMoneyInputAdornment 
+                                        id="roth-ira-starting-amount"
                                         label="Starting amount"
                                         error={errorRothIraStartingAmountText === "" ? false : true}
                                         value={rothIraStartingAmount}
@@ -264,6 +271,7 @@ const CommonInvestments = props => {
                             <Grid item xs={4}>
                                 <div className={classes.margin}>
                                     <TextFieldMoneyInputAdornment 
+                                        id="roth-ira-monthly-contribution"
                                         label="Monthly contribution"
                                         error={errorRothIraMonthlyContributionsText === "" ? false : true}
                                         value={rothIraMonthlyContributions}
@@ -283,6 +291,7 @@ const CommonInvestments = props => {
                             <Grid item xs={4}>
                                 <div className={classes.margin}>
                                     <TextFieldMoneyInputAdornment 
+                                        id="brokerage-account-starting-amount"
                                         label="Starting amount"
                                         error={errorBrokerageStartingAmountText === "" ? false : true}
                                         value={brokerageStartingAmount}
@@ -294,6 +303,7 @@ const CommonInvestments = props => {
                             <Grid item xs={4}>
                                 <div className={classes.margin}>
                                     <TextFieldMoneyInputAdornment 
+                                        id="brokerage-account-monthly-contribution"
                                         label="Monthly contribution"
                                         error={errorBrokerageMonthlyContributionsText === "" ? false : true}
                                         value={brokerageMonthlyContributions}
@@ -305,7 +315,12 @@ const CommonInvestments = props => {
 
                         <Grid container spacing={3}>
                             <Grid item xs>
-                                <Button type="submit" variant="contained" color="primary" className={classes.button} disabled={!isCalculateEnabled} >
+                                <Button 
+                                    id="calculate-button"
+                                    type="submit" 
+                                    variant="contained" 
+                                    color="primary" 
+                                    className={classes.button} disabled={!isCalculateEnabled} >
                                     Calculate
                                 </Button>
                             </Grid>

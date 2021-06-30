@@ -1,4 +1,16 @@
 context("Calculators", () => {
+    // Retirement common investments
+    var commonInvestmentsInterest = 7;
+    var commonInvestmentsStartYear = 2021;
+    var commonInvestmentsEndYear = 2040;
+    var commonInvestmentsCompoundingPeriods = 12;
+    var commonInvestments401kStartingAmount = 0;
+    var commonInvestments401kMonthlyContribution = 1625;
+    var commonInvestmentsRothIraStartingAmount = 0;
+    var commonInvestmentsRothIraMonthlyContribution = 500;
+    var commonInvestmentsBrokerageAccountStartingAmount = 0;
+    var commonInvestmentsBrokerageAccountMonthlyContribution = 500;
+
     // FI Time
     var timeStartingAmount = 800000;
     var timeMonthlyInvestment = 5000;
@@ -33,6 +45,77 @@ context("Calculators", () => {
     var defaultPmi = 0.5;
     var devaultPropertyInsurance = 1000;
     var defaultMonthlyHoa = 0;
+
+    // Retirement
+    context("Retirement", () => {
+        // Common investments
+        describe("Common investments", () => {
+            beforeEach(() => {
+                cy.visit("/retirement/common/investments")
+            })
+
+            it("successful", () => {
+                cy.get("#interest")
+                    .clear()
+                    .type(commonInvestmentsInterest)
+                    .should("have.value", commonInvestmentsInterest)
+
+                cy.get("#start-year")
+                    .clear()
+                    .type(commonInvestmentsStartYear)
+                    .should("have.value", commonInvestmentsStartYear)
+
+                cy.get("#start-year")
+                    .clear()
+                    .type(commonInvestmentsStartYear)
+                    .should("have.value", commonInvestmentsStartYear)
+
+                cy.get("#end-year")
+                    .clear()
+                    .type(commonInvestmentsEndYear)
+                    .should("have.value", commonInvestmentsEndYear)
+
+                cy.get("#compounding-periods")
+                    .clear()
+                    .type(commonInvestmentsCompoundingPeriods)
+                    .should("have.value", commonInvestmentsCompoundingPeriods)
+
+                cy.get("#401k-starting-amount")
+                    .clear()
+                    .type(commonInvestments401kStartingAmount)
+                    .should("have.value", commonInvestments401kStartingAmount)
+
+                cy.get("#401k-monthly-contribution")
+                    .clear()
+                    .type(commonInvestments401kMonthlyContribution)
+                    .should("have.value", commonInvestments401kMonthlyContribution)
+
+                cy.get("#roth-ira-starting-amount")
+                    .clear()
+                    .type(commonInvestmentsRothIraStartingAmount)
+                    .should("have.value", commonInvestmentsRothIraStartingAmount)
+
+                cy.get("#roth-ira-monthly-contribution")
+                    .clear()
+                    .type(commonInvestmentsRothIraMonthlyContribution)
+                    .should("have.value", commonInvestmentsRothIraMonthlyContribution)
+
+                cy.get("#brokerage-account-starting-amount")
+                    .clear()
+                    .type(commonInvestmentsBrokerageAccountStartingAmount)
+                    .should("have.value", commonInvestmentsBrokerageAccountStartingAmount)
+
+                cy.get("#brokerage-account-monthly-contribution")
+                    .clear()
+                    .type(commonInvestmentsBrokerageAccountMonthlyContribution)
+                    .should("have.value", commonInvestmentsBrokerageAccountMonthlyContribution)
+
+                cy.get("#calculate-button")
+                    .should("be.enabled")
+                    .click()
+            })
+        })
+    })
 
     // FI (Financial Independence)
     context("FI", () => {
