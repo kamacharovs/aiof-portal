@@ -48,9 +48,6 @@ const useStyles = makeStyles((theme) => ({
         margin: '0rem',
         padding: '0rem'
     },
-    strong: {
-        fontSize: '0.85rem',
-    }
 }));
 
 const CommonInvestments = props => {
@@ -220,7 +217,9 @@ const CommonInvestments = props => {
                         <Grid container spacing={0}>
                             <Grid item xs>
                                 <br />
-                                <strong className={classes.strong}>401(k)</strong>
+                                <Typography variant="h6">
+                                    401(k)
+                                </Typography>
                             </Grid>
                         </Grid>
                         <Grid container spacing={3}>
@@ -252,7 +251,9 @@ const CommonInvestments = props => {
                         <Grid container spacing={0}>
                             <Grid item xs>
                                 <br />
-                                <strong className={classes.strong}>Roth IRA</strong>
+                                <Typography variant="h6">
+                                    Roth IRA
+                                </Typography>
                             </Grid>
                         </Grid>
                         <Grid container spacing={3}>
@@ -284,7 +285,9 @@ const CommonInvestments = props => {
                         <Grid container spacing={0}>
                             <Grid item xs>
                                 <br />
-                                <strong className={classes.strong}>Brokerage account</strong>
+                                <Typography variant="h6">
+                                    Brokerage account
+                                </Typography>
                             </Grid>
                         </Grid>
                         <Grid container spacing={3}>

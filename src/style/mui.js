@@ -93,6 +93,13 @@ export const theme = createMuiTheme({
       lineHeight: '32px',
       marginBottom: '0',
     },
+    h6: {
+      color: '#3c4257',
+      fontSize: '14px',
+      fontWeight: '700',
+      lineHeight: '32px',
+      marginBottom: '0',
+    },
     body3: {
       color: '#697386',
       fontSize: '12px',
