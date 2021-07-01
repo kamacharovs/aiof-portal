@@ -4,11 +4,10 @@ import { Helmet } from 'react-helmet';
 import agent from '../../agent';
 
 import { Overview } from './Overview';
-import { SquarePaper, CoolExternalLink, CoolLink } from '../../style/mui';
+import { SquarePaper, CoolLink } from '../../style/mui';
 import { RectSkeleton } from '../Common/Sekeleton';
-import House from '../../style/icons/House_4.svg';
 import { numberWithCommas, formatDate } from './Common';
-import { FINANCE_PAGE_LOADED, UTILITY_USEFUL_DOCUMENTATION_BY_PAGE } from '../../constants/actionTypes';
+import { FINANCE_PAGE_LOADED } from '../../constants/actionTypes';
 import { GOAL_TYPE_MAPPING } from '../../constants/goals';
 
 import PropTypes from 'prop-types';
@@ -33,15 +32,11 @@ const mapStateToProps = state => ({
     currentUser: state.common.currentUser,
     inProgress: state.finance.inProgress,
     finance: state.finance,
-    usefulDocumentationsInProgress: state.utility.inProgress,
-    usefulDocumentations: state.utility.usefulDocumentations,
 });
 
 const mapDispatchToProps = dispatch => ({
     onLoad: () =>
         dispatch({ type: FINANCE_PAGE_LOADED, payload: agent.User.get() }),
-    onUsefulDocumentations: () =>
-        dispatch({ type: UTILITY_USEFUL_DOCUMENTATION_BY_PAGE, payload: agent.Utility.usefulDocumentationByPage("finance") }),
 });
 
 const useStyles = makeStyles((theme) => ({
@@ -533,34 +528,6 @@ LiabilityAddDialog.propTypes = {
     open: PropTypes.bool.isRequired,
 };
 
-const UsefulDocumentation = props => {
-    const docs = props.usefulDocumentations ? props.usefulDocumentations : [];
-
-    return (
-        <SquarePaper variant="outlined" square>
-            <Grid item xs={12}>
-                <img src={House} alt="House" style={{ width: "5rem", height: "5rem" }} />
-            </Grid>
-            <Grid item xs={12}>
-                <br />
-                <h6><b>Useful documentations</b></h6>
-            </Grid>
-            <Grid item xs={12}>
-                <ul>
-                    {
-                        docs.map(d => {
-                            return (
-                                <li key={d.publicKey}><CoolExternalLink href={d.url}>{d.name}</CoolExternalLink></li>
-                            );
-                        })
-                    }
-                </ul>
-            </Grid>
-        </SquarePaper>
-    );
-}
-
-
 
 const FinanceMainView = props => {
     const classes = useStyles();
@@ -568,7 +535,6 @@ const FinanceMainView = props => {
     useEffect(() => {
         if (props.currentUser) {
             props.onLoad();
-            props.onUsefulDocumentations();
         }
     }, []);
 
@@ -581,7 +547,6 @@ const FinanceMainView = props => {
             <Container maxWidth="xl">
                 <Grid container spacing={3} className={classes.root}>
                     <Grid item xs={3}>
-
                         <Grid item xs={12}>
                             {
                                 props.inProgress
@@ -591,15 +556,6 @@ const FinanceMainView = props => {
                                     </SquarePaper>
                             }
                         </Grid>
-
-                        <Grid item xs={12}>
-                            {
-                                props.usefulDocumentationsInProgress
-                                    ? <RectSkeleton height={300} />
-                                    : <UsefulDocumentation usefulDocumentations={props.usefulDocumentations} />
-                            }
-                        </Grid>
-
                     </Grid>
 
                     <Grid item xs={9}>
