@@ -16,6 +16,8 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Tooltip from '@material-ui/core/Tooltip';
 import Typography from '@material-ui/core/Typography';
 
+import UsefulDocumentationView from './UsefulDocumentation';
+
 import {
     AssetPaper, LiabilityPaper, GoalPaper, DependentPaper,
     AssetsSnapshotsChartPaper, AssetsAndLiabilitiesTotalChartPaper
@@ -224,6 +226,9 @@ const SnapshotView = props => {
                 currentUser={currentUser}
                 assets={assets}
                 liabilities={liabilities} />
+
+            <UsefulDocumentationView
+                currentUser={currentUser} />
         </React.Fragment>
     );
 };

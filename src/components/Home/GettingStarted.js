@@ -15,7 +15,7 @@ import Calculator from '../../style/icons/Calculator.svg';
 import {
     BorderlessSquarePaper, SquarePaper, InBodyPaper,
     AltCheckCircle, AltClearIcon,
-    PAlt7, AltLink, CoolExternalLink
+    TextMain, AltLink, CoolExternalLink
 } from '../../style/mui';
 import { CompletedChip, IncompleteChip } from '../../style/chips';
 import { HOME_GETTING_STARTED_UPDATE } from '../../constants/actionTypes';
@@ -227,11 +227,11 @@ const ProfileCheckmark = props => {
                     <Grid container spacing={0}>
                         <Grid item xs>
                             <br />
-                            <PAlt7>
+                            <TextMain>
                                 Filling out your finanial profile will help us get a better understanding of your financial state and
                                 will enhance the accuracy of your results and recommendations. You can find your profile under your name
                                 on the top right corner or by clicking on the header above
-                            </PAlt7>
+                            </TextMain>
                         </Grid>
                     </Grid>
 
@@ -348,7 +348,7 @@ const Assets = props => {
                     <Grid container spacing={0}>
                         <Grid item xs>
                             <br />
-                            <PAlt7>
+                            <TextMain>
                                 A financial asset is a liquid asset that gets its value from a contractual right or ownership claim.
                                 Car, cash, house, bonds, investment, and stocks are all are examples of financial assets.
                                 <br /><br />
@@ -357,7 +357,7 @@ const Assets = props => {
                                 demand in the marketplace in which they trade, as well as the degree of risk they carry.
                                 <br /><br />
                                 <CoolExternalLink href="https://www.investopedia.com/terms/f/financialasset.asp" target="_blank">Source can be found here</CoolExternalLink>
-                            </PAlt7>
+                            </TextMain>
                         </Grid>
                     </Grid>
 
@@ -402,13 +402,13 @@ const Liabilities = props => {
                     <Grid container spacing={0}>
                         <Grid item xs>
                             <br />
-                            <PAlt7>
+                            <TextMain>
                                 A liability is something a person or company owes, usually a sum of money. Liabilities are settled over time
                                 through the transfer of economic benefits including money, goods, or services. Recorded on the right side of the balance sheet,
                                 liabilities include loans, accounts payable, mortgages, deferred revenues, bonds, warranties, and accrued expenses.
                                 <br /><br />
                                 <CoolExternalLink href="https://www.investopedia.com/terms/l/liability.asp" target="_blank">Source can be found here</CoolExternalLink>
-                            </PAlt7>
+                            </TextMain>
                         </Grid>
                     </Grid>
 
@@ -453,7 +453,7 @@ const Goals = props => {
                     <Grid container spacing={0}>
                         <Grid item xs>
                             <br />
-                            <PAlt7>
+                            <TextMain>
                                 How to set financial goals for your future? Setting short-term, midterm, and long-term financial goals is an important step toward
                                 becoming financially secure. If you aren’t working toward anything specific, you’re likely to spend more than you should.
                                 You’ll then come up short when you need money for unexpected bills, not to mention when you want to retire.
@@ -461,7 +461,7 @@ const Goals = props => {
                                 leaving you more vulnerable than you need to be to handle some of life’s major risks.
                                 <br /><br />
                                 <CoolExternalLink href="https://www.investopedia.com/articles/personal-finance/100516/setting-financial-goals/" target="_blank">Source can be found here</CoolExternalLink>
-                            </PAlt7>
+                            </TextMain>
                         </Grid>
                     </Grid>
 
