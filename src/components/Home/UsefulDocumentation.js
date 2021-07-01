@@ -13,7 +13,7 @@ import { UTILITY_USEFUL_DOCUMENTATION_BY_PAGE } from '../../constants/actionType
 const mapStateToProps = state => ({
     ...state.finance,
     finance: state.finance,
-    usefulDocumentationsInProgress: state.utility.inProgress,
+    usefulDocumentationsInProgress: state.utility.usefulDocumentationsInProgress,
     usefulDocumentations: state.utility.usefulDocumentations,
 });
 

@@ -11,7 +11,7 @@ export default (state = {}, action) => {
         || action.subtype === UTILITY_USEFUL_DOCUMENTATION_BY_CATEGORY) {
         return {
           ...state,
-          inProgress: true
+          usefulDocumentationsInProgress: true
         }
       }
       return {
@@ -21,7 +21,7 @@ export default (state = {}, action) => {
     case UTILITY_USEFUL_DOCUMENTATION_BY_CATEGORY:
       return {
         ...state,
-        inProgress: false,
+        usefulDocumentationsInProgress: false,
         usefulDocumentations: action.error ? null : action.payload
       }
     default:
