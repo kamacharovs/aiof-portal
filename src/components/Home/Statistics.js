@@ -5,8 +5,8 @@ import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 
 import { round, federalTax, stateTax } from '../Common/Functions';
-import { commonStyles, SquarePaper, AltTextButton, H5Alt6, TextMain, AltLink  } from '../../style/mui';
-import { MonthlyIncomeSpendingChartPaper } from '../Common/Papers';
+import { commonStyles, SquarePaper, AltTextButton, TextMain, AltLink  } from '../../style/mui';
+import { MonthlyIncomeSpendingPieChartPaper } from '../Common/Papers';
 
 
 const mapStateToProps = state => ({
@@ -140,7 +140,9 @@ const MonthlyIncomeSpendingChart = props => {
             <React.Fragment>
                 <Grid container>
                     <Grid item xs>
-                        <H5Alt6>Your monthly income vs. monthly spending</H5Alt6>
+                        <Typography variant="h6">
+                            Your monthly income vs. monthly spending
+                        </Typography>
                         <TextMain>
                             This chart shows your total monthly income versus your total monthly spending.
                             Be sure to update your <AltLink to={"/profile"}>profile</AltLink> gross salary and physical address,
@@ -151,7 +153,7 @@ const MonthlyIncomeSpendingChart = props => {
 
                 <Grid container>
                     <Grid item xs={3}>
-                        <MonthlyIncomeSpendingChartPaper
+                        <MonthlyIncomeSpendingPieChartPaper
                             monthlyIncome={props.monthlyIncome}
                             monthlySpending={props.monthlySpending} />
                     </Grid>

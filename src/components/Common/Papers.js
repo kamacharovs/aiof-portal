@@ -1,5 +1,5 @@
 import React from 'react';
-import { Bar, Line } from 'react-chartjs-2';
+import { Bar, Line, Pie } from 'react-chartjs-2';
 
 import { useTheme, makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
@@ -386,5 +386,44 @@ export const MonthlyIncomeSpendingChartPaper = props => {
             </BorderlessSquarePaper>
         </React.Fragment>
     );
+}
 
+export const MonthlyIncomeSpendingPieChartPaper = props => {
+    const theme = useTheme();
+
+    const monthlyIncome = props.monthlyIncome || 0;
+    const monthlySpending = props.monthlySpending || 0;
+
+    const data = {
+        labels: ["Monthly income", "Monthly spending"],
+        datasets: [
+            {
+                backgroundColor: [theme.palette.success.main, theme.palette.error.main],
+                data: [monthlyIncome, monthlySpending],
+                borderWidth: 1,
+            }
+        ]
+    }
+    const options = {
+        maintainAspectRatio: true,
+        legend: {
+            display: true
+        },
+    }
+
+    return (
+        <React.Fragment>
+            <BorderlessSquarePaper variant="outlined" square>
+                <Grid container spacing={3}>
+                    <Grid item xs>
+                        <Pie
+                            data={data || []}
+                            height={300}
+                            options={options}
+                        />
+                    </Grid>
+                </Grid>
+            </BorderlessSquarePaper>
+        </React.Fragment>
+    );
 }
