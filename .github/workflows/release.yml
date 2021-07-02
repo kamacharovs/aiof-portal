@@ -1,8 +1,6 @@
 name: release
 
 on:
-  push:
-    branches: [ master ]
   workflow_dispatch:
     inputs:
       env:
@@ -43,5 +41,6 @@ jobs:
     - name: az webapp restart
       uses: azure/CLI@v1
       with:
+        azcliversion: latest
         inlineScript: |
           az webapp restart -n ${{ secrets.AZURE_APP_NAME }} -g ${{ secrets.AZURE_APP_RESOURCE_GROUP }}
