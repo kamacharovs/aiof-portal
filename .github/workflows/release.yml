@@ -3,9 +3,16 @@ name: release
 on:
   push:
     branches: [ master ]
-    
+  workflow_dispatch:
+    inputs:
+      env:
+        description: Environment
+        required: true
+        default: dev
+
 jobs:
   release:
+    environment: ${{ github.event.inputs.env }}
     runs-on: ubuntu-latest
     steps:
     - name: checkout
@@ -27,3 +34,14 @@ jobs:
         file: ./Dockerfile
         push: true
         tags: gkama/aiof-portal:latest
+
+    - name: az login
+      uses: azure/login@v1
+      with:
+        creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+    - name: az webapp restart
+      uses: azure/CLI@v1
+      with:
+        inlineScript: |
+          az webapp restart -n ${{ secrets.AZURE_APP_NAME }} -g ${{ secrets.AZURE_APP_RESOURCE_GROUP }}
