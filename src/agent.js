@@ -4,10 +4,19 @@ import config from './config';
 
 const superagent = superagentPromise(_superagent, global.Promise);
 
-const API_ROOT = config.apiUrl;
-const API_AUTH_ROOT = `${config.authUrl}/${config.authVersion}`;
+const API_AUTH_BASE = config.authUrl;
+const API_AUTH_VERSION = config.authVersion;
+const API_AUTH_ROOT = `${API_AUTH_BASE}/${API_AUTH_VERSION}`;
+
+const API_ASSET_BASE = config.assetUrl;
+const API_ASSET_VERSION = config.assetVersion;
+const API_ASSET_ROOT = `${API_ASSET_BASE}/${API_ASSET_VERSION}`;
+
+const API_BASE = config.apiUrl;
+const API_VERSION = config.apiVersion;
+const API_ROOT = API_BASE;
+
 const API_METADATA_ROOT = config.metadataUrl;
-const API_ASSET_ROOT = `${config.assetUrl}/${config.assetVersion}`;
 
 const responseBody = res => res.body;
 
@@ -22,19 +31,23 @@ const tokenPlugin = req => {
 }
 
 const requests = {
-  del: url =>
-    superagent.del(`${API_ROOT}${url}`).use(tokenPlugin).then(responseBody),
   get: url =>
     superagent.get(`${API_ROOT}${url}`).use(tokenPlugin).then(responseBody),
-  put: (url, body) =>
-    superagent.put(`${API_ROOT}${url}`, body).use(tokenPlugin).then(responseBody),
+  getBase: url =>
+    superagent.get(`${API_BASE}${url}`).use(tokenPlugin).then(responseBody),
   post: (url, body) =>
-    superagent.post(`${API_ROOT}${url}`, body).use(tokenPlugin).then(responseBody)
+    superagent.post(`${API_ROOT}${url}`, body).use(tokenPlugin).then(responseBody), 
+  put: (url, body) =>
+      superagent.put(`${API_ROOT}${url}`, body).use(tokenPlugin).then(responseBody),
+  del: url =>
+    superagent.del(`${API_ROOT}${url}`).use(tokenPlugin).then(responseBody),
 }
 
 const requestsAuth = {
   get: url =>
     superagent.get(`${API_AUTH_ROOT}${url}`).use(tokenPlugin).then(responseBody),
+  getBase: url =>
+    superagent.get(`${API_AUTH_BASE}${url}`).use(tokenPlugin).then(responseBody),
   put: (url, body) =>
     superagent.put(`${API_AUTH_ROOT}${url}`, body).use(tokenPlugin).then(responseBody),
   post: (url, body) =>
@@ -44,6 +57,8 @@ const requestsAuth = {
 const requestsAsset = {
   get: url =>
     superagent.get(`${API_ASSET_ROOT}${url}`).use(tokenPlugin).then(responseBody),
+  getBase: url =>
+    superagent.get(`${API_ASSET_BASE}${url}`).use(tokenPlugin).then(responseBody),
   post: (url, body) =>
     superagent.post(`${API_ASSET_ROOT}${url}`, body).use(tokenPlugin).then(responseBody),
   put: (url, body) =>
@@ -73,8 +88,15 @@ const Auth = {
   getUser: () =>
     requestsAuth.get(`/user`),
   getExpires: () =>
-    expires
+    expires,
+  openapi: () =>
+    requestsAuth.getBase(`/swagger/${API_AUTH_VERSION}.0/swagger.json`),
 };
+
+const Api = {
+  openapi: () =>
+    requests.getBase(`/swagger/${API_VERSION}/swagger.json`),
+}
 
 const User = {
   get: () =>
@@ -122,6 +144,8 @@ const Asset = {
     requestsAsset.del(`/assets/${id}`),
   breakdown: (payload) =>
     requestsMetadata.post(`/asset/breakdown`, payload),
+  openapi: () =>
+    requestsAsset.getBase(`/swagger/${API_ASSET_VERSION}.0/swagger.json`),
 }
 
 const Liability = {
@@ -185,6 +209,7 @@ const Retirement = {
 
 export default {
   Auth,
+  Api,
   User,
   UserProfile,
   Asset,

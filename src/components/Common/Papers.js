@@ -4,10 +4,15 @@ import { Bar, Line, Pie } from 'react-chartjs-2';
 import { useTheme, makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
+import PersonIcon from '@material-ui/icons/Person';
+import EmailIcon from '@material-ui/icons/Email';
+import WebIcon from '@material-ui/icons/Web';
 
 import { assetSnapshotsAvgByMonth } from '../Common/Functions';
 import { numberWithCommas } from '../Finance/Common';
-import { BorderlessSquarePaper, AltLoader, H5Alt6, PAlt7, AltLink } from '../../style/mui';
+import {
+    SquarePaper, BorderlessSquarePaper, AltLoader, H5Alt6, PAlt7, AltLink, TextMain, APrimary
+} from '../../style/mui';
 
 
 const defaultClipSize = "24px";
@@ -424,6 +429,96 @@ export const MonthlyIncomeSpendingPieChartPaper = props => {
                     </Grid>
                 </Grid>
             </BorderlessSquarePaper>
+        </React.Fragment>
+    );
+}
+
+export const APIPaper = props => {
+    const keyPoints = props.keyPoints || [];
+
+    return (
+        <React.Fragment>
+            <SquarePaper
+                variant="elevation"
+                elevation={3}
+                square>
+                <Grid
+                    container
+                    direction="column"
+                    justify="flex-start"
+                    alignItems="flex-start">
+                    <Grid item xs>
+                        <Typography variant="h1">
+                            {props.title}
+                        </Typography>
+                        <TextMain>
+                            {props.description || "No description"}
+                        </TextMain>
+                    </Grid>
+
+                    <Grid item xs>
+                        <Typography variant="h6">
+                            Version
+                        </Typography>
+                        <TextMain>
+                            {props.version}
+                        </TextMain>
+                    </Grid>
+
+                    <Grid item xs>
+                        <Typography variant="h6">
+                            Contact
+                        </Typography>
+                        <TextMain>
+                            <PersonIcon color="primary" /> {props.contact.name}<br />
+                            <EmailIcon color="primary" /> {props.contact.email}<br />
+                            <WebIcon color="primary" /> {props.contact.url}
+                        </TextMain>
+                    </Grid>
+
+                    <Grid item xs>
+                        <Typography variant="h6">
+                            License
+                        </Typography>
+                        <TextMain>
+                            <APrimary href={props.license.url} target="_blank">{props.license.name}</APrimary>
+                        </TextMain>
+                    </Grid>
+
+                    <Grid item xs>
+                        <Typography variant="h6">
+                            Base URL
+                        </Typography>
+                        <TextMain>
+                            <APrimary href={props.url}>{props.url}</APrimary>
+                        </TextMain>
+                    </Grid>
+
+                    {keyPoints.length !== 0
+                        ? <Grid item xs>
+                            <Typography variant="h6">
+                                Key points
+                            </Typography>
+                            <ul>
+                                <TextMain>
+                                    {
+                                        keyPoints.map(kp => {
+                                            return (
+
+                                                <li key={kp}>{kp}</li>
+                                            );
+                                        })
+                                    }
+                                </TextMain>
+                            </ul>
+                        </Grid>
+                        : null}
+
+                    <Grid item xs>
+                        <APrimary href={props.page} target="_blank">Full documentation</APrimary>
+                    </Grid>
+                </Grid>
+            </SquarePaper>
         </React.Fragment>
     );
 }

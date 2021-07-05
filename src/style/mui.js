@@ -237,6 +237,17 @@ export const AlternateButton = withTheme(styled(Button)({
   }
 }));
 
+export const ElevatedPaper = props => {
+  return (
+    <Paper 
+      variant="outlined" 
+      elevation={3}
+      square>
+
+    </Paper>
+  );
+}
+
 const InPaperInternal = styled(Paper)({
   padding: '1rem',
   marginTop: '1rem',
@@ -663,6 +674,10 @@ export const CoolExternalLink = styled.a`
   }
 `;
 
+export const APrimary = withTheme(styled.a`
+  color: ${props => props.theme.palette.primary.main};
+`);
+
 export const HeaderLink = withTheme(styled(Link)`
   font-family: titillium web,sans-serif;
   font-size: 1.5rem !important;
@@ -728,32 +743,6 @@ export const AiofBox = styled.div`
 export const TinyPadding = styled.div`
   padding: 0.25rem;
 `;
-
-export const AiofBannerImage = withTheme(styled.div`
-  background-color: ${props => props.theme.palette.success.main};
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 128px;
-  z-index: 1;
-  text-align: left;
-`);
-export const AiofBanner = withTheme(styled.div`
-  background-color: ${props => props.theme.palette.success.main};
-  padding: 3rem;
-  padding-top: 10rem;
-  margin-bottom: 1rem;
-  font-weight: 900;
-
-  position: relative;
-  top: 0;
-  left: 0;
-  transform: skewy(3deg);
-  right: 0;
-  height: 300px;
-  z-index: 2;
-`);
 
 export const ThinText = styled.p`
   font-weight: 100;
