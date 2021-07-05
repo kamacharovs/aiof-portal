@@ -7,8 +7,10 @@ import Typography from '@material-ui/core/Typography';
 
 import { assetSnapshotsAvgByMonth } from '../Common/Functions';
 import { numberWithCommas } from '../Finance/Common';
-import { SquarePaper, BorderlessSquarePaper, AltLoader, H5Alt6, PAlt7, AltLink, 
-    TextMain, CoolExternalLink } from '../../style/mui';
+import {
+    SquarePaper, BorderlessSquarePaper, AltLoader, H5Alt6, PAlt7, AltLink,
+    TextMain, CoolExternalLink
+} from '../../style/mui';
 
 
 const defaultClipSize = "24px";
@@ -466,7 +468,7 @@ export const APIPaper = props => {
                             License
                         </Typography>
                         <TextMain>
-                            {props.license}
+                            <a href={props.license.url} target="_blank">{props.license.name}</a>
                         </TextMain>
                     </Grid>
 
@@ -499,10 +501,10 @@ export const APIPaper = props => {
                         : null}
 
                     <Grid item xs>
-                        <CoolExternalLink 
+                        <CoolExternalLink
                             href={props.page}
                             target="_blank">
-                                Full documentation
+                            Full documentation
                         </CoolExternalLink>
                     </Grid>
                 </Grid>

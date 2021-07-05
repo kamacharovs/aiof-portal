@@ -18,11 +18,8 @@ import Typography from '@material-ui/core/Typography';
 
 import UsefulDocumentationView from './UsefulDocumentation';
 
-import {
-    AssetPaper, LiabilityPaper, GoalPaper, DependentPaper,
-    AssetsSnapshotsChartPaper, AssetsAndLiabilitiesTotalChartPaper
-} from '../Common/Papers';
-import { SquarePaper, BorderlessSquarePaper, AltCancelButton, H5Alt6, PAlt7, AltLink } from '../../style/mui';
+import { AssetPaper, LiabilityPaper, GoalPaper, DependentPaper, AssetsAndLiabilitiesTotalChartPaper } from '../Common/Papers';
+import { SquarePaper, AltCancelButton, H5Alt6, PAlt7, AltLink } from '../../style/mui';
 import { FINANCE, ASSETS, HOME_SNAPSHOT_SETTING_UPDATE } from '../../constants/actionTypes';
 
 
@@ -316,45 +313,6 @@ const AssetsAndLiabilitiesChart = props => {
                                 liabilities={props.liabilities} />
                         </Grid>
                     </Grid>
-                </SquarePaper>
-            </React.Fragment>
-        );
-    } else {
-        return null;
-    }
-}
-
-// eslint-disable-next-line
-const AssetsAvgChart = props => {
-    if (props.currentUser
-        && props.assets
-        && props.assets.length > 0) {
-        return (
-            <React.Fragment>
-                <SquarePaper variant="outlined" square>
-                    <Grid container>
-                        <Grid item xs>
-                            <H5Alt6>Your assets average value</H5Alt6>
-                            <PAlt7>
-                                This chart shows your assets' average changes by each month in the past 1 year.
-                                These changes can be either positive or negative
-                                <br /><br />
-                                If there are months not shown in the chart, then that means that your assets' value
-                                didn't change that month
-                            </PAlt7>
-                        </Grid>
-                    </Grid>
-
-                    <BorderlessSquarePaper variant="outlined" square>
-                        <Grid container>
-                            <Grid item xs={10}>
-                                {props.inProgressAssets === false ?
-                                    <AssetsSnapshotsChartPaper
-                                        assets={props.assets} />
-                                    : null}
-                            </Grid>
-                        </Grid>
-                    </BorderlessSquarePaper>
                 </SquarePaper>
             </React.Fragment>
         );

@@ -3,11 +3,11 @@ import { connect } from 'react-redux';
 import agent from '../../agent';
 
 import { makeStyles } from '@material-ui/core/styles';
-import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
 
 import config from '../../config';
 import { APIPaper } from '../Common/Papers';
+import { AltLoader } from '../../style/mui';
 import { DEVELOPER_AUTH_OPENAPI, DEVELOPER_API_OPENAPI, DEVELOPER_ASSET_OPENAPI } from '../../constants/actionTypes';
 
 
@@ -26,8 +26,8 @@ const mapDispatchToProps = dispatch => ({
 });
 
 const useStyles = makeStyles((theme) => ({
-    root: {
-        display: 'flex',
+    fullHeight: {
+        height: "100%",
     }
 }));
 
@@ -44,35 +44,47 @@ const ApisView = props => {
     if (infos && !inProgress) {
         return (
             <React.Fragment>
-                <Container maxWidth="xl">
-                    <Grid container spacing={3}>
-                        {
-                            infos.map(i => {
-                                const metadata = getMetadata(i.title);
+                <Grid container spacing={3}>
+                    {
+                        infos.map(i => {
+                            const metadata = getMetadata(i.title);
 
-                                return (
-                                    <Grid
-                                        key={i.title}
-                                        item
-                                        xs={4}>
-                                        <APIPaper
-                                            title={i.title}
-                                            description={i.description}
-                                            version={i.version}
-                                            license={i.license.name}
-                                            url={metadata.url}
-                                            keyPoints={metadata.keyPoints}
-                                            page={metadata.page} />
-                                    </Grid>
-                                );
-                            })
-                        }
-                    </Grid>
-                </Container>
+                            return (
+                                <Grid
+                                    key={i.title}
+                                    item
+                                    xs={4}>
+                                    <APIPaper
+                                        title={i.title}
+                                        description={i.description}
+                                        version={i.version}
+                                        license={i.license}
+                                        url={metadata.url}
+                                        keyPoints={metadata.keyPoints}
+                                        page={metadata.page} />
+                                </Grid>
+                            );
+                        })
+                    }
+                </Grid>
             </React.Fragment>
         );
     } else {
-        return null;
+        return (
+            <React.Fragment>
+                <Grid
+                    container
+                    direction="column"
+                    justify="center"
+                    alignItems="center">
+                    <Grid item xs>
+                        <AltLoader
+                            inProgress={inProgress}
+                            size={"64px"} />
+                    </Grid>
+                </Grid>
+            </React.Fragment>
+        );
     }
 }
 
