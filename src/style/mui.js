@@ -674,6 +674,10 @@ export const CoolExternalLink = styled.a`
   }
 `;
 
+export const APrimary = withTheme(styled.a`
+  color: ${props => props.theme.palette.primary.main};
+`);
+
 export const HeaderLink = withTheme(styled(Link)`
   font-family: titillium web,sans-serif;
   font-size: 1.5rem !important;

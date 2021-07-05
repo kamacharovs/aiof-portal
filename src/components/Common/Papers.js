@@ -4,11 +4,14 @@ import { Bar, Line, Pie } from 'react-chartjs-2';
 import { useTheme, makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
+import PersonIcon from '@material-ui/icons/Person';
+import EmailIcon from '@material-ui/icons/Email';
+import WebIcon from '@material-ui/icons/Web';
 
 import { assetSnapshotsAvgByMonth } from '../Common/Functions';
 import { numberWithCommas } from '../Finance/Common';
 import {
-    SquarePaper, BorderlessSquarePaper, AltLoader, H5Alt6, PAlt7, AltLink, TextMain
+    SquarePaper, BorderlessSquarePaper, AltLoader, H5Alt6, PAlt7, AltLink, TextMain, APrimary
 } from '../../style/mui';
 
 
@@ -467,9 +470,9 @@ export const APIPaper = props => {
                             Contact
                         </Typography>
                         <TextMain>
-                            {props.contact.name}<br />
-                            {props.contact.email}<br />
-                            {props.contact.url}
+                            <PersonIcon color="primary" /> {props.contact.name}<br />
+                            <EmailIcon color="primary" /> {props.contact.email}<br />
+                            <WebIcon color="primary" /> {props.contact.url}
                         </TextMain>
                     </Grid>
 
@@ -478,7 +481,7 @@ export const APIPaper = props => {
                             License
                         </Typography>
                         <TextMain>
-                            <a href={props.license.url} target="_blank">{props.license.name}</a>
+                            <APrimary href={props.license.url} target="_blank">{props.license.name}</APrimary>
                         </TextMain>
                     </Grid>
 
@@ -487,7 +490,7 @@ export const APIPaper = props => {
                             Base URL
                         </Typography>
                         <TextMain>
-                            <a href={props.url}>{props.url}</a>
+                            <APrimary href={props.url}>{props.url}</APrimary>
                         </TextMain>
                     </Grid>
 
@@ -512,7 +515,7 @@ export const APIPaper = props => {
                         : null}
 
                     <Grid item xs>
-                        <a href={props.page} target="_blank">Full documentation</a>
+                        <APrimary href={props.page} target="_blank">Full documentation</APrimary>
                     </Grid>
                 </Grid>
             </SquarePaper>
