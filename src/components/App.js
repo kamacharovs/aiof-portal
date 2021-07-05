@@ -28,6 +28,7 @@ import SavingsRateStepper from '../components/FI/ReSavingsRate';
 import MortgageCalculator from './Property/MortgageCalculator';
 import CommonInvestments from './Retirement/CommonInvestments';
 import TermsAndConditions from '../components/Documents/TermsAndConditions';
+import DeveloperMainView from '../components/Developer/MainView';
 import PrivacyPolicy from '../components/Documents/PrivacyPolicy';
 import { APP_LOAD, REDIRECT } from '../constants/actionTypes';
 import { ACCESS_TOKEN, USER } from '../constants/common';
@@ -113,6 +114,7 @@ class App extends React.Component {
             <Route exact path="/retirement/common/investments" component={CommonInvestments} />
             <Route exact path="/terms-and-conditions" component={TermsAndConditions} />
             <Route exact path="/privacy-policy" component={PrivacyPolicy} />
+            <Route exact path="/developer" component={DeveloperMainView} />
           </Switch>
 
           <Footer

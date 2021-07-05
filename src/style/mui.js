@@ -237,6 +237,17 @@ export const AlternateButton = withTheme(styled(Button)({
   }
 }));
 
+export const ElevatedPaper = props => {
+  return (
+    <Paper 
+      variant="outlined" 
+      elevation={3}
+      square>
+
+    </Paper>
+  );
+}
+
 const InPaperInternal = styled(Paper)({
   padding: '1rem',
   marginTop: '1rem',

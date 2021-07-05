@@ -7,7 +7,7 @@ import Typography from '@material-ui/core/Typography';
 
 import { assetSnapshotsAvgByMonth } from '../Common/Functions';
 import { numberWithCommas } from '../Finance/Common';
-import { BorderlessSquarePaper, AltLoader, H5Alt6, PAlt7, AltLink } from '../../style/mui';
+import { SquarePaper, BorderlessSquarePaper, AltLoader, H5Alt6, PAlt7, AltLink, TextMain } from '../../style/mui';
 
 
 const defaultClipSize = "24px";
@@ -424,6 +424,75 @@ export const MonthlyIncomeSpendingPieChartPaper = props => {
                     </Grid>
                 </Grid>
             </BorderlessSquarePaper>
+        </React.Fragment>
+    );
+}
+
+export const APIPaper = props => {
+    const keyPoints = props.keyPoints || [];
+
+    return (
+        <React.Fragment>
+            <SquarePaper
+                variant="elevation"
+                elevation={3}
+                square>
+                <Grid
+                    container
+                    direction="column"
+                    justify="flex-start"
+                    alignItems="flex-start">
+                    <Grid item xs>
+                        <Typography variant="h1">
+                            {props.title}
+                        </Typography>
+                        <TextMain>
+                            {props.description}
+                        </TextMain>
+                    </Grid>
+
+                    <Grid item xs>
+                        <Typography variant="h6">
+                            Version
+                        </Typography>
+                        <TextMain>
+                            {props.version}
+                        </TextMain>
+                    </Grid>
+
+                    <Grid item xs>
+                        <Typography variant="h6">
+                            License
+                        </Typography>
+                        <TextMain>
+                            {props.license}
+                        </TextMain>
+                    </Grid>
+
+                    {keyPoints.length !== 0
+                        ? <Grid item xs>
+                            <Typography variant="h6">
+                                Key points
+                            </Typography>
+                            <TextMain>
+                                <ul>
+                                    {
+                                        keyPoints.map(kp => {
+                                            return (
+                                                <li>{kp}</li>
+                                            );
+                                        })
+                                    }
+                                </ul>
+                            </TextMain>
+                        </Grid>
+                        : null}
+
+                    <Grid item xs>
+                        Learn more
+                    </Grid>
+                </Grid>
+            </SquarePaper>
         </React.Fragment>
     );
 }
