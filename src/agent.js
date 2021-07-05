@@ -12,7 +12,10 @@ const API_ASSET_BASE = config.assetUrl;
 const API_ASSET_VERSION = config.assetVersion;
 const API_ASSET_ROOT = `${API_ASSET_BASE}/${API_ASSET_VERSION}`;
 
-const API_ROOT = config.apiUrl;
+const API_BASE = config.apiUrl;
+const API_VERSION = config.apiVersion;
+const API_ROOT = API_BASE;
+
 const API_METADATA_ROOT = config.metadataUrl;
 
 const responseBody = res => res.body;
@@ -28,14 +31,16 @@ const tokenPlugin = req => {
 }
 
 const requests = {
-  del: url =>
-    superagent.del(`${API_ROOT}${url}`).use(tokenPlugin).then(responseBody),
   get: url =>
     superagent.get(`${API_ROOT}${url}`).use(tokenPlugin).then(responseBody),
-  put: (url, body) =>
-    superagent.put(`${API_ROOT}${url}`, body).use(tokenPlugin).then(responseBody),
+  getBase: url =>
+    superagent.get(`${API_BASE}${url}`).use(tokenPlugin).then(responseBody),
   post: (url, body) =>
-    superagent.post(`${API_ROOT}${url}`, body).use(tokenPlugin).then(responseBody)
+    superagent.post(`${API_ROOT}${url}`, body).use(tokenPlugin).then(responseBody), 
+  put: (url, body) =>
+      superagent.put(`${API_ROOT}${url}`, body).use(tokenPlugin).then(responseBody),
+  del: url =>
+    superagent.del(`${API_ROOT}${url}`).use(tokenPlugin).then(responseBody),
 }
 
 const requestsAuth = {
@@ -87,6 +92,11 @@ const Auth = {
   openapi: () =>
     requestsAuth.getBase(`/swagger/${API_AUTH_VERSION}.0/swagger.json`),
 };
+
+const Api = {
+  openapi: () =>
+    requests.getBase(`/swagger/${API_VERSION}/swagger.json`),
+}
 
 const User = {
   get: () =>
@@ -199,6 +209,7 @@ const Retirement = {
 
 export default {
   Auth,
+  Api,
   User,
   UserProfile,
   Asset,

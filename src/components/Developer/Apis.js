@@ -6,8 +6,9 @@ import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
 
+import config from '../../config';
 import { APIPaper } from '../Common/Papers';
-import { DEVELOPER_AUTH_OPENAPI, DEVELOPER_ASSET_OPENAPI } from '../../constants/actionTypes';
+import { DEVELOPER_AUTH_OPENAPI, DEVELOPER_API_OPENAPI, DEVELOPER_ASSET_OPENAPI } from '../../constants/actionTypes';
 
 
 const mapStateToProps = state => ({
@@ -18,6 +19,8 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
     onAuthOpenApi: () =>
         dispatch({ type: DEVELOPER_AUTH_OPENAPI, payload: agent.Auth.openapi() }),
+    onApiOpenApi: () =>
+        dispatch({ type: DEVELOPER_API_OPENAPI, payload: agent.Api.openapi() }),
     onAssetOpenApi: () =>
         dispatch({ type: DEVELOPER_ASSET_OPENAPI, payload: agent.Asset.openapi() })
 });
@@ -29,43 +32,78 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const ApisView = props => {
+    const infos = props.infos ? props.infos.sort() : null;
+    const inProgress = props.inProgress;
 
     useEffect(() => {
         props.onAuthOpenApi();
+        props.onApiOpenApi();
         props.onAssetOpenApi();
     }, []);
 
-    return (
-        <React.Fragment>
-            <Container maxWidth="md">
-            <Grid container spacing={3}>
-                <Grid item xs>
-                    
-        <APIPaper
-            title="aiof-auth"
-            description="description"
-            version="v1.0"
-            license="MIT"
-            >
+    if (infos && !inProgress) {
+        return (
+            <React.Fragment>
+                <Container maxWidth="xl">
+                    <Grid container spacing={3}>
+                        {
+                            infos.map(i => {
+                                const metadata = getMetadata(i.title);
 
-        </APIPaper>
-                </Grid>
+                                return (
+                                    <Grid
+                                        key={i.title}
+                                        item
+                                        xs={4}>
+                                        <APIPaper
+                                            title={i.title}
+                                            description={i.description}
+                                            version={i.version}
+                                            license={i.license.name}
+                                            url={metadata.url}
+                                            keyPoints={metadata.keyPoints}
+                                            page={metadata.page} />
+                                    </Grid>
+                                );
+                            })
+                        }
+                    </Grid>
+                </Container>
+            </React.Fragment>
+        );
+    } else {
+        return null;
+    }
+}
 
-                <Grid item xs>
-                    
-        <APIPaper
-            title="aiof-asset"
-            description="description"
-            version="v1.0"
-            license="MIT"
-            >
+function getMetadata(api) {
+    var metadata = {
+        url: "",
+        page: "",
+        keyPoints: [],
+    };
 
-        </APIPaper>
-                </Grid>
-            </Grid>
-            </Container>
-        </React.Fragment>
-    );
+    if (api.includes("auth")) {
+        metadata.url = config.authUrl;
+        metadata.page = config.authPage;
+        metadata.keyPoints = [
+            "Used for authentication. As users or clients"
+        ];
+    } else if (api.includes("api")) {
+        metadata.url = config.apiUrl;
+        metadata.page = config.apiPage;
+        metadata.keyPoints = [
+            "Used for general information. Such as user profile, useful documentation, etc."
+        ];
+    } else if (api.includes("asset")) {
+        metadata.url = config.assetUrl;
+        metadata.page = config.assetPage;
+        metadata.keyPoints = [
+            "Used for asset CRUD operations"
+        ];
+    }
+
+    return metadata;
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(ApisView);
