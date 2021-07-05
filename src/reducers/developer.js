@@ -6,7 +6,8 @@ import {
 } from '../constants/actionTypes';
 
 const defaultState = {
-    infos: []
+    infos: [],
+    servers: [],
 };
 
 export default (state = defaultState, action) => {
@@ -31,6 +32,7 @@ export default (state = defaultState, action) => {
                 ...state,
                 inProgress: false,
                 infos: [...state.infos, action.payload.info],
+                servers: [...state.servers, action.payload.servers],
             }
         default:
             return state;

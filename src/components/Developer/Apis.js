@@ -2,7 +2,6 @@ import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import agent from '../../agent';
 
-import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 
 import config from '../../config';
@@ -24,12 +23,6 @@ const mapDispatchToProps = dispatch => ({
     onAssetOpenApi: () =>
         dispatch({ type: DEVELOPER_ASSET_OPENAPI, payload: agent.Asset.openapi() })
 });
-
-const useStyles = makeStyles((theme) => ({
-    fullHeight: {
-        height: "100%",
-    }
-}));
 
 const ApisView = props => {
     const infos = props.infos ? props.infos.sort() : null;
@@ -107,7 +100,7 @@ function getMetadata(api) {
         metadata.url = config.apiUrl;
         metadata.page = config.apiPage;
         metadata.keyPoints = [
-            "Used for general information. Such as user profile, useful documentation, etc.",
+            "Used for general information. Such as user profile, user dependents, useful documentation, etc.",
             "Requires authentication"
         ];
     } else if (api.includes("asset")) {

@@ -22,12 +22,14 @@ const OverviewView = props => {
                     <Grid item xs>
                         <TextMain>
                             Welcome to our developer page. Here, you'll find our latest snapshot information
-                            on all of our <a href="https://en.wikipedia.org/wiki/API" targer="_blank">API's</a>. 
+                            on all of our <a href="https://en.wikipedia.org/wiki/API" target="_blank" rel="noopener noreferrer">API's</a>. 
                             Additionally, if you click on the "Full documentation" links to any of them, you'll be taken to their
-                            ReDoc definitions based on their corresponding <a href="https://swagger.io/specification/" targer="_blank">Open API</a> specs.
+                            ReDoc definitions based on their corresponding <a href="https://swagger.io/specification/" target="_blank" rel="noopener noreferrer">Open API</a> specs.
                             
                             <br/><br/>
 
+                            If you have any questions or would like further assistance, please reach out to the corresponding contact.
+                            Full documentation and quickstart guides are coming soon.
                         </TextMain>
                     </Grid>
                 </Grid>
