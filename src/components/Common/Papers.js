@@ -8,8 +8,7 @@ import Typography from '@material-ui/core/Typography';
 import { assetSnapshotsAvgByMonth } from '../Common/Functions';
 import { numberWithCommas } from '../Finance/Common';
 import {
-    SquarePaper, BorderlessSquarePaper, AltLoader, H5Alt6, PAlt7, AltLink,
-    TextMain, CoolExternalLink
+    SquarePaper, BorderlessSquarePaper, AltLoader, H5Alt6, PAlt7, AltLink, TextMain
 } from '../../style/mui';
 
 
@@ -465,6 +464,17 @@ export const APIPaper = props => {
 
                     <Grid item xs>
                         <Typography variant="h6">
+                            Contact
+                        </Typography>
+                        <TextMain>
+                            {props.contact.name}<br />
+                            {props.contact.email}<br />
+                            {props.contact.url}
+                        </TextMain>
+                    </Grid>
+
+                    <Grid item xs>
+                        <Typography variant="h6">
                             License
                         </Typography>
                         <TextMain>
@@ -486,26 +496,23 @@ export const APIPaper = props => {
                             <Typography variant="h6">
                                 Key points
                             </Typography>
-                            <TextMain>
-                                <ul>
+                            <ul>
+                                <TextMain>
                                     {
                                         keyPoints.map(kp => {
                                             return (
-                                                <li>{kp}</li>
+
+                                                <li key={kp}>{kp}</li>
                                             );
                                         })
                                     }
-                                </ul>
-                            </TextMain>
+                                </TextMain>
+                            </ul>
                         </Grid>
                         : null}
 
                     <Grid item xs>
-                        <CoolExternalLink
-                            href={props.page}
-                            target="_blank">
-                            Full documentation
-                        </CoolExternalLink>
+                        <a href={props.page} target="_blank">Full documentation</a>
                     </Grid>
                 </Grid>
             </SquarePaper>

@@ -58,6 +58,7 @@ const ApisView = props => {
                                         title={i.title}
                                         description={i.description}
                                         version={i.version}
+                                        contact={i.contact}
                                         license={i.license}
                                         url={metadata.url}
                                         keyPoints={metadata.keyPoints}
@@ -99,19 +100,22 @@ function getMetadata(api) {
         metadata.url = config.authUrl;
         metadata.page = config.authPage;
         metadata.keyPoints = [
-            "Used for authentication. As users or clients"
+            "Used for authentication. As users or clients",
+            "Limitted functionality to unauthenticated users or clients"
         ];
     } else if (api.includes("api")) {
         metadata.url = config.apiUrl;
         metadata.page = config.apiPage;
         metadata.keyPoints = [
-            "Used for general information. Such as user profile, useful documentation, etc."
+            "Used for general information. Such as user profile, useful documentation, etc.",
+            "Requires authentication"
         ];
     } else if (api.includes("asset")) {
         metadata.url = config.assetUrl;
         metadata.page = config.assetPage;
         metadata.keyPoints = [
-            "Used for asset CRUD operations"
+            "Used for asset CRUD operations",
+            "Requires authentication"
         ];
     }
 
