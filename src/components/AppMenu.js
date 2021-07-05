@@ -28,6 +28,7 @@ import AssessmentTwoToneIcon from '@material-ui/icons/AssessmentTwoTone';
 import DirectionsRunIcon from '@material-ui/icons/DirectionsRun';
 import BeachAccessIcon from '@material-ui/icons/BeachAccess';
 import MoneyIcon from '@material-ui/icons/Money';
+import CodeIcon from '@material-ui/icons/Code';
 
 
 const mapStateToProps = state => {
@@ -42,7 +43,7 @@ const mapDispatchToProps = dispatch => ({
 const drawerWidth = 240;
 const useStyles = makeStyles((theme) => ({
   root: {
-    display: 'flex',
+    display: "flex",
   },
   button: {
     color: theme.palette.text.alt
@@ -55,7 +56,13 @@ const useStyles = makeStyles((theme) => ({
     width: drawerWidth,
   },
   drawerContainer: {
-    overflow: 'auto',
+    overflow: "auto",
+  },
+  drawerBottomPush: {
+    position: "fixed",
+    bottom: 0,
+    textAlign: "center",
+    paddingBottom: 10,
   },
   content: {
     flexGrow: 1,
@@ -112,7 +119,7 @@ const AppMenu = props => {
       >
         <div className={classes.drawerContainer}>
           <List>
-            <ListItem button key="time-to-fi" component={Link} to="/">
+            <ListItem button key="home" component={Link} to="/">
               <ListItemIcon><CreditCardIcon /></ListItemIcon>
               <ListItemText primary="Home" />
             </ListItem>
@@ -123,14 +130,14 @@ const AppMenu = props => {
           <List subheader={
             <ListSubheader component="div" id="nested-list-subheader">
               Retirement
-              </ListSubheader>
+            </ListSubheader>
           }>
-              <ListItem button component={Link} to="/retirement/common/investments">
-                <ListItemIcon>
-                  <MoneyIcon />
-                </ListItemIcon>
-                <ListItemText primary="Common investments" />
-              </ListItem>
+            <ListItem button component={Link} to="/retirement/common/investments">
+              <ListItemIcon>
+                <MoneyIcon />
+              </ListItemIcon>
+              <ListItemText primary="Common investments" />
+            </ListItem>
           </List>
 
           <Divider />
@@ -224,7 +231,7 @@ const AppMenu = props => {
               subheader={
                 <ListSubheader component="div" id="nested-list-subheader">
                   Finances
-              </ListSubheader>
+                </ListSubheader>
               }>
               <ListItem button onClick={handleAssetClick}>
                 <ListItemIcon>
@@ -247,6 +254,15 @@ const AppMenu = props => {
               </Collapse>
             </List>
             : null}
+        </div>
+
+        <div className={classes.drawerBottomPush}>
+        <List>
+            <ListItem button key="developer" component={Link} to="/developer">
+              <ListItemIcon><CodeIcon /></ListItemIcon>
+              <ListItemText primary="Developer" />
+            </ListItem>
+          </List>
         </div>
       </Drawer>
     </div>
