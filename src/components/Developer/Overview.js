@@ -29,7 +29,7 @@ const OverviewView = props => {
                             <br/><br/>
 
                             If you have any questions or would like further assistance, please reach out to the corresponding contact.
-                            Full documentation and quickstart guides are coming soon.
+                            Full documentation page and quickstart guides are coming soon.
                         </TextMain>
                     </Grid>
                 </Grid>
