@@ -9,6 +9,7 @@ import profile from './reducers/profile';
 import property from './reducers/property';
 import retirement from './reducers/retirement';
 import utility from './reducers/utility';
+import developer from './reducers/developer';
 
 export default combineReducers({
   auth,
@@ -20,5 +21,6 @@ export default combineReducers({
   property,
   retirement,
   utility,
+  developer,
   router: routerReducer
 });

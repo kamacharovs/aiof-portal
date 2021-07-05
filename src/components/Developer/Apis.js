@@ -1,18 +1,25 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
+import agent from '../../agent';
 
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
 
 import { APIPaper } from '../Common/Papers';
+import { DEVELOPER_AUTH_OPENAPI, DEVELOPER_ASSET_OPENAPI } from '../../constants/actionTypes';
 
 
 const mapStateToProps = state => ({
     ...state.developer,
+    inProgress: state.developer.inProgress,
 });
 
 const mapDispatchToProps = dispatch => ({
+    onAuthOpenApi: () =>
+        dispatch({ type: DEVELOPER_AUTH_OPENAPI, payload: agent.Auth.openapi() }),
+    onAssetOpenApi: () =>
+        dispatch({ type: DEVELOPER_ASSET_OPENAPI, payload: agent.Asset.openapi() })
 });
 
 const useStyles = makeStyles((theme) => ({
@@ -22,6 +29,12 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const ApisView = props => {
+
+    useEffect(() => {
+        props.onAuthOpenApi();
+        props.onAssetOpenApi();
+    }, []);
+
     return (
         <React.Fragment>
             <Container maxWidth="md">
