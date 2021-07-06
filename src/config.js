@@ -16,9 +16,17 @@ const Config = {
         Minimum liabilities
         Minimum goals
     */
-   gettingStartedMinimumAssets: process.env.REACT_APP_GETTING_STARTED_MINIMUM_ASSETS || 2,
-   gettingStartedMinimumLiabilities: process.env.REACT_APP_GETTING_STARTED_MINIMUM_LIABILITIES || 2,
-   gettingStartedMinimumGoals: process.env.REACT_APP_GETTING_STARTED_MINIMUM_GOALS || 1,
+    gettingStartedMinimumAssets: process.env.REACT_APP_GETTING_STARTED_MINIMUM_ASSETS || 2,
+    gettingStartedMinimumLiabilities: process.env.REACT_APP_GETTING_STARTED_MINIMUM_LIABILITIES || 2,
+    gettingStartedMinimumGoals: process.env.REACT_APP_GETTING_STARTED_MINIMUM_GOALS || 1,
+
+    /*
+    Admin
+     Role name
+    */
+    adminRoles: [
+        "Admin" 
+    ],
 }
 
 export default Config;

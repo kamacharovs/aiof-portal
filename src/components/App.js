@@ -28,8 +28,9 @@ import SavingsRateStepper from '../components/FI/ReSavingsRate';
 import MortgageCalculator from './Property/MortgageCalculator';
 import CommonInvestments from './Retirement/CommonInvestments';
 import TermsAndConditions from '../components/Documents/TermsAndConditions';
-import DeveloperMainView from '../components/Developer/MainView';
 import PrivacyPolicy from '../components/Documents/PrivacyPolicy';
+import DeveloperMainView from '../components/Developer/MainView';
+import AdminMainView from '../components/Admin/MainView';
 import { APP_LOAD, REDIRECT } from '../constants/actionTypes';
 import { ACCESS_TOKEN, USER } from '../constants/common';
 import { AiofToastContainer } from '../style/mui';
@@ -115,6 +116,7 @@ class App extends React.Component {
             <Route exact path="/terms-and-conditions" component={TermsAndConditions} />
             <Route exact path="/privacy-policy" component={PrivacyPolicy} />
             <Route exact path="/developer" component={DeveloperMainView} />
+            <Route exact path="/admin" component={AdminMainView} />
           </Switch>
 
           <Footer
