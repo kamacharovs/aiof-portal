@@ -1,5 +1,6 @@
 import {
     ASYNC_START,
+    ADMIN_CLEAR,
     ADMIN_USER,
     ADMIN_USER_REFRESH_TOKENS,
     ADMIN_CLIENT,
@@ -8,6 +9,9 @@ import {
 
 export default (state = {}, action) => {
     switch (action.type) {
+        case ADMIN_CLEAR: {
+            return {}
+        }
         case ASYNC_START:
             if (action.subtype === ADMIN_USER) {
                 return { ...state, inProgressUser: true }

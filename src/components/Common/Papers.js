@@ -1,9 +1,11 @@
 import React from 'react';
 import { Bar, Line, Pie } from 'react-chartjs-2';
+import JSONPretty from 'react-json-pretty';
 
 import { useTheme, makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
+import Paper from '@material-ui/core/Paper';
 import PersonIcon from '@material-ui/icons/Person';
 import EmailIcon from '@material-ui/icons/Email';
 import WebIcon from '@material-ui/icons/Web';
@@ -521,4 +523,29 @@ export const APIPaper = props => {
             </SquarePaper>
         </React.Fragment>
     );
+}
+
+export const CodePaper = props => {
+    const theme = useTheme();
+    const id = props.id;
+    const data = props.data;
+
+    if (data) {
+        return (
+            <React.Fragment>
+                <Paper
+                    elevation={0}
+                    style={{ 
+                        backgroundColor: theme.palette.code.main,
+                        padding: theme.spacing(1) 
+                    }}>
+                    <JSONPretty
+                        id={id}
+                        data={data} />
+                </Paper>
+            </React.Fragment>
+        );
+    } else {
+        return null;
+    }
 }

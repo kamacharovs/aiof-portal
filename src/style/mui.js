@@ -73,6 +73,9 @@ export const theme = createMuiTheme({
     },
     grey: {
       hr: '#ebebeb',
+    },
+    code: {
+      main: '#e4e6e8',
     }
   },
   typography: {
