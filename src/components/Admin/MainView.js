@@ -8,6 +8,8 @@ import Grid from '@material-ui/core/Grid';
 import { isCurrentUserAdmin } from "../Common/Functions";
 import { REDIRECT_HOME, REDIRECT_LOGIN } from "../../constants/actionTypes";
 
+import UserView from './User';
+
 
 const mapStateToProps = state => ({
     appName: state.common.appName,
@@ -39,7 +41,7 @@ const AdminMainView = props => {
                 <Container maxWidth="md">
                     <Grid container spacing={3}>
                         <Grid item xs>
-
+                            <UserView />
                         </Grid>
                     </Grid>
 

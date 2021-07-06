@@ -101,8 +101,6 @@ const Api = {
 const User = {
   get: () =>
     requests.get(`/user`),
-  byEmail: email =>
-    requests.get(`/user?email=${email}`),
   profile: () =>
     requests.get(`/user/profile`),
   profileUpsert: (payload) =>
@@ -206,6 +204,17 @@ const Retirement = {
     requestsMetadata.post('/retirement/common/investments', payload)
 }
 
+const Admin = {
+  user: (id) =>
+    requestsAuth.get(`/user/${id}`),
+  userRefreshTokens: (id) =>
+    requestsAuth.get(`/user/${id}/refresh/tokens`),
+  client: (id) =>
+    requestsAuth.get(`/client/${id}`),
+  clientDisable: (id) =>
+    requestsAuth.get(`/client/${id}/disable`),
+}
+
 
 export default {
   Auth,
@@ -220,6 +229,7 @@ export default {
   Analytics,
   Property,
   Retirement,
+  Admin,
   setToken: _token => { token = _token; },
   setRefreshToken: _refreshToken => { refresh_token = _refreshToken },
   setExpires: _expires => { expires = _expires },
