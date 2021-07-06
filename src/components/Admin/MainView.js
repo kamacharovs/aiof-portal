@@ -5,8 +5,8 @@ import { Helmet } from 'react-helmet';
 import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
 
-import config from '../../config';
-import { REDIRECT_HOME, REDIRECT_LOGIN } from '../../constants/actionTypes';
+import { isCurrentUserAdmin } from "../Common/Functions";
+import { REDIRECT_HOME, REDIRECT_LOGIN } from "../../constants/actionTypes";
 
 
 const mapStateToProps = state => ({
@@ -23,12 +23,11 @@ const mapDispatchToProps = dispatch => ({
 
 const AdminMainView = props => {
     const currentUser = props.currentUser;
-    const role = currentUser ? currentUser.role.name : null;
-    const isAdmin = config.adminRoles.includes(role);
+    const isAdmin = isCurrentUserAdmin(currentUser);
 
     if (currentUser && !isAdmin) {
         props.onRedirectHome();
-        
+
         return null
     } else if (currentUser && isAdmin) {
         return (

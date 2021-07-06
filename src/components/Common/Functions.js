@@ -1,3 +1,6 @@
+import config from '../../config';
+
+
 export function assetSnapshotsAvgByMonth(assets) {
     var byMonth = [];
     var oneYearAgo = new Date();
@@ -64,4 +67,20 @@ export function stateTax(state) {
     }
 
     return tax;
+}
+
+export function isCurrentUserAdmin(currentUser) {
+    if (!currentUser) {
+        return false;
+    }
+    
+    var role = currentUser ? currentUser.role.name : null;
+
+    if (role === null) {
+        return false;
+    } else if (config.adminRoles.includes(role)) {
+        return true;
+    } else {
+        return false;
+    }
 }

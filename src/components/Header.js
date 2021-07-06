@@ -18,6 +18,12 @@ import ListItemText from '@material-ui/core/ListItemText';
 import ListSubheader from '@material-ui/core/ListSubheader'
 import ExpandMore from '@material-ui/icons/ExpandMore';
 
+import { isCurrentUserAdmin } from "../components/Common/Functions";
+
+
+const mapDispatchToProps = dispatch => ({
+    onClickLogout: () => dispatch({ type: LOGOUT }),
+});
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -35,10 +41,6 @@ const useStyles = makeStyles((theme) => ({
         textTransform: 'capitalize',
     },
 }));
-
-const mapDispatchToProps = dispatch => ({
-    onClickLogout: () => dispatch({ type: LOGOUT }),
-});
 
 const HomeView = props => {
     if (props.currentUser) {
@@ -84,6 +86,7 @@ const LoggedInView = props => {
 const ProfileMenu = props => {
     const classes = useStyles();
     const [anchorEl, setAnchorEl] = React.useState(null);
+    const isAdmin = isCurrentUserAdmin(props.currentUser);
 
     const handleClick = (event) => {
         setAnchorEl(event.currentTarget);
@@ -95,10 +98,10 @@ const ProfileMenu = props => {
 
     return (
         <React.Fragment>
-            <Button 
-                className={classes.userButton} 
-                aria-controls="user-menu" 
-                aria-haspopup="true" 
+            <Button
+                className={classes.userButton}
+                aria-controls="user-menu"
+                aria-haspopup="true"
                 onClick={handleClick}>
                 {props.lastName}, {props.firstName} <ExpandMore />
             </Button>
@@ -148,13 +151,32 @@ const ProfileMenu = props => {
                     </ListItem>
                 </List>
 
+                {isAdmin ? <Divider /> : null}
+                {isAdmin
+                    ? <List
+                        subheader={
+                            <ListSubheader component="div" id="nested-list-subheader">
+                                Admin
+                            </ListSubheader>
+                        }>
+                        <ListItem
+                            button
+                            onClick={handleClose}
+                            component={Link}
+                            to={`/admin`}>
+                            <ListItemText primary="Manage" />
+                        </ListItem>
+                    </List>
+                    : null
+                }
+
                 <Divider />
 
                 <List
                     subheader={
                         <ListSubheader component="div" id="nested-list-subheader">
                             Other
-                    </ListSubheader>
+                        </ListSubheader>
                     }>
                     <ListItem
                         button
@@ -182,20 +204,20 @@ const Header = props => {
             <div className={classes.root}>
                 <AppBar position="fixed" elevation={0} className={classes.header}>
                     <Toolbar variant="dense">
-                        <AppMenu 
+                        <AppMenu
                             currentUser={props.currentUser} />
 
                         <div className={classes.app}>
-                            <HomeView 
-                                appName={props.appName.toLowerCase()} 
+                            <HomeView
+                                appName={props.appName.toLowerCase()}
                                 currentUser={props.currentUser} />
                         </div>
 
-                        <LoggedOutView 
+                        <LoggedOutView
                             currentUser={props.currentUser} />
 
-                        <LoggedInView 
-                            currentUser={props.currentUser} 
+                        <LoggedInView
+                            currentUser={props.currentUser}
                             onClickLogout={props.onClickLogout} />
                     </Toolbar>
                 </AppBar>
