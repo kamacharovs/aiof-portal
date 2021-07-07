@@ -108,6 +108,10 @@ const UserView = props => {
                                 </Grid>
 
                                 <Grid item xs>
+                                    Or
+                                </Grid>
+
+                                <Grid item xs>
                                     <TextFieldBase
                                         id="user-email"
                                         label="User email"
