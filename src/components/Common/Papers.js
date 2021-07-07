@@ -529,19 +529,6 @@ export const APIPaper = props => {
     );
 }
 
-export const DisplayCodePaper = props => {
-    const data = props.data;
-    const error = props.error;
-
-    if (data) {
-        return <CodePaper
-            data={data} />
-    } else if (error) {
-        return <CodeErrorPaper
-            code={props.error.code}
-            message={props.error.message} />
-    }
-}
 export const CodePaper = props => {
     const theme = useTheme();
     const id = props.id;
@@ -559,32 +546,6 @@ export const CodePaper = props => {
                     <JSONPretty
                         id={id}
                         data={data} />
-                </Paper>
-            </React.Fragment>
-        );
-    } else {
-        return null;
-    }
-}
-export const CodeErrorPaper = props => {
-    const theme = useTheme();
-    const classes = useStyles();
-    const code = props.code;
-    const message = props.message;
-
-    if (code && message) {
-        return (
-            <React.Fragment>
-                <Paper
-                    elevation={0}
-                    style={{
-                        backgroundColor: theme.palette.code.main,
-                        padding: theme.spacing(1)
-                    }}>
-                    <div className={classes.redCode}>
-                        {props.code} <br />
-                        {props.message}
-                    </div>
                 </Paper>
             </React.Fragment>
         );

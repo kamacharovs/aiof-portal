@@ -84,3 +84,10 @@ export function isCurrentUserAdmin(currentUser) {
         return false;
     }
 }
+
+export function isId(id) {
+    return !isNaN(id);
+}
+export function isEmail(email) {
+    return isNaN(email);
+}

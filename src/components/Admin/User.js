@@ -7,7 +7,7 @@ import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 
 import { TextFieldBase } from '../Common/Inputs';
-import { DisplayCodePaper } from '../Common/Papers';
+import { CodePaper } from '../Common/Papers';
 import { SquarePaper, BorderlessSquarePaper, TextMain, AltLoader } from "../../style/mui";
 import { ADMIN_CLEAR, ADMIN_USER, ADMIN_USER_BY_EMAIL, ADMIN_USER_REFRESH_TOKENS } from "../../constants/actionTypes";
 
@@ -25,7 +25,7 @@ const mapDispatchToProps = dispatch => ({
     onUser: (id) =>
         dispatch({ type: ADMIN_USER, payload: agent.Admin.user(id) }),
     onUserByEmail: (email) =>
-        dispatch({ type: ADMIN_USER_BY_EMAIL, payload: agent.Adming.userByEmail(email) }),
+        dispatch({ type: ADMIN_USER_BY_EMAIL, payload: agent.Admin.userByEmail(email) }),
     onUserRefreshTokens: (id) =>
         dispatch({ type: ADMIN_USER_REFRESH_TOKENS, payload: agent.Admin.userRefreshTokens(id) }),
 });
@@ -48,11 +48,9 @@ const UserView = props => {
 
     const onUser = ev => {
         ev.preventDefault();
-        props.onUser(userId);
-    }
-    const onUserByEmail = ev => {
-        ev.preventDefault();
-        props.onUserByEmail(userEmail);
+
+        if (userId) { props.onUser(userId); }
+        else if (userEmail) { props.onUserByEmail(userEmail); }
     }
 
     const onUserRefreshTokens = ev => {
@@ -82,7 +80,7 @@ const UserView = props => {
                 <Grid container direction="column">
                     <Grid item xs>
                         <Typography variant="h6">
-                            Get user information by their id
+                            Get user information by either their id or email
                         </Typography>
                     </Grid>
 
@@ -142,7 +140,7 @@ const UserView = props => {
                                         onSubmit={onUser}>
                                         <Button
                                             id="user-button"
-                                            disabled={!userButtonEnabled}
+                                            disabled={!userButtonEnabled && !userByEmailButtonEnabled}
                                             type="submit"
                                             color="primary">
                                             Get user
@@ -189,9 +187,8 @@ const UserView = props => {
                             </Typography>
                             {
                                 props.inProgressUser === false
-                                    ? <DisplayCodePaper
-                                        data={props.user}
-                                        error={props.userError} />
+                                    ? <CodePaper
+                                        data={props.user} />
                                     : <AltLoader
                                         inProgress={props.inProgressUser}
                                         size={"32px"} />
@@ -204,7 +201,7 @@ const UserView = props => {
                             </Typography>
                             {
                                 props.inProgressUserRefreshTokens === false
-                                    ? <DisplayCodePaper
+                                    ? <CodePaper
                                         data={props.refreshTokens} />
                                     : <AltLoader
                                         inProgress={props.inProgressUserRefreshTokens}

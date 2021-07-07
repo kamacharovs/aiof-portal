@@ -34,12 +34,7 @@ export default (state = {}, action) => {
             return {
                 ...state,
                 inProgressUser: false,
-                user: action.error ? null : action.payload,
-                userError: {
-                    ...state.userError,
-                    code: action.error ? action.payload.code : null,
-                    message: action.error ? action.payload.message : null,
-                },
+                user: action.payload,
             }
         case ADMIN_USER_REFRESH_TOKENS:
             return {
