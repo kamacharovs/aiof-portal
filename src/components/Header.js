@@ -36,6 +36,9 @@ const useStyles = makeStyles((theme) => ({
     app: {
         flexGrow: 1
     },
+    listItemText: {
+        fontSize: "12px !important",
+    },
     userButton: {
         color: theme.palette.text.alt,
         textTransform: 'capitalize',
@@ -123,7 +126,9 @@ const ProfileMenu = props => {
                         onClick={handleClose}
                         component={Link}
                         to={`/profile`}>
-                        <ListItemText primary="Profile" />
+                        <ListItemText
+                            classes={{primary:classes.listItemText}}
+                            primary="Profile" />
                     </ListItem>
 
                     <ListItem
@@ -131,7 +136,9 @@ const ProfileMenu = props => {
                         onClick={handleClose}
                         component={Link}
                         to={`/finance`}>
-                        <ListItemText primary="Finances" />
+                        <ListItemText 
+                            classes={{primary:classes.listItemText}}
+                            primary="Finances" />
                     </ListItem>
 
                     <ListItem
@@ -139,7 +146,9 @@ const ProfileMenu = props => {
                         onClick={handleClose}
                         component={Link}
                         to={`/finance/assets`}>
-                        <ListItemText primary="Assets" />
+                        <ListItemText 
+                            classes={{primary:classes.listItemText}}
+                            primary="Assets" />
                     </ListItem>
 
                     <ListItem
@@ -147,7 +156,9 @@ const ProfileMenu = props => {
                         onClick={handleClose}
                         component={Link}
                         to={`/finance/goals`}>
-                        <ListItemText primary="Goals" />
+                        <ListItemText 
+                            classes={{primary:classes.listItemText}}
+                            primary="Goals" />
                     </ListItem>
                 </List>
 
@@ -164,7 +175,9 @@ const ProfileMenu = props => {
                             onClick={handleClose}
                             component={Link}
                             to={`/admin`}>
-                            <ListItemText primary="Manage" />
+                            <ListItemText 
+                                classes={{primary:classes.listItemText}}
+                                primary="Manage" />
                         </ListItem>
                     </List>
                     : null
@@ -183,12 +196,16 @@ const ProfileMenu = props => {
                         onClick={handleClose}
                         component={Link}
                         to={`/manage/password`}>
-                        <ListItemText primary="Password manager" />
+                        <ListItemText 
+                            classes={{primary:classes.listItemText}}
+                            primary="Password manager" />
                     </ListItem>
                     <ListItem
                         button
                         onClick={props.onClickLogout}>
-                        <ListItemText primary="Logout" />
+                        <ListItemText 
+                            classes={{primary:classes.listItemText}}
+                            primary="Logout" />
                     </ListItem>
                 </List>
             </Menu>

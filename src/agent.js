@@ -207,6 +207,8 @@ const Retirement = {
 const Admin = {
   user: (id) =>
     requestsAuth.get(`/user/${id}`),
+  userByEmail: (email) =>
+    requestsAuth.get(`/user/email/${email}`),
   userRefreshTokens: (id) =>
     requestsAuth.get(`/user/${id}/refresh/tokens`),
   client: (id) =>

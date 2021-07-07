@@ -7,14 +7,15 @@ import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 
 import { TextFieldBase } from '../Common/Inputs';
-import { CodePaper } from '../Common/Papers';
+import { DisplayCodePaper } from '../Common/Papers';
 import { SquarePaper, BorderlessSquarePaper, TextMain, AltLoader } from "../../style/mui";
-import { ADMIN_CLEAR, ADMIN_USER, ADMIN_USER_REFRESH_TOKENS } from "../../constants/actionTypes";
+import { ADMIN_CLEAR, ADMIN_USER, ADMIN_USER_BY_EMAIL, ADMIN_USER_REFRESH_TOKENS } from "../../constants/actionTypes";
 
 
 const mapStateToProps = state => ({
     ...state.admin,
     user: state.admin.user,
+    userError: state.admin.userError,
     refreshTokens: state.admin.refreshTokens,
 });
 
@@ -23,31 +24,39 @@ const mapDispatchToProps = dispatch => ({
         dispatch({ type: ADMIN_CLEAR }),
     onUser: (id) =>
         dispatch({ type: ADMIN_USER, payload: agent.Admin.user(id) }),
+    onUserByEmail: (email) =>
+        dispatch({ type: ADMIN_USER_BY_EMAIL, payload: agent.Adming.userByEmail(email) }),
     onUserRefreshTokens: (id) =>
         dispatch({ type: ADMIN_USER_REFRESH_TOKENS, payload: agent.Admin.userRefreshTokens(id) }),
 });
 
 const UserView = props => {
     const [userId, setUserId] = useState("");
+    const [userEmail, setUserEmail] = useState("");
 
     const userButtonEnabled = userId ? true : false;
+    const userByEmailButtonEnabled = userEmail ? true : false;
 
     const onClear = ev => {
         ev.preventDefault();
 
         setUserId("");
+        setUserEmail("");
+
         props.onClear();
     }
 
     const onUser = ev => {
         ev.preventDefault();
-
         props.onUser(userId);
+    }
+    const onUserByEmail = ev => {
+        ev.preventDefault();
+        props.onUserByEmail(userEmail);
     }
 
     const onUserRefreshTokens = ev => {
         ev.preventDefault();
-
         props.onUserRefreshTokens(userId);
     }
 
@@ -88,12 +97,26 @@ const UserView = props => {
                 <BorderlessSquarePaper variant="outlined" square>
                     <Grid container spacing={3}>
                         <Grid item xs>
-                            <TextFieldBase
-                                id="user-id"
-                                label="User id"
-                                value={userId}
-                                onChange={e => setUserId(e.target.value)}
-                            />
+                            <Grid
+                                container
+                                spacing={2}
+                                direction="column">
+                                <Grid item xs>
+                                    <TextFieldBase
+                                        id="user-id"
+                                        label="User id"
+                                        value={userId}
+                                        onChange={e => setUserId(e.target.value)} />
+                                </Grid>
+
+                                <Grid item xs>
+                                    <TextFieldBase
+                                        id="user-email"
+                                        label="User email"
+                                        value={userEmail}
+                                        onChange={e => setUserEmail(e.target.value)} />
+                                </Grid>
+                            </Grid>
                         </Grid>
 
                         <Grid item xs>
@@ -166,8 +189,9 @@ const UserView = props => {
                             </Typography>
                             {
                                 props.inProgressUser === false
-                                    ? <CodePaper
-                                        data={props.user} />
+                                    ? <DisplayCodePaper
+                                        data={props.user}
+                                        error={props.userError} />
                                     : <AltLoader
                                         inProgress={props.inProgressUser}
                                         size={"32px"} />
@@ -180,7 +204,7 @@ const UserView = props => {
                             </Typography>
                             {
                                 props.inProgressUserRefreshTokens === false
-                                    ? <CodePaper
+                                    ? <DisplayCodePaper
                                         data={props.refreshTokens} />
                                     : <AltLoader
                                         inProgress={props.inProgressUserRefreshTokens}
