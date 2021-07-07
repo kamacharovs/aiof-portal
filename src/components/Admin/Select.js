@@ -8,6 +8,9 @@ import Typography from '@material-ui/core/Typography';
 
 import { SquarePaper } from '../../style/mui';
 
+import { userEntity, clientEntity, entities, userApis, clientApis } from './Common';
+import UserView from './User';
+
 
 const mapStateToProps = state => ({
 });
@@ -16,21 +19,9 @@ const mapDispatchToProps = dispatch => ({
 });
 
 const SelectView = props => {
-    const user = "User";
-    const client = "Client";
-
     const [entity, setEntity] = useState("");
     const [api, setApi] = useState("");
-    const [entityList, setEntityList] = useState([user, client]);
     const [apiCallList, setApiCallList] = useState("");
-    const userApiCalls = [
-        "by id",
-        "by email"
-    ];
-    const clientApiCalls = [
-        "by id",
-        "by key"
-    ];
 
     const handleSetEntity = (value) => {
         setEntity(value);
@@ -39,10 +30,10 @@ const SelectView = props => {
     const handleSetApiCallList = (value) => {
         setApi("");
 
-        if (value === user) {
-            setApiCallList(userApiCalls);
-        } else if (value === client) {
-            setApiCallList(clientApiCalls);
+        if (value === userEntity) {
+            setApiCallList(userApis);
+        } else if (value === clientEntity) {
+            setApiCallList(clientApis);
         }
     }
 
@@ -64,7 +55,7 @@ const SelectView = props => {
                                     value={entity}
                                     onChange={e => handleSetEntity(e.target.value)} >
                                     {
-                                        entityList.map(e => {
+                                        entities.map(e => {
                                             return (
                                                 <MenuItem key={e} value={e}>{e}</MenuItem>
                                             );
@@ -104,6 +95,9 @@ const SelectView = props => {
                     }
                 </Grid>
             </SquarePaper>
+
+            <UserView
+                api={api} />
         </React.Fragment>
     );
 }
