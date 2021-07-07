@@ -5,6 +5,7 @@ import {
     ADMIN_USER_BY_EMAIL,
     ADMIN_USER_REFRESH_TOKENS,
     ADMIN_CLIENT,
+    ADMIN_CLIENT_BY_ID,
     ADMIN_CLIENT_DISABLE,
 } from '../constants/actionTypes';
 
@@ -22,6 +23,8 @@ export default (state = {}, action) => {
                 return { ...state, inProgressUserRefreshTokens: true }
             } else if (action.subtype === ADMIN_CLIENT) {
                 return { ...state, inProgressClient: true }
+            } else if (action.subtype === ADMIN_CLIENT_BY_ID) {
+                return { ...state, inProgressClientById: true }
             } else if (action.subtype === ADMIN_CLIENT_DISABLE) {
                 return { ...state, inProgressClientDisable: true }
             } else {
@@ -41,6 +44,12 @@ export default (state = {}, action) => {
                 ...state,
                 inProgressUserRefreshTokens: false,
                 refreshTokens: action.error ? null : action.payload,
+            }
+        case ADMIN_CLIENT_BY_ID:
+            return {
+                ...state,
+                inProgressClientById: false,
+                client: action.payload,
             }
         default:
             return state;

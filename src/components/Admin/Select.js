@@ -10,6 +10,7 @@ import { SquarePaper } from '../../style/mui';
 
 import { userEntity, clientEntity, entities, userApis, clientApis } from './Common';
 import UserView from './User';
+import ClientView from './Client';
 
 
 const mapStateToProps = state => ({
@@ -97,6 +98,9 @@ const SelectView = props => {
             </SquarePaper>
 
             <UserView
+                api={api} />
+
+            <ClientView
                 api={api} />
         </React.Fragment>
     );

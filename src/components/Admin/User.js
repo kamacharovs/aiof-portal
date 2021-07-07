@@ -11,7 +11,7 @@ import { CodePaper } from '../Common/Papers';
 import { SquarePaper, BorderlessSquarePaper, TextMain, AltLoader } from "../../style/mui";
 import { ADMIN_CLEAR, ADMIN_USER, ADMIN_USER_BY_EMAIL, ADMIN_USER_REFRESH_TOKENS } from "../../constants/actionTypes";
 
-import { userApis } from './Common';
+import { userApiGetById, userApiGetByEmail } from './Common';
 
 
 const mapStateToProps = state => ({
@@ -65,9 +65,8 @@ const UserView = props => {
     return (
         <React.Fragment>
             {
-                userApis.includes(api)
-                    ?
-                    <SquarePaper variant="outlined" square>
+                [userApiGetById, userApiGetByEmail].includes(api)
+                    ? <SquarePaper variant="outlined" square>
                         <Grid container direction="column">
                             <Grid item xs>
                                 <Typography variant="h6">
