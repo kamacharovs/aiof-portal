@@ -149,7 +149,7 @@ const Bmi = (props) => {
                                 <Button 
                                     id="imperial-calculate-button"
                                     type="submit" 
-                                    variant="contained" 
+                                    variant="outlined" 
                                     color="primary" 
                                     className={classes.button} >
                                     Calculate
@@ -190,7 +190,7 @@ const Bmi = (props) => {
                                 <Button 
                                     id="metric-calculate-button"
                                     type="submit" 
-                                    variant="contained" 
+                                    variant="outlined" 
                                     color="primary" 
                                     className={classes.button} >
                                     Calculate

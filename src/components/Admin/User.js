@@ -121,7 +121,9 @@ const UserView = props => {
                                                 <Button
                                                     id="clear-button"
                                                     type="submit"
-                                                    color="primary">
+                                                    variant="outlined"
+                                                    color="primary"
+                                                    disableElevation>
                                                     Clear
                                                 </Button>
                                             </form>
@@ -136,7 +138,9 @@ const UserView = props => {
                                                     id="user-button"
                                                     disabled={!userButtonEnabled && !userByEmailButtonEnabled}
                                                     type="submit"
-                                                    color="primary">
+                                                    variant="outlined"
+                                                    color="primary"
+                                                    disableElevation>
                                                     Get user
                                                 </Button>
                                             </form>
@@ -151,7 +155,9 @@ const UserView = props => {
                                                     id="user-refresh-tokens-button"
                                                     disabled={!userButtonEnabled}
                                                     type="submit"
-                                                    color="primary">
+                                                    variant="outlined"
+                                                    color="primary"
+                                                    disableElevation>
                                                     Get user's refresh tokens
                                                 </Button>
                                             </form>

@@ -531,12 +531,13 @@ const SavingsRateStepper = props => {
 
                                     <hr className={classes.hr} />
                                     <Button
+                                        variant="outlined"
                                         onClick={handleReset}
                                         className={classes.backButton}>
                                         Reset
                                     </Button>
                                     <Button
-                                        variant="contained"
+                                        variant="outlined"
                                         color="primary"
                                         onClick={handleCalculate}>
                                         Calculate
@@ -559,7 +560,10 @@ const SavingsRateStepper = props => {
                                             className={classes.backButton}>
                                             Back
                                         </Button>
-                                        <Button variant="contained" color="primary" onClick={handleNext}>
+                                        <Button 
+                                            variant="outlined" 
+                                            color="primary" 
+                                            onClick={handleNext}>
                                             {activeStep === steps.length - 1 ? 'Finish' : 'Next'}
                                         </Button>
                                     </div>

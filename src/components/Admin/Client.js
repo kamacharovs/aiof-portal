@@ -76,6 +76,9 @@ const ClientView = props => {
 }
 
 const ByIdView = props => {
+    const clientId = props.clientId;
+    const isButtonEnabled = props.clientId ? false : true;
+
     return (
         <SquarePaper variant="outlined" square>
             <Grid container direction="column">
@@ -104,7 +107,7 @@ const ByIdView = props => {
                                 <TextFieldBase
                                     id="client-id"
                                     label="Client id"
-                                    value={props.clientId}
+                                    value={clientId}
                                     onChange={e => props.setClientId(e.target.value)} />
                             </Grid>
                         </Grid>
@@ -118,7 +121,9 @@ const ByIdView = props => {
                             <Button
                                 id="get-client-by-id-button"
                                 type="submit"
-                                color="primary">
+                                variant="outlined"
+                                color="primary"
+                                disabled={isButtonEnabled}>
                                 Get client
                             </Button>
                         </form>
@@ -135,6 +140,9 @@ const ByIdView = props => {
 }
 
 const EnableDisableView = props => {
+    const clientId = props.clientId;
+    const isButtonEnabled = props.clientId ? false : true;
+
     return (
         <SquarePaper variant="outlined" square>
             <Grid container direction="column">
@@ -163,7 +171,7 @@ const EnableDisableView = props => {
                                 <TextFieldBase
                                     id="client-id"
                                     label="Client id"
-                                    value={props.clientId}
+                                    value={clientId}
                                     onChange={e => props.setClientId(e.target.value)} />
                             </Grid>
                         </Grid>
@@ -179,7 +187,9 @@ const EnableDisableView = props => {
                                     <Button
                                         id="enable-button"
                                         type="submit"
-                                        color="primary">
+                                        variant="outlined"
+                                        color="primary"
+                                        disabled={isButtonEnabled}>
                                         Enable client
                                     </Button>
                                 </form>
@@ -193,7 +203,9 @@ const EnableDisableView = props => {
                                     <Button
                                         id="disable-button"
                                         type="submit"
-                                        color="primary">
+                                        variant="outlined"
+                                        color="primary"
+                                        disabled={isButtonEnabled}>
                                         Disable client
                                     </Button>
                                 </form>

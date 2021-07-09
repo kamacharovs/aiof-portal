@@ -295,7 +295,7 @@ const MortgageCalculator = props => {
                                 <Button
                                     id="calculate-button"
                                     type="submit"
-                                    variant="contained"
+                                    variant="outlined"
                                     color="primary"
                                     className={classes.button}
                                     disabled={!isCalculateEnabled} >
@@ -483,7 +483,9 @@ const MortgageCalculatorResult = props => {
                 </SquarePaper>
 
                 <SquarePaper variant="outlined" square>
-                    <Button color="primary" onClick={() => setShowCompleteBreakdown(!showCompleteBreakdown)}>
+                    <Button 
+                    color="primary" 
+                    onClick={() => setShowCompleteBreakdown(!showCompleteBreakdown)}>
                         {showCompleteBreakdown === false ? "View complete breakdown" : "Hide complete breakdown"}
                     </Button>
 
@@ -494,7 +496,9 @@ const MortgageCalculatorResult = props => {
                 </SquarePaper>
 
                 <SquarePaper variant="outlined" square>
-                    <Button color="primary" onClick={() => setShowYearlyCompleteBreakdown(!showYearlyCompleteBreakdown)}>
+                    <Button 
+                    color="primary" 
+                    onClick={() => setShowYearlyCompleteBreakdown(!showYearlyCompleteBreakdown)}>
                         {showYearlyCompleteBreakdown === false ? "View yearly complete breakdown" : "Hide yearly complete breakdown"}
                     </Button>
 
