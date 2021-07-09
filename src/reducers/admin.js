@@ -6,6 +6,7 @@ import {
     ADMIN_USER_REFRESH_TOKENS,
     ADMIN_CLIENT,
     ADMIN_CLIENT_BY_ID,
+    ADMIN_CLIENT_ENABLE,
     ADMIN_CLIENT_DISABLE,
 } from '../constants/actionTypes';
 
@@ -25,8 +26,9 @@ export default (state = {}, action) => {
                 return { ...state, inProgressClient: true }
             } else if (action.subtype === ADMIN_CLIENT_BY_ID) {
                 return { ...state, inProgressClientById: true }
-            } else if (action.subtype === ADMIN_CLIENT_DISABLE) {
-                return { ...state, inProgressClientDisable: true }
+            } else if (action.subtype === ADMIN_CLIENT_ENABLE
+                || action.subttype === ADMIN_CLIENT_DISABLE) {
+                return { ...state, inProgress: true }
             } else {
                 return {
                     ...state
@@ -49,6 +51,13 @@ export default (state = {}, action) => {
             return {
                 ...state,
                 inProgressClientById: false,
+                client: action.payload,
+            }
+        case ADMIN_CLIENT_ENABLE:
+        case ADMIN_CLIENT_DISABLE:
+            return {
+                ...state,
+                inProgress: false,
                 client: action.payload,
             }
         default:

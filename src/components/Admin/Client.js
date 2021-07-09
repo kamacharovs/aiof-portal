@@ -9,9 +9,9 @@ import Typography from '@material-ui/core/Typography';
 import { TextFieldBase } from '../Common/Inputs';
 import { CodePaper } from '../Common/Papers';
 import { SquarePaper, BorderlessSquarePaper, TextMain, AltLoader } from "../../style/mui";
-import { ADMIN_CLIENT_BY_ID } from "../../constants/actionTypes";
+import { ADMIN_CLIENT_BY_ID, ADMIN_CLIENT_ENABLE, ADMIN_CLIENT_DISABLE } from "../../constants/actionTypes";
 
-import { clientApiById } from './Common';
+import { clientApiById, clientEnable, clientDisable } from './Common';
 
 
 const mapStateToProps = state => ({
@@ -22,6 +22,10 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
     onClientById: (id) =>
         dispatch({ type: ADMIN_CLIENT_BY_ID, payload: agent.Admin.client(id) }),
+    onClientEnable: (id) =>
+        dispatch({ type: ADMIN_CLIENT_ENABLE, payload: agent.Admin.clientEnable(id) }),
+    onClientDisable: (id) =>
+        dispatch({ type: ADMIN_CLIENT_DISABLE, payload: agent.Admin.clientDisable(id) }),
 });
 
 const ClientView = props => {
@@ -35,6 +39,15 @@ const ClientView = props => {
         if (clientId) { props.onClientById(clientId); }
     }
 
+    const onClientEnable = ev => {
+        ev.preventDefault();
+        props.onClientEnable(clientId);
+    }
+    const onClientDisable = ev => {
+        ev.preventDefault();
+        props.onClientDisable(clientId);
+    }
+
     return (
         <React.Fragment>
             {
@@ -45,6 +58,17 @@ const ClientView = props => {
                         setClientId={setClientId}
                         onClient={onClient}
                         inProgress={props.inProgressClientById} />
+                    : null
+            }
+            {
+                [clientEnable, clientDisable].includes(api)
+                    ? <EnableDisableView
+                        client={props.client}
+                        clientId={clientId}
+                        setClientId={setClientId}
+                        onClientEnable={onClientEnable}
+                        onClientDisable={onClientDisable}
+                        inProgress={props.inProgress} />
                     : null
             }
         </React.Fragment>
@@ -98,6 +122,84 @@ const ByIdView = props => {
                                 Get client
                             </Button>
                         </form>
+                    </Grid>
+                </Grid>
+            </BorderlessSquarePaper>
+
+            <ResultsView
+                subTitle="Client's information"
+                inProgress={props.inProgress}
+                data={props.client} />
+        </SquarePaper>
+    );
+}
+
+const EnableDisableView = props => {
+    return (
+        <SquarePaper variant="outlined" square>
+            <Grid container direction="column">
+                <Grid item xs>
+                    <Typography variant="h6">
+                        Enable or disable a client
+                    </Typography>
+                </Grid>
+
+                <Grid item xs>
+                    <TextMain>
+                        Enable or disable a client. If they're disabled, then they won't be able to authenticate anymore
+                        and their credentials will become invalid
+                    </TextMain>
+                </Grid>
+            </Grid>
+
+            <BorderlessSquarePaper variant="outlined" square>
+                <Grid container spacing={3}>
+                    <Grid item xs>
+                        <Grid
+                            container
+                            spacing={2}
+                            direction="column">
+                            <Grid item xs>
+                                <TextFieldBase
+                                    id="client-id"
+                                    label="Client id"
+                                    value={props.clientId}
+                                    onChange={e => props.setClientId(e.target.value)} />
+                            </Grid>
+                        </Grid>
+                    </Grid>
+
+                    <Grid item xs>
+                        <Grid container spacing={1} direction="column">
+                            <Grid item xs>
+                                <form
+                                    noValidate
+                                    autoComplete="off"
+                                    onSubmit={props.onClientEnable}>
+                                    <Button
+                                        id="enable-button"
+                                        type="submit"
+                                        color="primary">
+                                        Enable client
+                                    </Button>
+                                </form>
+                            </Grid>
+
+                            <Grid item xs>
+                                <form
+                                    noValidate
+                                    autoComplete="off"
+                                    onSubmit={props.onClientDisable}>
+                                    <Button
+                                        id="disable-button"
+                                        type="submit"
+                                        color="primary">
+                                        Disable client
+                                    </Button>
+                                </form>
+                            </Grid>
+
+                        </Grid>
                     </Grid>
                 </Grid>
             </BorderlessSquarePaper>

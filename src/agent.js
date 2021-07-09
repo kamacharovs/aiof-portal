@@ -52,6 +52,8 @@ const requestsAuth = {
     superagent.put(`${API_AUTH_ROOT}${url}`, body).use(tokenPlugin).then(responseBody),
   post: (url, body) =>
     superagent.post(`${API_AUTH_ROOT}${url}`, body).then(responseBody),
+  postWithAuth: (url, body) =>
+    superagent.post(`${API_AUTH_ROOT}${url}`, body).use(tokenPlugin).then(responseBody),
 }
 
 const requestsAsset = {
@@ -213,8 +215,10 @@ const Admin = {
     requestsAuth.get(`/user/${id}/refresh/tokens`),
   client: (id) =>
     requestsAuth.get(`/client/${id}`),
+  clientEnable: (id) =>
+    requestsAuth.postWithAuth(`/client/${id}/enable`),
   clientDisable: (id) =>
-    requestsAuth.get(`/client/${id}/disable`),
+    requestsAuth.postWithAuth(`/client/${id}/disable`),
 }
 
 
