@@ -13,12 +13,10 @@ export const userApis = [
 ];
 
 export const clientApiById = `Get ${clientEntity} by id`;
-export const clientApiByKey = `Get ${clientEntity} by key`;
 export const clientEnable = `Enable ${clientEntity}`;
 export const clientDisable = `Disable ${clientEntity}`;
 export const clientApis = [
     clientApiById,
-    clientApiByKey,
     clientEnable,
     clientDisable,
 ];
