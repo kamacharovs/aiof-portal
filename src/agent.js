@@ -213,12 +213,16 @@ const Admin = {
     requestsAuth.get(`/user/email/${email}`),
   userRefreshTokens: (id) =>
     requestsAuth.get(`/user/${id}/refresh/tokens`),
+  userGenerateApiKey: (bit = 32) =>
+    requestsAuth.get(`/util/apikey/${bit}/user`),
   client: (id) =>
     requestsAuth.get(`/client/${id}`),
   clientEnable: (id) =>
     requestsAuth.postWithAuth(`/client/${id}/enable`),
   clientDisable: (id) =>
     requestsAuth.postWithAuth(`/client/${id}/disable`),
+  clientGenerateApiKey: (bit = 32) =>
+    requestsAuth.get(`/util/apikey/${bit}/client`),
 }
 
 

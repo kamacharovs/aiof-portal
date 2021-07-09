@@ -4,10 +4,12 @@ import {
     ADMIN_USER,
     ADMIN_USER_BY_EMAIL,
     ADMIN_USER_REFRESH_TOKENS,
+    ADMIN_USER_UTIL_API_KEY,
     ADMIN_CLIENT,
     ADMIN_CLIENT_BY_ID,
     ADMIN_CLIENT_ENABLE,
     ADMIN_CLIENT_DISABLE,
+    ADMIN_CLIENT_UTIL_API_KEY,
 } from '../constants/actionTypes';
 
 export default (state = {}, action) => {
@@ -22,12 +24,15 @@ export default (state = {}, action) => {
                 return { ...state, inProgressUserByEmail: true }
             } else if (action.subtype === ADMIN_USER_REFRESH_TOKENS) {
                 return { ...state, inProgressUserRefreshTokens: true }
+            } else if (action.subttype === ADMIN_USER_UTIL_API_KEY) {
+                return { ...state, inProgress: true }
             } else if (action.subtype === ADMIN_CLIENT) {
                 return { ...state, inProgressClient: true }
             } else if (action.subtype === ADMIN_CLIENT_BY_ID) {
                 return { ...state, inProgressClientById: true }
             } else if (action.subtype === ADMIN_CLIENT_ENABLE
-                || action.subttype === ADMIN_CLIENT_DISABLE) {
+                || action.subttype === ADMIN_CLIENT_DISABLE
+                || action.subttype === ADMIN_CLIENT_UTIL_API_KEY) {
                 return { ...state, inProgress: true }
             } else {
                 return {
@@ -47,6 +52,12 @@ export default (state = {}, action) => {
                 inProgressUserRefreshTokens: false,
                 refreshTokens: action.error ? null : action.payload,
             }
+        case ADMIN_USER_UTIL_API_KEY:
+            return {
+                ...state,
+                inProgress: false,
+                apiKey: action.payload,
+            }
         case ADMIN_CLIENT_BY_ID:
             return {
                 ...state,
@@ -59,6 +70,12 @@ export default (state = {}, action) => {
                 ...state,
                 inProgress: false,
                 client: action.payload,
+            }
+        case ADMIN_CLIENT_UTIL_API_KEY:
+            return {
+                ...state,
+                inProgress: false,
+                apiKey: action.payload,
             }
         default:
             return state;

@@ -5,13 +5,17 @@ import agent from '../../agent';
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
+import MenuItem from '@material-ui/core/MenuItem';
+import Select from '@material-ui/core/Select';
 
 import { TextFieldBase } from '../Common/Inputs';
 import { CodePaper } from '../Common/Papers';
 import { SquarePaper, BorderlessSquarePaper, TextMain, AltLoader } from "../../style/mui";
-import { ADMIN_CLEAR, ADMIN_USER, ADMIN_USER_BY_EMAIL, ADMIN_USER_REFRESH_TOKENS } from "../../constants/actionTypes";
+import {
+    ADMIN_CLEAR, ADMIN_USER, ADMIN_USER_BY_EMAIL, ADMIN_USER_REFRESH_TOKENS, ADMIN_USER_UTIL_API_KEY
+} from "../../constants/actionTypes";
 
-import { userApiGetById, userApiGetByEmail } from './Common';
+import { userApiGetById, userApiGetByEmail, userGenerateApiKey } from './Common';
 
 
 const mapStateToProps = state => ({
@@ -30,6 +34,8 @@ const mapDispatchToProps = dispatch => ({
         dispatch({ type: ADMIN_USER_BY_EMAIL, payload: agent.Admin.userByEmail(email) }),
     onUserRefreshTokens: (id) =>
         dispatch({ type: ADMIN_USER_REFRESH_TOKENS, payload: agent.Admin.userRefreshTokens(id) }),
+    onUserGenerateApiKey: (bit) =>
+        dispatch({ type: ADMIN_USER_UTIL_API_KEY, payload: agent.Admin.userGenerateApiKey(bit) }),
 });
 
 const UserView = props => {
@@ -37,6 +43,7 @@ const UserView = props => {
 
     const [userId, setUserId] = useState("");
     const [userEmail, setUserEmail] = useState("");
+    const [userApiKeyBit, setUserApiKeyBit] = useState(32);
 
     const userButtonEnabled = userId ? true : false;
     const userByEmailButtonEnabled = userEmail ? true : false;
@@ -60,6 +67,11 @@ const UserView = props => {
     const onUserRefreshTokens = ev => {
         ev.preventDefault();
         props.onUserRefreshTokens(userId);
+    }
+
+    const onUserGenerateApiKey = ev => {
+        ev.preventDefault();
+        props.onUserGenerateApiKey(userApiKeyBit);
     }
 
     return (
@@ -94,7 +106,8 @@ const UserView = props => {
                                                 id="user-id"
                                                 label="User id"
                                                 value={userId}
-                                                onChange={e => setUserId(e.target.value)} />
+                                                onChange={e => setUserId(e.target.value)}
+                                                style={{ minWidth: "200px" }} />
                                         </Grid>
 
                                         <Grid item xs>
@@ -106,7 +119,8 @@ const UserView = props => {
                                                 id="user-email"
                                                 label="User email"
                                                 value={userEmail}
-                                                onChange={e => setUserEmail(e.target.value)} />
+                                                onChange={e => setUserEmail(e.target.value)}
+                                                style={{ minWidth: "200px" }} />
                                         </Grid>
                                     </Grid>
                                 </Grid>
@@ -140,7 +154,7 @@ const UserView = props => {
                                                     type="submit"
                                                     variant="outlined"
                                                     color="primary"
-                                                    disableElevation>
+                                                    disableElevation >
                                                     Get user
                                                 </Button>
                                             </form>
@@ -157,7 +171,7 @@ const UserView = props => {
                                                     type="submit"
                                                     variant="outlined"
                                                     color="primary"
-                                                    disableElevation>
+                                                    disableElevation >
                                                     Get user's refresh tokens
                                                 </Button>
                                             </form>
@@ -213,7 +227,118 @@ const UserView = props => {
                     </SquarePaper>
                     : null
             }
+
+            {
+                userGenerateApiKey === api
+                    ? <GenerateApiKeyView
+                        apiKey={props.apiKey}
+                        userApiKeyBit={userApiKeyBit}
+                        setUserApiKeyBit={setUserApiKeyBit}
+                        onUserGenerateApiKey={onUserGenerateApiKey}
+                        inProgress={props.inProgress} />
+                    : null
+            }
         </React.Fragment >
+    );
+}
+
+const GenerateApiKeyView = props => {
+    return (
+        <SquarePaper variant="outlined" square>
+            <Grid container direction="column">
+                <Grid item xs>
+                    <Typography variant="h6">
+                        Generate an user API key
+                    </Typography>
+                </Grid>
+
+                <Grid item xs>
+                    <TextMain>
+                        This is used to get user information, such as their first name, last name, email, role, refresh tokens, etc.
+                        An example of what is returned can be found in the reference page on the left
+                    </TextMain>
+                </Grid>
+            </Grid>
+
+            <BorderlessSquarePaper variant="outlined" square>
+                <Grid container spacing={3}>
+                    <Grid item xs>
+                        <Select
+                            id="user-api-key-bit"
+                            label="API key bit"
+                            required
+                            value={props.userApiKeyBit}
+                            onChange={e => props.setUserApiKeyBit(e.target.value)}
+                            style={{ minWidth: "200px" }} >
+                            <MenuItem key={32} value={32}>32</MenuItem>
+                            <MenuItem key={64} value={64}>64</MenuItem>
+                        </Select>
+                    </Grid>
+
+                    <Grid item xs>
+                        <Grid container spacing={1} direction="column">
+                            <Grid item xs>
+                                <form
+                                    noValidate
+                                    autoComplete="off"
+                                    onSubmit={props.onUserGenerateApiKey}>
+                                    <Button
+                                        id="generate-api-key-button"
+                                        type="submit"
+                                        variant="outlined"
+                                        color="primary"
+                                        disableElevation>
+                                        Generate
+                                    </Button>
+                                </form>
+                            </Grid>
+                        </Grid>
+                    </Grid>
+                </Grid>
+            </BorderlessSquarePaper>
+
+            <ResultsView
+                subTitle="User's API key"
+                inProgress={props.inProgress}
+                data={props.apiKey} />
+        </SquarePaper>
+    );
+}
+
+const ResultsView = props => {
+    const subTitle = props.subTitle;
+    const inProgress = props.inProgress;
+    const data = props.data;
+
+    return (
+        <BorderlessSquarePaper variant="outlined" square>
+            <Grid container spacing={3}>
+                <Grid item xs>
+                    <Typography variant="h6">
+                        Results
+                    </Typography>
+                    <TextMain>
+                        Your results will appear below once you fill out the information above and click on the desired results you would like to see
+                    </TextMain>
+                </Grid>
+            </Grid>
+
+            <Grid container spacing={3}>
+                <Grid item xs>
+                    <Typography variant="h6">
+                        {subTitle}
+                    </Typography>
+                    {
+                        inProgress === false
+                            ? <CodePaper
+                                data={data} />
+                            : <AltLoader
+                                inProgress={inProgress}
+                                size={"32px"} />
+                    }
+                </Grid>
+            </Grid>
+        </BorderlessSquarePaper>
     );
 }
 
