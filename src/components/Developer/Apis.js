@@ -7,7 +7,8 @@ import Grid from '@material-ui/core/Grid';
 import config from '../../config';
 import { APIPaper } from '../Common/Papers';
 import { AltLoader } from '../../style/mui';
-import { DEVELOPER_AUTH_OPENAPI, DEVELOPER_API_OPENAPI, DEVELOPER_ASSET_OPENAPI } from '../../constants/actionTypes';
+import { DEVELOPER_AUTH_OPENAPI, DEVELOPER_API_OPENAPI, DEVELOPER_ASSET_OPENAPI,
+        DEVELOPER_PAGE_UNLOADED } from '../../constants/actionTypes';
 
 
 const mapStateToProps = state => ({
@@ -21,7 +22,9 @@ const mapDispatchToProps = dispatch => ({
     onApiOpenApi: () =>
         dispatch({ type: DEVELOPER_API_OPENAPI, payload: agent.Api.openapi() }),
     onAssetOpenApi: () =>
-        dispatch({ type: DEVELOPER_ASSET_OPENAPI, payload: agent.Asset.openapi() })
+        dispatch({ type: DEVELOPER_ASSET_OPENAPI, payload: agent.Asset.openapi() }),
+    onUnload: () =>
+        dispatch({ type: DEVELOPER_PAGE_UNLOADED }),
 });
 
 const ApisView = props => {
@@ -33,6 +36,10 @@ const ApisView = props => {
         props.onApiOpenApi();
         props.onAssetOpenApi();
     }, []);
+
+    useEffect(() => () => {
+        props.onUnload();
+      }, []);
 
     if (infos && !inProgress) {
         return (
