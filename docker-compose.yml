@@ -1,4 +1,4 @@
-version: "3.7"
+version: "3.9"
 
 services:
   aiofdata:
@@ -20,31 +20,40 @@ services:
       - 8000:80
     environment: 
       ASPNETCORE_ENVIRONMENT: Development
-      Data__PostgreSQL: Server=aiofdata;Port=5432;Database=aiof;User Id=aiof;Password=aiofiscool;
+      Data__PostgreSQL: ${DATA_POSTGRESQL}
   
   aiofapi:
     image: gkama/aiof-api:latest
     container_name: aiof-api
     depends_on:
-      - aiofdata
       - aiofauth
     ports:
       - 8001:80
     environment:
       ASPNETCORE_ENVIRONMENT: Development
-      Data__PostgreSQL: Server=aiofdata;Port=5432;Database=aiof;User Id=aiof;Password=aiofiscool;
+      Data__PostgreSQL: ${DATA_POSTGRESQL}
       
   aiofasset:
     image: gkama/aiof-asset:latest
     container_name: aiof-asset
     depends_on:
-      - aiofdata
       - aiofauth
     ports:
       - 8003:80
     environment:
       ASPNETCORE_ENVIRONMENT: Development
-      Data__PostgreSQL: Server=aiofdata;Port=5432;Database=aiof;User Id=aiof;Password=aiofiscool;
+      Data__PostgreSQL: ${DATA_POSTGRESQL}
+
+  kamafiliability:
+    image: gkama/kamafi-liability:latest
+    container_name: kamafi-liability
+    depends_on:
+      - aiofauth
+    ports:
+      - 8004:80
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+      Data__PostgreSQL: ${DATA_POSTGRESQL}
 
   aiofmetadata:
     image: gkama/aiof-metadata:latest
