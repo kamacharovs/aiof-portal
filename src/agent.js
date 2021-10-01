@@ -12,6 +12,10 @@ const API_ASSET_BASE = config.assetUrl;
 const API_ASSET_VERSION = config.assetVersion;
 const API_ASSET_ROOT = `${API_ASSET_BASE}/${API_ASSET_VERSION}`;
 
+const API_LIABILITY_BASE = config.liabilityUrl;
+const API_LIABILITY_VERSION = config.liabilityVersion;
+const API_LIABILITY_ROOT = `${API_LIABILITY_BASE}/${API_LIABILITY_VERSION}`;
+
 const API_BASE = config.apiUrl;
 const API_VERSION = config.apiVersion;
 const API_ROOT = API_BASE;
@@ -74,6 +78,17 @@ const requestsMetadata = {
     superagent.get(`${API_METADATA_ROOT}${url}`).use(tokenPlugin).then(responseBody),
   post: (url, body) =>
     superagent.post(`${API_METADATA_ROOT}${url}`, body).use(tokenPlugin).then(responseBody)
+}
+
+const requestsLiability = {
+  get: url =>
+    superagent.get(`${API_LIABILITY_ROOT}${url}`).use(tokenPlugin).then(responseBody),
+  getBase: url =>
+    superagent.get(`${API_LIABILITY_BASE}${url}`).use(tokenPlugin).then(responseBody),
+  post: (url, body) =>
+    superagent.post(`${API_LIABILITY_ROOT}${url}`, body).use(tokenPlugin).then(responseBody),
+  put: (url, body) =>
+      superagent.put(`${API_LIABILITY_ROOT}${url}`, body).use(tokenPlugin).then(responseBody),
 }
 
 const Auth = {
@@ -153,6 +168,8 @@ const Liability = {
     requests.post('/liability', liability),
   types: () =>
     requests.get('/liability/types'),
+  openapi: () =>
+    requestsLiability.getBase(`/swagger/${API_LIABILITY_VERSION}.0/swagger.json`),
 }
 
 const Goal = {
