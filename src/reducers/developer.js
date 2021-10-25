@@ -4,6 +4,7 @@ import {
     DEVELOPER_API_OPENAPI,
     DEVELOPER_ASSET_OPENAPI,
     DEVELOPER_LIABILITY_OPENAPI,
+    DEVELOPER_PAGE_UNLOADED,
 } from '../constants/actionTypes';
 
 const defaultState = {
@@ -37,6 +38,8 @@ export default (state = defaultState, action) => {
                 infos: [...state.infos, action.payload.info],
                 servers: [...state.servers, action.payload.servers],
             }
+        case DEVELOPER_PAGE_UNLOADED:
+            return defaultState;
         default:
             return state;
     }

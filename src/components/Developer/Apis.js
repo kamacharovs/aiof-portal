@@ -8,7 +8,7 @@ import config from '../../config';
 import { APIPaper } from '../Common/Papers';
 import { AltLoader } from '../../style/mui';
 import { DEVELOPER_AUTH_OPENAPI, DEVELOPER_API_OPENAPI, DEVELOPER_ASSET_OPENAPI,
-    DEVELOPER_LIABILITY_OPENAPI } from '../../constants/actionTypes';
+    DEVELOPER_LIABILITY_OPENAPI, DEVELOPER_PAGE_UNLOADED } from '../../constants/actionTypes';
 
 
 const mapStateToProps = state => ({
@@ -25,6 +25,8 @@ const mapDispatchToProps = dispatch => ({
         dispatch({ type: DEVELOPER_ASSET_OPENAPI, payload: agent.Asset.openapi() }),
     onLiabilityOpenApi: () =>
         dispatch({ type: DEVELOPER_LIABILITY_OPENAPI, payload: agent.Liability.openapi() }),
+    onUnload: () =>
+        dispatch({ type: DEVELOPER_PAGE_UNLOADED }),
 });
 
 const ApisView = props => {
@@ -37,6 +39,10 @@ const ApisView = props => {
         props.onAssetOpenApi();
         props.onLiabilityOpenApi();
     }, []);
+
+    useEffect(() => () => {
+        props.onUnload();
+      }, []);
 
     if (infos && !inProgress) {
         return (
