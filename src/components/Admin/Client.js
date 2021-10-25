@@ -5,13 +5,15 @@ import agent from '../../agent';
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
+import MenuItem from '@material-ui/core/MenuItem';
+import Select from '@material-ui/core/Select';
 
 import { TextFieldBase } from '../Common/Inputs';
 import { CodePaper } from '../Common/Papers';
 import { SquarePaper, BorderlessSquarePaper, TextMain, AltLoader } from "../../style/mui";
-import { ADMIN_CLIENT_BY_ID, ADMIN_CLIENT_ENABLE, ADMIN_CLIENT_DISABLE } from "../../constants/actionTypes";
+import { ADMIN_CLIENT_BY_ID, ADMIN_CLIENT_ENABLE, ADMIN_CLIENT_DISABLE, ADMIN_CLIENT_UTIL_API_KEY } from "../../constants/actionTypes";
 
-import { clientApiById, clientEnable, clientDisable } from './Common';
+import { clientApiById, clientEnable, clientDisable, clientGenerateApiKey } from './Common';
 
 
 const mapStateToProps = state => ({
@@ -26,12 +28,15 @@ const mapDispatchToProps = dispatch => ({
         dispatch({ type: ADMIN_CLIENT_ENABLE, payload: agent.Admin.clientEnable(id) }),
     onClientDisable: (id) =>
         dispatch({ type: ADMIN_CLIENT_DISABLE, payload: agent.Admin.clientDisable(id) }),
+    onClientGenerateApiKey: (bit) =>
+        dispatch({ type: ADMIN_CLIENT_UTIL_API_KEY, payload: agent.Admin.clientGenerateApiKey(bit) }),
 });
 
 const ClientView = props => {
     const api = props.api;
 
     const [clientId, setClientId] = useState("");
+    const [clientApiKeyBit, setClientApiKeyBit] = useState(32);
 
     const onClient = ev => {
         ev.preventDefault();
@@ -48,6 +53,11 @@ const ClientView = props => {
         props.onClientDisable(clientId);
     }
 
+    const onClientGenerateApiKey = ev => {
+        ev.preventDefault();
+        props.onClientGenerateApiKey(clientApiKeyBit);
+    }
+
     return (
         <React.Fragment>
             {
@@ -60,6 +70,7 @@ const ClientView = props => {
                         inProgress={props.inProgressClientById} />
                     : null
             }
+
             {
                 [clientEnable, clientDisable].includes(api)
                     ? <EnableDisableView
@@ -68,6 +79,17 @@ const ClientView = props => {
                         setClientId={setClientId}
                         onClientEnable={onClientEnable}
                         onClientDisable={onClientDisable}
+                        inProgress={props.inProgress} />
+                    : null
+            }
+
+            {
+                clientGenerateApiKey === api
+                    ? <GenerateApiKeyView
+                        apiKey={props.apiKey}
+                        clientApiKeyBit={clientApiKeyBit}
+                        setClientApiKeyBit={setClientApiKeyBit}
+                        onClientGenerateApiKey={onClientGenerateApiKey}
                         inProgress={props.inProgress} />
                     : null
             }
@@ -220,6 +242,68 @@ const EnableDisableView = props => {
                 subTitle="Client's information"
                 inProgress={props.inProgress}
                 data={props.client} />
+        </SquarePaper>
+    );
+}
+
+const GenerateApiKeyView = props => {
+    return (
+        <SquarePaper variant="outlined" square>
+            <Grid container direction="column">
+                <Grid item xs>
+                    <Typography variant="h6">
+                        Generate a client API key
+                    </Typography>
+                </Grid>
+
+                <Grid item xs>
+                    <TextMain>
+                        This is used to generate client API keys
+                    </TextMain>
+                </Grid>
+            </Grid>
+
+            <BorderlessSquarePaper variant="outlined" square>
+                <Grid container spacing={3}>
+                    <Grid item xs>
+                        <Select
+                            id="client-api-key-bit"
+                            label="API key bit"
+                            required
+                            value={props.clientApiKeyBit}
+                            onChange={e => props.setClientApiKeyBit(e.target.value)}
+                            style={{ minWidth: "200px" }} >
+                            <MenuItem key={32} value={32}>32</MenuItem>
+                            <MenuItem key={64} value={64}>64</MenuItem>
+                        </Select>
+                    </Grid>
+
+                    <Grid item xs>
+                        <Grid container spacing={1} direction="column">
+                            <Grid item xs>
+                                <form
+                                    noValidate
+                                    autoComplete="off"
+                                    onSubmit={props.onClientGenerateApiKey}>
+                                    <Button
+                                        id="generate-api-key-button"
+                                        type="submit"
+                                        variant="outlined"
+                                        color="primary"
+                                        disableElevation>
+                                        Generate
+                                    </Button>
+                                </form>
+                            </Grid>
+                        </Grid>
+                    </Grid>
+                </Grid>
+            </BorderlessSquarePaper>
+
+            <ResultsView
+                subTitle="Client's API key"
+                inProgress={props.inProgress}
+                data={props.apiKey} />
         </SquarePaper>
     );
 }
