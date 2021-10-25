@@ -33,7 +33,7 @@ import DeveloperMainView from '../components/Developer/MainView';
 import AdminMainView from '../components/Admin/MainView';
 import { APP_LOAD, REDIRECT } from '../constants/actionTypes';
 import { ACCESS_TOKEN, USER } from '../constants/common';
-import { AiofToastContainer } from '../style/mui';
+import { DefaultToastContainer } from '../style/mui';
 
 
 const mapStateToProps = state => {
@@ -82,8 +82,8 @@ class App extends React.Component {
             appName={this.props.appName}
             currentUser={this.props.currentUser} />
 
-          <AiofToastContainer
-            position="top-center"
+          <DefaultToastContainer
+            position="bottom-left"
             autoClose={4000}
             hideProgressBar={false}
             newestOnTop={false}
