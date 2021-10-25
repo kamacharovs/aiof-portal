@@ -127,7 +127,7 @@ const AddedTime = props => {
                                 <Button 
                                     id="calculate-button"
                                     type="submit" 
-                                    variant="contained" 
+                                    variant="outlined" 
                                     color="primary" >
                                     Calculate
                                 </Button>

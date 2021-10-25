@@ -12,6 +12,10 @@ const API_ASSET_BASE = config.assetUrl;
 const API_ASSET_VERSION = config.assetVersion;
 const API_ASSET_ROOT = `${API_ASSET_BASE}/${API_ASSET_VERSION}`;
 
+const API_LIABILITY_BASE = config.liabilityUrl;
+const API_LIABILITY_VERSION = config.liabilityVersion;
+const API_LIABILITY_ROOT = `${API_LIABILITY_BASE}/${API_LIABILITY_VERSION}`;
+
 const API_BASE = config.apiUrl;
 const API_VERSION = config.apiVersion;
 const API_ROOT = API_BASE;
@@ -52,6 +56,8 @@ const requestsAuth = {
     superagent.put(`${API_AUTH_ROOT}${url}`, body).use(tokenPlugin).then(responseBody),
   post: (url, body) =>
     superagent.post(`${API_AUTH_ROOT}${url}`, body).then(responseBody),
+  postWithAuth: (url, body) =>
+    superagent.post(`${API_AUTH_ROOT}${url}`, body).use(tokenPlugin).then(responseBody),
 }
 
 const requestsAsset = {
@@ -72,6 +78,17 @@ const requestsMetadata = {
     superagent.get(`${API_METADATA_ROOT}${url}`).use(tokenPlugin).then(responseBody),
   post: (url, body) =>
     superagent.post(`${API_METADATA_ROOT}${url}`, body).use(tokenPlugin).then(responseBody)
+}
+
+const requestsLiability = {
+  get: url =>
+    superagent.get(`${API_LIABILITY_ROOT}${url}`).use(tokenPlugin).then(responseBody),
+  getBase: url =>
+    superagent.get(`${API_LIABILITY_BASE}${url}`).use(tokenPlugin).then(responseBody),
+  post: (url, body) =>
+    superagent.post(`${API_LIABILITY_ROOT}${url}`, body).use(tokenPlugin).then(responseBody),
+  put: (url, body) =>
+      superagent.put(`${API_LIABILITY_ROOT}${url}`, body).use(tokenPlugin).then(responseBody),
 }
 
 const Auth = {
@@ -101,8 +118,6 @@ const Api = {
 const User = {
   get: () =>
     requests.get(`/user`),
-  byEmail: email =>
-    requests.get(`/user?email=${email}`),
   profile: () =>
     requests.get(`/user/profile`),
   profileUpsert: (payload) =>
@@ -153,6 +168,8 @@ const Liability = {
     requests.post('/liability', liability),
   types: () =>
     requests.get('/liability/types'),
+  openapi: () =>
+    requestsLiability.getBase(`/swagger/${API_LIABILITY_VERSION}.0/swagger.json`),
 }
 
 const Goal = {
@@ -206,6 +223,25 @@ const Retirement = {
     requestsMetadata.post('/retirement/common/investments', payload)
 }
 
+const Admin = {
+  user: (id) =>
+    requestsAuth.get(`/user/${id}`),
+  userByEmail: (email) =>
+    requestsAuth.get(`/user/email/${email}`),
+  userRefreshTokens: (id) =>
+    requestsAuth.get(`/user/${id}/refresh/tokens`),
+  userGenerateApiKey: (bit = 32) =>
+    requestsAuth.get(`/util/apikey/${bit}/user`),
+  client: (id) =>
+    requestsAuth.get(`/client/${id}`),
+  clientEnable: (id) =>
+    requestsAuth.postWithAuth(`/client/${id}/enable`),
+  clientDisable: (id) =>
+    requestsAuth.postWithAuth(`/client/${id}/disable`),
+  clientGenerateApiKey: (bit = 32) =>
+    requestsAuth.get(`/util/apikey/${bit}/client`),
+}
+
 
 export default {
   Auth,
@@ -220,6 +256,7 @@ export default {
   Analytics,
   Property,
   Retirement,
+  Admin,
   setToken: _token => { token = _token; },
   setRefreshToken: _refreshToken => { refresh_token = _refreshToken },
   setExpires: _expires => { expires = _expires },

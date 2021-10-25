@@ -14,7 +14,7 @@ import LockOpenIcon from '@material-ui/icons/LockOpen';
 
 import { LoginPaper, CoolLink } from '../style/mui';
 import { AiofLoader, } from '../components/Common/Loader';
-import { LOGIN, LOGIN_GET_USER, REFRESH, REDIRECT_HOME, LOGIN_PAGE_UNLOADED } from '../constants/actionTypes';
+import { LOGIN, LOGIN_GET_USER, REFRESH, LOGIN_PAGE_UNLOADED } from '../constants/actionTypes';
 
 
 const mapStateToProps = state => ({
@@ -35,8 +35,6 @@ const mapDispatchToProps = dispatch => ({
     dispatch({ type: REFRESH, payload: agent.Auth.refresh() }),
   onGetUser: () =>
     dispatch({ type: LOGIN_GET_USER, payload: agent.Auth.getUser() }),
-  onRedirectHome: () =>
-    dispatch({ type: REDIRECT_HOME }),
   onUnload: () =>
     dispatch({ type: LOGIN_PAGE_UNLOADED })
 });

@@ -73,6 +73,9 @@ export const theme = createMuiTheme({
     },
     grey: {
       hr: '#ebebeb',
+    },
+    code: {
+      main: '#e4e6e8',
     }
   },
   typography: {
@@ -748,8 +751,7 @@ export const ThinText = styled.p`
   font-weight: 100;
 `;
 
-export const AiofToastContainer = withTheme(styled(ToastContainer)`
-  width: 100%;
+export const DefaultToastContainer = withTheme(styled(ToastContainer)`
   margin: 0px;
   padding: 0px;
   font-size: 0.75rem;
@@ -762,13 +764,27 @@ export const AiofToastContainer = withTheme(styled(ToastContainer)`
     border-radius: 0px;
     margin: 0px;
   }
+  
   .Toastify__toast--error {
-    background-color: ${props => props.theme.palette.error.main}
+    background-color: ${props => props.theme.palette.common.white};
+    color: ${props => props.theme.palette.error.main};
   }
-  .Toastify__toast--warning {}
   .Toastify__toast--success {
-    background-color: ${props => props.theme.palette.success.main}
+    background-color: ${props => props.theme.palette.common.white};
+    color: ${props => props.theme.palette.success.main};
   }
-  .Toastify__toast-body {}
-  .Toastify__progress-bar {}
+
+  .Toastify__progress-bar--error {
+    background-color: ${props => props.theme.palette.error.main};
+  }
+  .Toastify__progress-bar--success {
+    background-color: ${props => props.theme.palette.success.main};
+  }
+
+  .Toastify__close-button--error {
+    color: ${props => props.theme.palette.error.main};
+  }
+  .Toastify__close-button--success {
+    color: ${props => props.theme.palette.success.main};
+  }
 `);

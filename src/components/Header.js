@@ -18,6 +18,12 @@ import ListItemText from '@material-ui/core/ListItemText';
 import ListSubheader from '@material-ui/core/ListSubheader'
 import ExpandMore from '@material-ui/icons/ExpandMore';
 
+import { isCurrentUserAdmin } from "../components/Common/Functions";
+
+
+const mapDispatchToProps = dispatch => ({
+    onClickLogout: () => dispatch({ type: LOGOUT }),
+});
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -30,15 +36,14 @@ const useStyles = makeStyles((theme) => ({
     app: {
         flexGrow: 1
     },
+    listItemText: {
+        fontSize: "12px !important",
+    },
     userButton: {
         color: theme.palette.text.alt,
         textTransform: 'capitalize',
     },
 }));
-
-const mapDispatchToProps = dispatch => ({
-    onClickLogout: () => dispatch({ type: LOGOUT }),
-});
 
 const HomeView = props => {
     if (props.currentUser) {
@@ -84,6 +89,7 @@ const LoggedInView = props => {
 const ProfileMenu = props => {
     const classes = useStyles();
     const [anchorEl, setAnchorEl] = React.useState(null);
+    const isAdmin = isCurrentUserAdmin(props.currentUser);
 
     const handleClick = (event) => {
         setAnchorEl(event.currentTarget);
@@ -95,10 +101,10 @@ const ProfileMenu = props => {
 
     return (
         <React.Fragment>
-            <Button 
-                className={classes.userButton} 
-                aria-controls="user-menu" 
-                aria-haspopup="true" 
+            <Button
+                className={classes.userButton}
+                aria-controls="user-menu"
+                aria-haspopup="true"
                 onClick={handleClick}>
                 {props.lastName}, {props.firstName} <ExpandMore />
             </Button>
@@ -120,7 +126,9 @@ const ProfileMenu = props => {
                         onClick={handleClose}
                         component={Link}
                         to={`/profile`}>
-                        <ListItemText primary="Profile" />
+                        <ListItemText
+                            classes={{primary:classes.listItemText}}
+                            primary="Profile" />
                     </ListItem>
 
                     <ListItem
@@ -128,7 +136,9 @@ const ProfileMenu = props => {
                         onClick={handleClose}
                         component={Link}
                         to={`/finance`}>
-                        <ListItemText primary="Finances" />
+                        <ListItemText 
+                            classes={{primary:classes.listItemText}}
+                            primary="Finances" />
                     </ListItem>
 
                     <ListItem
@@ -136,7 +146,9 @@ const ProfileMenu = props => {
                         onClick={handleClose}
                         component={Link}
                         to={`/finance/assets`}>
-                        <ListItemText primary="Assets" />
+                        <ListItemText 
+                            classes={{primary:classes.listItemText}}
+                            primary="Assets" />
                     </ListItem>
 
                     <ListItem
@@ -144,9 +156,32 @@ const ProfileMenu = props => {
                         onClick={handleClose}
                         component={Link}
                         to={`/finance/goals`}>
-                        <ListItemText primary="Goals" />
+                        <ListItemText 
+                            classes={{primary:classes.listItemText}}
+                            primary="Goals" />
                     </ListItem>
                 </List>
+
+                {isAdmin ? <Divider /> : null}
+                {isAdmin
+                    ? <List
+                        subheader={
+                            <ListSubheader component="div" id="nested-list-subheader">
+                                Admin
+                            </ListSubheader>
+                        }>
+                        <ListItem
+                            button
+                            onClick={handleClose}
+                            component={Link}
+                            to={`/admin`}>
+                            <ListItemText 
+                                classes={{primary:classes.listItemText}}
+                                primary="Manage" />
+                        </ListItem>
+                    </List>
+                    : null
+                }
 
                 <Divider />
 
@@ -154,19 +189,23 @@ const ProfileMenu = props => {
                     subheader={
                         <ListSubheader component="div" id="nested-list-subheader">
                             Other
-                    </ListSubheader>
+                        </ListSubheader>
                     }>
                     <ListItem
                         button
                         onClick={handleClose}
                         component={Link}
                         to={`/manage/password`}>
-                        <ListItemText primary="Password manager" />
+                        <ListItemText 
+                            classes={{primary:classes.listItemText}}
+                            primary="Password manager" />
                     </ListItem>
                     <ListItem
                         button
                         onClick={props.onClickLogout}>
-                        <ListItemText primary="Logout" />
+                        <ListItemText 
+                            classes={{primary:classes.listItemText}}
+                            primary="Logout" />
                     </ListItem>
                 </List>
             </Menu>
@@ -182,20 +221,20 @@ const Header = props => {
             <div className={classes.root}>
                 <AppBar position="fixed" elevation={0} className={classes.header}>
                     <Toolbar variant="dense">
-                        <AppMenu 
+                        <AppMenu
                             currentUser={props.currentUser} />
 
                         <div className={classes.app}>
-                            <HomeView 
-                                appName={props.appName.toLowerCase()} 
+                            <HomeView
+                                appName={props.appName.toLowerCase()}
                                 currentUser={props.currentUser} />
                         </div>
 
-                        <LoggedOutView 
+                        <LoggedOutView
                             currentUser={props.currentUser} />
 
-                        <LoggedInView 
-                            currentUser={props.currentUser} 
+                        <LoggedInView
+                            currentUser={props.currentUser}
                             onClickLogout={props.onClickLogout} />
                     </Toolbar>
                 </AppBar>

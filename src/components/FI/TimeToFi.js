@@ -146,7 +146,7 @@ const TimeToFi = props => {
                 <Button 
                   id="calculate-button"
                   type="submit" 
-                  variant="contained" 
+                  variant="outlined" 
                   color="primary" 
                   className={classes.button} >
                   Calculate

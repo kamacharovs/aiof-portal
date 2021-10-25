@@ -169,7 +169,11 @@ const AssetBreakdown = props => {
                             </Grid>
 
                             <Grid item xs={12}>
-                                <Button type="submit" variant="contained" color="primary" className={classes.button} >
+                                <Button 
+                                type="submit" 
+                                variant="outlined" 
+                                color="primary" 
+                                className={classes.button} >
                                     Calculate
                                 </Button>
                             </Grid>

@@ -8,7 +8,7 @@ import config from '../../config';
 import { APIPaper } from '../Common/Papers';
 import { AltLoader } from '../../style/mui';
 import { DEVELOPER_AUTH_OPENAPI, DEVELOPER_API_OPENAPI, DEVELOPER_ASSET_OPENAPI,
-        DEVELOPER_PAGE_UNLOADED } from '../../constants/actionTypes';
+    DEVELOPER_LIABILITY_OPENAPI, DEVELOPER_PAGE_UNLOADED } from '../../constants/actionTypes';
 
 
 const mapStateToProps = state => ({
@@ -23,6 +23,8 @@ const mapDispatchToProps = dispatch => ({
         dispatch({ type: DEVELOPER_API_OPENAPI, payload: agent.Api.openapi() }),
     onAssetOpenApi: () =>
         dispatch({ type: DEVELOPER_ASSET_OPENAPI, payload: agent.Asset.openapi() }),
+    onLiabilityOpenApi: () =>
+        dispatch({ type: DEVELOPER_LIABILITY_OPENAPI, payload: agent.Liability.openapi() }),
     onUnload: () =>
         dispatch({ type: DEVELOPER_PAGE_UNLOADED }),
 });
@@ -35,6 +37,7 @@ const ApisView = props => {
         props.onAuthOpenApi();
         props.onApiOpenApi();
         props.onAssetOpenApi();
+        props.onLiabilityOpenApi();
     }, []);
 
     useEffect(() => () => {
@@ -101,22 +104,29 @@ function getMetadata(api) {
         metadata.page = config.authPage;
         metadata.keyPoints = [
             "Used for authentication. As users or clients",
-            "Limitted functionality to unauthenticated users or clients"
+            "Limitted functionality to unauthenticated users or clients",
         ];
     } else if (api.includes("api")) {
         metadata.url = config.apiUrl;
         metadata.page = config.apiPage;
         metadata.keyPoints = [
             "Used for general information. Such as user profile, user dependents, useful documentation, etc.",
-            "Requires authentication"
+            "Requires authentication",
         ];
     } else if (api.includes("asset")) {
         metadata.url = config.assetUrl;
         metadata.page = config.assetPage;
         metadata.keyPoints = [
             "Used for asset CRUD operations",
-            "Requires authentication"
+            "Requires authentication",
         ];
+    } else if (api.includes("liability")) {
+        metadata.url = config.liabilityUrl;
+        metadata.page = config.liabilityPage;
+        metadata.keyPoints = [
+            "Used for liability CRUD operations",
+            "Requires authentication",
+        ]
     }
 
     return metadata;

@@ -3,6 +3,7 @@ import {
     DEVELOPER_AUTH_OPENAPI,
     DEVELOPER_API_OPENAPI,
     DEVELOPER_ASSET_OPENAPI,
+    DEVELOPER_LIABILITY_OPENAPI,
     DEVELOPER_PAGE_UNLOADED,
 } from '../constants/actionTypes';
 
@@ -16,7 +17,8 @@ export default (state = defaultState, action) => {
         case ASYNC_START:
             if (action.subtype === DEVELOPER_AUTH_OPENAPI
                 || action.subtype === DEVELOPER_API_OPENAPI
-                || action.subtype === DEVELOPER_ASSET_OPENAPI) {
+                || action.subtype === DEVELOPER_ASSET_OPENAPI
+                || action.subtype === DEVELOPER_LIABILITY_OPENAPI) {
                 return {
                     ...state,
                     inProgress: true
@@ -29,6 +31,7 @@ export default (state = defaultState, action) => {
         case DEVELOPER_AUTH_OPENAPI:
         case DEVELOPER_API_OPENAPI:
         case DEVELOPER_ASSET_OPENAPI:
+        case DEVELOPER_LIABILITY_OPENAPI:
             return {
                 ...state,
                 inProgress: false,
