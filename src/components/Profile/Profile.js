@@ -8,8 +8,9 @@ import TextField from '@mui/material/TextField';
 import MenuItem from '@mui/material/MenuItem';
 import Select from '@mui/material/Select';
 import Typography from '@mui/material/Typography';
-import { MuiPickersUtilsProvider, KeyboardDatePicker } from '@material-ui/pickers';
-import DateFnsUtils from '@date-io/date-fns';
+import DatePicker from '@mui/lab/DatePicker';
+import AdapterDateFns from '@mui/lab/AdapterDateFns';
+import LocalizationProvider from '@mui/lab/LocalizationProvider';
 
 import { SquarePaper, AlternateButton, PAlt7 } from '../../style/mui';
 import { RectSkeleton } from '../Common/Sekeleton';
@@ -187,8 +188,8 @@ const Profile = props => {
                                                     <hr className={classes.hr} />
                                                 </Grid>
                                                 <Grid item xs={6}>
-                                                    <MuiPickersUtilsProvider utils={DateFnsUtils}>
-                                                        <KeyboardDatePicker className={classes.textField}
+                                                    <LocalizationProvider dateAdapter={AdapterDateFns}>
+                                                        <DatePicker className={classes.textField}
                                                             disableToolbar
                                                             fullWidth
                                                             variant="inline"
@@ -201,7 +202,7 @@ const Profile = props => {
                                                                 'aria-label': 'start date',
                                                             }}
                                                         />
-                                                    </MuiPickersUtilsProvider>
+                                                    </LocalizationProvider>
                                                 </Grid>
                                             </Grid>
 

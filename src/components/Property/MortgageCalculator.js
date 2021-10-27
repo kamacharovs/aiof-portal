@@ -9,8 +9,9 @@ import makeStyles from '@mui/styles/makeStyles';
 import Container from '@mui/material/Container';
 import Button from '@mui/material/Button';
 import Grid from '@mui/material/Grid';
-import DateFnsUtils from '@date-io/date-fns';
-import { MuiPickersUtilsProvider, KeyboardDatePicker } from '@material-ui/pickers';
+import AdapterDateFns from '@mui/lab/AdapterDateFns';
+import LocalizationProvider from '@mui/lab/LocalizationProvider';
+import DatePicker from '@mui/lab/DatePicker';
 import Typography from '@mui/material/Typography';
 
 import { TextFieldInputAdornment, TextFieldMoneyInputAdornment, TextFieldPercInputAdornment } from '../Common/Inputs';
@@ -228,8 +229,8 @@ const MortgageCalculator = props => {
                             </Grid>
 
                             <Grid item xs={4}>
-                                <MuiPickersUtilsProvider utils={DateFnsUtils}>
-                                    <KeyboardDatePicker
+                                <LocalizationProvider dateAdapter={AdapterDateFns}>
+                                    <DatePicker
                                         id="start-date"
                                         disableToolbar
                                         variant="inline"
@@ -242,7 +243,7 @@ const MortgageCalculator = props => {
                                             'aria-label': 'start date',
                                         }}
                                     />
-                                </MuiPickersUtilsProvider>
+                                </LocalizationProvider>
                             </Grid>
                         </Grid>
 

@@ -13,8 +13,9 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
-import DateFnsUtils from '@date-io/date-fns';
-import { MuiPickersUtilsProvider, KeyboardDatePicker } from '@material-ui/pickers';
+import DatePicker from '@mui/lab/DatePicker';
+import AdapterDateFns from '@mui/lab/AdapterDateFns';
+import LocalizationProvider from '@mui/lab/LocalizationProvider';
 
 import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined';
 import MonetizationOnOutlinedIcon from '@mui/icons-material/MonetizationOnOutlined';
@@ -302,8 +303,8 @@ const AddGenericGoal = props => {
                                     header={"What is the planned date for this goal?"}
                                     required
                                     textField={
-                                        <MuiPickersUtilsProvider utils={DateFnsUtils}>
-                                            <KeyboardDatePicker
+                                        <LocalizationProvider dateAdapter={AdapterDateFns}>
+                                            <DatePicker 
                                                 required
                                                 disableToolbar
                                                 variant="inline"
@@ -315,7 +316,7 @@ const AddGenericGoal = props => {
                                                     'aria-label': 'planned date',
                                                 }}
                                             />
-                                        </MuiPickersUtilsProvider>
+                                        </LocalizationProvider>
                                     } />
                             </Grid>
                         </Grid>
@@ -497,8 +498,8 @@ const AddTripGoal = props => {
                                     header={"What is the planned date for this goal?"}
                                     required
                                     textField={
-                                        <MuiPickersUtilsProvider utils={DateFnsUtils}>
-                                            <KeyboardDatePicker
+                                        <LocalizationProvider dateAdapter={AdapterDateFns}>
+                                            <DatePicker
                                                 required
                                                 disableToolbar
                                                 variant="inline"
@@ -510,7 +511,7 @@ const AddTripGoal = props => {
                                                     'aria-label': 'planned date',
                                                 }}
                                             />
-                                        </MuiPickersUtilsProvider>
+                                        </LocalizationProvider>
                                     } />
                             </Grid>
                         </Grid>
@@ -763,7 +764,7 @@ const AddHomeGoal = props => {
                                     required
                                     textField={
                                         <MuiPickersUtilsProvider utils={DateFnsUtils}>
-                                            <KeyboardDatePicker
+                                            <DatePicker
                                                 required
                                                 disableToolbar
                                                 variant="inline"
@@ -1042,7 +1043,7 @@ const AddSaveForCollege = props => {
                                     required
                                     textField={
                                         <MuiPickersUtilsProvider utils={DateFnsUtils}>
-                                            <KeyboardDatePicker
+                                            <DatePicker
                                                 required
                                                 disableToolbar
                                                 variant="inline"
