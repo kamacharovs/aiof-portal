@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { store, history } from './store';
-import { Route, Switch } from 'react-router-dom';
+import { Route, Switch, BrowserRouter } from 'react-router-dom';
 import { ConnectedRouter } from 'react-router-redux';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -18,9 +18,11 @@ ReactDOM.render((
     <ConnectedRouter history={history}>
       <StyledEngineProvider injectFirst>
         <ThemeProvider theme={theme}>
-          <Switch>
-            <Route path="/" component={App} />
-          </Switch>
+          <BrowserRouter>
+            <Switch>
+              <Route path="/" component={App} />
+            </Switch>
+          </BrowserRouter>
         </ThemeProvider>
       </StyledEngineProvider>
     </ConnectedRouter>
