@@ -2,9 +2,9 @@ import React from 'react';
 
 import { CoolLink } from '../style/mui';
 
-import { makeStyles } from '@material-ui/core/styles';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
+import makeStyles from '@mui/styles/makeStyles';
+import AppBar from '@mui/material/AppBar';
+import Toolbar from '@mui/material/Toolbar';
 
 
 const useStyles = makeStyles((theme) => ({

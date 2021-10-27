@@ -2,8 +2,8 @@ import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import agent from '../../agent';
 
-import Grid from '@material-ui/core/Grid';
-import Typography from '@material-ui/core/Typography';
+import Grid from '@mui/material/Grid';
+import Typography from '@mui/material/Typography';
 
 import { SquarePaper, TextMain, InPaper, commonStyles } from '../../style/mui';
 import { numberWithCommas } from '../Finance/Common';

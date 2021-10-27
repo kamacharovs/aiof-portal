@@ -4,21 +4,24 @@ import { Link } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 import "react-toastify/dist/ReactToastify.css";
 
-import { withStyles, makeStyles, useTheme, withTheme } from '@material-ui/core/styles';
-import { createMuiTheme } from '@material-ui/core/styles';
-import Grid from '@material-ui/core/Grid';
-import Paper from '@material-ui/core/Paper';
-import LinearProgress from '@material-ui/core/LinearProgress';
-import CircularProgress from '@material-ui/core/CircularProgress';
-import Button from '@material-ui/core/Button';
-import IconButton from '@material-ui/core/IconButton';
-import Typography from '@material-ui/core/Typography';
-import Tabs from '@material-ui/core/Tabs';
-import Tab from '@material-ui/core/Tab';
+import { useTheme } from '@mui/material/styles';
+import withStyles from '@mui/styles/withStyles';
+import makeStyles from '@mui/styles/makeStyles';
+import withTheme from '@mui/styles/withTheme';
+import { createTheme } from '@mui/material/styles';
+import Grid from '@mui/material/Grid';
+import Paper from '@mui/material/Paper';
+import LinearProgress from '@mui/material/LinearProgress';
+import CircularProgress from '@mui/material/CircularProgress';
+import Button from '@mui/material/Button';
+import IconButton from '@mui/material/IconButton';
+import Typography from '@mui/material/Typography';
+import Tabs from '@mui/material/Tabs';
+import Tab from '@mui/material/Tab';
 import ClipLoader from "react-spinners/ClipLoader";
-import CheckCircleIcon from '@material-ui/icons/CheckCircle';
-import ClearIcon from '@material-ui/icons/Clear';
-import Tooltip from '@material-ui/core/Tooltip';
+import CheckCircleIcon from '@mui/icons-material/CheckCircle';
+import ClearIcon from '@mui/icons-material/Clear';
+import Tooltip from '@mui/material/Tooltip';
 
 
 export const DefaultFont = 'Montserrat';
@@ -38,7 +41,7 @@ export const DefaultPaperFontSize = '.8125rem';
   b21f00    = International Orange Engineering
   137a8f    = Metallic Seaweed
 */
-export const theme = createMuiTheme({
+export const theme = createTheme({
   palette: {
     common: {
       black: '#000',
@@ -328,7 +331,8 @@ export const AltCancelButton = props => {
     <Tooltip title="Cancel">
       <IconButton
         style={{ color: theme.palette.primary.main }}
-        onClick={props.onClick}>
+        onClick={props.onClick}
+        size="large">
         <ClearIcon />
       </IconButton>
     </Tooltip>
@@ -360,7 +364,7 @@ export const VerticalTextField = ({ header, textField, required }) => {
   const classes = commonStyles();
 
   return (
-    <Grid container spacing={1} direction="column" justify="flex-start" alignItems="flex-start">
+    <Grid container spacing={1} direction="column" justifyContent="flex-start" alignItems="flex-start">
       <Grid item sm>
         <div style={{ display: "flex" }}>
           <Typography variant="h6" className={classes.verticalHeader} noWrap>
@@ -383,7 +387,7 @@ export const VerticalSelect = ({ header, select, required }) => {
   const classes = commonStyles();
 
   return (
-    <Grid container spacing={1} direction="column" justify="flex-start" alignItems="flex-start">
+    <Grid container spacing={1} direction="column" justifyContent="flex-start" alignItems="flex-start">
       <Grid item sm>
         <div style={{ display: "flex" }}>
           <Typography variant="h6" className={classes.verticalHeader} noWrap>

@@ -2,19 +2,20 @@ import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import agent from '../../agent';
 
-import { useTheme, makeStyles } from '@material-ui/core/styles';
-import Grid from '@material-ui/core/Grid';
-import IconButton from '@material-ui/core/IconButton';
-import SettingsIcon from '@material-ui/icons/Settings';
-import Dialog from '@material-ui/core/Dialog';
-import DialogActions from '@material-ui/core/DialogActions';
-import DialogContent from '@material-ui/core/DialogContent';
-import DialogTitle from '@material-ui/core/DialogTitle';
-import Checkbox from '@material-ui/core/Checkbox';
-import FormGroup from '@material-ui/core/FormGroup';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Tooltip from '@material-ui/core/Tooltip';
-import Typography from '@material-ui/core/Typography';
+import { useTheme } from '@mui/material/styles';
+import makeStyles from '@mui/styles/makeStyles';
+import Grid from '@mui/material/Grid';
+import IconButton from '@mui/material/IconButton';
+import SettingsIcon from '@mui/icons-material/Settings';
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogTitle from '@mui/material/DialogTitle';
+import Checkbox from '@mui/material/Checkbox';
+import FormGroup from '@mui/material/FormGroup';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import Tooltip from '@mui/material/Tooltip';
+import Typography from '@mui/material/Typography';
 
 import UsefulDocumentationView from './UsefulDocumentation';
 
@@ -149,7 +150,7 @@ const SnapshotView = props => {
                                 </Grid>
 
                                 <Grid item xs>
-                                    <Grid container justify="flex-end">
+                                    <Grid container justifyContent="flex-end">
                                         {
                                             props.currentUser
                                                 ? <SettingsButton
@@ -249,7 +250,8 @@ const SettingsButton = props => {
             <Tooltip title="Settings">
                 <IconButton
                     style={{ color: theme.palette.text.header }}
-                    onClick={handleClickOpen}>
+                    onClick={handleClickOpen}
+                    size="large">
                     <SettingsIcon />
                 </IconButton>
             </Tooltip>

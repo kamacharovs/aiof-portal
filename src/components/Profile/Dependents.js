@@ -1,17 +1,18 @@
 import React, { useState } from 'react';
 
-import { makeStyles, useTheme } from '@material-ui/core/styles';
-import Grid from '@material-ui/core/Grid';
-import Container from '@material-ui/core/Container';
-import Avatar from '@material-ui/core/Avatar';
-import IconButton from '@material-ui/core/IconButton';
-import DeleteIcon from '@material-ui/icons/Delete';
-import TextField from '@material-ui/core/TextField';
-import InputAdornment from '@material-ui/core/InputAdornment';
-import Select from '@material-ui/core/Select';
-import MenuItem from '@material-ui/core/MenuItem';
-import Tooltip from '@material-ui/core/Tooltip';
-import Typography from '@material-ui/core/Typography';
+import { useTheme } from '@mui/material/styles';
+import makeStyles from '@mui/styles/makeStyles';
+import Grid from '@mui/material/Grid';
+import Container from '@mui/material/Container';
+import Avatar from '@mui/material/Avatar';
+import IconButton from '@mui/material/IconButton';
+import DeleteIcon from '@mui/icons-material/Delete';
+import TextField from '@mui/material/TextField';
+import InputAdornment from '@mui/material/InputAdornment';
+import Select from '@mui/material/Select';
+import MenuItem from '@mui/material/MenuItem';
+import Tooltip from '@mui/material/Tooltip';
+import Typography from '@mui/material/Typography';
 
 import { isNumber, numberWithCommas } from '../Finance/Common';
 import {
@@ -152,7 +153,8 @@ const DependentView = props => {
                             <IconButton
                                 aria-label="delete"
                                 className={classes.deleteIconButton}
-                                onClick={e => props.onDelete(dependent.id)}>
+                                onClick={e => props.onDelete(dependent.id)}
+                                size="large">
                                 <DeleteIcon style={{ fontSize: '20', color: theme.palette.secondary.dark }} />
                             </IconButton>
                         </Tooltip>
@@ -331,7 +333,7 @@ const InProgressBar = props => {
                 container
                 spacing={0}
                 direction="column"
-                justify="center"
+                justifyContent="center"
                 alignItems="center">
                 <Grid item xs align="center" style={{ marginTop: "1rem" }}>
                     <AlternateCircularProgress />

@@ -3,11 +3,11 @@ import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
 import agent from '../../agent';
 
-import { makeStyles } from '@material-ui/core/styles';
-import Grid from '@material-ui/core/Grid';
-import Container from '@material-ui/core/Container';
-import Button from '@material-ui/core/Button';
-import Typography from '@material-ui/core/Typography';
+import makeStyles from '@mui/styles/makeStyles';
+import Grid from '@mui/material/Grid';
+import Container from '@mui/material/Container';
+import Button from '@mui/material/Button';
+import Typography from '@mui/material/Typography';
 
 import { TextFieldInputAdornment } from '../Common/Inputs';
 import { SquarePaper, InPaper, AiofLinearProgress, TextMain } from '../../style/mui';
@@ -213,7 +213,7 @@ const BmiResult = props => {
     if (props.bmiImperial) {
         return (
             <SquarePaper variant="outlined" square>
-                <Grid container spacing={1} alignItems="center" justify="center">
+                <Grid container spacing={1} alignItems="center" justifyContent="center">
                     <Grid item xs={4}>
                         <InPaper title={"BMI"}
                             body={props.bmiImperial.bmi} />
@@ -243,7 +243,7 @@ const BmiMetricResult = props => {
     if (props.bmiMetric) {
         return (
             <SquarePaper variant="outlined" square>
-                <Grid container spacing={1} alignItems="center" justify="center">
+                <Grid container spacing={1} alignItems="center" justifyContent="center">
                     <Grid item xs={4}>
                         <InPaper title={"BMI"}
                             body={props.bmiMetric.bmi} />

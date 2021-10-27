@@ -1,5 +1,5 @@
 import React from 'react';
-import Grid from '@material-ui/core/Grid';
+import Grid from '@mui/material/Grid';
 import ClipLoader from "react-spinners/ClipLoader";
 
 const defaultSize = 50;

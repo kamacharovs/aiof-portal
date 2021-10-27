@@ -3,12 +3,13 @@ import { connect } from 'react-redux';
 import agent from '../../../agent';
 
 import { Line } from 'react-chartjs-2'
-import { makeStyles, useTheme } from '@material-ui/core/styles';
-import Grid from '@material-ui/core/Grid';
-import Tooltip from '@material-ui/core/Tooltip';
-import IconButton from '@material-ui/core/IconButton';
-import DeleteIcon from '@material-ui/icons/Delete';
-import RateReviewIcon from '@material-ui/icons/RateReview';
+import { useTheme } from '@mui/material/styles';
+import makeStyles from '@mui/styles/makeStyles';
+import Grid from '@mui/material/Grid';
+import Tooltip from '@mui/material/Tooltip';
+import IconButton from '@mui/material/IconButton';
+import DeleteIcon from '@mui/icons-material/Delete';
+import RateReviewIcon from '@mui/icons-material/RateReview';
 
 import { numberWithCommas } from '../Common';
 import { FullPaper, AlternateCircularProgress, DefaultPaperMargin } from '../../../style/mui';
@@ -113,7 +114,7 @@ const CurrentAssetsOverview = props => {
         <Grid
             container
             spacing={0}
-            justify="center"
+            justifyContent="center"
             alignItems="center"
             className={classes.overview}>
             <Grid item xs align="center">
@@ -159,7 +160,7 @@ const CurrentAssetsDynamic = props => {
                             <Grid container
                                 spacing={0}
                                 direction="column"
-                                justify="center"
+                                justifyContent="center"
                                 alignItems="center">
                                 <Grid item xs>
                                     <h6><strong>{a.name}</strong></h6>
@@ -189,14 +190,15 @@ const CurrentAssetsDynamic = props => {
                             <Grid
                                 container
                                 direction="row"
-                                justify="flex-end"
+                                justifyContent="flex-end"
                                 alignItems="flex-end"
                                 className={classes.currentAssetfooter}>
                                 <Tooltip title="Review">
                                     <IconButton
                                         aria-label="review"
                                         className={classes.iconButton}
-                                        onClick={e => onReview(a)}>
+                                        onClick={e => onReview(a)}
+                                        size="large">
                                         <RateReviewIcon style={{ fontSize: '20', color: theme.palette.secondary.dark }} />
                                     </IconButton>
                                 </Tooltip>
@@ -205,7 +207,8 @@ const CurrentAssetsDynamic = props => {
                                     <IconButton
                                         aria-label="delete"
                                         className={classes.iconButton}
-                                        onClick={e => props.onDelete(a.id)}>
+                                        onClick={e => props.onDelete(a.id)}
+                                        size="large">
                                         <DeleteIcon style={{ fontSize: '20', color: theme.palette.secondary.dark }} />
                                     </IconButton>
                                 </Tooltip>
@@ -275,7 +278,7 @@ const CurrentAssetSnapshotsChart = props => {
 const InProgressBar = props => {
     if (props.inProgressAssets || props.inProgressDeleteAsset) {
         return (
-            <Grid container spacing={0} direction="column" justify="center" alignItems="center">
+            <Grid container spacing={0} direction="column" justifyContent="center" alignItems="center">
                 <Grid item xs align="center">
                     <br />
                     <AlternateCircularProgress />

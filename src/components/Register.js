@@ -3,12 +3,12 @@ import { Helmet } from 'react-helmet';
 import agent from '../agent';
 import { connect } from 'react-redux';
 
-import { makeStyles } from '@material-ui/core/styles';
-import Container from '@material-ui/core/Container';
-import TextField from '@material-ui/core/TextField';
-import Button from '@material-ui/core/Button';
-import Grid from '@material-ui/core/Grid';
-import LockOpenIcon from '@material-ui/icons/LockOpen';
+import makeStyles from '@mui/styles/makeStyles';
+import Container from '@mui/material/Container';
+import TextField from '@mui/material/TextField';
+import Button from '@mui/material/Button';
+import Grid from '@mui/material/Grid';
+import LockOpenIcon from '@mui/icons-material/LockOpen';
 
 import { PasswordRuleChecker } from './Common/PasswordRuleChecker';
 import { LoginPaper, CoolLink } from '../style/mui';
@@ -88,7 +88,7 @@ const Register = props => {
       <Container maxWidth="sm">
         <LoginPaper elevation={3} variant="outlined">
 
-          <Grid container spacing={3} alignItems="center" justify="center" alignContent="center">
+          <Grid container spacing={3} alignItems="center" justifyContent="center" alignContent="center">
             <Grid item xs={12}>
               <h1 className="text-center">Sign Up</h1>
               <p className="text-center">
@@ -104,7 +104,7 @@ const Register = props => {
               container 
               spacing={3} 
               alignItems="center" 
-              justify="center">
+              justifyContent="center">
               <Grid item xs={12}>
                 <div className="text-center text-muted">
                   {props.appShortAccountDescription}

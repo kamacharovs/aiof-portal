@@ -3,8 +3,8 @@ import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
 import agent from '../../agent';
 
-import Grid from '@material-ui/core/Grid';
-import Container from '@material-ui/core/Container';
+import Grid from '@mui/material/Grid';
+import Container from '@mui/material/Container';
 
 import { SquarePaper, AiofVerticalTabs, AiofVerticalTab } from '../../style/mui';
 import {

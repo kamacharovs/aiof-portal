@@ -6,17 +6,17 @@ import AppMenu from './AppMenu';
 import { HeaderLink, HeaderRightLink } from '../style/mui';
 import { LOGOUT } from '../constants/actionTypes';
 
-import { makeStyles } from '@material-ui/core/styles';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import Button from '@material-ui/core/Button';
-import Menu from '@material-ui/core/Menu';
-import List from '@material-ui/core/List';
-import Divider from '@material-ui/core/Divider';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemText from '@material-ui/core/ListItemText';
-import ListSubheader from '@material-ui/core/ListSubheader'
-import ExpandMore from '@material-ui/icons/ExpandMore';
+import makeStyles from '@mui/styles/makeStyles';
+import AppBar from '@mui/material/AppBar';
+import Toolbar from '@mui/material/Toolbar';
+import Button from '@mui/material/Button';
+import Menu from '@mui/material/Menu';
+import List from '@mui/material/List';
+import Divider from '@mui/material/Divider';
+import ListItem from '@mui/material/ListItem';
+import ListItemText from '@mui/material/ListItemText';
+import ListSubheader from '@mui/material/ListSubheader'
+import ExpandMore from '@mui/icons-material/ExpandMore';
 
 import { isCurrentUserAdmin } from "../components/Common/Functions";
 

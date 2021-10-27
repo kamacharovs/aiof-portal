@@ -7,7 +7,7 @@ import { ConnectedRouter } from 'react-router-redux';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-import { ThemeProvider } from '@material-ui/core/styles';
+import { ThemeProvider, StyledEngineProvider } from '@mui/material/styles';
 
 import App from './components/App';
 import { theme } from './style/mui';
@@ -16,11 +16,13 @@ import { theme } from './style/mui';
 ReactDOM.render((
   <Provider store={store}>
     <ConnectedRouter history={history}>
-      <ThemeProvider theme={theme}>
-        <Switch>
-          <Route path="/" component={App} />
-        </Switch>
-      </ThemeProvider>
+      <StyledEngineProvider injectFirst>
+        <ThemeProvider theme={theme}>
+          <Switch>
+            <Route path="/" component={App} />
+          </Switch>
+        </ThemeProvider>
+      </StyledEngineProvider>
     </ConnectedRouter>
   </Provider>
 ), document.getElementById('root'));

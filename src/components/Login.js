@@ -3,14 +3,14 @@ import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
 import agent from '../agent';
 
-import { makeStyles } from '@material-ui/core/styles';
-import Container from '@material-ui/core/Container';
-import TextField from '@material-ui/core/TextField';
-import Button from '@material-ui/core/Button';
-import Grid from '@material-ui/core/Grid';
-import Checkbox from '@material-ui/core/Checkbox';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import LockOpenIcon from '@material-ui/icons/LockOpen';
+import makeStyles from '@mui/styles/makeStyles';
+import Container from '@mui/material/Container';
+import TextField from '@mui/material/TextField';
+import Button from '@mui/material/Button';
+import Grid from '@mui/material/Grid';
+import Checkbox from '@mui/material/Checkbox';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import LockOpenIcon from '@mui/icons-material/LockOpen';
 
 import { LoginPaper, CoolLink } from '../style/mui';
 import { AiofLoader, } from '../components/Common/Loader';
@@ -101,7 +101,7 @@ const Login = props => {
 
       <Container maxWidth="sm">
         <LoginPaper elevation={3} variant="outlined">
-          <Grid container spacing={3} alignItems="center" justify="center" alignContent="center">
+          <Grid container spacing={3} alignItems="center" justifyContent="center" alignContent="center">
             <Grid item xs={12}>
               <h1 className="text-center">Sign In</h1>
               <p className="text-center">
@@ -117,7 +117,7 @@ const Login = props => {
               container
               spacing={3}
               alignItems="center"
-              justify="center">
+              justifyContent="center">
               <Grid item xs={12}>
                 <div className="text-center text-muted">
                   {props.appShortAccountDescription}

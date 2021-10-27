@@ -1,7 +1,7 @@
 import React from 'react';
 
-import TextField from '@material-ui/core/TextField';
-import InputAdornment from '@material-ui/core/InputAdornment';
+import TextField from '@mui/material/TextField';
+import InputAdornment from '@mui/material/InputAdornment';
 
 
 export const TextFieldBase = props => {

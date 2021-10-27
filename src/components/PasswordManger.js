@@ -3,11 +3,11 @@ import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
 import agent from '../agent';
 
-import { makeStyles } from '@material-ui/core/styles';
-import Container from '@material-ui/core/Container';
-import TextField from '@material-ui/core/TextField';
-import Button from '@material-ui/core/Button';
-import Grid from '@material-ui/core/Grid';
+import makeStyles from '@mui/styles/makeStyles';
+import Container from '@mui/material/Container';
+import TextField from '@mui/material/TextField';
+import Button from '@mui/material/Button';
+import Grid from '@mui/material/Grid';
 
 import { PasswordRuleChecker, ConfirmationPasswordRuleChecker } from './Common/PasswordRuleChecker';
 import { SquarePaper, CoolLink, } from '../style/mui';
@@ -122,7 +122,7 @@ const PasswordMangement = props => {
             container
             spacing={3}
             alignItems="center"
-            justify="center"
+            justifyContent="center"
             alignContent="center">
             <Grid item xs>
               <h1 className="text-center">Reset password</h1>
@@ -139,7 +139,7 @@ const PasswordMangement = props => {
               container
               spacing={3}
               alignItems="center"
-              justify="center">
+              justifyContent="center">
               <Grid item xs={12}>
                 <div className="text-center text-muted">
                   {props.appShortAccountDescription}

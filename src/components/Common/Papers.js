@@ -2,13 +2,14 @@ import React from 'react';
 import { Bar, Line, Pie } from 'react-chartjs-2';
 import JSONPretty from 'react-json-pretty';
 
-import { useTheme, makeStyles } from '@material-ui/core/styles';
-import Grid from '@material-ui/core/Grid';
-import Typography from '@material-ui/core/Typography';
-import Paper from '@material-ui/core/Paper';
-import PersonIcon from '@material-ui/icons/Person';
-import EmailIcon from '@material-ui/icons/Email';
-import WebIcon from '@material-ui/icons/Web';
+import { useTheme } from '@mui/material/styles';
+import makeStyles from '@mui/styles/makeStyles';
+import Grid from '@mui/material/Grid';
+import Typography from '@mui/material/Typography';
+import Paper from '@mui/material/Paper';
+import PersonIcon from '@mui/icons-material/Person';
+import EmailIcon from '@mui/icons-material/Email';
+import WebIcon from '@mui/icons-material/Web';
 
 import { assetSnapshotsAvgByMonth } from '../Common/Functions';
 import { numberWithCommas } from '../Finance/Common';
@@ -60,7 +61,7 @@ export const AssetPaper = props => {
                         </Grid>
 
                         <Grid item xs>
-                            <Grid container justify="flex-end">
+                            <Grid container justifyContent="flex-end">
                                 <AltLink to={"/finance/assets"}>View</AltLink>
                             </Grid>
                         </Grid>
@@ -106,7 +107,7 @@ export const LiabilityPaper = props => {
                         </Grid>
 
                         <Grid item xs>
-                            <Grid container justify="flex-end">
+                            <Grid container justifyContent="flex-end">
                                 <AltLink to={"/finance"}>View</AltLink>
                             </Grid>
                         </Grid>
@@ -168,7 +169,7 @@ export const GoalPaper = props => {
                         </Grid>
 
                         <Grid item xs>
-                            <Grid container justify="flex-end">
+                            <Grid container justifyContent="flex-end">
                                 <AltLink to={"/finance/goals"}>View</AltLink>
                             </Grid>
                         </Grid>
@@ -228,7 +229,7 @@ export const DependentPaper = props => {
                         </Grid>
 
                         <Grid item xs>
-                            <Grid container justify="flex-end">
+                            <Grid container justifyContent="flex-end">
                                 <AltLink to={"/profile"}>View</AltLink>
                             </Grid>
                         </Grid>
@@ -451,7 +452,7 @@ export const APIPaper = props => {
                 <Grid
                     container
                     direction="column"
-                    justify="flex-start"
+                    justifyContent="flex-start"
                     alignItems="flex-start">
                     <Grid item xs>
                         <Typography variant="h1">

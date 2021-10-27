@@ -2,13 +2,14 @@ import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import config from '../../config';
 
-import { useTheme, makeStyles } from '@material-ui/core/styles';
-import Grid from '@material-ui/core/Grid';
-import IconButton from '@material-ui/core/IconButton';
-import Tooltip from '@material-ui/core/Tooltip';
-import Typography from '@material-ui/core/Typography';
-import ExpandLessIcon from '@material-ui/icons/ExpandLess';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import { useTheme } from '@mui/material/styles';
+import makeStyles from '@mui/styles/makeStyles';
+import Grid from '@mui/material/Grid';
+import IconButton from '@mui/material/IconButton';
+import Tooltip from '@mui/material/Tooltip';
+import Typography from '@mui/material/Typography';
+import ExpandLessIcon from '@mui/icons-material/ExpandLess';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
 import House from '../../style/icons/House_4.svg';
 import Calculator from '../../style/icons/Calculator.svg';
@@ -212,7 +213,7 @@ const ProfileCheckmark = props => {
                 </Grid>
 
                 <Grid item xs>
-                    <Grid container justify="flex-end">
+                    <Grid container justifyContent="flex-end">
                         <ShowDynamic
                             show={props.showUpdateProfile}
                             showName={props.showName}
@@ -333,7 +334,7 @@ const Assets = props => {
                 </Grid>
 
                 <Grid item xs>
-                    <Grid container justify="flex-end">
+                    <Grid container justifyContent="flex-end">
                         <ShowDynamic
                             show={props.showAddAssets}
                             showName={props.showName}
@@ -387,7 +388,7 @@ const Liabilities = props => {
                 </Grid>
 
                 <Grid item xs>
-                    <Grid container justify="flex-end">
+                    <Grid container justifyContent="flex-end">
                         <ShowDynamic
                             show={props.showAddLiabilities}
                             showName={props.showName}
@@ -438,7 +439,7 @@ const Goals = props => {
                 </Grid>
 
                 <Grid item xs>
-                    <Grid container justify="flex-end">
+                    <Grid container justifyContent="flex-end">
                         <ShowDynamic
                             show={props.showAddGoals}
                             showName={props.showName}
@@ -489,7 +490,8 @@ const ShowDynamic = props => {
         <Tooltip title={props.show === true ? "Hide" : "Show"}>
             <IconButton
                 style={{ color: theme.palette.primary.dark, padding: "0px" }}
-                onClick={() => props.handleSetShow(props.showName, !props.show, props.setShow)}>
+                onClick={() => props.handleSetShow(props.showName, !props.show, props.setShow)}
+                size="large">
                 {props.show === true
                     ? <ExpandLessIcon />
                     : <ExpandMoreIcon />}

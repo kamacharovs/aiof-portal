@@ -3,9 +3,10 @@ import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
 import agent from '../../../agent';
 
-import { makeStyles, useTheme } from '@material-ui/core/styles';
-import Container from '@material-ui/core/Container';
-import Grid from '@material-ui/core/Grid';
+import { useTheme } from '@mui/material/styles';
+import makeStyles from '@mui/styles/makeStyles';
+import Container from '@mui/material/Container';
+import Grid from '@mui/material/Grid';
 
 import { SquarePaper } from '../../../style/mui';
 import { REDIRECT_LOGIN, GOALS } from '../../../constants/actionTypes';

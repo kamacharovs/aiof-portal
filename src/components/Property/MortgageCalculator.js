@@ -5,13 +5,13 @@ import agent from '../../agent';
 import { Line, Bar } from 'react-chartjs-2';
 import 'date-fns';
 
-import { makeStyles } from '@material-ui/core/styles';
-import Container from '@material-ui/core/Container';
-import Button from '@material-ui/core/Button';
-import Grid from '@material-ui/core/Grid';
+import makeStyles from '@mui/styles/makeStyles';
+import Container from '@mui/material/Container';
+import Button from '@mui/material/Button';
+import Grid from '@mui/material/Grid';
 import DateFnsUtils from '@date-io/date-fns';
 import { MuiPickersUtilsProvider, KeyboardDatePicker } from '@material-ui/pickers';
-import Typography from '@material-ui/core/Typography';
+import Typography from '@mui/material/Typography';
 
 import { TextFieldInputAdornment, TextFieldMoneyInputAdornment, TextFieldPercInputAdornment } from '../Common/Inputs';
 import { numberWithCommas } from '../Finance/Common';

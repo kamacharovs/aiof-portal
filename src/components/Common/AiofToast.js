@@ -1,8 +1,8 @@
 import React from 'react';
 import { toast } from "react-toastify";
 
-import CheckOutlinedIcon from '@material-ui/icons/CheckOutlined';
-import CloseOutlinedIcon from '@material-ui/icons/CloseOutlined';
+import CheckOutlinedIcon from '@mui/icons-material/CheckOutlined';
+import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined';
 
 
 export function success(nodeOrMsg) {
