@@ -135,7 +135,6 @@ const UserView = props => {
                                                 <Button
                                                     id="clear-button"
                                                     type="submit"
-                                                    variant="outlined"
                                                     color="primary"
                                                     disableElevation>
                                                     Clear
@@ -152,7 +151,6 @@ const UserView = props => {
                                                     id="user-button"
                                                     disabled={!userButtonEnabled && !userByEmailButtonEnabled}
                                                     type="submit"
-                                                    variant="outlined"
                                                     color="primary"
                                                     disableElevation >
                                                     Get user
@@ -169,7 +167,6 @@ const UserView = props => {
                                                     id="user-refresh-tokens-button"
                                                     disabled={!userButtonEnabled}
                                                     type="submit"
-                                                    variant="outlined"
                                                     color="primary"
                                                     disableElevation >
                                                     Get user's refresh tokens
@@ -285,7 +282,6 @@ const GenerateApiKeyView = props => {
                                     <Button
                                         id="generate-api-key-button"
                                         type="submit"
-                                        variant="outlined"
                                         color="primary"
                                         disableElevation>
                                         Generate

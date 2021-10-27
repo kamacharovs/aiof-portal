@@ -103,6 +103,7 @@ const ProfileMenu = props => {
         <React.Fragment>
             <Button
                 className={classes.userButton}
+                variant="text"
                 aria-controls="user-menu"
                 aria-haspopup="true"
                 onClick={handleClick}>

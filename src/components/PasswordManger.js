@@ -117,7 +117,7 @@ const PasswordMangement = props => {
       </Helmet>
 
       <Container maxWidth="sm">
-        <SquarePaper elevation={3} variant="outlined">
+        <SquarePaper variant="outlined">
           <Grid
             container
             spacing={3}

@@ -49,7 +49,7 @@ export const theme = createTheme({
     },
     primary: {
       main: '#5469d4',
-      dark: '#1a1f36',
+      dark: '#37447e',
     },
     secondary: {
       main: '#d6ecff',
@@ -80,7 +80,7 @@ export const theme = createTheme({
     },
     code: {
       main: '#e4e6e8',
-    }
+    },
   },
   typography: {
     fontFamily: [
@@ -115,6 +115,38 @@ export const theme = createTheme({
     },
     button: {
       textTransform: 'none'
+    }
+  },
+  components: {
+    MuiTextField: {
+      defaultProps: {
+        variant: 'standard',
+      }
+    },
+    MuiSelect: {
+      defaultProps: {
+        variant: 'standard',
+      }
+    },
+    MuiFormControl: {
+      defaultProps: {
+        variant: 'standard',
+      }
+    },
+    MuiButton: {
+      defaultProps: {
+        variant: 'outlined',
+        style: {
+          marginTop: '0.5rem'
+        }
+      }
+    },
+    MuiPaper: {
+      defaultProps: {
+        variant: 'outlined',
+        square: true,
+        fontSize: DefaultPaperFontSize
+      }
     }
   },
 });
