@@ -6,6 +6,7 @@ import { Line, Bar } from 'react-chartjs-2';
 import 'date-fns';
 
 import makeStyles from '@mui/styles/makeStyles';
+import TextField from '@mui/material/TextField';
 import Container from '@mui/material/Container';
 import Button from '@mui/material/Button';
 import Grid from '@mui/material/Grid';
@@ -239,9 +240,7 @@ const MortgageCalculator = props => {
                                         label="Start date"
                                         value={startDate}
                                         onChange={handleStartDateChange}
-                                        KeyboardButtonProps={{
-                                            'aria-label': 'start date',
-                                        }}
+                                        renderInput={(params) => <TextField {...params} />}
                                     />
                                 </LocalizationProvider>
                             </Grid>
@@ -484,9 +483,9 @@ const MortgageCalculatorResult = props => {
                 </SquarePaper>
 
                 <SquarePaper variant="outlined" square>
-                    <Button 
-                    color="primary" 
-                    onClick={() => setShowCompleteBreakdown(!showCompleteBreakdown)}>
+                    <Button
+                        color="primary"
+                        onClick={() => setShowCompleteBreakdown(!showCompleteBreakdown)}>
                         {showCompleteBreakdown === false ? "View complete breakdown" : "Hide complete breakdown"}
                     </Button>
 
@@ -497,9 +496,9 @@ const MortgageCalculatorResult = props => {
                 </SquarePaper>
 
                 <SquarePaper variant="outlined" square>
-                    <Button 
-                    color="primary" 
-                    onClick={() => setShowYearlyCompleteBreakdown(!showYearlyCompleteBreakdown)}>
+                    <Button
+                        color="primary"
+                        onClick={() => setShowYearlyCompleteBreakdown(!showYearlyCompleteBreakdown)}>
                         {showYearlyCompleteBreakdown === false ? "View yearly complete breakdown" : "Hide yearly complete breakdown"}
                     </Button>
 

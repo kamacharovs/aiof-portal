@@ -198,9 +198,7 @@ const Profile = props => {
                                                             value={dateOfBirth ? dateOfBirth : defaultDate}
                                                             onChange={handleDateOfBirthChange}
                                                             onFocus={() => setIsUpdated(true)}
-                                                            KeyboardButtonProps={{
-                                                                'aria-label': 'start date',
-                                                            }}
+                                                            renderInput={(params) => <TextField {...params} />}
                                                         />
                                                     </LocalizationProvider>
                                                 </Grid>

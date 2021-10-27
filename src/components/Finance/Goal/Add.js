@@ -312,9 +312,7 @@ const AddGenericGoal = props => {
                                                 margin="normal"
                                                 value={plannedDate}
                                                 onChange={handlePlannedDate}
-                                                KeyboardButtonProps={{
-                                                    'aria-label': 'planned date',
-                                                }}
+                                                renderInput={(params) => <TextField {...params} />}
                                             />
                                         </LocalizationProvider>
                                     } />
@@ -507,9 +505,7 @@ const AddTripGoal = props => {
                                                 margin="normal"
                                                 value={plannedDate}
                                                 onChange={handlePlannedDate}
-                                                KeyboardButtonProps={{
-                                                    'aria-label': 'planned date',
-                                                }}
+                                                renderInput={(params) => <TextField {...params} />}
                                             />
                                         </LocalizationProvider>
                                     } />
@@ -772,9 +768,7 @@ const AddHomeGoal = props => {
                                                 margin="normal"
                                                 value={plannedDate}
                                                 onChange={handlePlannedDate}
-                                                KeyboardButtonProps={{
-                                                    'aria-label': 'planned date',
-                                                }}
+                                                renderInput={(params) => <TextField {...params} />}
                                             />
                                         </MuiPickersUtilsProvider>
                                     } />
@@ -1051,9 +1045,7 @@ const AddSaveForCollege = props => {
                                                 margin="normal"
                                                 value={plannedDate}
                                                 onChange={handlePlannedDate}
-                                                KeyboardButtonProps={{
-                                                    'aria-label': 'planned date',
-                                                }}
+                                                renderInput={(params) => <TextField {...params} />}
                                             />
                                         </MuiPickersUtilsProvider>
                                     } />
