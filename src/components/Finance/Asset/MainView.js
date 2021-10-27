@@ -104,8 +104,8 @@ const AssetMainView = props => {
                     <Grid container spacing={1} className={classes.root}>
                         <Grid item xs>
                             <div ref={currentAssetsRef}>
-                                <CurrentAssets 
-                                    assets={props.assets} />
+                                    <CurrentAssets
+                                        assets={props.assets} />
                             </div>
                         </Grid>
                     </Grid>

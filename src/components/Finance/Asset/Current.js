@@ -10,6 +10,8 @@ import Tooltip from '@mui/material/Tooltip';
 import IconButton from '@mui/material/IconButton';
 import DeleteIcon from '@mui/icons-material/Delete';
 import RateReviewIcon from '@mui/icons-material/RateReview';
+import { ThemeProvider } from '@mui/material/styles';
+import { theme2 } from '../../../style/mui';
 
 import { numberWithCommas } from '../Common';
 import { FullPaper, AlternateCircularProgress, DefaultPaperMargin } from '../../../style/mui';
@@ -150,6 +152,7 @@ const CurrentAssetsDynamic = props => {
 
         return (
             <React.Fragment>
+                <ThemeProvider theme={theme2}>
                 {assets.map(a => {
                     return (
                         <FullPaper
@@ -216,6 +219,7 @@ const CurrentAssetsDynamic = props => {
                         </FullPaper>
                     );
                 })}
+                </ThemeProvider>
 
                 <ReviewAsset
                     open={openReview}

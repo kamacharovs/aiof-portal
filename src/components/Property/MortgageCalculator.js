@@ -153,7 +153,7 @@ const MortgageCalculator = props => {
             </Helmet>
 
             <Container maxWidth="md">
-                <SquarePaper variant="outlined" square>
+                <SquarePaper>
                     <Grid container>
                         <Grid item xs>
                             <Typography variant="h1">
@@ -171,7 +171,7 @@ const MortgageCalculator = props => {
                     </Grid>
                 </SquarePaper>
 
-                <SquarePaper variant="outlined" square>
+                <SquarePaper>
                     <form className={classes.root} noValidate autoComplete="off" onSubmit={onCalculate}>
                         <Grid container spacing={3}>
                             <Grid item xs>
@@ -295,7 +295,6 @@ const MortgageCalculator = props => {
                                 <Button
                                     id="calculate-button"
                                     type="submit"
-                                    variant="outlined"
                                     color="primary"
                                     className={classes.button}
                                     disabled={!isCalculateEnabled} >
@@ -419,7 +418,7 @@ const MortgageCalculatorResult = props => {
 
         return (
             <React.Fragment>
-                <SquarePaper variant="outlined" square>
+                <SquarePaper>
                     <Grid container spacing={1}>
                         <Typography variant="h1">
                             Your results
@@ -474,16 +473,17 @@ const MortgageCalculatorResult = props => {
                     </Grid>
                 </SquarePaper>
 
-                <SquarePaper variant="outlined" square>
+                <SquarePaper>
                     <Line data={lineData} options={lineOptions} />
                 </SquarePaper>
 
-                <SquarePaper variant="outlined" square>
+                <SquarePaper>
                     <Bar data={stackedData} options={stackedOptions} />
                 </SquarePaper>
 
-                <SquarePaper variant="outlined" square>
+                <SquarePaper>
                     <Button
+                        variant="text"
                         color="primary"
                         onClick={() => setShowCompleteBreakdown(!showCompleteBreakdown)}>
                         {showCompleteBreakdown === false ? "View complete breakdown" : "Hide complete breakdown"}
@@ -495,8 +495,9 @@ const MortgageCalculatorResult = props => {
                     <CompleteBreakdown data={props.data} show={showCompleteBreakdown} />
                 </SquarePaper>
 
-                <SquarePaper variant="outlined" square>
+                <SquarePaper>
                     <Button
+                        variant="text"
                         color="primary"
                         onClick={() => setShowYearlyCompleteBreakdown(!showYearlyCompleteBreakdown)}>
                         {showYearlyCompleteBreakdown === false ? "View yearly complete breakdown" : "Hide yearly complete breakdown"}

@@ -145,10 +145,34 @@ export const theme = createTheme({
       defaultProps: {
         variant: 'outlined',
         square: true,
-        fontSize: DefaultPaperFontSize
+        style: {
+          padding: '1.5rem',
+          marginTop: '1rem',
+          fontSize: '.8125rem',
+        }
+      }
+    },
+    MuiAppBar: {
+      defaultProps: {
+        style: {
+          padding: '0',
+          marginTop: '0',
+        }
+      },
+    },
+  },
+});
+
+export const theme2 = createTheme(theme, {
+  components: {
+    MuiPaper: {
+      defaultProps: {
+        style: {
+          padding: '0'
+        }
       }
     }
-  },
+  }
 });
 
 
