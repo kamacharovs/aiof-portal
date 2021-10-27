@@ -4,11 +4,10 @@ import { Link } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 import "react-toastify/dist/ReactToastify.css";
 
-import { useTheme } from '@mui/material/styles';
 import withStyles from '@mui/styles/withStyles';
 import makeStyles from '@mui/styles/makeStyles';
 import withTheme from '@mui/styles/withTheme';
-import { createTheme } from '@mui/material/styles';
+import { createTheme, useTheme } from '@mui/material/styles';
 import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
 import LinearProgress from '@mui/material/LinearProgress';
@@ -163,12 +162,16 @@ export const theme = createTheme({
   },
 });
 
-export const theme2 = createTheme(theme, {
+export const fullPaperTheme = createTheme(theme, {
   components: {
     MuiPaper: {
       defaultProps: {
         style: {
-          padding: '0'
+          margin: DefaultPaperMargin,
+          paddingBottom: 0,
+          paddingLeft: 0,
+          paddingRight: 0,
+          paddingTop: '0.5rem'
         }
       }
     }
