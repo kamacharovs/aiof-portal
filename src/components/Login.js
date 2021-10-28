@@ -12,9 +12,9 @@ import Checkbox from '@mui/material/Checkbox';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import LockOpenIcon from '@mui/icons-material/LockOpen';
 
-import { LoginPaper, CoolLink } from '../style/mui';
+import { LoginPaper, CoolLink, AltLink } from '../style/mui';
 import { AiofLoader, } from '../components/Common/Loader';
-import { LOGIN, LOGIN_GET_USER, REFRESH, LOGIN_PAGE_UNLOADED } from '../constants/actionTypes';
+import { LOGIN, LOGIN_GET_USER, REFRESH, REDIRECT_HOME } from '../constants/actionTypes';
 
 
 const mapStateToProps = state => ({
@@ -35,8 +35,8 @@ const mapDispatchToProps = dispatch => ({
     dispatch({ type: REFRESH, payload: agent.Auth.refresh() }),
   onGetUser: () =>
     dispatch({ type: LOGIN_GET_USER, payload: agent.Auth.getUser() }),
-  onUnload: () =>
-    dispatch({ type: LOGIN_PAGE_UNLOADED })
+  onRedirectHome: () =>
+    dispatch({ type: REDIRECT_HOME })
 });
 
 const useStyles = makeStyles((theme) => ({
@@ -100,7 +100,7 @@ const Login = props => {
       </Helmet>
 
       <Container maxWidth="sm">
-        <LoginPaper elevation={3} variant="outlined">
+        <LoginPaper variant="outlined">
           <Grid container spacing={3} alignItems="center" justifyContent="center" alignContent="center">
             <Grid item xs={12}>
               <h1 className="text-center">Sign In</h1>
@@ -181,7 +181,7 @@ const Login = props => {
 
               <Grid item xs={12}>
                 <p className="text-center text-muted">
-                  <i>By clicking Sign In, you agree to our <a id="login-link-terms-and-conditions" href="/terms-and-conditions">Terms</a> and have read and acknowledge our <a id="login-link-privacy-policy" href="/privacy-policy">US Privacy Statement</a>.</i>
+                  <i>By clicking Sign In, you agree to our <AltLink id="login-link-terms-and-conditions" to="/terms-and-conditions">Terms & Conditions</AltLink> and have read and acknowledge our <AltLink id="login-link-privacy-policy" to="/privacy-policy">Privacy Policy</AltLink>.</i>
                 </p>
               </Grid>
             </Grid>

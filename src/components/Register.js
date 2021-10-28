@@ -86,7 +86,7 @@ const Register = props => {
         <title>{props.appName} | Register</title>
       </Helmet>
       <Container maxWidth="sm">
-        <LoginPaper elevation={3} variant="outlined">
+        <LoginPaper variant="outlined">
 
           <Grid container spacing={3} alignItems="center" justifyContent="center" alignContent="center">
             <Grid item xs={12}>
