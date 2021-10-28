@@ -61,7 +61,7 @@ const AssetMainView = props => {
                 const assetAdded = props.assetAdded;
                 const code = props.assetAddedCode;
                 if (assetAdded && code === 200) {
-                    success(`Successfully added '${assetAdded.typeName}' asset '${assetAdded.name}'`);
+                    success(`Successfully added ${assetAdded.typeName} asset '${assetAdded.name}'`);
                 } else if (assetAdded === null && code === 400) {
                     error(StandardErrorMessage);
                 }
@@ -75,7 +75,7 @@ const AssetMainView = props => {
                 const assetUpdated = props.assetUpdated;
                 const code = props.assetUpdatedCode;
                 if (assetUpdated && code === 200) {
-                    success(`Successfully updated '${assetUpdated.typeName}' asset '${assetUpdated.name}'`);
+                    success(`Successfully updated ${assetUpdated.typeName} asset '${assetUpdated.name}'`);
                 } else if (assetUpdated === null && code === 400) {
                     error(StandardErrorMessage);
                 }

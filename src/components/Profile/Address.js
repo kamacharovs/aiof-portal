@@ -9,6 +9,7 @@ import Typography from '@mui/material/Typography';
 import { RectSkeleton } from '../Common/Sekeleton';
 import { AlternateButton, commonStyles, SquarePaper } from '../../style/mui';
 import { PROFILE_UPSERT_ADDRESS } from '../../constants/actionTypes';
+import { success } from '../Common/AiofToast';
 import agent from '../../agent';
 
 
@@ -19,7 +20,10 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
     onSubmit: (address) =>
-        dispatch({ type: PROFILE_UPSERT_ADDRESS, payload: agent.User.profilePhysicalAddressUpsert(address) })
+    {
+        dispatch({ type: PROFILE_UPSERT_ADDRESS, payload: agent.User.profilePhysicalAddressUpsert(address) });
+        success(`Successfully updated profile address`);
+    }
 });
 
 const AddressView = props => {
