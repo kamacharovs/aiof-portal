@@ -4,7 +4,9 @@ import config from '../../config';
 
 import { useTheme } from '@mui/material/styles';
 import makeStyles from '@mui/styles/makeStyles';
+import { ThemeProvider } from '@mui/material/styles';
 import Grid from '@mui/material/Grid';
+import Paper from '@mui/material/Paper';
 import IconButton from '@mui/material/IconButton';
 import Tooltip from '@mui/material/Tooltip';
 import Typography from '@mui/material/Typography';
@@ -14,9 +16,10 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import House from '../../style/icons/House_4.svg';
 import Calculator from '../../style/icons/Calculator.svg';
 import {
-    BorderlessSquarePaper, SquarePaper, InBodyPaper,
+    SquarePaper, InBodyPaper,
     AltCheckCircle, AltClearIcon,
-    TextMain, AltLink, CoolExternalLink
+    TextMain, AltLink, CoolExternalLink,
+    borderlessPaperTheme
 } from '../../style/mui';
 import { CompletedChip, IncompleteChip } from '../../style/chips';
 import { HOME_GETTING_STARTED_UPDATE } from '../../constants/actionTypes';
@@ -110,6 +113,7 @@ const GettingStartedView = props => {
                 <Grid container spacing={1}>
                     <Grid item xs>
                         <SquarePaper variant="outlined" square>
+                            <ThemeProvider theme={borderlessPaperTheme}>
                             <Grid container>
                                 <Grid item xs>
                                     <Typography variant="h1">Getting started</Typography>
@@ -170,6 +174,7 @@ const GettingStartedView = props => {
                                         handleSetShow={handleSetShow} />
                                 </Grid>
                             </Grid>
+                            </ThemeProvider>
                         </SquarePaper>
                     </Grid>
                 </Grid>
@@ -201,7 +206,7 @@ const ProfileCheckmark = props => {
     const profileComplete = props.profileComplete;
 
     return (
-        <BorderlessSquarePaper variant="outlined" square>
+        <Paper>
             <Grid container spacing={0}>
                 <Grid item xs>
                     <div className={classes.heading}>
@@ -244,7 +249,7 @@ const ProfileCheckmark = props => {
                     <CheckmarkDynamic fieldValue={profile.physicalAddress} fieldName={"Physical address"} />
                 </React.Fragment>
                 : null}
-        </BorderlessSquarePaper>
+        </Paper>
     );
 }
 
@@ -322,7 +327,7 @@ const Assets = props => {
     const assetsComplete = props.assetsComplete;
 
     return (
-        <BorderlessSquarePaper variant="outlined" square>
+        <Paper>
             <Grid container spacing={0}>
                 <Grid item xs>
                     <div className={classes.heading}>
@@ -365,7 +370,7 @@ const Assets = props => {
                     <CheckmarkDynamic fieldValue={assetsComplete ? "completed" : null} fieldName={`At least ${assetsMinimum} assets`} />
                 </React.Fragment>
                 : null}
-        </BorderlessSquarePaper>
+        </Paper>
     );
 }
 
@@ -376,7 +381,7 @@ const Liabilities = props => {
     const liabilitiesComplete = props.liabilitiesComplete;
 
     return (
-        <BorderlessSquarePaper variant="outlined" square>
+        <Paper>
             <Grid container spacing={0}>
                 <Grid item xs>
                     <div className={classes.heading}>
@@ -416,7 +421,7 @@ const Liabilities = props => {
                     <CheckmarkDynamic fieldValue={liabilitiesComplete ? "completed" : null} fieldName={`At least ${liabilitiesMinimum} ${liabilitiesMinimum > 1 ? "liabilities" : "liability"}`} />
                 </React.Fragment>
                 : null}
-        </BorderlessSquarePaper>
+        </Paper>
     );
 }
 
@@ -427,7 +432,7 @@ const Goals = props => {
     const goalsComplete = props.goalsComplete;
 
     return (
-        <BorderlessSquarePaper variant="outlined" square>
+        <Paper>
             <Grid container spacing={0}>
                 <Grid item xs>
                     <div className={classes.heading}>
@@ -469,7 +474,7 @@ const Goals = props => {
                     <CheckmarkDynamic fieldValue={goalsComplete ? "completed" : null} fieldName={`At least ${goalsMinimum} ${goalsMinimum > 1 ? "goals" : "goal"}`} />
                 </React.Fragment>
                 : null}
-        </BorderlessSquarePaper>
+        </Paper>
     );
 }
 

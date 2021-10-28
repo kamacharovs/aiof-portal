@@ -258,8 +258,7 @@ const SettingsButton = props => {
 
             <Dialog
                 open={open}
-                onClose={handleClose}
-            >
+                onClose={handleClose} >
                 <DialogTitle>
                 </DialogTitle>
                 <DialogContent>

@@ -153,6 +153,7 @@ export const theme = createTheme({
     },
     MuiAppBar: {
       defaultProps: {
+        elevation: 3,
         style: {
           padding: '0',
           marginTop: '0',
@@ -178,6 +179,37 @@ export const fullPaperTheme = createTheme(theme, {
   }
 });
 
+export const borderlessPaperTheme = createTheme(theme, {
+  components: {
+    MuiPaper: {
+      defaultProps: {
+        style: {
+          padding: '1rem',
+          margin: 0,
+          borderLeft: 0,
+          borderRight: 0,
+          borderBottom: 0,
+        }
+      }
+    }
+  }
+});
+
+export const squarePaperTheme = createTheme(theme, {
+  components: {
+    MuiPaper:{
+      defaultProps: {
+        variant: 'elevation',
+        elevation: 3,
+        square: true,
+        style: {
+          padding: DefaultPaperPadding,
+          marginTop: DefaultPaperMargin,
+        }
+      }
+    }
+  }
+});
 
 export const commonStyles = makeStyles((theme) => ({
   green: {

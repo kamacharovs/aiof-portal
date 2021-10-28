@@ -4,6 +4,7 @@ import JSONPretty from 'react-json-pretty';
 
 import { useTheme } from '@mui/material/styles';
 import makeStyles from '@mui/styles/makeStyles';
+import { ThemeProvider } from '@mui/material/styles';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import Paper from '@mui/material/Paper';
@@ -14,7 +15,8 @@ import WebIcon from '@mui/icons-material/Web';
 import { assetSnapshotsAvgByMonth } from '../Common/Functions';
 import { numberWithCommas } from '../Finance/Common';
 import {
-    SquarePaper, BorderlessSquarePaper, AltLoader, H5Alt6, PAlt7, AltLink, TextMain, APrimary
+    AltLoader, H5Alt6, PAlt7, AltLink, TextMain, APrimary, 
+    squarePaperTheme, borderlessPaperTheme
 } from '../../style/mui';
 
 
@@ -53,38 +55,40 @@ export const AssetPaper = props => {
 
     return (
         <React.Fragment>
-            <BorderlessSquarePaper variant="outlined" square>
-                <Grid item xs>
-                    <Grid container spacing={3}>
-                        <Grid item xs>
-                            <H5Alt6>{title} ({total})</H5Alt6>
-                        </Grid>
+            <ThemeProvider theme={borderlessPaperTheme}>
+                <Paper>
+                    <Grid item xs>
+                        <Grid container spacing={3}>
+                            <Grid item xs>
+                                <H5Alt6>{title} ({total})</H5Alt6>
+                            </Grid>
 
-                        <Grid item xs>
-                            <Grid container justifyContent="flex-end">
-                                <AltLink to={"/finance/assets"}>View</AltLink>
+                            <Grid item xs>
+                                <Grid container justifyContent="flex-end">
+                                    <AltLink to={"/finance/assets"}>View</AltLink>
+                                </Grid>
                             </Grid>
                         </Grid>
                     </Grid>
-                </Grid>
 
-                <Grid item xs>
-                    {props.inProgress
-                        ? <AltLoader
-                            inProgress={props.inProgress}
-                            size={defaultClipSize} />
-                        : <div className={classes.green}>
-                            ${numberWithCommas(Math.round(totalValue * 100) / 100)}
-                        </div>
-                    }
-                </Grid>
+                    <Grid item xs>
+                        {props.inProgress
+                            ? <AltLoader
+                                inProgress={props.inProgress}
+                                size={defaultClipSize} />
+                            : <div className={classes.green}>
+                                ${numberWithCommas(Math.round(totalValue * 100) / 100)}
+                            </div>
+                        }
+                    </Grid>
 
-                <Grid item xs>
-                    <PAlt7>
-                        {footerTitle}
-                    </PAlt7>
-                </Grid>
-            </BorderlessSquarePaper>
+                    <Grid item xs>
+                        <PAlt7>
+                            {footerTitle}
+                        </PAlt7>
+                    </Grid>
+                </Paper>
+            </ThemeProvider>
         </React.Fragment>
     );
 }
@@ -99,55 +103,57 @@ export const LiabilityPaper = props => {
 
     return (
         <React.Fragment>
-            <BorderlessSquarePaper variant="outlined" square>
-                <Grid item xs>
-                    <Grid container spacing={3}>
-                        <Grid item xs>
-                            <H5Alt6>{title} ({total})</H5Alt6>
-                        </Grid>
+            <ThemeProvider theme={borderlessPaperTheme}>
+                <Paper>
+                    <Grid item xs>
+                        <Grid container spacing={3}>
+                            <Grid item xs>
+                                <H5Alt6>{title} ({total})</H5Alt6>
+                            </Grid>
 
-                        <Grid item xs>
-                            <Grid container justifyContent="flex-end">
-                                <AltLink to={"/finance"}>View</AltLink>
+                            <Grid item xs>
+                                <Grid container justifyContent="flex-end">
+                                    <AltLink to={"/finance"}>View</AltLink>
+                                </Grid>
                             </Grid>
                         </Grid>
                     </Grid>
-                </Grid>
 
-                <Grid item xs>
-                    {props.inProgress
-                        ? <AltLoader
-                            inProgress={props.inProgress}
-                            size={defaultClipSize} />
-                        :
-                        <div className={classes.red}>
-                            ${totalValue !== 0 ? "-" : null}{numberWithCommas(Math.round(totalValue * 100) / 100)}
-                        </div>
-                    }
-                </Grid>
-                <Grid item xs>
-                    <PAlt7>
-                        {footerTitle}
-                    </PAlt7>
-                </Grid>
+                    <Grid item xs>
+                        {props.inProgress
+                            ? <AltLoader
+                                inProgress={props.inProgress}
+                                size={defaultClipSize} />
+                            :
+                            <div className={classes.red}>
+                                ${totalValue !== 0 ? "-" : null}{numberWithCommas(Math.round(totalValue * 100) / 100)}
+                            </div>
+                        }
+                    </Grid>
+                    <Grid item xs>
+                        <PAlt7>
+                            {footerTitle}
+                        </PAlt7>
+                    </Grid>
 
-                <Grid item xs>
-                    {props.inProgress
-                        ? <AltLoader
-                            inProgress={props.inProgress}
-                            size={defaultClipSize} />
-                        :
-                        <div className={classes.red}>
-                            ${totalMonthlyPayment !== 0 ? "-" : null}{numberWithCommas(Math.round(totalMonthlyPayment * 100) / 100)}
-                        </div>
-                    }
-                </Grid>
-                <Grid item xs>
-                    <PAlt7>
-                        Total monthly payments
-                    </PAlt7>
-                </Grid>
-            </BorderlessSquarePaper>
+                    <Grid item xs>
+                        {props.inProgress
+                            ? <AltLoader
+                                inProgress={props.inProgress}
+                                size={defaultClipSize} />
+                            :
+                            <div className={classes.red}>
+                                ${totalMonthlyPayment !== 0 ? "-" : null}{numberWithCommas(Math.round(totalMonthlyPayment * 100) / 100)}
+                            </div>
+                        }
+                    </Grid>
+                    <Grid item xs>
+                        <PAlt7>
+                            Total monthly payments
+                        </PAlt7>
+                    </Grid>
+                </Paper>
+            </ThemeProvider>
         </React.Fragment>
     );
 }
@@ -161,55 +167,57 @@ export const GoalPaper = props => {
 
     return (
         <React.Fragment>
-            <BorderlessSquarePaper variant="outlined" square>
-                <Grid item xs>
-                    <Grid container spacing={3}>
-                        <Grid item xs>
-                            <H5Alt6>{title}</H5Alt6>
-                        </Grid>
+            <ThemeProvider theme={borderlessPaperTheme}>
+                <Paper>
+                    <Grid item xs>
+                        <Grid container spacing={3}>
+                            <Grid item xs>
+                                <H5Alt6>{title}</H5Alt6>
+                            </Grid>
 
-                        <Grid item xs>
-                            <Grid container justifyContent="flex-end">
-                                <AltLink to={"/finance/goals"}>View</AltLink>
+                            <Grid item xs>
+                                <Grid container justifyContent="flex-end">
+                                    <AltLink to={"/finance/goals"}>View</AltLink>
+                                </Grid>
                             </Grid>
                         </Grid>
                     </Grid>
-                </Grid>
 
-                <Grid item xs>
-                    {props.inProgress
-                        ? <AltLoader
-                            inProgress={props.inProgress}
-                            size={defaultClipSize} />
-                        :
-                        <div className={classes.green}>
-                            {total}
-                        </div>
-                    }
-                </Grid>
-                <Grid item xs>
-                    <PAlt7>
-                        {footerTitle}
-                    </PAlt7>
-                </Grid>
+                    <Grid item xs>
+                        {props.inProgress
+                            ? <AltLoader
+                                inProgress={props.inProgress}
+                                size={defaultClipSize} />
+                            :
+                            <div className={classes.green}>
+                                {total}
+                            </div>
+                        }
+                    </Grid>
+                    <Grid item xs>
+                        <PAlt7>
+                            {footerTitle}
+                        </PAlt7>
+                    </Grid>
 
-                <Grid item xs>
-                    {props.inProgress
-                        ? <AltLoader
-                            inProgress={props.inProgress}
-                            size={defaultClipSize} />
-                        :
-                        <div className={classes.green}>
-                            ${numberWithCommas(Math.round(totalmonthlyContribution * 100) / 100)}
-                        </div>
-                    }
-                </Grid>
-                <Grid item xs>
-                    <PAlt7>
-                        Total monthly contributions
-                    </PAlt7>
-                </Grid>
-            </BorderlessSquarePaper>
+                    <Grid item xs>
+                        {props.inProgress
+                            ? <AltLoader
+                                inProgress={props.inProgress}
+                                size={defaultClipSize} />
+                            :
+                            <div className={classes.green}>
+                                ${numberWithCommas(Math.round(totalmonthlyContribution * 100) / 100)}
+                            </div>
+                        }
+                    </Grid>
+                    <Grid item xs>
+                        <PAlt7>
+                            Total monthly contributions
+                        </PAlt7>
+                    </Grid>
+                </Paper>
+            </ThemeProvider>
         </React.Fragment>
     );
 }
@@ -221,35 +229,37 @@ export const DependentPaper = props => {
 
     return (
         <React.Fragment>
-            <BorderlessSquarePaper variant="outlined" square>
-                <Grid item xs>
-                    <Grid container spacing={3}>
-                        <Grid item xs>
-                            <H5Alt6>{title}</H5Alt6>
-                        </Grid>
+            <ThemeProvider theme={borderlessPaperTheme}>
+                <Paper>
+                    <Grid item xs>
+                        <Grid container spacing={3}>
+                            <Grid item xs>
+                                <H5Alt6>{title}</H5Alt6>
+                            </Grid>
 
-                        <Grid item xs>
-                            <Grid container justifyContent="flex-end">
-                                <AltLink to={"/profile"}>View</AltLink>
+                            <Grid item xs>
+                                <Grid container justifyContent="flex-end">
+                                    <AltLink to={"/profile"}>View</AltLink>
+                                </Grid>
                             </Grid>
                         </Grid>
                     </Grid>
-                </Grid>
 
-                <Grid item xs>
-                    {props.inProgress
-                        ? <AltLoader
-                            inProgress={props.inProgress}
-                            size={defaultClipSize} />
-                        : <Typography variant="h3">{total}</Typography>
-                    }
-                </Grid>
-                <Grid item xs>
-                    <PAlt7>
-                        {footerTitle}
-                    </PAlt7>
-                </Grid>
-            </BorderlessSquarePaper>
+                    <Grid item xs>
+                        {props.inProgress
+                            ? <AltLoader
+                                inProgress={props.inProgress}
+                                size={defaultClipSize} />
+                            : <Typography variant="h3">{total}</Typography>
+                        }
+                    </Grid>
+                    <Grid item xs>
+                        <PAlt7>
+                            {footerTitle}
+                        </PAlt7>
+                    </Grid>
+                </Paper>
+            </ThemeProvider>
         </React.Fragment>
     );
 }
@@ -334,17 +344,19 @@ export const AssetsAndLiabilitiesTotalChartPaper = props => {
 
         return (
             <React.Fragment>
-                <BorderlessSquarePaper variant="outlined" square>
-                    <Grid container>
-                        <Grid item xs>
-                            <Bar
-                                data={data || []}
-                                height={300}
-                                options={options}
-                            />
+                <ThemeProvider theme={borderlessPaperTheme}>
+                    <Paper>
+                        <Grid container>
+                            <Grid item xs>
+                                <Bar
+                                    data={data || []}
+                                    height={300}
+                                    options={options}
+                                />
+                            </Grid>
                         </Grid>
-                    </Grid>
-                </BorderlessSquarePaper>
+                    </Paper>
+                </ThemeProvider>
             </React.Fragment>
         );
     } else {
@@ -385,17 +397,19 @@ export const MonthlyIncomeSpendingChartPaper = props => {
 
     return (
         <React.Fragment>
-            <BorderlessSquarePaper variant="outlined" square>
-                <Grid container spacing={3}>
-                    <Grid item xs>
-                        <Bar
-                            data={data || []}
-                            height={300}
-                            options={options}
-                        />
+            <ThemeProvider theme={borderlessPaperTheme}>
+                <Paper>
+                    <Grid container spacing={3}>
+                        <Grid item xs>
+                            <Bar
+                                data={data || []}
+                                height={300}
+                                options={options}
+                            />
+                        </Grid>
                     </Grid>
-                </Grid>
-            </BorderlessSquarePaper>
+                </Paper>
+            </ThemeProvider>
         </React.Fragment>
     );
 }
@@ -425,17 +439,19 @@ export const MonthlyIncomeSpendingPieChartPaper = props => {
 
     return (
         <React.Fragment>
-            <BorderlessSquarePaper variant="outlined" square>
-                <Grid container spacing={3}>
-                    <Grid item xs>
-                        <Pie
-                            data={data || []}
-                            height={300}
-                            options={options}
-                        />
+            <ThemeProvider theme={borderlessPaperTheme}>
+                <Paper>
+                    <Grid container spacing={3}>
+                        <Grid item xs>
+                            <Pie
+                                data={data || []}
+                                height={300}
+                                options={options}
+                            />
+                        </Grid>
                     </Grid>
-                </Grid>
-            </BorderlessSquarePaper>
+                </Paper>
+            </ThemeProvider>
         </React.Fragment>
     );
 }
@@ -445,10 +461,8 @@ export const APIPaper = props => {
 
     return (
         <React.Fragment>
-            <SquarePaper
-                variant="elevation"
-                elevation={3}
-                square>
+            <ThemeProvider theme={squarePaperTheme}>
+            <Paper>
                 <Grid
                     container
                     direction="column"
@@ -525,7 +539,8 @@ export const APIPaper = props => {
                         <APrimary href={props.page} target="_blank">Full documentation</APrimary>
                     </Grid>
                 </Grid>
-            </SquarePaper>
+            </Paper>
+            </ThemeProvider>
         </React.Fragment>
     );
 }
