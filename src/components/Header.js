@@ -22,7 +22,8 @@ import { isCurrentUserAdmin } from "../components/Common/Functions";
 
 
 const mapDispatchToProps = dispatch => ({
-    onClickLogout: () => dispatch({ type: LOGOUT }),
+    onClickLogout: () => 
+        dispatch({ type: LOGOUT }),
 });
 
 const useStyles = makeStyles((theme) => ({

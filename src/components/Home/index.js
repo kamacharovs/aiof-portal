@@ -17,7 +17,7 @@ const mapDispatchToProps = dispatch => ({
   onLoad: payload =>
     dispatch({ type: HOME_PAGE_LOADED, payload }),
   onUnload: () =>
-    dispatch({  type: HOME_PAGE_UNLOADED })
+    dispatch({ type: HOME_PAGE_UNLOADED })
 });
 
 const Home = props => {

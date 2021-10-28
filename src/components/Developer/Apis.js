@@ -42,7 +42,7 @@ const ApisView = props => {
 
     useEffect(() => () => {
         props.onUnload();
-      }, []);
+    }, []);
 
     if (infos && !inProgress) {
         return (

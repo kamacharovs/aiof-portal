@@ -1,5 +1,6 @@
 export const APP_LOAD = 'APP_LOAD';
 export const REDIRECT = 'REDIRECT';
+export const REDIRECT_UNLOAD = 'REDIRECT_UNLOAD';
 export const REDIRECT_HOME = 'REDIRECT_HOME';
 export const REDIRECT_LOGIN = 'REDIRECT_LOGIN';
 export const HOME_PAGE_LOADED = 'HOME_PAGE_LOADED';

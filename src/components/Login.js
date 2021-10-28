@@ -35,8 +35,6 @@ const mapDispatchToProps = dispatch => ({
     dispatch({ type: REFRESH, payload: agent.Auth.refresh() }),
   onGetUser: () =>
     dispatch({ type: LOGIN_GET_USER, payload: agent.Auth.getUser() }),
-  onRedirectHome: () =>
-    dispatch({ type: REDIRECT_HOME })
 });
 
 const useStyles = makeStyles((theme) => ({
