@@ -3,23 +3,25 @@ import { connect } from 'react-redux';
 import agent from '../../../agent';
 import 'date-fns';
 
-import { makeStyles, useTheme } from '@material-ui/core/styles';
-import Grid from '@material-ui/core/Grid';
-import TextField from '@material-ui/core/TextField';
-import InputAdornment from '@material-ui/core/InputAdornment';
-import Switch from '@material-ui/core/Switch';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import MenuItem from '@material-ui/core/MenuItem';
-import FormControl from '@material-ui/core/FormControl';
-import Select from '@material-ui/core/Select';
-import DateFnsUtils from '@date-io/date-fns';
-import { MuiPickersUtilsProvider, KeyboardDatePicker } from '@material-ui/pickers';
+import { useTheme } from '@mui/material/styles';
+import makeStyles from '@mui/styles/makeStyles';
+import Grid from '@mui/material/Grid';
+import TextField from '@mui/material/TextField';
+import InputAdornment from '@mui/material/InputAdornment';
+import Switch from '@mui/material/Switch';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
+import Select from '@mui/material/Select';
+import DatePicker from '@mui/lab/DatePicker';
+import AdapterDateFns from '@mui/lab/AdapterDateFns';
+import LocalizationProvider from '@mui/lab/LocalizationProvider';
 
-import HomeOutlinedIcon from '@material-ui/icons/HomeOutlined';
-import MonetizationOnOutlinedIcon from '@material-ui/icons/MonetizationOnOutlined';
-import WbSunnyOutlinedIcon from '@material-ui/icons/WbSunnyOutlined';
-import DirectionsCarOutlinedIcon from '@material-ui/icons/DirectionsCarOutlined';
-import SchoolOutlinedIcon from '@material-ui/icons/SchoolOutlined';
+import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined';
+import MonetizationOnOutlinedIcon from '@mui/icons-material/MonetizationOnOutlined';
+import WbSunnyOutlinedIcon from '@mui/icons-material/WbSunnyOutlined';
+import DirectionsCarOutlinedIcon from '@mui/icons-material/DirectionsCarOutlined';
+import SchoolOutlinedIcon from '@mui/icons-material/SchoolOutlined';
 
 import { SquarePaper, AlternateButton, VerticalTextField, VerticalSelect } from '../../../style/mui';
 import { GOAL_TRIP_TYPES, GOAL_COLLEGE_TYPES, GOAL_ADD } from '../../../constants/actionTypes';
@@ -202,7 +204,7 @@ const GoalPaper = ({ text, handleValue, icon, comingSoon }) => {
     return (
         <React.Fragment>
             <SquarePaper variant="outlined" square onClick={handleValue}>
-                <Grid container spacing={3} direction="column" justify="center" alignItems="center">
+                <Grid container spacing={3} direction="column" justifyContent="center" alignItems="center">
                     <Grid item sm>
                         {icon}
                     </Grid>
@@ -301,8 +303,8 @@ const AddGenericGoal = props => {
                                     header={"What is the planned date for this goal?"}
                                     required
                                     textField={
-                                        <MuiPickersUtilsProvider utils={DateFnsUtils}>
-                                            <KeyboardDatePicker
+                                        <LocalizationProvider dateAdapter={AdapterDateFns}>
+                                            <DatePicker 
                                                 required
                                                 disableToolbar
                                                 variant="inline"
@@ -310,11 +312,9 @@ const AddGenericGoal = props => {
                                                 margin="normal"
                                                 value={plannedDate}
                                                 onChange={handlePlannedDate}
-                                                KeyboardButtonProps={{
-                                                    'aria-label': 'planned date',
-                                                }}
+                                                renderInput={(params) => <TextField {...params} />}
                                             />
-                                        </MuiPickersUtilsProvider>
+                                        </LocalizationProvider>
                                     } />
                             </Grid>
                         </Grid>
@@ -496,8 +496,8 @@ const AddTripGoal = props => {
                                     header={"What is the planned date for this goal?"}
                                     required
                                     textField={
-                                        <MuiPickersUtilsProvider utils={DateFnsUtils}>
-                                            <KeyboardDatePicker
+                                        <LocalizationProvider dateAdapter={AdapterDateFns}>
+                                            <DatePicker
                                                 required
                                                 disableToolbar
                                                 variant="inline"
@@ -505,11 +505,9 @@ const AddTripGoal = props => {
                                                 margin="normal"
                                                 value={plannedDate}
                                                 onChange={handlePlannedDate}
-                                                KeyboardButtonProps={{
-                                                    'aria-label': 'planned date',
-                                                }}
+                                                renderInput={(params) => <TextField {...params} />}
                                             />
-                                        </MuiPickersUtilsProvider>
+                                        </LocalizationProvider>
                                     } />
                             </Grid>
                         </Grid>
@@ -762,7 +760,7 @@ const AddHomeGoal = props => {
                                     required
                                     textField={
                                         <MuiPickersUtilsProvider utils={DateFnsUtils}>
-                                            <KeyboardDatePicker
+                                            <DatePicker
                                                 required
                                                 disableToolbar
                                                 variant="inline"
@@ -770,9 +768,7 @@ const AddHomeGoal = props => {
                                                 margin="normal"
                                                 value={plannedDate}
                                                 onChange={handlePlannedDate}
-                                                KeyboardButtonProps={{
-                                                    'aria-label': 'planned date',
-                                                }}
+                                                renderInput={(params) => <TextField {...params} />}
                                             />
                                         </MuiPickersUtilsProvider>
                                     } />
@@ -1041,7 +1037,7 @@ const AddSaveForCollege = props => {
                                     required
                                     textField={
                                         <MuiPickersUtilsProvider utils={DateFnsUtils}>
-                                            <KeyboardDatePicker
+                                            <DatePicker
                                                 required
                                                 disableToolbar
                                                 variant="inline"
@@ -1049,9 +1045,7 @@ const AddSaveForCollege = props => {
                                                 margin="normal"
                                                 value={plannedDate}
                                                 onChange={handlePlannedDate}
-                                                KeyboardButtonProps={{
-                                                    'aria-label': 'planned date',
-                                                }}
+                                                renderInput={(params) => <TextField {...params} />}
                                             />
                                         </MuiPickersUtilsProvider>
                                     } />

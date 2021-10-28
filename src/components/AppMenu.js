@@ -2,33 +2,33 @@ import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
-import { makeStyles } from '@material-ui/core/styles';
-import Drawer from '@material-ui/core/Drawer';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import List from '@material-ui/core/List';
-import Divider from '@material-ui/core/Divider';
-import Collapse from '@material-ui/core/Collapse';
+import makeStyles from '@mui/styles/makeStyles';
+import Drawer from '@mui/material/Drawer';
+import CssBaseline from '@mui/material/CssBaseline';
+import List from '@mui/material/List';
+import Divider from '@mui/material/Divider';
+import Collapse from '@mui/material/Collapse';
 
-import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemText from '@material-ui/core/ListItemText';
-import ListSubheader from '@material-ui/core/ListSubheader'
+import ListItem from '@mui/material/ListItem';
+import ListItemIcon from '@mui/material/ListItemIcon';
+import ListItemText from '@mui/material/ListItemText';
+import ListSubheader from '@mui/material/ListSubheader'
 
-import CreditCardIcon from '@material-ui/icons/CreditCard';
-import ExpandLess from '@material-ui/icons/ExpandLess';
-import ExpandMore from '@material-ui/icons/ExpandMore';
-import IconButton from '@material-ui/core/IconButton';
-import MenuIcon from '@material-ui/icons/Menu';
-import FunctionsTwoToneIcon from '@material-ui/icons/FunctionsTwoTone';
-import TrendingUpTwoToneIcon from '@material-ui/icons/TrendingUpTwoTone';
-import UpdateTwoToneIcon from '@material-ui/icons/UpdateTwoTone';
-import QueryBuilderTwoToneIcon from '@material-ui/icons/QueryBuilderTwoTone';
-import HomeTwoToneIcon from '@material-ui/icons/HomeTwoTone';
-import AssessmentTwoToneIcon from '@material-ui/icons/AssessmentTwoTone';
-import DirectionsRunIcon from '@material-ui/icons/DirectionsRun';
-import BeachAccessIcon from '@material-ui/icons/BeachAccess';
-import MoneyIcon from '@material-ui/icons/Money';
-import CodeIcon from '@material-ui/icons/Code';
+import CreditCardIcon from '@mui/icons-material/CreditCard';
+import ExpandLess from '@mui/icons-material/ExpandLess';
+import ExpandMore from '@mui/icons-material/ExpandMore';
+import IconButton from '@mui/material/IconButton';
+import MenuIcon from '@mui/icons-material/Menu';
+import FunctionsTwoToneIcon from '@mui/icons-material/FunctionsTwoTone';
+import TrendingUpTwoToneIcon from '@mui/icons-material/TrendingUpTwoTone';
+import UpdateTwoToneIcon from '@mui/icons-material/UpdateTwoTone';
+import QueryBuilderTwoToneIcon from '@mui/icons-material/QueryBuilderTwoTone';
+import HomeTwoToneIcon from '@mui/icons-material/HomeTwoTone';
+import AssessmentTwoToneIcon from '@mui/icons-material/AssessmentTwoTone';
+import DirectionsRunIcon from '@mui/icons-material/DirectionsRun';
+import BeachAccessIcon from '@mui/icons-material/BeachAccess';
+import MoneyIcon from '@mui/icons-material/Money';
+import CodeIcon from '@mui/icons-material/Code';
 
 
 const mapStateToProps = state => {
@@ -104,7 +104,7 @@ const AppMenu = props => {
         aria-label="open drawer"
         onClick={handleOpen}
         edge="start"
-      >
+        size="large">
         <MenuIcon />
       </IconButton>
 

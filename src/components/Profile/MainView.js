@@ -3,14 +3,15 @@ import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
 import agent from '../../agent';
 
-import Grid from '@material-ui/core/Grid';
-import Container from '@material-ui/core/Container';
+import Grid from '@mui/material/Grid';
+import Container from '@mui/material/Container';
 
 import { SquarePaper, AiofVerticalTabs, AiofVerticalTab } from '../../style/mui';
 import {
     REDIRECT_LOGIN, PROFILE_GET_USER_PROFILE, PROFILE_UPSERT_USER_PROFILE, PROFILE_GET_OPTIONS,
     USER_DEPENDENTS, USER_DEPENDENT_RELATIONSHIPS, USER_DEPENDENT_ADD, USER_DEPENDENT_DELETE
 } from '../../constants/actionTypes';
+import { success, error } from '../Common/AiofToast';
 import Dependents from './Dependents';
 import Profile from './Profile';
 import AddressView from './Address';
@@ -41,15 +42,24 @@ const mapDispatchToProps = dispatch => ({
     onProfileOptions: () =>
         dispatch({ type: PROFILE_GET_OPTIONS, payload: agent.UserProfile.options() }),
     onProfileUpsert: (payload) =>
-        dispatch({ type: PROFILE_UPSERT_USER_PROFILE, payload: agent.User.profileUpsert(payload) }),
+    {
+        dispatch({ type: PROFILE_UPSERT_USER_PROFILE, payload: agent.User.profileUpsert(payload) });
+        success(`Successfully updated profile`);
+    },
     onDependents: () =>
         dispatch({ type: USER_DEPENDENTS, payload: agent.User.dependents() }),
     onDependentRelationships: () =>
         dispatch({ type: USER_DEPENDENT_RELATIONSHIPS, payload: agent.User.dependentRelationships() }),
     onDependentAdd: (payload) => 
-        dispatch({ type: USER_DEPENDENT_ADD, payload: agent.User.dependentAdd(payload) }),
+    {
+        dispatch({ type: USER_DEPENDENT_ADD, payload: agent.User.dependentAdd(payload) });
+        success(`Successfully added dependent`);
+    },
     onDependentDelete: (id) =>
-        dispatch({ type: USER_DEPENDENT_DELETE, payload: agent.User.dependentDelete(id) }),
+    {
+        dispatch({ type: USER_DEPENDENT_DELETE, payload: agent.User.dependentDelete(id) });
+        error(`Deleted dependent`);
+    },
 });
 
 const ProfileMainView = props => {

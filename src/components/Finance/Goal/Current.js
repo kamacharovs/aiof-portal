@@ -2,16 +2,17 @@ import React from 'react';
 import { connect } from 'react-redux';
 import agent from '../../../agent';
 
-import { makeStyles, useTheme } from '@material-ui/core/styles';
-import Grid from '@material-ui/core/Grid';
-import IconButton from '@material-ui/core/IconButton';
-import DeleteIcon from '@material-ui/icons/Delete';
-import Accordion from '@material-ui/core/Accordion';
-import AccordionSummary from '@material-ui/core/AccordionSummary';
-import AccordionDetails from '@material-ui/core/AccordionDetails';
-import Typography from '@material-ui/core/Typography';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import Tooltip from '@material-ui/core/Tooltip';
+import { useTheme } from '@mui/material/styles';
+import makeStyles from '@mui/styles/makeStyles';
+import Grid from '@mui/material/Grid';
+import IconButton from '@mui/material/IconButton';
+import DeleteIcon from '@mui/icons-material/Delete';
+import Accordion from '@mui/material/Accordion';
+import AccordionSummary from '@mui/material/AccordionSummary';
+import AccordionDetails from '@mui/material/AccordionDetails';
+import Typography from '@mui/material/Typography';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import Tooltip from '@mui/material/Tooltip';
 
 import { numberWithCommas } from '../Common';
 import { FullPaper, AlternateCircularProgress, DefaultPaperMargin } from '../../../style/mui';
@@ -166,7 +167,7 @@ const CurrentGoalsOverview = props => {
         <Grid
             container
             spacing={0}
-            justify="center"
+            justifyContent="center"
             alignItems="center"
             className={classes.overview}>
             <Grid item xs align="center">
@@ -209,7 +210,7 @@ const CurrentGoalsDynamic = props => {
                                             key={g.id}
                                             spacing={0}
                                             direction="column"
-                                            justify="center"
+                                            justifyContent="center"
                                             alignItems="center">
                                             <Grid item xs>
                                                 <h6><strong>{g.name}</strong></h6>
@@ -325,14 +326,15 @@ const CurrentGoalsDynamic = props => {
                                         <Grid
                                             container
                                             direction="row"
-                                            justify="flex-end"
+                                            justifyContent="flex-end"
                                             alignItems="flex-end"
                                             className={classes.currentGoalfooter}>
                                             <Tooltip title="Delete">
                                                 <IconButton
                                                     aria-label="delete"
                                                     className={classes.deleteIconButton}
-                                                    onClick={e => props.onDelete(g.id)}>
+                                                    onClick={e => props.onDelete(g.id)}
+                                                    size="large">
                                                     <DeleteIcon style={{ fontSize: '20', color: props.theme.palette.secondary.dark }} />
                                                 </IconButton>
                                             </Tooltip>
@@ -353,7 +355,7 @@ const CurrentGoalsDynamic = props => {
 const InProgressBar = props => {
     if (props.inProgressGoals || props.inProgressDeleteGoal) {
         return (
-            <Grid container spacing={0} direction="column" justify="center" alignItems="center">
+            <Grid container spacing={0} direction="column" justifyContent="center" alignItems="center">
                 <Grid item xs align="center">
                     <br />
                     <AlternateCircularProgress />

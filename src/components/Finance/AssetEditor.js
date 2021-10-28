@@ -4,15 +4,15 @@ import { Helmet } from 'react-helmet';
 import agent from '../../agent';
 import { ASSET_ADD, ASSET_TYPES } from '../../constants/actionTypes';
 
-import { makeStyles } from '@material-ui/core/styles';
-import Grid from '@material-ui/core/Grid';
-import Container from '@material-ui/core/Container';
-import TextField from '@material-ui/core/TextField';
-import Button from '@material-ui/core/Button';
-import InputLabel from '@material-ui/core/InputLabel';
-import MenuItem from '@material-ui/core/MenuItem';
-import FormControl from '@material-ui/core/FormControl';
-import Select from '@material-ui/core/Select';
+import makeStyles from '@mui/styles/makeStyles';
+import Grid from '@mui/material/Grid';
+import Container from '@mui/material/Container';
+import TextField from '@mui/material/TextField';
+import Button from '@mui/material/Button';
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
+import Select from '@mui/material/Select';
 
 
 const mapStateToProps = state => ({
@@ -91,7 +91,7 @@ const AddAsset = (props) => {
                         container
                         spacing={1}
                         direction="column"
-                        justify="flex-start"
+                        justifyContent="flex-start"
                         alignItems="flex-start"
                     >
                             <Grid item xs>

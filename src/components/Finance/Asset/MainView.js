@@ -3,9 +3,9 @@ import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
 import agent from '../../../agent';
 
-import { makeStyles } from '@material-ui/core/styles';
-import Container from '@material-ui/core/Container';
-import Grid from '@material-ui/core/Grid';
+import makeStyles from '@mui/styles/makeStyles';
+import Container from '@mui/material/Container';
+import Grid from '@mui/material/Grid';
 
 import { REDIRECT_LOGIN, ASSETS } from '../../../constants/actionTypes';
 import { StandardErrorMessage } from '../../../constants/messages';
@@ -61,7 +61,7 @@ const AssetMainView = props => {
                 const assetAdded = props.assetAdded;
                 const code = props.assetAddedCode;
                 if (assetAdded && code === 200) {
-                    success(`Successfully added '${assetAdded.typeName}' asset '${assetAdded.name}'`);
+                    success(`Successfully added ${assetAdded.typeName} asset '${assetAdded.name}'`);
                 } else if (assetAdded === null && code === 400) {
                     error(StandardErrorMessage);
                 }
@@ -75,7 +75,7 @@ const AssetMainView = props => {
                 const assetUpdated = props.assetUpdated;
                 const code = props.assetUpdatedCode;
                 if (assetUpdated && code === 200) {
-                    success(`Successfully updated '${assetUpdated.typeName}' asset '${assetUpdated.name}'`);
+                    success(`Successfully updated ${assetUpdated.typeName} asset '${assetUpdated.name}'`);
                 } else if (assetUpdated === null && code === 400) {
                     error(StandardErrorMessage);
                 }
@@ -104,8 +104,8 @@ const AssetMainView = props => {
                     <Grid container spacing={1} className={classes.root}>
                         <Grid item xs>
                             <div ref={currentAssetsRef}>
-                                <CurrentAssets 
-                                    assets={props.assets} />
+                                    <CurrentAssets
+                                        assets={props.assets} />
                             </div>
                         </Grid>
                     </Grid>

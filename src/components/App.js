@@ -31,7 +31,7 @@ import TermsAndConditions from '../components/Documents/TermsAndConditions';
 import PrivacyPolicy from '../components/Documents/PrivacyPolicy';
 import DeveloperMainView from '../components/Developer/MainView';
 import AdminMainView from '../components/Admin/MainView';
-import { APP_LOAD, REDIRECT } from '../constants/actionTypes';
+import { APP_LOAD, REDIRECT_UNLOAD } from '../constants/actionTypes';
 import { ACCESS_TOKEN, USER } from '../constants/common';
 import { DefaultToastContainer } from '../style/mui';
 
@@ -49,15 +49,15 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => ({
   onLoad: (payload, token) =>
     dispatch({ type: APP_LOAD, payload, token, skipTracking: true }),
-  onRedirect: () =>
-    dispatch({ type: REDIRECT })
+  onRedirectUnload: () =>
+    dispatch({ type: REDIRECT_UNLOAD })
 });
 
 class App extends React.Component {
   componentWillReceiveProps(nextProps) {
     if (nextProps.redirectTo) {
-      store.dispatch(push(nextProps.redirectTo));
-      this.props.onRedirect();
+      this.props.history.push(nextProps.redirectTo)
+      this.props.onRedirectUnload();
     }
   }
 

@@ -1,6 +1,6 @@
 import React from 'react';
-import Skeleton from '@material-ui/lab/Skeleton';
-import Box from '@material-ui/core/Box';
+import Skeleton from '@mui/material/Skeleton';
+import Box from '@mui/material/Box';
 
 
 const defaultAnimation = "pulse";

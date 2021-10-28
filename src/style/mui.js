@@ -4,20 +4,23 @@ import { Link } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 import "react-toastify/dist/ReactToastify.css";
 
-import { withStyles, makeStyles, useTheme, withTheme, createMuiTheme } from '@material-ui/core/styles';
-import Grid from '@material-ui/core/Grid';
-import Paper from '@material-ui/core/Paper';
-import LinearProgress from '@material-ui/core/LinearProgress';
-import CircularProgress from '@material-ui/core/CircularProgress';
-import Button from '@material-ui/core/Button';
-import IconButton from '@material-ui/core/IconButton';
-import Typography from '@material-ui/core/Typography';
-import Tabs from '@material-ui/core/Tabs';
-import Tab from '@material-ui/core/Tab';
+import withStyles from '@mui/styles/withStyles';
+import makeStyles from '@mui/styles/makeStyles';
+import withTheme from '@mui/styles/withTheme';
+import { createTheme, useTheme } from '@mui/material/styles';
+import Grid from '@mui/material/Grid';
+import Paper from '@mui/material/Paper';
+import LinearProgress from '@mui/material/LinearProgress';
+import CircularProgress from '@mui/material/CircularProgress';
+import Button from '@mui/material/Button';
+import IconButton from '@mui/material/IconButton';
+import Typography from '@mui/material/Typography';
+import Tabs from '@mui/material/Tabs';
+import Tab from '@mui/material/Tab';
 import ClipLoader from "react-spinners/ClipLoader";
-import CheckCircleIcon from '@material-ui/icons/CheckCircle';
-import ClearIcon from '@material-ui/icons/Clear';
-import Tooltip from '@material-ui/core/Tooltip';
+import CheckCircleIcon from '@mui/icons-material/CheckCircle';
+import ClearIcon from '@mui/icons-material/Clear';
+import Tooltip from '@mui/material/Tooltip';
 
 
 export const DefaultFont = 'Montserrat';
@@ -37,7 +40,7 @@ export const DefaultPaperFontSize = '.8125rem';
   b21f00    = International Orange Engineering
   137a8f    = Metallic Seaweed
 */
-export const theme = createMuiTheme({
+export const theme = createTheme({
   palette: {
     common: {
       black: '#000',
@@ -45,7 +48,7 @@ export const theme = createMuiTheme({
     },
     primary: {
       main: '#5469d4',
-      dark: '#1a1f36',
+      dark: '#37447e',
     },
     secondary: {
       main: '#d6ecff',
@@ -76,7 +79,7 @@ export const theme = createMuiTheme({
     },
     code: {
       main: '#e4e6e8',
-    }
+    },
   },
   typography: {
     fontFamily: [
@@ -113,8 +116,100 @@ export const theme = createMuiTheme({
       textTransform: 'none'
     }
   },
+  components: {
+    MuiTextField: {
+      defaultProps: {
+        variant: 'standard',
+      }
+    },
+    MuiSelect: {
+      defaultProps: {
+        variant: 'standard',
+      }
+    },
+    MuiFormControl: {
+      defaultProps: {
+        variant: 'standard',
+      }
+    },
+    MuiButton: {
+      defaultProps: {
+        variant: 'outlined',
+        style: {
+          marginTop: '0.5rem'
+        }
+      }
+    },
+    MuiPaper: {
+      defaultProps: {
+        variant: 'outlined',
+        square: true,
+        style: {
+          padding: '1.5rem',
+          marginTop: '1rem',
+          fontSize: '.8125rem',
+        }
+      }
+    },
+    MuiAppBar: {
+      defaultProps: {
+        elevation: 3,
+        style: {
+          padding: '0',
+          marginTop: '0',
+        }
+      },
+    },
+  },
 });
 
+export const fullPaperTheme = createTheme(theme, {
+  components: {
+    MuiPaper: {
+      defaultProps: {
+        style: {
+          margin: DefaultPaperMargin,
+          paddingBottom: 0,
+          paddingLeft: 0,
+          paddingRight: 0,
+          paddingTop: '0.5rem'
+        }
+      }
+    }
+  }
+});
+
+export const borderlessPaperTheme = createTheme(theme, {
+  components: {
+    MuiPaper: {
+      defaultProps: {
+        style: {
+          padding: '1rem',
+          margin: 0,
+          borderLeft: 0,
+          borderRight: 0,
+          borderBottom: 0,
+        }
+      }
+    }
+  }
+});
+
+export const squarePaperTheme = createTheme(theme, {
+  components: {
+    MuiPaper:{
+      defaultProps: {
+        variant: 'elevation',
+        elevation: 3,
+        square: true,
+        style: {
+          padding: DefaultPaperPadding,
+          marginTop: DefaultPaperMargin,
+        }
+      }
+    }
+  }
+});
 
 export const commonStyles = makeStyles((theme) => ({
   green: {
@@ -327,7 +422,8 @@ export const AltCancelButton = props => {
     <Tooltip title="Cancel">
       <IconButton
         style={{ color: theme.palette.primary.main }}
-        onClick={props.onClick}>
+        onClick={props.onClick}
+        size="large">
         <ClearIcon />
       </IconButton>
     </Tooltip>
@@ -359,7 +455,7 @@ export const VerticalTextField = ({ header, textField, required }) => {
   const classes = commonStyles();
 
   return (
-    <Grid container spacing={1} direction="column" justify="flex-start" alignItems="flex-start">
+    <Grid container spacing={1} direction="column" justifyContent="flex-start" alignItems="flex-start">
       <Grid item sm>
         <div style={{ display: "flex" }}>
           <Typography variant="h6" className={classes.verticalHeader} noWrap>
@@ -382,7 +478,7 @@ export const VerticalSelect = ({ header, select, required }) => {
   const classes = commonStyles();
 
   return (
-    <Grid container spacing={1} direction="column" justify="flex-start" alignItems="flex-start">
+    <Grid container spacing={1} direction="column" justifyContent="flex-start" alignItems="flex-start">
       <Grid item sm>
         <div style={{ display: "flex" }}>
           <Typography variant="h6" className={classes.verticalHeader} noWrap>

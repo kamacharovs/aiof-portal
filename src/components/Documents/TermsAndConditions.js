@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
 
-import Container from '@material-ui/core/Container';
+import Container from '@mui/material/Container';
 
 
 const mapStateToProps = state => {

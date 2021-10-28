@@ -2,8 +2,8 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
 
-import Container from '@material-ui/core/Container';
-import Grid from '@material-ui/core/Grid';
+import Container from '@mui/material/Container';
+import Grid from '@mui/material/Grid';
 
 import { isCurrentUserAdmin } from '../Common/Functions';
 import { REDIRECT_HOME, REDIRECT_LOGIN } from '../../constants/actionTypes';

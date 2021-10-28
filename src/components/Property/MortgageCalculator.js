@@ -5,13 +5,15 @@ import agent from '../../agent';
 import { Line, Bar } from 'react-chartjs-2';
 import 'date-fns';
 
-import { makeStyles } from '@material-ui/core/styles';
-import Container from '@material-ui/core/Container';
-import Button from '@material-ui/core/Button';
-import Grid from '@material-ui/core/Grid';
-import DateFnsUtils from '@date-io/date-fns';
-import { MuiPickersUtilsProvider, KeyboardDatePicker } from '@material-ui/pickers';
-import Typography from '@material-ui/core/Typography';
+import makeStyles from '@mui/styles/makeStyles';
+import TextField from '@mui/material/TextField';
+import Container from '@mui/material/Container';
+import Button from '@mui/material/Button';
+import Grid from '@mui/material/Grid';
+import AdapterDateFns from '@mui/lab/AdapterDateFns';
+import LocalizationProvider from '@mui/lab/LocalizationProvider';
+import DatePicker from '@mui/lab/DatePicker';
+import Typography from '@mui/material/Typography';
 
 import { TextFieldInputAdornment, TextFieldMoneyInputAdornment, TextFieldPercInputAdornment } from '../Common/Inputs';
 import { numberWithCommas } from '../Finance/Common';
@@ -151,7 +153,7 @@ const MortgageCalculator = props => {
             </Helmet>
 
             <Container maxWidth="md">
-                <SquarePaper variant="outlined" square>
+                <SquarePaper>
                     <Grid container>
                         <Grid item xs>
                             <Typography variant="h1">
@@ -169,7 +171,7 @@ const MortgageCalculator = props => {
                     </Grid>
                 </SquarePaper>
 
-                <SquarePaper variant="outlined" square>
+                <SquarePaper>
                     <form className={classes.root} noValidate autoComplete="off" onSubmit={onCalculate}>
                         <Grid container spacing={3}>
                             <Grid item xs>
@@ -228,8 +230,8 @@ const MortgageCalculator = props => {
                             </Grid>
 
                             <Grid item xs={4}>
-                                <MuiPickersUtilsProvider utils={DateFnsUtils}>
-                                    <KeyboardDatePicker
+                                <LocalizationProvider dateAdapter={AdapterDateFns}>
+                                    <DatePicker
                                         id="start-date"
                                         disableToolbar
                                         variant="inline"
@@ -238,11 +240,9 @@ const MortgageCalculator = props => {
                                         label="Start date"
                                         value={startDate}
                                         onChange={handleStartDateChange}
-                                        KeyboardButtonProps={{
-                                            'aria-label': 'start date',
-                                        }}
+                                        renderInput={(params) => <TextField {...params} />}
                                     />
-                                </MuiPickersUtilsProvider>
+                                </LocalizationProvider>
                             </Grid>
                         </Grid>
 
@@ -295,7 +295,6 @@ const MortgageCalculator = props => {
                                 <Button
                                     id="calculate-button"
                                     type="submit"
-                                    variant="outlined"
                                     color="primary"
                                     className={classes.button}
                                     disabled={!isCalculateEnabled} >
@@ -419,7 +418,7 @@ const MortgageCalculatorResult = props => {
 
         return (
             <React.Fragment>
-                <SquarePaper variant="outlined" square>
+                <SquarePaper>
                     <Grid container spacing={1}>
                         <Typography variant="h1">
                             Your results
@@ -474,18 +473,19 @@ const MortgageCalculatorResult = props => {
                     </Grid>
                 </SquarePaper>
 
-                <SquarePaper variant="outlined" square>
+                <SquarePaper>
                     <Line data={lineData} options={lineOptions} />
                 </SquarePaper>
 
-                <SquarePaper variant="outlined" square>
+                <SquarePaper>
                     <Bar data={stackedData} options={stackedOptions} />
                 </SquarePaper>
 
-                <SquarePaper variant="outlined" square>
-                    <Button 
-                    color="primary" 
-                    onClick={() => setShowCompleteBreakdown(!showCompleteBreakdown)}>
+                <SquarePaper>
+                    <Button
+                        variant="text"
+                        color="primary"
+                        onClick={() => setShowCompleteBreakdown(!showCompleteBreakdown)}>
                         {showCompleteBreakdown === false ? "View complete breakdown" : "Hide complete breakdown"}
                     </Button>
 
@@ -495,10 +495,11 @@ const MortgageCalculatorResult = props => {
                     <CompleteBreakdown data={props.data} show={showCompleteBreakdown} />
                 </SquarePaper>
 
-                <SquarePaper variant="outlined" square>
-                    <Button 
-                    color="primary" 
-                    onClick={() => setShowYearlyCompleteBreakdown(!showYearlyCompleteBreakdown)}>
+                <SquarePaper>
+                    <Button
+                        variant="text"
+                        color="primary"
+                        onClick={() => setShowYearlyCompleteBreakdown(!showYearlyCompleteBreakdown)}>
                         {showYearlyCompleteBreakdown === false ? "View yearly complete breakdown" : "Hide yearly complete breakdown"}
                     </Button>
 

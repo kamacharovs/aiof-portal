@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import agent from '../../agent';
 
-import Grid from '@material-ui/core/Grid';
+import Grid from '@mui/material/Grid';
 
 import config from '../../config';
 import { APIPaper } from '../Common/Papers';
@@ -42,7 +42,7 @@ const ApisView = props => {
 
     useEffect(() => () => {
         props.onUnload();
-      }, []);
+    }, []);
 
     if (infos && !inProgress) {
         return (
@@ -79,7 +79,7 @@ const ApisView = props => {
                 <Grid
                     container
                     direction="column"
-                    justify="center"
+                    justifyContent="center"
                     alignItems="center">
                     <Grid item xs>
                         <AltLoader

@@ -3,12 +3,16 @@ import { connect } from 'react-redux';
 import agent from '../../../agent';
 
 import { Line } from 'react-chartjs-2'
-import { makeStyles, useTheme } from '@material-ui/core/styles';
-import Grid from '@material-ui/core/Grid';
-import Tooltip from '@material-ui/core/Tooltip';
-import IconButton from '@material-ui/core/IconButton';
-import DeleteIcon from '@material-ui/icons/Delete';
-import RateReviewIcon from '@material-ui/icons/RateReview';
+import { useTheme } from '@mui/material/styles';
+import makeStyles from '@mui/styles/makeStyles';
+import Grid from '@mui/material/Grid';
+import Paper from '@mui/material/Paper';
+import Tooltip from '@mui/material/Tooltip';
+import IconButton from '@mui/material/IconButton';
+import DeleteIcon from '@mui/icons-material/Delete';
+import RateReviewIcon from '@mui/icons-material/RateReview';
+import { fullPaperTheme } from '../../../style/mui';
+import { ThemeProvider } from '@mui/material/styles';;
 
 import { numberWithCommas } from '../Common';
 import { FullPaper, AlternateCircularProgress, DefaultPaperMargin } from '../../../style/mui';
@@ -51,13 +55,6 @@ const useStyles = makeStyles((theme) => ({
         transitionDuration: '250ms',
         width: '100%',
     },
-    currentAssetFullPaper: {
-        margin: DefaultPaperMargin,
-        paddingBottom: '0 !important',
-        paddingLeft: 0,
-        paddingRight: 0,
-        paddingTop: '0.5rem !important'
-    },
     currentAssetfooter: {
         backgroundColor: 'rgb(245, 247, 249)',
         color: 'rgb(90, 100, 116)',
@@ -84,7 +81,7 @@ const CurrentAssets = props => {
 
         return (
             <React.Fragment>
-                <FullPaper variant="outlined" square>
+                <Paper>
                     <CurrentAssetsOverview
                         totalAssets={totalAssets}
                         inProgressAssets={props.inProgressAssets}
@@ -99,7 +96,7 @@ const CurrentAssets = props => {
                     <InProgressBar
                         inProgressAssets={props.inProgressAssets}
                         inProgressDeleteAsset={props.inProgressDeleteAsset} />
-                </FullPaper>
+                </Paper>
             </React.Fragment>
         );
     }
@@ -113,7 +110,7 @@ const CurrentAssetsOverview = props => {
         <Grid
             container
             spacing={0}
-            justify="center"
+            justifyContent="center"
             alignItems="center"
             className={classes.overview}>
             <Grid item xs align="center">
@@ -149,70 +146,71 @@ const CurrentAssetsDynamic = props => {
 
         return (
             <React.Fragment>
-                {assets.map(a => {
-                    return (
-                        <FullPaper
-                            key={a.publicKey}
-                            variant="outlined"
-                            square
-                            className={classes.currentAssetFullPaper}>
-                            <Grid container
-                                spacing={0}
-                                direction="column"
-                                justify="center"
-                                alignItems="center">
-                                <Grid item xs>
-                                    <h6><strong>{a.name}</strong></h6>
-                                </Grid>
-
-                                <Grid item xs>
-                                    <div className={classes.green}>
-                                        ${numberWithCommas((a.value || 0).toFixed(2))}
-                                    </div>
-                                </Grid>
-                                <Grid item xs>
-                                    <div className={classes.alternate}>{a.typeName} {new Date(a.created).toLocaleDateString()}</div>
-                                </Grid>
-
-                                <Grid item xs>
-                                    <div className={classes.alternate}>Changes in the past 6 months ({a.snapshots.length})</div>
-                                </Grid>
-
-                                <Grid container spacing={0}>
+                <ThemeProvider theme={fullPaperTheme}>
+                    {assets.map(a => {
+                        return (
+                            <Paper
+                                key={a.publicKey}>
+                                <Grid container
+                                    spacing={0}
+                                    direction="column"
+                                    justifyContent="center"
+                                    alignItems="center">
                                     <Grid item xs>
-                                        <CurrentAssetSnapshotsChart
-                                            snapshots={a.snapshots} />
+                                        <h6><strong>{a.name}</strong></h6>
+                                    </Grid>
+
+                                    <Grid item xs>
+                                        <div className={classes.green}>
+                                            ${numberWithCommas((a.value || 0).toFixed(2))}
+                                        </div>
+                                    </Grid>
+                                    <Grid item xs>
+                                        <div className={classes.alternate}>{a.typeName} {new Date(a.created).toLocaleDateString()}</div>
+                                    </Grid>
+
+                                    <Grid item xs>
+                                        <div className={classes.alternate}>Changes in the past 6 months ({a.snapshots.length})</div>
+                                    </Grid>
+
+                                    <Grid container spacing={0}>
+                                        <Grid item xs>
+                                            <CurrentAssetSnapshotsChart
+                                                snapshots={a.snapshots} />
+                                        </Grid>
                                     </Grid>
                                 </Grid>
-                            </Grid>
 
-                            <Grid
-                                container
-                                direction="row"
-                                justify="flex-end"
-                                alignItems="flex-end"
-                                className={classes.currentAssetfooter}>
-                                <Tooltip title="Review">
-                                    <IconButton
-                                        aria-label="review"
-                                        className={classes.iconButton}
-                                        onClick={e => onReview(a)}>
-                                        <RateReviewIcon style={{ fontSize: '20', color: theme.palette.secondary.dark }} />
-                                    </IconButton>
-                                </Tooltip>
+                                <Grid
+                                    container
+                                    direction="row"
+                                    justifyContent="flex-end"
+                                    alignItems="flex-end"
+                                    className={classes.currentAssetfooter}>
+                                    <Tooltip title="Review">
+                                        <IconButton
+                                            aria-label="review"
+                                            className={classes.iconButton}
+                                            onClick={e => onReview(a)}
+                                            size="large">
+                                            <RateReviewIcon style={{ fontSize: '20', color: theme.palette.secondary.dark }} />
+                                        </IconButton>
+                                    </Tooltip>
 
-                                <Tooltip title="Delete">
-                                    <IconButton
-                                        aria-label="delete"
-                                        className={classes.iconButton}
-                                        onClick={e => props.onDelete(a.id)}>
-                                        <DeleteIcon style={{ fontSize: '20', color: theme.palette.secondary.dark }} />
-                                    </IconButton>
-                                </Tooltip>
-                            </Grid>
-                        </FullPaper>
-                    );
-                })}
+                                    <Tooltip title="Delete">
+                                        <IconButton
+                                            aria-label="delete"
+                                            className={classes.iconButton}
+                                            onClick={e => props.onDelete(a.id)}
+                                            size="large">
+                                            <DeleteIcon style={{ fontSize: '20', color: theme.palette.secondary.dark }} />
+                                        </IconButton>
+                                    </Tooltip>
+                                </Grid>
+                            </Paper>
+                        );
+                    })}
+                </ThemeProvider>
 
                 <ReviewAsset
                     open={openReview}
@@ -275,7 +273,7 @@ const CurrentAssetSnapshotsChart = props => {
 const InProgressBar = props => {
     if (props.inProgressAssets || props.inProgressDeleteAsset) {
         return (
-            <Grid container spacing={0} direction="column" justify="center" alignItems="center">
+            <Grid container spacing={0} direction="column" justifyContent="center" alignItems="center">
                 <Grid item xs align="center">
                     <br />
                     <AlternateCircularProgress />

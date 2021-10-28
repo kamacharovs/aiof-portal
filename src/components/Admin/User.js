@@ -2,11 +2,11 @@ import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import agent from '../../agent';
 
-import Grid from '@material-ui/core/Grid';
-import Button from '@material-ui/core/Button';
-import Typography from '@material-ui/core/Typography';
-import MenuItem from '@material-ui/core/MenuItem';
-import Select from '@material-ui/core/Select';
+import Grid from '@mui/material/Grid';
+import Button from '@mui/material/Button';
+import Typography from '@mui/material/Typography';
+import MenuItem from '@mui/material/MenuItem';
+import Select from '@mui/material/Select';
 
 import { TextFieldBase } from '../Common/Inputs';
 import { CodePaper } from '../Common/Papers';
@@ -135,7 +135,6 @@ const UserView = props => {
                                                 <Button
                                                     id="clear-button"
                                                     type="submit"
-                                                    variant="outlined"
                                                     color="primary"
                                                     disableElevation>
                                                     Clear
@@ -152,7 +151,6 @@ const UserView = props => {
                                                     id="user-button"
                                                     disabled={!userButtonEnabled && !userByEmailButtonEnabled}
                                                     type="submit"
-                                                    variant="outlined"
                                                     color="primary"
                                                     disableElevation >
                                                     Get user
@@ -169,7 +167,6 @@ const UserView = props => {
                                                     id="user-refresh-tokens-button"
                                                     disabled={!userButtonEnabled}
                                                     type="submit"
-                                                    variant="outlined"
                                                     color="primary"
                                                     disableElevation >
                                                     Get user's refresh tokens
@@ -285,7 +282,6 @@ const GenerateApiKeyView = props => {
                                     <Button
                                         id="generate-api-key-button"
                                         type="submit"
-                                        variant="outlined"
                                         color="primary"
                                         disableElevation>
                                         Generate

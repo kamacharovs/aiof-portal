@@ -2,11 +2,11 @@ import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import agent from '../../agent';
 
-import Grid from '@material-ui/core/Grid';
-import Button from '@material-ui/core/Button';
-import Typography from '@material-ui/core/Typography';
-import MenuItem from '@material-ui/core/MenuItem';
-import Select from '@material-ui/core/Select';
+import Grid from '@mui/material/Grid';
+import Button from '@mui/material/Button';
+import Typography from '@mui/material/Typography';
+import MenuItem from '@mui/material/MenuItem';
+import Select from '@mui/material/Select';
 
 import { TextFieldBase } from '../Common/Inputs';
 import { CodePaper } from '../Common/Papers';
@@ -102,7 +102,7 @@ const ByIdView = props => {
     const isButtonEnabled = props.clientId ? false : true;
 
     return (
-        <SquarePaper variant="outlined" square>
+        <SquarePaper>
             <Grid container direction="column">
                 <Grid item xs>
                     <Typography variant="h6">
@@ -118,7 +118,7 @@ const ByIdView = props => {
                 </Grid>
             </Grid>
 
-            <BorderlessSquarePaper variant="outlined" square>
+            <BorderlessSquarePaper>
                 <Grid container spacing={3}>
                     <Grid item xs>
                         <Grid
@@ -143,7 +143,6 @@ const ByIdView = props => {
                             <Button
                                 id="get-client-by-id-button"
                                 type="submit"
-                                variant="outlined"
                                 color="primary"
                                 disabled={isButtonEnabled}>
                                 Get client
@@ -166,7 +165,7 @@ const EnableDisableView = props => {
     const isButtonEnabled = props.clientId ? false : true;
 
     return (
-        <SquarePaper variant="outlined" square>
+        <SquarePaper>
             <Grid container direction="column">
                 <Grid item xs>
                     <Typography variant="h6">
@@ -182,7 +181,7 @@ const EnableDisableView = props => {
                 </Grid>
             </Grid>
 
-            <BorderlessSquarePaper variant="outlined" square>
+            <BorderlessSquarePaper>
                 <Grid container spacing={3}>
                     <Grid item xs>
                         <Grid
@@ -209,7 +208,6 @@ const EnableDisableView = props => {
                                     <Button
                                         id="enable-button"
                                         type="submit"
-                                        variant="outlined"
                                         color="primary"
                                         disabled={isButtonEnabled}>
                                         Enable client
@@ -225,7 +223,6 @@ const EnableDisableView = props => {
                                     <Button
                                         id="disable-button"
                                         type="submit"
-                                        variant="outlined"
                                         color="primary"
                                         disabled={isButtonEnabled}>
                                         Disable client
@@ -248,7 +245,7 @@ const EnableDisableView = props => {
 
 const GenerateApiKeyView = props => {
     return (
-        <SquarePaper variant="outlined" square>
+        <SquarePaper>
             <Grid container direction="column">
                 <Grid item xs>
                     <Typography variant="h6">
@@ -263,7 +260,7 @@ const GenerateApiKeyView = props => {
                 </Grid>
             </Grid>
 
-            <BorderlessSquarePaper variant="outlined" square>
+            <BorderlessSquarePaper>
                 <Grid container spacing={3}>
                     <Grid item xs>
                         <Select
@@ -288,7 +285,6 @@ const GenerateApiKeyView = props => {
                                     <Button
                                         id="generate-api-key-button"
                                         type="submit"
-                                        variant="outlined"
                                         color="primary"
                                         disableElevation>
                                         Generate
@@ -314,7 +310,7 @@ const ResultsView = props => {
     const data = props.data;
 
     return (
-        <BorderlessSquarePaper variant="outlined" square>
+        <BorderlessSquarePaper>
             <Grid container spacing={3}>
                 <Grid item xs>
                     <Typography variant="h6">

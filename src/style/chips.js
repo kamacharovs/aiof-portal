@@ -1,7 +1,7 @@
 import React from 'react';
 
-import { useTheme } from '@material-ui/core/styles';
-import Chip from '@material-ui/core/Chip';
+import { useTheme } from '@mui/material/styles';
+import Chip from '@mui/material/Chip';
 
 
 export const CompletedChip = props => {

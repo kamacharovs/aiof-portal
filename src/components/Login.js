@@ -3,18 +3,18 @@ import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
 import agent from '../agent';
 
-import { makeStyles } from '@material-ui/core/styles';
-import Container from '@material-ui/core/Container';
-import TextField from '@material-ui/core/TextField';
-import Button from '@material-ui/core/Button';
-import Grid from '@material-ui/core/Grid';
-import Checkbox from '@material-ui/core/Checkbox';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import LockOpenIcon from '@material-ui/icons/LockOpen';
+import makeStyles from '@mui/styles/makeStyles';
+import Container from '@mui/material/Container';
+import TextField from '@mui/material/TextField';
+import Button from '@mui/material/Button';
+import Grid from '@mui/material/Grid';
+import Checkbox from '@mui/material/Checkbox';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import LockOpenIcon from '@mui/icons-material/LockOpen';
 
-import { LoginPaper, CoolLink } from '../style/mui';
+import { LoginPaper, CoolLink, AltLink } from '../style/mui';
 import { AiofLoader, } from '../components/Common/Loader';
-import { LOGIN, LOGIN_GET_USER, REFRESH, LOGIN_PAGE_UNLOADED } from '../constants/actionTypes';
+import { LOGIN, LOGIN_GET_USER, REFRESH, REDIRECT_HOME } from '../constants/actionTypes';
 
 
 const mapStateToProps = state => ({
@@ -35,8 +35,6 @@ const mapDispatchToProps = dispatch => ({
     dispatch({ type: REFRESH, payload: agent.Auth.refresh() }),
   onGetUser: () =>
     dispatch({ type: LOGIN_GET_USER, payload: agent.Auth.getUser() }),
-  onUnload: () =>
-    dispatch({ type: LOGIN_PAGE_UNLOADED })
 });
 
 const useStyles = makeStyles((theme) => ({
@@ -100,8 +98,8 @@ const Login = props => {
       </Helmet>
 
       <Container maxWidth="sm">
-        <LoginPaper elevation={3} variant="outlined">
-          <Grid container spacing={3} alignItems="center" justify="center" alignContent="center">
+        <LoginPaper variant="outlined">
+          <Grid container spacing={3} alignItems="center" justifyContent="center" alignContent="center">
             <Grid item xs={12}>
               <h1 className="text-center">Sign In</h1>
               <p className="text-center">
@@ -117,7 +115,7 @@ const Login = props => {
               container
               spacing={3}
               alignItems="center"
-              justify="center">
+              justifyContent="center">
               <Grid item xs={12}>
                 <div className="text-center text-muted">
                   {props.appShortAccountDescription}
@@ -181,7 +179,7 @@ const Login = props => {
 
               <Grid item xs={12}>
                 <p className="text-center text-muted">
-                  <i>By clicking Sign In, you agree to our <a id="login-link-terms-and-conditions" href="/terms-and-conditions">Terms</a> and have read and acknowledge our <a id="login-link-privacy-policy" href="/privacy-policy">US Privacy Statement</a>.</i>
+                  <i>By clicking Sign In, you agree to our <AltLink id="login-link-terms-and-conditions" to="/terms-and-conditions">Terms & Conditions</AltLink> and have read and acknowledge our <AltLink id="login-link-privacy-policy" to="/privacy-policy">Privacy Policy</AltLink>.</i>
                 </p>
               </Grid>
             </Grid>

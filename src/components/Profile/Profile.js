@@ -1,15 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import 'date-fns';
 
-import { makeStyles } from '@material-ui/core/styles';
-import Grid from '@material-ui/core/Grid';
-import Container from '@material-ui/core/Container';
-import TextField from '@material-ui/core/TextField';
-import MenuItem from '@material-ui/core/MenuItem';
-import Select from '@material-ui/core/Select';
-import Typography from '@material-ui/core/Typography';
-import { MuiPickersUtilsProvider, KeyboardDatePicker } from '@material-ui/pickers';
-import DateFnsUtils from '@date-io/date-fns';
+import makeStyles from '@mui/styles/makeStyles';
+import Grid from '@mui/material/Grid';
+import Container from '@mui/material/Container';
+import TextField from '@mui/material/TextField';
+import MenuItem from '@mui/material/MenuItem';
+import Select from '@mui/material/Select';
+import Typography from '@mui/material/Typography';
+import DatePicker from '@mui/lab/DatePicker';
+import AdapterDateFns from '@mui/lab/AdapterDateFns';
+import LocalizationProvider from '@mui/lab/LocalizationProvider';
 
 import { SquarePaper, AlternateButton, PAlt7 } from '../../style/mui';
 import { RectSkeleton } from '../Common/Sekeleton';
@@ -187,8 +188,8 @@ const Profile = props => {
                                                     <hr className={classes.hr} />
                                                 </Grid>
                                                 <Grid item xs={6}>
-                                                    <MuiPickersUtilsProvider utils={DateFnsUtils}>
-                                                        <KeyboardDatePicker className={classes.textField}
+                                                    <LocalizationProvider dateAdapter={AdapterDateFns}>
+                                                        <DatePicker className={classes.textField}
                                                             disableToolbar
                                                             fullWidth
                                                             variant="inline"
@@ -197,11 +198,9 @@ const Profile = props => {
                                                             value={dateOfBirth ? dateOfBirth : defaultDate}
                                                             onChange={handleDateOfBirthChange}
                                                             onFocus={() => setIsUpdated(true)}
-                                                            KeyboardButtonProps={{
-                                                                'aria-label': 'start date',
-                                                            }}
+                                                            renderInput={(params) => <TextField {...params} />}
                                                         />
-                                                    </MuiPickersUtilsProvider>
+                                                    </LocalizationProvider>
                                                 </Grid>
                                             </Grid>
 

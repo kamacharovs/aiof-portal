@@ -1,10 +1,10 @@
 import React from 'react';
 
-import { makeStyles } from '@material-ui/core/styles';
-import Grid from '@material-ui/core/Grid';
-import Zoom from '@material-ui/core/Zoom';
-import CheckIcon from '@material-ui/icons/Check';
-import CloseIcon from '@material-ui/icons/Close';
+import makeStyles from '@mui/styles/makeStyles';
+import Grid from '@mui/material/Grid';
+import Zoom from '@mui/material/Zoom';
+import CheckIcon from '@mui/icons-material/Check';
+import CloseIcon from '@mui/icons-material/Close';
 
 
 const timeout = 750;
@@ -29,7 +29,7 @@ export const PasswordRuleChecker = props => {
 
     return (
         <React.Fragment>
-            <Grid container spacing={3} alignItems="center" justify="center">
+            <Grid container spacing={3} alignItems="center" justifyContent="center">
                 <Grid item xs={1}>
                     {hasNumber ?
                         <React.Fragment>
@@ -50,7 +50,7 @@ export const PasswordRuleChecker = props => {
           </Grid>
             </Grid>
 
-            <Grid container spacing={3} alignItems="center" justify="center">
+            <Grid container spacing={3} alignItems="center" justifyContent="center">
                 <Grid item xs={1}>
                     {hasUpperChar ?
                         <React.Fragment>
@@ -71,7 +71,7 @@ export const PasswordRuleChecker = props => {
           </Grid>
             </Grid>
 
-            <Grid container spacing={3} alignItems="center" justify="center">
+            <Grid container spacing={3} alignItems="center" justifyContent="center">
                 <Grid item xs={1}>
                     {hasLength ?
                         <React.Fragment>
@@ -105,7 +105,7 @@ export const ConfirmationPasswordRuleChecker = props => {
 
     return (
         <React.Fragment>
-            <Grid container spacing={3} alignItems="center" justify="center">
+            <Grid container spacing={3} alignItems="center" justifyContent="center">
                 <Grid item xs={1}>
                     {match ?
                         <React.Fragment>
