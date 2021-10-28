@@ -20,6 +20,7 @@ import AssetBreakdown from '../components/Finance/AssetBreakdown';
 import LiabilityEditor from '../components/Finance/LiabilityEditor';
 import AssetMainView from '../components/Finance/Asset/MainView';
 import GoalMainView from '../components/Finance/Goal/MainView';
+import LiabilityMainView from '../components/Finance/Liability/MainView';
 import TimeToFi from '../components/FI/TimeToFi';
 import AddedTime from '../components/FI/AddedTime';
 import CompoundInterest from '../components/FI/CompoundInterest';
@@ -101,7 +102,7 @@ class App extends React.Component {
             <Route exact path="/manage/password" component={PasswordMangement} />
             <Route exact path="/finance" component={FinanceMainView} />
             <Route exact path="/finance/assets" component={AssetMainView} />
-            <Route exact path="/finance/liability" component={LiabilityEditor} />
+            <Route exact path="/finance/liability" component={LiabilityMainView} />
             <Route exact path="/finance/goals" component={GoalMainView} />
             <Route exact path="/profile" component={ProfileMainView} />
             <Route exact path="/profile/update" component={ProfileStepper} />
