@@ -591,7 +591,7 @@ export const LiabilityTextPaper = props => {
                     <Grid container>
                         <Grid item xs>
                             <Typography variant="text">
-                                <i>{liability.typeName.toUpperCase()} TYPE</i>
+                                <i>{liability.typeName.toUpperCase()}</i>
                             </Typography>
                         </Grid>
                     </Grid>
