@@ -211,6 +211,18 @@ export const squarePaperTheme = createTheme(theme, {
   }
 });
 
+export const elevatedSquarePaperTheme = createTheme(theme, {
+  components: {
+    MuiPaper: {
+      defaultProps: {
+        variant: 'elevation',
+        elevation: 12,
+        square: true,
+      }
+    }
+  }
+});
+
 export const commonStyles = makeStyles((theme) => ({
   green: {
     color: theme.palette.success.main,
