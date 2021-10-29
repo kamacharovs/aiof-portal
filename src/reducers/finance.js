@@ -29,7 +29,7 @@ export default (state = {}, action) => {
           inProgress: false,
           profile: action.payload.profile,
           assetsBase: action.payload.assets,
-          liabilities: action.payload.liabilities,
+          liabilitiesBase: action.payload.liabilities,
           goalsBase: action.payload.goals,
           subscriptions: action.payload.subscriptions,
           dependents: action.payload.dependents,
@@ -40,7 +40,7 @@ export default (state = {}, action) => {
         inProgress: false,
         profile: action.payload.profile,
         assetsBase: action.payload.assets,
-        liabilities: action.payload.liabilities,
+        liabilitiesBase: action.payload.liabilities,
         goalsBase: action.payload.goals,
         subscriptions: action.payload.subscriptions,
       }

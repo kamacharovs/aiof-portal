@@ -12,9 +12,10 @@ import { AddEditDeleteTimeline } from '../../Common/Timelines';
 import { LiabilityTextPaper } from '../../Common/Papers';
 import { success, error } from '../../Common/AiofToast';
 import { LIABILITIES, REDIRECT_LOGIN } from '../../../constants/actionTypes';
-import { elevatedPaperTheme, AlternateCircularProgress } from '../../../style/mui';
+import { elevatedPaperTheme, theme } from '../../../style/mui';
 
 import LiabilityOverview from './Overview';
+import CurrentLiabilitiesView from './Current';
 
 
 const mapStateToProps = state => ({
@@ -42,7 +43,7 @@ const LiabilityMainView = props => {
         }, []);
 
         var liabilities = props.liabilities || [];
-        var inPrgoress = props.inProgressLiabilities;
+        var inProgress = props.inProgressLiabilities;
 
         return (
             <React.Fragment>
@@ -50,7 +51,7 @@ const LiabilityMainView = props => {
                     <title>{props.appName} | Finance | Liabilities</title>
                 </Helmet>
 
-                <ThemeProvider theme={elevatedPaperTheme}>
+                <ThemeProvider theme={theme}>
                     <Container maxWidth="xl">
                         <Grid container spacing={1}>
                             <Grid item xs={4}>
@@ -70,21 +71,9 @@ const LiabilityMainView = props => {
 
                             <Grid item xs={8}>
                                 <Grid container spacing={1}>
-
-                                <InProgressBar
-                                    inPrgoress={inPrgoress} />
-
-                                    {
-                                        liabilities && inPrgoress === false
-                                        ? liabilities.map(l => {
-                                            return (
-                                                <Grid item xs={6} key={l.publicKey}>
-                                                    <LiabilityTextPaper liability={l} />
-                                                </Grid>
-                                            );
-                                         })
-                                        : null
-                                    }
+                                    <CurrentLiabilitiesView
+                                        inProgress={inProgress}
+                                        liabilities={liabilities} />
                                 </Grid>
 
                                 <Grid container spacing={1}>
@@ -103,22 +92,6 @@ const LiabilityMainView = props => {
     }
     else {
         props.onRedirectLogin();
-        return null;
-    }
-}
-
-const InProgressBar = props => {
-    if (props.inPrgoress) {
-        return (
-            <Grid container spacing={0} direction="column" justifyContent="center" alignItems="center">
-                <Grid item xs align="center">
-                    <br />
-                    <AlternateCircularProgress />
-                </Grid>
-            </Grid>
-        );
-    }
-    else {
         return null;
     }
 }
