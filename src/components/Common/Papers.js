@@ -596,20 +596,6 @@ export const LiabilityTextPaper = props => {
                         </Grid>
                     </Grid>
 
-                    <Grid container>
-                        <Grid item xs>
-                            <Typography variant="text">
-                                <Tooltip title="Delete">
-                                    <IconButton
-                                        aria-label="delete-liability"
-                                        onClick={e => props.onDelete(liability.id)} >
-                                        <DeleteIcon color="primary" />
-                                    </IconButton>
-                                </Tooltip>
-                            </Typography>
-                        </Grid>
-                    </Grid>
-
                     <hr />
 
                     <Grid container>
@@ -633,6 +619,22 @@ export const LiabilityTextPaper = props => {
                                 ? <MoneyGrid name={"Additional payments"} value={liability.additionalPayments} />
                                 : <TextGrid name={"Additional payments"} value={"None"} />
                         }
+                    </Grid>
+
+                    <hr />
+                   
+                    <Grid container>
+                        <Grid item xs>
+                            <Typography variant="text">
+                                <Tooltip title="Delete">
+                                    <IconButton
+                                        aria-label="delete-liability"
+                                        onClick={e => props.onDelete(liability.id)} >
+                                        <DeleteIcon color="error" />
+                                    </IconButton>
+                                </Tooltip>
+                            </Typography>
+                        </Grid>
                     </Grid>
                 </Paper>
             </React.Fragment>

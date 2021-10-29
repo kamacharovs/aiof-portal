@@ -46,6 +46,7 @@ const LiabilityMainView = props => {
         useEffect(() => {
             if (props.liabilityDeleted === true) {
                 props.onAll();
+                error(`Successfully deleted liability`);
             }
         }, [props.liabilityDeleted]);
 
