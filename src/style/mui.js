@@ -211,13 +211,13 @@ export const squarePaperTheme = createTheme(theme, {
   }
 });
 
-export const elevatedSquarePaperTheme = createTheme(theme, {
+export const elevatedPaperTheme = createTheme(theme, {
   components: {
     MuiPaper: {
       defaultProps: {
         variant: 'elevation',
         elevation: 12,
-        square: true,
+        square: false,
       }
     }
   }
