@@ -644,14 +644,14 @@ export const LiabilityTextPaper = props => {
     }
 }
 
-const MoneyGrid = props => {
+export const MoneyGrid = props => {
     return <TextGrid
         name={props.name}
         value={props.value}
         isMoney={true}
         isRed={props.isRed} />
 }
-const TextGrid = props => {
+export const TextGrid = props => {
     const classes = useStyles();
     const name = props.name;
     const value = props.value;

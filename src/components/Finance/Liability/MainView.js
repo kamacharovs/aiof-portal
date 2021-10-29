@@ -16,6 +16,7 @@ import { elevatedPaperTheme, theme } from '../../../style/mui';
 
 import LiabilityOverview from './Overview';
 import CurrentLiabilitiesView from './Current';
+import LiabilityStatisticsView from './Statistics';
 
 
 const mapStateToProps = state => ({
@@ -86,9 +87,9 @@ const LiabilityMainView = props => {
 
                                 <Grid container spacing={1}>
                                     <Grid item xs>
-                                        <Paper>
-                                            Stats
-                                        </Paper>
+                                        <LiabilityStatisticsView
+                                            inProgress={inProgress}
+                                            liabilities={liabilities} />
                                     </Grid>
                                 </Grid>
                             </Grid>
