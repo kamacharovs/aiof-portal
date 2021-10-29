@@ -596,7 +596,7 @@ export const LiabilityTextPaper = props => {
                     <hr />
 
                     <Grid container>
-                        <MoneyGrid name={"Value"} value={liability.value} />
+                        <MoneyGrid name={"Value"} value={liability.value} isRed={true} />
                     </Grid>
                     <br/>
                     <Grid container>
@@ -629,12 +629,15 @@ const MoneyGrid = props => {
     return <TextGrid 
         name={props.name}
         value={props.value}
-        isMoney={true} />
+        isMoney={true}
+        isRed={props.isRed} />
 }
 const TextGrid = props => {
+    const classes = useStyles();
     const name = props.name;
     const value = props.value;
     const isMoney = props.isMoney || false;
+    const isRed = props.isRed || false;
 
     return (
         <Grid item xs>
@@ -646,7 +649,19 @@ const TextGrid = props => {
                 </Grid>
                 <Grid item xs>
                     <Typography variant="text">
-                        <b>{isMoney ? `$${numberWithCommas(Math.round(value * 100) / 100)}` : value}</b>
+                        <b>
+                            {
+                                isMoney 
+                                ? isRed
+                                  ? <div className={classes.red}>
+                                      ${numberWithCommas(Math.round(value * 100) / 100)}
+                                    </div>
+                                  : <div>
+                                      ${numberWithCommas(Math.round(value * 100) / 100)}
+                                    </div>
+                                : value
+                            }
+                        </b>
                     </Typography>
                 </Grid>
             </Grid>

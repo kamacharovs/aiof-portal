@@ -52,14 +52,14 @@ const LiabilityMainView = props => {
                 <ThemeProvider theme={elevatedPaperTheme}>
                     <Container maxWidth="xl">
                         <Grid container spacing={1}>
-                            <Grid item xs>
-                                <Grid container spacing={1}>
+                            <Grid item xs={4}>
+                                <Grid container>
                                     <Grid item xs>
                                         <LiabilityOverview />
                                     </Grid>
                                 </Grid>
 
-                                <Grid container spacing={1}>
+                                <Grid container>
                                     <Grid item xs>
                                         <AddEditDeleteTimeline
                                             entity={"liability"} />
@@ -67,12 +67,18 @@ const LiabilityMainView = props => {
                                 </Grid>
                             </Grid>
 
-                            <Grid item xs>
-                                {
-                                    liabilities.map(l => {
-                                        return (<LiabilityTextPaper liability={l} />);
-                                    })
-                                }
+                            <Grid item xs={8}>
+                                <Grid container spacing={1}>
+                                    {
+                                        liabilities.map(l => {
+                                            return (
+                                                <Grid item xs={6}>
+                                                    <LiabilityTextPaper liability={l} />
+                                                </Grid>
+                                            );
+                                        })
+                                    }
+                                </Grid>
                             </Grid>
                         </Grid>
                     </Container>
