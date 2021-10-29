@@ -157,6 +157,16 @@ const ProfileMenu = props => {
                         button
                         onClick={handleClose}
                         component={Link}
+                        to={`/finance/liabilities`}>
+                        <ListItemText 
+                            classes={{primary:classes.listItemText}}
+                            primary="Liabilities" />
+                    </ListItem>
+
+                    <ListItem
+                        button
+                        onClick={handleClose}
+                        component={Link}
                         to={`/finance/goals`}>
                         <ListItemText 
                             classes={{primary:classes.listItemText}}

@@ -164,6 +164,8 @@ const Asset = {
 }
 
 const Liability = {
+  all: () =>
+    requestsLiability.get(`/liabilities`),
   add: liability =>
     requests.post('/liability', liability),
   types: () =>

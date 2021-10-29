@@ -102,7 +102,7 @@ class App extends React.Component {
             <Route exact path="/manage/password" component={PasswordMangement} />
             <Route exact path="/finance" component={FinanceMainView} />
             <Route exact path="/finance/assets" component={AssetMainView} />
-            <Route exact path="/finance/liability" component={LiabilityMainView} />
+            <Route exact path="/finance/liabilities" component={LiabilityMainView} />
             <Route exact path="/finance/goals" component={GoalMainView} />
             <Route exact path="/profile" component={ProfileMainView} />
             <Route exact path="/profile/update" component={ProfileStepper} />

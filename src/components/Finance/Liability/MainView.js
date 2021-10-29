@@ -9,9 +9,10 @@ import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
 
 import { AddEditDeleteTimeline } from '../../Common/Timelines';
+import { LiabilityTextPaper } from '../../Common/Papers';
 import { success, error } from '../../Common/AiofToast';
-import { REDIRECT_LOGIN } from '../../../constants/actionTypes';
-import { squarePaperTheme, theme } from '../../../style/mui';
+import { LIABILITIES, REDIRECT_LOGIN } from '../../../constants/actionTypes';
+import { elevatedPaperTheme, theme } from '../../../style/mui';
 
 import LiabilityOverview from './Overview';
 
@@ -20,22 +21,35 @@ const mapStateToProps = state => ({
     ...state.finance,
     appName: state.common.appName,
     currentUser: state.common.currentUser,
+    inProgressLiabilities: state.finance.inProgressLiabilities,
+    liabilities: state.finance.liabilities,
 });
 
 const mapDispatchToProps = dispatch => ({
+    onAll: () =>
+        dispatch({ type: LIABILITIES, payload: agent.Liability.all() }),
     onRedirectLogin: () =>
         dispatch({ type: REDIRECT_LOGIN }),
 });
 
 const LiabilityMainView = props => {
     if (props.currentUser) {
+
+        useEffect(() => {
+            if (!props.liabilities) {
+                props.onAll();
+            }
+        }, []);
+
+        var liabilities = props.liabilities || [];
+
         return (
             <React.Fragment>
                 <Helmet>
                     <title>{props.appName} | Finance | Liabilities</title>
                 </Helmet>
 
-                <ThemeProvider theme={theme}>
+                <ThemeProvider theme={elevatedPaperTheme}>
                     <Container maxWidth="xl">
                         <Grid container spacing={1}>
                             <Grid item xs>
@@ -51,7 +65,14 @@ const LiabilityMainView = props => {
                                             entity={"liability"} />
                                     </Grid>
                                 </Grid>
+                            </Grid>
 
+                            <Grid item xs>
+                                {
+                                    liabilities.map(l => {
+                                        return (<LiabilityTextPaper liability={l} />);
+                                    })
+                                }
                             </Grid>
                         </Grid>
                     </Container>

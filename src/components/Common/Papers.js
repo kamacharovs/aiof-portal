@@ -15,7 +15,7 @@ import WebIcon from '@mui/icons-material/Web';
 import { assetSnapshotsAvgByMonth } from '../Common/Functions';
 import { numberWithCommas } from '../Finance/Common';
 import {
-    AltLoader, H5Alt6, PAlt7, AltLink, TextMain, APrimary, 
+    AltLoader, H5Alt6, PAlt7, AltLink, TextMain, APrimary,
     squarePaperTheme, borderlessPaperTheme
 } from '../../style/mui';
 
@@ -462,84 +462,84 @@ export const APIPaper = props => {
     return (
         <React.Fragment>
             <ThemeProvider theme={squarePaperTheme}>
-            <Paper>
-                <Grid
-                    container
-                    direction="column"
-                    justifyContent="flex-start"
-                    alignItems="flex-start">
-                    <Grid item xs>
-                        <Typography variant="h1">
-                            {props.title}
-                        </Typography>
-                        <TextMain>
-                            {props.description || "No description"}
-                        </TextMain>
-                    </Grid>
-
-                    <Grid item xs>
-                        <Typography variant="h6">
-                            Version
-                        </Typography>
-                        <TextMain>
-                            {props.version}
-                        </TextMain>
-                    </Grid>
-
-                    <Grid item xs>
-                        <Typography variant="h6">
-                            Contact
-                        </Typography>
-                        <TextMain>
-                            <PersonIcon color="primary" /> {props.contact.name}<br />
-                            <EmailIcon color="primary" /> {props.contact.email}<br />
-                            <WebIcon color="primary" /> {props.contact.url}
-                        </TextMain>
-                    </Grid>
-
-                    <Grid item xs>
-                        <Typography variant="h6">
-                            License
-                        </Typography>
-                        <TextMain>
-                            <APrimary href={props.license.url} target="_blank">{props.license.name}</APrimary>
-                        </TextMain>
-                    </Grid>
-
-                    <Grid item xs>
-                        <Typography variant="h6">
-                            Base URL
-                        </Typography>
-                        <TextMain>
-                            <APrimary href={props.url}>{props.url}</APrimary>
-                        </TextMain>
-                    </Grid>
-
-                    {keyPoints.length !== 0
-                        ? <Grid item xs>
-                            <Typography variant="h6">
-                                Key points
+                <Paper>
+                    <Grid
+                        container
+                        direction="column"
+                        justifyContent="flex-start"
+                        alignItems="flex-start">
+                        <Grid item xs>
+                            <Typography variant="h1">
+                                {props.title}
                             </Typography>
-                            <ul>
-                                <TextMain>
-                                    {
-                                        keyPoints.map(kp => {
-                                            return (
-
-                                                <li key={kp}>{kp}</li>
-                                            );
-                                        })
-                                    }
-                                </TextMain>
-                            </ul>
+                            <TextMain>
+                                {props.description || "No description"}
+                            </TextMain>
                         </Grid>
-                        : null}
 
-                    <Grid item xs>
-                        <APrimary href={props.page} target="_blank">Full documentation</APrimary>
+                        <Grid item xs>
+                            <Typography variant="h6">
+                                Version
+                            </Typography>
+                            <TextMain>
+                                {props.version}
+                            </TextMain>
+                        </Grid>
+
+                        <Grid item xs>
+                            <Typography variant="h6">
+                                Contact
+                            </Typography>
+                            <TextMain>
+                                <PersonIcon color="primary" /> {props.contact.name}<br />
+                                <EmailIcon color="primary" /> {props.contact.email}<br />
+                                <WebIcon color="primary" /> {props.contact.url}
+                            </TextMain>
+                        </Grid>
+
+                        <Grid item xs>
+                            <Typography variant="h6">
+                                License
+                            </Typography>
+                            <TextMain>
+                                <APrimary href={props.license.url} target="_blank">{props.license.name}</APrimary>
+                            </TextMain>
+                        </Grid>
+
+                        <Grid item xs>
+                            <Typography variant="h6">
+                                Base URL
+                            </Typography>
+                            <TextMain>
+                                <APrimary href={props.url}>{props.url}</APrimary>
+                            </TextMain>
+                        </Grid>
+
+                        {keyPoints.length !== 0
+                            ? <Grid item xs>
+                                <Typography variant="h6">
+                                    Key points
+                                </Typography>
+                                <ul>
+                                    <TextMain>
+                                        {
+                                            keyPoints.map(kp => {
+                                                return (
+
+                                                    <li key={kp}>{kp}</li>
+                                                );
+                                            })
+                                        }
+                                    </TextMain>
+                                </ul>
+                            </Grid>
+                            : null}
+
+                        <Grid item xs>
+                            <APrimary href={props.page} target="_blank">Full documentation</APrimary>
+                        </Grid>
                     </Grid>
-                </Grid>
-            </Paper>
+                </Paper>
             </ThemeProvider>
         </React.Fragment>
     );
@@ -570,12 +570,86 @@ export const CodePaper = props => {
     }
 }
 
-export const EntityTextPaper = props => {
+export const LiabilityTextPaper = props => {
+    const liability = props.liability;
+
+    if (liability) {
+        return (
+            <React.Fragment>
+                <Paper>
+                    <Grid container>
+                        <Grid item xs>
+                            <Typography variant="h1">
+                                {liability.name.toUpperCase()}
+                            </Typography>
+                        </Grid>
+                    </Grid>
+
+                    <Grid container>
+                        <Grid item xs>
+                            <Typography variant="text">
+                                <i>{liability.typeName.toUpperCase()} TYPE</i>
+                            </Typography>
+                        </Grid>
+                    </Grid>
+
+                    <hr />
+
+                    <Grid container>
+                        <MoneyGrid name={"Value"} value={liability.value} />
+                    </Grid>
+                    <br/>
+                    <Grid container>
+                        <MoneyGrid name={"Monthly payment"} value={liability.monthlyPayment} />
+                        <MoneyGrid name={"Monthly payment estimate"} value={liability.monthlyPaymentEstimate} />
+                    </Grid>
+                    <br/>
+                    <Grid container>
+                        <TextGrid name={"Original term"} value={`${liability.originalTerm} months`} />
+                        <TextGrid name={"Remaining term"} value={`${liability.remainingTerm} months`} />
+                    </Grid>
+                    <br/>
+                    <Grid container>
+                        <TextGrid name={"Interest"} value={`${liability.interest}%`} />
+                        {
+                            liability.additionalPayments
+                            ? <MoneyGrid name={"Additional payments"} value={liability.additionalPayments} />
+                            : <TextGrid name={"Additional payments"} value={"None"} />
+                        }
+                    </Grid>
+                </Paper>
+            </React.Fragment>
+        );
+    } else {
+        return null;
+    }
+}
+
+const MoneyGrid = props => {
+    return <TextGrid 
+        name={props.name}
+        value={props.value}
+        isMoney={true} />
+}
+const TextGrid = props => {
+    const name = props.name;
+    const value = props.value;
+    const isMoney = props.isMoney || false;
+
     return (
-        <React.Fragment>
-            <Paper>
-                
-            </Paper>
-        </React.Fragment>
+        <Grid item xs>
+            <Grid container direction="column">
+                <Grid item xs>
+                    <Typography variant="caption">
+                        {name}
+                    </Typography>
+                </Grid>
+                <Grid item xs>
+                    <Typography variant="text">
+                        <b>{isMoney ? `$${numberWithCommas(Math.round(value * 100) / 100)}` : value}</b>
+                    </Typography>
+                </Grid>
+            </Grid>
+        </Grid>
     );
 }
