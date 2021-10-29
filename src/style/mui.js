@@ -216,8 +216,8 @@ export const elevatedPaperTheme = createTheme(theme, {
     MuiPaper: {
       defaultProps: {
         variant: 'elevation',
-        elevation: 8,
-        square: false,
+        elevation: 3,
+        square: true,
       }
     }
   }
