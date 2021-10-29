@@ -8,9 +8,12 @@ import { ThemeProvider } from '@mui/material/styles';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import Paper from '@mui/material/Paper';
+import Tooltip from '@mui/material/Tooltip';
 import PersonIcon from '@mui/icons-material/Person';
 import EmailIcon from '@mui/icons-material/Email';
 import WebIcon from '@mui/icons-material/Web';
+import IconButton from '@mui/material/IconButton';
+import DeleteIcon from '@mui/icons-material/Delete';
 
 import { assetSnapshotsAvgByMonth } from '../Common/Functions';
 import { numberWithCommas } from '../Finance/Common';
@@ -593,28 +596,42 @@ export const LiabilityTextPaper = props => {
                         </Grid>
                     </Grid>
 
+                    <Grid container>
+                        <Grid item xs>
+                            <Typography variant="text">
+                                <Tooltip title="Delete">
+                                    <IconButton
+                                        aria-label="delete-liability"
+                                        onClick={e => props.onDelete(liability.id)} >
+                                        <DeleteIcon color="primary" />
+                                    </IconButton>
+                                </Tooltip>
+                            </Typography>
+                        </Grid>
+                    </Grid>
+
                     <hr />
 
                     <Grid container>
                         <MoneyGrid name={"Value"} value={liability.value} isRed={true} />
                     </Grid>
-                    <br/>
+                    <br />
                     <Grid container>
                         <MoneyGrid name={"Monthly payment"} value={liability.monthlyPayment} />
                         <MoneyGrid name={"Monthly payment estimate"} value={liability.monthlyPaymentEstimate} />
                     </Grid>
-                    <br/>
+                    <br />
                     <Grid container>
                         <TextGrid name={"Original term"} value={`${liability.originalTerm} months`} />
                         <TextGrid name={"Remaining term"} value={`${liability.remainingTerm} months`} />
                     </Grid>
-                    <br/>
+                    <br />
                     <Grid container>
                         <TextGrid name={"Interest"} value={`${liability.interest}%`} />
                         {
                             liability.additionalPayments
-                            ? <MoneyGrid name={"Additional payments"} value={liability.additionalPayments} />
-                            : <TextGrid name={"Additional payments"} value={"None"} />
+                                ? <MoneyGrid name={"Additional payments"} value={liability.additionalPayments} />
+                                : <TextGrid name={"Additional payments"} value={"None"} />
                         }
                     </Grid>
                 </Paper>
@@ -626,7 +643,7 @@ export const LiabilityTextPaper = props => {
 }
 
 const MoneyGrid = props => {
-    return <TextGrid 
+    return <TextGrid
         name={props.name}
         value={props.value}
         isMoney={true}
@@ -651,15 +668,15 @@ const TextGrid = props => {
                     <Typography variant="text">
                         <b>
                             {
-                                isMoney 
-                                ? isRed
-                                  ? <div className={classes.red}>
-                                      ${numberWithCommas(Math.round(value * 100) / 100)}
-                                    </div>
-                                  : <div>
-                                      ${numberWithCommas(Math.round(value * 100) / 100)}
-                                    </div>
-                                : value
+                                isMoney
+                                    ? isRed
+                                        ? <div className={classes.red}>
+                                            ${numberWithCommas(Math.round(value * 100) / 100)}
+                                        </div>
+                                        : <div>
+                                            ${numberWithCommas(Math.round(value * 100) / 100)}
+                                        </div>
+                                    : value
                             }
                         </b>
                     </Typography>

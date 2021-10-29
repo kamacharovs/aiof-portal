@@ -88,7 +88,9 @@ const requestsLiability = {
   post: (url, body) =>
     superagent.post(`${API_LIABILITY_ROOT}${url}`, body).use(tokenPlugin).then(responseBody),
   put: (url, body) =>
-      superagent.put(`${API_LIABILITY_ROOT}${url}`, body).use(tokenPlugin).then(responseBody),
+    superagent.put(`${API_LIABILITY_ROOT}${url}`, body).use(tokenPlugin).then(responseBody),
+  del: (url) =>
+    superagent.del(`${API_LIABILITY_ROOT}${url}`).use(tokenPlugin).then(responseBody),
 }
 
 const Auth = {
@@ -166,10 +168,12 @@ const Asset = {
 const Liability = {
   all: () =>
     requestsLiability.get(`/liabilities`),
-  add: liability =>
-    requests.post('/liability', liability),
   types: () =>
     requests.get('/liability/types'),
+  add: liability =>
+    requests.post('/liability', liability),
+  delete: (id) =>
+    requestsLiability.del(`/liabilities/${id}`),
   openapi: () =>
     requestsLiability.getBase(`/swagger/${API_LIABILITY_VERSION}.0/swagger.json`),
 }

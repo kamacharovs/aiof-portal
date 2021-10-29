@@ -83,7 +83,7 @@ const AssetMainView = props => {
         }, [props.assetUpdated]);
 
         useEffect(() => {
-            if (props.assets && props.assetDeleted === true) {
+            if (props.assetDeleted === true) {
                 props.onAll();
             }
         }, [props.assetDeleted]);

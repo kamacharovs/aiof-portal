@@ -1,7 +1,5 @@
 import React from 'react';
 
-import { useTheme } from '@mui/material/styles';
-import makeStyles from '@mui/styles/makeStyles';
 import Paper from '@mui/material/Paper';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
@@ -16,19 +14,10 @@ import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 
 
-const useStyles = makeStyles((theme) => ({
-    alignLeft: {
-      // TODO: adjust this value accordingly
-      flex: 0.2
-    }
-  }));
-
 export const AddEditDeleteTimeline = props => {
     const entity = props.entity;
 
     if (entity) {
-        const classes = useStyles();
-
         return (
             <React.Fragment>
                 <Paper>

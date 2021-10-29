@@ -24,6 +24,7 @@ const mapStateToProps = state => ({
     currentUser: state.common.currentUser,
     inProgressLiabilities: state.finance.inProgressLiabilities,
     liabilities: state.finance.liabilities,
+    liabilityDeleted: state.finance.liabilityDeleted,
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -41,6 +42,12 @@ const LiabilityMainView = props => {
                 props.onAll();
             }
         }, []);
+
+        useEffect(() => {
+            if (props.liabilityDeleted === true) {
+                props.onAll();
+            }
+        }, [props.liabilityDeleted]);
 
         var liabilities = props.liabilities || [];
         var inProgress = props.inProgressLiabilities;

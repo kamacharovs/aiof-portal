@@ -1,46 +1,49 @@
-import React, { useEffect, useRef } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
-import { Helmet } from 'react-helmet';
 import agent from '../../../agent';
 
-import { ThemeProvider } from '@mui/material/styles';
-import Paper from '@mui/material/Paper';
-import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
 
 import { AddEditDeleteTimeline } from '../../Common/Timelines';
 import { LiabilityTextPaper } from '../../Common/Papers';
 import { success, error } from '../../Common/AiofToast';
-import { LIABILITIES, REDIRECT_LOGIN } from '../../../constants/actionTypes';
-import { elevatedPaperTheme, theme, AlternateCircularProgress } from '../../../style/mui';
+import { LIABILITY_DELETE } from '../../../constants/actionTypes';
+import { AlternateCircularProgress } from '../../../style/mui';
 
 
 const mapStateToProps = state => ({
     ...state.finance,
-    inProgressAssets: state.finance.inProgressAssets,
-    inProgressDeleteAsset: state.finance.inProgressDeleteAsset,
+    inProgressLiabilities: state.finance.inProgressLiabilities,
+    inProgressDeleteLiability: state.finance.inProgressDeleteLiability,
 });
 
 const mapDispatchToProps = dispatch => ({
     onDelete: (id) =>
-        dispatch({ type: ASSET_DELETE, payload: agent.Asset.delete(id) }),
+        dispatch({ type: LIABILITY_DELETE, payload: agent.Liability.delete(id) }),
 });
 
 const CurrentLiabilitiesView = props => {
     var liabilities = props.liabilities || [];
     var inPrgoress = props.inProgressLiabilities;
+    var inProgressDelete = props.inProgressDeleteLiability;
+
+    const handleOnDelete = (id) => {
+        props.onDelete(id);
+    }
 
     return (
         <React.Fragment>
             <InProgressBar
-                inPrgoress={inPrgoress} />
+                inPrgoress={inPrgoress || inProgressDelete} />
 
             {
                 liabilities && inPrgoress === false
                     ? liabilities.map(l => {
                         return (
                             <Grid item xs={6} key={l.publicKey}>
-                                <LiabilityTextPaper liability={l} />
+                                <LiabilityTextPaper 
+                                    liability={l}
+                                    onDelete={handleOnDelete} />
                             </Grid>
                         );
                     })
