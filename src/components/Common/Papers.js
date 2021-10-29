@@ -569,3 +569,13 @@ export const CodePaper = props => {
         return null;
     }
 }
+
+export const EntityTextPaper = props => {
+    return (
+        <React.Fragment>
+            <Paper>
+                
+            </Paper>
+        </React.Fragment>
+    );
+}
