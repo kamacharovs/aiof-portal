@@ -26,12 +26,6 @@ export const AddEditDeleteTimeline = props => {
                         direction="column"
                         spacing={1}>
                         <Grid item xs>
-                            <Typography variant="h1" sx={{ textAlign: "center" }}>
-                                Manage your {entity}
-                            </Typography>
-                        </Grid>
-
-                        <Grid item xs>
                             <Timeline position="alternate">
                                 <TimelineItem>
                                     <TimelineSeparator>

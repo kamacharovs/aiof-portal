@@ -47,7 +47,7 @@ const LiabilityMainView = props => {
         useEffect(() => {
             if (props.liabilityDeleted === true) {
                 props.onAll();
-                error(`Successfully deleted liability`);
+                error(`Deleted liability`);
             }
         }, [props.liabilityDeleted]);
 
@@ -79,18 +79,18 @@ const LiabilityMainView = props => {
                             </Grid>
 
                             <Grid item xs={8}>
-                                <Grid container spacing={1}>
-                                    <CurrentLiabilitiesView
-                                        inProgress={inProgress}
-                                        liabilities={liabilities} />
-                                </Grid>
-
-                                <Grid container spacing={1}>
+                                <Grid container>
                                     <Grid item xs>
                                         <LiabilityStatisticsView
                                             inProgress={inProgress}
                                             liabilities={liabilities} />
                                     </Grid>
+                                </Grid>
+
+                                <Grid container spacing={1}>
+                                    <CurrentLiabilitiesView
+                                        inProgress={inProgress}
+                                        liabilities={liabilities} />
                                 </Grid>
                             </Grid>
                         </Grid>

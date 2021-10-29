@@ -116,7 +116,7 @@ export const LiabilityPaper = props => {
 
                             <Grid item xs>
                                 <Grid container justifyContent="flex-end">
-                                    <AltLink to={"/finance"}>View</AltLink>
+                                    <AltLink to={"/finance/liabilities"}>View</AltLink>
                                 </Grid>
                             </Grid>
                         </Grid>
@@ -630,7 +630,7 @@ export const LiabilityTextPaper = props => {
                                     <IconButton
                                         aria-label="delete-liability"
                                         onClick={e => props.onDelete(liability.id)} >
-                                        <DeleteIcon color="error" />
+                                        <DeleteIcon color="primary" />
                                     </IconButton>
                                 </Tooltip>
                             </Typography>
