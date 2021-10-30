@@ -169,9 +169,9 @@ const Liability = {
   all: () =>
     requestsLiability.get(`/liabilities`),
   types: () =>
-    requests.get('/liability/types'),
+    requestsLiability.get(`/liabilities/types`),
   add: liability =>
-    requests.post('/liability', liability),
+    requestsLiability.post(`/liabilities`, liability),
   delete: (id) =>
     requestsLiability.del(`/liabilities/${id}`),
   openapi: () =>
