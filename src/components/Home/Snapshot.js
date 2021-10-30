@@ -21,7 +21,7 @@ import UsefulDocumentationView from './UsefulDocumentation';
 
 import { AssetPaper, LiabilityPaper, GoalPaper, DependentPaper, AssetsAndLiabilitiesTotalChartPaper } from '../Common/Papers';
 import { SquarePaper, AltCancelButton, H5Alt6, PAlt7, AltLink } from '../../style/mui';
-import { FINANCE, ASSETS, HOME_SNAPSHOT_SETTING_UPDATE } from '../../constants/actionTypes';
+import { FINANCE, ASSETS, LIABILITIES, HOME_SNAPSHOT_SETTING_UPDATE } from '../../constants/actionTypes';
 
 
 const mapStateToProps = state => ({
@@ -32,6 +32,7 @@ const mapStateToProps = state => ({
     settings: state.home.settings,
     inProgress: state.finance.inProgress,
     inProgressAssets: state.finance.inProgressAssets,
+    inProgressLiabilities: state.finance.inProgressLiabilities,
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -39,6 +40,8 @@ const mapDispatchToProps = dispatch => ({
         dispatch({ type: FINANCE, payload: agent.User.get() }),
     onAssets: () =>
         dispatch({ type: ASSETS, payload: agent.Asset.all() }),
+    onLiabilities: () =>
+        dispatch({ type: LIABILITIES, payload: agent.Liability.all() }),
     onSettingsUpdate: (field, value) =>
         dispatch({ type: HOME_SNAPSHOT_SETTING_UPDATE, field, value }),
 });
@@ -109,6 +112,7 @@ const SnapshotView = props => {
     const currentUser = props.currentUser;
     const inProgress = props.inProgress;
     const inProgressAssets = props.inProgressAssets;
+    const inProgressLiabilities = props.inProgressLiabilities;
 
     const assets = props.assets ? props.assets : [];
     const assetsTotal = assets.length;
@@ -135,6 +139,7 @@ const SnapshotView = props => {
             && !props.finance) {
             props.onFinance();
             props.onAssets();
+            props.onLiabilities();
         }
     }, []);
 
@@ -190,7 +195,7 @@ const SnapshotView = props => {
                             {showLiabilities
                                 ? <LiabilityPaper
                                     currentUser={currentUser}
-                                    inProgress={inProgress}
+                                    inProgress={inProgressLiabilities}
                                     title={"Liabilities"}
                                     total={liabilitiesTotal}
                                     totalValue={liabilitiesSum}
