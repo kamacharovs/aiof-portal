@@ -180,14 +180,14 @@ const AddLiabilityView = props => {
                     <Grid container spacing={3}>
                         <Grid item xs>
                             <Typography variant="text">
-                                <Tooltip title="Add">
                                     <IconButton
                                         aria-label="add-liability"
                                         type="submit"
                                         disabled={!isAddEnabled} >
+                                        <Tooltip title="Add">
                                         <AddIcon color="primary" />
-                                    </IconButton>
                                 </Tooltip>
+                                    </IconButton>
                             </Typography>
                         </Grid>
                     </Grid>
