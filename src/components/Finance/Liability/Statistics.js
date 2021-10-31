@@ -64,7 +64,7 @@ const LiabilityStatisticsView = props => {
                                 <IconButton
                                     aria-label="show-add"
                                     onClick={e => props.setShowAdd(!props.showAdd)} >
-                                    <Tooltip title="Add a liability">
+                                    <Tooltip title="Would you like to add a liability?">
                                         <AddIcon color="primary" />
                                     </Tooltip>
                                 </IconButton>
