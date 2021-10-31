@@ -1,9 +1,12 @@
-import React, { useEffect, useRef } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 
 import Paper from '@mui/material/Paper';
-import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
+import Typography from '@mui/material/Typography';
+import IconButton from '@mui/material/IconButton';
+import AddIcon from '@mui/icons-material/Add';
+import Tooltip from '@mui/material/Tooltip';
 
 import { TextGrid, MoneyGrid } from '../../Common/Papers';
 
@@ -43,14 +46,30 @@ const LiabilityStatisticsView = props => {
                         <MoneyGrid name={"Total"} value={totalValue} isRed={true} />
                         <MoneyGrid name={"Total monthly payments"} value={totalMonthlyPayments} isRed={true} />
                     </Grid>
-                    <br/>
+                    <br />
                     <Grid container spacing={1}>
                         <TextGrid name={"Total number of liabilities"} value={liabilities.length} />
                         <MoneyGrid name={"Total monthly payment estimates"} value={totalmonthlyPaymentEstimates} />
                     </Grid>
-                    <br/>
+                    <br />
                     <Grid container spacing={1}>
                         <MoneyGrid name={"Total additional payments"} value={totalAdditionalPayments} />
+                    </Grid>
+
+                    <hr />
+
+                    <Grid container spacing={1}>
+                        <Grid item xs>
+                            <Typography variant="text">
+                                <IconButton
+                                    aria-label="show-add"
+                                    onClick={e => props.setShowAdd(!props.showAdd)} >
+                                    <Tooltip title="Add a liability">
+                                        <AddIcon color="primary" />
+                                    </Tooltip>
+                                </IconButton>
+                            </Typography>
+                        </Grid>
                     </Grid>
                 </Paper>
             </React.Fragment>

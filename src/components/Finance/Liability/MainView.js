@@ -1,18 +1,16 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
 import agent from '../../../agent';
 
 import { ThemeProvider } from '@mui/material/styles';
-import Paper from '@mui/material/Paper';
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
 
 import { AddEditDeleteTimeline } from '../../Common/Timelines';
-import { LiabilityTextPaper } from '../../Common/Papers';
 import { success, error } from '../../Common/AiofToast';
 import { LIABILITIES, REDIRECT_LOGIN } from '../../../constants/actionTypes';
-import { elevatedPaperTheme, theme } from '../../../style/mui';
+import { theme } from '../../../style/mui';
 
 import LiabilityOverview from './Overview';
 import CurrentLiabilitiesView from './Current';
@@ -39,6 +37,8 @@ const mapDispatchToProps = dispatch => ({
 });
 
 const LiabilityMainView = props => {
+    const [showAdd, setShowAdd] = useState(false);
+
     if (props.currentUser) {
 
         useEffect(() => {
@@ -48,9 +48,10 @@ const LiabilityMainView = props => {
         }, []);
 
         useEffect(() => {
-            if(props.liabilityAdded) {
+            if (props.liabilityAdded) {
                 props.onAll();
                 success(`Successfully added liability`);
+                setShowAdd(false);
             }
         }, [props.liabilityAdded]);
 
@@ -58,6 +59,7 @@ const LiabilityMainView = props => {
             if (props.liabilityDeleted === true) {
                 props.onAll();
                 error(`Deleted liability`);
+                setShowAdd(false);
             }
         }, [props.liabilityDeleted]);
 
@@ -93,13 +95,19 @@ const LiabilityMainView = props => {
                                     <Grid item xs>
                                         <LiabilityStatisticsView
                                             inProgress={inProgress}
-                                            liabilities={liabilities} />
+                                            liabilities={liabilities}
+                                            showAdd={showAdd}
+                                            setShowAdd={setShowAdd} />
                                     </Grid>
                                 </Grid>
 
                                 <Grid container>
                                     <Grid item xs>
-                                        <AddLiabilityView />
+                                        {
+                                            showAdd
+                                            ? <AddLiabilityView />
+                                            : null
+                                        }
                                     </Grid>
                                 </Grid>
 
