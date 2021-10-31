@@ -620,6 +620,10 @@ export const LiabilityTextPaper = props => {
                                 : <TextGrid name={"Additional payments"} value={"None"} />
                         }
                     </Grid>
+                    <br />
+                    <Grid container>
+                        <TextGrid name={"Created"} value={new Date(liability.created).toLocaleDateString()} />
+                    </Grid>
 
                     <hr />
                    
