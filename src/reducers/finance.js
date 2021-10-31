@@ -126,6 +126,8 @@ export default (state = {}, action) => {
         inProgressDeleteLiability: false,
         liabilities: action.error ? null : action.payload,
         liabilityDeleted: false,
+        liabilityAdded: null,
+        liabilityAddedCode: null,
       }
     case LIABILITY_ADD:
       return {

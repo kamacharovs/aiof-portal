@@ -25,7 +25,7 @@ const LiabilityStatisticsView = props => {
             .reduce((sum, current) => sum + current, 0);
         var totalmonthlyPaymentEstimates = liabilities.map(l => l.monthlyPaymentEstimate)
             .reduce((sum, current) => sum + current, 0);
-        var totalAdditionalPayments = liabilities.map(l => l.additionalPayment)
+        var totalAdditionalPayments = liabilities.map(l => l.additionalPayments)
             .reduce((sum, current) => sum + current, 0) || 0;
 
         return (

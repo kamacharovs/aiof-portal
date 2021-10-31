@@ -61,7 +61,8 @@ export const TextFieldGridMoney = props => {
                 error={props.error}
                 value={props.value}
                 onChange={props.onChange}
-                helperText={props.helperText} />
+                helperText={props.helperText}
+                required={props.required} />
         </Grid>
     );
 }
@@ -74,7 +75,8 @@ export const TextFieldGridPercent = props => {
                 error={props.error}
                 value={props.value}
                 onChange={props.onChange}
-                helperText={props.helperText} />
+                helperText={props.helperText}
+                required={props.required} />
         </Grid>
     );
 }
@@ -87,7 +89,8 @@ export const TextFieldMoneyInputAdornment = props => {
         value={props.value}
         onChange={props.onChange}
         helperText={props.helperText}
-        adornmentValue={"$"} />
+        adornmentValue={"$"}
+        required={props.required} />
 }
 
 export const TextFieldPercInputAdornment = props => {
@@ -98,7 +101,8 @@ export const TextFieldPercInputAdornment = props => {
         value={props.value}
         onChange={props.onChange}
         helperText={props.helperText}
-        adornmentValue={"%"} />
+        adornmentValue={"%"}
+        required={props.required} />
 }
 
 const TextFieldBaseInputAdornment = props => {
@@ -108,6 +112,7 @@ const TextFieldBaseInputAdornment = props => {
     const value = props.value;
     const onChange = props.onChange;
     const helperText = props.helperText;
+    const required =  props.required || false;
     const adornmentPosition = props.adornmentPosition || "start";
     const adornmentValue = props.adornmentValue || "";
 
@@ -119,6 +124,7 @@ const TextFieldBaseInputAdornment = props => {
             value={value}
             onChange={onChange}
             helperText={helperText}
+            required={required}
             InputProps={{
                 startAdornment: <InputAdornment position={adornmentPosition}>{adornmentValue}</InputAdornment>
             }} />

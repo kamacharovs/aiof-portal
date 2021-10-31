@@ -30,6 +30,10 @@ const mapDispatchToProps = dispatch => ({
         dispatch({ type: LIABILITY_TYPES, payload: agent.Liability.types() }),
     onAdd: (payload) =>
         dispatch({ type: LIABILITY_ADD, payload: agent.Liability.add(payload) }),
+    onAddVehicle: (payload) =>
+        dispatch({ type: LIABILITY_ADD, payload: agent.Liability.addVehicle(payload) }),
+    onAddLoan: (payload) =>
+        dispatch({ type: LIABILITY_ADD, payload: agent.Liability.addLoan(payload) }),
 });
 
 const AddLiabilityView = props => {
@@ -43,32 +47,64 @@ const AddLiabilityView = props => {
     const [originalTerm, setOriginalTerm] = useState("");
     const [remainingTerm, setRemainingTerm] = useState("");
     const [interest, setInterest] = useState("");
+    const [additionalPayments, setAdditionalPayments] = useState("");
+
+    const [downPayment, setDownPayment] = useState("");
+    const [loanType, setLoanType] = useState("");
 
     const isAddEnabled = name !== ""
-        && typeName !== ""
         && isNumber(value)
         && isNumber(monthlyPayment)
         && isNumber(originalTerm)
         && isNumber(remainingTerm)
         && isNumber(interest);
 
+    const vehicleTypeName = "vehicle";
+    const loanTypeName = "loan";
+
     const onAdd = (ev) => {
         ev.preventDefault();
 
         var payload = {
             name: name,
-            typeName: typeName,
             value: Number(value),
             monthlyPayment: Number(monthlyPayment),
             originalTerm: Number(originalTerm),
             remainingTerm: Number(remainingTerm),
             interest: Number(interest),
+            additionalPayments: additionalPayments ? Number(additionalPayments) : null,
         }
 
-        props.onAdd(payload);
+        if (typeName === vehicleTypeName) {
+            payload.downPayment = Number(downPayment);
+
+            props.onAddVehicle(payload);
+        }
+        else if (typeName === loanTypeName) {
+            payload.loanType = loanType;
+
+            props.onAddLoan(payload);
+        }
+        else {
+            props.onAdd(payload);
+        }
+    }
+
+    const clearFields = () => {
+        setName("");
+        setValue("");
+        setMonthlyPayment("");
+        setOriginalTerm("");
+        setRemainingTerm("");
+        setInterest("");
+        setAdditionalPayments("");
+        setDownPayment("");
+        setLoanType("");
     }
 
     const handleType = (event) => {
+        clearFields()
+
         const index = event.target.value;
         const type = types[index];
 
@@ -114,14 +150,15 @@ const AddLiabilityView = props => {
                                     labelId="type-name"
                                     id="type-name"
                                     value={typeNameIndex}
-                                    onChange={handleType} >
+                                    onChange={handleType}
+                                    required={true} >
                                     {
                                         types.map((t, i) => {
                                             return (
-                                                <MenuItem 
-                                                    key={i} 
+                                                <MenuItem
+                                                    key={i}
                                                     value={i}>
-                                                        {t.name}
+                                                    {t.name}
                                                 </MenuItem>
                                             );
                                         })
@@ -138,13 +175,25 @@ const AddLiabilityView = props => {
                             id={"value"}
                             label={"Value"}
                             value={value}
-                            onChange={e => setValue(e.target.value)} />
+                            onChange={e => setValue(e.target.value)}
+                            required={true} />
 
                         <TextFieldGridMoney
                             id={"monthly-payment"}
                             label={"Monthly payment"}
                             value={monthlyPayment}
-                            onChange={e => setMonthlyPayment(e.target.value)} />
+                            onChange={e => setMonthlyPayment(e.target.value)}
+                            required={true} />
+                    </Grid>
+
+                    <br />
+
+                    <Grid container spacing={3}>
+                        <TextFieldGridMoney
+                            id={"additional-payments"}
+                            label={"Additional payments"}
+                            value={additionalPayments}
+                            onChange={e => setAdditionalPayments(e.target.value)} />
                     </Grid>
 
                     <br />
@@ -155,14 +204,16 @@ const AddLiabilityView = props => {
                             label={"Original term"}
                             value={originalTerm}
                             onChange={e => setOriginalTerm(e.target.value)}
-                            helperText={"This value is in months"} />
+                            helperText={"This value is in months"}
+                            required={true} />
 
                         <TextFieldGrid
                             id={"remaining-term"}
                             label={"Remaining term"}
                             value={remainingTerm}
                             onChange={e => setRemainingTerm(e.target.value)}
-                            helperText={"This value is in months"} />
+                            helperText={"This value is in months"}
+                            required={true} />
                     </Grid>
 
                     <br />
@@ -172,7 +223,31 @@ const AddLiabilityView = props => {
                             id={"interest"}
                             label={"Interest"}
                             value={interest}
-                            onChange={e => setInterest(e.target.value)} />
+                            onChange={e => setInterest(e.target.value)}
+                            required={true} />
+
+                        {
+                            typeName === vehicleTypeName
+                                ? <TextFieldGridMoney
+                                    id={"down-payment"}
+                                    label={"Down payment"}
+                                    value={downPayment}
+                                    onChange={e => setDownPayment(e.target.value)}
+                                    required={true} />
+                                : null
+                        }
+
+                        {
+                            typeName === loanTypeName
+                                ? <TextFieldGrid
+                                    id={"loan-type"}
+                                    label={"Loan type"}
+                                    value={loanType}
+                                    onChange={e => setLoanType(e.target.value)}
+                                    helperText={"For example, personal"}
+                                    required={true} />
+                                : null
+                        }
                     </Grid>
 
                     <br />
@@ -180,14 +255,14 @@ const AddLiabilityView = props => {
                     <Grid container spacing={3}>
                         <Grid item xs>
                             <Typography variant="text">
-                                    <IconButton
-                                        aria-label="add-liability"
-                                        type="submit"
-                                        disabled={!isAddEnabled} >
-                                        <Tooltip title="Add">
+                                <IconButton
+                                    aria-label="add-liability"
+                                    type="submit"
+                                    disabled={!isAddEnabled} >
+                                    <Tooltip title="Add liability">
                                         <AddIcon color="primary" />
-                                </Tooltip>
-                                    </IconButton>
+                                    </Tooltip>
+                                </IconButton>
                             </Typography>
                         </Grid>
                     </Grid>
