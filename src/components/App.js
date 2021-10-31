@@ -1,10 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { push } from 'react-router-redux';
 import { Helmet } from 'react-helmet';
 import { Route, Switch } from 'react-router-dom';
 import agent from '../agent';
-import { store } from '../store';
 import Cookies from 'js-cookie';
 
 import Header from '../components/Header';

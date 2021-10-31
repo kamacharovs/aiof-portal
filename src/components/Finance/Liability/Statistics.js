@@ -8,7 +8,7 @@ import IconButton from '@mui/material/IconButton';
 import AddIcon from '@mui/icons-material/Add';
 import Tooltip from '@mui/material/Tooltip';
 
-import { TextGrid, MoneyGrid } from '../../Common/Papers';
+import { TextGrid, MoneyGrid } from './Current';
 
 
 const mapStateToProps = state => ({

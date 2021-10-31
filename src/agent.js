@@ -176,6 +176,12 @@ const Liability = {
     requestsLiability.post(`/liabilities/vehicle`, liability),
   addLoan: liability =>
     requestsLiability.post(`/liabilities/loan`, liability),
+  update: (id, liability) =>
+    requestsLiability.put(`/liabilities/${id}`, liability),
+  updateVehicle: (id, liability) =>
+    requestsLiability.put(`/liabilities/vehicle/${id}`, liability),
+  updateLoan: (id, liability) =>
+    requestsLiability.put(`/liabilities/loan/${id}`, liability),
   delete: (id) =>
     requestsLiability.del(`/liabilities/${id}`),
   openapi: () =>

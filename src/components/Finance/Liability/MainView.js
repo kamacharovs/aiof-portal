@@ -26,6 +26,8 @@ const mapStateToProps = state => ({
     liabilities: state.finance.liabilities,
     liabilityAdded: state.finance.liabilityAdded,
     liabilityAddedCode: state.finance.liabilityAddedCode,
+    liabilityUpdated: state.finance.liabilityUpdated,
+    liabilityUpdatedCode: state.finance.liabilityUpdatedCode,
     liabilityDeleted: state.finance.liabilityDeleted,
 });
 
@@ -54,6 +56,13 @@ const LiabilityMainView = props => {
                 setShowAdd(false);
             }
         }, [props.liabilityAdded]);
+
+        useEffect(() => {
+            if (props.liabilityUpdated) {
+                props.onAll();
+                success(`Successfully updated liability`);
+            }
+        }, [props.liabilityUpdated]);
 
         useEffect(() => {
             if (props.liabilityDeleted === true) {
