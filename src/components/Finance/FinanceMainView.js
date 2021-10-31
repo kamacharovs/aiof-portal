@@ -23,7 +23,6 @@ import DialogContent from '@mui/material/DialogContent';
 import Button from '@mui/material/Button';
 
 import AddAsset from './AssetEditor';
-import AddLiability from './LiabilityEditor';
 
 
 const mapStateToProps = state => ({
@@ -265,13 +264,6 @@ const LiabilitiesPreview = props => {
                         );
                     })
                 }
-
-                <Grid item xs={12}>
-                    <Button variant="contained" color="primary" onClick={handleClickAddOpen}>
-                        Add
-                    </Button>
-                    <LiabilityAddDialog open={openAdd} onClose={handleAddClose} />
-                </Grid>
             </React.Fragment>
         );
     }
@@ -281,13 +273,6 @@ const LiabilitiesPreview = props => {
                 <Grid container spacing={3} className={classes.root}>
                     <Grid item xs={12}>
                         No liabilities yet...
-                </Grid>
-
-                    <Grid item xs={12}>
-                        <Button variant="contained" color="primary" onClick={handleClickAddOpen}>
-                            Add
-                    </Button>
-                        <LiabilityAddDialog open={openAdd} onClose={handleAddClose} />
                     </Grid>
                 </Grid>
             </React.Fragment>
@@ -497,37 +482,6 @@ AssetAddDialog.propTypes = {
     onClose: PropTypes.func.isRequired,
     open: PropTypes.bool.isRequired,
 };
-
-const LiabilityAddDialog = props => {
-    const classes = useStyles();
-    const { onClose, open } = props;
-
-    const handleClose = () => {
-        onClose();
-    };
-
-    const handleAddClick = (added) => {
-        onClose(added);
-    };
-
-    return (
-        <Dialog
-            onClose={handleClose}
-            aria-labelledby="liability-add-dialog"
-            open={open}
-            classes={{ paper: classes.dialogPaper }}>
-            <DialogTitle id="liability-add-dialog-title">Add liability</DialogTitle>
-            <DialogContent>
-                <AddLiability onAdd={handleAddClick} />
-            </DialogContent>
-        </Dialog>
-    );
-}
-LiabilityAddDialog.propTypes = {
-    onClose: PropTypes.func.isRequired,
-    open: PropTypes.bool.isRequired,
-};
-
 
 const FinanceMainView = props => {
     const classes = useStyles();

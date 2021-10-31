@@ -17,7 +17,6 @@ import ProfileStepper from './Profile/ProfileStepper';
 import ProfileMainView from '../components/Profile/MainView';
 import FinanceMainView from '../components/Finance/FinanceMainView';
 import AssetBreakdown from '../components/Finance/AssetBreakdown';
-import LiabilityEditor from '../components/Finance/LiabilityEditor';
 import AssetMainView from '../components/Finance/Asset/MainView';
 import GoalMainView from '../components/Finance/Goal/MainView';
 import LiabilityMainView from '../components/Finance/Liability/MainView';
