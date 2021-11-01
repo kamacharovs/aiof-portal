@@ -385,7 +385,7 @@ const Liabilities = props => {
             <Grid container spacing={0}>
                 <Grid item xs>
                     <div className={classes.heading}>
-                        <AltLink to={"/finance"}>Add liabilities {liabilitiesComplete === false
+                        <AltLink to={"/finance/liabilities"}>Add liabilities {liabilitiesComplete === false
                             ? <IncompleteChip inProgress={props.inProgress} />
                             : <CompletedChip inProgress={props.inProgress} />
                         }</AltLink>
