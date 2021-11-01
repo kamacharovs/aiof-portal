@@ -88,7 +88,9 @@ const requestsLiability = {
   post: (url, body) =>
     superagent.post(`${API_LIABILITY_ROOT}${url}`, body).use(tokenPlugin).then(responseBody),
   put: (url, body) =>
-      superagent.put(`${API_LIABILITY_ROOT}${url}`, body).use(tokenPlugin).then(responseBody),
+    superagent.put(`${API_LIABILITY_ROOT}${url}`, body).use(tokenPlugin).then(responseBody),
+  del: (url) =>
+    superagent.del(`${API_LIABILITY_ROOT}${url}`).use(tokenPlugin).then(responseBody),
 }
 
 const Auth = {
@@ -164,10 +166,24 @@ const Asset = {
 }
 
 const Liability = {
-  add: liability =>
-    requests.post('/liability', liability),
+  all: () =>
+    requestsLiability.get(`/liabilities`),
   types: () =>
-    requests.get('/liability/types'),
+    requestsLiability.get(`/liabilities/types`),
+  add: liability =>
+    requestsLiability.post(`/liabilities`, liability),
+  addVehicle: liability =>
+    requestsLiability.post(`/liabilities/vehicle`, liability),
+  addLoan: liability =>
+    requestsLiability.post(`/liabilities/loan`, liability),
+  update: (id, liability) =>
+    requestsLiability.put(`/liabilities/${id}`, liability),
+  updateVehicle: (id, liability) =>
+    requestsLiability.put(`/liabilities/vehicle/${id}`, liability),
+  updateLoan: (id, liability) =>
+    requestsLiability.put(`/liabilities/loan/${id}`, liability),
+  delete: (id) =>
+    requestsLiability.del(`/liabilities/${id}`),
   openapi: () =>
     requestsLiability.getBase(`/swagger/${API_LIABILITY_VERSION}.0/swagger.json`),
 }

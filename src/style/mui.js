@@ -28,9 +28,10 @@ export const DefaultPaperPadding = '1.5rem';
 export const DefaultPaperMargin = '1rem';
 export const DefaultPaperFontSize = '.8125rem';
 
+
 /* Color palette
-  Default = White
-  8792a2     = Roman Silver
+  Default   = White
+  8792a2    = Roman Silver
   5469d4    = Royal Blue Light
   d6ecff    = Beau Blue
   1ea672    = Green Munsell
@@ -40,6 +41,13 @@ export const DefaultPaperFontSize = '.8125rem';
   b21f00    = International Orange Engineering
   137a8f    = Metallic Seaweed
 */
+const colors = {
+  scrollbar: {
+    track: '#fafafa',
+    thumb: '#6b6b6b',
+    active: '#959595',
+  },
+};
 export const theme = createTheme({
   palette: {
     common: {
@@ -160,7 +168,12 @@ export const theme = createTheme({
         }
       },
     },
-  },
+    MuiCssBaseline: {
+      styleOverrides: {
+        body: scrollbar(),
+      },
+    },
+  }
 });
 
 export const fullPaperTheme = createTheme(theme, {
@@ -197,7 +210,7 @@ export const borderlessPaperTheme = createTheme(theme, {
 
 export const squarePaperTheme = createTheme(theme, {
   components: {
-    MuiPaper:{
+    MuiPaper: {
       defaultProps: {
         variant: 'elevation',
         elevation: 3,
@@ -210,6 +223,45 @@ export const squarePaperTheme = createTheme(theme, {
     }
   }
 });
+
+export const elevatedPaperTheme = createTheme(theme, {
+  components: {
+    MuiPaper: {
+      defaultProps: {
+        variant: 'elevation',
+        elevation: 3,
+        square: true,
+      }
+    }
+  }
+});
+
+export function scrollbar(options = colors.scrollbar) {
+  return {
+    scrollbarColor: `${options.thumb} ${options.track}`,
+    '&::-webkit-scrollbar, & *::-webkit-scrollbar': {
+      backgroundColor: options.track,
+    },
+    '&::-webkit-scrollbar-thumb, & *::-webkit-scrollbar-thumb': {
+      borderRadius: 8,
+      backgroundColor: options.thumb,
+      minHeight: 24,
+      border: `3px solid ${options.track}`,
+    },
+    '&::-webkit-scrollbar-thumb:focus, & *::-webkit-scrollbar-thumb:focus': {
+      backgroundColor: options.active,
+    },
+    '&::-webkit-scrollbar-thumb:active, & *::-webkit-scrollbar-thumb:active': {
+      backgroundColor: options.active,
+    },
+    '&::-webkit-scrollbar-thumb:hover, & *::-webkit-scrollbar-thumb:hover': {
+      backgroundColor: options.active,
+    },
+    '&::-webkit-scrollbar-corner, & *::-webkit-scrollbar-corner': {
+      backgroundColor: options.track,
+    },
+  };
+}
 
 export const commonStyles = makeStyles((theme) => ({
   green: {
@@ -337,8 +389,8 @@ export const AlternateButton = withTheme(styled(Button)({
 
 export const ElevatedPaper = props => {
   return (
-    <Paper 
-      variant="outlined" 
+    <Paper
+      variant="outlined"
       elevation={3}
       square>
 
@@ -362,7 +414,7 @@ export const InPaper = props => {
       <InPaperInternal variant="outlined" square>
         <Grid container spacing={1}>
           <Grid item xs>
-              {props.title}
+            {props.title}
           </Grid>
         </Grid>
 

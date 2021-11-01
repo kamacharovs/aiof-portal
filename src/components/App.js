@@ -1,10 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { push } from 'react-router-redux';
 import { Helmet } from 'react-helmet';
 import { Route, Switch } from 'react-router-dom';
 import agent from '../agent';
-import { store } from '../store';
 import Cookies from 'js-cookie';
 
 import Header from '../components/Header';
@@ -17,9 +15,9 @@ import ProfileStepper from './Profile/ProfileStepper';
 import ProfileMainView from '../components/Profile/MainView';
 import FinanceMainView from '../components/Finance/FinanceMainView';
 import AssetBreakdown from '../components/Finance/AssetBreakdown';
-import LiabilityEditor from '../components/Finance/LiabilityEditor';
 import AssetMainView from '../components/Finance/Asset/MainView';
 import GoalMainView from '../components/Finance/Goal/MainView';
+import LiabilityMainView from '../components/Finance/Liability/MainView';
 import TimeToFi from '../components/FI/TimeToFi';
 import AddedTime from '../components/FI/AddedTime';
 import CompoundInterest from '../components/FI/CompoundInterest';
@@ -101,7 +99,7 @@ class App extends React.Component {
             <Route exact path="/manage/password" component={PasswordMangement} />
             <Route exact path="/finance" component={FinanceMainView} />
             <Route exact path="/finance/assets" component={AssetMainView} />
-            <Route exact path="/finance/liability" component={LiabilityEditor} />
+            <Route exact path="/finance/liabilities" component={LiabilityMainView} />
             <Route exact path="/finance/goals" component={GoalMainView} />
             <Route exact path="/profile" component={ProfileMainView} />
             <Route exact path="/profile/update" component={ProfileStepper} />

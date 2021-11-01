@@ -35,7 +35,7 @@ export function assetSnapshotsAvgByMonth(assets) {
         var avgMonth = byMonth[k];
         var valuesLength = avgMonth.values.length;
         var valuesTotal = avgMonth.values.map(v => v)
-                                      .reduce((sum, current) => sum + current, 0);
+            .reduce((sum, current) => sum + current, 0);
 
         avgMonth.avg = valuesTotal / valuesLength;
     }
@@ -73,7 +73,7 @@ export function isCurrentUserAdmin(currentUser) {
     if (!currentUser) {
         return false;
     }
-    
+
     var role = currentUser ? currentUser.role.name : null;
 
     if (role === null) {
@@ -90,4 +90,14 @@ export function isId(id) {
 }
 export function isEmail(email) {
     return isNaN(email);
+}
+
+// Compare id of 2 entities
+export function compareId(e1, e2) {
+    if (e1.id < e2.id) {
+        return -1;
+    } if (e1.id > e2.id) {
+        return 1;
+    }
+    return 0;
 }

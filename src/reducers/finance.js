@@ -9,8 +9,11 @@ import {
   ASSET_UPDATE,
   ASSET_DELETE,
   ASSET_BREAKDOWN,
-  LIABILITY_ADD,
+  LIABILITIES,
   LIABILITY_TYPES,
+  LIABILITY_ADD,
+  LIABILITY_UPDATE,
+  LIABILITY_DELETE,
   GOALS,
   GOAL_TYPES,
   GOAL_TRIP_TYPES,
@@ -28,7 +31,7 @@ export default (state = {}, action) => {
           inProgress: false,
           profile: action.payload.profile,
           assetsBase: action.payload.assets,
-          liabilities: action.payload.liabilities,
+          liabilitiesBase: action.payload.liabilities,
           goalsBase: action.payload.goals,
           subscriptions: action.payload.subscriptions,
           dependents: action.payload.dependents,
@@ -39,7 +42,7 @@ export default (state = {}, action) => {
         inProgress: false,
         profile: action.payload.profile,
         assetsBase: action.payload.assets,
-        liabilities: action.payload.liabilities,
+        liabilitiesBase: action.payload.liabilities,
         goalsBase: action.payload.goals,
         subscriptions: action.payload.subscriptions,
       }
@@ -65,6 +68,11 @@ export default (state = {}, action) => {
       } else if (action.subtype === ASSET_ADD) { return { ...state, inProgressAddAsset: true, }
       } else if (action.subtype === ASSET_UPDATE) { return { ...state, inProgressUpdateAsset: true, }
       } else if (action.subtype === ASSET_DELETE) { return { ...state, inProgressDeleteAsset: true, }
+      } else if (action.subtype === LIABILITIES) { return { ...state, inProgressLiabilities: true, }
+      } else if (action.subtype === LIABILITY_ADD) { return { ...state, inProgressAddLiability: true, }
+      } else if (action.subtype === LIABILITY_UPDATE) { return { ...state, inProgressUpdateLiability: true }
+      } else if (action.subtype === LIABILITY_TYPES) { return { ...state, inProgressLiabilityTypes: true }
+      } else if (action.subtype === LIABILITY_DELETE) { return { ...state, inProgressDeleteLiability: true }
       } else if (action.subtype === GOALS) { return { ...state, inProgressGoals: true, }
       } else if (action.subtype === GOAL_TYPES) { return { ...state, inProgressGoalTypes: true, }
       } else if (action.subtype === GOAL_TRIP_TYPES) { return { ...state, inProgressGoalTripTypes: true, }
@@ -76,16 +84,6 @@ export default (state = {}, action) => {
         return { 
           ...state 
         }
-      }
-    case LIABILITY_ADD:
-      return {
-        ...state,
-        inProgress: false,
-      }
-    case LIABILITY_TYPES:
-      return {
-        ...state,
-        liabilityTypes: action.error ? null : action.payload
       }
     case ASSETS:
       return {
@@ -122,6 +120,44 @@ export default (state = {}, action) => {
         ...state,
         inProgressDeleteAsset: false,
         assetDeleted: action.error ? null : true,
+      }
+    case LIABILITIES:
+      return {
+        ...state,
+        inProgressLiabilities: false,
+        inProgressDeleteLiability: false,
+        liabilities: action.error ? null : action.payload,
+        liabilityDeleted: false,
+        liabilityAdded: null,
+        liabilityAddedCode: null,
+        liabilityUpdated: null,
+        liabilityUpdatedCode: null,
+      }
+    case LIABILITY_ADD:
+      return {
+        ...state,
+        inProgressAddLiability: false,
+        liabilityAdded: action.error ? null : action.payload,
+        liabilityAddedCode: action.payload.code,
+      }
+    case LIABILITY_UPDATE:
+      return {
+        ...state,
+        inProgressUpdateLiability: false,
+        liabilityUpdated: action.error ? null : action.payload,
+        liabilityUpdatedCode: action.error ? action.payload.code : 200,
+      }
+    case LIABILITY_TYPES:
+      return {
+        ...state,
+        inProgressLiabilityTypes: false,
+        liabilityTypes: action.error ? null : action.payload,
+      }
+    case LIABILITY_DELETE:
+      return {
+        ...state,
+        inProgressDeleteLiability: false,
+        liabilityDeleted: action.error ? null : true,
       }
     case GOALS:
       return {

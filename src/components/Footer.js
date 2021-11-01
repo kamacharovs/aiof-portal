@@ -62,7 +62,7 @@ const Footer = props => {
                 <AppBar position="fixed" className={classes.appBar}>
                     <Toolbar variant="dense">
                         <div className={classes.root}>
-                            <HomeView appName={props.appName.toLowerCase()} />
+                            <HomeView appName={props.appName} />
                         </div>
 
                         <LoggedOutView currentUser={props.currentUser} />

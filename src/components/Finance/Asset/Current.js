@@ -15,7 +15,7 @@ import { fullPaperTheme } from '../../../style/mui';
 import { ThemeProvider } from '@mui/material/styles';;
 
 import { numberWithCommas } from '../Common';
-import { FullPaper, AlternateCircularProgress, DefaultPaperMargin } from '../../../style/mui';
+import { AlternateCircularProgress } from '../../../style/mui';
 import { ASSET_DELETE } from '../../../constants/actionTypes';
 
 import ReviewAsset from './Review';

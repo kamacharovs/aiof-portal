@@ -8,14 +8,14 @@ import { ThemeProvider } from '@mui/material/styles';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import Paper from '@mui/material/Paper';
-import PersonIcon from '@mui/icons-material/Person';
 import EmailIcon from '@mui/icons-material/Email';
 import WebIcon from '@mui/icons-material/Web';
+import PersonIcon from '@mui/icons-material/Person';
 
 import { assetSnapshotsAvgByMonth } from '../Common/Functions';
 import { numberWithCommas } from '../Finance/Common';
 import {
-    AltLoader, H5Alt6, PAlt7, AltLink, TextMain, APrimary, 
+    AltLoader, H5Alt6, PAlt7, AltLink, TextMain, APrimary,
     squarePaperTheme, borderlessPaperTheme
 } from '../../style/mui';
 
@@ -113,7 +113,7 @@ export const LiabilityPaper = props => {
 
                             <Grid item xs>
                                 <Grid container justifyContent="flex-end">
-                                    <AltLink to={"/finance"}>View</AltLink>
+                                    <AltLink to={"/finance/liabilities"}>View</AltLink>
                                 </Grid>
                             </Grid>
                         </Grid>
@@ -462,84 +462,84 @@ export const APIPaper = props => {
     return (
         <React.Fragment>
             <ThemeProvider theme={squarePaperTheme}>
-            <Paper>
-                <Grid
-                    container
-                    direction="column"
-                    justifyContent="flex-start"
-                    alignItems="flex-start">
-                    <Grid item xs>
-                        <Typography variant="h1">
-                            {props.title}
-                        </Typography>
-                        <TextMain>
-                            {props.description || "No description"}
-                        </TextMain>
-                    </Grid>
-
-                    <Grid item xs>
-                        <Typography variant="h6">
-                            Version
-                        </Typography>
-                        <TextMain>
-                            {props.version}
-                        </TextMain>
-                    </Grid>
-
-                    <Grid item xs>
-                        <Typography variant="h6">
-                            Contact
-                        </Typography>
-                        <TextMain>
-                            <PersonIcon color="primary" /> {props.contact.name}<br />
-                            <EmailIcon color="primary" /> {props.contact.email}<br />
-                            <WebIcon color="primary" /> {props.contact.url}
-                        </TextMain>
-                    </Grid>
-
-                    <Grid item xs>
-                        <Typography variant="h6">
-                            License
-                        </Typography>
-                        <TextMain>
-                            <APrimary href={props.license.url} target="_blank">{props.license.name}</APrimary>
-                        </TextMain>
-                    </Grid>
-
-                    <Grid item xs>
-                        <Typography variant="h6">
-                            Base URL
-                        </Typography>
-                        <TextMain>
-                            <APrimary href={props.url}>{props.url}</APrimary>
-                        </TextMain>
-                    </Grid>
-
-                    {keyPoints.length !== 0
-                        ? <Grid item xs>
-                            <Typography variant="h6">
-                                Key points
+                <Paper>
+                    <Grid
+                        container
+                        direction="column"
+                        justifyContent="flex-start"
+                        alignItems="flex-start">
+                        <Grid item xs>
+                            <Typography variant="h1">
+                                {props.title}
                             </Typography>
-                            <ul>
-                                <TextMain>
-                                    {
-                                        keyPoints.map(kp => {
-                                            return (
-
-                                                <li key={kp}>{kp}</li>
-                                            );
-                                        })
-                                    }
-                                </TextMain>
-                            </ul>
+                            <TextMain>
+                                {props.description || "No description"}
+                            </TextMain>
                         </Grid>
-                        : null}
 
-                    <Grid item xs>
-                        <APrimary href={props.page} target="_blank">Full documentation</APrimary>
+                        <Grid item xs>
+                            <Typography variant="h6">
+                                Version
+                            </Typography>
+                            <TextMain>
+                                {props.version}
+                            </TextMain>
+                        </Grid>
+
+                        <Grid item xs>
+                            <Typography variant="h6">
+                                Contact
+                            </Typography>
+                            <TextMain>
+                                <PersonIcon color="primary" /> {props.contact.name}<br />
+                                <EmailIcon color="primary" /> {props.contact.email}<br />
+                                <WebIcon color="primary" /> {props.contact.url}
+                            </TextMain>
+                        </Grid>
+
+                        <Grid item xs>
+                            <Typography variant="h6">
+                                License
+                            </Typography>
+                            <TextMain>
+                                <APrimary href={props.license.url} target="_blank">{props.license.name}</APrimary>
+                            </TextMain>
+                        </Grid>
+
+                        <Grid item xs>
+                            <Typography variant="h6">
+                                Base URL
+                            </Typography>
+                            <TextMain>
+                                <APrimary href={props.url}>{props.url}</APrimary>
+                            </TextMain>
+                        </Grid>
+
+                        {keyPoints.length !== 0
+                            ? <Grid item xs>
+                                <Typography variant="h6">
+                                    Key points
+                                </Typography>
+                                <ul>
+                                    <TextMain>
+                                        {
+                                            keyPoints.map(kp => {
+                                                return (
+
+                                                    <li key={kp}>{kp}</li>
+                                                );
+                                            })
+                                        }
+                                    </TextMain>
+                                </ul>
+                            </Grid>
+                            : null}
+
+                        <Grid item xs>
+                            <APrimary href={props.page} target="_blank">Full documentation</APrimary>
+                        </Grid>
                     </Grid>
-                </Grid>
-            </Paper>
+                </Paper>
             </ThemeProvider>
         </React.Fragment>
     );
