@@ -92,7 +92,7 @@ export function isEmail(email) {
     return isNaN(email);
 }
 
-// Sort liabilities
+// Compare id of 2 entities
 export function compareId(e1, e2) {
     if (e1.id < e2.id) {
         return -1;
