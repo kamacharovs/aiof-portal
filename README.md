@@ -1,6 +1,6 @@
 # Overview
 
-Aiof portal
+Kamacharov Finance portal
 
 [![build](https://github.com/kamacharovs/aiof-portal/actions/workflows/build.yml/badge.svg)](https://github.com/kamacharovs/aiof-portal/actions/workflows/build.yml) [![Build Status](https://gkamacharov.visualstudio.com/gkama-cicd/_apis/build/status/kamacharovs.aiof-portal?branchName=master)](https://gkamacharov.visualstudio.com/gkama-cicd/_build/latest?definitionId=21&branchName=master)
 
