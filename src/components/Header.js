@@ -115,8 +115,7 @@ const ProfileMenu = props => {
                 anchorEl={anchorEl}
                 keepMounted
                 open={Boolean(anchorEl)}
-                onClose={handleClose}
-            >
+                onClose={handleClose} >
                 <List
                     subheader={
                         <ListSubheader component="div" id="nested-list-subheader">
@@ -231,14 +230,17 @@ const Header = props => {
     return (
         <React.Fragment>
             <div className={classes.root}>
-                <AppBar position="fixed" elevation={0} className={classes.header}>
+                <AppBar 
+                    position="fixed" 
+                    elevation={0} 
+                    color="inherit">
                     <Toolbar variant="dense">
                         <AppMenu
                             currentUser={props.currentUser} />
 
                         <div className={classes.app}>
                             <HomeView
-                                appName={props.appName.toLowerCase()}
+                                appName={props.appName}
                                 currentUser={props.currentUser} />
                         </div>
 

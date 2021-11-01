@@ -44,7 +44,7 @@ const CurrentLiabilitiesView = props => {
 
             {
                 liabilities && inPrgoress === false
-                    ? liabilities.map(l => {
+                    ? liabilities.sort().map(l => {
                         return (
                             <Grid item xs={6} key={l.publicKey}>
                                 <LiabilityTextPaper

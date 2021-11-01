@@ -18,9 +18,9 @@ import {
 } from '../constants/actionTypes';
 
 const defaultState = {
-  appName: "Aiof",
-  appFullName: "All in one finance",
-  appDescription: "All in one finance",
+  appName: "KamaFi",
+  appFullName: "Kamacharov Finance",
+  appDescription: "Kamacharov Finance",
   appShortAccountDescription: "One account for everything finance",
   token: null,
   viewChangeCounter: 0
