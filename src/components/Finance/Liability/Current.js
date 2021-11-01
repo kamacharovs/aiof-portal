@@ -14,6 +14,7 @@ import { LIABILITY_DELETE } from '../../../constants/actionTypes';
 import { commonStyles, AlternateCircularProgress } from '../../../style/mui';
 
 import { numberWithCommas } from '../Common';
+import { compareId } from '../../Common/Functions';
 import EditLiabilityView from './Edit';
 
 
@@ -44,7 +45,7 @@ const CurrentLiabilitiesView = props => {
 
             {
                 liabilities && inPrgoress === false
-                    ? liabilities.sort().map(l => {
+                    ? liabilities.sort(compareId).map(l => {
                         return (
                             <Grid item xs={6} key={l.publicKey}>
                                 <LiabilityTextPaper
